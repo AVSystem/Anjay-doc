@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4.3. Multi-instance writable object with fixed number of instances &mdash; Anjay 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
+        <link rel="next" title="4.4.4. Multi-instance writable object with dynamic number of instances" href="BT_CO4_MultiInstanceDynamic.html"/>
+        <link rel="prev" title="4.4.2. Multi-instance read-only object with fixed number of instances" href="BT_CO2_MultiInstanceReadOnlyFixed.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../BT1.html">4.1. Getting started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT2.html">4.2. Registering mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO4_MultiInstanceDynamic.html">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultipleResourceInstances.html">4.4.5. Objects with Multiple Instance Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTutorial.html">5. Advanced tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Anjay</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
+      
+          <li><a href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a> &raquo;</li>
+      
+    <li>4.4.3. Multi-instance writable object with fixed number of instances</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO3_FixedInstanceWritable.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="multi-instance-writable-object-with-fixed-number-of-instances">
+<h1>4.4.3. Multi-instance writable object with fixed number of instances<a class="headerlink" href="#multi-instance-writable-object-with-fixed-number-of-instances" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial you will learn:</p>
+<ul class="simple">
+<li>how to implement <code class="docutils literal"><span class="pre">resource_write</span></code> to create a writeable Resource,</li>
+<li>what are Partial Update and Replace variants of the LwM2M Write request,</li>
+<li>how to setup <code class="docutils literal"><span class="pre">instance_reset</span></code> handler to handle LwM2M Write (Replace),</li>
+<li>basics of transaction handling in Anjay.</li>
+</ul>
+<p>Implemented object is based on <a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html"><span class="doc">Multi-instance read-only object with fixed number of instances</span></a>,
+but this time accepts Write requests.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Object ID</th>
+<th class="head">Instances</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Test object</td>
+<td>1234</td>
+<td>Multiple</td>
+</tr>
+</tbody>
+</table>
+<p>Each Object Instance has two Resources:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="21%" />
+<col width="19%" />
+<col width="17%" />
+<col width="17%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Resource ID</th>
+<th class="head">Operations</th>
+<th class="head">Instances</th>
+<th class="head">Mandatory</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Label</td>
+<td>0</td>
+<td>Read/Write</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>String</td>
+</tr>
+<tr class="row-odd"><td>Value</td>
+<td>1</td>
+<td>Read/Write</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>Integer</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The code is based on <a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html"><span class="doc">Multi-instance read-only object with fixed number of instances</span></a>.</p>
+</div>
+<div class="section" id="simple-variant">
+<h2>4.4.3.1. Simple variant<a class="headerlink" href="#simple-variant" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">test_instance_t</span></code> needs to be able to store arbitrary data. Let us set
+an arbitrary limit of 32 characters in length (including terminating nullbyte):</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+    <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now the <code class="docutils literal"><span class="pre">anjay_dm_resource_write_t</span></code> handler implementation:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                               <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+   <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+
+   <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+   <span class="c1">// IID validity was checked by the `anjay_dm_instance_present_t` handler.</span>
+   <span class="c1">// If the Object Instance set does not change, or can only be modifed</span>
+   <span class="c1">// via LwM2M Create/Delete requests, it is safe to assume IID is correct.</span>
+   <span class="n">assert</span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span><span class="n">iid</span> <span class="o">&lt;</span> <span class="n">NUM_INSTANCES</span><span class="p">);</span>
+   <span class="k">struct</span> <span class="n">test_instance</span> <span class="o">*</span><span class="n">current_instance</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
+
+   <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="p">{</span>
+           <span class="c1">// `anjay_get_string` may return a chunk of data instead of the</span>
+           <span class="c1">// whole value - we need to make sure the client is able to hold</span>
+           <span class="c1">// the entire value</span>
+           <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">label</span><span class="p">)];</span>
+           <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
+
+           <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+               <span class="c1">// value OK - save it</span>
+               <span class="n">memcpy</span><span class="p">(</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">label</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
+           <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">ANJAY_BUFFER_TOO_SHORT</span><span class="p">)</span> <span class="p">{</span>
+               <span class="c1">// the value is too long to store in the buffer</span>
+               <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
+           <span class="p">}</span>
+
+           <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+       <span class="p">}</span>
+
+   <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+       <span class="c1">// reading primitive values can be done directly - the value will only</span>
+       <span class="c1">// be written to the output variable if everything went fine</span>
+       <span class="k">return</span> <span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+
+   <span class="k">default</span><span class="o">:</span>
+       <span class="c1">// control will never reach this part due to object&#39;s rid_bound</span>
+       <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Everything that was left to do is plugging in handlers. There is a catch though:
+any modifying operation (writing a value, creating or deleting an Object
+Instance) requires explicitly defined transaction handlers.
+<code class="docutils literal"><span class="pre">anjay_transaction_handler_NOOP</span></code> placeholder will be used for now, see
+<span class="xref std std-ref">SingleInstanceWritable-transactional</span> for an actual implementation
+of these.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="c1">// ...</span>
+
+     <span class="p">.</span><span class="n">resource_write</span> <span class="o">=</span> <span class="n">test_resource_write</span><span class="p">,</span>
+
+     <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+     <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+     <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+     <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Complete code of this example can be found in
+<cite>examples/tutorial/custom-object/writable-multiple-fixed</cite> subdirectory of
+main Anjay project repository.</p>
+</div>
+<div class="section" id="lwm2m-write-operation-modes">
+<h3>4.4.3.1.1. LwM2M Write operation modes<a class="headerlink" href="#lwm2m-write-operation-modes" title="Permalink to this headline">¶</a></h3>
+<p>An LwM2M server may perform a Write on the <em>entire Object Instance</em>. Two
+variants of such requests are available - both replace values of Instance
+Resources with received values, but they differ in what happens to Resources
+not present in the request:</p>
+<ul>
+<li><p class="first">Partial Update - they are leaved unchanged,</p>
+</li>
+<li><p class="first">Replace - Optional Resources are reset to &#8220;missing&#8221; state. All mandatory
+Resources MUST be specified in the request, otherwise it MUST be considered
+invalid.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Anjay does not distinguish Mandatory and Optional Resources - the user
+is responsible for ensuring the state of an Object is still valid after
+handling a request. This topic is covered in detail in
+<span class="xref std std-ref">FixedInstanceWritable-transactional</span>; we will ignore it in this
+particular example.</p>
+</div>
+</li>
+</ul>
+<p>Anjay implements Partial Update as a series of <code class="docutils literal"><span class="pre">resource_write</span></code> calls and
+Replace one as <code class="docutils literal"><span class="pre">instance_reset</span></code> + series of <code class="docutils literal"><span class="pre">resource_write</span></code> calls.
+To properly support both Write variants, <code class="docutils literal"><span class="pre">instance_reset</span></code> needs to be
+implemented too.</p>
+</div>
+<div class="section" id="anjay-transaction-handlers">
+<h3>4.4.3.1.2. Anjay transaction handlers<a class="headerlink" href="#anjay-transaction-handlers" title="Permalink to this headline">¶</a></h3>
+<p>In some cases, like LwM2M Write requests targeting an Object Instance, Anjay
+calls multiple handlers modifying the data model to perform a single atomic
+operation. In such case, transactions ensure that data model is not left
+in an inconsistent state when one of handler calls fails. To achieve correct
+behavior, used-defined handlers should behave as described below:</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">anjay_dm_resource_write_t</span></code> - needs to ensure that the value being written
+is correct and store new value in such a way that rolling back to the previous
+one is still possible. It must not check constraints that depend on values
+of other Resources, as these Resources may also change during the same
+transaction.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">anjay_dm_transaction_begin_t</span></code> - always called before any operation that
+changes the data model (LwM2M Write, Create, Delete). It should do whatever
+actions are necessary for correct transaction handling - in the simplest
+possible case, it could save a snapshot of the current state of the Object
+to restore it when rollback is required.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">anjay_dm_transaction_validate_t</span></code> - called after all write/create/remove
+handlers succeed. It should verify cross-Resource or cross-Instance
+constraints and fail if the data model state is not consistent.
+<strong>Example</strong>: LwM2M requires that at most one Security (/0) object instance
+has Bootstrap Server Resource set to 1. If a LwM2M Create operation adds
+an instance with this Bootstrap Server = 1 when there already was one, this
+handler needs to fail.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">anjay_dm_transaction_commit_t</span></code> - called after the transaction was
+successfully validated by the <code class="docutils literal"><span class="pre">anjay_dm_transaction_validate_t</span></code> handler.
+It should atomically apply all changes performed since last call to
+<code class="docutils literal"><span class="pre">anjay_dm_transaction_begin_t</span></code> for the same object.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This handler must not fail, unless a critical and unrecoverable error
+(e.g. hardware failure) occurs.</p>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">anjay_dm_transaction_rollback_t</span></code> - called after one of
+write/create/remove/validate handlers fails. It should atomically restore
+the object to a state it was at the last <code class="docutils literal"><span class="pre">anjay_dm_transaction_begin_t</span></code>
+call.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This handler must not fail, unless a critical and unrecoverable error
+(e.g. hardware failure) occurs.</p>
+</div>
+</li>
+</ul>
+<p>This tutorial shows an example of implementing transactions by storing
+a snapshot of the entire state of an LwM2M Object.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Such implementation, while simple, effectively doubles amount of RAM used
+by the Object.</p>
+</div>
+</div>
+</div>
+<div class="section" id="transactional-variant">
+<h2>4.4.3.2. Transactional variant<a class="headerlink" href="#transactional-variant" title="Permalink to this headline">¶</a></h2>
+<p>Knowing all about different LwM2M Write variants and Anjay transaction handlers,
+we can start implementing a transaction-aware client capable of handling
+all LwM2M Write requests.</p>
+<p>Let&#8217;s start by implementing the <code class="docutils literal"><span class="pre">instance_reset</span></code> handler. Two boolean flags
+need to be added to <code class="docutils literal"><span class="pre">test_instance_t</span></code> to detect a situation where a value
+is considered &#8220;unset&#8221;:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+
+    <span class="kt">bool</span> <span class="n">has_value</span><span class="p">;</span>
+    <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">instance_reset</span></code> and <code class="docutils literal"><span class="pre">resource_write</span></code> should then use these to appropriately
+mark Resources as set/unset:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+
+    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+    <span class="c1">// IID validity was checked by the `anjay_dm_instance_present_t` handler.</span>
+    <span class="c1">// If the Object Instance set does not change, or can only be modifed</span>
+    <span class="c1">// via LwM2M Create/Delete requests, it is safe to assume IID is correct.</span>
+    <span class="n">assert</span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span><span class="n">iid</span> <span class="o">&lt;</span> <span class="n">NUM_INSTANCES</span><span class="p">);</span>
+
+    <span class="c1">// mark all Resource values for Object Instance `iid` as unset</span>
+    <span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">].</span><span class="n">has_label</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">].</span><span class="n">has_value</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                              <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="p">{</span>
+                <span class="c1">// ...</span>
+
+                <span class="c1">// value OK - save it</span>
+                <span class="n">memcpy</span><span class="p">(</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">label</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
+                <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">has_label</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+                <span class="c1">// ...</span>
+        <span class="p">}</span>
+
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// reading primitive values can be done directly - the value will only</span>
+        <span class="c1">// be written to the output variable if everything went fine</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">has_value</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Having <code class="docutils literal"><span class="pre">has_label</span></code>/<code class="docutils literal"><span class="pre">has_value</span></code> flags ready, we can finally implement
+transaction handlers:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span>
+<span class="nf">test_transaction_begin</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                       <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+
+    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+    <span class="c1">// store a snapshot of object state</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">backup_instances</span><span class="p">,</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span>
+<span class="nf">test_transaction_validate</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+
+    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+    <span class="c1">// ensure all Object Instances contain all Mandatory Resources</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM_INSTANCES</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">has_label</span>
+                <span class="o">||</span> <span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">has_value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// validation failed: Object state invalid, rollback required</span>
+            <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// validation successful, can commit</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span>
+<span class="nf">test_transaction_commit</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="c1">// unused</span>
+
+    <span class="c1">// no action required in this implementation; if object state snapshot was</span>
+    <span class="c1">// dynamically allocated, this would be the place for releasing it</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span>
+<span class="nf">test_transaction_rollback</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+
+    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+    <span class="c1">// restore saved object state</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">,</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">backup_instances</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="p">.</span><span class="n">instance_reset</span> <span class="o">=</span> <span class="n">test_instance_reset</span><span class="p">,</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">test_transaction_begin</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">test_transaction_validate</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">test_transaction_commit</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">test_transaction_rollback</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>That is everything one needs to set up a complete, transaction-aware writable
+Resource.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Complete code of this example can be found in
+<cite>examples/tutorial/custom-object/writable-multiple-fixed-transactional</cite>
+subdirectory of main Anjay project repository.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="BT_CO4_MultiInstanceDynamic.html" class="btn btn-neutral float-right" title="4.4.4. Multi-instance writable object with dynamic number of instances" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BT_CO2_MultiInstanceReadOnlyFixed.html" class="btn btn-neutral" title="4.4.2. Multi-instance read-only object with fixed number of instances" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

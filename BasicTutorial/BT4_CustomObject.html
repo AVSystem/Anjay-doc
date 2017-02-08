@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4. Custom LwM2M objects &mdash; Anjay 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.0 documentation" href="../index.html"/>
+        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
+        <link rel="next" title="4.4.1. Single-instance read-only object" href="BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.html"/>
+        <link rel="prev" title="4.3. Event loop" href="BT3.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BT1.html">4.1. Getting started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT2.html">4.2. Registering mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT3.html">4.3. Event loop</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.4. Custom LwM2M objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT4_CustomObject/BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT4_CustomObject/BT_CO3_FixedInstanceWritable.html">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT4_CustomObject/BT_CO4_MultiInstanceDynamic.html">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT4_CustomObject/BT_CO5_MultipleResourceInstances.html">4.4.5. Objects with Multiple Instance Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTutorial.html">5. Advanced tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
+      
+    <li>4.4. Custom LwM2M objects</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/BasicTutorial/BT4_CustomObject.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="custom-lwm2m-objects">
+<h1>4.4. Custom LwM2M objects<a class="headerlink" href="#custom-lwm2m-objects" title="Permalink to this headline">¶</a></h1>
+<p>LwM2M Objects are described using the <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> struct,
+which holds:</p>
+<ul class="simple">
+<li>Object ID,</li>
+<li>an upper bound on Resource IDs that the Object might contain,</li>
+<li>a set of handlers used by the library to access and possibly modify the Object.</li>
+</ul>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/** A struct defining an LwM2M Object and available operations. */</span>
+<span class="k">struct</span> <span class="n">anjay_dm_object_def_struct</span> <span class="p">{</span>
+    <span class="cm">/** Object ID */</span>
+    <span class="n">anjay_oid_t</span> <span class="n">oid</span><span class="p">;</span>
+
+    <span class="cm">/** Smallest Resource ID that is invalid for this Object. All requests to</span>
+<span class="cm">     * Resources with ID = @ref anjay_dm_object_def_struct#rid_bound</span>
+<span class="cm">     * or bigger are discarded without calling the</span>
+<span class="cm">     * @ref anjay_dm_object_def_struct#resource_present handler. */</span>
+    <span class="n">anjay_rid_t</span> <span class="n">rid_bound</span><span class="p">;</span>
+
+    <span class="cm">/** Get default Object attributes, @ref anjay_dm_object_read_default_attrs_t */</span>
+    <span class="n">anjay_dm_object_read_default_attrs_t</span> <span class="o">*</span><span class="n">object_read_default_attrs</span><span class="p">;</span>
+    <span class="cm">/** Set default Object attributes, @ref anjay_dm_object_write_default_attrs_t */</span>
+    <span class="n">anjay_dm_object_write_default_attrs_t</span> <span class="o">*</span><span class="n">object_write_default_attrs</span><span class="p">;</span>
+
+    <span class="cm">/** Enumerate available Object Instances, @ref anjay_dm_instance_it_t */</span>
+    <span class="n">anjay_dm_instance_it_t</span> <span class="o">*</span><span class="n">instance_it</span><span class="p">;</span>
+    <span class="cm">/** Check if an Object Instance exists, @ref anjay_dm_instance_present_t */</span>
+    <span class="n">anjay_dm_instance_present_t</span> <span class="o">*</span><span class="n">instance_present</span><span class="p">;</span>
+
+    <span class="cm">/** Resets an Object Instance, @ref anjay_dm_instance_reset_t */</span>
+    <span class="n">anjay_dm_instance_reset_t</span> <span class="o">*</span><span class="n">instance_reset</span><span class="p">;</span>
+    <span class="cm">/** Create an Object Instance, @ref anjay_dm_instance_create_t */</span>
+    <span class="n">anjay_dm_instance_create_t</span> <span class="o">*</span><span class="n">instance_create</span><span class="p">;</span>
+    <span class="cm">/** Delete an Object Instance, @ref anjay_dm_instance_remove_t */</span>
+    <span class="n">anjay_dm_instance_remove_t</span> <span class="o">*</span><span class="n">instance_remove</span><span class="p">;</span>
+
+    <span class="cm">/** Get default Object Instance attributes, @ref anjay_dm_instance_read_default_attrs_t */</span>
+    <span class="n">anjay_dm_instance_read_default_attrs_t</span> <span class="o">*</span><span class="n">instance_read_default_attrs</span><span class="p">;</span>
+    <span class="cm">/** Set default Object Instance attributes, @ref anjay_dm_instance_write_default_attrs_t */</span>
+    <span class="n">anjay_dm_instance_write_default_attrs_t</span> <span class="o">*</span><span class="n">instance_write_default_attrs</span><span class="p">;</span>
+
+    <span class="cm">/** Check if a Resource is present in given Object Instance, @ref anjay_dm_resource_present_t */</span>
+    <span class="n">anjay_dm_resource_present_t</span> <span class="o">*</span><span class="n">resource_present</span><span class="p">;</span>
+    <span class="cm">/** Check if a Resource is supported in given Object, @ref anjay_dm_resource_supported_t */</span>
+    <span class="n">anjay_dm_resource_supported_t</span> <span class="o">*</span><span class="n">resource_supported</span><span class="p">;</span>
+    <span class="cm">/** Returns a mask of supported operations on a given Resource, @ref anjay_dm_resource_operations_t */</span>
+    <span class="n">anjay_dm_resource_operations_t</span> <span class="o">*</span><span class="n">resource_operations</span><span class="p">;</span>
+
+    <span class="cm">/** Get Resource value, @ref anjay_dm_resource_read_t */</span>
+    <span class="n">anjay_dm_resource_read_t</span> <span class="o">*</span><span class="n">resource_read</span><span class="p">;</span>
+    <span class="cm">/** Set Resource value, @ref anjay_dm_resource_write_t */</span>
+    <span class="n">anjay_dm_resource_write_t</span> <span class="o">*</span><span class="n">resource_write</span><span class="p">;</span>
+    <span class="cm">/** Perform Execute action on a Resource, @ref anjay_dm_resource_execute_t */</span>
+    <span class="n">anjay_dm_resource_execute_t</span> <span class="o">*</span><span class="n">resource_execute</span><span class="p">;</span>
+
+    <span class="cm">/** Get number of Multiple Resource instances, @ref anjay_dm_resource_dim_t */</span>
+    <span class="n">anjay_dm_resource_dim_t</span> <span class="o">*</span><span class="n">resource_dim</span><span class="p">;</span>
+    <span class="cm">/** Get Resource attributes, @ref anjay_dm_resource_read_attrs_t */</span>
+    <span class="n">anjay_dm_resource_read_attrs_t</span> <span class="o">*</span><span class="n">resource_read_attrs</span><span class="p">;</span>
+    <span class="cm">/** Set Resource attributes, @ref anjay_dm_resource_write_attrs_t */</span>
+    <span class="n">anjay_dm_resource_write_attrs_t</span> <span class="o">*</span><span class="n">resource_write_attrs</span><span class="p">;</span>
+
+    <span class="cm">/** Perform additional registration operations, @ref anjay_dm_object_on_register_t */</span>
+    <span class="n">anjay_dm_object_on_register_t</span> <span class="o">*</span><span class="n">on_register</span><span class="p">;</span>
+
+    <span class="cm">/** Begin a transaction on this Object, @ref anjay_dm_transaction_begin_t */</span>
+    <span class="n">anjay_dm_transaction_begin_t</span> <span class="o">*</span><span class="n">transaction_begin</span><span class="p">;</span>
+    <span class="cm">/** Validate whether a transaction on this Object can be cleanly committed. See @ref anjay_dm_transaction_validate_t */</span>
+    <span class="n">anjay_dm_transaction_validate_t</span> <span class="o">*</span><span class="n">transaction_validate</span><span class="p">;</span>
+    <span class="cm">/** Commit changes made in a transaction, @ref anjay_dm_transaction_commit_t */</span>
+    <span class="n">anjay_dm_transaction_commit_t</span> <span class="o">*</span><span class="n">transaction_commit</span><span class="p">;</span>
+    <span class="cm">/** Rollback changes made in a transaction, @ref anjay_dm_transaction_rollback_t */</span>
+    <span class="n">anjay_dm_transaction_rollback_t</span> <span class="o">*</span><span class="n">transaction_rollback</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="../../api/structanjay__dm__object__def__struct.html">API docs</a> for detailed
+information about each of those fields.</p>
+<p>The structure itself may seem intimidating at the first glance. In reality, most
+use cases will not require setting up all possible handlers - this tutorial
+will show multiple possible implementations, from the simplest cases to the most
+complex ones.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BT4_CustomObject/BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BT4_CustomObject/BT_CO3_FixedInstanceWritable.html">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BT4_CustomObject/BT_CO4_MultiInstanceDynamic.html">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BT4_CustomObject/BT_CO5_MultipleResourceInstances.html">4.4.5. Objects with Multiple Instance Resources</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral float-right" title="4.4.1. Single-instance read-only object" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BT3.html" class="btn btn-neutral" title="4.3. Event loop" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

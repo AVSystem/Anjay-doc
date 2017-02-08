@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4.1. Single-instance read-only object &mdash; Anjay 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
+        <link rel="next" title="4.4.2. Multi-instance read-only object with fixed number of instances" href="BT_CO2_MultiInstanceReadOnlyFixed.html"/>
+        <link rel="prev" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../BT1.html">4.1. Getting started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT2.html">4.2. Registering mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO3_FixedInstanceWritable.html">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO4_MultiInstanceDynamic.html">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultipleResourceInstances.html">4.4.5. Objects with Multiple Instance Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTutorial.html">5. Advanced tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Anjay</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
+      
+          <li><a href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a> &raquo;</li>
+      
+    <li>4.4.1. Single-instance read-only object</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="single-instance-read-only-object">
+<h1>4.4.1. Single-instance read-only object<a class="headerlink" href="#single-instance-read-only-object" title="Permalink to this headline">¶</a></h1>
+<p>This is the simplest possible case. Let us implement following custom Object:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Object ID</th>
+<th class="head">Instances</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Test object</td>
+<td>1234</td>
+<td>Single</td>
+</tr>
+</tbody>
+</table>
+<p>With two simple Resources:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="17%" />
+<col width="16%" />
+<col width="16%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Resource ID</th>
+<th class="head">Operations</th>
+<th class="head">Instances</th>
+<th class="head">Mandatory</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Object name</td>
+<td>0</td>
+<td>Read</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>String</td>
+</tr>
+<tr class="row-odd"><td>Timestamp</td>
+<td>1</td>
+<td>Read</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>Integer</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the most interesting handler type is <code class="docutils literal"><span class="pre">anjay_dm_resource_read_t</span></code>,
+called whenever the library needs to get a value of a Resource. This might
+happen if:</p>
+<ul class="simple">
+<li>an LwM2M server sends a Read request,</li>
+<li>the Resource is being observed and the library needs to send a Notify message
+(see <span class="xref doc">Notifications</span>),</li>
+<li>value of the Resource is required for the library to function correctly
+(mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</li>
+</ul>
+<p>The Read handler for our test object might be implemented as follows:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                              <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// These arguments may seem superfluous now, but they will come in handy</span>
+    <span class="c1">// while defining more complex objects</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="c1">// unused: the object holds no state</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>     <span class="c1">// unused: will always be 0 for single-instance Objects</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;Test object&quot;</span><span class="p">);</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">));</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// control will never reach this part due to object&#39;s rid_bound</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>What happens here?</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">rid</span></code> value is compared against all known Resource IDs to determine what value
+should be returned to the library.</li>
+<li>Resource value is passed to the library via one of <code class="docutils literal"><span class="pre">anjay_ret_*</span></code> functions,
+depending on the actual data type of a Resource. The value returned
+by an appropriate call is then forwarded up - this ensures correct error
+handling in case anything goes wrong.</li>
+</ul>
+<p>Having the Read handler implemented, one can initialize the
+<code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// Object ID</span>
+    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
+
+    <span class="c1">// Object does not contain any Resources with IDs &gt;= 2</span>
+    <span class="p">.</span><span class="n">rid_bound</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+
+    <span class="c1">// single-instance Objects can use these pre-implemented handlers:</span>
+    <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">anjay_dm_instance_it_SINGLE</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">anjay_dm_instance_present_SINGLE</span><span class="p">,</span>
+
+    <span class="c1">// if the Object implements all Resources from ID 0 up to its</span>
+    <span class="c1">// `rid_bound`, it can use this predefined `resource_supported` handler:</span>
+    <span class="p">.</span><span class="n">resource_supported</span> <span class="o">=</span> <span class="n">anjay_dm_resource_supported_TRUE</span><span class="p">,</span>
+
+    <span class="c1">// if all supported Resources are always available, one can use</span>
+    <span class="c1">// a pre-implemented `resource_present` handler too:</span>
+    <span class="p">.</span><span class="n">resource_present</span> <span class="o">=</span> <span class="n">anjay_dm_resource_present_TRUE</span><span class="p">,</span>
+
+    <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span>
+
+    <span class="c1">// all other handlers can be left NULL if only Read operation is required</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Why are all these handlers required?</p>
+<p>When the library attempts to perform an operation (e.g. Read) on a Resource
+it first performs a number of checks to ensure the target path is correct
+and the operation itself is allowed. Assuming an LwM2M Server requests
+some operation on the path /1/2/3:</p>
+<ol class="arabic">
+<li><p class="first">First, the library checks whether an Object with ID = 1 is registered.
+If not, a Not Found response is issued.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">instance_present</span></code> handler of Object 1 is called to determine whether
+Instance 2 exists. If not, a Not Found response is issued.</p>
+</li>
+<li><p class="first">If multiple LwM2M Servers are configured, the library inspects Access
+Control Object to check whether the server requesting an operation should
+be allowed to perform it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">More info: <span class="xref doc">AccessControlSupport</span></p>
+</div>
+</li>
+<li><p class="first">Resource ID 3 is compared against <code class="docutils literal"><span class="pre">rid_bound</span></code> defined for the
+object. If <code class="docutils literal"><span class="pre">rid_bound</span></code> is strictly lower, a Not Found response
+is issued.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">resource_supported</span></code> handler of the object is called to determine
+whether the Object is able to perform operations on Resource 3.
+If the handler returns 0, a Not Found response is issued.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">resource_present</span></code> handler is called to ensure that Resource 3
+is instantiated for Object Instance 2. If the handler returns 0,
+a Not Found response is issued.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">resource_operations</span></code> handler, if present, is used to determine whether
+requested operation is valid for given target. In case it is not (e.g.
+Execute request on a read-write Resource), Method Not Allowed response
+is issued.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">resource_operations</span></code> handler will be explained in detail in
+further tutorials.</p>
+</div>
+</li>
+<li><p class="first">Finally, if all other checks succeeded, a specific handler (e.g.
+<code class="docutils literal"><span class="pre">resource_read</span></code> for Read operation) is called.</p>
+</li>
+</ol>
+<p>Any of the handlers above may also fail with a specific CoAP error code
+(see <a class="reference external" href="../../api/anjay_8h.html">ANJAY_ERR_* constants</a>), aborting the
+sequence early and - if the Read was triggered by a server request - causing
+the library to respond with returned error code.</p>
+</div>
+<div class="topic">
+<p class="topic-title first">Why <cite>resource_supported</cite>/<cite>resource_present</cite> are separate handlers?</p>
+<p>An LwM2M client may be able to handle a Resource that has no default value.
+Such Resource is always <em>supported</em>, but becomes <em>present</em> only after
+an LwM2M Server sets its value first. Examples include Default Minimum Period
+and Default Maximum Period Resources of the LwM2M Server object.</p>
+</div>
+<p>When the Object Definition is ready, the only thing left to do is registering
+it in the library:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ... Anjay initialization</span>
+
+    <span class="c1">// note: in this simple case the object does not have any state,</span>
+    <span class="c1">// so it&#39;s fine to use a plain double pointer to its definition struct</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">test_object_def_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
+
+    <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">test_object_def_ptr</span><span class="p">);</span>
+
+    <span class="c1">// ... event loop</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>After registering the object, whenever an LwM2M Server issues a Read request
+on Object 1234 or any of its Resources, Anjay will take care of preparing
+a response containing the value of requested Resource.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Complete code of this example can be found in
+<cite>examples/tutorial/custom-object/read-only</cite> subdirectory of main Anjay
+project repository.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="BT_CO2_MultiInstanceReadOnlyFixed.html" class="btn btn-neutral float-right" title="4.4.2. Multi-instance read-only object with fixed number of instances" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../BT4_CustomObject.html" class="btn btn-neutral" title="4.4. Custom LwM2M objects" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

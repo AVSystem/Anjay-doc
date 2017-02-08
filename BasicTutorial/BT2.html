@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.2. Registering mandatory Objects &mdash; Anjay 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.0 documentation" href="../index.html"/>
+        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
+        <link rel="next" title="4.3. Event loop" href="BT3.html"/>
+        <link rel="prev" title="4.1. Getting started!" href="BT1.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BT1.html">4.1. Getting started!</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Registering mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT3.html">4.3. Event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT4_CustomObject.html">4.4. Custom LwM2M objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTutorial.html">5. Advanced tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
+      
+    <li>4.2. Registering mandatory Objects</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/BasicTutorial/BT2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="registering-mandatory-objects">
+<h1>4.2. Registering mandatory Objects<a class="headerlink" href="#registering-mandatory-objects" title="Permalink to this headline">¶</a></h1>
+<p>In order to be able to connect to some LwM2M Server and handle incoming
+packets our client has to have at least LwM2M Security (<code class="docutils literal"><span class="pre">/0</span></code>) and LwM2M
+Server (<code class="docutils literal"><span class="pre">/1</span></code>) Objects implemented.</p>
+<p>Fortunately, Anjay provides both of these Objects in form of preimplemented
+modules, and they can be used easily.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">That doesn&#8217;t impact on Anjay flexibility &#8211; i.e. users can still
+provide their own implementation of these Objects if necessary.</p>
+</div>
+<p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example) it has no knowledge about the Data Model,
+i.e. no LwM2M Objects are registered within it. We must therefore register
+objects that we would like to use via object registration mechanism you are
+just going to be presented with in the next subsection.</p>
+<div class="section" id="registering-objects">
+<h2>4.2.1. Registering Objects<a class="headerlink" href="#registering-objects" title="Permalink to this headline">¶</a></h2>
+<p>Each LwM2M Object is defined by an instance of the <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code>
+structure. To add support for a new Object, you&#8217;d need to fill that
+structure and implement appropriate callback functions, linking it to actual
+representation.  However, for now, we are going to use our preimplemented LwM2M
+Objects (Security, Server), so that you don&#8217;t have to worry about initializing
+the structure on your own. But, if you are interested in this topic now,
+you may jump to <a class="reference internal" href="BT4_CustomObject.html"><span class="doc">Custom LwM2M objects</span></a> to get more information.</p>
+<p>To register an object we are going to use <code class="docutils literal"><span class="pre">anjay_register_object</span></code> function:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_register_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">def_ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Using it is pretty straightforward, as you&#8217;ll see in the next subsection.</p>
+</div>
+<div class="section" id="registering-server-and-security-objects">
+<h2>4.2.2. Registering Server and Security Objects<a class="headerlink" href="#registering-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
+<p>We are going to modify the code from the <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">previous tutorial</span></a>.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span>
+    <span class="p">};</span>
+
+    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// Instantiate necessary objects</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">security_obj</span> <span class="o">=</span> <span class="n">anjay_security_object_create</span><span class="p">();</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">server_obj</span> <span class="o">=</span> <span class="n">anjay_server_object_create</span><span class="p">();</span>
+
+    <span class="c1">// For some reason we were unable to instantiate objects.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">security_obj</span> <span class="o">||</span> <span class="o">!</span><span class="n">server_obj</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Register them within Anjay</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">security_obj</span><span class="p">)</span>
+            <span class="o">||</span> <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">server_obj</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="c1">// Event loop will go here</span>
+
+<span class="nl">cleanup</span><span class="p">:</span>
+    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="n">anjay_security_object_delete</span><span class="p">(</span><span class="n">security_obj</span><span class="p">);</span>
+    <span class="n">anjay_server_object_delete</span><span class="p">(</span><span class="n">server_obj</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As we promised, registering preimplemented Objects is really easy. However,
+errors might occur. Therefore it is extremely important to test return value
+of each API function to make sure everything goes as it supposed to. In this
+example we omitted it for clarity.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The order in which objects and Anjay are deleted is not accidental, as
+during the instance destruction Anjay may still try to refer to object&#8217;s
+data, therefore premature object deletion could be disasterous in effects.</p>
+</div>
+</div>
+<div class="section" id="adding-necessary-security-and-server-entries">
+<h2>4.2.3. Adding necessary Security and Server entries<a class="headerlink" href="#adding-necessary-security-and-server-entries" title="Permalink to this headline">¶</a></h2>
+<p>OK, we are ready to tell Anjay what is the LwM2M Server address we would like
+to connect to. In order to do this, we will create two structure instances
+(<code class="docutils literal"><span class="pre">anjay_server_instance_t</span></code>, <code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code>) and fill them
+accordingly. After that they are going to be added as respective Object
+Instances:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">ANJAY_BINDING_U</span>
+<span class="p">};</span>
+
+<span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_iid_t</span> <span class="n">server_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">security_obj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+                                   <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">);</span>
+<span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">server_obj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
+                                 <span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Great, so far it was really easy. But our client is currently unable to
+connect to the specified Server.  It is because we have not implemented
+an <a class="reference internal" href="BT3.html"><span class="doc">event loop</span></a> yet. It may be a little bit more complicated, as
+you&#8217;ll see in the next chapter, but the example event loop will be provided,
+so that one can just copypaste it and run the Client finally.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="BT3.html" class="btn btn-neutral float-right" title="4.3. Event loop" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BT1.html" class="btn btn-neutral" title="4.1. Getting started!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

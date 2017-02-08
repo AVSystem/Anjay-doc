@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4.5. Objects with Multiple Instance Resources &mdash; Anjay 1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
+        <link rel="next" title="5. Advanced tutorial" href="../../AdvancedTutorial.html"/>
+        <link rel="prev" title="4.4.4. Multi-instance writable object with dynamic number of instances" href="BT_CO4_MultiInstanceDynamic.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../BT1.html">4.1. Getting started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT2.html">4.2. Registering mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO3_FixedInstanceWritable.html">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO4_MultiInstanceDynamic.html">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.5. Objects with Multiple Instance Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTutorial.html">5. Advanced tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Anjay</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
+      
+          <li><a href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a> &raquo;</li>
+      
+    <li>4.4.5. Objects with Multiple Instance Resources</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO5_MultipleResourceInstances.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="objects-with-multiple-instance-resources">
+<h1>4.4.5. Objects with Multiple Instance Resources<a class="headerlink" href="#objects-with-multiple-instance-resources" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial you will learn:</p>
+<ul class="simple">
+<li>how to retrieve a Multiple Instance Resource using Anjay API,</li>
+<li>how to send a Multiple Instance Resource using Anjay API.</li>
+</ul>
+<p>We will extend the Test object from <a class="reference external" href="BT_CO4_MultiInstanceDynamic">previous tutorial</a>
+by allowing <cite>Value</cite> Resource to contain multiple values.</p>
+<div class="section" id="api-for-multiple-instance-resources-management">
+<h2>4.4.5.1. API for Multiple Instance Resources management<a class="headerlink" href="#api-for-multiple-instance-resources-management" title="Permalink to this headline">¶</a></h2>
+<p>Reading Multiple Instance Resources or writing some in a response requires
+special contexts to be instantiated by the user, i.e. <code class="docutils literal"><span class="pre">anjay_input_ctx_t</span></code>
+and <code class="docutils literal"><span class="pre">anjay_output_ctx_t</span></code> out of contexts passed by Anjay to <code class="docutils literal"><span class="pre">resource_write</span></code>
+and <code class="docutils literal"><span class="pre">resource_read</span></code> handlers.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Trying to use original contexts to read / write Multiple Instance Resource
+results in undefined behavior.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Trying to use original contexts after special contexts were created on top of
+them results in undefined behavior.</p>
+</div>
+<p>To instantiate them one uses functions:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="nf">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="nf">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>respectively.</p>
+<p>From now on, created contexts shall be used to receive or send Resource
+Instance ID (<cite>index</cite>) and the Resource Instance Value (<cite>value</cite>).</p>
+</div>
+<div class="section" id="preparing-test-object-for-multiple-instance-resources">
+<h2>4.4.5.2. Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline">¶</a></h2>
+<p>We define following structure to represent a single Instance of our Multiple
+Instance Resource:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
+    <span class="n">anjay_riid_t</span> <span class="n">index</span><span class="p">;</span>
+    <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">test_value_instance_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">anjay_riid_t</span></code> is used for the first time in the tutorial. It is a data type
+able to store all valid Resource Instance IDs.</p>
+</div>
+<p>We also edit <code class="docutils literal"><span class="pre">test_instance_t</span></code> structure definition:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+    <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
+
+    <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+
+    <span class="kt">bool</span> <span class="n">has_values</span><span class="p">;</span>
+    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">values</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Why does <code class="docutils literal"><span class="pre">test_instance_t</span></code> still contain boolean flag indicating presence of the value?</p>
+<p>There is certainly a difference between lack of presence of Multiple
+Instance Resource value, and Multiple Instance Resource containing
+zero Instances (i.e. lack of list presence vs an empty list).</p>
+</div>
+</div>
+<div class="section" id="handling-multiple-instance-resources-in-write-rpc">
+<h2>4.4.5.3. Handling Multiple Instance Resources in Write RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-write-rpc" title="Permalink to this headline">¶</a></h2>
+<div class="topic">
+<p class="topic-title first">General flow of function calls when LwM2M Write operation was
+       issued on Multiple Instance Resource.</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">resource_write</span></code> handler is being called by Anjay, giving the control
+to the user.</li>
+<li>User creates additional <code class="docutils literal"><span class="pre">anjay_input_context_t</span></code> out of provided (as an argument
+to <code class="docutils literal"><span class="pre">resource_write</span></code> handler) input context by calling <code class="docutils literal"><span class="pre">anjay_get_array</span></code>.</li>
+<li>User calls <code class="docutils literal"><span class="pre">anjay_get_array_index</span></code> and <code class="docutils literal"><span class="pre">anjay_get_*</span></code> until either
+the former fails, due to some kind of error, or finishes, indicating end
+of a message by returning <code class="docutils literal"><span class="pre">ANJAY_GET_INDEX_END</span></code>.</li>
+</ol>
+</div>
+<p>OK, based on the above, we are ready to create helper function which is going
+to read whole sequence of <cite>(index, value)</cite> pairs and store them on the list.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_array_write</span><span class="p">(</span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">out_instances</span><span class="p">,</span>
+                            <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">input_array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+    <span class="n">test_value_instance_t</span> <span class="n">instance</span><span class="p">;</span>
+    <span class="n">assert</span><span class="p">(</span><span class="o">*</span><span class="n">out_instances</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="s">&quot;Nonempty list provided&quot;</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_get_array_index</span><span class="p">(</span><span class="n">input_array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">instance</span><span class="p">.</span><span class="n">index</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">input_array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">instance</span><span class="p">.</span><span class="n">value</span><span class="p">))</span> <span class="p">{</span>
+            <span class="c1">// An error occurred during the read.</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+            <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">insert_it</span><span class="p">;</span>
+
+        <span class="c1">// Duplicate detection, and searching for the place to insert</span>
+        <span class="c1">// note that it makes the whole function O(n^2).</span>
+        <span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">insert_it</span><span class="p">,</span> <span class="n">out_instances</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">insert_it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">index</span> <span class="o">==</span> <span class="n">instance</span><span class="p">.</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// duplicate</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
+                <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">insert_it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">index</span> <span class="o">&gt;</span> <span class="n">instance</span><span class="p">.</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">new_element</span> <span class="o">=</span>
+                <span class="n">AVS_LIST_NEW_ELEMENT</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">new_element</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// out of memory</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+            <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="o">*</span><span class="n">new_element</span> <span class="o">=</span> <span class="n">instance</span><span class="p">;</span>
+        <span class="n">AVS_LIST_INSERT</span><span class="p">(</span><span class="n">insert_it</span><span class="p">,</span> <span class="n">new_element</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">result</span> <span class="o">!=</span> <span class="n">ANJAY_GET_INDEX_END</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// malformed request</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
+        <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="nl">failure</span><span class="p">:</span>
+    <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="n">out_instances</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>On input, the function takes a pointer to the list where values shall be
+stored, and mentioned array input context. It is pretty dense, indeed,
+but this is the cost of being correct.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you had looked at <code class="docutils literal"><span class="pre">anjay_get_array</span></code> documentation you&#8217;ve seen the
+warning about possible interpretations of requests containing duplicated
+Resource Instance IDs. Presented implementation returns an error on such
+requests, but the LwM2M specification seem to not forbid implementations
+from accepting it, as long as it does not break any invariants defined
+within specification. We would however recommend to take approach
+as shown in this tutorial.</p>
+</div>
+<p>Last thing to do is to modify <code class="docutils literal"><span class="pre">test_resource_write</span></code> implementation to make use
+of our helper function:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                               <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+        <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">input_array</span> <span class="o">=</span> <span class="n">anjay_get_array</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">input_array</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// could not create input context for some reason</span>
+            <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// free memory associated with old values</span>
+        <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">);</span>
+
+        <span class="c1">// try to read new values from an RPC</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">test_array_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">,</span>
+                                      <span class="n">input_array</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">has_values</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// either test_array_write succeeded and result is 0, or not</span>
+        <span class="c1">// in which case result contains appropriate error code.</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handling-multiple-instance-resources-in-read-rpc">
+<h2>4.4.5.4. Handling Multiple Instance Resources in Read RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-read-rpc" title="Permalink to this headline">¶</a></h2>
+<div class="topic">
+<p class="topic-title first">General flow of function calls when LwM2M Read operation was
+       issued on Multiple Instance Resource.</p>
+<ol class="arabic simple">
+<li><code class="docutils literal"><span class="pre">resource_read</span></code> handler is being called by Anjay, giving the control
+to the user.</li>
+<li>User creates additional <code class="docutils literal"><span class="pre">anjay_output_context_t</span></code> out of provided (as an argument
+to <code class="docutils literal"><span class="pre">resource_read</span></code> handler) output context by calling <code class="docutils literal"><span class="pre">anjay_ret_array_start</span></code>.</li>
+<li>User calls <code class="docutils literal"><span class="pre">anjay_ret_array_index</span></code> and <code class="docutils literal"><span class="pre">anjay_ret_*</span></code> until they are done.</li>
+<li>In the end, user calls <code class="docutils literal"><span class="pre">anjay_ret_array_finish</span></code> to tell Anjay that the
+Multiple Instance Resource response is ready.</li>
+</ol>
+</div>
+<p>In the end, the read handler could look like this:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                              <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+        <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">array_output</span> <span class="o">=</span> <span class="n">anjay_ret_array_start</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">array_output</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// cannot instantiate array output context</span>
+            <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="k">const</span> <span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
+        <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_ret_array_index</span><span class="p">(</span><span class="n">array_output</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">index</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// failed to return an index</span>
+                <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">array_output</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// failed to return value</span>
+                <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">anjay_ret_array_finish</span><span class="p">(</span><span class="n">array_output</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As always, you can find source code of this tutorial in
+<cite>examples/tutorial/custom-object/multi-instance-resources-dynamic</cite> in Anjay
+source directory.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../AdvancedTutorial.html" class="btn btn-neutral float-right" title="5. Advanced tutorial" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BT_CO4_MultiInstanceDynamic.html" class="btn btn-neutral" title="4.4.4. Multi-instance writable object with dynamic number of instances" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
