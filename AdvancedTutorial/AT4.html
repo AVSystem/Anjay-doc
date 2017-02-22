@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5.4. Access Control in multi-server environment &mdash; Anjay 1.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
+        <link rel="next" title="6. Using Anjay with embedded UDP/IP stacks" href="../Embedded_IP.html"/>
+        <link rel="prev" title="5.3. DTLS support" href="AT3.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicTutorial.html">4. Basic tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTutorial.html">5. Advanced tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AT1.html">5.1. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT2.html">5.2. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT3.html">5.3. DTLS support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.4. Access Control in multi-server environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
+      
+    <li>5.4. Access Control in multi-server environment</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/AdvancedTutorial/AT4.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="access-control-in-multi-server-environment">
+<h1>5.4. Access Control in multi-server environment<a class="headerlink" href="#access-control-in-multi-server-environment" title="Permalink to this headline">¶</a></h1>
+<p>LwM2M Client may be connected to more than one LwM2M Server. In such situation,
+restricting Server access to some part of the <a class="reference internal" href="../LwM2M.html#data-model"><span class="std std-ref">data model</span></a>
+may be required.</p>
+<p>To resolve this problem the LwM2M Specification defines an Access Control
+Object that allows setting specific access rights on data model Instances
+either during a Bootstrap Phase or normal runtime by properly authorized
+LwM2M Server.</p>
+<p>In a multi-server environment every Object Instance (except Instances of
+the Access Control Object) has associated Access Control Instance:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="16%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Resource</th>
+<th class="head">Resource ID</th>
+<th class="head">Meaning of the value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Object ID</td>
+<td>0</td>
+<td>ID of the Object this instance targets</td>
+</tr>
+<tr class="row-odd"><td>Object Instance ID</td>
+<td>1</td>
+<td>Object Instance ID this instance targets
+(also see the note below)</td>
+</tr>
+<tr class="row-even"><td>ACL</td>
+<td>2</td>
+<td>List of pairs (<cite>Short Server ID</cite>,
+<cite>Access mask</cite>) describing access rights
+assigned to LwM2M Servers</td>
+</tr>
+<tr class="row-odd"><td>Access Control Owner</td>
+<td>3</td>
+<td>Short Server ID of the Server which owns
+this Access Control Instance (i.e. the
+one that can modify access rights)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">65535</span></code> is a special <cite>Object Instance ID</cite> value reserved for use during
+the Bootstrap Phase and is valid only in combination with <strong>Create</strong>
+access flag.</p>
+</div>
+<div class="section" id="acl-resource">
+<h2>5.4.1. ACL Resource<a class="headerlink" href="#acl-resource" title="Permalink to this headline">¶</a></h2>
+<p>ACL Resource of the Access Control Object Instance is populated with pairs
+of form (<cite>Short Server ID</cite>, <cite>Access mask</cite>). Access mask is a combination of
+the following access flags (combined by bitwise OR operator):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="33%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Access flag</th>
+<th class="head">Allowed LwM2M Operations</th>
+<th class="head">Anjay representation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">R</span></code> (00001 binary)</td>
+<td>Read, Observe</td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_READ</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">W</span></code> (00010 binary)</td>
+<td>Write</td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_WRITE</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">E</span></code> (00100 binary)</td>
+<td>Execute</td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_EXECUTE</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">D</span></code> (01000 binary)</td>
+<td>Delete</td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_DELETE</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">C</span></code> (10000 binary)</td>
+<td>Create</td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_CREATE</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Discover operation is <strong>always</strong> allowed and LwM2M protocol does not provide
+a mechanism for forbidding it.</p>
+</div>
+</div>
+<div class="section" id="note-on-data-model-instances-lifetime">
+<h2>5.4.2. Note on data-model instances lifetime<a class="headerlink" href="#note-on-data-model-instances-lifetime" title="Permalink to this headline">¶</a></h2>
+<p>Access Control Object also helps in managing Object Instance lifetime. Whenever
+some Object Instance is orphaned (i.e. no LwM2M Server is an Access Control
+Owner of the Access Control Instance associated with this Object Instance) it
+MUST be removed by the Client. Anjay&#8217;s pre-implemented Access Control Object
+does this automatically.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Of course, if necessary, you may implement your own Access Control
+Object and use it instead. Nonetheless it is worth noting that it
+is an extremely complex Object to implement in a correct way.</p>
+</div>
+</div>
+<div class="section" id="example-usage">
+<h2>5.4.3. Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we are going to setup multiple-server
+environment. We will assign LwM2M Server with SSID 1 the <strong>Create</strong>
+permission on the <a class="reference internal" href="../BasicTutorial/BT4_CustomObject/BT_CO4_MultiInstanceDynamic.html"><span class="doc">Test Object developed in previous tutorials</span></a>.</p>
+<p>Additionally, we will allow both LwM2M Servers to read their respective LwM2M
+Server Instances.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">What we do here is roughly equivalent to <strong>Factory Bootstrap</strong> phase,
+which is just one of the bootstrapping options. Same thing could be
+achieved by a Bootstrap Server, which in conformance with the LwM2M
+Specification would instantiate Access Control Object, and assign access
+permissions on its own in a multiple-server environment.</p>
+</div>
+<p>We start with instantiation and registration of Access Control Object:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">access_control_obj</span> <span class="o">=</span>
+            <span class="n">anjay_access_control_object_new</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="c1">// ...</span>
+
+<span class="c1">// Register them within Anjay</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">anjay_attr_storage_wrap_object</span><span class="p">(</span>
+                                         <span class="n">attr_storage</span><span class="p">,</span> <span class="n">security_obj</span><span class="p">))</span>
+    <span class="c1">// ...</span>
+
+    <span class="o">||</span> <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">anjay_attr_storage_wrap_object</span><span class="p">(</span>
+                                            <span class="n">attr_storage</span><span class="p">,</span> <span class="n">access_control_obj</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then we setup two LwM2M Servers:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// LwM2M Server account with SSID = 1</span>
+<span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">ANJAY_BINDING_U</span>
+<span class="p">};</span>
+
+<span class="c1">// LwM2M Server account with SSID = 2</span>
+<span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5693&quot;</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="n">ANJAY_BINDING_U</span>
+<span class="p">};</span>
+
+<span class="c1">// Setup first LwM2M Server</span>
+<span class="n">anjay_iid_t</span> <span class="n">server_instance_iid1</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">security_obj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance1</span><span class="p">,</span>
+                                   <span class="o">&amp;</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="p">)</span> <span class="p">{</span> <span class="n">ANJAY_IID_INVALID</span> <span class="p">});</span>
+<span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">server_obj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance1</span><span class="p">,</span>
+                                 <span class="o">&amp;</span><span class="n">server_instance_iid1</span><span class="p">);</span>
+
+<span class="c1">// Setup second LwM2M Server</span>
+<span class="n">anjay_iid_t</span> <span class="n">server_instance_iid2</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">security_obj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance2</span><span class="p">,</span>
+                                   <span class="o">&amp;</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="p">)</span> <span class="p">{</span> <span class="n">ANJAY_IID_INVALID</span> <span class="p">});</span>
+<span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">server_obj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance2</span><span class="p">,</span>
+                                 <span class="o">&amp;</span><span class="n">server_instance_iid2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>And finally, we are ready to set access lists:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Set LwM2M Create permission rights for SSID = 1, this will make SSID=1</span>
+<span class="c1">// an exclusive owner of the Test Object</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">access_control_obj</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+                             <span class="n">ANJAY_ACCESS_MASK_CREATE</span><span class="p">);</span>
+
+<span class="c1">// Allow both LwM2M Servers to read their Server Instances</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">access_control_obj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">server_instance_iid1</span><span class="p">,</span>
+                             <span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span> <span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">access_control_obj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">server_instance_iid2</span><span class="p">,</span>
+                             <span class="n">server_instance2</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span> <span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>That way we have ensured an exclusive access of Server with SSID 1 to Test
+Object (<code class="docutils literal"><span class="pre">/1234</span></code>) Instances.</p>
+<p>Later on, this Server will be able to set some access rights for other Servers,
+by writing to proper Access Control Instances (i.e. Instances this Server
+is an owner of, which corresponds to instances it has created), but that&#8217;s
+outside of the scope of this tutorial. We recommend you to look at the LwM2M
+Specification for more details on Access Control Object, as well as at our
+<a class="reference external" href="../../api">API docs</a>.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Embedded_IP.html" class="btn btn-neutral float-right" title="6. Using Anjay with embedded UDP/IP stacks" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AT3.html" class="btn btn-neutral" title="5.3. DTLS support" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

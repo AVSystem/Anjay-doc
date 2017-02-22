@@ -2,6 +2,7 @@ var anjay_8h =
 [
     [ "anjay_configuration", "structanjay__configuration.html", "structanjay__configuration" ],
     [ "anjay_dm_attributes_t", "structanjay__dm__attributes__t.html", "structanjay__dm__attributes__t" ],
+    [ "anjay_dm_resource_attributes_t", "structanjay__dm__resource__attributes__t.html", "structanjay__dm__resource__attributes__t" ],
     [ "anjay_dm_object_def_struct", "structanjay__dm__object__def__struct.html", "structanjay__dm__object__def__struct" ],
     [ "ANJAY_ACCESS_LIST_OWNER_BOOTSTRAP", "anjay_8h.html#a6dc6f3f1e5dc44fdd5f6157adcb72360", null ],
     [ "ANJAY_ACCESS_MASK_CREATE", "anjay_8h.html#af176f2bc64b21e7071214e9998778e62", null ],
@@ -51,10 +52,10 @@ var anjay_8h =
     [ "anjay_dm_resource_op_mask_t", "anjay_8h.html#aaa51a01d7e046930de09ad3239ed3e77", null ],
     [ "anjay_dm_resource_operations_t", "anjay_8h.html#a459b34c0a83f4ef4e9f89c99369f2659", null ],
     [ "anjay_dm_resource_present_t", "anjay_8h.html#a688a4f310666421009a4285925a24051", null ],
-    [ "anjay_dm_resource_read_attrs_t", "anjay_8h.html#af1890cba431f90b080e0ea55923a0a2b", null ],
+    [ "anjay_dm_resource_read_attrs_t", "anjay_8h.html#a149418882eb832af282cf007ea9053f4", null ],
     [ "anjay_dm_resource_read_t", "anjay_8h.html#a389c43d8541fc3be8cc5a54c8a13e5ae", null ],
     [ "anjay_dm_resource_supported_t", "anjay_8h.html#ab5cccd77562d13138c286554b23d2153", null ],
-    [ "anjay_dm_resource_write_attrs_t", "anjay_8h.html#ae3f0badbb233f87f13ea07747f02e92e", null ],
+    [ "anjay_dm_resource_write_attrs_t", "anjay_8h.html#a223a5ecb63ad009d751082ddec06434f", null ],
     [ "anjay_dm_resource_write_t", "anjay_8h.html#aee16fda577ddd05fb1f98a5760204edd", null ],
     [ "anjay_dm_transaction_begin_t", "anjay_8h.html#a184ed965f790d8ef0995b64c663197fb", null ],
     [ "anjay_dm_transaction_commit_t", "anjay_8h.html#af5b8c307fbac5433da5ec781f40f4445", null ],
@@ -140,5 +141,6 @@ var anjay_8h =
     [ "anjay_schedule_reconnect", "anjay_8h.html#a5c6dad6c4f234e89b99a4a07f762479e", null ],
     [ "anjay_schedule_registration_update", "anjay_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b", null ],
     [ "anjay_serve", "anjay_8h.html#a45308768471c1cdce837abeef1d8567e", null ],
-    [ "ANJAY_DM_ATTRIBS_EMPTY", "anjay_8h.html#aa192f58ee4f03fe2cd2342828356bb3c", null ]
+    [ "ANJAY_DM_ATTRIBS_EMPTY", "anjay_8h.html#aa192f58ee4f03fe2cd2342828356bb3c", null ],
+    [ "ANJAY_RES_ATTRIBS_EMPTY", "anjay_8h.html#a9546170d485441be3c8ae03494be2118", null ]
 ];

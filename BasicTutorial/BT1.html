@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.1. Getting started! &mdash; Anjay 1.0 documentation</title>
+  <title>4.1. Getting started! &mdash; Anjay 1.1.0 documentation</title>
   
 
   
@@ -28,12 +28,14 @@
   
 
   
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
 
   
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.0 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.1.0 documentation" href="../index.html"/>
         <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
         <link rel="next" title="4.2. Registering mandatory Objects" href="BT2.html"/>
         <link rel="prev" title="4. Basic tutorial" href="../BasicTutorial.html"/> 
@@ -64,7 +66,7 @@
             
             
               <div class="version">
-                1.0
+                1.1.0
               </div>
             
           
@@ -135,7 +137,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/BasicTutorial/BT1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/BasicTutorial/BT1.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -156,7 +158,7 @@ will be using a following directory structure:</p>
 </pre></div>
 </div>
 <p>Note that all code found in this tutorial is available under
-<code class="docutils literal"><span class="pre">examples/tutorial/Tx</span></code> in Anjay source directory, where <code class="docutils literal"><span class="pre">x</span></code> stands for
+<code class="docutils literal"><span class="pre">examples/tutorial/BTx</span></code> in Anjay source directory, where <code class="docutils literal"><span class="pre">x</span></code> stands for
 the index of tutorial chapter. Each tutorial project follows the same project
 directory layout.</p>
 <div class="section" id="build-system">
@@ -164,7 +166,7 @@ directory layout.</p>
 <p>We are going to use CMake as a build system. Let&#8217;s create an initial minimal
 <code class="docutils literal"><span class="pre">CMakeLists.txt</span></code>:</p>
 <div class="highlight-cmake"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.1</span><span class="p">)</span>
-<span class="nb">project</span><span class="p">(</span><span class="s">anjay-tutorial-bt1</span> <span class="s">C</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">hello-world</span> <span class="s">C</span><span class="p">)</span>
 
 <span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span> <span class="s">REQUIRED</span><span class="p">)</span>
 
@@ -173,10 +175,10 @@ directory layout.</p>
 
 <span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">ANJAY_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
 
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">anjay-tutorial-bt1</span> <span class="o">${</span><span class="nv">TUTORIAL_SOURCES</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">set_property</span><span class="p">(</span><span class="s">TARGET</span> <span class="s">anjay-tutorial-bt1</span> <span class="s">PROPERTY</span> <span class="s">C_STANDARD</span> <span class="s">99</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">TUTORIAL_SOURCES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">set_property</span><span class="p">(</span><span class="s">TARGET</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PROPERTY</span> <span class="s">C_STANDARD</span> <span class="s">99</span><span class="p">)</span>
 
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">anjay-tutorial-bt1</span> <span class="o">${</span><span class="nv">ANJAY_LIBRARIES_STATIC</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">ANJAY_LIBRARIES_STATIC</span><span class="o">}</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -265,7 +267,7 @@ clear to you.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.0',
+            VERSION:'1.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
