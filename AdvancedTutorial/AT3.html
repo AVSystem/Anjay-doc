@@ -158,9 +158,9 @@ perhaps decide to implement the Security Object yourself from scratch. The
 library will always read the necessary DTLS configuration from the data model.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Either <strong>mbed TLS 2.0 or newer</strong> or <strong>OpenSSL 1.1 or newer</strong> is
-required for proper, conformant support for the security modes defined
-in the LwM2M specification.</p>
+<p class="last">Either <strong>mbed TLS 2.0 or newer</strong> or <strong>OpenSSL 1.1 or newer</strong> or
+<strong>tinydtls 0.9 or newer</strong> is required for proper, conformant support
+for the security modes defined in the LwM2M specification.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -292,9 +292,9 @@ Anjay&#8217;s <code class="docutils literal"><span class="pre">security</span></
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
     <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_PSK</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
     <span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
-    <span class="p">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="n">PSK_KEY</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_KEY</span><span class="p">,</span>
     <span class="p">.</span><span class="n">private_cert_or_psk_key_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span>
 <span class="p">};</span>
 </pre></div>

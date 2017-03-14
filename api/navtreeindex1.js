@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"structanjay__dm__object__def__struct.html#ad635fbfbea3dbd4a5406bd6c759a2589":[0,0,2,5],
 "structanjay__dm__object__def__struct.html#ad9ad1cb247d26598a703b323dbd08551":[0,0,2,14],
 "structanjay__dm__object__def__struct.html#ae4bfe4220abd93a8424ff5fca38489f3":[0,0,2,21],
 "structanjay__dm__object__def__struct.html#aea78846f78f78f0021912de95516a621":[0,0,2,17],

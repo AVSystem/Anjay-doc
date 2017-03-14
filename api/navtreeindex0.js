@@ -221,6 +221,7 @@ var NAVTREEINDEX0 =
 "server_8h_source.html":[1,0,1,4,0,0,0],
 "structanjay__configuration.html":[0,0,0],
 "structanjay__configuration.html#a0be70dc47a294104527cac8e84786f02":[0,0,0,2],
+"structanjay__configuration.html#a1aa33509c25e84e00151a555a00e7812":[0,0,0,5],
 "structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4":[0,0,0,3],
 "structanjay__configuration.html#aafab5578aa377788d6208d5ea6dc2da9":[0,0,0,1],
 "structanjay__configuration.html#ab32477e7370a36e02db5b7e7ccbdd89d":[0,0,0,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "structanjay__dm__object__def__struct.html#ab01f25906b1f7cb59276e3b28bab95a0":[0,0,2,4],
 "structanjay__dm__object__def__struct.html#acb8df6a620b07463edde269e23a30fca":[0,0,2,18],
 "structanjay__dm__object__def__struct.html#ad3eee71f62e1771a96416a38cd63a794":[0,0,2,9],
-"structanjay__dm__object__def__struct.html#ad448c9239045ce05ce7ba52861727d71":[0,0,2,16],
-"structanjay__dm__object__def__struct.html#ad635fbfbea3dbd4a5406bd6c759a2589":[0,0,2,5]
+"structanjay__dm__object__def__struct.html#ad448c9239045ce05ce7ba52861727d71":[0,0,2,16]
 };
