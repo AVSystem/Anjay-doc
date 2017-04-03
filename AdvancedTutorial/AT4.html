@@ -275,19 +275,10 @@ achieved by a Bootstrap Server, which in conformance with the LwM2M
 Specification would instantiate Access Control Object, and assign access
 permissions on its own in a multiple-server environment.</p>
 </div>
-<p>We start with instantiation and registration of Access Control Object:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">access_control_obj</span> <span class="o">=</span>
-            <span class="n">anjay_access_control_object_new</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
-
-<span class="c1">// ...</span>
-
-<span class="c1">// Register them within Anjay</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">anjay_attr_storage_wrap_object</span><span class="p">(</span>
-                                         <span class="n">attr_storage</span><span class="p">,</span> <span class="n">security_obj</span><span class="p">))</span>
-    <span class="c1">// ...</span>
-
-    <span class="o">||</span> <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">anjay_attr_storage_wrap_object</span><span class="p">(</span>
-                                            <span class="n">attr_storage</span><span class="p">,</span> <span class="n">access_control_obj</span><span class="p">)))</span> <span class="p">{</span>
+<p>We start with installation of the Access Control module:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+    <span class="o">||</span> <span class="n">anjay_access_control_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
 <span class="p">}</span>
@@ -344,13 +335,13 @@ permissions on its own in a multiple-server environment.</p>
 <p>And finally, we are ready to set access lists:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Set LwM2M Create permission rights for SSID = 1, this will make SSID=1</span>
 <span class="c1">// an exclusive owner of the Test Object</span>
-<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">access_control_obj</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
                              <span class="n">ANJAY_ACCESS_MASK_CREATE</span><span class="p">);</span>
 
 <span class="c1">// Allow both LwM2M Servers to read their Server Instances</span>
-<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">access_control_obj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">server_instance_iid1</span><span class="p">,</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">server_instance_iid1</span><span class="p">,</span>
                              <span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span> <span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span>
-<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">access_control_obj</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">server_instance_iid2</span><span class="p">,</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">server_instance_iid2</span><span class="p">,</span>
                              <span class="n">server_instance2</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span> <span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span>
 </pre></div>
 </div>

@@ -164,17 +164,8 @@ which holds:</p>
 <li>an upper bound on Resource IDs that the Object might contain,</li>
 <li>a set of handlers used by the library to access and possibly modify the Object.</li>
 </ul>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/** A struct defining an LwM2M Object and available operations. */</span>
-<span class="k">struct</span> <span class="n">anjay_dm_object_def_struct</span> <span class="p">{</span>
-    <span class="cm">/** Object ID */</span>
-    <span class="n">anjay_oid_t</span> <span class="n">oid</span><span class="p">;</span>
-
-    <span class="cm">/** Smallest Resource ID that is invalid for this Object. All requests to</span>
-<span class="cm">     * Resources with ID = @ref anjay_dm_object_def_struct#rid_bound</span>
-<span class="cm">     * or bigger are discarded without calling the</span>
-<span class="cm">     * @ref anjay_dm_object_def_struct#resource_present handler. */</span>
-    <span class="n">anjay_rid_t</span> <span class="n">rid_bound</span><span class="p">;</span>
-
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/** A struct containing pointers to Object handlers. */</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="cm">/** Get default Object attributes, @ref anjay_dm_object_read_default_attrs_t */</span>
     <span class="n">anjay_dm_object_read_default_attrs_t</span> <span class="o">*</span><span class="n">object_read_default_attrs</span><span class="p">;</span>
     <span class="cm">/** Set default Object attributes, @ref anjay_dm_object_write_default_attrs_t */</span>
@@ -218,9 +209,6 @@ which holds:</p>
     <span class="cm">/** Set Resource attributes, @ref anjay_dm_resource_write_attrs_t */</span>
     <span class="n">anjay_dm_resource_write_attrs_t</span> <span class="o">*</span><span class="n">resource_write_attrs</span><span class="p">;</span>
 
-    <span class="cm">/** Perform additional registration operations, @ref anjay_dm_object_on_register_t */</span>
-    <span class="n">anjay_dm_object_on_register_t</span> <span class="o">*</span><span class="n">on_register</span><span class="p">;</span>
-
     <span class="cm">/** Begin a transaction on this Object, @ref anjay_dm_transaction_begin_t */</span>
     <span class="n">anjay_dm_transaction_begin_t</span> <span class="o">*</span><span class="n">transaction_begin</span><span class="p">;</span>
     <span class="cm">/** Validate whether a transaction on this Object can be cleanly committed. See @ref anjay_dm_transaction_validate_t */</span>
@@ -229,15 +217,30 @@ which holds:</p>
     <span class="n">anjay_dm_transaction_commit_t</span> <span class="o">*</span><span class="n">transaction_commit</span><span class="p">;</span>
     <span class="cm">/** Rollback changes made in a transaction, @ref anjay_dm_transaction_rollback_t */</span>
     <span class="n">anjay_dm_transaction_rollback_t</span> <span class="o">*</span><span class="n">transaction_rollback</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">anjay_dm_handlers_t</span><span class="p">;</span>
+
+<span class="cm">/** A struct defining an LwM2M Object. */</span>
+<span class="k">struct</span> <span class="n">anjay_dm_object_def_struct</span> <span class="p">{</span>
+    <span class="cm">/** Object ID */</span>
+    <span class="n">anjay_oid_t</span> <span class="n">oid</span><span class="p">;</span>
+
+    <span class="cm">/** Smallest Resource ID that is invalid for this Object. All requests to</span>
+<span class="cm">     * Resources with ID = @ref anjay_dm_object_def_struct#rid_bound</span>
+<span class="cm">     * or bigger are discarded without calling the</span>
+<span class="cm">     * @ref anjay_dm_handlers_t#resource_present handler. */</span>
+    <span class="n">anjay_rid_t</span> <span class="n">rid_bound</span><span class="p">;</span>
+
+    <span class="cm">/** Handler callbacks for this object. */</span>
+    <span class="n">anjay_dm_handlers_t</span> <span class="n">handlers</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="../../api/structanjay__dm__object__def__struct.html">API docs</a> for detailed
 information about each of those fields.</p>
-<p>The structure itself may seem intimidating at the first glance. In reality, most
-use cases will not require setting up all possible handlers - this tutorial
-will show multiple possible implementations, from the simplest cases to the most
-complex ones.</p>
+<p>These structures themselves may seem intimidating at the first glance. In
+reality, most use cases will not require setting up all possible handlers - this
+tutorial will show multiple possible implementations, from the simplest cases to
+the most complex ones.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>

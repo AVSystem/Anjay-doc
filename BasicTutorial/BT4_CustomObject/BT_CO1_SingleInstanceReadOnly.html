@@ -267,21 +267,23 @@ handling in case anything goes wrong.</li>
     <span class="c1">// Object does not contain any Resources with IDs &gt;= 2</span>
     <span class="p">.</span><span class="n">rid_bound</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
 
-    <span class="c1">// single-instance Objects can use these pre-implemented handlers:</span>
-    <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">anjay_dm_instance_it_SINGLE</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">anjay_dm_instance_present_SINGLE</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// single-instance Objects can use these pre-implemented handlers:</span>
+        <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">anjay_dm_instance_it_SINGLE</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">anjay_dm_instance_present_SINGLE</span><span class="p">,</span>
 
-    <span class="c1">// if the Object implements all Resources from ID 0 up to its</span>
-    <span class="c1">// `rid_bound`, it can use this predefined `resource_supported` handler:</span>
-    <span class="p">.</span><span class="n">resource_supported</span> <span class="o">=</span> <span class="n">anjay_dm_resource_supported_TRUE</span><span class="p">,</span>
+        <span class="c1">// if the Object implements all Resources from ID 0 up to its</span>
+        <span class="c1">// `rid_bound`, it can use this predefined `resource_supported` handler:</span>
+        <span class="p">.</span><span class="n">resource_supported</span> <span class="o">=</span> <span class="n">anjay_dm_resource_supported_TRUE</span><span class="p">,</span>
 
-    <span class="c1">// if all supported Resources are always available, one can use</span>
-    <span class="c1">// a pre-implemented `resource_present` handler too:</span>
-    <span class="p">.</span><span class="n">resource_present</span> <span class="o">=</span> <span class="n">anjay_dm_resource_present_TRUE</span><span class="p">,</span>
+        <span class="c1">// if all supported Resources are always available, one can use</span>
+        <span class="c1">// a pre-implemented `resource_present` handler too:</span>
+        <span class="p">.</span><span class="n">resource_present</span> <span class="o">=</span> <span class="n">anjay_dm_resource_present_TRUE</span><span class="p">,</span>
 
-    <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span>
+        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span>
 
-    <span class="c1">// all other handlers can be left NULL if only Read operation is required</span>
+        <span class="c1">// all other handlers can be left NULL if only Read operation is required</span>
+    <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>

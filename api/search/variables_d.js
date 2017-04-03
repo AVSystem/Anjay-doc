@@ -1,9 +1,13 @@
 var searchData=
 [
-  ['security_5fmode',['security_mode',['../structanjay__security__instance__t.html#acfe4763732ff1107362591c5f9a46834',1,'anjay_security_instance_t']]],
-  ['server_5fpublic_5fkey',['server_public_key',['../structanjay__security__instance__t.html#a5936d0a9743cd26ef18b08825354e8d2',1,'anjay_security_instance_t']]],
-  ['server_5fpublic_5fkey_5fsize',['server_public_key_size',['../structanjay__security__instance__t.html#a5f68172ac00440f8ac138da3c749175d',1,'anjay_security_instance_t']]],
-  ['server_5furi',['server_uri',['../structanjay__security__instance__t.html#ac95ba60671abddbdc283248fc8473f9b',1,'anjay_security_instance_t']]],
-  ['ssid',['ssid',['../structanjay__security__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_security_instance_t::ssid()'],['../structanjay__server__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_server_instance_t::ssid()']]],
-  ['step',['step',['../structanjay__dm__resource__attributes__t.html#a4736138d712d9ee570d0652f08a4786a',1,'anjay_dm_resource_attributes_t']]]
+  ['resource_5fdim',['resource_dim',['../structanjay__dm__handlers__t.html#aa1af74a835587e4e152f1c6ea96ab7a1',1,'anjay_dm_handlers_t']]],
+  ['resource_5fexecute',['resource_execute',['../structanjay__dm__handlers__t.html#a1fd9948c86db64024730df9e54a6ccf5',1,'anjay_dm_handlers_t']]],
+  ['resource_5foperations',['resource_operations',['../structanjay__dm__handlers__t.html#a119e877d12db788373034704049f373c',1,'anjay_dm_handlers_t']]],
+  ['resource_5fpresent',['resource_present',['../structanjay__dm__handlers__t.html#ad9ad1cb247d26598a703b323dbd08551',1,'anjay_dm_handlers_t']]],
+  ['resource_5fread',['resource_read',['../structanjay__dm__handlers__t.html#a29a72c55a03de854bfbad8bfcf5e7fed',1,'anjay_dm_handlers_t']]],
+  ['resource_5fread_5fattrs',['resource_read_attrs',['../structanjay__dm__handlers__t.html#ad448c9239045ce05ce7ba52861727d71',1,'anjay_dm_handlers_t']]],
+  ['resource_5fsupported',['resource_supported',['../structanjay__dm__handlers__t.html#aea78846f78f78f0021912de95516a621',1,'anjay_dm_handlers_t']]],
+  ['resource_5fwrite',['resource_write',['../structanjay__dm__handlers__t.html#acb8df6a620b07463edde269e23a30fca',1,'anjay_dm_handlers_t']]],
+  ['resource_5fwrite_5fattrs',['resource_write_attrs',['../structanjay__dm__handlers__t.html#af61d88b8bc458d8753e2a82ecf9569bb',1,'anjay_dm_handlers_t']]],
+  ['rid_5fbound',['rid_bound',['../structanjay__dm__object__def__struct.html#a1c6a165666f9efef9a0ad9f39fdda944',1,'anjay_dm_object_def_struct']]]
 ];

@@ -292,13 +292,16 @@ Instance) requires explicitly defined transaction handlers.
 of these.</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
      <span class="c1">// ...</span>
+     <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="c1">// ...</span>
 
-     <span class="p">.</span><span class="n">resource_write</span> <span class="o">=</span> <span class="n">test_resource_write</span><span class="p">,</span>
+         <span class="p">.</span><span class="n">resource_write</span> <span class="o">=</span> <span class="n">test_resource_write</span><span class="p">,</span>
 
-     <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-     <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-     <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-     <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span>
+         <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+         <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+         <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+         <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span>
+     <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -525,15 +528,18 @@ transaction handlers:</p>
 
 <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">// ...</span>
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
 
-    <span class="p">.</span><span class="n">instance_reset</span> <span class="o">=</span> <span class="n">test_instance_reset</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">instance_reset</span> <span class="o">=</span> <span class="n">test_instance_reset</span><span class="p">,</span>
 
-    <span class="c1">// ...</span>
+        <span class="c1">// ...</span>
 
-    <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">test_transaction_begin</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">test_transaction_validate</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">test_transaction_commit</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">test_transaction_rollback</span>
+        <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">test_transaction_begin</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">test_transaction_validate</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">test_transaction_commit</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">test_transaction_rollback</span>
+    <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>

@@ -117,8 +117,7 @@ we won't be able to proceed further without allocating memory on demand.
        i.e. notice how handles to all objects shown to you so far were returned as
        pointers to ``anjay_dm_object_def_t`` -- clearly, it indicates to the user
        that they have nothing interesting to do with such reference (besides being
-       able to register and/or wrap it), unless some additional public API is
-       provided.
+       able to register it), unless some additional public API is provided.
 
 To achieve proper control over object lifetime and initialization, we are
 going to introduce two functions, namely ``create_test_object``:
@@ -305,7 +304,7 @@ The ``inout_iid`` parameter is the most important for us at the moment, as
 if the instantiation succeeds we MUST tell the library the id of the newly
 created Instance by setting ``*inout_iid`` properly.
 
-As we previously discussed, LwM2M Create requests do not necessairly have
+As we previously discussed, LwM2M Create requests do not necessarily have
 to contain preferred Instance ID. However if they do, then Anjay first makes
 sure no Object Instance with given Instance ID exists.
 

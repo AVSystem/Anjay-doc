@@ -3,6 +3,7 @@ var anjay_8h =
     [ "anjay_configuration", "structanjay__configuration.html", "structanjay__configuration" ],
     [ "anjay_dm_attributes_t", "structanjay__dm__attributes__t.html", "structanjay__dm__attributes__t" ],
     [ "anjay_dm_resource_attributes_t", "structanjay__dm__resource__attributes__t.html", "structanjay__dm__resource__attributes__t" ],
+    [ "anjay_dm_handlers_t", "structanjay__dm__handlers__t.html", "structanjay__dm__handlers__t" ],
     [ "anjay_dm_object_def_struct", "structanjay__dm__object__def__struct.html", "structanjay__dm__object__def__struct" ],
     [ "ANJAY_ACCESS_LIST_OWNER_BOOTSTRAP", "anjay_8h.html#a6dc6f3f1e5dc44fdd5f6157adcb72360", null ],
     [ "ANJAY_ACCESS_MASK_CREATE", "anjay_8h.html#af176f2bc64b21e7071214e9998778e62", null ],
@@ -27,6 +28,7 @@ var anjay_8h =
     [ "ANJAY_ERR_NOT_FOUND", "anjay_8h.html#a8780185b993e21a2d27f7ac5678088a0", null ],
     [ "ANJAY_ERR_NOT_IMPLEMENTED", "anjay_8h.html#aff04648e7b643fa5fbda0fa1971f76f1", null ],
     [ "ANJAY_ERR_REQUEST_ENTITY_INCOMPLETE", "anjay_8h.html#a80688053f76faf9316ff5249737ee865", null ],
+    [ "ANJAY_ERR_SERVICE_UNAVAILABLE", "anjay_8h.html#aa5b26069ef78147330a4c05aa13a6c57", null ],
     [ "ANJAY_ERR_UNAUTHORIZED", "anjay_8h.html#a8f24cff6f35cf135a4cd1387dd181713", null ],
     [ "ANJAY_EXECUTE_GET_ARG_END", "anjay_8h.html#ab42bb2dd9acc42fec434b521caaad979", null ],
     [ "ANJAY_GET_INDEX_END", "anjay_8h.html#a1bfad7ac1975da76396db0f9d1643956", null ],
@@ -44,7 +46,6 @@ var anjay_8h =
     [ "anjay_dm_instance_reset_t", "anjay_8h.html#adc3c75f2cd2aa41acb851951f2820db2", null ],
     [ "anjay_dm_instance_write_default_attrs_t", "anjay_8h.html#a503e5cdfad655d04889946f1bf1cdbcb", null ],
     [ "anjay_dm_object_def_t", "anjay_8h.html#af77cb43097b29a2226e15fb0e4f88684", null ],
-    [ "anjay_dm_object_on_register_t", "anjay_8h.html#aa653842d4659c574342647b419336a67", null ],
     [ "anjay_dm_object_read_default_attrs_t", "anjay_8h.html#aff1ee88df3ccef2f40325439ef81c13f", null ],
     [ "anjay_dm_object_write_default_attrs_t", "anjay_8h.html#a0c69663891b040c158193468703d7aaf", null ],
     [ "anjay_dm_resource_dim_t", "anjay_8h.html#ad162b72d0c925a80798f4c835d1277a9", null ],
@@ -141,6 +142,7 @@ var anjay_8h =
     [ "anjay_schedule_reconnect", "anjay_8h.html#a5c6dad6c4f234e89b99a4a07f762479e", null ],
     [ "anjay_schedule_registration_update", "anjay_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b", null ],
     [ "anjay_serve", "anjay_8h.html#a45308768471c1cdce837abeef1d8567e", null ],
+    [ "anjay_unregister_object", "anjay_8h.html#a6f1973b9e7a006012de6270329329a85", null ],
     [ "ANJAY_DM_ATTRIBS_EMPTY", "anjay_8h.html#aa192f58ee4f03fe2cd2342828356bb3c", null ],
     [ "ANJAY_RES_ATTRIBS_EMPTY", "anjay_8h.html#a9546170d485441be3c8ae03494be2118", null ]
 ];

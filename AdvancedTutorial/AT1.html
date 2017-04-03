@@ -175,85 +175,46 @@ header:</p>
 </pre></div>
 </div>
 <p>Then, in the main program logic, you need to initialize the attribute storage
-object. Its life cycle is supposed to be very similar to the main <code class="docutils literal"><span class="pre">anjay_t</span></code>
-object.</p>
-<p>So, we can modify part of our <code class="docutils literal"><span class="pre">main()</span></code> function to initialize and destroy
-<code class="docutils literal"><span class="pre">anjay_attr_storage_t</span></code> as well:</p>
+module. After installation, its life cycle is automatically managed - it will be
+removed during the <code class="docutils literal"><span class="pre">anjay_delete()</span></code> call.</p>
+<p>So, we can modify part of our <code class="docutils literal"><span class="pre">main()</span></code> function to install the module:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
 
 <span class="c1">// ...</span>
+
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
 
 <span class="c1">// Instantiate necessary objects</span>
 <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">security_obj</span> <span class="o">=</span> <span class="n">anjay_security_object_create</span><span class="p">();</span>
 <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">server_obj</span> <span class="o">=</span> <span class="n">anjay_server_object_create</span><span class="p">();</span>
 
-<span class="n">anjay_attr_storage_t</span> <span class="o">*</span><span class="n">attr_storage</span> <span class="o">=</span> <span class="n">anjay_attr_storage_new</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
-
 <span class="c1">// For some reason we were unable to instantiate objects.</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">security_obj</span> <span class="o">||</span> <span class="o">!</span><span class="n">server_obj</span> <span class="o">||</span> <span class="o">!</span><span class="n">attr_storage</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">security_obj</span> <span class="o">||</span> <span class="o">!</span><span class="n">server_obj</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c1">// ...</span>
-
-<span class="nl">cleanup</span><span class="p">:</span>
-    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
-    <span class="c1">// ...</span>
-    <span class="n">anjay_attr_storage_delete</span><span class="p">(</span><span class="n">attr_storage</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>While this may seem counter-intuitive, it is actually the intended and preferred
-flow to destroy <code class="docutils literal"><span class="pre">attr_storage</span></code> after <code class="docutils literal"><span class="pre">anjay</span></code> (i.e. the same order they were
-created). This is because when there are objects managed by the module, the
-Anjay object might access them, even during de-initialization.</p>
-<p>On the other hand, the attribute storage module will not access the Anjay
-object during destruction. In fact, attribute storage module uses Anjay
-object only if attribute <a class="reference internal" href="#persistence"><span class="std std-ref">persistence</span></a> is being used via
-<code class="docutils literal"><span class="pre">anjay_attr_storage_persist</span></code> or <code class="docutils literal"><span class="pre">anjay_attr_storage_restore</span></code>.</p>
-<div class="section" id="wrapping-objects">
-<span id="id1"></span><h3>5.1.1.1. Wrapping objects<a class="headerlink" href="#wrapping-objects" title="Permalink to this headline">¶</a></h3>
-<p>To actually make use of the <code class="docutils literal"><span class="pre">attr_storage</span></code> module, objects, as defined
-according to the rules described in the previous chapter, need to be wrapped by
-it.</p>
-<p>For example, the following snippet:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">security_obj</span><span class="p">)</span>
-        <span class="o">||</span> <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">server_obj</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>can be replaced with:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">anjay_attr_storage_wrap_object</span><span class="p">(</span>
-                                         <span class="n">attr_storage</span><span class="p">,</span> <span class="n">security_obj</span><span class="p">))</span>
-    <span class="o">||</span> <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">anjay_attr_storage_wrap_object</span><span class="p">(</span>
-                                            <span class="n">attr_storage</span><span class="p">,</span> <span class="n">server_obj</span><span class="p">)))</span> <span class="p">{</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal"><span class="pre">anjay_attr_storage_wrap_object()</span></code> function will replace all the
-unimplemented (set to <code class="docutils literal"><span class="pre">NULL</span></code>) attribute-related handlers in the original
-object with its own implementation. For a detailed description on how does
-the handler replacement behave when only some of the handlers are implemented,
-refer to the <a class="reference external" href="../../api/attr__storage_8h.html">documentation</a>.</p>
-<p>No additional actions are necessary. Any resources allocated for the wrapped
-object will be freed during the call to <code class="docutils literal"><span class="pre">anjay_attr_storage_delete()</span></code>.</p>
-</div>
+<p>No additional steps are necessary - the Attribute Storage module will take over
+the implementations of attribute-related handlers in the original objects with
+its own implementation, unless some handlers are actually already implemented
+(set to anything else than <code class="docutils literal"><span class="pre">NULL</span></code>). For a detailed description on how does the
+handler replacement behave when only some of the handlers are implemented, refer
+to the <a class="reference external" href="../../api/attr__storage_8h.html">documentation</a>.</p>
 <div class="section" id="persistence">
-<span id="id2"></span><h3>5.1.1.2. Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>5.1.1.1. Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
 <p>To facilitate storing attribute values between executions of the program, the
 <code class="docutils literal"><span class="pre">attr_storage</span></code> module contains a persistence code, that can be used to
 serialize and deserialize all the stored attributes to some kind of external
 memory.</p>
 <p>These two functions can be used for this purpose:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_attr_storage_t</span> <span class="o">*</span><span class="n">attr_storage</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 
-<span class="kt">int</span> <span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_attr_storage_t</span> <span class="o">*</span><span class="n">attr_storage</span><span class="p">,</span>
+<span class="kt">int</span> <span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>

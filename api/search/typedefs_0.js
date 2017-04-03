@@ -1,7 +1,6 @@
 var searchData=
 [
   ['anjay_5faccess_5fmask_5ft',['anjay_access_mask_t',['../anjay_8h.html#aa01fd66453c951315378ff5854f41249',1,'anjay.h']]],
-  ['anjay_5fattr_5fstorage_5ft',['anjay_attr_storage_t',['../attr__storage_8h.html#aeb9c09725c293c6163e0e77f888f7b60',1,'attr_storage.h']]],
   ['anjay_5fconfiguration_5ft',['anjay_configuration_t',['../anjay_8h.html#ac003787b377980e1af6196f70d486aeb',1,'anjay.h']]],
   ['anjay_5fdm_5finstance_5fcreate_5ft',['anjay_dm_instance_create_t',['../anjay_8h.html#aea2919cd9d36d8915b62427563cbcbf6',1,'anjay.h']]],
   ['anjay_5fdm_5finstance_5fit_5ft',['anjay_dm_instance_it_t',['../anjay_8h.html#aeaa8915c06a19f94d32f6e12206e3fb8',1,'anjay.h']]],
@@ -11,7 +10,6 @@ var searchData=
   ['anjay_5fdm_5finstance_5freset_5ft',['anjay_dm_instance_reset_t',['../anjay_8h.html#adc3c75f2cd2aa41acb851951f2820db2',1,'anjay.h']]],
   ['anjay_5fdm_5finstance_5fwrite_5fdefault_5fattrs_5ft',['anjay_dm_instance_write_default_attrs_t',['../anjay_8h.html#a503e5cdfad655d04889946f1bf1cdbcb',1,'anjay.h']]],
   ['anjay_5fdm_5fobject_5fdef_5ft',['anjay_dm_object_def_t',['../anjay_8h.html#af77cb43097b29a2226e15fb0e4f88684',1,'anjay.h']]],
-  ['anjay_5fdm_5fobject_5fon_5fregister_5ft',['anjay_dm_object_on_register_t',['../anjay_8h.html#aa653842d4659c574342647b419336a67',1,'anjay.h']]],
   ['anjay_5fdm_5fobject_5fread_5fdefault_5fattrs_5ft',['anjay_dm_object_read_default_attrs_t',['../anjay_8h.html#aff1ee88df3ccef2f40325439ef81c13f',1,'anjay.h']]],
   ['anjay_5fdm_5fobject_5fwrite_5fdefault_5fattrs_5ft',['anjay_dm_object_write_default_attrs_t',['../anjay_8h.html#a0c69663891b040c158193468703d7aaf',1,'anjay.h']]],
   ['anjay_5fdm_5fresource_5fdim_5ft',['anjay_dm_resource_dim_t',['../anjay_8h.html#ad162b72d0c925a80798f4c835d1277a9',1,'anjay.h']]],

@@ -287,8 +287,7 @@ an object before returning a reference to it.</li>
 i.e. notice how handles to all objects shown to you so far were returned as
 pointers to <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> &#8211; clearly, it indicates to the user
 that they have nothing interesting to do with such reference (besides being
-able to register and/or wrap it), unless some additional public API is
-provided.</li>
+able to register it), unless some additional public API is provided.</li>
 </ol>
 </div>
 <p>To achieve proper control over object lifetime and initialization, we are
@@ -456,7 +455,7 @@ storage).</p>
 <p>The <code class="docutils literal"><span class="pre">inout_iid</span></code> parameter is the most important for us at the moment, as
 if the instantiation succeeds we MUST tell the library the id of the newly
 created Instance by setting <code class="docutils literal"><span class="pre">*inout_iid</span></code> properly.</p>
-<p>As we previously discussed, LwM2M Create requests do not necessairly have
+<p>As we previously discussed, LwM2M Create requests do not necessarily have
 to contain preferred Instance ID. However if they do, then Anjay first makes
 sure no Object Instance with given Instance ID exists.</p>
 <p>To sum up, we are left with the situation when either <code class="docutils literal"><span class="pre">*inout_iid</span></code> is a

@@ -187,18 +187,11 @@ support persistence:</p>
 </pre></div>
 </div>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_access_control_persist</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">ac_obj</span><span class="p">,</span>
+<span class="kt">int</span> <span class="nf">anjay_access_control_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                  <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 <span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_access_control_restore</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">ac_obj</span><span class="p">,</span>
-                                 <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">anjay_access_control_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in</span><span class="p">);</span>
 </pre></div>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">One should however note that every object handle MUST NOT point to a
-wrapped object (see <a class="reference internal" href="AT1.html#wrapping-objects"><span class="std std-ref">Wrapping objects</span></a> for example of the wrapped
-object).</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -214,9 +207,9 @@ to persist Object data when the LwM2M Client finishes its work and restore it on
 startup (if a valid persistence file exists).</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define PERSISTENCE_FILENAME &quot;at2-persistence.dat&quot;</span>
 
-<span class="kt">int</span> <span class="nf">persist_objects</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">security_obj</span><span class="p">,</span>
-                    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">server_obj</span><span class="p">,</span>
-                    <span class="n">anjay_attr_storage_t</span> <span class="o">*</span><span class="n">attr_storage</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="nf">persist_objects</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">security_obj</span><span class="p">,</span>
+                    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">server_obj</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="s">&quot;Persisting objects to %s&quot;</span><span class="p">,</span> <span class="n">PERSISTENCE_FILENAME</span><span class="p">);</span>
 
     <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">file_stream</span> <span class="o">=</span>
@@ -239,8 +232,8 @@ startup (if a valid persistence file exists).</p>
         <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">attr_storage</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not persist Attr Storage Object&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not persist LwM2M attribute storage&quot;</span><span class="p">);</span>
         <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
     <span class="p">}</span>
 
@@ -251,9 +244,9 @@ startup (if a valid persistence file exists).</p>
 </pre></div>
 </div>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">restore_objects_if_possible</span><span class="p">(</span>
+        <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
         <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">security_obj</span><span class="p">,</span>
-        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">server_obj</span><span class="p">,</span>
-        <span class="n">anjay_attr_storage_t</span> <span class="o">*</span><span class="n">attr_storage</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">server_obj</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="s">&quot;Attempting to restore objects from persistence&quot;</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
@@ -291,8 +284,8 @@ startup (if a valid persistence file exists).</p>
         <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">attr_storage</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not restore Attr Storage Object&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not restore LwM2M attribute storage&quot;</span><span class="p">);</span>
         <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
     <span class="p">}</span>
 
