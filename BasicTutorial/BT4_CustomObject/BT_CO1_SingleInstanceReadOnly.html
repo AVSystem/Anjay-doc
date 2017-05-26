@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4.1. Single-instance read-only object &mdash; Anjay 1.1.0 documentation</title>
+  <title>4.4.1. Single-instance read-only object &mdash; Anjay 1.3.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.1.0 documentation" href="../../index.html"/>
+    <link rel="top" title="Anjay 1.3.0 documentation" href="../../index.html"/>
         <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
         <link rel="next" title="4.4.2. Multi-instance read-only object with fixed number of instances" href="BT_CO2_MultiInstanceReadOnlyFixed.html"/>
         <link rel="prev" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/> 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1.0
+                1.3.0
               </div>
             
           
@@ -147,7 +147,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO1_SingleInstanceReadOnly.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -220,8 +220,7 @@ called whenever the library needs to get a value of a Resource. This might
 happen if:</p>
 <ul class="simple">
 <li>an LwM2M server sends a Read request,</li>
-<li>the Resource is being observed and the library needs to send a Notify message
-(see <span class="xref doc">Notifications</span>),</li>
+<li>the Resource is being observed and the library needs to send a Notify message,</li>
 <li>value of the Resource is required for the library to function correctly
 (mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</li>
 </ul>
@@ -243,7 +242,7 @@ happen if:</p>
     <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
         <span class="k">return</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">));</span>
     <span class="k">default</span><span class="o">:</span>
-        <span class="c1">// control will never reach this part due to object&#39;s rid_bound</span>
+        <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -264,17 +263,13 @@ handling in case anything goes wrong.</li>
     <span class="c1">// Object ID</span>
     <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
 
-    <span class="c1">// Object does not contain any Resources with IDs &gt;= 2</span>
-    <span class="p">.</span><span class="n">rid_bound</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="c1">// List of supported Resource IDs</span>
+    <span class="p">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
 
     <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
         <span class="c1">// single-instance Objects can use these pre-implemented handlers:</span>
         <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">anjay_dm_instance_it_SINGLE</span><span class="p">,</span>
         <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">anjay_dm_instance_present_SINGLE</span><span class="p">,</span>
-
-        <span class="c1">// if the Object implements all Resources from ID 0 up to its</span>
-        <span class="c1">// `rid_bound`, it can use this predefined `resource_supported` handler:</span>
-        <span class="p">.</span><span class="n">resource_supported</span> <span class="o">=</span> <span class="n">anjay_dm_resource_supported_TRUE</span><span class="p">,</span>
 
         <span class="c1">// if all supported Resources are always available, one can use</span>
         <span class="c1">// a pre-implemented `resource_present` handler too:</span>
@@ -308,13 +303,8 @@ be allowed to perform it.</p>
 <p class="last">More info: <a class="reference internal" href="../../AdvancedTutorial/AT4.html"><span class="doc">Access Control in multi-server environment</span></a></p>
 </div>
 </li>
-<li><p class="first">Resource ID 3 is compared against <code class="docutils literal"><span class="pre">rid_bound</span></code> defined for the
-object. If <code class="docutils literal"><span class="pre">rid_bound</span></code> is strictly lower, a Not Found response
-is issued.</p>
-</li>
-<li><p class="first"><code class="docutils literal"><span class="pre">resource_supported</span></code> handler of the object is called to determine
-whether the Object is able to perform operations on Resource 3.
-If the handler returns 0, a Not Found response is issued.</p>
+<li><p class="first">Resource ID 3 is searched for in the <code class="docutils literal"><span class="pre">supported_rids</span></code> list defined for
+the object. If it is not found, a Not Found response is issued.</p>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">resource_present</span></code> handler is called to ensure that Resource 3
 is instantiated for Object Instance 2. If the handler returns 0,
@@ -340,7 +330,8 @@ sequence early and - if the Read was triggered by a server request - causing
 the library to respond with returned error code.</p>
 </div>
 <div class="topic">
-<p class="topic-title first">Why <cite>resource_supported</cite>/<cite>resource_present</cite> are separate handlers?</p>
+<p class="topic-title first">Why both the <cite>supported_rids</cite> list and the <cite>resource_present</cite> handler
+        are necessary?</p>
 <p>An LwM2M client may be able to handle a Resource that has no default value.
 Such Resource is always <em>supported</em>, but becomes <em>present</em> only after
 an LwM2M Server sets its value first. Examples include Default Minimum Period
@@ -413,10 +404,11 @@ project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.1.0',
+            VERSION:'1.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

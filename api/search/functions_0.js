@@ -2,7 +2,7 @@ var searchData=
 [
   ['anjay_5faccess_5fcontrol_5finstall',['anjay_access_control_install',['../access__control_8h.html#acc1763bd9c94cecd02e1484fd271ea12',1,'access_control.h']]],
   ['anjay_5faccess_5fcontrol_5fpersist',['anjay_access_control_persist',['../access__control_8h.html#a00ba6b51d9c197b3c5c70a876b9efcb6',1,'access_control.h']]],
-  ['anjay_5faccess_5fcontrol_5frestore',['anjay_access_control_restore',['../access__control_8h.html#a11b2997e4f72974ca253823d6a6d9244',1,'access_control.h']]],
+  ['anjay_5faccess_5fcontrol_5frestore',['anjay_access_control_restore',['../access__control_8h.html#ab81b6a4e506b6c440b193eee2e1d9e92',1,'access_control.h']]],
   ['anjay_5faccess_5fcontrol_5fset_5facl',['anjay_access_control_set_acl',['../access__control_8h.html#a6f2624a4b8c0fa88079133ed4370e305',1,'access_control.h']]],
   ['anjay_5fattr_5fstorage_5finstall',['anjay_attr_storage_install',['../attr__storage_8h.html#a63331dc2713a352c0a90375588c8dd8c',1,'attr_storage.h']]],
   ['anjay_5fattr_5fstorage_5fis_5fmodified',['anjay_attr_storage_is_modified',['../attr__storage_8h.html#ac31b39cf01990ec9eaae5069c4858d75',1,'attr_storage.h']]],
@@ -15,7 +15,6 @@ var searchData=
   ['anjay_5fdm_5finstance_5fit_5fsingle',['anjay_dm_instance_it_SINGLE',['../anjay_8h.html#a14730b8aaa8f682a377dd7e93eba5ca7',1,'anjay.h']]],
   ['anjay_5fdm_5finstance_5fpresent_5fsingle',['anjay_dm_instance_present_SINGLE',['../anjay_8h.html#a5f77306e7a9c313e2688ee5b7138d4db',1,'anjay.h']]],
   ['anjay_5fdm_5fresource_5fpresent_5ftrue',['anjay_dm_resource_present_TRUE',['../anjay_8h.html#a8dcd229b587f59414913252d7730e759',1,'anjay.h']]],
-  ['anjay_5fdm_5fresource_5fsupported_5ftrue',['anjay_dm_resource_supported_TRUE',['../anjay_8h.html#ad3659dbe36bb82e7238a86e76b90fb5f',1,'anjay.h']]],
   ['anjay_5fdm_5ftransaction_5fnoop',['anjay_dm_transaction_NOOP',['../anjay_8h.html#adaa863b92d1eeb00ef4e86468248603f',1,'anjay.h']]],
   ['anjay_5fenter_5foffline',['anjay_enter_offline',['../anjay_8h.html#a82fbb9e51e1f2b71858d94208c284684',1,'anjay.h']]],
   ['anjay_5fexecute_5fget_5farg_5fvalue',['anjay_execute_get_arg_value',['../anjay_8h.html#a3c95fb0b0ec4a10d6c8d972f7f19240f',1,'anjay.h']]],
@@ -42,7 +41,7 @@ var searchData=
   ['anjay_5fpersistence_5fcontext_5fdelete',['anjay_persistence_context_delete',['../persistence_8h.html#a8b8b36253829422c4ad739130be9d408',1,'persistence.h']]],
   ['anjay_5fpersistence_5fdouble',['anjay_persistence_double',['../persistence_8h.html#a4105dd534533c782abc5d760bf1eaf50',1,'persistence.h']]],
   ['anjay_5fpersistence_5fignore_5fcontext_5fnew',['anjay_persistence_ignore_context_new',['../persistence_8h.html#a2354bb916fc68d7feadaa689107f8bb7',1,'persistence.h']]],
-  ['anjay_5fpersistence_5flist',['anjay_persistence_list',['../persistence_8h.html#a7e5851d237771815c389b97f70cf6fc3',1,'persistence.h']]],
+  ['anjay_5fpersistence_5flist',['anjay_persistence_list',['../persistence_8h.html#a3873d4d8b9a1e6e99c6a14cb14e16cfc',1,'persistence.h']]],
   ['anjay_5fpersistence_5frestore_5fcontext_5fnew',['anjay_persistence_restore_context_new',['../persistence_8h.html#aa0619258808a3daffd672bb81a3cd07d',1,'persistence.h']]],
   ['anjay_5fpersistence_5fstore_5fcontext_5fnew',['anjay_persistence_store_context_new',['../persistence_8h.html#a445ffb739fcd9476d71b2a721f11ba01',1,'persistence.h']]],
   ['anjay_5fpersistence_5ftime',['anjay_persistence_time',['../persistence_8h.html#a0a3dc50e58c01262e8450092b896e7b6',1,'persistence.h']]],
@@ -82,5 +81,6 @@ var searchData=
   ['anjay_5fserver_5fobject_5fpersist',['anjay_server_object_persist',['../server_8h.html#aee52f6cbf59be78b94968d256d93d0a2',1,'server.h']]],
   ['anjay_5fserver_5fobject_5fpurge',['anjay_server_object_purge',['../server_8h.html#a1b6d99b60b2b3d796e08fcfa76dc38ea',1,'server.h']]],
   ['anjay_5fserver_5fobject_5frestore',['anjay_server_object_restore',['../server_8h.html#a2b0bd985fe90ef0c3ce275ffcc789e63',1,'server.h']]],
+  ['anjay_5fsmsdrv_5fcleanup',['anjay_smsdrv_cleanup',['../anjay_8h.html#aafda163a4250595bad530abc47fc49cc',1,'anjay.h']]],
   ['anjay_5funregister_5fobject',['anjay_unregister_object',['../anjay_8h.html#a6f1973b9e7a006012de6270329329a85',1,'anjay.h']]]
 ];

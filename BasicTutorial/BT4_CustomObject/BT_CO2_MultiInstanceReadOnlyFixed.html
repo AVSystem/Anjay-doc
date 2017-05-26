@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4.2. Multi-instance read-only object with fixed number of instances &mdash; Anjay 1.1.0 documentation</title>
+  <title>4.4.2. Multi-instance read-only object with fixed number of instances &mdash; Anjay 1.3.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.1.0 documentation" href="../../index.html"/>
+    <link rel="top" title="Anjay 1.3.0 documentation" href="../../index.html"/>
         <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
         <link rel="next" title="4.4.3. Multi-instance writable object with fixed number of instances" href="BT_CO3_FixedInstanceWritable.html"/>
         <link rel="prev" title="4.4.1. Single-instance read-only object" href="BT_CO1_SingleInstanceReadOnly.html"/> 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1.0
+                1.3.0
               </div>
             
           
@@ -147,7 +147,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO2_MultiInstanceReadOnlyFixed.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO2_MultiInstanceReadOnlyFixed.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -368,7 +368,7 @@ to correctly handle requests to different Object Instance IDs.</p>
    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
        <span class="k">return</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
    <span class="k">default</span><span class="o">:</span>
-       <span class="c1">// control will never reach this part due to object&#39;s rid_bound</span>
+       <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
        <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
    <span class="p">}</span>
 <span class="p">}</span>
@@ -376,19 +376,19 @@ to correctly handle requests to different Object Instance IDs.</p>
 </div>
 <p>The only thing left to do is plugging created handlers into the Object
 Definition struct:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
-     <span class="c1">// Object ID</span>
-     <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// Object ID</span>
+    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
 
-     <span class="c1">// Object does not contain any Resources with IDs &gt;= 2</span>
-     <span class="p">.</span><span class="n">rid_bound</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="c1">// List of supported Resource IDs</span>
+    <span class="p">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
 
-     <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-         <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">test_instance_it</span><span class="p">,</span>
-         <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">test_instance_present</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">test_instance_it</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">test_instance_present</span><span class="p">,</span>
 
-         <span class="c1">// ... other handlers</span>
-     <span class="p">}</span>
+        <span class="c1">// ... other handlers</span>
+    <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -441,10 +441,11 @@ main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.1.0',
+            VERSION:'1.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4.3. Multi-instance writable object with fixed number of instances &mdash; Anjay 1.1.0 documentation</title>
+  <title>4.4.3. Multi-instance writable object with fixed number of instances &mdash; Anjay 1.3.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.1.0 documentation" href="../../index.html"/>
+    <link rel="top" title="Anjay 1.3.0 documentation" href="../../index.html"/>
         <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
         <link rel="next" title="4.4.4. Multi-instance writable object with dynamic number of instances" href="BT_CO4_MultiInstanceDynamic.html"/>
         <link rel="prev" title="4.4.2. Multi-instance read-only object with fixed number of instances" href="BT_CO2_MultiInstanceReadOnlyFixed.html"/> 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1.0
+                1.3.0
               </div>
             
           
@@ -147,7 +147,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO3_FixedInstanceWritable.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO3_FixedInstanceWritable.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -278,7 +278,7 @@ an arbitrary limit of 32 characters in length (including terminating nullbyte):<
        <span class="k">return</span> <span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
 
    <span class="k">default</span><span class="o">:</span>
-       <span class="c1">// control will never reach this part due to object&#39;s rid_bound</span>
+       <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
        <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
    <span class="p">}</span>
 <span class="p">}</span>
@@ -288,8 +288,8 @@ an arbitrary limit of 32 characters in length (including terminating nullbyte):<
 any modifying operation (writing a value, creating or deleting an Object
 Instance) requires explicitly defined transaction handlers.
 <code class="docutils literal"><span class="pre">anjay_transaction_handler_NOOP</span></code> placeholder will be used for now, see
-<span class="xref std std-ref">SingleInstanceWritable-transactional</span> for an actual implementation
-of these.</p>
+<a class="reference internal" href="#fixedinstancewritable-transactional"><span class="std std-ref">Transactional variant</span></a> for an actual implementation of
+these.</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
      <span class="c1">// ...</span>
      <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
@@ -328,7 +328,7 @@ invalid.</p>
 <p class="last">Anjay does not distinguish Mandatory and Optional Resources - the user
 is responsible for ensuring the state of an Object is still valid after
 handling a request. This topic is covered in detail in
-<span class="xref std std-ref">FixedInstanceWritable-transactional</span>; we will ignore it in this
+<a class="reference internal" href="#fixedinstancewritable-transactional"><span class="std std-ref">Transactional variant</span></a>; we will ignore it in this
 particular example.</p>
 </div>
 </li>
@@ -397,7 +397,7 @@ by the Object.</p>
 </div>
 </div>
 <div class="section" id="transactional-variant">
-<h2>4.4.3.2. Transactional variant<a class="headerlink" href="#transactional-variant" title="Permalink to this headline">¶</a></h2>
+<span id="fixedinstancewritable-transactional"></span><h2>4.4.3.2. Transactional variant<a class="headerlink" href="#transactional-variant" title="Permalink to this headline">¶</a></h2>
 <p>Knowing all about different LwM2M Write variants and Anjay transaction handlers,
 we can start implementing a transaction-aware client capable of handling
 all LwM2M Write requests.</p>
@@ -595,10 +595,11 @@ subdirectory of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.1.0',
+            VERSION:'1.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
