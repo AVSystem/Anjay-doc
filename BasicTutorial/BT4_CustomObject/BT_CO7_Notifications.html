@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4.7. Notifications for dynamically-changing Resources &mdash; Anjay 1.3.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.3.1 documentation" href="../../index.html"/>
+        <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
+        <link rel="next" title="5. Advanced tutorial" href="../../AdvancedTutorial.html"/>
+        <link rel="prev" title="4.4.6. Bootstrap awareness" href="BT_CO6_BootstrapAwareness.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../BT1.html">4.1. Getting started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT2.html">4.2. Registering mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO3_FixedInstanceWritable.html">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO4_MultiInstanceDynamic.html">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultipleResourceInstances.html">4.4.5. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO6_BootstrapAwareness.html">4.4.6. Bootstrap awareness</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.7. Notifications for dynamically-changing Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTutorial.html">5. Advanced tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Anjay</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
+      
+          <li><a href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a> &raquo;</li>
+      
+    <li>4.4.7. Notifications for dynamically-changing Resources</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO7_Notifications.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="notifications-for-dynamically-changing-resources">
+<h1>4.4.7. Notifications for dynamically-changing Resources<a class="headerlink" href="#notifications-for-dynamically-changing-resources" title="Permalink to this headline">¶</a></h1>
+<p>Some Resources may represent values that change over time, like sensor readings.
+An LwM2M server may be interested in variance of such values and use the Observe
+operation to request notifications when they change, or when their value meets
+certain criteria.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">More information about available notification criteria can be found under
+<strong>&lt;NOTIFICATION&gt;</strong> Class Attributes description in <a class="reference internal" href="../../LwM2M.html#lwm2m-attributes"><span class="std std-ref">Attributes</span></a>.</p>
+</div>
+<p>When some part of the data model changes by means other than LwM2M, one has to
+tell the library about it by calling an appropriate function:</p>
+<ul class="simple">
+<li>if a Resource value changed - <cite>anjay_notify_changed</cite>,</li>
+<li>if one or more Object Instances were created or removed -
+<cite>anjay_notify_instances_changed</cite>.</li>
+</ul>
+<p>Anjay then decides if the notification shall be sent, based on the currently
+assigned Attributes (to the part of the data model being changed) and LwM2M
+Servers that are interested in seeing the change.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">One should not call <cite>anjay_notify_changed</cite>/<cite>anjay_notify_instances_changed</cite>
+when the value change was directly caused by LwM2M (e.g. by Write or Create
+request). Anjay handles these cases internally.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Detailed description of these functions can be found in <a class="reference external" href="../../api">API docs</a>.</p>
+</div>
+<p>Calling <cite>anjay_notify_changed</cite>/<cite>anjay_notify_instances_changed</cite> does not send
+notifications immediately, but schedules a task to be run on next
+<cite>anjay_sched_run</cite> call. That way, notifications for multiple values can be
+handled as a batch, for example in case where the server observes an entire
+Object Instance.</p>
+<div class="section" id="lwm2m-attributes">
+<h2>4.4.7.1. LwM2M attributes<a class="headerlink" href="#lwm2m-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Correct handling of LwM2M Observe requests requires being able to store
+Object/Instance/Resource attributes. For that, one needs to either implement
+a set of attribute handlers, or use the pre-defined
+<a class="reference internal" href="../../AdvancedTutorial/AT1.html"><span class="doc">Attribute Storage module</span></a>. For simplicity,
+we will use the module in this tutorial.</p>
+</div>
+<div class="section" id="example">
+<h2>4.4.7.2. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>As an example we&#8217;ll add notification support for the test LwM2M Object defined
+in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a> tutorial. It contains a Timestamp
+Resource, whose value changes every second. We need to periodically notify the
+library about that fact:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Wait for the events if necessary, and handle them.</span>
+<span class="c1">// ...</span>
+
+<span class="c1">// Notify the library about a Resource value change.</span>
+<span class="c1">// Timestamp (Object 1234, Instance 0, Resource 1) value changes each</span>
+<span class="c1">// second, and this part of the code is executed roughly every second.</span>
+<span class="n">anjay_notify_changed</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Finally run the scheduler (ignoring its return value, which</span>
+<span class="c1">// is the amount of tasks executed)</span>
+</pre></div>
+</div>
+<p>One more thing to consider is setting up LwM2M attribute handlers - we&#8217;ll leave
+that to the Attribute Storage module:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Let the Attribute Storage module implement all attribute handlers.</span>
+<span class="c1">// The module is cleaned up automatically in anjay_delete().</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>That&#8217;s all you need to make your client support LwM2M Observe/Notify operations!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Complete code of this example can be found in
+<cite>examples/tutorial/custom-object/notifications</cite> subdirectory of main Anjay
+project repository.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../AdvancedTutorial.html" class="btn btn-neutral float-right" title="5. Advanced tutorial" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BT_CO6_BootstrapAwareness.html" class="btn btn-neutral" title="4.4.6. Bootstrap awareness" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.3.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
