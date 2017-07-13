@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4.2. Single-instance read-only object with an executable resource &mdash; Anjay 1.3.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.3.2 documentation" href="../../index.html"/>
+        <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
+        <link rel="next" title="4.4.3. Multi-instance read-only object with fixed number of instances" href="BT_CO3_MultiInstanceReadOnlyFixed.html"/>
+        <link rel="prev" title="4.4.1. Single-instance read-only object" href="BT_CO1_SingleInstanceReadOnly.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../BT1.html">4.1. Getting started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT2.html">4.2. Registering mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html">4.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultiInstanceDynamic.html">4.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO6_MultipleResourceInstances.html">4.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO7_BootstrapAwareness.html">4.4.7. Bootstrap awareness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO8_Notifications.html">4.4.8. Notifications for dynamically-changing Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTutorial.html">5. Advanced tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">7. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
+        
+          <li><a href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a> &raquo;</li>
+        
+      <li>4.4.2. Single-instance read-only object with an executable resource</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO2_SingleInstanceExecutableAndReadOnly.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="single-instance-read-only-object-with-an-executable-resource">
+<h1>4.4.2. Single-instance read-only object with an executable resource<a class="headerlink" href="#single-instance-read-only-object-with-an-executable-resource" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>In this example, you will learn:</dt>
+<dd><ul class="first last simple">
+<li>what are LwM2M Execute arguments,</li>
+<li>how to parse them using Anjay’s API,</li>
+<li>how to implement <code class="docutils literal"><span class="pre">resource_execute</span></code> handler.</li>
+</ul>
+</dd>
+</dl>
+<p>The implemented Object will be be based on the previous tutorial
+<a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>, but with additional executable resource:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Object ID</th>
+<th class="head">Instances</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Test object</td>
+<td>1234</td>
+<td>Multiple</td>
+</tr>
+</tbody>
+</table>
+<p>Each Object Instance has three Resources:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="19%" />
+<col width="18%" />
+<col width="16%" />
+<col width="16%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Resource ID</th>
+<th class="head">Operations</th>
+<th class="head">Instances</th>
+<th class="head">Mandatory</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Label</td>
+<td>0</td>
+<td>Read</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>String</td>
+</tr>
+<tr class="row-odd"><td>Value</td>
+<td>1</td>
+<td>Read</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>Integer</td>
+</tr>
+<tr class="row-even"><td>Add</td>
+<td>2</td>
+<td>Execute</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Our new <cite>Add</cite> resource will be used to perform an addition of integers,
+storing the result in the <cite>Value</cite> resource. The integers are to be specified
+as arguments to the LwM2M Execute operation.</p>
+<div class="section" id="lwm2m-execute-arguments">
+<h2>4.4.2.1. LwM2M Execute arguments<a class="headerlink" href="#lwm2m-execute-arguments" title="Permalink to this headline">¶</a></h2>
+<p>The LwM2M specification defines a syntax of the Execute argument list as
+a formal ABNF grammar.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Just to give you an idea of how the syntax looks like (without getting
+into details of the grammar), here are few examples of valid argument list:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">5</span></code>,</li>
+<li><code class="docutils literal"><span class="pre">2='10.3'</span></code>,</li>
+<li><code class="docutils literal"><span class="pre">7,0='https://www.avsystem.com/'</span></code></li>
+<li><code class="docutils literal"><span class="pre">0,1,2,3,4</span></code></li>
+<li>an empty string.</li>
+</ul>
+</div></blockquote>
+<p class="last">Also note that argument indices are limited to range 0-9 inclusively.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>It is up to the implementation on how to interpret argument lists. One
+may, for example, think of each <code class="docutils literal"><span class="pre">[0-9]='value'</span></code> as a mapping between
+argument index and a corresponding value.</p>
+<p class="last">Then the value of the argument of index <cite>k</cite> could be applied as a <cite>k-th</cite>
+argument to some function for further processing. (we will be, in fact,
+using this interpretation in this tutorial)</p>
+</div>
+<p>While the grammar itself is rather simple, it could be tedious to implement a
+correct parser accepting it (with support for all corner-cases). In Anjay
+there are methods designed specifically to solve this problem, namely:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// ... One that returns the next argument from the Execute argument list</span>
+<span class="kt">int</span> <span class="nf">anjay_execute_get_next_arg</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">out_arg</span><span class="p">,</span>
+                               <span class="kt">bool</span> <span class="o">*</span><span class="n">out_has_value</span><span class="p">);</span>
+
+<span class="c1">// ... And the one that obtains its value (if any)</span>
+<span class="kt">ssize_t</span> <span class="nf">anjay_execute_get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">out_buf</span><span class="p">,</span>
+                                    <span class="kt">ssize_t</span> <span class="n">buf_size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>They will greatly simplify parsing process, as you will see in the next section.</p>
+</div>
+<div class="section" id="implementation">
+<h2>4.4.2.2. Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<p>We start with adding our Resource to a supported list of Resources:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="p">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We can now implement <code class="docutils literal"><span class="pre">resource_execute</span></code> handler. Since our new resource will
+be used to sum integers we have to store the addition result somewhere. For
+simplicity we are going to use a <code class="docutils literal"><span class="pre">static</span></code> variable:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">long</span> <span class="n">addition_result</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>And <code class="docutils literal"><span class="pre">resource_execute</span></code> could be implemented as follows:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_execute</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                 <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                                 <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                                 <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                                 <span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="p">{</span>
+        <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+        <span class="k">do</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">arg_value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">get_arg_value</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arg_value</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">sum</span> <span class="o">+=</span> <span class="n">arg_value</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">ANJAY_EXECUTE_GET_ARG_END</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">addition_result</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// no other resource is executable</span>
+        <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Where <cite>get_arg_value</cite> function is:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">out_value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// we expect arguments of form &lt;0-9&gt;=&#39;&lt;integer&gt;&#39;</span>
+    <span class="kt">int</span> <span class="n">arg_number</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">has_value</span><span class="p">;</span>
+    <span class="kt">ssize_t</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_execute_get_next_arg</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arg_number</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">has_value</span><span class="p">);</span>
+    <span class="c1">// note that we do not check against duplicated argument ids</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">arg_number</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">result</span> <span class="o">==</span> <span class="n">ANJAY_EXECUTE_GET_ARG_END</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// an error occured or there is just nothing more to read</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">has_value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// we expect arguments with values only</span>
+        <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">char</span> <span class="n">value_buffer</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_execute_get_arg_value</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">value_buffer</span><span class="p">,</span>
+                                         <span class="k">sizeof</span><span class="p">(</span><span class="n">value_buffer</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">result</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value_buffer</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// the value must have been malformed or it is too long - either way, we</span>
+        <span class="c1">// don&#39;t like it</span>
+        <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">endptr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="kt">long</span> <span class="n">value</span> <span class="o">=</span> <span class="n">strtol</span><span class="p">(</span><span class="n">value_buffer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">endptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">endptr</span> <span class="o">||</span> <span class="o">*</span><span class="n">endptr</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span> <span class="o">||</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">INT_MIN</span> <span class="o">||</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">INT_MAX</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// either not an integer or the number is too small / too big</span>
+        <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">out_value</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">value</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Now, we need to update <code class="docutils literal"><span class="pre">resource_read</span></code> handler, so that:</dt>
+<dd><ul class="first last simple">
+<li>it returns 4.05 Method Not Allowed when an attempt to read Executable resource is made,</li>
+<li>it returns an addition result, when a Read is performed on a <cite>Value</cite> resource.</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It is worth to mention that the LwM2M specification <strong>explicitly forbids</strong>
+existence of executable resources that could be read at the same time. And
+even though it is possible to implement such resource within Anjay,
+one <strong>MUST NOT</strong> do it to stay compliant with the LwM2M.</p>
+</div>
+<p>So, here is how it could look like:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                              <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">addition_result</span><span class="p">);</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, we need to revisit an object definition to make sure our execute
+handler is set as a <code class="docutils literal"><span class="pre">resource_execute</span></code> implementation:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">resource_execute</span> <span class="o">=</span> <span class="n">test_resource_execute</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And that’s it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>As before, you can find full source-code of this example in
+<cite>examples/tutorial/custom-object/read-only-with-executable</cite> subdirectory
+of the Anjay root source dir.</p>
+<p class="last">More examples of the Execute handlers can be found in object
+implementations of the demo client (in the <cite>demo</cite> subdirectory). Just
+grep for the <cite>resource_execute</cite> keyword.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="BT_CO3_MultiInstanceReadOnlyFixed.html" class="btn btn-neutral float-right" title="4.4.3. Multi-instance read-only object with fixed number of instances" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral" title="4.4.1. Single-instance read-only object" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, AVSystem.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

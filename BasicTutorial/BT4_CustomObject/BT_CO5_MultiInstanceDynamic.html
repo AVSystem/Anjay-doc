@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4.4. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.3.1 documentation</title>
+  <title>4.4.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.3.2 documentation</title>
   
 
+  
+  
   
   
 
@@ -35,10 +37,10 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.3.1 documentation" href="../../index.html"/>
+    <link rel="top" title="Anjay 1.3.2 documentation" href="../../index.html"/>
         <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
-        <link rel="next" title="4.4.5. Objects with Multiple Instance Resources" href="BT_CO5_MultipleResourceInstances.html"/>
-        <link rel="prev" title="4.4.3. Multi-instance writable object with fixed number of instances" href="BT_CO3_FixedInstanceWritable.html"/> 
+        <link rel="next" title="4.4.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html"/>
+        <link rel="prev" title="4.4.4. Multi-instance writable object with fixed number of instances" href="BT_CO4_FixedInstanceWritable.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                1.3.1
+                1.3.2
               </div>
             
           
@@ -87,7 +90,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -97,12 +103,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO3_FixedInstanceWritable.html">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultipleResourceInstances.html">4.4.5. Objects with Multiple Instance Resources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO6_BootstrapAwareness.html">4.4.6. Bootstrap awareness</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO7_Notifications.html">4.4.7. Notifications for dynamically-changing Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html">4.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html">4.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO6_MultipleResourceInstances.html">4.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO7_BootstrapAwareness.html">4.4.7. Bootstrap awareness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO8_Notifications.html">4.4.8. Notifications for dynamically-changing Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -122,8 +129,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Anjay</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
       </nav>
 
 
@@ -132,34 +141,51 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
+        
           <li><a href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a> &raquo;</li>
-      
-    <li>4.4.4. Multi-instance writable object with dynamic number of instances</li>
+        
+      <li>4.4.5. Multi-instance writable object with dynamic number of instances</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO4_MultiInstanceDynamic.rst.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO5_MultiInstanceDynamic.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <div class="section" id="multi-instance-writable-object-with-dynamic-number-of-instances">
-<h1>4.4.4. Multi-instance writable object with dynamic number of instances<a class="headerlink" href="#multi-instance-writable-object-with-dynamic-number-of-instances" title="Permalink to this headline">¶</a></h1>
+<h1>4.4.5. Multi-instance writable object with dynamic number of instances<a class="headerlink" href="#multi-instance-writable-object-with-dynamic-number-of-instances" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial you will learn:</p>
 <ul class="simple">
 <li>how to implement <code class="docutils literal"><span class="pre">instance_create</span></code> handler to create Instances,</li>
@@ -167,7 +193,7 @@
 <li>how to assign instance identifiers to a newly created Instances,</li>
 <li>basics of the <code class="docutils literal"><span class="pre">AVS_LIST</span></code> utility library.</li>
 </ul>
-<p>Implemented object will be roughly based on <a class="reference internal" href="BT_CO3_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a>.</p>
+<p>Implemented object will be roughly based on <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="37%" />
@@ -223,11 +249,11 @@
 </tr>
 </tbody>
 </table>
-<p>The code is based on <a class="reference internal" href="BT_CO3_FixedInstanceWritable.html"><span class="doc">previous tutorial</span></a>, yet in this
+<p>The code is based on <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">previous tutorial</span></a>, yet in this
 chapter all Test object related code was moved to a separate files to keep
 everything clean.</p>
 <div class="section" id="updating-the-object-structure">
-<h2>4.4.4.1. Updating the object structure<a class="headerlink" href="#updating-the-object-structure" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.5.1. Updating the object structure<a class="headerlink" href="#updating-the-object-structure" title="Permalink to this headline">¶</a></h2>
 <p>First of all, we have to update our <code class="docutils literal"><span class="pre">test_object_t</span></code> structure to support
 storing multiple object instances. For that, we need some kind of dynamically
 sized container. We could choose plain-old, manually managed C arrays, but
@@ -271,10 +297,10 @@ Instances. As a consequence, we will add <code class="docutils literal"><span cl
 </div>
 </div>
 <div class="section" id="initialization-and-cleanup">
-<h2>4.4.4.2. Initialization and cleanup<a class="headerlink" href="#initialization-and-cleanup" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.5.2. Initialization and cleanup<a class="headerlink" href="#initialization-and-cleanup" title="Permalink to this headline">¶</a></h2>
 <p>We must reconsider the way our Test object is being initialized. Up to this point
 it was allocated on stack and required no cleanup. Again, times have changed, and
-we won&#8217;t be able to proceed further without allocating memory on demand.</p>
+we won’t be able to proceed further without allocating memory on demand.</p>
 <div class="topic">
 <p class="topic-title first">Wait, you could still allocate objects on stack, and initialize them later!</p>
 <p>Yes, but it may be considered bad coding style for at least two reasons:</p>
@@ -286,7 +312,7 @@ objects on a heap however, allows the implementation to fully initialize
 an object before returning a reference to it.</li>
 <li>End user of an Object should NOT be exposed to its internal representation,
 i.e. notice how handles to all objects shown to you so far were returned as
-pointers to <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> &#8211; clearly, it indicates to the user
+pointers to <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> – clearly, it indicates to the user
 that they have nothing interesting to do with such reference (besides being
 able to register it), unless some additional public API is provided.</li>
 </ol>
@@ -304,7 +330,7 @@ going to introduce two functions, namely <code class="docutils literal"><span cl
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Shouldn&#8217;t <code class="docutils literal"><span class="pre">test_object_t::instances</span></code> and <code class="docutils literal"><span class="pre">test_object_t::backup_instances</span></code> be
+<p class="topic-title first">Shouldn’t <code class="docutils literal"><span class="pre">test_object_t::instances</span></code> and <code class="docutils literal"><span class="pre">test_object_t::backup_instances</span></code> be
    be initialized in some special way?</p>
 <p>No, <code class="docutils literal"><span class="pre">NULL</span></code> is a valid (and only) representation of an empty <code class="docutils literal"><span class="pre">AVS_LIST</span></code>.</p>
 </div>
@@ -330,7 +356,7 @@ each element, and in the end sets list handle to <code class="docutils literal">
 as in previous tutorials.</p>
 </div>
 <div class="section" id="updating-old-already-implemented-handlers-to-use-avs-list">
-<h2>4.4.4.3. Updating old, already implemented handlers to use <code class="docutils literal"><span class="pre">AVS_LIST</span></code><a class="headerlink" href="#updating-old-already-implemented-handlers-to-use-avs-list" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.5.3. Updating old, already implemented handlers to use <code class="docutils literal"><span class="pre">AVS_LIST</span></code><a class="headerlink" href="#updating-old-already-implemented-handlers-to-use-avs-list" title="Permalink to this headline">¶</a></h2>
 <p>To simplify matters, we have to agree upon one contract:</p>
 <ol class="arabic simple">
 <li>We establish a natural Instace ordering on their Instance IDs, exploiting the
@@ -357,7 +383,7 @@ It will happen to be very useful in the next couple of subsections:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Let&#8217;s reimplement <code class="docutils literal"><span class="pre">test_instance_present</span></code> in terms of just defined <code class="docutils literal"><span class="pre">get_instance</span></code>:</p>
+<p>Let’s reimplement <code class="docutils literal"><span class="pre">test_instance_present</span></code> in terms of just defined <code class="docutils literal"><span class="pre">get_instance</span></code>:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                  <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
@@ -403,19 +429,19 @@ and leaving the rest of the work of this kind as an exercise for the reader
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>That&#8217;s all for this section. As noted above, implementation of other methods
+<p>That’s all for this section. As noted above, implementation of other methods
 is as always available in the source code provided with the tutorial. We
 do however strongly recommend you to port the methods to use <code class="docutils literal"><span class="pre">AVS_LISTs</span></code>
 on your own, especially <strong>remember about updating transaction handlers</strong>.</p>
 </div>
 <div class="section" id="assigning-instance-ids">
-<h2>4.4.4.4. Assigning Instance IDs<a class="headerlink" href="#assigning-instance-ids" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.5.4. Assigning Instance IDs<a class="headerlink" href="#assigning-instance-ids" title="Permalink to this headline">¶</a></h2>
 <p>LwM2M Create requests are not always equipped with preferred Instance ID, forcing
 the LwM2M Client to assign Instance ID by itself. In Anjay, this responsibility
 lies on the implementor of the Object being instantiated.</p>
 <p>We are going to take an easy approach for Instance ID assignation. Our algorithm
 will simply traverse Object Instance list, looking for any gaps in Instance IDs
-between consecutive Instances. If no gap is found, we&#8217;d take an upper bound of
+between consecutive Instances. If no gap is found, we’d take an upper bound of
 discovered Instance IDs during the iteration as a new Instance ID.</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">assign_new_iid</span><span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">out_iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">preferred_iid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -445,8 +471,8 @@ is required (e.g. by using some kind of hash-map or tree-map for Instance
 storage).</p>
 </div>
 <div class="section" id="instance-create-handler">
-<h2>4.4.4.5. <code class="docutils literal"><span class="pre">instance_create</span></code> handler<a class="headerlink" href="#instance-create-handler" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s have a look on <code class="docutils literal"><span class="pre">anjay_dm_instance_create_t</span></code> handler type signature:</p>
+<h2>4.4.5.5. <code class="docutils literal"><span class="pre">instance_create</span></code> handler<a class="headerlink" href="#instance-create-handler" title="Permalink to this headline">¶</a></h2>
+<p>Let’s have a look on <code class="docutils literal"><span class="pre">anjay_dm_instance_create_t</span></code> handler type signature:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                        <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">inout_iid</span><span class="p">,</span>
@@ -516,7 +542,7 @@ are going to assign Instance ID ourselves:</p>
 </div>
 </div>
 <div class="section" id="instance-remove-handler">
-<h2>4.4.4.6. <code class="docutils literal"><span class="pre">instance_remove</span></code> handler<a class="headerlink" href="#instance-remove-handler" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.5.6. <code class="docutils literal"><span class="pre">instance_remove</span></code> handler<a class="headerlink" href="#instance-remove-handler" title="Permalink to this headline">¶</a></h2>
 <p>Fortunately <code class="docutils literal"><span class="pre">instance_remove</span></code> handler is much easier to implement as it does not
 have to perform anything other than removing the instance from our list.</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_remove</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -549,15 +575,18 @@ of main Anjay project repository.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT_CO5_MultipleResourceInstances.html" class="btn btn-neutral float-right" title="4.4.5. Objects with Multiple Instance Resources" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-right" title="4.4.6. Objects with Multiple Instance Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO3_FixedInstanceWritable.html" class="btn btn-neutral" title="4.4.3. Multi-instance writable object with fixed number of instances" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO4_FixedInstanceWritable.html" class="btn btn-neutral" title="4.4.4. Multi-instance writable object with fixed number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -588,10 +617,11 @@ of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.3.1',
+            VERSION:'1.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

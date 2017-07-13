@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4.5. Objects with Multiple Instance Resources &mdash; Anjay 1.3.1 documentation</title>
+  <title>4.4.6. Objects with Multiple Instance Resources &mdash; Anjay 1.3.2 documentation</title>
   
 
+  
+  
   
   
 
@@ -35,10 +37,10 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.3.1 documentation" href="../../index.html"/>
+    <link rel="top" title="Anjay 1.3.2 documentation" href="../../index.html"/>
         <link rel="up" title="4.4. Custom LwM2M objects" href="../BT4_CustomObject.html"/>
-        <link rel="next" title="4.4.6. Bootstrap awareness" href="BT_CO6_BootstrapAwareness.html"/>
-        <link rel="prev" title="4.4.4. Multi-instance writable object with dynamic number of instances" href="BT_CO4_MultiInstanceDynamic.html"/> 
+        <link rel="next" title="4.4.7. Bootstrap awareness" href="BT_CO7_BootstrapAwareness.html"/>
+        <link rel="prev" title="4.4.5. Multi-instance writable object with dynamic number of instances" href="BT_CO5_MultiInstanceDynamic.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                1.3.1
+                1.3.2
               </div>
             
           
@@ -87,7 +90,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -97,12 +103,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.4.1. Single-instance read-only object</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO2_MultiInstanceReadOnlyFixed.html">4.4.2. Multi-instance read-only object with fixed number of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO3_FixedInstanceWritable.html">4.4.3. Multi-instance writable object with fixed number of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO4_MultiInstanceDynamic.html">4.4.4. Multi-instance writable object with dynamic number of instances</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.5. Objects with Multiple Instance Resources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO6_BootstrapAwareness.html">4.4.6. Bootstrap awareness</a></li>
-<li class="toctree-l3"><a class="reference internal" href="BT_CO7_Notifications.html">4.4.7. Notifications for dynamically-changing Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html">4.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html">4.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultiInstanceDynamic.html">4.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO7_BootstrapAwareness.html">4.4.7. Bootstrap awareness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BT_CO8_Notifications.html">4.4.8. Notifications for dynamically-changing Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -122,8 +129,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Anjay</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
       </nav>
 
 
@@ -132,34 +141,51 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
+        
           <li><a href="../BT4_CustomObject.html">4.4. Custom LwM2M objects</a> &raquo;</li>
-      
-    <li>4.4.5. Objects with Multiple Instance Resources</li>
+        
+      <li>4.4.6. Objects with Multiple Instance Resources</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO5_MultipleResourceInstances.rst.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../../_sources/BasicTutorial/BT4_CustomObject/BT_CO6_MultipleResourceInstances.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <div class="section" id="objects-with-multiple-instance-resources">
-<h1>4.4.5. Objects with Multiple Instance Resources<a class="headerlink" href="#objects-with-multiple-instance-resources" title="Permalink to this headline">¶</a></h1>
+<h1>4.4.6. Objects with Multiple Instance Resources<a class="headerlink" href="#objects-with-multiple-instance-resources" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial you will learn:</p>
 <ul class="simple">
 <li>how to retrieve a Multiple Instance Resource using Anjay API,</li>
@@ -168,7 +194,7 @@
 <p>We will extend the Test object from <a class="reference external" href="BT_CO4_MultiInstanceDynamic">previous tutorial</a>
 by allowing <cite>Value</cite> Resource to contain multiple values.</p>
 <div class="section" id="api-for-multiple-instance-resources-management">
-<h2>4.4.5.1. API for Multiple Instance Resources management<a class="headerlink" href="#api-for-multiple-instance-resources-management" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.6.1. API for Multiple Instance Resources management<a class="headerlink" href="#api-for-multiple-instance-resources-management" title="Permalink to this headline">¶</a></h2>
 <p>Reading Multiple Instance Resources or writing some in a response requires
 special contexts to be instantiated by the user, i.e. <code class="docutils literal"><span class="pre">anjay_input_ctx_t</span></code>
 and <code class="docutils literal"><span class="pre">anjay_output_ctx_t</span></code> out of contexts passed by Anjay to <code class="docutils literal"><span class="pre">resource_write</span></code>
@@ -196,7 +222,7 @@ them results in undefined behavior.</p>
 Instance ID (<cite>index</cite>) and the Resource Instance Value (<cite>value</cite>).</p>
 </div>
 <div class="section" id="preparing-test-object-for-multiple-instance-resources">
-<h2>4.4.5.2. Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.6.2. Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline">¶</a></h2>
 <p>We define following structure to represent a single Instance of our Multiple
 Instance Resource:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
@@ -230,7 +256,7 @@ zero Instances (i.e. lack of list presence vs an empty list).</p>
 </div>
 </div>
 <div class="section" id="handling-multiple-instance-resources-in-write-rpc">
-<h2>4.4.5.3. Handling Multiple Instance Resources in Write RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-write-rpc" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.6.3. Handling Multiple Instance Resources in Write RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-write-rpc" title="Permalink to this headline">¶</a></h2>
 <div class="topic">
 <p class="topic-title first">General flow of function calls when LwM2M Write operation was
        issued on Multiple Instance Resource.</p>
@@ -305,7 +331,7 @@ stored, and mentioned array input context. It is pretty dense, indeed,
 but this is the cost of being correct.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you had looked at <code class="docutils literal"><span class="pre">anjay_get_array</span></code> documentation you&#8217;ve seen the
+<p class="last">If you had looked at <code class="docutils literal"><span class="pre">anjay_get_array</span></code> documentation you’ve seen the
 warning about possible interpretations of requests containing duplicated
 Resource Instance IDs. Presented implementation returns an error on such
 requests, but the LwM2M specification seem to not forbid implementations
@@ -352,7 +378,7 @@ of our helper function:</p>
 </div>
 </div>
 <div class="section" id="handling-multiple-instance-resources-in-read-rpc">
-<h2>4.4.5.4. Handling Multiple Instance Resources in Read RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-read-rpc" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.6.4. Handling Multiple Instance Resources in Read RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-read-rpc" title="Permalink to this headline">¶</a></h2>
 <div class="topic">
 <p class="topic-title first">General flow of function calls when LwM2M Read operation was
        issued on Multiple Instance Resource.</p>
@@ -414,15 +440,18 @@ subdirectory of main Anjay project repository.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT_CO6_BootstrapAwareness.html" class="btn btn-neutral float-right" title="4.4.6. Bootstrap awareness" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT_CO7_BootstrapAwareness.html" class="btn btn-neutral float-right" title="4.4.7. Bootstrap awareness" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO4_MultiInstanceDynamic.html" class="btn btn-neutral" title="4.4.4. Multi-instance writable object with dynamic number of instances" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO5_MultiInstanceDynamic.html" class="btn btn-neutral" title="4.4.5. Multi-instance writable object with dynamic number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -453,10 +482,11 @@ subdirectory of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.3.1',
+            VERSION:'1.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

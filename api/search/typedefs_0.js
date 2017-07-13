@@ -32,7 +32,7 @@ var searchData=
   ['anjay_5foutput_5fctx_5ft',['anjay_output_ctx_t',['../io_8h.html#ad1c262689306f83ddc7ee9ec187bf56c',1,'io.h']]],
   ['anjay_5fpersistence_5fcleanup_5fcollection_5felement_5ft',['anjay_persistence_cleanup_collection_element_t',['../persistence_8h.html#a72f83041632dee0ed34f5f5e4f9a4811',1,'persistence.h']]],
   ['anjay_5fpersistence_5fcontext_5ft',['anjay_persistence_context_t',['../persistence_8h.html#a2383cea036d64bd58555b725b8cdf2fa',1,'persistence.h']]],
-  ['anjay_5fpersistence_5fhandler_5fcollection_5felement_5ft',['anjay_persistence_handler_collection_element_t',['../persistence_8h.html#a4258c3c96f414b7359d233833cb456bd',1,'persistence.h']]],
+  ['anjay_5fpersistence_5fhandler_5fcollection_5felement_5ft',['anjay_persistence_handler_collection_element_t',['../persistence_8h.html#aff052e7a8a15f33e150c7b8bf488c34f',1,'persistence.h']]],
   ['anjay_5fret_5fbytes_5fctx_5ft',['anjay_ret_bytes_ctx_t',['../io_8h.html#a3682e96e7687f3b0515bbf8b582f786b',1,'io.h']]],
   ['anjay_5frid_5ft',['anjay_rid_t',['../core_8h.html#a3e5fb971be8a1cf5778973482a5504d8',1,'core.h']]],
   ['anjay_5friid_5ft',['anjay_riid_t',['../core_8h.html#af8956a537324a4605fe2d8a320266e7a',1,'core.h']]],

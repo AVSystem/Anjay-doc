@@ -4,7 +4,6 @@ var core_8h =
     [ "ANJAY_COAP_STATUS", "core_8h.html#aa702d2d4be8e066aa7b1a1936889c121", null ],
     [ "ANJAY_ERR_BAD_OPTION", "core_8h.html#adb7395e29c732b502bce5d9721d7dc70", null ],
     [ "ANJAY_ERR_BAD_REQUEST", "core_8h.html#ab482b6c6e5d7bdb3a343588cad964a15", null ],
-    [ "ANJAY_ERR_CONFLICT", "core_8h.html#a80b8799a8d9b81663e0f362b201382eb", null ],
     [ "ANJAY_ERR_INTERNAL", "core_8h.html#ae66a8257c2c958249dfaf84ebc3501c9", null ],
     [ "ANJAY_ERR_METHOD_NOT_ALLOWED", "core_8h.html#a2dfebe74e77b283c4e11ae900a675d49", null ],
     [ "ANJAY_ERR_NOT_ACCEPTABLE", "core_8h.html#a273711070ff6c68666abd02e5e621b20", null ],

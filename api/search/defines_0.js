@@ -17,7 +17,6 @@ var searchData=
   ['anjay_5fdm_5fsupported_5frids',['ANJAY_DM_SUPPORTED_RIDS',['../dm_8h.html#ac6bc288991cb0f595b9a979b91e6884a',1,'dm.h']]],
   ['anjay_5ferr_5fbad_5foption',['ANJAY_ERR_BAD_OPTION',['../core_8h.html#adb7395e29c732b502bce5d9721d7dc70',1,'core.h']]],
   ['anjay_5ferr_5fbad_5frequest',['ANJAY_ERR_BAD_REQUEST',['../core_8h.html#ab482b6c6e5d7bdb3a343588cad964a15',1,'core.h']]],
-  ['anjay_5ferr_5fconflict',['ANJAY_ERR_CONFLICT',['../core_8h.html#a80b8799a8d9b81663e0f362b201382eb',1,'core.h']]],
   ['anjay_5ferr_5finternal',['ANJAY_ERR_INTERNAL',['../core_8h.html#ae66a8257c2c958249dfaf84ebc3501c9',1,'core.h']]],
   ['anjay_5ferr_5fmethod_5fnot_5fallowed',['ANJAY_ERR_METHOD_NOT_ALLOWED',['../core_8h.html#a2dfebe74e77b283c4e11ae900a675d49',1,'core.h']]],
   ['anjay_5ferr_5fnot_5facceptable',['ANJAY_ERR_NOT_ACCEPTABLE',['../core_8h.html#a273711070ff6c68666abd02e5e621b20',1,'core.h']]],
