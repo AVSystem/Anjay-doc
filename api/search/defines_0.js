@@ -11,6 +11,8 @@ var searchData=
   ['anjay_5fattrib_5fperiod_5fnone',['ANJAY_ATTRIB_PERIOD_NONE',['../dm_8h.html#afcacd9da4d8b43667f9f9b97aa73706b',1,'dm.h']]],
   ['anjay_5fattrib_5fvalue_5fnone',['ANJAY_ATTRIB_VALUE_NONE',['../dm_8h.html#ab5ebe3e4a8e369aa0365096047c78804',1,'dm.h']]],
   ['anjay_5fbuffer_5ftoo_5fshort',['ANJAY_BUFFER_TOO_SHORT',['../io_8h.html#a4a012ab598be622109d8ad34cf79c912',1,'io.h']]],
+  ['anjay_5fcoap_5fdefault_5fsms_5ftx_5fparams',['ANJAY_COAP_DEFAULT_SMS_TX_PARAMS',['../core_8h.html#ae70cfcbd2c5e6f2004f8d39a43fa3e8f',1,'core.h']]],
+  ['anjay_5fcoap_5fdefault_5fudp_5ftx_5fparams',['ANJAY_COAP_DEFAULT_UDP_TX_PARAMS',['../core_8h.html#af7abd5fb313c7990fc4e2e52e5395da3',1,'core.h']]],
   ['anjay_5fcoap_5fstatus',['ANJAY_COAP_STATUS',['../core_8h.html#aa702d2d4be8e066aa7b1a1936889c121',1,'core.h']]],
   ['anjay_5fdm_5fdim_5finvalid',['ANJAY_DM_DIM_INVALID',['../dm_8h.html#a4d4f3f426c13dd133757c97c30fb1ee7',1,'dm.h']]],
   ['anjay_5fdm_5fresource_5fop_5fnone',['ANJAY_DM_RESOURCE_OP_NONE',['../dm_8h.html#a17bb147eb018e248cab24e9336d10fc4',1,'dm.h']]],

@@ -27,7 +27,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "access__control_8h.html",
-"structanjay__dm__handlers__t.html#a795348c91e2d6104b4750cc23e2eb03b"
+"structanjay__configuration.html#a3bb16de58b283370b1ab20698dd4849a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

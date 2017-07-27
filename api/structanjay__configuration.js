@@ -9,6 +9,8 @@ var structanjay__configuration =
     [ "out_buffer_size", "structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4", null ],
     [ "prefer_multipart_sms", "structanjay__configuration.html#a2625aac713bfd44b47ec7b6087d9eea3", null ],
     [ "sms_driver", "structanjay__configuration.html#afd5f1cd16a6433b3fa8edec080e21226", null ],
+    [ "sms_tx_params", "structanjay__configuration.html#acce66a97fab359885e52b1ff93dd8976", null ],
     [ "udp_listen_port", "structanjay__configuration.html#acf74549a99ca3ad5aedb227c4b0258ca", null ],
-    [ "udp_socket_config", "structanjay__configuration.html#a1aa33509c25e84e00151a555a00e7812", null ]
+    [ "udp_socket_config", "structanjay__configuration.html#a1aa33509c25e84e00151a555a00e7812", null ],
+    [ "udp_tx_params", "structanjay__configuration.html#a74368abf444a791d872c576a5fd53a56", null ]
 ];
