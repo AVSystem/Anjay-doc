@@ -13,7 +13,7 @@ var searchData=
   ['sms_5fsecret_5fkey',['sms_secret_key',['../structanjay__security__instance__t.html#aba5ff6df39e951e9824d86aa2f0e5238',1,'anjay_security_instance_t']]],
   ['sms_5fsecret_5fkey_5fsize',['sms_secret_key_size',['../structanjay__security__instance__t.html#a036bd695bd734152575f643180cc3c9f',1,'anjay_security_instance_t']]],
   ['sms_5fsecurity_5fmode',['sms_security_mode',['../structanjay__security__instance__t.html#a3265f52fc49b83d8c15539d12cebd879',1,'anjay_security_instance_t']]],
-  ['sms_5ftx_5fparams',['sms_tx_params',['../structanjay__configuration.html#acce66a97fab359885e52b1ff93dd8976',1,'anjay_configuration']]],
+  ['sms_5ftx_5fparams',['sms_tx_params',['../structanjay__configuration.html#a3358d949a97ff9e10c8838740dabab68',1,'anjay_configuration']]],
   ['ssid',['ssid',['../structanjay__security__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_security_instance_t::ssid()'],['../structanjay__server__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_server_instance_t::ssid()']]],
   ['start_5foffset',['start_offset',['../structanjay__download__config.html#a3abb6fc45eddaf98e0a68595534f0abb',1,'anjay_download_config']]],
   ['step',['step',['../structanjay__dm__resource__attributes__t.html#a4736138d712d9ee570d0652f08a4786a',1,'anjay_dm_resource_attributes_t']]],

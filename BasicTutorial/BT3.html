@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.3. Event loop &mdash; Anjay 1.3.3 documentation</title>
+  <title>4.3. Event loop &mdash; Anjay 1.4.0 documentation</title>
   
 
   
@@ -35,9 +35,9 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.3.3 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.4.0 documentation" href="../index.html"/>
         <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
-        <link rel="next" title="4.4. Custom LwM2M objects" href="BT4_CustomObject.html"/>
+        <link rel="next" title="4.4. Few notes on general usage" href="BT4.html"/>
         <link rel="prev" title="4.2. Registering mandatory Objects" href="BT2.html"/> 
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.3.3
+                1.4.0
               </div>
             
           
@@ -95,12 +95,14 @@
 <li class="toctree-l2"><a class="reference internal" href="BT1.html">4.1. Getting started!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT2.html">4.2. Registering mandatory Objects</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. Event loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BT4_CustomObject.html">4.4. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT4.html">4.4. Few notes on general usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT5_CustomObject.html">4.5. Custom LwM2M objects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTutorial.html">5. Advanced tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">7. Commercial support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">6. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">7. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">8. Commercial support</a></li>
 </ul>
 
             
@@ -155,7 +157,7 @@ whole application.</p>
 of incoming events is necessary. Those events may come from a number of sources:</p>
 <ul class="simple">
 <li>Network packets from LwM2M servers</li>
-<li>Anjay&#8217;s internal task scheduler</li>
+<li>Anjay’s internal task scheduler</li>
 <li>External events specific to the client application</li>
 </ul>
 <p>On POSIX systems, a simple and portable way to handle all these events is to use
@@ -188,22 +190,21 @@ Anjay is using, i.e. <a class="reference internal" href="#task-scheduler"><span 
 <p>Anjay uses an internal scheduler for a number of tasks, including automated
 sending of Registration Updates and notifications, among others.</p>
 <p>During runtime, Anjay schedules jobs with specific deadlines, and
-expects them to be executed when the right time comes &#8211; it is relying on
+expects them to be executed when the right time comes – it is relying on
 <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> being regularly invoked.</p>
 <p>The <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> iterates over the scheduled jobs (checking if some
 of them should be run at this particular moment) and executes them if
 necessary.</p>
 <p>The requirement of regularly invoking <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> is a direct
-consequence of Anjay being a single-threaded application. It is not a
-problem however, as you may call <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> in the event loop,
-that you would have to write anyway to (for instance) handle input events
-of some kind. So, in the event loop you could call <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code>
-on every iteration.</p>
-<p>But that would introduce unnecessary waste of CPU time, wouldn&#8217;t it? Right,
-and this issue is addressed by <code class="docutils literal"><span class="pre">anjay_sched_calculate_wait_time_ms()</span></code>
-which returns number of milliseconds before the next scheduled job. In the
-next example we will use this value as a <code class="docutils literal"><span class="pre">poll()</span></code> timeout.</p>
-<p>Enough talking, time to write some code.</p>
+consequence of Anjay being a single-threaded application. It is not a problem
+however, as you may call <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> repeatedly in the main program
+loop that you would have to write anyway.</p>
+<p>Unfortunately, a naive implementation could cause unnecessary waste of CPU
+time. This problem is addressed by <code class="docutils literal"><span class="pre">anjay_sched_calculate_wait_time_ms()</span></code>
+which returns the number of milliseconds before the next scheduled job -
+so, unless there is a communication going on, it would be the amount of
+time the CPU can sleep. In the next example we will use this value as a
+<code class="docutils literal"><span class="pre">poll()</span></code> timeout.</p>
 </div>
 <div class="section" id="event-loop-finally">
 <span id="basic-event-loop"></span><h2>4.3.3. Event loop finally<a class="headerlink" href="#event-loop-finally" title="Permalink to this headline">¶</a></h2>
@@ -285,12 +286,12 @@ modified.</li>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>That&#8217;s it! You should now be able to connect to your LwM2M Server and exchange
+<p>That’s it! You should now be able to connect to your LwM2M Server and exchange
 messages with it interactively.</p>
 </div>
 <div class="section" id="other-events">
 <h2>4.3.4. Other events<a class="headerlink" href="#other-events" title="Permalink to this headline">¶</a></h2>
-<p>As we&#8217;ve been discussing, the code above is enough to handle all events that
+<p>As we’ve been discussing, the code above is enough to handle all events that
 may happen within the Anjay library itself. Of course, the application usually
 needs to handle its own activity, this is however outside of the scope of
 this tutorial, but the presented code may be used as a good starting point.</p>
@@ -304,7 +305,7 @@ this tutorial, but the presented code may be used as a good starting point.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT4_CustomObject.html" class="btn btn-neutral float-right" title="4.4. Custom LwM2M objects" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT4.html" class="btn btn-neutral float-right" title="4.4. Few notes on general usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="BT2.html" class="btn btn-neutral" title="4.2. Registering mandatory Objects" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -338,10 +339,11 @@ this tutorial, but the presented code may be used as a good starting point.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.3.3',
+            VERSION:'1.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

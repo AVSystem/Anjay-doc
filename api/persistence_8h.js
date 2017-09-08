@@ -8,7 +8,7 @@ var persistence_8h =
     [ "anjay_persistence_context_delete", "persistence_8h.html#a8b8b36253829422c4ad739130be9d408", null ],
     [ "anjay_persistence_double", "persistence_8h.html#a4105dd534533c782abc5d760bf1eaf50", null ],
     [ "anjay_persistence_ignore_context_new", "persistence_8h.html#a2354bb916fc68d7feadaa689107f8bb7", null ],
-    [ "anjay_persistence_list", "persistence_8h.html#abed817dd2e9935c78a2fbd2e7b36c6ad", null ],
+    [ "anjay_persistence_list", "persistence_8h.html#a6f83619266c77743086b5cbc4356835a", null ],
     [ "anjay_persistence_restore_context_new", "persistence_8h.html#aa0619258808a3daffd672bb81a3cd07d", null ],
     [ "anjay_persistence_store_context_new", "persistence_8h.html#a445ffb739fcd9476d71b2a721f11ba01", null ],
     [ "anjay_persistence_time", "persistence_8h.html#a0a3dc50e58c01262e8450092b896e7b6", null ],

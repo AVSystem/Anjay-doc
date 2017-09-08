@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['anjay_5fcoap_5ftx_5fparams_5ft',['anjay_coap_tx_params_t',['../structanjay__coap__tx__params__t.html',1,'']]],
   ['anjay_5fconfiguration',['anjay_configuration',['../structanjay__configuration.html',1,'']]],
   ['anjay_5fdm_5fattributes_5ft',['anjay_dm_attributes_t',['../structanjay__dm__attributes__t.html',1,'']]],
   ['anjay_5fdm_5fhandlers_5ft',['anjay_dm_handlers_t',['../structanjay__dm__handlers__t.html',1,'']]],

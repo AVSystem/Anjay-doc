@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Registering mandatory Objects &mdash; Anjay 1.3.3 documentation</title>
+  <title>4.2. Registering mandatory Objects &mdash; Anjay 1.4.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.3.3 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.4.0 documentation" href="../index.html"/>
         <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
         <link rel="next" title="4.3. Event loop" href="BT3.html"/>
         <link rel="prev" title="4.1. Getting started!" href="BT1.html"/> 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.3.3
+                1.4.0
               </div>
             
           
@@ -95,12 +95,14 @@
 <li class="toctree-l2"><a class="reference internal" href="BT1.html">4.1. Getting started!</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Registering mandatory Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT3.html">4.3. Event loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BT4_CustomObject.html">4.4. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT4.html">4.4. Few notes on general usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BT5_CustomObject.html">4.5. Custom LwM2M objects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTutorial.html">5. Advanced tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Embedded_IP.html">6. Using Anjay with embedded UDP/IP stacks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">7. Commercial support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">6. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">7. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">8. Commercial support</a></li>
 </ul>
 
             
@@ -156,7 +158,7 @@ Server (<code class="docutils literal"><span class="pre">/1</span></code>) Objec
 modules, and they can be used easily.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">That doesn&#8217;t impact on Anjay flexibility &#8211; i.e. users can still
+<p class="last">That doesn’t impact on Anjay flexibility – i.e. users can still
 provide their own implementation of these Objects if necessary.</p>
 </div>
 <p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example) it has no knowledge about the Data Model,
@@ -166,18 +168,18 @@ just going to be presented with in the next subsection.</p>
 <div class="section" id="registering-objects">
 <h2>4.2.1. Registering Objects<a class="headerlink" href="#registering-objects" title="Permalink to this headline">¶</a></h2>
 <p>Each LwM2M Object is defined by an instance of the <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code>
-structure. To add support for a new Object, you&#8217;d need to fill that
+structure. To add support for a new Object, you’d need to fill that
 structure and implement appropriate callback functions, linking it to actual
 representation.  However, for now, we are going to use our preimplemented LwM2M
-Objects (Security, Server), so that you don&#8217;t have to worry about initializing
+Objects (Security, Server), so that you don’t have to worry about initializing
 the structure on your own. But, if you are interested in this topic now,
-you may jump to <a class="reference internal" href="BT4_CustomObject.html"><span class="doc">Custom LwM2M objects</span></a> to get more information.</p>
+you may jump to <a class="reference internal" href="BT5_CustomObject.html"><span class="doc">Custom LwM2M objects</span></a> to get more information.</p>
 <p>To register an object we are going to use <code class="docutils literal"><span class="pre">anjay_register_object</span></code> function:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_register_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">def_ptr</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Using it is pretty straightforward, as you&#8217;ll see in the next subsection.</p>
+<p>Using it is pretty straightforward, as you’ll see in the next subsection.</p>
 </div>
 <div class="section" id="registering-server-and-security-objects">
 <h2>4.2.2. Registering Server and Security Objects<a class="headerlink" href="#registering-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
@@ -237,7 +239,7 @@ example we omitted it for clarity.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The order in which objects and Anjay are deleted is not accidental, as
-during the instance destruction Anjay may still try to refer to object&#8217;s
+during the instance destruction Anjay may still try to refer to object’s
 data, therefore premature object deletion could be disastrous in effects.</p>
 </div>
 </div>
@@ -274,7 +276,7 @@ Instances:</p>
 <p>Great, so far it was really easy. But our client is currently unable to
 connect to the specified Server.  It is because we have not implemented
 an <a class="reference internal" href="BT3.html"><span class="doc">event loop</span></a> yet. It may be a little bit more complicated, as
-you&#8217;ll see in the next chapter, but the example event loop will be provided,
+you’ll see in the next chapter, but the example event loop will be provided,
 so that one can just copypaste it and run the Client finally.</p>
 </div>
 <div class="section" id="enabling-lwm2m-discover-on-objects">
@@ -354,10 +356,11 @@ for most use cases.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.3.3',
+            VERSION:'1.4.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
