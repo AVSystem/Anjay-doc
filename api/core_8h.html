@@ -172,8 +172,8 @@ Functions</h2></td></tr>
 <tr class="separator:a9f224f9dc40e4c52f01e0180fca81fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45308768471c1cdce837abeef1d8567e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a45308768471c1cdce837abeef1d8567e">anjay_serve</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, avs_net_abstract_socket_t *ready_socket)</td></tr>
 <tr class="separator:a45308768471c1cdce837abeef1d8567e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabbf022e4174f46fd952a2215d53c15d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#aabbf022e4174f46fd952a2215d53c15d">anjay_sched_time_to_next</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, struct timespec *out_delay)</td></tr>
-<tr class="separator:aabbf022e4174f46fd952a2215d53c15d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad83be53577741a9f3f94c39c464def09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ad83be53577741a9f3f94c39c464def09">anjay_sched_time_to_next</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, avs_time_duration_t *out_delay)</td></tr>
+<tr class="separator:ad83be53577741a9f3f94c39c464def09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3998f24f83f30c17d96077ad673345ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a3998f24f83f30c17d96077ad673345ce">anjay_sched_time_to_next_ms</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, int *out_delay_ms)</td></tr>
 <tr class="separator:a3998f24f83f30c17d96077ad673345ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea8122688986696cc12c0a1a5a5bef91"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#aea8122688986696cc12c0a1a5a5bef91">anjay_sched_calculate_wait_time_ms</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, int limit_ms)</td></tr>
@@ -205,7 +205,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{                                    \</div><div class="line">        <span class="comment">/* .ack_timeout_ms = */</span> 62000,   \</div><div class="line">        <span class="comment">/* .ack_random_factor = */</span> 1.5,  \</div><div class="line">        <span class="comment">/* .max_retransmit = */</span> 0        \</div><div class="line">    }</div></div><!-- fragment --><p>Default transmission params for SMS connections.</p>
+<b>Value:</b><div class="fragment"><div class="line">{                                      \</div><div class="line">        <span class="comment">/* .ack_timeout_ms = */</span> { 62, 0 }, \</div><div class="line">        <span class="comment">/* .ack_random_factor = */</span> 1.5,    \</div><div class="line">        <span class="comment">/* .max_retransmit = */</span> 0          \</div><div class="line">    }</div></div><!-- fragment --><p>Default transmission params for SMS connections.</p>
 <p>This set of parameters ensures MAX_TRANSMIT_WAIT is equal to the default (i.e. CoAP specified) MAX_TRANSMIT_WAIT, while disabling retransmissions. </p>
 
 </div>
@@ -221,7 +221,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{                                    \</div><div class="line">        <span class="comment">/* .ack_timeout_ms = */</span> 2000,    \</div><div class="line">        <span class="comment">/* .ack_random_factor = */</span> 1.5,  \</div><div class="line">        <span class="comment">/* .max_retransmit = */</span> 4        \</div><div class="line">    }</div></div><!-- fragment --><p>Default transmission params recommended by the CoAP specification (RFC 7252). </p>
+<b>Value:</b><div class="fragment"><div class="line">{                                     \</div><div class="line">        <span class="comment">/* .ack_timeout_ms = */</span> { 2, 0 }, \</div><div class="line">        <span class="comment">/* .ack_random_factor = */</span> 1.5,   \</div><div class="line">        <span class="comment">/* .max_retransmit = */</span> 4         \</div><div class="line">    }</div></div><!-- fragment --><p>Default transmission params recommended by the CoAP specification (RFC 7252). </p>
 
 </div>
 </div>
@@ -867,8 +867,8 @@ Disabled or Offline" resource.</p>
 
 </div>
 </div>
-<a id="aabbf022e4174f46fd952a2215d53c15d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabbf022e4174f46fd952a2215d53c15d">&#9670;&nbsp;</a></span>anjay_sched_time_to_next()</h2>
+<a id="ad83be53577741a9f3f94c39c464def09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad83be53577741a9f3f94c39c464def09">&#9670;&nbsp;</a></span>anjay_sched_time_to_next()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -882,7 +882,7 @@ Disabled or Offline" resource.</p>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct timespec *&#160;</td>
+          <td class="paramtype">avs_time_duration_t *&#160;</td>
           <td class="paramname"><em>out_delay</em>&#160;</td>
         </tr>
         <tr>
@@ -931,7 +931,7 @@ Disabled or Offline" resource.</p>
       </table>
 </div><div class="memdoc">
 <p>Determines time of next scheduled task in milliseconds.</p>
-<p>This function is equivalent to <a class="el" href="core_8h.html#aabbf022e4174f46fd952a2215d53c15d">anjay_sched_time_to_next</a> but, as a convenience for users of system calls such as <code>poll()</code>, the result is returned as a single integer number of milliseconds.</p>
+<p>This function is equivalent to <a class="el" href="core_8h.html#ad83be53577741a9f3f94c39c464def09">anjay_sched_time_to_next</a> but, as a convenience for users of system calls such as <code>poll()</code>, the result is returned as a single integer number of milliseconds.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
@@ -1078,7 +1078,7 @@ Disabled or Offline" resource.</p>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Fri Sep 8 2017 17:30:36 for anjay by
+    <li class="footer">Generated on Mon Oct 16 2017 14:27:46 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

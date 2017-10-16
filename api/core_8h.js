@@ -36,7 +36,7 @@ var core_8h =
     [ "anjay_new", "core_8h.html#a9d95a5005ff7c3b1d76573616c57d4cc", null ],
     [ "anjay_sched_calculate_wait_time_ms", "core_8h.html#aea8122688986696cc12c0a1a5a5bef91", null ],
     [ "anjay_sched_run", "core_8h.html#a70470009dd11bd05aa6e8526bcc23de4", null ],
-    [ "anjay_sched_time_to_next", "core_8h.html#aabbf022e4174f46fd952a2215d53c15d", null ],
+    [ "anjay_sched_time_to_next", "core_8h.html#ad83be53577741a9f3f94c39c464def09", null ],
     [ "anjay_sched_time_to_next_ms", "core_8h.html#a3998f24f83f30c17d96077ad673345ce", null ],
     [ "anjay_schedule_reconnect", "core_8h.html#a5c6dad6c4f234e89b99a4a07f762479e", null ],
     [ "anjay_schedule_registration_update", "core_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b", null ],

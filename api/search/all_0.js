@@ -173,7 +173,7 @@ var searchData=
   ['anjay_5friid_5ft',['anjay_riid_t',['../core_8h.html#af8956a537324a4605fe2d8a320266e7a',1,'core.h']]],
   ['anjay_5fsched_5fcalculate_5fwait_5ftime_5fms',['anjay_sched_calculate_wait_time_ms',['../core_8h.html#aea8122688986696cc12c0a1a5a5bef91',1,'core.h']]],
   ['anjay_5fsched_5frun',['anjay_sched_run',['../core_8h.html#a70470009dd11bd05aa6e8526bcc23de4',1,'core.h']]],
-  ['anjay_5fsched_5ftime_5fto_5fnext',['anjay_sched_time_to_next',['../core_8h.html#aabbf022e4174f46fd952a2215d53c15d',1,'core.h']]],
+  ['anjay_5fsched_5ftime_5fto_5fnext',['anjay_sched_time_to_next',['../core_8h.html#ad83be53577741a9f3f94c39c464def09',1,'core.h']]],
   ['anjay_5fsched_5ftime_5fto_5fnext_5fms',['anjay_sched_time_to_next_ms',['../core_8h.html#a3998f24f83f30c17d96077ad673345ce',1,'core.h']]],
   ['anjay_5fschedule_5freconnect',['anjay_schedule_reconnect',['../core_8h.html#a5c6dad6c4f234e89b99a4a07f762479e',1,'core.h']]],
   ['anjay_5fschedule_5fregistration_5fupdate',['anjay_schedule_registration_update',['../core_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b',1,'core.h']]],
