@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['persistence_2eh',['persistence.h',['../persistence_8h.html',1,'']]],
-  ['prefer_5fmultipart_5fsms',['prefer_multipart_sms',['../structanjay__configuration.html#a2625aac713bfd44b47ec7b6087d9eea3',1,'anjay_configuration']]],
-  ['private_5fcert_5for_5fpsk_5fkey',['private_cert_or_psk_key',['../structanjay__security__instance__t.html#a78c5209f0c2ce034342a9f3f285fc7a7',1,'anjay_security_instance_t']]],
-  ['private_5fcert_5for_5fpsk_5fkey_5fsize',['private_cert_or_psk_key_size',['../structanjay__security__instance__t.html#aa5ce9d5c3e2e0cea06e073fcb62ddea1',1,'anjay_security_instance_t']]],
-  ['public_5fcert_5for_5fpsk_5fidentity',['public_cert_or_psk_identity',['../structanjay__security__instance__t.html#af38e5e9bb1b1f71c628482352000699f',1,'anjay_security_instance_t']]],
-  ['public_5fcert_5for_5fpsk_5fidentity_5fsize',['public_cert_or_psk_identity_size',['../structanjay__security__instance__t.html#aa8ecce236962728c4e463a9289f22c4e',1,'anjay_security_instance_t']]]
+  ['object_5fread_5fdefault_5fattrs',['object_read_default_attrs',['../structanjay__dm__handlers__t.html#a87945af7c2bc8b5dc9eabcd25025fcdb',1,'anjay_dm_handlers_t']]],
+  ['object_5fwrite_5fdefault_5fattrs',['object_write_default_attrs',['../structanjay__dm__handlers__t.html#a67f62ac9b8cc31357f5b8c00348e47c2',1,'anjay_dm_handlers_t']]],
+  ['oid',['oid',['../structanjay__dm__object__def__struct.html#ad3eee71f62e1771a96416a38cd63a794',1,'anjay_dm_object_def_struct']]],
+  ['on_5fdownload_5ffinished',['on_download_finished',['../structanjay__download__config.html#aafd235d5c763f9b44f7f33e846053026',1,'anjay_download_config']]],
+  ['on_5fnext_5fblock',['on_next_block',['../structanjay__download__config.html#aab4096703745a47675b4558db02de277',1,'anjay_download_config']]],
+  ['out_5fbuffer_5fsize',['out_buffer_size',['../structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4',1,'anjay_configuration']]]
 ];

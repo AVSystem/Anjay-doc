@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['reset',['reset',['../structanjay__fw__update__handlers__t.html#a46aed1c2677c94eb904ce09c75ca6578',1,'anjay_fw_update_handlers_t']]],
   ['resource_5fdim',['resource_dim',['../structanjay__dm__handlers__t.html#aa1af74a835587e4e152f1c6ea96ab7a1',1,'anjay_dm_handlers_t']]],
   ['resource_5fexecute',['resource_execute',['../structanjay__dm__handlers__t.html#a1fd9948c86db64024730df9e54a6ccf5',1,'anjay_dm_handlers_t']]],
   ['resource_5foperations',['resource_operations',['../structanjay__dm__handlers__t.html#a119e877d12db788373034704049f373c',1,'anjay_dm_handlers_t']]],
@@ -8,5 +9,8 @@ var searchData=
   ['resource_5fread_5fattrs',['resource_read_attrs',['../structanjay__dm__handlers__t.html#ad448c9239045ce05ce7ba52861727d71',1,'anjay_dm_handlers_t']]],
   ['resource_5fwrite',['resource_write',['../structanjay__dm__handlers__t.html#acb8df6a620b07463edde269e23a30fca',1,'anjay_dm_handlers_t']]],
   ['resource_5fwrite_5fattrs',['resource_write_attrs',['../structanjay__dm__handlers__t.html#af61d88b8bc458d8753e2a82ecf9569bb',1,'anjay_dm_handlers_t']]],
+  ['result',['result',['../structanjay__fw__update__initial__state__t.html#a715e3a0ec883a9645050bb264be1836c',1,'anjay_fw_update_initial_state_t']]],
+  ['resume_5fetag',['resume_etag',['../structanjay__fw__update__initial__state__t.html#ae20ae990f31a9f048924023be6f7ccfd',1,'anjay_fw_update_initial_state_t']]],
+  ['resume_5foffset',['resume_offset',['../structanjay__fw__update__initial__state__t.html#afcd7f92b45f6dc7f069bb0418fe344a2',1,'anjay_fw_update_initial_state_t']]],
   ['rids',['rids',['../structanjay__dm__supported__rids__t.html#a73d3968ff0eda8877c46aef585396ef2',1,'anjay_dm_supported_rids_t']]]
 ];

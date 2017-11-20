@@ -1,6 +1,6 @@
 var structanjay__download__config =
 [
-    [ "etag", "structanjay__download__config.html#a9f3dfd5910b4e1c957acc3d443cf48a4", null ],
+    [ "etag", "structanjay__download__config.html#a4187551c581dcfd5b42e84940b2ce4f1", null ],
     [ "on_download_finished", "structanjay__download__config.html#aafd235d5c763f9b44f7f33e846053026", null ],
     [ "on_next_block", "structanjay__download__config.html#aab4096703745a47675b4558db02de277", null ],
     [ "security_info", "structanjay__download__config.html#aa04dc460a3720de15f0db91a8249b273", null ],
