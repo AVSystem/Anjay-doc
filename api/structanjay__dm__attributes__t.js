@@ -1,5 +1,5 @@
 var structanjay__dm__attributes__t =
 [
-    [ "max_period", "structanjay__dm__attributes__t.html#a2c9e98afc197e32ffba2483245724091", null ],
-    [ "min_period", "structanjay__dm__attributes__t.html#adf2860eac1cd9be3e6541e5868610d60", null ]
+    [ "max_period", "structanjay__dm__attributes__t.html#a046b26ed7b41645334da73120a9be970", null ],
+    [ "min_period", "structanjay__dm__attributes__t.html#adbd8b3ddb9229708bdb35221036beb60", null ]
 ];
