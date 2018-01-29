@@ -7,6 +7,8 @@ var searchData=
   ['server_5fpublic_5fkey',['server_public_key',['../structanjay__security__instance__t.html#a5936d0a9743cd26ef18b08825354e8d2',1,'anjay_security_instance_t']]],
   ['server_5fpublic_5fkey_5fsize',['server_public_key_size',['../structanjay__security__instance__t.html#a5f68172ac00440f8ac138da3c749175d',1,'anjay_security_instance_t']]],
   ['server_5fsms_5fnumber',['server_sms_number',['../structanjay__security__instance__t.html#ae221bb2b9ecc1daf0cc0c2445573079e',1,'anjay_security_instance_t']]],
+  ['server_5funreachable_5fhandler',['server_unreachable_handler',['../structanjay__configuration.html#ac9deb0431b8b4a30f1ed161e906e0757',1,'anjay_configuration']]],
+  ['server_5funreachable_5fhandler_5fdata',['server_unreachable_handler_data',['../structanjay__configuration.html#aa4c4edad29036f84c707ec3e323c6b32',1,'anjay_configuration']]],
   ['server_5furi',['server_uri',['../structanjay__security__instance__t.html#ac95ba60671abddbdc283248fc8473f9b',1,'anjay_security_instance_t']]],
   ['size',['size',['../structanjay__etag.html#ae5dc6ffcd9b7605c7787791e40cc6bb0',1,'anjay_etag']]],
   ['sms_5fdriver',['sms_driver',['../structanjay__configuration.html#afd5f1cd16a6433b3fa8edec080e21226',1,'anjay_configuration']]],

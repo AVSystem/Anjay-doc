@@ -8,6 +8,8 @@ var structanjay__configuration =
     [ "msg_cache_size", "structanjay__configuration.html#a3bb16de58b283370b1ab20698dd4849a", null ],
     [ "out_buffer_size", "structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4", null ],
     [ "prefer_multipart_sms", "structanjay__configuration.html#a2625aac713bfd44b47ec7b6087d9eea3", null ],
+    [ "server_unreachable_handler", "structanjay__configuration.html#ac9deb0431b8b4a30f1ed161e906e0757", null ],
+    [ "server_unreachable_handler_data", "structanjay__configuration.html#aa4c4edad29036f84c707ec3e323c6b32", null ],
     [ "sms_driver", "structanjay__configuration.html#afd5f1cd16a6433b3fa8edec080e21226", null ],
     [ "sms_tx_params", "structanjay__configuration.html#a3358d949a97ff9e10c8838740dabab68", null ],
     [ "udp_listen_port", "structanjay__configuration.html#acf74549a99ca3ad5aedb227c4b0258ca", null ],

@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('core_8h.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">core.h File Reference</div>  </div>
@@ -93,6 +94,7 @@ $(document).ready(function(){initNavTree('core_8h.html','');});
 <code>#include &lt;avsystem/commons/coap/tx_params.h&gt;</code><br />
 <code>#include &lt;avsystem/commons/list.h&gt;</code><br />
 <code>#include &lt;avsystem/commons/net.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/time.h&gt;</code><br />
 </div>
 <p><a href="core_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -105,14 +107,14 @@ Data Structures</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:af4c5c676c28f69b376a55ef5fb7509f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#af4c5c676c28f69b376a55ef5fb7509f3">ANJAY_SUPPORTED_ENABLER_VERSION</a>&#160;&#160;&#160;&quot;1.0&quot;</td></tr>
 <tr class="separator:af4c5c676c28f69b376a55ef5fb7509f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7abd5fb313c7990fc4e2e52e5395da3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#af7abd5fb313c7990fc4e2e52e5395da3">ANJAY_COAP_DEFAULT_UDP_TX_PARAMS</a></td></tr>
-<tr class="separator:af7abd5fb313c7990fc4e2e52e5395da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae70cfcbd2c5e6f2004f8d39a43fa3e8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ae70cfcbd2c5e6f2004f8d39a43fa3e8f">ANJAY_COAP_DEFAULT_SMS_TX_PARAMS</a></td></tr>
-<tr class="separator:ae70cfcbd2c5e6f2004f8d39a43fa3e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75735105ebc11358f8f707568a8b11fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a75735105ebc11358f8f707568a8b11fa">ANJAY_SSID_ANY</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a75735105ebc11358f8f707568a8b11fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a857486d85f02514fc3f69ae7b2566f4c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a857486d85f02514fc3f69ae7b2566f4c">ANJAY_SSID_BOOTSTRAP</a>&#160;&#160;&#160;UINT16_MAX</td></tr>
 <tr class="separator:a857486d85f02514fc3f69ae7b2566f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7abd5fb313c7990fc4e2e52e5395da3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#af7abd5fb313c7990fc4e2e52e5395da3">ANJAY_COAP_DEFAULT_UDP_TX_PARAMS</a></td></tr>
+<tr class="separator:af7abd5fb313c7990fc4e2e52e5395da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae70cfcbd2c5e6f2004f8d39a43fa3e8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ae70cfcbd2c5e6f2004f8d39a43fa3e8f">ANJAY_COAP_DEFAULT_SMS_TX_PARAMS</a></td></tr>
+<tr class="separator:ae70cfcbd2c5e6f2004f8d39a43fa3e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a628a6a13e409fb60cb58d0681af9177a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a628a6a13e409fb60cb58d0681af9177a">ANJAY_IID_INVALID</a>&#160;&#160;&#160;UINT16_MAX</td></tr>
 <tr class="separator:a628a6a13e409fb60cb58d0681af9177a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa702d2d4be8e066aa7b1a1936889c121"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#aa702d2d4be8e066aa7b1a1936889c121">ANJAY_COAP_STATUS</a>(Maj,  Min)&#160;&#160;&#160;((uint8_t) ((Maj &lt;&lt; 5) | (Min &amp; 0x1F)))</td></tr>
@@ -141,14 +143,16 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a7702b524bb4425a3174b6a09615c0d2e"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a></td></tr>
+<tr class="separator:a7702b524bb4425a3174b6a09615c0d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c9664a3b0c2d5629c9639dce7b1dbfb"><td class="memItemLeft" align="right" valign="top">typedef struct anjay_struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a></td></tr>
 <tr class="separator:a6c9664a3b0c2d5629c9639dce7b1dbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f18a9f365482cbf0108af3d134c05c3"><td class="memItemLeft" align="right" valign="top">typedef struct anjay_smsdrv_struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a7f18a9f365482cbf0108af3d134c05c3">anjay_smsdrv_t</a></td></tr>
 <tr class="separator:a7f18a9f365482cbf0108af3d134c05c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add4a6a1d6971a956428a8c6c7a098988"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1">anjay_server_unreachable_action_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#add4a6a1d6971a956428a8c6c7a098988">anjay_server_unreachable_handler_t</a>(<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, void *user_data)</td></tr>
+<tr class="separator:add4a6a1d6971a956428a8c6c7a098988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac003787b377980e1af6196f70d486aeb"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structanjay__configuration.html">anjay_configuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ac003787b377980e1af6196f70d486aeb">anjay_configuration_t</a></td></tr>
 <tr class="separator:ac003787b377980e1af6196f70d486aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7702b524bb4425a3174b6a09615c0d2e"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a></td></tr>
-<tr class="separator:a7702b524bb4425a3174b6a09615c0d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d98afc759c24fff65c6dcd5fc438f32"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32">anjay_oid_t</a></td></tr>
 <tr class="separator:a3d98afc759c24fff65c6dcd5fc438f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4738d24ad04e0e49991008e29cb054a4"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a></td></tr>
@@ -157,6 +161,13 @@ Typedefs</h2></td></tr>
 <tr class="separator:a3e5fb971be8a1cf5778973482a5504d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8956a537324a4605fe2d8a320266e7a"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#af8956a537324a4605fe2d8a320266e7a">anjay_riid_t</a></td></tr>
 <tr class="separator:af8956a537324a4605fe2d8a320266e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:abeed362f3e08aa2806d17f8e631ed8d1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1">anjay_server_unreachable_action_t</a> { <a class="el" href="core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1ae3ccef53b4610542815ff1313665d4ac">ANJAY_SU_ACTION_RETRY</a>, 
+<a class="el" href="core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1a8d64e51e6f5d45d99afaeb556237a9a5">ANJAY_SU_ACTION_ABORT</a>
+ }</td></tr>
+<tr class="separator:abeed362f3e08aa2806d17f8e631ed8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -186,6 +197,10 @@ Functions</h2></td></tr>
 <tr class="separator:a5c6dad6c4f234e89b99a4a07f762479e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c960628c63263e3ceb1f98c8970df48"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a9c960628c63263e3ceb1f98c8970df48">anjay_disable_server</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid)</td></tr>
 <tr class="separator:a9c960628c63263e3ceb1f98c8970df48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad63363c6fb862277aaf0ca8062dbd3a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ad63363c6fb862277aaf0ca8062dbd3a3">anjay_disable_server_with_timeout</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, avs_time_duration_t timeout)</td></tr>
+<tr class="separator:ad63363c6fb862277aaf0ca8062dbd3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc4b554e51a56da874238f3e64bff074"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid)</td></tr>
+<tr class="separator:abc4b554e51a56da874238f3e64bff074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba649cbf63af56cdd6103b16ff970d88"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#aba649cbf63af56cdd6103b16ff970d88">anjay_is_offline</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:aba649cbf63af56cdd6103b16ff970d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82fbb9e51e1f2b71858d94208c284684"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a82fbb9e51e1f2b71858d94208c284684">anjay_enter_offline</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
@@ -539,6 +554,30 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="add4a6a1d6971a956428a8c6c7a098988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add4a6a1d6971a956428a8c6c7a098988">&#9670;&nbsp;</a></span>anjay_server_unreachable_handler_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1">anjay_server_unreachable_action_t</a> anjay_server_unreachable_handler_t(<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, void *user_data)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A function called by Anjay whenever connecting to an LwM2M server fails.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
+    <tr><td class="paramname">ssid</td><td>SSID of the unreachable server. </td></tr>
+    <tr><td class="paramname">user_data</td><td>Opaque pointer to user-defined data.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An enum value describing how should Anjay proceed with reconnection attempts. See <a class="el" href="core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1">anjay_server_unreachable_action_t</a> for details. </dd></dl>
+
+</div>
+</div>
 <a id="a7f18a9f365482cbf0108af3d134c05c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f18a9f365482cbf0108af3d134c05c3">&#9670;&nbsp;</a></span>anjay_smsdrv_t</h2>
 
@@ -581,6 +620,29 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Anjay object containing all information required for LwM2M communication. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="abeed362f3e08aa2806d17f8e631ed8d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeed362f3e08aa2806d17f8e631ed8d1">&#9670;&nbsp;</a></span>anjay_server_unreachable_action_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1">anjay_server_unreachable_action_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Result code that defines how should Anjay proceed if it is unable to establish a connection with the server. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abeed362f3e08aa2806d17f8e631ed8d1ae3ccef53b4610542815ff1313665d4ac"></a>ANJAY_SU_ACTION_RETRY&#160;</td><td class="fielddoc"><p>Retry connecting again, applying an exponential backoff. The <a class="el" href="core_8h.html#add4a6a1d6971a956428a8c6c7a098988">anjay_server_unreachable_handler_t</a> will be called again for every failed reconnection attempt. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abeed362f3e08aa2806d17f8e631ed8d1a8d64e51e6f5d45d99afaeb556237a9a5"></a>ANJAY_SU_ACTION_ABORT&#160;</td><td class="fielddoc"><p>Stop reconnections immediately. This does not disable the server (see <a class="el" href="core_8h.html#ad63363c6fb862277aaf0ca8062dbd3a3">anjay_disable_server_with_timeout</a> ), so a reconnection may still be attempted at some unspecified time in the future.</p>
+<p>To make sure Anjay does not attempt to communicate with the server, use <a class="el" href="core_8h.html#ad63363c6fb862277aaf0ca8062dbd3a3">anjay_disable_server_with_timeout</a> in <a class="el" href="core_8h.html#add4a6a1d6971a956428a8c6c7a098988">anjay_server_unreachable_handler_t</a> . </p>
+</td></tr>
+</table>
 
 </div>
 </div>
@@ -642,6 +704,88 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
     <tr><td class="paramname">ssid</td><td>Short Server ID of the server to put in a disabled state. NOTE: disabling a server requires a Server Object Instance to be present for given <code>ssid</code> . Because the Bootstrap Server does not have one, this function does nothing when called with <a class="el" href="core_8h.html#a857486d85f02514fc3f69ae7b2566f4c">ANJAY_SSID_BOOTSTRAP</a> .</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, a negative value in case of error. </dd></dl>
+
+</div>
+</div>
+<a id="ad63363c6fb862277aaf0ca8062dbd3a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63363c6fb862277aaf0ca8062dbd3a3">&#9670;&nbsp;</a></span>anjay_disable_server_with_timeout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anjay_disable_server_with_timeout </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a>&#160;</td>
+          <td class="paramname"><em>ssid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">avs_time_duration_t&#160;</td>
+          <td class="paramname"><em>timeout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This function shall be called when an LwM2M Server Object shall be disabled. The standard case for this is when Execute is performed on the Disable resource (/1/x/4). It may also be used to prevent reconnections if the server becomes unreachable.</p>
+<p>The server will become disabled during next <a class="el" href="core_8h.html#a70470009dd11bd05aa6e8526bcc23de4">anjay_sched_run</a> call.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
+    <tr><td class="paramname">ssid</td><td>Short Server ID of the server to put in a disabled state. </td></tr>
+    <tr><td class="paramname">timeout</td><td>Disable timeout. If set to AVS_TIME_DURATION_INVALID, the server will remain disabled until explicit call to <a class="el" href="core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server</a> . Otherwise, the server will get enabled automatically after <code>timeout</code> .</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, a negative value in case of error. </dd></dl>
+
+</div>
+</div>
+<a id="abc4b554e51a56da874238f3e64bff074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc4b554e51a56da874238f3e64bff074">&#9670;&nbsp;</a></span>anjay_enable_server()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anjay_enable_server </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a>&#160;</td>
+          <td class="paramname"><em>ssid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Schedules a job for re-enabling a previously disabled (with a call to <a class="el" href="core_8h.html#ad63363c6fb862277aaf0ca8062dbd3a3">anjay_disable_server_with_timeout</a> ) server. The server will be enabled during next <a class="el" href="core_8h.html#a70470009dd11bd05aa6e8526bcc23de4">anjay_sched_run</a> call.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
+    <tr><td class="paramname">ssid</td><td>Short Server ID of the server to enable.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1078,7 +1222,7 @@ Disabled or Offline" resource.</p>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Mon Jan 8 2018 14:50:28 for anjay by
+    <li class="footer">Generated on Mon Jan 29 2018 16:00:18 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

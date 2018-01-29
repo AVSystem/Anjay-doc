@@ -49,6 +49,7 @@ var searchData=
   ['anjay_5fret_5fbytes_5fctx_5ft',['anjay_ret_bytes_ctx_t',['../io_8h.html#a3682e96e7687f3b0515bbf8b582f786b',1,'io.h']]],
   ['anjay_5frid_5ft',['anjay_rid_t',['../core_8h.html#a3e5fb971be8a1cf5778973482a5504d8',1,'core.h']]],
   ['anjay_5friid_5ft',['anjay_riid_t',['../core_8h.html#af8956a537324a4605fe2d8a320266e7a',1,'core.h']]],
+  ['anjay_5fserver_5funreachable_5fhandler_5ft',['anjay_server_unreachable_handler_t',['../core_8h.html#add4a6a1d6971a956428a8c6c7a098988',1,'core.h']]],
   ['anjay_5fsmsdrv_5ft',['anjay_smsdrv_t',['../core_8h.html#a7f18a9f365482cbf0108af3d134c05c3',1,'core.h']]],
   ['anjay_5fssid_5ft',['anjay_ssid_t',['../core_8h.html#a7702b524bb4425a3174b6a09615c0d2e',1,'core.h']]],
   ['anjay_5ft',['anjay_t',['../core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb',1,'core.h']]]

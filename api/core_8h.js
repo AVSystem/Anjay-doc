@@ -23,11 +23,18 @@ var core_8h =
     [ "anjay_oid_t", "core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32", null ],
     [ "anjay_rid_t", "core_8h.html#a3e5fb971be8a1cf5778973482a5504d8", null ],
     [ "anjay_riid_t", "core_8h.html#af8956a537324a4605fe2d8a320266e7a", null ],
+    [ "anjay_server_unreachable_handler_t", "core_8h.html#add4a6a1d6971a956428a8c6c7a098988", null ],
     [ "anjay_smsdrv_t", "core_8h.html#a7f18a9f365482cbf0108af3d134c05c3", null ],
     [ "anjay_ssid_t", "core_8h.html#a7702b524bb4425a3174b6a09615c0d2e", null ],
     [ "anjay_t", "core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb", null ],
+    [ "anjay_server_unreachable_action_t", "core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1", [
+      [ "ANJAY_SU_ACTION_RETRY", "core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1ae3ccef53b4610542815ff1313665d4ac", null ],
+      [ "ANJAY_SU_ACTION_ABORT", "core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1a8d64e51e6f5d45d99afaeb556237a9a5", null ]
+    ] ],
     [ "anjay_delete", "core_8h.html#a243f18f976bca57b5a7b0714bfb99095", null ],
     [ "anjay_disable_server", "core_8h.html#a9c960628c63263e3ceb1f98c8970df48", null ],
+    [ "anjay_disable_server_with_timeout", "core_8h.html#ad63363c6fb862277aaf0ca8062dbd3a3", null ],
+    [ "anjay_enable_server", "core_8h.html#abc4b554e51a56da874238f3e64bff074", null ],
     [ "anjay_enter_offline", "core_8h.html#a82fbb9e51e1f2b71858d94208c284684", null ],
     [ "anjay_exit_offline", "core_8h.html#a15f6ef4e35b54db0ff90913086489b53", null ],
     [ "anjay_get_sockets", "core_8h.html#a9f224f9dc40e4c52f01e0180fca81fec", null ],
