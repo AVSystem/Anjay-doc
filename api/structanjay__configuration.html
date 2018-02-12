@@ -116,10 +116,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:ab6bb44906738be517af97e3319a8ca78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2625aac713bfd44b47ec7b6087d9eea3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a2625aac713bfd44b47ec7b6087d9eea3">prefer_multipart_sms</a></td></tr>
 <tr class="separator:a2625aac713bfd44b47ec7b6087d9eea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9deb0431b8b4a30f1ed161e906e0757"><td class="memItemLeft" align="right" valign="top"><a class="el" href="core_8h.html#add4a6a1d6971a956428a8c6c7a098988">anjay_server_unreachable_handler_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#ac9deb0431b8b4a30f1ed161e906e0757">server_unreachable_handler</a></td></tr>
-<tr class="separator:ac9deb0431b8b4a30f1ed161e906e0757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4c4edad29036f84c707ec3e323c6b32"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#aa4c4edad29036f84c707ec3e323c6b32">server_unreachable_handler_data</a></td></tr>
-<tr class="separator:aa4c4edad29036f84c707ec3e323c6b32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c447938dd10b0b2f96cc8f63110346f"><td class="memItemLeft" align="right" valign="top">const uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a7c447938dd10b0b2f96cc8f63110346f">max_icmp_failures</a></td></tr>
+<tr class="separator:a7c447938dd10b0b2f96cc8f63110346f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a86aadc48d030ec4c66750cd6204c5b05"></a>
@@ -198,6 +196,23 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a7c447938dd10b0b2f96cc8f63110346f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c447938dd10b0b2f96cc8f63110346f">&#9670;&nbsp;</a></span>max_icmp_failures</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint32_t* max_icmp_failures</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configures the number of ICMP Host / Port Unreachable after which the Server is considered unreachable.</p>
+<p>If NULL, the default value of 7 will be used.</p>
+<p>NOTE: If the LwM2M Client is expected to attempt to reach servers indefinitely, then one shall use this configuration option along with <a class="el" href="core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed()</a> to know when is the right time to call e.g. <a class="el" href="core_8h.html#a5c6dad6c4f234e89b99a4a07f762479e">anjay_schedule_reconnect()</a> method. </p>
+
+</div>
+</div>
 <a id="a3bb16de58b283370b1ab20698dd4849a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3bb16de58b283370b1ab20698dd4849a">&#9670;&nbsp;</a></span>msg_cache_size</h2>
 
@@ -242,36 +257,6 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>If set to true, Anjay will prefer using Concatenated SMS messages when seding large chunks of data over the SMS transport.</p>
 <p>NOTE: This is only a preference; even if set to true, Concatenated SMS may not be used e.g. when the SMS driver does not support it; even if set to false, Concatenated SMS may be used in cases when it is impossible to split the message in another way, e.g. during DTLS handshake. </p>
-
-</div>
-</div>
-<a id="ac9deb0431b8b4a30f1ed161e906e0757"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9deb0431b8b4a30f1ed161e906e0757">&#9670;&nbsp;</a></span>server_unreachable_handler</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="core_8h.html#add4a6a1d6971a956428a8c6c7a098988">anjay_server_unreachable_handler_t</a>* server_unreachable_handler</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>An optional function to call whenever Anjay is unable to successfully connect to a server (bootstrap or non-bootstrap one). Allows the user to disable an unreachable server, avoiding unnecessary traffic. </p>
-
-</div>
-</div>
-<a id="aa4c4edad29036f84c707ec3e323c6b32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4c4edad29036f84c707ec3e323c6b32">&#9670;&nbsp;</a></span>server_unreachable_handler_data</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* server_unreachable_handler_data</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Opaque pointer passed to <a class="el" href="structanjay__configuration.html#ac9deb0431b8b4a30f1ed161e906e0757">anjay_configuration_t::server_unreachable_handler</a> . </p>
 
 </div>
 </div>
@@ -368,7 +353,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__configuration.html">anjay_configuration</a></li>
-    <li class="footer">Generated on Mon Jan 29 2018 16:00:18 for anjay by
+    <li class="footer">Generated on Mon Feb 12 2018 13:49:55 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

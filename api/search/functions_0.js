@@ -4,6 +4,7 @@ var searchData=
   ['anjay_5faccess_5fcontrol_5fpersist',['anjay_access_control_persist',['../access__control_8h.html#a00ba6b51d9c197b3c5c70a876b9efcb6',1,'access_control.h']]],
   ['anjay_5faccess_5fcontrol_5frestore',['anjay_access_control_restore',['../access__control_8h.html#ab81b6a4e506b6c440b193eee2e1d9e92',1,'access_control.h']]],
   ['anjay_5faccess_5fcontrol_5fset_5facl',['anjay_access_control_set_acl',['../access__control_8h.html#a6f2624a4b8c0fa88079133ed4370e305',1,'access_control.h']]],
+  ['anjay_5fall_5fconnections_5ffailed',['anjay_all_connections_failed',['../core_8h.html#a4329b620520c565fd61b526ba760e59f',1,'core.h']]],
   ['anjay_5fattr_5fstorage_5finstall',['anjay_attr_storage_install',['../attr__storage_8h.html#a63331dc2713a352c0a90375588c8dd8c',1,'attr_storage.h']]],
   ['anjay_5fattr_5fstorage_5fis_5fmodified',['anjay_attr_storage_is_modified',['../attr__storage_8h.html#ac31b39cf01990ec9eaae5069c4858d75',1,'attr_storage.h']]],
   ['anjay_5fattr_5fstorage_5fpersist',['anjay_attr_storage_persist',['../attr__storage_8h.html#a3a91b460cabe84bbe8e2df00487aae64',1,'attr_storage.h']]],

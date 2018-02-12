@@ -23,8 +23,6 @@ var searchData=
   ['anjay_5fsms_5fsecurity_5fdtls_5fpsk',['ANJAY_SMS_SECURITY_DTLS_PSK',['../dm_8h.html#a079ce3203007a192a2f618e1f3a2e7d0aa5f8f45fa5258236810eddd461eb8b08',1,'dm.h']]],
   ['anjay_5fsms_5fsecurity_5fnosec',['ANJAY_SMS_SECURITY_NOSEC',['../dm_8h.html#a079ce3203007a192a2f618e1f3a2e7d0a161333c00ff9af6f4c2aabb48cfa74fe',1,'dm.h']]],
   ['anjay_5fsms_5fsecurity_5fsecure_5fpacket',['ANJAY_SMS_SECURITY_SECURE_PACKET',['../dm_8h.html#a079ce3203007a192a2f618e1f3a2e7d0adc3d7457d819afef1ba89fb195056c22',1,'dm.h']]],
-  ['anjay_5fsu_5faction_5fabort',['ANJAY_SU_ACTION_ABORT',['../core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1a8d64e51e6f5d45d99afaeb556237a9a5',1,'core.h']]],
-  ['anjay_5fsu_5faction_5fretry',['ANJAY_SU_ACTION_RETRY',['../core_8h.html#abeed362f3e08aa2806d17f8e631ed8d1ae3ccef53b4610542815ff1313665d4ac',1,'core.h']]],
   ['anjay_5fudp_5fsecurity_5fcertificate',['ANJAY_UDP_SECURITY_CERTIFICATE',['../dm_8h.html#a4acb1a17210d84c4896550207288c67da8012c2f24b348338ee761e88caa2304e',1,'dm.h']]],
   ['anjay_5fudp_5fsecurity_5fnosec',['ANJAY_UDP_SECURITY_NOSEC',['../dm_8h.html#a4acb1a17210d84c4896550207288c67da8f0d145793dca32b4669dcdd71d65668',1,'dm.h']]],
   ['anjay_5fudp_5fsecurity_5fpsk',['ANJAY_UDP_SECURITY_PSK',['../dm_8h.html#a4acb1a17210d84c4896550207288c67da2319ecaf7efd19f7bf176484337b54dd',1,'dm.h']]],
