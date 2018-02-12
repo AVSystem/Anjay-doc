@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Registering mandatory Objects &mdash; Anjay 1.7.1 documentation</title>
+  <title>4.2. Registering mandatory Objects &mdash; Anjay 1.7.2 documentation</title>
   
 
+  
+  
   
   
 
@@ -35,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.7.1 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.7.2 documentation" href="../index.html"/>
         <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
         <link rel="next" title="4.3. Event loop" href="BT3.html"/>
         <link rel="prev" title="4.1. Getting started!" href="BT1.html"/> 
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                1.7.1
+                1.7.2
               </div>
             
           
@@ -87,7 +90,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -115,8 +121,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
@@ -125,25 +133,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
-    <li>4.2. Registering mandatory Objects</li>
+        
+      <li>4.2. Registering mandatory Objects</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/BasicTutorial/BT2.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -158,7 +183,7 @@ Server (<code class="docutils literal"><span class="pre">/1</span></code>) Objec
 modules, and they can be used easily.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">That doesn&#8217;t impact on Anjay flexibility &#8211; i.e. users can still
+<p class="last">That doesn’t impact on Anjay flexibility – i.e. users can still
 provide their own implementation of these Objects if necessary.</p>
 </div>
 <p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example) it has no knowledge about the Data Model,
@@ -168,10 +193,10 @@ just going to be presented with in the next subsection.</p>
 <div class="section" id="registering-objects">
 <span id="id1"></span><h2>4.2.1. Registering Objects<a class="headerlink" href="#registering-objects" title="Permalink to this headline">¶</a></h2>
 <p>Each LwM2M Object is defined by an instance of the <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code>
-structure. To add support for a new Object, you&#8217;d need to fill that
+structure. To add support for a new Object, you’d need to fill that
 structure and implement appropriate callback functions, linking it to actual
 representation.  However, for now, we are going to use our preimplemented LwM2M
-Objects (Security, Server), so that you don&#8217;t have to worry about initializing
+Objects (Security, Server), so that you don’t have to worry about initializing
 the structure on your own. But, if you are interested in this topic now,
 you may jump to <a class="reference internal" href="BT5_CustomObject.html"><span class="doc">Custom LwM2M objects</span></a> to get more information.</p>
 <p>To register an object we are going to use <code class="docutils literal"><span class="pre">anjay_register_object</span></code> function:</p>
@@ -179,7 +204,7 @@ you may jump to <a class="reference internal" href="BT5_CustomObject.html"><span
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">def_ptr</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Using it is pretty straightforward, as you&#8217;ll see in the next subsection.</p>
+<p>Using it is pretty straightforward, as you’ll see in the next subsection.</p>
 </div>
 <div class="section" id="registering-server-and-security-objects">
 <h2>4.2.2. Registering Server and Security Objects<a class="headerlink" href="#registering-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
@@ -239,7 +264,7 @@ example we omitted it for clarity.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The order in which objects and Anjay are deleted is not accidental, as
-during the instance destruction Anjay may still try to refer to object&#8217;s
+during the instance destruction Anjay may still try to refer to object’s
 data, therefore premature object deletion could be disastrous in effects.</p>
 </div>
 </div>
@@ -276,7 +301,7 @@ Instances:</p>
 <p>Great, so far it was really easy. But our client is currently unable to
 connect to the specified Server.  It is because we have not implemented
 an <a class="reference internal" href="BT3.html"><span class="doc">event loop</span></a> yet. It may be a little bit more complicated, as
-you&#8217;ll see in the next chapter, but the example event loop will be provided,
+you’ll see in the next chapter, but the example event loop will be provided,
 so that one can just copypaste it and run the Client finally.</p>
 </div>
 <div class="section" id="enabling-lwm2m-discover-on-objects">
@@ -317,15 +342,18 @@ for most use cases.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT3.html" class="btn btn-neutral float-right" title="4.3. Event loop" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT3.html" class="btn btn-neutral float-right" title="4.3. Event loop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT1.html" class="btn btn-neutral" title="4.1. Getting started!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT1.html" class="btn btn-neutral" title="4.1. Getting started!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -356,10 +384,11 @@ for most use cases.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.7.1',
+            VERSION:'1.7.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.3. DTLS support &mdash; Anjay 1.7.1 documentation</title>
+  <title>5.3. DTLS support &mdash; Anjay 1.7.2 documentation</title>
   
 
+  
+  
   
   
 
@@ -35,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.7.1 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.7.2 documentation" href="../index.html"/>
         <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
         <link rel="next" title="5.4. Access Control in multi-server environment" href="AT4.html"/>
         <link rel="prev" title="5.2. Persistence support" href="AT2.html"/> 
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                1.7.1
+                1.7.2
               </div>
             
           
@@ -87,7 +90,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -116,8 +122,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
@@ -126,25 +134,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-      
-    <li>5.3. DTLS support</li>
+        
+      <li>5.3. DTLS support</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/AdvancedTutorial/AT3.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -211,18 +236,18 @@ the LwM2M Server. Public certificates of both ends are available on both
 sides, and each side also has access to its own corresponding private key.</p>
 <ul class="simple">
 <li>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal"><span class="pre">/0/*/3</span></code>) Resource shall
-contain the Client&#8217;s own public certificate in binary, DER-encoded X.509
+contain the Client’s own public certificate in binary, DER-encoded X.509
 format.</li>
-<li>The <em>Server Public Key</em> (<code class="docutils literal"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server&#8217;s
+<li>The <em>Server Public Key</em> (<code class="docutils literal"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
 public certificate, also in binary, DER-encoded X.509 format.</li>
-<li>The <em>Secret Key</em> (<code class="docutils literal"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client&#8217;s own
+<li>The <em>Secret Key</em> (<code class="docutils literal"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
 private key, corresponding to the public key contained in the <em>Public Key or
 Identity</em> Resource. It needs to be in a format defined in
 <a class="reference external" href="https://tools.ietf.org/html/rfc5958">RFC 5958</a> (also known as PKCS#8, the
 name which was used in previous versions of the format), DER-encoded into a
 binary value.</li>
 </ul>
-<p>Note that in the Certificate mode, it is not enough if the Server&#8217;s
+<p>Note that in the Certificate mode, it is not enough if the Server’s
 certificate <em>just matches</em> the one stored in the <em>Server Public Key</em> resource.
 It is also verified that the certificate is issued for the same domain name
 that is contained in the Server URI, and if it is signed by some external CA,
@@ -285,8 +310,8 @@ and/or security vulnerabilities.</p>
 <h3><a class="toc-backref" href="#id4">5.3.2.2. Configuring encryption keys</a><a class="headerlink" href="#configuring-encryption-keys" title="Permalink to this headline">¶</a></h3>
 <p>As mentioned above, in case of PSK mode, the security-related data that the
 LwM2M Client is operating on, is raw data.</p>
-<p>If you&#8217;re using the implementation of the Security object that is provided in
-Anjay&#8217;s <code class="docutils literal"><span class="pre">security</span></code> module, you can simply fill them in the
+<p>If you’re using the implementation of the Security object that is provided in
+Anjay’s <code class="docutils literal"><span class="pre">security</span></code> module, you can simply fill them in the
 <code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code> structure as follows:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">;</span>
 <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_KEY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
@@ -408,15 +433,18 @@ file loading routine:</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT4.html" class="btn btn-neutral float-right" title="5.4. Access Control in multi-server environment" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT4.html" class="btn btn-neutral float-right" title="5.4. Access Control in multi-server environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT2.html" class="btn btn-neutral" title="5.2. Persistence support" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT2.html" class="btn btn-neutral" title="5.2. Persistence support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -447,10 +475,11 @@ file loading routine:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.7.1',
+            VERSION:'1.7.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
