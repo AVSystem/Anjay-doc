@@ -33,6 +33,7 @@ var searchData=
   ['anjay_5fetag_5ft',['anjay_etag_t',['../download_8h.html#af8ba65243c79d3ef2bc3287b7c834e92',1,'download.h']]],
   ['anjay_5fexecute_5fctx_5ft',['anjay_execute_ctx_t',['../io_8h.html#ad3aa931648962e1d712ea5b48b54c88e',1,'io.h']]],
   ['anjay_5ffw_5fupdate_5fget_5fname_5ft',['anjay_fw_update_get_name_t',['../fw__update_8h.html#a270e3076262423d8ef7f99333249b9ac',1,'fw_update.h']]],
+  ['anjay_5ffw_5fupdate_5fget_5fsecurity_5finfo_5ft',['anjay_fw_update_get_security_info_t',['../fw__update_8h.html#aec5a15639bf42820006bfdfcfd6118fe',1,'fw_update.h']]],
   ['anjay_5ffw_5fupdate_5fget_5fversion_5ft',['anjay_fw_update_get_version_t',['../fw__update_8h.html#a3a2a8ad514cff78979eb806dba248713',1,'fw_update.h']]],
   ['anjay_5ffw_5fupdate_5fperform_5fupgrade_5ft',['anjay_fw_update_perform_upgrade_t',['../fw__update_8h.html#a81c7c16c083eb93677d8a9d6df78a13c',1,'fw_update.h']]],
   ['anjay_5ffw_5fupdate_5freset_5ft',['anjay_fw_update_reset_t',['../fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a',1,'fw_update.h']]],

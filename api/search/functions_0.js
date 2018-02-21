@@ -29,6 +29,7 @@ var searchData=
   ['anjay_5fexecute_5fget_5fnext_5farg',['anjay_execute_get_next_arg',['../io_8h.html#a166823938b9f4be61a3ca78a76e48d3f',1,'io.h']]],
   ['anjay_5fexit_5foffline',['anjay_exit_offline',['../core_8h.html#a15f6ef4e35b54db0ff90913086489b53',1,'core.h']]],
   ['anjay_5ffw_5fupdate_5finstall',['anjay_fw_update_install',['../fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38',1,'fw_update.h']]],
+  ['anjay_5ffw_5fupdate_5fload_5fsecurity_5ffrom_5fdm',['anjay_fw_update_load_security_from_dm',['../fw__update_8h.html#aa8719331c2ab53b8c6b44f6be5573c6e',1,'fw_update.h']]],
   ['anjay_5fget_5farray',['anjay_get_array',['../io_8h.html#ad1ce8c99cdb7584ad7a576ae61a56b4e',1,'io.h']]],
   ['anjay_5fget_5farray_5findex',['anjay_get_array_index',['../io_8h.html#aa5f9b498ba12f7555e7d364506c49662',1,'io.h']]],
   ['anjay_5fget_5fbool',['anjay_get_bool',['../io_8h.html#ad2f9d88a8d55aab1154b2ed91c133697',1,'io.h']]],

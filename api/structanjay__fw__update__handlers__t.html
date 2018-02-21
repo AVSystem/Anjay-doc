@@ -104,6 +104,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a52d2e349008d79ee37a870d36f6e5de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbc5bdfac227c222ccaed3b2945487a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fw__update_8h.html#a81c7c16c083eb93677d8a9d6df78a13c">anjay_fw_update_perform_upgrade_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__fw__update__handlers__t.html#acbc5bdfac227c222ccaed3b2945487a9">perform_upgrade</a></td></tr>
 <tr class="separator:acbc5bdfac227c222ccaed3b2945487a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a057740f398f6bcf56c63b5e247c07bd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fw__update_8h.html#aec5a15639bf42820006bfdfcfd6118fe">anjay_fw_update_get_security_info_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__fw__update__handlers__t.html#a057740f398f6bcf56c63b5e247c07bd2">get_security_info</a></td></tr>
+<tr class="separator:a057740f398f6bcf56c63b5e247c07bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handler callbacks that shall implement the platform-specific part of firmware update process.</p>
@@ -111,7 +113,8 @@ Data Fields</h2></td></tr>
 <ul>
 <li><b>Idle</b>. This is the state in which the object is just after creation (unless initialized with either <code>ANJAY_FW_UPDATE_INITIAL_DOWNLOADED</code> or <code>ANJAY_FW_UPDATE_INITIAL_DOWNLOADING</code>). The following handlers may be called in this state:<ul>
 <li><code>stream_open</code> - shall open the download stream; moves the object into the <em>Downloading</em> state</li>
-<li><code>reset</code> - most likely shall do nothing</li>
+<li><code>get_security_info</code> - shall fill in security info that shall be used for a given URL</li>
+<li><code>reset</code> - shall free data allocated by <code>get_security_info</code>, if it was called and there is any</li>
 </ul>
 </li>
 <li><b>Downloading</b>. The object might be initialized directly into this state by using <code>ANJAY_FW_UPDATE_INITIAL_DOWNLOADING</code>. In this state, the download stream is open and data may be transferred. The following handlers may be called in this state:<ul>
@@ -141,6 +144,21 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns the name of downloaded firmware package; <a class="el" href="fw__update_8h.html#a270e3076262423d8ef7f99333249b9ac">anjay_fw_update_get_name_t</a> </p>
+
+</div>
+</div>
+<a id="a057740f398f6bcf56c63b5e247c07bd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a057740f398f6bcf56c63b5e247c07bd2">&#9670;&nbsp;</a></span>get_security_info</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fw__update_8h.html#aec5a15639bf42820006bfdfcfd6118fe">anjay_fw_update_get_security_info_t</a>* get_security_info</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Queries security information that shall be used for an encrypted connection; <a class="el" href="fw__update_8h.html#aec5a15639bf42820006bfdfcfd6118fe">anjay_fw_update_get_security_info_t</a> </p>
 
 </div>
 </div>
@@ -243,7 +261,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__fw__update__handlers__t.html">anjay_fw_update_handlers_t</a></li>
-    <li class="footer">Generated on Mon Feb 12 2018 16:29:59 for anjay by
+    <li class="footer">Generated on Wed Feb 21 2018 12:29:06 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

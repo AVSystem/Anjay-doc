@@ -127,6 +127,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a3a2a8ad514cff78979eb806dba248713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81c7c16c083eb93677d8a9d6df78a13c"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#a81c7c16c083eb93677d8a9d6df78a13c">anjay_fw_update_perform_upgrade_t</a>(void *user_ptr)</td></tr>
 <tr class="separator:a81c7c16c083eb93677d8a9d6df78a13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec5a15639bf42820006bfdfcfd6118fe"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#aec5a15639bf42820006bfdfcfd6118fe">anjay_fw_update_get_security_info_t</a>(void *user_ptr, avs_net_security_info_t *out_security_info, const char *download_uri)</td></tr>
+<tr class="separator:aec5a15639bf42820006bfdfcfd6118fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -146,6 +148,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a058f05510e5b22fbdf53466a03cc6d38"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, const <a class="el" href="structanjay__fw__update__handlers__t.html">anjay_fw_update_handlers_t</a> *handlers, void *user_arg, const <a class="el" href="structanjay__fw__update__initial__state__t.html">anjay_fw_update_initial_state_t</a> *initial_state)</td></tr>
 <tr class="separator:a058f05510e5b22fbdf53466a03cc6d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8719331c2ab53b8c6b44f6be5573c6e"><td class="memItemLeft" align="right" valign="top">avs_net_security_info_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#aa8719331c2ab53b8c6b44f6be5573c6e">anjay_fw_update_load_security_from_dm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, const char *uri)</td></tr>
+<tr class="separator:aa8719331c2ab53b8c6b44f6be5573c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a2fdc049704f72819d0a6b1de7df739fb"></a>
@@ -232,6 +236,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aec5a15639bf42820006bfdfcfd6118fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5a15639bf42820006bfdfcfd6118fe">&#9670;&nbsp;</a></span>anjay_fw_update_get_security_info_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int anjay_fw_update_get_security_info_t(void *user_ptr, avs_net_security_info_t *out_security_info, const char *download_uri)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Queries security information that shall be used for an encrypted connection with a PULL-mode download server.</p>
+<p>May be called before <a class="el" href="fw__update_8h.html#a024b15279a6415219f67ba9e2dadaa61">anjay_fw_update_stream_open_t</a> if the download is to be performed in PULL mode and the connection needs to use TLS or DTLS encryption.</p>
+<p>Note that the <code>avs_net_security_info_t</code> contains references to file paths and/or binary security keys. It is the user's responsibility to appropriately allocate them and ensure proper lifetime of the returned pointers. The returned security information may only be invalidated in a call to <a class="el" href="fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a">anjay_fw_update_reset_t</a> or after a call to <a class="el" href="core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete</a> .</p>
+<p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <a class="el" href="fw__update_8h.html#aa8719331c2ab53b8c6b44f6be5573c6e">anjay_fw_update_load_security_from_dm</a> will be used as a default way to get security information. You may also use that function yourself, for example as a fallback mechanism.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user_ptr</td><td>Opaque pointer to user data, as passed to <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a></td></tr>
+    <tr><td class="paramname">out_security_info</td><td>Pointer in which the handler shall fill in security configuration to use for download. Note that leaving this value as empty without filling it in will result in a configuration that is <b>valid, but very insecure</b>: it will cause any server certificate to be accepted without validation. Any pointers used within the supplied structure shall remain valid until a call to <a class="el" href="fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a">anjay_fw_update_reset_t</a> .</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The callback shall return 0 if successful or a negative value in case of error. If one of the <code>ANJAY_FW_UPDATE_ERR_*</code> value is returned, an equivalent value will be set in the Update Result Resource. </dd></dl>
+
+</div>
+</div>
 <a id="a3a2a8ad514cff78979eb806dba248713"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a2a8ad514cff78979eb806dba248713">&#9670;&nbsp;</a></span>anjay_fw_update_get_version_t</h2>
 
@@ -281,7 +311,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The callback shall return a negative if it can be determined without a reboot that the firmware upgrade cannot be successfully performed. If one of the <code>ANJAY_FW_UPDATE_ERR_*</code> value is returned, an equivalent value will be set in the Update Result Resource. If an update is to be attempted, it shall either return 0 or perform a reboot internally without returning. In either case, a reboot or at least a reinitialization of the library is then required to pass the update result. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The callback shall return a negative value if it can be determined without a reboot that the firmware upgrade cannot be successfully performed. If one of the <code>ANJAY_FW_UPDATE_ERR_*</code> values is returned, an equivalent value will be set in the Update Result Resource. If an update is to be attempted, it shall either return 0 or perform a reboot internally without returning. In either case, a reboot or at least a reinitialization of the library is then required to pass the update result. </dd></dl>
 
 </div>
 </div>
@@ -466,13 +496,55 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa8719331c2ab53b8c6b44f6be5573c6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8719331c2ab53b8c6b44f6be5573c6e">&#9670;&nbsp;</a></span>anjay_fw_update_load_security_from_dm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_net_security_info_t* anjay_fw_update_load_security_from_dm </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Helper function that is used as a default implementation of security information querying for PULL-mode downloads from (D)TLS-encrypted URIs.</p>
+<p>Given a URI, the Security object is scanned for instances with Server URI resource matching it in the following way:</p><ul>
+<li>if there is at least one instance with matching hostname, protocol and port number, and valid secure connection configuration, the first such instance (in the order as returned via <a class="el" href="dm_8h.html#aeaa8915c06a19f94d32f6e12206e3fb8">anjay_dm_instance_it_t</a>) is used</li>
+<li>otherwise, if there is at least one instance with matching hostname and valid secure connection configuration, the first such instance (in the order as returned via <a class="el" href="dm_8h.html#aeaa8915c06a19f94d32f6e12206e3fb8">anjay_dm_instance_it_t</a>) is used</li>
+</ul>
+<p>The returned security information is exactly the same configuration that is used for LwM2M connection with the server chosen with the rules described above.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object whose data model shall be queried.</td></tr>
+    <tr><td class="paramname">uri</td><td>URI for which to find security configuration.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Security information found, or <code>NULL</code> if no suitable LwM2M Security Object instance could be found. The returned structure is heap-allocated; to release all memory allocated for it, it is enough to call <code>free()</code> on the returned pointer. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_e05d7e2b1ecd646af5bb94391405f3b5.html">modules</a></li><li class="navelem"><a class="el" href="dir_aa01a8637aa49ffd335cbf2b76be9ae7.html">fw_update</a></li><li class="navelem"><a class="el" href="dir_cab12f08c791e675dbf693fef0b9538e.html">include_public</a></li><li class="navelem"><a class="el" href="dir_efd9491ebce6ae5f6323788230eee553.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
-    <li class="footer">Generated on Mon Feb 12 2018 16:29:59 for anjay by
+    <li class="footer">Generated on Wed Feb 21 2018 12:29:06 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
