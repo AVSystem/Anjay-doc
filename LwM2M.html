@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2. OMA LwM2M - Brief description &mdash; Anjay 1.8.0 documentation</title>
+  <title>2. OMA LwM2M - Brief description &mdash; Anjay 1.8.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Anjay 1.8.0 documentation" href="index.html"/>
+    <link rel="top" title="Anjay 1.8.1 documentation" href="index.html"/>
         <link rel="next" title="3. Compiling client applications" href="Compiling_client_applications.html"/>
         <link rel="prev" title="1. Introduction" href="Introduction.html"/> 
 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                1.8.0
+                1.8.1
               </div>
             
           
@@ -209,7 +209,7 @@ but this article provides a quick summary of the most important concepts.</p>
 entities:</p>
 <ul class="simple">
 <li><strong>LwM2M Clients</strong> are located on end devices. They communicate with server(s),
-allowing them to manage and monitor the devices&#8217; resources, which are exposed
+allowing them to manage and monitor the devices’ resources, which are exposed
 via a standardized <a class="reference internal" href="#id1">data model</a>.<ul>
 <li>An LwM2M Client is uniquely identified independently of its network address
 by an <strong>Endpoint Client Name</strong> - a URN uniquely assigned to a device by its
@@ -235,7 +235,7 @@ phone number)</li>
 Client during its first or every boot-up. Its only purpose is to initialize
 the data model, including connections to regular LwM2M Servers, before first
 contact to such. The Bootstrap Server communicates with the Client using a
-different set of commands, so it cannot be considered an &#8220;LwM2M Server&#8221; in the
+different set of commands, so it cannot be considered an “LwM2M Server” in the
 ordinary sense.</li>
 <li><strong>LwM2M Servers</strong> maintain connections with the clients and have the ability
 to read from and write to the data model exposed by the clients. Any given
@@ -265,7 +265,7 @@ inclusive. OMA manages a <a class="reference external" href="https://www.openmob
 Object defines a set of Resources whose meanings are common for each Object
 Instance.</p>
 </li>
-<li><p class="first"><strong>Object Instance</strong> - some Objects are described as &#8220;single-instance&#8221; - such
+<li><p class="first"><strong>Object Instance</strong> - some Objects are described as “single-instance” - such
 Objects always have exactly one Instance with identifier 0. Examples of such
 Objects include the Device object which describes the device itself, and the
 Firmware Update object which is used to perform firmware upgrades.</p>
@@ -312,17 +312,17 @@ implementations) or <em>Optional</em> (may not be supported)</li>
 connections to the LwM2M Servers configured in the Client. From the on-wire
 protocol perspective, it is write-only and accessible only via the
 <a class="reference internal" href="#bootstrap-interface">Bootstrap Interface</a>. Implementation of this object is readily available in
-Anjay&#8217;s <code class="docutils literal"><span class="pre">security</span></code> module.</li>
+Anjay’s <code class="docutils literal"><span class="pre">security</span></code> module.</li>
 <li><code class="docutils literal"><span class="pre">/1</span></code> - <strong>LwM2M Server</strong> - contains non-confidential part of information
 about connections to the LwM2M Servers configured in the Client.
-Implementation of this object is readily available in Anjay&#8217;s <code class="docutils literal"><span class="pre">server</span></code>
+Implementation of this object is readily available in Anjay’s <code class="docutils literal"><span class="pre">server</span></code>
 module.</li>
 <li><code class="docutils literal"><span class="pre">/3</span></code> - <strong>Device</strong> - contains basic information about the device, such as
 e.g. serial number.</li>
 </ul>
 <p>Additionally, Object <code class="docutils literal"><span class="pre">/2</span></code> (<strong>Access Control</strong>) needs to be supported and
 present if the Client supports more than one LwM2M Server connection at once.
-Implementation of this object is readily available in Anjay&#8217;s <code class="docutils literal"><span class="pre">access_control</span></code>
+Implementation of this object is readily available in Anjay’s <code class="docutils literal"><span class="pre">access_control</span></code>
 module.</p>
 </div>
 <div class="section" id="resources">
@@ -345,8 +345,8 @@ on-wire protocol.</p>
 accessible via the <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a></li>
 </ul>
 </li>
-<li><p class="first"><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; &#8220;Multiple&#8221; means that the type of data
-in the resource is actually an &#8220;array&#8221; - called such in the Anjay API, but
+<li><p class="first"><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; “Multiple” means that the type of data
+in the resource is actually an “array” - called such in the Anjay API, but
 actually more similar to an associative data structure. It is a list of pairs,
 each of which containing a unique Resource Instance ID (range 0-65535,
 inclusive) and instance value, of the type referred in the Resource
@@ -374,7 +374,7 @@ within the given data type.</p>
 <div class="section" id="attributes">
 <span id="lwm2m-attributes"></span><h3><a class="toc-backref" href="#id6">2.2.3. Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
 <p>Each entity in the data model (Resource, Object Instance or Object) can have
-various &#8220;attributes&#8221; attached. There are two types of attributes currently
+various “attributes” attached. There are two types of attributes currently
 defined in the LwM2M specification:</p>
 <ul>
 <li><p class="first"><strong>&lt;PROPERTIES&gt;</strong> Class Attributes are read-only metadata that may be read by
@@ -493,7 +493,7 @@ LwM2M Server about its presence and availability. In this interface, the LwM2M
 Server acts as a CoAP server, and the LwM2M Client is a CoAP client. The
 requests that may be sent from the Client to the Server include:</p>
 <ul class="simple">
-<li><strong>Register</strong>, represented as a CoAP <strong>POST /rd?...</strong> request, is initially
+<li><strong>Register</strong>, represented as a CoAP <strong>POST /rd?…</strong> request, is initially
 sent by the Client when it goes online. It informs the Server that the Client
 is available for receiving commands on the
 <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a> and the
@@ -506,7 +506,7 @@ a response to <em>Register</em>. <strong>Update</strong> is sent in following si
 <li>periodically - to ensure the Server that the device is still online,</li>
 <li>whenever any of the information previously given in a Register message
 changes - so that the Server always has up-to-date information about the
-Client&#8217;s state.</li>
+Client’s state.</li>
 </ul>
 </li>
 <li><strong>De-register</strong> (CoAP <strong>DELETE</strong>) may be sent by the Client if it can
@@ -570,7 +570,7 @@ relation to the <a class="reference internal" href="#information-reporting-inter
 in the <a class="reference internal" href="#attributes">Attributes</a> section.</p>
 </li>
 <li><p class="first">A <strong>POST</strong> request targeting one of the root paths in the data model (called
-&#8220;Objects&#8221;, see <a class="reference internal" href="#id1">Data model</a>) represents the <strong>Create</strong> operation. It creates
+“Objects”, see <a class="reference internal" href="#id1">Data model</a>) represents the <strong>Create</strong> operation. It creates
 a new Object Instance, which gives a way to manage configuration entities that
 might have a variable and configurable number of similar but distinct entries
 - for example, software packages or APN connections.</p>
@@ -613,7 +613,7 @@ hours, to comply with
 </div>
 <div class="section" id="queue-mode">
 <h2><a class="toc-backref" href="#id12">2.4. Queue mode</a><a class="headerlink" href="#queue-mode" title="Permalink to this headline">¶</a></h2>
-<p>The <em>Register</em> and <em>Update</em> commands include a &#8220;Binding Mode&#8221; Parameter, which
+<p>The <em>Register</em> and <em>Update</em> commands include a “Binding Mode” Parameter, which
 may be one of the following:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">U</span></code> - UDP connection in standard mode</li>
@@ -624,12 +624,12 @@ may be one of the following:</p>
 <li><code class="docutils literal"><span class="pre">UQS</span></code> - both UDP and SMS connections active; UDP in standard mode, SMS in
 queue mode</li>
 </ul>
-<p>The &#8220;queue mode&#8221; mentioned here is a special mode of operation in which the
+<p>The “queue mode” mentioned here is a special mode of operation in which the
 client device is not required to actively listen for incoming packets. The
 client is only required to listen for such packets for a limited period of time
 after each exchange of messages with the Server - typically after the <em>Update</em>
 command.</p>
-<p>The specification recommends to use CoAP&#8217;s <code class="docutils literal"><span class="pre">MAX_TRANSMIT_WAIT</span></code> value (93
+<p>The specification recommends to use CoAP’s <code class="docutils literal"><span class="pre">MAX_TRANSMIT_WAIT</span></code> value (93
 seconds by default) as that aforementioned limited period of time, and this
 recommendation is respected in Anjay.</p>
 <p>Anjay automatically handles the queue mode by hiding connections which are not
@@ -685,7 +685,7 @@ that case, it is safe to passively sleep for the period returned by
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.8.0',
+            VERSION:'1.8.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
