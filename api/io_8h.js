@@ -7,7 +7,7 @@ var io_8h =
     [ "anjay_input_ctx_t", "io_8h.html#aafdcab41f67e59d05b770ff98e55734b", null ],
     [ "anjay_output_ctx_t", "io_8h.html#ad1c262689306f83ddc7ee9ec187bf56c", null ],
     [ "anjay_ret_bytes_ctx_t", "io_8h.html#a3682e96e7687f3b0515bbf8b582f786b", null ],
-    [ "anjay_execute_get_arg_value", "io_8h.html#a3c95fb0b0ec4a10d6c8d972f7f19240f", null ],
+    [ "anjay_execute_get_arg_value", "io_8h.html#a79e423f2f42bba665c9ad447597decb3", null ],
     [ "anjay_execute_get_next_arg", "io_8h.html#a166823938b9f4be61a3ca78a76e48d3f", null ],
     [ "anjay_get_array", "io_8h.html#ad1ce8c99cdb7584ad7a576ae61a56b4e", null ],
     [ "anjay_get_array_index", "io_8h.html#aa5f9b498ba12f7555e7d364506c49662", null ],

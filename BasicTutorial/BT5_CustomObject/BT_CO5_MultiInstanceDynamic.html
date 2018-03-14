@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.8.1 documentation</title>
+  <title>4.5.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.8.2 documentation</title>
   
 
-  
-  
   
   
 
@@ -37,7 +35,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.8.1 documentation" href="../../index.html"/>
+    <link rel="top" title="Anjay 1.8.2 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="4.5.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html"/>
         <link rel="prev" title="4.5.4. Multi-instance writable object with fixed number of instances" href="BT_CO4_FixedInstanceWritable.html"/> 
@@ -49,7 +47,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -69,7 +66,7 @@
             
             
               <div class="version">
-                1.8.1
+                1.8.2
               </div>
             
           
@@ -90,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -131,10 +125,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Anjay</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Anjay</a>
       </nav>
 
 
@@ -143,44 +135,27 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-        
+      
           <li><a href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a> &raquo;</li>
-        
-      <li>4.5.5. Multi-instance writable object with dynamic number of instances</li>
-    
-    
+      
+    <li>4.5.5. Multi-instance writable object with dynamic number of instances</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO5_MultiInstanceDynamic.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -312,7 +287,7 @@ Instances. As a consequence, we will add <code class="docutils literal"><span cl
 <h2>4.5.5.2. Initialization and cleanup<a class="headerlink" href="#initialization-and-cleanup" title="Permalink to this headline">¶</a></h2>
 <p>We must reconsider the way our Test object is being initialized. Up to this point
 it was allocated on stack and required no cleanup. Again, times have changed, and
-we won’t be able to proceed further without allocating memory on demand.</p>
+we won&#8217;t be able to proceed further without allocating memory on demand.</p>
 <div class="topic">
 <p class="topic-title first">Wait, you could still allocate objects on stack, and initialize them later!</p>
 <p>Yes, but it may be considered bad coding style for at least two reasons:</p>
@@ -324,7 +299,7 @@ objects on a heap however, allows the implementation to fully initialize
 an object before returning a reference to it.</li>
 <li>End user of an Object should NOT be exposed to its internal representation,
 i.e. notice how handles to all objects shown to you so far were returned as
-pointers to <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> – clearly, it indicates to the user
+pointers to <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> &#8211; clearly, it indicates to the user
 that they have nothing interesting to do with such reference (besides being
 able to register it), unless some additional public API is provided.</li>
 </ol>
@@ -342,7 +317,7 @@ going to introduce two functions, namely <code class="docutils literal"><span cl
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Shouldn’t <code class="docutils literal"><span class="pre">test_object_t::instances</span></code> and <code class="docutils literal"><span class="pre">test_object_t::backup_instances</span></code> be
+<p class="topic-title first">Shouldn&#8217;t <code class="docutils literal"><span class="pre">test_object_t::instances</span></code> and <code class="docutils literal"><span class="pre">test_object_t::backup_instances</span></code> be
    be initialized in some special way?</p>
 <p>No, <code class="docutils literal"><span class="pre">NULL</span></code> is a valid (and only) representation of an empty <code class="docutils literal"><span class="pre">AVS_LIST</span></code>.</p>
 </div>
@@ -395,7 +370,7 @@ It will happen to be very useful in the next couple of subsections:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Let’s reimplement <code class="docutils literal"><span class="pre">test_instance_present</span></code> in terms of just defined <code class="docutils literal"><span class="pre">get_instance</span></code>:</p>
+<p>Let&#8217;s reimplement <code class="docutils literal"><span class="pre">test_instance_present</span></code> in terms of just defined <code class="docutils literal"><span class="pre">get_instance</span></code>:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                  <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
@@ -441,7 +416,7 @@ and leaving the rest of the work of this kind as an exercise for the reader
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>That’s all for this section. As noted above, implementation of other methods
+<p>That&#8217;s all for this section. As noted above, implementation of other methods
 is as always available in the source code provided with the tutorial. We
 do however strongly recommend you to port the methods to use <code class="docutils literal"><span class="pre">AVS_LISTs</span></code>
 on your own, especially <strong>remember about updating transaction handlers</strong>.</p>
@@ -453,7 +428,7 @@ the LwM2M Client to assign Instance ID by itself. In Anjay, this responsibility
 lies on the implementor of the Object being instantiated.</p>
 <p>We are going to take an easy approach for Instance ID assignation. Our algorithm
 will simply traverse Object Instance list, looking for any gaps in Instance IDs
-between consecutive Instances. If no gap is found, we’d take an upper bound of
+between consecutive Instances. If no gap is found, we&#8217;d take an upper bound of
 discovered Instance IDs during the iteration as a new Instance ID.</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">assign_new_iid</span><span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">out_iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">preferred_iid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -484,7 +459,7 @@ storage).</p>
 </div>
 <div class="section" id="instance-create-handler">
 <h2>4.5.5.5. <code class="docutils literal"><span class="pre">instance_create</span></code> handler<a class="headerlink" href="#instance-create-handler" title="Permalink to this headline">¶</a></h2>
-<p>Let’s have a look on <code class="docutils literal"><span class="pre">anjay_dm_instance_create_t</span></code> handler type signature:</p>
+<p>Let&#8217;s have a look on <code class="docutils literal"><span class="pre">anjay_dm_instance_create_t</span></code> handler type signature:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                        <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">inout_iid</span><span class="p">,</span>
@@ -587,18 +562,15 @@ of main Anjay project repository.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-right" title="4.5.6. Objects with Multiple Instance Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-right" title="4.5.6. Objects with Multiple Instance Resources" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO4_FixedInstanceWritable.html" class="btn btn-neutral" title="4.5.4. Multi-instance writable object with fixed number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO4_FixedInstanceWritable.html" class="btn btn-neutral" title="4.5.4. Multi-instance writable object with fixed number of instances" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -629,11 +601,10 @@ of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.8.1',
+            VERSION:'1.8.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

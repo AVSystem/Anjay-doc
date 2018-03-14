@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.2. Persistence support &mdash; Anjay 1.8.1 documentation</title>
+  <title>5.2. Persistence support &mdash; Anjay 1.8.2 documentation</title>
   
 
-  
-  
   
   
 
@@ -37,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.8.1 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.8.2 documentation" href="../index.html"/>
         <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
         <link rel="next" title="5.3. DTLS support" href="AT3.html"/>
         <link rel="prev" title="5.1. Attribute storage" href="AT1.html"/> 
@@ -49,7 +47,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -69,7 +66,7 @@
             
             
               <div class="version">
-                1.8.1
+                1.8.2
               </div>
             
           
@@ -90,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -122,10 +116,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Anjay</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
       </nav>
 
 
@@ -134,42 +126,25 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-        
-      <li>5.2. Persistence support</li>
-    
-    
+      
+    <li>5.2. Persistence support</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/AdvancedTutorial/AT2.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -178,7 +153,7 @@
   <div class="section" id="persistence-support">
 <h1>5.2. Persistence support<a class="headerlink" href="#persistence-support" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="anjay-s-persistence-in-general">
-<h2>5.2.1. Anjay’s persistence in general<a class="headerlink" href="#anjay-s-persistence-in-general" title="Permalink to this headline">¶</a></h2>
+<h2>5.2.1. Anjay&#8217;s persistence in general<a class="headerlink" href="#anjay-s-persistence-in-general" title="Permalink to this headline">¶</a></h2>
 <p>Anjay supports persistence of data to <code class="docutils literal"><span class="pre">avs_commons</span></code> generic <cite>stream</cite>
 (<code class="docutils literal"><span class="pre">avs_stream_abstract_t</span></code>). Underlying implementation of a stream may
 abstract any kind of storage access. <code class="docutils literal"><span class="pre">avs_commons</span></code> itself provides:</p>
@@ -187,7 +162,7 @@ abstract any kind of storage access. <code class="docutils literal"><span class=
 <li>network streams,</li>
 <li>memory buffered streams.</li>
 </ul>
-<p>Any of them can be used with Anjay’s persistence API. Additionally, one
+<p>Any of them can be used with Anjay&#8217;s persistence API. Additionally, one
 can easily adapt other types of storages to be used by persistence API,
 by implementing their own stream.</p>
 <p>Persistence module is designed to abstract all endianness related issues,
@@ -196,7 +171,7 @@ which makes persisted chunk of information on arbitrary architecture
 </div>
 <div class="section" id="persistence-of-preimplemented-objects">
 <h2>5.2.2. Persistence of preimplemented objects<a class="headerlink" href="#persistence-of-preimplemented-objects" title="Permalink to this headline">¶</a></h2>
-<p>Anjay’s preimplemented objects (Security, Server, Access Control) all
+<p>Anjay&#8217;s preimplemented objects (Security, Server, Access Control) all
 support persistence:</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
 <span class="kt">int</span> <span class="nf">anjay_security_object_persist</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span>
@@ -231,7 +206,7 @@ functions behave under different conditions.</p>
 </div>
 <div class="section" id="example">
 <h2>5.2.3. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>As an example we’ll modify the code from the <a class="reference external" href="AT1">previous tutorial</a>. We would like
+<p>As an example we&#8217;ll modify the code from the <a class="reference external" href="AT1">previous tutorial</a>. We would like
 to persist Object data when the LwM2M Client finishes its work and restore it on
 startup (if a valid persistence file exists).</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#define PERSISTENCE_FILENAME &quot;at2-persistence.dat&quot;</span>
@@ -327,7 +302,7 @@ startup (if a valid persistence file exists).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Persisting as well as restoring functions MUST be both called in the same
-order because objects’ data is being stored sequentially.</p>
+order because objects&#8217; data is being stored sequentially.</p>
 </div>
 </div>
 <div class="section" id="persistence-api">
@@ -338,18 +313,15 @@ order because objects’ data is being stored sequentially.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT3.html" class="btn btn-neutral float-right" title="5.3. DTLS support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT3.html" class="btn btn-neutral float-right" title="5.3. DTLS support" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT1.html" class="btn btn-neutral" title="5.1. Attribute storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT1.html" class="btn btn-neutral" title="5.1. Attribute storage" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -380,11 +352,10 @@ order because objects’ data is being stored sequentially.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.8.1',
+            VERSION:'1.8.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
