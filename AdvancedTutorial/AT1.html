@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.1. Attribute storage &mdash; Anjay 1.8.2 documentation</title>
+  <title>5.1. Attribute storage &mdash; Anjay 1.9.0 documentation</title>
   
 
+  
+  
   
   
 
@@ -35,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.8.2 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.9.0 documentation" href="../index.html"/>
         <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
         <link rel="next" title="5.2. Persistence support" href="AT2.html"/>
         <link rel="prev" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/> 
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                1.8.2
+                1.9.0
               </div>
             
           
@@ -87,7 +90,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -116,8 +122,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
@@ -126,25 +134,42 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-      
-    <li>5.1. Attribute storage</li>
+        
+      <li>5.1. Attribute storage</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/AdvancedTutorial/AT1.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -164,11 +189,11 @@ Instances or Objects.</p>
 case of Resources, or appropriately <code class="docutils literal"><span class="pre">instance_read_default_attrs</span></code>,
 <code class="docutils literal"><span class="pre">instance_write_default_attrs</span></code>, <code class="docutils literal"><span class="pre">object_read_default_attrs</span></code> or
 <code class="docutils literal"><span class="pre">object_write_default_attrs</span></code>, in case of Object Instances or Objects. Note
-that the library will automatically call the &#8220;default&#8221; handlers if there are
+that the library will automatically call the “default” handlers if there are
 some unset attributes on the more specific level.</p>
 <div class="section" id="attr-storage-module">
 <h2>5.1.1. <code class="docutils literal"><span class="pre">attr_storage</span></code> module<a class="headerlink" href="#attr-storage-module" title="Permalink to this headline">¶</a></h2>
-<p>As the cases described above are very common and generic &#8211; and as such, usually
+<p>As the cases described above are very common and generic – and as such, usually
 implemented in exactly the same manner for all objects in the code base, the
 library includes a module that implements all the attribute-related handlers in
 a generic and reusable way.</p>
@@ -187,12 +212,9 @@ removed during the <code class="docutils literal"><span class="pre">anjay_delete
 
 <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
 
-<span class="c1">// Instantiate necessary objects</span>
-<span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">security_obj</span> <span class="o">=</span> <span class="n">anjay_security_object_create</span><span class="p">();</span>
-<span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">server_obj</span> <span class="o">=</span> <span class="n">anjay_server_object_create</span><span class="p">();</span>
-
-<span class="c1">// For some reason we were unable to instantiate objects.</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">security_obj</span> <span class="o">||</span> <span class="o">!</span><span class="n">server_obj</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// Install necessary objects</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+        <span class="o">||</span> <span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -240,15 +262,18 @@ non-existent Objects or their Instances will be discarded.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT2.html" class="btn btn-neutral float-right" title="5.2. Persistence support" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT2.html" class="btn btn-neutral float-right" title="5.2. Persistence support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../AdvancedTutorial.html" class="btn btn-neutral" title="5. Advanced tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../AdvancedTutorial.html" class="btn btn-neutral" title="5. Advanced tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -279,10 +304,11 @@ non-existent Objects or their Instances will be discarded.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.8.2',
+            VERSION:'1.9.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

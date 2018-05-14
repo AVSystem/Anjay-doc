@@ -1,11 +1,10 @@
 var server_8h =
 [
     [ "anjay_server_instance_t", "structanjay__server__instance__t.html", "structanjay__server__instance__t" ],
-    [ "anjay_server_object_add_instance", "server_8h.html#a6089654dc1fec7a708ca892db6f6cc16", null ],
-    [ "anjay_server_object_create", "server_8h.html#a60fbeab50581c4a45170d5603ab35c05", null ],
-    [ "anjay_server_object_delete", "server_8h.html#aae11bd516d91a0aa362f9710cc8bba4e", null ],
-    [ "anjay_server_object_is_modified", "server_8h.html#ac6a335c29405fa014f2ddebca7c5d834", null ],
-    [ "anjay_server_object_persist", "server_8h.html#aee52f6cbf59be78b94968d256d93d0a2", null ],
-    [ "anjay_server_object_purge", "server_8h.html#a1b6d99b60b2b3d796e08fcfa76dc38ea", null ],
-    [ "anjay_server_object_restore", "server_8h.html#a2b0bd985fe90ef0c3ce275ffcc789e63", null ]
+    [ "anjay_server_object_add_instance", "server_8h.html#aa1535d6a9c19b9375f4e8065ac888afa", null ],
+    [ "anjay_server_object_install", "server_8h.html#a36a369c0d7d1b2ad42c898ac47b75765", null ],
+    [ "anjay_server_object_is_modified", "server_8h.html#a6dcbf3360218dbdba852a4c5d2a81f53", null ],
+    [ "anjay_server_object_persist", "server_8h.html#a18f75d4e3f08457ad585c5a11f2d9dcf", null ],
+    [ "anjay_server_object_purge", "server_8h.html#a06462631da239d037bc218e37406926e", null ],
+    [ "anjay_server_object_restore", "server_8h.html#a31fd3a32585c810d7074fe855011c8a7", null ]
 ];
