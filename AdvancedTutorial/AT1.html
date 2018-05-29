@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.1. Attribute storage &mdash; Anjay 1.9.2 documentation</title>
+  <title>5.1. Attribute storage &mdash; Anjay 1.9.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -25,22 +23,30 @@
   
 
   
+  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.2. Persistence support" href="AT2.html" />
-    <link rel="prev" title="5. Advanced tutorial" href="../AdvancedTutorial.html" /> 
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.9.3 documentation" href="../index.html"/>
+        <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
+        <link rel="next" title="5.2. Persistence support" href="AT2.html"/>
+        <link rel="prev" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -60,7 +66,7 @@
             
             
               <div class="version">
-                1.9.2
+                1.9.3
               </div>
             
           
@@ -81,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -112,56 +115,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-        
-      <li>5.1. Attribute storage</li>
-    
-    
+      
+    <li>5.1. Attribute storage</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/AdvancedTutorial/AT1.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -177,28 +160,28 @@ Instances or Objects.</p>
 <p class="last"><a class="reference internal" href="../LwM2M.html"><span class="doc">OMA LwM2M - Brief description</span></a> chapter contains more information about LwM2M Attributes.</p>
 </div>
 <p>When the library needs to read or write these attributes, it calls
-<code class="docutils literal notranslate"><span class="pre">resource_read_attrs</span></code> or <code class="docutils literal notranslate"><span class="pre">resource_write_attrs</span></code> handlers, respectively, in
-case of Resources, or appropriately <code class="docutils literal notranslate"><span class="pre">instance_read_default_attrs</span></code>,
-<code class="docutils literal notranslate"><span class="pre">instance_write_default_attrs</span></code>, <code class="docutils literal notranslate"><span class="pre">object_read_default_attrs</span></code> or
-<code class="docutils literal notranslate"><span class="pre">object_write_default_attrs</span></code>, in case of Object Instances or Objects. Note
-that the library will automatically call the “default” handlers if there are
+<code class="docutils literal"><span class="pre">resource_read_attrs</span></code> or <code class="docutils literal"><span class="pre">resource_write_attrs</span></code> handlers, respectively, in
+case of Resources, or appropriately <code class="docutils literal"><span class="pre">instance_read_default_attrs</span></code>,
+<code class="docutils literal"><span class="pre">instance_write_default_attrs</span></code>, <code class="docutils literal"><span class="pre">object_read_default_attrs</span></code> or
+<code class="docutils literal"><span class="pre">object_write_default_attrs</span></code>, in case of Object Instances or Objects. Note
+that the library will automatically call the &#8220;default&#8221; handlers if there are
 some unset attributes on the more specific level.</p>
 <div class="section" id="attr-storage-module">
-<h2>5.1.1. <code class="docutils literal notranslate"><span class="pre">attr_storage</span></code> module<a class="headerlink" href="#attr-storage-module" title="Permalink to this headline">¶</a></h2>
-<p>As the cases described above are very common and generic – and as such, usually
+<h2>5.1.1. <code class="docutils literal"><span class="pre">attr_storage</span></code> module<a class="headerlink" href="#attr-storage-module" title="Permalink to this headline">¶</a></h2>
+<p>As the cases described above are very common and generic &#8211; and as such, usually
 implemented in exactly the same manner for all objects in the code base, the
 library includes a module that implements all the attribute-related handlers in
 a generic and reusable way.</p>
 <p>To use the Attribute Storage module, you first need to include the appropriate
 header:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
 </pre></div>
 </div>
 <p>Then, in the main program logic, you need to initialize the attribute storage
 module. After installation, its life cycle is automatically managed - it will be
-removed during the <code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> call.</p>
-<p>So, we can modify part of our <code class="docutils literal notranslate"><span class="pre">main()</span></code> function to install the module:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+removed during the <code class="docutils literal"><span class="pre">anjay_delete()</span></code> call.</p>
+<p>So, we can modify part of our <code class="docutils literal"><span class="pre">main()</span></code> function to install the module:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
 
 <span class="c1">// ...</span>
 
@@ -218,17 +201,17 @@ removed during the <code class="docutils literal notranslate"><span class="pre">
 <p>No additional steps are necessary - the Attribute Storage module will take over
 the implementations of attribute-related handlers in the original objects with
 its own implementation, unless some handlers are actually already implemented
-(set to anything else than <code class="docutils literal notranslate"><span class="pre">NULL</span></code>). For a detailed description on how does the
+(set to anything else than <code class="docutils literal"><span class="pre">NULL</span></code>). For a detailed description on how does the
 handler replacement behave when only some of the handlers are implemented, refer
 to the <a class="reference external" href="../api/attr__storage_8h.html">documentation</a>.</p>
 <div class="section" id="persistence">
 <span id="id1"></span><h3>5.1.1.1. Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
 <p>To facilitate storing attribute values between executions of the program, the
-<code class="docutils literal notranslate"><span class="pre">attr_storage</span></code> module contains a persistence code, that can be used to
+<code class="docutils literal"><span class="pre">attr_storage</span></code> module contains a persistence code, that can be used to
 serialize and deserialize all the stored attributes to some kind of external
 memory.</p>
 <p>These two functions can be used for this purpose:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 
 <span class="kt">int</span> <span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -236,10 +219,10 @@ memory.</p>
 </pre></div>
 </div>
 <p>The data are read or written to and from objects of the
-<code class="docutils literal notranslate"><span class="pre">avs_stream_abstract_t</span></code> type. Please refer to documentation of
+<code class="docutils literal"><span class="pre">avs_stream_abstract_t</span></code> type. Please refer to documentation of
 <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons</a> for information on
 what it is and how to create one.</p>
-<p>For the simple case, the <code class="docutils literal notranslate"><span class="pre">avs_stream_file_</span></code> family of functions may be useful.</p>
+<p>For the simple case, the <code class="docutils literal"><span class="pre">avs_stream_file_</span></code> family of functions may be useful.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The persistence functions shall be called after registering all the
@@ -254,16 +237,15 @@ non-existent Objects or their Instances will be discarded.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT2.html" class="btn btn-neutral float-right" title="5.2. Persistence support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT2.html" class="btn btn-neutral float-right" title="5.2. Persistence support" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../AdvancedTutorial.html" class="btn btn-neutral" title="5. Advanced tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../AdvancedTutorial.html" class="btn btn-neutral" title="5. Advanced tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -276,7 +258,7 @@ non-existent Objects or their Instances will be discarded.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -294,12 +276,10 @@ non-existent Objects or their Instances will be discarded.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.2',
-            LANGUAGE:'None',
+            VERSION:'1.9.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -313,11 +293,14 @@ non-existent Objects or their Instances will be discarded.</p>
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

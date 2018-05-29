@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.4. Access Control in multi-server environment &mdash; Anjay 1.9.2 documentation</title>
+  <title>5.4. Access Control in multi-server environment &mdash; Anjay 1.9.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -25,22 +23,30 @@
   
 
   
+  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.5. Retransmissions &amp; response caching" href="AT5.html" />
-    <link rel="prev" title="5.3. DTLS support" href="AT3.html" /> 
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.9.3 documentation" href="../index.html"/>
+        <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
+        <link rel="next" title="5.5. Retransmissions &amp; response caching" href="AT5.html"/>
+        <link rel="prev" title="5.3. DTLS support" href="AT3.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -60,7 +66,7 @@
             
             
               <div class="version">
-                1.9.2
+                1.9.3
               </div>
             
           
@@ -81,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -112,56 +115,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-        
-      <li>5.4. Access Control in multi-server environment</li>
-    
-    
+      
+    <li>5.4. Access Control in multi-server environment</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/AdvancedTutorial/AT4.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -216,7 +199,7 @@ one that can modify access rights)</td>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">65535</span></code> is a special <cite>Object Instance ID</cite> value reserved for use during
+<p class="last"><code class="docutils literal"><span class="pre">65535</span></code> is a special <cite>Object Instance ID</cite> value reserved for use during
 the Bootstrap Phase and is valid only in combination with <strong>Create</strong>
 access flag.</p>
 </div>
@@ -238,25 +221,25 @@ the following access flags (combined by bitwise OR operator):</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">R</span></code> (00001 binary)</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">R</span></code> (00001 binary)</td>
 <td>Read, Observe</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANJAY_ACCESS_MASK_READ</span></code></td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_READ</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">W</span></code> (00010 binary)</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">W</span></code> (00010 binary)</td>
 <td>Write</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANJAY_ACCESS_MASK_WRITE</span></code></td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_WRITE</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">E</span></code> (00100 binary)</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">E</span></code> (00100 binary)</td>
 <td>Execute</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANJAY_ACCESS_MASK_EXECUTE</span></code></td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_EXECUTE</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">D</span></code> (01000 binary)</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">D</span></code> (01000 binary)</td>
 <td>Delete</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANJAY_ACCESS_MASK_DELETE</span></code></td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_DELETE</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">C</span></code> (10000 binary)</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">C</span></code> (10000 binary)</td>
 <td>Create</td>
-<td><code class="docutils literal notranslate"><span class="pre">ANJAY_ACCESS_MASK_CREATE</span></code></td>
+<td><code class="docutils literal"><span class="pre">ANJAY_ACCESS_MASK_CREATE</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -271,7 +254,7 @@ a mechanism for forbidding it.</p>
 <p>Access Control Object also helps in managing Object Instance lifetime. Whenever
 some Object Instance is orphaned (i.e. no LwM2M Server is an Access Control
 Owner of the Access Control Instance associated with this Object Instance) it
-MUST be removed by the Client. Anjay’s pre-implemented Access Control Object
+MUST be removed by the Client. Anjay&#8217;s pre-implemented Access Control Object
 does this automatically.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -297,7 +280,7 @@ permissions on its own in a multiple-server environment.</p>
 </div>
 <p>We start with installation of the Attribute Storage, Access Control, Security
 Object and Server Object modules:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">anjay_access_control_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
@@ -307,7 +290,7 @@ Object and Server Object modules:</p>
 </pre></div>
 </div>
 <p>Then we setup two LwM2M Servers:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// LwM2M Server account with SSID = 1</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// LwM2M Server account with SSID = 1</span>
 <span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance1</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
@@ -355,7 +338,7 @@ Object and Server Object modules:</p>
 </pre></div>
 </div>
 <p>And finally, we are ready to set access lists:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Set LwM2M Create permission rights for SSID = 1, this will make SSID=1</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Set LwM2M Create permission rights for SSID = 1, this will make SSID=1</span>
 <span class="c1">// an exclusive owner of the Test Object</span>
 <span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
                              <span class="n">ANJAY_ACCESS_MASK_CREATE</span><span class="p">);</span>
@@ -368,20 +351,20 @@ Object and Server Object modules:</p>
 </pre></div>
 </div>
 <p>That way we have ensured an exclusive access of Server with SSID 1 to Test
-Object (<code class="docutils literal notranslate"><span class="pre">/1234</span></code>) Instances.</p>
+Object (<code class="docutils literal"><span class="pre">/1234</span></code>) Instances.</p>
 <p>Later on, this Server will be able to set some access rights for other Servers,
 by writing to proper Access Control Instances (i.e. Instances this Server
-is an owner of, which corresponds to instances it has created), but that’s
+is an owner of, which corresponds to instances it has created), but that&#8217;s
 outside of the scope of this tutorial. We recommend you to look at the LwM2M
 Specification for more details on Access Control Object, as well as at our
 <a class="reference external" href="../api">API docs</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>Please notice <code class="docutils literal notranslate"><span class="pre">cleanup</span></code> tag at end of <code class="docutils literal notranslate"><span class="pre">main()</span></code> function. It is important
-to delete your own implemented objects after calling <code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code>, as
-during the instance destruction Anjay may still try to refer to object’s
+<p>Please notice <code class="docutils literal"><span class="pre">cleanup</span></code> tag at end of <code class="docutils literal"><span class="pre">main()</span></code> function. It is important
+to delete your own implemented objects after calling <code class="docutils literal"><span class="pre">anjay_delete()</span></code>, as
+during the instance destruction Anjay may still try to refer to object&#8217;s
 data and premature object deletion could be disastrous in effects.</p>
-<div class="last highlight-c notranslate"><div class="highlight"><pre><span></span><span class="nl">cleanup</span><span class="p">:</span>
+<div class="last highlight-c"><div class="highlight"><pre><span></span><span class="nl">cleanup</span><span class="p">:</span>
     <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
     <span class="n">delete_test_object</span><span class="p">(</span><span class="n">test_obj</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
@@ -393,16 +376,15 @@ data and premature object deletion could be disastrous in effects.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT5.html" class="btn btn-neutral float-right" title="5.5. Retransmissions &amp; response caching" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT5.html" class="btn btn-neutral float-right" title="5.5. Retransmissions &amp; response caching" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT3.html" class="btn btn-neutral" title="5.3. DTLS support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT3.html" class="btn btn-neutral" title="5.3. DTLS support" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -415,7 +397,7 @@ data and premature object deletion could be disastrous in effects.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -433,12 +415,10 @@ data and premature object deletion could be disastrous in effects.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.2',
-            LANGUAGE:'None',
+            VERSION:'1.9.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -452,11 +432,14 @@ data and premature object deletion could be disastrous in effects.</p>
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

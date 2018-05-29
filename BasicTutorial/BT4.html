@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4. Few notes on general usage &mdash; Anjay 1.9.2 documentation</title>
+  <title>4.4. Few notes on general usage &mdash; Anjay 1.9.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -25,22 +23,30 @@
   
 
   
+  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.5. Custom LwM2M objects" href="BT5_CustomObject.html" />
-    <link rel="prev" title="4.3. Event loop" href="BT3.html" /> 
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.9.3 documentation" href="../index.html"/>
+        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
+        <link rel="next" title="4.5. Custom LwM2M objects" href="BT5_CustomObject.html"/>
+        <link rel="prev" title="4.3. Event loop" href="BT3.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -60,7 +66,7 @@
             
             
               <div class="version">
-                1.9.2
+                1.9.3
               </div>
             
           
@@ -81,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -111,56 +114,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-        
-      <li>4.4. Few notes on general usage</li>
-    
-    
+      
+    <li>4.4. Few notes on general usage</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/BasicTutorial/BT4.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -171,18 +154,18 @@
 <div class="section" id="pros-and-cons-of-being-single-threaded">
 <h2>4.4.1. Pros and cons of being single threaded<a class="headerlink" href="#pros-and-cons-of-being-single-threaded" title="Permalink to this headline">¶</a></h2>
 <p>To start, we first need to establish that Anjay is a single-threaded
-library. It relies on the user calling <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> whenever some
-packet is receieved and <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> regularly, as described in the
+library. It relies on the user calling <code class="docutils literal"><span class="pre">anjay_serve()</span></code> whenever some
+packet is receieved and <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> regularly, as described in the
 <a class="reference internal" href="BT3.html"><span class="doc">previous chapter</span></a>. Both of the methods block until the incoming
 message or (respectively) a job is processed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The incoming message may be split between few packets (e.g. in case of
-blockwise transfers), however <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> is called just for the
+blockwise transfers), however <code class="docutils literal"><span class="pre">anjay_serve()</span></code> is called just for the
 first one. Other parts (if any) are fetched internally by Anjay. In other
-words: <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks until the message gets handled completely.</p>
+words: <code class="docutils literal"><span class="pre">anjay_serve()</span></code> blocks until the message gets handled completely.</p>
 </div>
-<p>Because <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks after a packet arrives, the library can
+<p>Because <code class="docutils literal"><span class="pre">anjay_serve()</span></code> blocks after a packet arrives, the library can
 handle at most one LwM2M Server at time, which makes its usage convenient,
 as one does not have to worry about <a class="reference internal" href="../LwM2M.html#data-model"><span class="std std-ref">data model</span></a>
 being accessed or modified by multiple LwM2M Servers at the same time.
@@ -203,11 +186,11 @@ downloader</span></a>. Both methods will leave the library in
 an operational state during the transfer.</p>
 </div>
 <div class="section" id="transactions-and-anjay-serve">
-<h2>4.4.2. Transactions and <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code><a class="headerlink" href="#transactions-and-anjay-serve" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.2. Transactions and <code class="docutils literal"><span class="pre">anjay_serve()</span></code><a class="headerlink" href="#transactions-and-anjay-serve" title="Permalink to this headline">¶</a></h2>
 <p>Our data model supports transactional operations. They are here to ensure that
 whenever something goes wrong during a transaction, all changes applied since
 its beginning can be reverted - keeping the LwM2M Client in a consistent state.</p>
-<p>As we already know, calling <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> corresponds to processing a
+<p>As we already know, calling <code class="docutils literal"><span class="pre">anjay_serve()</span></code> corresponds to processing a
 single LwM2M request. This, along with properly implemented transaction
 handlers guarantees that if the LwM2M Client was in a consistent state
 before request had been received, then it will remain in a consistent state
@@ -218,29 +201,28 @@ consistent state.</p>
 Client/Server initiated Bootstrap begins, Anjay fires transaction handlers
 for all data model entities. At the same time, it enters the state where
 requests originated from Bootstrap Server only are handled - there may
-be more than one such request, and so <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> could get called
+be more than one such request, and so <code class="docutils literal"><span class="pre">anjay_serve()</span></code> could get called
 multiple times. This again does not hurt consistency in any way, because
 according to the LwM2M Specification, the LwM2M Client may ignore other
 servers during that special time, and Anjay is doing just that - meaning
-that they won’t be able to observe intermediate initialization state.</p>
+that they won&#8217;t be able to observe intermediate initialization state.</p>
 <p>After the Bootstrap Sequence finishes Anjay checks that the data model is
-valid, and if it isn’t the previous correct state will be restored, which
+valid, and if it isn&#8217;t the previous correct state will be restored, which
 proves the point.</p>
 </div>
 </div>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT5_CustomObject.html" class="btn btn-neutral float-right" title="4.5. Custom LwM2M objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT5_CustomObject.html" class="btn btn-neutral float-right" title="4.5. Custom LwM2M objects" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT3.html" class="btn btn-neutral" title="4.3. Event loop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT3.html" class="btn btn-neutral" title="4.3. Event loop" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -253,7 +235,7 @@ proves the point.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -271,12 +253,10 @@ proves the point.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.2',
-            LANGUAGE:'None',
+            VERSION:'1.9.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -290,11 +270,14 @@ proves the point.</p>
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>
