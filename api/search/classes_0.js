@@ -11,5 +11,6 @@ var searchData=
   ['anjay_5ffw_5fupdate_5fhandlers_5ft',['anjay_fw_update_handlers_t',['../structanjay__fw__update__handlers__t.html',1,'']]],
   ['anjay_5ffw_5fupdate_5finitial_5fstate_5ft',['anjay_fw_update_initial_state_t',['../structanjay__fw__update__initial__state__t.html',1,'']]],
   ['anjay_5fsecurity_5finstance_5ft',['anjay_security_instance_t',['../structanjay__security__instance__t.html',1,'']]],
-  ['anjay_5fserver_5finstance_5ft',['anjay_server_instance_t',['../structanjay__server__instance__t.html',1,'']]]
+  ['anjay_5fserver_5finstance_5ft',['anjay_server_instance_t',['../structanjay__server__instance__t.html',1,'']]],
+  ['anjay_5fsocket_5fentry_5ft',['anjay_socket_entry_t',['../structanjay__socket__entry__t.html',1,'']]]
 ];

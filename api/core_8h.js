@@ -1,6 +1,7 @@
 var core_8h =
 [
     [ "anjay_configuration", "structanjay__configuration.html", "structanjay__configuration" ],
+    [ "anjay_socket_entry_t", "structanjay__socket__entry__t.html", "structanjay__socket__entry__t" ],
     [ "ANJAY_COAP_DEFAULT_SMS_TX_PARAMS", "core_8h.html#ae70cfcbd2c5e6f2004f8d39a43fa3e8f", null ],
     [ "ANJAY_COAP_DEFAULT_UDP_TX_PARAMS", "core_8h.html#af7abd5fb313c7990fc4e2e52e5395da3", null ],
     [ "ANJAY_COAP_STATUS", "core_8h.html#aa702d2d4be8e066aa7b1a1936889c121", null ],
@@ -15,6 +16,7 @@ var core_8h =
     [ "ANJAY_ERR_REQUEST_ENTITY_INCOMPLETE", "core_8h.html#a80688053f76faf9316ff5249737ee865", null ],
     [ "ANJAY_ERR_SERVICE_UNAVAILABLE", "core_8h.html#aa5b26069ef78147330a4c05aa13a6c57", null ],
     [ "ANJAY_ERR_UNAUTHORIZED", "core_8h.html#a8f24cff6f35cf135a4cd1387dd181713", null ],
+    [ "ANJAY_ERR_UNSUPPORTED_CONTENT_FORMAT", "core_8h.html#a9f7cbd8ea614fe042206af9d9a384660", null ],
     [ "ANJAY_IID_INVALID", "core_8h.html#a628a6a13e409fb60cb58d0681af9177a", null ],
     [ "ANJAY_SSID_ANY", "core_8h.html#a75735105ebc11358f8f707568a8b11fa", null ],
     [ "ANJAY_SSID_BOOTSTRAP", "core_8h.html#a857486d85f02514fc3f69ae7b2566f4c", null ],
@@ -27,6 +29,11 @@ var core_8h =
     [ "anjay_smsdrv_t", "core_8h.html#a7f18a9f365482cbf0108af3d134c05c3", null ],
     [ "anjay_ssid_t", "core_8h.html#a7702b524bb4425a3174b6a09615c0d2e", null ],
     [ "anjay_t", "core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb", null ],
+    [ "anjay_socket_transport_t", "core_8h.html#a38b3213870f87f8d125ee1793b36138f", [
+      [ "ANJAY_SOCKET_TRANSPORT_UDP", "core_8h.html#a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7", null ],
+      [ "ANJAY_SOCKET_TRANSPORT_TCP", "core_8h.html#a38b3213870f87f8d125ee1793b36138fa8fc9952fcf9eb81a66af504e235efffa", null ],
+      [ "ANJAY_SOCKET_TRANSPORT_SMS", "core_8h.html#a38b3213870f87f8d125ee1793b36138fac5dd3f7c5197a4c215697f797cf8bfb8", null ]
+    ] ],
     [ "anjay_all_connections_failed", "core_8h.html#a4329b620520c565fd61b526ba760e59f", null ],
     [ "anjay_delete", "core_8h.html#a243f18f976bca57b5a7b0714bfb99095", null ],
     [ "anjay_disable_server", "core_8h.html#a9c960628c63263e3ceb1f98c8970df48", null ],
@@ -34,6 +41,7 @@ var core_8h =
     [ "anjay_enable_server", "core_8h.html#abc4b554e51a56da874238f3e64bff074", null ],
     [ "anjay_enter_offline", "core_8h.html#a82fbb9e51e1f2b71858d94208c284684", null ],
     [ "anjay_exit_offline", "core_8h.html#a15f6ef4e35b54db0ff90913086489b53", null ],
+    [ "anjay_get_socket_entries", "core_8h.html#accc841d429905c688957594c05c59e52", null ],
     [ "anjay_get_sockets", "core_8h.html#a9f224f9dc40e4c52f01e0180fca81fec", null ],
     [ "anjay_get_version", "core_8h.html#ad2fa000fb24ae72702fd552c2f207472", null ],
     [ "anjay_is_offline", "core_8h.html#aba649cbf63af56cdd6103b16ff970d88", null ],

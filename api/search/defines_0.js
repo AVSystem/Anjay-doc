@@ -28,6 +28,7 @@ var searchData=
   ['anjay_5ferr_5frequest_5fentity_5fincomplete',['ANJAY_ERR_REQUEST_ENTITY_INCOMPLETE',['../core_8h.html#a80688053f76faf9316ff5249737ee865',1,'core.h']]],
   ['anjay_5ferr_5fservice_5funavailable',['ANJAY_ERR_SERVICE_UNAVAILABLE',['../core_8h.html#aa5b26069ef78147330a4c05aa13a6c57',1,'core.h']]],
   ['anjay_5ferr_5funauthorized',['ANJAY_ERR_UNAUTHORIZED',['../core_8h.html#a8f24cff6f35cf135a4cd1387dd181713',1,'core.h']]],
+  ['anjay_5ferr_5funsupported_5fcontent_5fformat',['ANJAY_ERR_UNSUPPORTED_CONTENT_FORMAT',['../core_8h.html#a9f7cbd8ea614fe042206af9d9a384660',1,'core.h']]],
   ['anjay_5fexecute_5fget_5farg_5fend',['ANJAY_EXECUTE_GET_ARG_END',['../io_8h.html#ab42bb2dd9acc42fec434b521caaad979',1,'io.h']]],
   ['anjay_5ffw_5fupdate_5ferr_5fintegrity_5ffailure',['ANJAY_FW_UPDATE_ERR_INTEGRITY_FAILURE',['../fw__update_8h.html#a2fdc049704f72819d0a6b1de7df739fb',1,'fw_update.h']]],
   ['anjay_5ffw_5fupdate_5ferr_5fnot_5fenough_5fspace',['ANJAY_FW_UPDATE_ERR_NOT_ENOUGH_SPACE',['../fw__update_8h.html#aefc50329eabcf89ae42815834c2f7e03',1,'fw_update.h']]],

@@ -11,5 +11,6 @@ var annotated_dup =
     [ "anjay_fw_update_handlers_t", "structanjay__fw__update__handlers__t.html", "structanjay__fw__update__handlers__t" ],
     [ "anjay_fw_update_initial_state_t", "structanjay__fw__update__initial__state__t.html", "structanjay__fw__update__initial__state__t" ],
     [ "anjay_security_instance_t", "structanjay__security__instance__t.html", "structanjay__security__instance__t" ],
-    [ "anjay_server_instance_t", "structanjay__server__instance__t.html", "structanjay__server__instance__t" ]
+    [ "anjay_server_instance_t", "structanjay__server__instance__t.html", "structanjay__server__instance__t" ],
+    [ "anjay_socket_entry_t", "structanjay__socket__entry__t.html", "structanjay__socket__entry__t" ]
 ];

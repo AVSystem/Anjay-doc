@@ -42,6 +42,7 @@ var searchData=
   ['anjay_5fget_5fnum_5foutgoing_5fretransmissions',['anjay_get_num_outgoing_retransmissions',['../stats_8h.html#a7ba0919eea2479301b2f98ab2dc48a91',1,'stats.h']]],
   ['anjay_5fget_5fobjlnk',['anjay_get_objlnk',['../io_8h.html#acfc765ddbf002335af4b9028ca2b7d2b',1,'io.h']]],
   ['anjay_5fget_5frx_5fbytes',['anjay_get_rx_bytes',['../stats_8h.html#a3fe253df366cb33eae9bad5e666ef3e1',1,'stats.h']]],
+  ['anjay_5fget_5fsocket_5fentries',['anjay_get_socket_entries',['../core_8h.html#accc841d429905c688957594c05c59e52',1,'core.h']]],
   ['anjay_5fget_5fsockets',['anjay_get_sockets',['../core_8h.html#a9f224f9dc40e4c52f01e0180fca81fec',1,'core.h']]],
   ['anjay_5fget_5fstring',['anjay_get_string',['../io_8h.html#a9b2b4670b7b04d43f23cb6e9919e83ca',1,'io.h']]],
   ['anjay_5fget_5ftx_5fbytes',['anjay_get_tx_bytes',['../stats_8h.html#ad1e5b7d591e674ae78bfc659df0d6749',1,'stats.h']]],

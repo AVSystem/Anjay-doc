@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"persistence_8h.html#a1cc3a0ac51bc634027e5eeffa0ff1e6c":[1,0,0,0,5,2],
+"persistence_8h.html#a1e49097f6ef190f4f388276ed1b1e125":[1,0,0,0,5,8],
+"persistence_8h.html#a25c90ef34cfe935a28015bf81098d6a6":[1,0,0,0,5,1],
+"persistence_8h.html#a2bffbba1a47bf4c390b61a961d14b3b1":[1,0,0,0,5,15],
+"persistence_8h.html#a3ffa376d3f3a7d8830b70c1fde42063c":[1,0,0,0,5,13],
+"persistence_8h.html#a4cf19b0d25d01ea577b743c432bad8e2":[1,0,0,0,5,14],
 "persistence_8h.html#a62e91cd1f087f07c83b0e40b4cde2d04":[1,0,0,0,5,5],
 "persistence_8h.html#a683b8ba230c91d46efc1b3312e902da2":[1,0,0,0,5,9],
 "persistence_8h.html#a8a32dd12a108f3bad911a104bf9dbc67":[1,0,0,0,5,10],
@@ -135,5 +141,10 @@ var NAVTREEINDEX1 =
 "structanjay__server__instance__t.html#a9401f437c3fec8397405d20fd7e939f3":[0,0,11,1],
 "structanjay__server__instance__t.html#ac65af5d5277dc0f44cc7466ae4549e74":[0,0,11,2],
 "structanjay__server__instance__t.html#ad33e2d024ed2ba5de79b53c2d3b9a340":[0,0,11,0],
-"structanjay__server__instance__t.html#adeb5992aa2f9dfdc6f4e3fd1a9a58131":[0,0,11,3]
+"structanjay__server__instance__t.html#adeb5992aa2f9dfdc6f4e3fd1a9a58131":[0,0,11,3],
+"structanjay__socket__entry__t.html":[0,0,12],
+"structanjay__socket__entry__t.html#a4d58c28c450d30bb248f2e9d90132207":[0,0,12,0],
+"structanjay__socket__entry__t.html#a661af3675ddfb29608e7b48a44de557e":[0,0,12,2],
+"structanjay__socket__entry__t.html#a8138e934efc9113fa1b46ec6fe790dd7":[0,0,12,3],
+"structanjay__socket__entry__t.html#a8913aff3972484a632a44dce293fe11f":[0,0,12,1]
 };

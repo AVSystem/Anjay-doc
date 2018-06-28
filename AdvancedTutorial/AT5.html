@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.5. Retransmissions &amp; response caching &mdash; Anjay 1.9.3 documentation</title>
+  <title>5.5. Retransmissions &amp; response caching &mdash; Anjay 1.10.0 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.9.3 documentation" href="../index.html"/>
-        <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
-        <link rel="next" title="5.6. Other library features" href="AT6.html"/>
-        <link rel="prev" title="5.4. Access Control in multi-server environment" href="AT4.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.6. Other library features" href="AT6.html" />
+    <link rel="prev" title="5.4. Access Control in multi-server environment" href="AT4.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.9.3
+                1.10.0
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -115,36 +111,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-      
-    <li>5.5. Retransmissions &amp; response caching</li>
+        
+      <li>5.5. Retransmissions &amp; response caching</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/AdvancedTutorial/AT5.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -182,7 +198,7 @@ yield measurable performance benefits.</p>
 <h2>5.5.2. Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Permalink to this headline">¶</a></h2>
 <p>Anjay provides a built-in message cache (as an optional feature), that can be
 (and is, by default) enabled at a compile time (via
-<code class="docutils literal"><span class="pre">WITH_AVS_COAP_MESSAGE_CACHE</span></code> CMake option).</p>
+<code class="docutils literal notranslate"><span class="pre">WITH_AVS_COAP_MESSAGE_CACHE</span></code> CMake option).</p>
 <p>When the request is received, Anjay checks if there exists an appropriate
 response to it in the cache already. In case there is one, it is
 retransmitted. Otherwise Anjay processes the request as usual, in the end
@@ -199,7 +215,7 @@ following triplet:</p>
 </ul>
 </div></blockquote>
 </div>
-<p>Every response in the cache sits there for at most <code class="docutils literal"><span class="pre">MAX_TRANSMIT_SPAN</span></code>
+<p>Every response in the cache sits there for at most <code class="docutils literal notranslate"><span class="pre">MAX_TRANSMIT_SPAN</span></code>
 as defined in <a class="reference external" href="https://tools.ietf.org/html/rfc7252">RFC7252</a>, in
 <a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8.2">Section 4.8.2.  Time Values Derived from Transmission Parameters</a>, and after that time
 it is automatically removed.</p>
@@ -207,7 +223,7 @@ it is automatically removed.</p>
 <div class="section" id="cache-size">
 <h2>5.5.3. Cache size<a class="headerlink" href="#cache-size" title="Permalink to this headline">¶</a></h2>
 <p>The size of the cache is specified at Anjay instantiation time by setting
-<code class="docutils literal"><span class="pre">anjay_configuration_t::msg_cache_size</span></code> to a non-zero value (zero disables
+<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::msg_cache_size</span></code> to a non-zero value (zero disables
 any caching). This limits the number of bytes used to store cached responses.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -221,7 +237,7 @@ to all Servers are stored within a single cache.</p>
 <li>If a response is too big to fit into the cache, it is <strong>not cached</strong>,</li>
 <li>If a response would fit into the cache, but the cache is currently full,
 responses (starting from the oldest) are <strong>dropped</strong> from the cache (even if
-they are still considered valid in terms of mentioned <code class="docutils literal"><span class="pre">MAX_TRANSMIT_SPAN</span></code>),
+they are still considered valid in terms of mentioned <code class="docutils literal notranslate"><span class="pre">MAX_TRANSMIT_SPAN</span></code>),
 till the new response fits.</li>
 </ul>
 </div>
@@ -229,15 +245,16 @@ till the new response fits.</li>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT6.html" class="btn btn-neutral float-right" title="5.6. Other library features" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT6.html" class="btn btn-neutral float-right" title="5.6. Other library features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT4.html" class="btn btn-neutral" title="5.4. Access Control in multi-server environment" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT4.html" class="btn btn-neutral" title="5.4. Access Control in multi-server environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -250,7 +267,7 @@ till the new response fits.</li>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -268,10 +285,12 @@ till the new response fits.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.9.3',
+            VERSION:'1.10.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -280,19 +299,13 @@ till the new response fits.</li>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
