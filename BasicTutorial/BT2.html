@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Installing mandatory Objects &mdash; Anjay 1.10.0 documentation</title>
+  <title>4.2. Installing mandatory Objects &mdash; Anjay 1.10.1 documentation</title>
   
 
-  
-  
   
   
 
@@ -24,22 +22,31 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.3. Event loop" href="BT3.html" />
-    <link rel="prev" title="4.1. Getting started!" href="BT1.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.10.1 documentation" href="../index.html"/>
+        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
+        <link rel="next" title="4.3. Event loop" href="BT3.html"/>
+        <link rel="prev" title="4.1. Getting started!" href="BT1.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +66,7 @@
             
             
               <div class="version">
-                1.10.0
+                1.10.1
               </div>
             
           
@@ -80,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -110,56 +114,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-        
-      <li>4.2. Installing mandatory Objects</li>
-    
-    
+      
+    <li>4.2. Installing mandatory Objects</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/BasicTutorial/BT2.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -168,13 +152,13 @@
   <div class="section" id="installing-mandatory-objects">
 <h1>4.2. Installing mandatory Objects<a class="headerlink" href="#installing-mandatory-objects" title="Permalink to this headline">¶</a></h1>
 <p>In order to be able to connect to some LwM2M Server and handle incoming
-packets our client has to have at least LwM2M Security (<code class="docutils literal notranslate"><span class="pre">/0</span></code>) and LwM2M
-Server (<code class="docutils literal notranslate"><span class="pre">/1</span></code>) Objects implemented.</p>
+packets our client has to have at least LwM2M Security (<code class="docutils literal"><span class="pre">/0</span></code>) and LwM2M
+Server (<code class="docutils literal"><span class="pre">/1</span></code>) Objects implemented.</p>
 <p>Fortunately, Anjay provides both of these Objects in form of preimplemented
 modules, and they can be used easily.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">That doesn’t impact on Anjay flexibility – i.e. users can still
+<p class="last">That doesn&#8217;t impact on Anjay flexibility &#8211; i.e. users can still
 provide their own implementation of these Objects if necessary.</p>
 </div>
 <p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example) it has no knowledge about the Data Model,
@@ -182,27 +166,27 @@ i.e. no LwM2M Objects are registered within it. Security and Server objects can
 be registered using installation mechanism, presented in the next subsection.</p>
 <div class="section" id="installing-objects">
 <span id="registering-objects"></span><h2>4.2.1. Installing Objects<a class="headerlink" href="#installing-objects" title="Permalink to this headline">¶</a></h2>
-<p>Each LwM2M Object is defined by an instance of the <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code>
-structure. To add support for a new Object, you’d need to fill that structure
+<p>Each LwM2M Object is defined by an instance of the <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code>
+structure. To add support for a new Object, you&#8217;d need to fill that structure
 and implement appropriate callback functions, linking it to actual
 representation and register created objects within Anjay. However, for now, we
 are going to install our preimplemented LwM2M Objects (Security, Server), so
-that you don’t have to worry about initializing the structure and object
+that you don&#8217;t have to worry about initializing the structure and object
 registration on your own. In case you are interested in this topic at that
 moment, you may jump to <a class="reference internal" href="BT5_CustomObject.html"><span class="doc">Custom LwM2M objects</span></a> to get more information.</p>
-<p>To install objects we are going to use <code class="docutils literal notranslate"><span class="pre">anjay_security_object_install()</span></code> and
-<code class="docutils literal notranslate"><span class="pre">anjay_server_object_install()</span></code> functions:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<p>To install objects we are going to use <code class="docutils literal"><span class="pre">anjay_security_object_install()</span></code> and
+<code class="docutils literal"><span class="pre">anjay_server_object_install()</span></code> functions:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="installing-server-and-security-objects">
 <h2>4.2.2. Installing Server and Security Objects<a class="headerlink" href="#installing-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
 <p>We are going to modify the code from the <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">previous tutorial</span></a>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
@@ -240,7 +224,7 @@ moment, you may jump to <a class="reference internal" href="BT5_CustomObject.htm
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> will automatically delete installed modules after
+<p class="last"><code class="docutils literal"><span class="pre">anjay_delete()</span></code> will automatically delete installed modules after
 destruction of Anjay instance.</p>
 </div>
 </div>
@@ -248,10 +232,10 @@ destruction of Anjay instance.</p>
 <h2>4.2.3. Adding necessary Security and Server entries<a class="headerlink" href="#adding-necessary-security-and-server-entries" title="Permalink to this headline">¶</a></h2>
 <p>OK, we are ready to tell Anjay what is the LwM2M Server address we would like
 to connect to. In order to do this, we will create two structure instances
-(<code class="docutils literal notranslate"><span class="pre">anjay_server_instance_t</span></code>, <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code>) and fill them
+(<code class="docutils literal"><span class="pre">anjay_server_instance_t</span></code>, <code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code>) and fill them
 accordingly. After that they are going to be added as respective Object
 Instances:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
     <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
@@ -277,7 +261,7 @@ Instances:</p>
 <p>Great, so far it was really easy. But our client is currently unable to
 connect to the specified Server.  It is because we have not implemented
 an <a class="reference internal" href="BT3.html"><span class="doc">event loop</span></a> yet. It may be a little bit more complicated, as
-you’ll see in the next chapter, but the example event loop will be provided,
+you&#8217;ll see in the next chapter, but the example event loop will be provided,
 so that one can just copypaste it and run the Client finally.</p>
 </div>
 <div class="section" id="enabling-lwm2m-discover-on-objects">
@@ -318,16 +302,15 @@ for most use cases.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT3.html" class="btn btn-neutral float-right" title="4.3. Event loop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT3.html" class="btn btn-neutral float-right" title="4.3. Event loop" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT1.html" class="btn btn-neutral" title="4.1. Getting started!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT1.html" class="btn btn-neutral" title="4.1. Getting started!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -340,7 +323,7 @@ for most use cases.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -358,12 +341,10 @@ for most use cases.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.0',
-            LANGUAGE:'None',
+            VERSION:'1.10.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -372,13 +353,19 @@ for most use cases.</p>
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

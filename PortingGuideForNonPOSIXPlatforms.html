@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>7. Porting guide for non-POSIX platforms &mdash; Anjay 1.10.0 documentation</title>
+  <title>7. Porting guide for non-POSIX platforms &mdash; Anjay 1.10.1 documentation</title>
   
 
-  
-  
   
   
 
@@ -24,22 +22,30 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. Commercial support" href="Commercial_support.html" />
-    <link rel="prev" title="6. Tools" href="Tools.html" /> 
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Anjay 1.10.1 documentation" href="index.html"/>
+        <link rel="next" title="8. Commercial support" href="Commercial_support.html"/>
+        <link rel="prev" title="6. Tools" href="Tools.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +65,7 @@
             
             
               <div class="version">
-                1.10.0
+                1.10.1
               </div>
             
           
@@ -80,10 +86,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -103,54 +106,34 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>7. Porting guide for non-POSIX platforms</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>7. Porting guide for non-POSIX platforms</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/PortingGuideForNonPOSIXPlatforms.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -163,12 +146,12 @@ and handling network traffic. If no such interfaces are provided by the
 toolchain, the user needs to provide custom implementations.</p>
 <div class="section" id="time-api">
 <h2>7.1. Time API<a class="headerlink" href="#time-api" title="Permalink to this headline">¶</a></h2>
-<p>If POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime</span></code> function is not available:</p>
+<p>If POSIX <code class="docutils literal"><span class="pre">clock_gettime</span></code> function is not available:</p>
 <ul class="simple">
-<li>Use <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_TIME=OFF</span></code> when running CMake on Anjay,</li>
+<li>Use <code class="docutils literal"><span class="pre">WITH_POSIX_AVS_TIME=OFF</span></code> when running CMake on Anjay,</li>
 <li>Provide an implementation for:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">avs_time_real_now</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now</span></code></li>
+<li><code class="docutils literal"><span class="pre">avs_time_real_now</span></code></li>
+<li><code class="docutils literal"><span class="pre">avs_time_monotonic_now</span></code></li>
 </ul>
 </li>
 </ul>
@@ -185,82 +168,82 @@ toolchain, the user needs to provide custom implementations.</p>
 <p>If LwIP 2.0 is used as a network stack, you may set:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">-DWITH_POSIX_AVS_SOCKET=ON</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">-DWITH_IPV6=OFF</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">-DPOSIX_COMPAT_HEADER=avs_commons/git/compat/lwip-posix-compat.h</span></code></li>
+<li><code class="docutils literal"><span class="pre">-DWITH_POSIX_AVS_SOCKET=ON</span></code></li>
+<li><code class="docutils literal"><span class="pre">-DWITH_IPV6=OFF</span></code></li>
+<li><code class="docutils literal"><span class="pre">-DPOSIX_COMPAT_HEADER=avs_commons/git/compat/lwip-posix-compat.h</span></code></li>
 </ul>
 </div></blockquote>
 <p class="last">CMake options for an out-of-the-box socket compatibility layer implementation.</p>
 </div>
 <p>If POSIX socket API is not available:</p>
 <ul>
-<li><p class="first">Use <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_SOCKET=OFF</span></code> when running CMake on Anjay,</p>
+<li><p class="first">Use <code class="docutils literal"><span class="pre">WITH_POSIX_AVS_SOCKET=OFF</span></code> when running CMake on Anjay,</p>
 </li>
 <li><p class="first">Provide an implementation for:</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">_avs_net_create_udp_socket</span></code> - a function with following signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">_avs_net_create_udp_socket</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">**</span><span class="n">socket</span><span class="p">,</span>
+<li><p class="first"><code class="docutils literal"><span class="pre">_avs_net_create_udp_socket</span></code> - a function with following signature:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">_avs_net_create_udp_socket</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">**</span><span class="n">socket</span><span class="p">,</span>
                                <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
-<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">socket_configuration</span></code> argument is a pointer to
+<code class="docutils literal"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
 <p>The function should return 0 on success and a negative value on error.
 It should create a socket object, and return its pointer case to
-<code class="docutils literal notranslate"><span class="pre">avs_net_abstract_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument.
+<code class="docutils literal"><span class="pre">avs_net_abstract_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal"><span class="pre">*socket</span></code> argument.
 The socket object should be a struct, whose first field is
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code> filled with pointers to method handlers.</p>
+<code class="docutils literal"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code> filled with pointers to method handlers.</p>
 <p>Minimal set of socket methods that have to be implemented:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">bind</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">close</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">connect</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">create</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">errno</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">get_local_port</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">get_opt</span></code> able to read following options:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_STATE</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_MTU</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_INNER_MTU</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code></li>
+<li><code class="docutils literal"><span class="pre">bind</span></code></li>
+<li><code class="docutils literal"><span class="pre">cleanup</span></code></li>
+<li><code class="docutils literal"><span class="pre">close</span></code></li>
+<li><code class="docutils literal"><span class="pre">connect</span></code></li>
+<li><code class="docutils literal"><span class="pre">create</span></code></li>
+<li><code class="docutils literal"><span class="pre">errno</span></code></li>
+<li><code class="docutils literal"><span class="pre">get_local_port</span></code></li>
+<li><code class="docutils literal"><span class="pre">get_opt</span></code> able to read following options:<ul>
+<li><code class="docutils literal"><span class="pre">AVS_NET_SOCKET_OPT_STATE</span></code></li>
+<li><code class="docutils literal"><span class="pre">AVS_NET_SOCKET_OPT_MTU</span></code></li>
+<li><code class="docutils literal"><span class="pre">AVS_NET_SOCKET_OPT_INNER_MTU</span></code></li>
+<li><code class="docutils literal"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">get_remote_host</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">get_remote_hostname</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">get_remote_port</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">get_system</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">receive</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">send</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">set_opt</span></code> able to set the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code> option</li>
+<li><code class="docutils literal"><span class="pre">get_remote_host</span></code></li>
+<li><code class="docutils literal"><span class="pre">get_remote_hostname</span></code></li>
+<li><code class="docutils literal"><span class="pre">get_remote_port</span></code></li>
+<li><code class="docutils literal"><span class="pre">get_system</span></code></li>
+<li><code class="docutils literal"><span class="pre">receive</span></code></li>
+<li><code class="docutils literal"><span class="pre">send</span></code></li>
+<li><code class="docutils literal"><span class="pre">set_opt</span></code> able to set the <code class="docutils literal"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code> option</li>
 </ul>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">_avs_net_create_tcp_socket</span></code> - only required if the <code class="docutils literal notranslate"><span class="pre">fw_update</span></code> module
+<li><p class="first"><code class="docutils literal"><span class="pre">_avs_net_create_tcp_socket</span></code> - only required if the <code class="docutils literal"><span class="pre">fw_update</span></code> module
 should support HTTP/HTTPS transfers. Otherwise, can be safely implemented as
-<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">-1;</span></code>.</p>
+<code class="docutils literal"><span class="pre">return</span> <span class="pre">-1;</span></code>.</p>
 <p>Function signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">_avs_net_create_tcp_socket</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">**</span><span class="n">socket</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">_avs_net_create_tcp_socket</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">**</span><span class="n">socket</span><span class="p">,</span>
                                <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
-<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">socket_configuration</span></code> argument is a pointer to
+<code class="docutils literal"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
 <p>The function should return 0 on success and a negative value on error.
 It should create a socket object, and return its pointer case to
-<code class="docutils literal notranslate"><span class="pre">avs_net_abstract_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument.
+<code class="docutils literal"><span class="pre">avs_net_abstract_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal"><span class="pre">*socket</span></code> argument.
 The socket object should be a struct, whose first field is
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code> filled with pointers to method handlers.</p>
+<code class="docutils literal"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code> filled with pointers to method handlers.</p>
 <p>Minimal set of socket methods that have to be implemented:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">close</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">connect</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">create</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">errno</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">receive</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">send</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">set_opt</span></code> able to set the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code> option</li>
-<li><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></li>
+<li><code class="docutils literal"><span class="pre">cleanup</span></code></li>
+<li><code class="docutils literal"><span class="pre">close</span></code></li>
+<li><code class="docutils literal"><span class="pre">connect</span></code></li>
+<li><code class="docutils literal"><span class="pre">create</span></code></li>
+<li><code class="docutils literal"><span class="pre">errno</span></code></li>
+<li><code class="docutils literal"><span class="pre">receive</span></code></li>
+<li><code class="docutils literal"><span class="pre">send</span></code></li>
+<li><code class="docutils literal"><span class="pre">set_opt</span></code> able to set the <code class="docutils literal"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code> option</li>
+<li><code class="docutils literal"><span class="pre">shutdown</span></code></li>
 </ul>
 </li>
 </ul>
@@ -270,7 +253,7 @@ The socket object should be a struct, whose first field is
 <p class="first admonition-title">Warning</p>
 <p class="last">Anjay may attempt to call socket methods other than listed above, even
 though they are not essential for correct operation of the application.
-Make sure that all members of <code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span></code> are not NULL
+Make sure that all members of <code class="docutils literal"><span class="pre">avs_net_socket_v_table_t</span></code> are not NULL
 - if required, provide a stub that always fails.</p>
 </div>
 <div class="admonition note">
@@ -283,16 +266,15 @@ Make sure that all members of <code class="docutils literal notranslate"><span c
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Commercial_support.html" class="btn btn-neutral float-right" title="8. Commercial support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Commercial_support.html" class="btn btn-neutral float-right" title="8. Commercial support" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Tools.html" class="btn btn-neutral" title="6. Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Tools.html" class="btn btn-neutral" title="6. Tools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -305,7 +287,7 @@ Make sure that all members of <code class="docutils literal notranslate"><span c
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -323,12 +305,10 @@ Make sure that all members of <code class="docutils literal notranslate"><span c
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.10.0',
-            LANGUAGE:'None',
+            VERSION:'1.10.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -337,13 +317,19 @@ Make sure that all members of <code class="docutils literal notranslate"><span c
 
   
 
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>
