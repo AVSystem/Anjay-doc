@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.3. DTLS support &mdash; Anjay 1.10.1 documentation</title>
+  <title>5.3. DTLS support &mdash; Anjay 1.10.2 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.10.1 documentation" href="../index.html"/>
-        <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
-        <link rel="next" title="5.4. Access Control in multi-server environment" href="AT4.html"/>
-        <link rel="prev" title="5.2. Persistence support" href="AT2.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.4. Access Control in multi-server environment" href="AT4.html" />
+    <link rel="prev" title="5.2. Persistence support" href="AT2.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.10.1
+                1.10.2
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -115,36 +111,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-      
-    <li>5.3. DTLS support</li>
+        
+      <li>5.3. DTLS support</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/AdvancedTutorial/AT3.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -154,9 +170,9 @@
 <h1>5.3. DTLS support<a class="headerlink" href="#dtls-support" title="Permalink to this headline">¶</a></h1>
 <p>If Anjay is compiled with support for DTLS enabled and linked with one of the
 supported DTLS libraries, connection encryption is automatically handled
-according to values of Resources in the Security (<code class="docutils literal"><span class="pre">/0</span></code>) Object.</p>
+according to values of Resources in the Security (<code class="docutils literal notranslate"><span class="pre">/0</span></code>) Object.</p>
 <p>This automatic configuration will be performed regardless of whether you are
-using the <code class="docutils literal"><span class="pre">security</span></code> module that pre-implements the Security Object, or if you
+using the <code class="docutils literal notranslate"><span class="pre">security</span></code> module that pre-implements the Security Object, or if you
 perhaps decide to implement the Security Object yourself from scratch. The
 library will always read the necessary DTLS configuration from the data model.</p>
 <div class="admonition note">
@@ -189,46 +205,46 @@ interoperability problems.</p>
 <div class="section" id="supported-connection-modes">
 <h2><a class="toc-backref" href="#id1">5.3.1. Supported connection modes</a><a class="headerlink" href="#supported-connection-modes" title="Permalink to this headline">¶</a></h2>
 <p>The connection mode is determined based on the <em>Security Mode</em> Resource in a
-given instance of the Security Object (<code class="docutils literal"><span class="pre">/0/*/2</span></code>). Supported values are:</p>
+given instance of the Security Object (<code class="docutils literal notranslate"><span class="pre">/0/*/2</span></code>). Supported values are:</p>
 <ul>
-<li><p class="first"><code class="docutils literal"><span class="pre">0</span></code> - <strong>Pre-Shared Key mode</strong> - In this mode, communication is symmetrically
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">0</span></code> - <strong>Pre-Shared Key mode</strong> - In this mode, communication is symmetrically
 encrypted using the same secret key, shared between the server and the client.</p>
 <ul class="simple">
 <li>The TLS-PSK identity is stored in the <em>Public Key or Identity</em> Resource
-(<code class="docutils literal"><span class="pre">/0/*/3</span></code>). It is a string identifying the key being used, so that the
+(<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>). It is a string identifying the key being used, so that the
 server can uniquely determine which key to use for communication. This
 string shall be directly stored in the aforementioned Resource.</li>
-<li>The <em>Secret Key</em> (<code class="docutils literal"><span class="pre">/0/*/5</span></code>) Resource shall contain the secret pre-shared
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the secret pre-shared
 key itself, directly in an opaque binary format appropriate for the
 cipher suite used by the server.</li>
 </ul>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">2</span></code> - <strong>Certificate mode</strong> - In this mode, an asymmetrical public-key
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">2</span></code> - <strong>Certificate mode</strong> - In this mode, an asymmetrical public-key
 cryptographic algorithm is used to authenticate the connection endpoints and
 initialize payload encryption.</p>
 <p>Appropriate Certificates need to be generated for both the LwM2M Client and
 the LwM2M Server. Public certificates of both ends are available on both
 sides, and each side also has access to its own corresponding private key.</p>
 <ul class="simple">
-<li>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal"><span class="pre">/0/*/3</span></code>) Resource shall
-contain the Client&#8217;s own public certificate in binary, DER-encoded X.509
+<li>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>) Resource shall
+contain the Client’s own public certificate in binary, DER-encoded X.509
 format.</li>
-<li>The <em>Server Public Key</em> (<code class="docutils literal"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server&#8217;s
+<li>The <em>Server Public Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
 public certificate, also in binary, DER-encoded X.509 format.</li>
-<li>The <em>Secret Key</em> (<code class="docutils literal"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client&#8217;s own
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
 private key, corresponding to the public key contained in the <em>Public Key or
 Identity</em> Resource. It needs to be in a format defined in
 <a class="reference external" href="https://tools.ietf.org/html/rfc5958">RFC 5958</a> (also known as PKCS#8, the
 name which was used in previous versions of the format), DER-encoded into a
 binary value.</li>
 </ul>
-<p>Note that in the Certificate mode, it is not enough if the Server&#8217;s
+<p>Note that in the Certificate mode, it is not enough if the Server’s
 certificate <em>just matches</em> the one stored in the <em>Server Public Key</em> resource.
 It is also verified that the certificate is issued for the same domain name
 that is contained in the Server URI, and if it is signed by some external CA,
 that CA needs to be trusted as well.</p>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption is disabled completely and
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption is disabled completely and
 the CoAP messages are passed in plain text over the network. It shall not be
 used in production environments, unless end-to-end security is provided on a
 lower layer (e.g. IPsec). It is also useful for development, testing and
@@ -246,12 +262,12 @@ not used, the Client will need to contain some factory defaults for connecting
 to an LwM2M Server or an LwM2M Bootstrap Server. In this section, we will learn
 how to implement such factory defaults for DTLS connection.</p>
 <p>The full code for the following examples can be found in the
-<code class="docutils literal"><span class="pre">examples/tutorial/AT3-psk</span></code> directory in Anjay sources.</p>
+<code class="docutils literal notranslate"><span class="pre">examples/tutorial/AT3-psk</span></code> directory in Anjay sources.</p>
 <div class="section" id="configuring-dtls-version">
 <h3><a class="toc-backref" href="#id3">5.3.2.1. Configuring DTLS version</a><a class="headerlink" href="#configuring-dtls-version" title="Permalink to this headline">¶</a></h3>
 <p>First of all, it is important to configure the appropriate DTLS version when
 initializing Anjay:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
     <span class="p">.</span><span class="n">dtls_version</span> <span class="o">=</span> <span class="n">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">,</span>
     <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
@@ -261,15 +277,15 @@ initializing Anjay:</p>
 <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The enum values for <code class="docutils literal"><span class="pre">dtls_version</span></code> field are based on regular SSL/TLS versions
+<p>The enum values for <code class="docutils literal notranslate"><span class="pre">dtls_version</span></code> field are based on regular SSL/TLS versions
 rather than DTLS. However, a version of DTLS based on the selected TLS version
 will be used. Thus:</p>
 <ul class="simple">
-<li>to use <strong>DTLS v1.0</strong>, set the field to <code class="docutils literal"><span class="pre">AVS_NET_SSL_VERSION_TLSv1</span></code> or
-<code class="docutils literal"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_1</span></code></li>
-<li>to use <strong>DTLS v1.2</strong>, set it to <code class="docutils literal"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> or
-<code class="docutils literal"><span class="pre">AVS_NET_SSL_VERSION_DEFAULT</span></code> (its numeric value is <code class="docutils literal"><span class="pre">0</span></code>, so it is the
-default after zero-initializing the <code class="docutils literal"><span class="pre">anjay_configuration_t</span></code> structure)</li>
+<li>to use <strong>DTLS v1.0</strong>, set the field to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1</span></code> or
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_1</span></code></li>
+<li>to use <strong>DTLS v1.2</strong>, set it to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> or
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_DEFAULT</span></code> (its numeric value is <code class="docutils literal notranslate"><span class="pre">0</span></code>, so it is the
+default after zero-initializing the <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> structure)</li>
 </ul>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -285,10 +301,10 @@ and/or security vulnerabilities.</p>
 <h3><a class="toc-backref" href="#id4">5.3.2.2. Configuring encryption keys</a><a class="headerlink" href="#configuring-encryption-keys" title="Permalink to this headline">¶</a></h3>
 <p>As mentioned above, in case of PSK mode, the security-related data that the
 LwM2M Client is operating on, is raw data.</p>
-<p>If you&#8217;re using the implementation of the Security object that is provided in
-Anjay&#8217;s <code class="docutils literal"><span class="pre">security</span></code> module, you can simply fill them in the
-<code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code> structure as follows:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">;</span>
+<p>If you’re using the implementation of the Security object that is provided in
+Anjay’s <code class="docutils literal notranslate"><span class="pre">security</span></code> module, you can simply fill them in the
+<code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> structure as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">;</span>
 <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_KEY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
 
 <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
@@ -303,7 +319,7 @@ Anjay&#8217;s <code class="docutils literal"><span class="pre">security</span></
 </pre></div>
 </div>
 <p>Now the only thing left is to add the new Security object instance:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
                                        <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
@@ -320,12 +336,12 @@ with the LwM2M Server will be performed automatically by Anjay.</p>
 essentially the same steps as using the PSK mode. However, it is very likely
 that you would like to load the certificates from files.</p>
 <p>The full code for the following examples can be found in the
-<code class="docutils literal"><span class="pre">examples/tutorial/AT3-cert</span></code> directory in Anjay sources.</p>
+<code class="docutils literal notranslate"><span class="pre">examples/tutorial/AT3-cert</span></code> directory in Anjay sources.</p>
 <div class="section" id="loading-certificate-files">
 <h3><a class="toc-backref" href="#id6">5.3.3.1. Loading certificate files</a><a class="headerlink" href="#loading-certificate-files" title="Permalink to this headline">¶</a></h3>
 <p>All actual parsing is performed by the TLS backend library, so it is enough to
 just load contents of certificate files in DER format into memory:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">load_buffer_from_file</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_size</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">load_buffer_from_file</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_size</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">f</span><span class="p">)</span> <span class="p">{</span>
@@ -361,8 +377,8 @@ just load contents of certificate files in DER format into memory:</p>
 </pre></div>
 </div>
 <p>This function can then be used to fill the relevant fields in the
-<code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code> structure:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+<code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> structure:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
     <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_CERTIFICATE</span>
@@ -388,18 +404,18 @@ just load contents of certificate files in DER format into memory:</p>
 </pre></div>
 </div>
 <p>Now the only thing left is to add the new Security object instance:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
                                        <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">anjay_security_object_add_instance()</span></code> copies the buffers present in the
-<code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code> structure into the internal state of the
-<code class="docutils literal"><span class="pre">security</span></code> module, so it is now safe to release the memory allocated by the
+<p><code class="docutils literal notranslate"><span class="pre">anjay_security_object_add_instance()</span></code> copies the buffers present in the
+<code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> structure into the internal state of the
+<code class="docutils literal notranslate"><span class="pre">security</span></code> module, so it is now safe to release the memory allocated by the
 file loading routine:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">);</span>
 <span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="p">);</span>
 <span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">server_public_key</span><span class="p">);</span>
 </pre></div>
@@ -410,15 +426,16 @@ file loading routine:</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT4.html" class="btn btn-neutral float-right" title="5.4. Access Control in multi-server environment" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT4.html" class="btn btn-neutral float-right" title="5.4. Access Control in multi-server environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT2.html" class="btn btn-neutral" title="5.2. Persistence support" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT2.html" class="btn btn-neutral" title="5.2. Persistence support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -431,7 +448,7 @@ file loading routine:</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -449,10 +466,12 @@ file loading routine:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.1',
+            VERSION:'1.10.2',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -461,19 +480,13 @@ file loading routine:</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2. OMA LwM2M - Brief description &mdash; Anjay 1.10.1 documentation</title>
+  <title>2. OMA LwM2M - Brief description &mdash; Anjay 1.10.2 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,30 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Anjay 1.10.1 documentation" href="index.html"/>
-        <link rel="next" title="3. Compiling client applications" href="Compiling_client_applications.html"/>
-        <link rel="prev" title="1. Introduction" href="Introduction.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. Compiling client applications" href="Compiling_client_applications.html" />
+    <link rel="prev" title="1. Introduction" href="Introduction.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -65,7 +59,7 @@
             
             
               <div class="version">
-                1.10.1
+                1.10.2
               </div>
             
           
@@ -86,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -106,34 +103,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>2. OMA LwM2M - Brief description</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>2. OMA LwM2M - Brief description</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/LwM2M.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -184,22 +201,22 @@ but this article provides a quick summary of the most important concepts.</p>
 entities:</p>
 <ul class="simple">
 <li><strong>LwM2M Clients</strong> are located on end devices. They communicate with server(s),
-allowing them to manage and monitor the devices&#8217; resources, which are exposed
+allowing them to manage and monitor the devices’ resources, which are exposed
 via a standardized <a class="reference internal" href="#id1">data model</a>.<ul>
 <li>An LwM2M Client is uniquely identified independently of its network address
 by an <strong>Endpoint Client Name</strong> - a URN uniquely assigned to a device by its
 manufacturer. OMA recommends the Endpoint Client Name to be in one of the
 following formats:<ul>
-<li><code class="docutils literal"><span class="pre">urn:uuid:########-####-####-############</span></code> (UUID = Universally Unique
+<li><code class="docutils literal notranslate"><span class="pre">urn:uuid:########-####-####-############</span></code> (UUID = Universally Unique
 Identifier)</li>
-<li><code class="docutils literal"><span class="pre">urn:dev:ops:{OUI}-{ProductClass}-{SerialNumber}</span></code> (OUI =
+<li><code class="docutils literal notranslate"><span class="pre">urn:dev:ops:{OUI}-{ProductClass}-{SerialNumber}</span></code> (OUI =
 Organizationally Unique Identifier - as in e.g. MAC addresses)</li>
-<li><code class="docutils literal"><span class="pre">urn:dev:os:{OUI}-{SerialNumber}</span></code></li>
-<li><code class="docutils literal"><span class="pre">urn:imei:###############</span></code> (IMEI = International Mobile Equipment
+<li><code class="docutils literal notranslate"><span class="pre">urn:dev:os:{OUI}-{SerialNumber}</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">urn:imei:###############</span></code> (IMEI = International Mobile Equipment
 Identity)</li>
-<li><code class="docutils literal"><span class="pre">urn:esn:########</span></code> (ESN = Electronic Serial Number)</li>
-<li><code class="docutils literal"><span class="pre">urn:meid:##############</span></code> (MEID = Mobile Equipment Identifier)</li>
-<li><code class="docutils literal"><span class="pre">urn:imei-msisdn:###############-###############</span></code> (MSISDN = Mobile
+<li><code class="docutils literal notranslate"><span class="pre">urn:esn:########</span></code> (ESN = Electronic Serial Number)</li>
+<li><code class="docutils literal notranslate"><span class="pre">urn:meid:##############</span></code> (MEID = Mobile Equipment Identifier)</li>
+<li><code class="docutils literal notranslate"><span class="pre">urn:imei-msisdn:###############-###############</span></code> (MSISDN = Mobile
 Station International Subscriber Directory Number, i.e. a standardized
 phone number)</li>
 </ul>
@@ -210,7 +227,7 @@ phone number)</li>
 Client during its first or every boot-up. Its only purpose is to initialize
 the data model, including connections to regular LwM2M Servers, before first
 contact to such. The Bootstrap Server communicates with the Client using a
-different set of commands, so it cannot be considered an &#8220;LwM2M Server&#8221; in the
+different set of commands, so it cannot be considered an “LwM2M Server” in the
 ordinary sense.</li>
 <li><strong>LwM2M Servers</strong> maintain connections with the clients and have the ability
 to read from and write to the data model exposed by the clients. Any given
@@ -240,7 +257,7 @@ inclusive. OMA manages a <a class="reference external" href="https://www.openmob
 Object defines a set of Resources whose meanings are common for each Object
 Instance.</p>
 </li>
-<li><p class="first"><strong>Object Instance</strong> - some Objects are described as &#8220;single-instance&#8221; - such
+<li><p class="first"><strong>Object Instance</strong> - some Objects are described as “single-instance” - such
 Objects always have exactly one Instance with identifier 0. Examples of such
 Objects include the Device object which describes the device itself, and the
 Firmware Update object which is used to perform firmware upgrades.</p>
@@ -262,9 +279,9 @@ mapping onto real-world entities may be different.</p>
 </li>
 </ul>
 <p>The numerical identifiers on each of these levels form a path, which is used
-as the path portion of CoAP URLs. For example, a path <code class="docutils literal"><span class="pre">/1/2/3</span></code> refers to
+as the path portion of CoAP URLs. For example, a path <code class="docutils literal notranslate"><span class="pre">/1/2/3</span></code> refers to
 Resource ID=3 in Object Instance ID=2 of Object ID=1. Whole Object Instances
-(<code class="docutils literal"><span class="pre">/1/2</span></code>) or event Objects (<code class="docutils literal"><span class="pre">/1</span></code>) may be referred to using this syntax as
+(<code class="docutils literal notranslate"><span class="pre">/1/2</span></code>) or event Objects (<code class="docutils literal notranslate"><span class="pre">/1</span></code>) may be referred to using this syntax as
 well.</p>
 <div class="section" id="objects">
 <h3><a class="toc-backref" href="#id4">2.2.1. Objects</a><a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h3>
@@ -283,21 +300,21 @@ implementations) or <em>Optional</em> (may not be supported)</li>
 </ul>
 <p>The current set of Mandatory Objects consists of:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">/0</span></code> - <strong>LwM2M Security</strong> - contains confidential part of information about
+<li><code class="docutils literal notranslate"><span class="pre">/0</span></code> - <strong>LwM2M Security</strong> - contains confidential part of information about
 connections to the LwM2M Servers configured in the Client. From the on-wire
 protocol perspective, it is write-only and accessible only via the
 <a class="reference internal" href="#bootstrap-interface">Bootstrap Interface</a>. Implementation of this object is readily available in
-Anjay&#8217;s <code class="docutils literal"><span class="pre">security</span></code> module.</li>
-<li><code class="docutils literal"><span class="pre">/1</span></code> - <strong>LwM2M Server</strong> - contains non-confidential part of information
+Anjay’s <code class="docutils literal notranslate"><span class="pre">security</span></code> module.</li>
+<li><code class="docutils literal notranslate"><span class="pre">/1</span></code> - <strong>LwM2M Server</strong> - contains non-confidential part of information
 about connections to the LwM2M Servers configured in the Client.
-Implementation of this object is readily available in Anjay&#8217;s <code class="docutils literal"><span class="pre">server</span></code>
+Implementation of this object is readily available in Anjay’s <code class="docutils literal notranslate"><span class="pre">server</span></code>
 module.</li>
-<li><code class="docutils literal"><span class="pre">/3</span></code> - <strong>Device</strong> - contains basic information about the device, such as
+<li><code class="docutils literal notranslate"><span class="pre">/3</span></code> - <strong>Device</strong> - contains basic information about the device, such as
 e.g. serial number.</li>
 </ul>
-<p>Additionally, Object <code class="docutils literal"><span class="pre">/2</span></code> (<strong>Access Control</strong>) needs to be supported and
+<p>Additionally, Object <code class="docutils literal notranslate"><span class="pre">/2</span></code> (<strong>Access Control</strong>) needs to be supported and
 present if the Client supports more than one LwM2M Server connection at once.
-Implementation of this object is readily available in Anjay&#8217;s <code class="docutils literal"><span class="pre">access_control</span></code>
+Implementation of this object is readily available in Anjay’s <code class="docutils literal notranslate"><span class="pre">access_control</span></code>
 module.</p>
 </div>
 <div class="section" id="resources">
@@ -320,14 +337,14 @@ on-wire protocol.</p>
 accessible via the <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a></li>
 </ul>
 </li>
-<li><p class="first"><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; &#8220;Multiple&#8221; means that the type of data
-in the resource is actually an &#8220;array&#8221; - called such in the Anjay API, but
+<li><p class="first"><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; “Multiple” means that the type of data
+in the resource is actually an “array” - called such in the Anjay API, but
 actually more similar to an associative data structure. It is a list of pairs,
 each of which containing a unique Resource Instance ID (range 0-65535,
 inclusive) and instance value, of the type referred in the Resource
 definition.</p>
 <p>To implement Multiple Resources in Anjay, you will need to use
-<code class="docutils literal"><span class="pre">anjay_get_array</span></code> (for reading) and <code class="docutils literal"><span class="pre">anjay_ret_array_*</span></code> (for writing)
+<code class="docutils literal notranslate"><span class="pre">anjay_get_array</span></code> (for reading) and <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_*</span></code> (for writing)
 functions. Please refer to appropriate API documentation for details.</p>
 </li>
 <li><p class="first"><strong>Mandatory</strong> - <em>Mandatory</em> or <em>Optional</em>; Mandatory resources need to be
@@ -349,17 +366,17 @@ within the given data type.</p>
 <div class="section" id="attributes">
 <span id="lwm2m-attributes"></span><h3><a class="toc-backref" href="#id6">2.2.3. Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
 <p>Each entity in the data model (Resource, Object Instance or Object) can have
-various &#8220;attributes&#8221; attached. There are two types of attributes currently
+various “attributes” attached. There are two types of attributes currently
 defined in the LwM2M specification:</p>
 <ul>
 <li><p class="first"><strong>&lt;PROPERTIES&gt;</strong> Class Attributes are read-only metadata that may be read by
 Servers without accessing the data itself, possibly allowing it to operate
 more effectively. These include:</p>
 <ul class="simple">
-<li><strong>Dimension</strong> (<code class="docutils literal"><span class="pre">dim</span></code>) - in case of Multiple Resources, it is the number of
+<li><strong>Dimension</strong> (<code class="docutils literal notranslate"><span class="pre">dim</span></code>) - in case of Multiple Resources, it is the number of
 Resource Instances. Anjay calculates this Attribute automatically, but a
 dedicated callback for calculating it can also be optionally supplied.</li>
-<li><strong>Object Version</strong> (<code class="docutils literal"><span class="pre">ver</span></code>) - provides a way for versioning Object
+<li><strong>Object Version</strong> (<code class="docutils literal notranslate"><span class="pre">ver</span></code>) - provides a way for versioning Object
 definitions. It is currently not supported in Anjay, so all Objects are
 currently locked at version 1.0.</li>
 </ul>
@@ -373,32 +390,32 @@ given Object Instance or Object, if the Observe request was called on such
 higher-level path).</p>
 <p>This behaviour can be modified using the following available attributes:</p>
 <ul class="simple">
-<li><strong>Minimum Period</strong> (<code class="docutils literal"><span class="pre">pmin</span></code>) - if set to a non-zero value, notifications
-will never be sent more often than once every <code class="docutils literal"><span class="pre">pmin</span></code> seconds.</li>
-<li><strong>Maximum Period</strong> (<code class="docutils literal"><span class="pre">pmax</span></code>) - if set, notifications will <em>always</em> be sent
-at least once every <code class="docutils literal"><span class="pre">pmax</span></code> seconds, even if the value did not change.</li>
-<li><strong>Greater Than</strong> (<code class="docutils literal"><span class="pre">gt</span></code>) and <strong>Less Than</strong> (<code class="docutils literal"><span class="pre">lt</span></code>) - applicable only to
+<li><strong>Minimum Period</strong> (<code class="docutils literal notranslate"><span class="pre">pmin</span></code>) - if set to a non-zero value, notifications
+will never be sent more often than once every <code class="docutils literal notranslate"><span class="pre">pmin</span></code> seconds.</li>
+<li><strong>Maximum Period</strong> (<code class="docutils literal notranslate"><span class="pre">pmax</span></code>) - if set, notifications will <em>always</em> be sent
+at least once every <code class="docutils literal notranslate"><span class="pre">pmax</span></code> seconds, even if the value did not change.</li>
+<li><strong>Greater Than</strong> (<code class="docutils literal notranslate"><span class="pre">gt</span></code>) and <strong>Less Than</strong> (<code class="docutils literal notranslate"><span class="pre">lt</span></code>) - applicable only to
 numeric Resources - if set, notifications will only be sent when the value
 changes from below to above or from above to below the specified threshold.
 Contrary to what the names of these Attributes might suggest, there is no
 semantic difference between the two - both behave as equivalent
 bi-directional thresholds.</li>
-<li><strong>Step</strong> (<code class="docutils literal"><span class="pre">st</span></code>) - applicable only to numeric Resources - if set,
+<li><strong>Step</strong> (<code class="docutils literal notranslate"><span class="pre">st</span></code>) - applicable only to numeric Resources - if set,
 notifications will only be sent if the numerical value is different from the
-previously notified value by at least <code class="docutils literal"><span class="pre">st</span></code>.</li>
+previously notified value by at least <code class="docutils literal notranslate"><span class="pre">st</span></code>.</li>
 </ul>
 <p>When several Attributes are specified at the same time, the relations between
 them are as follows:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">pmin</span></code> and <code class="docutils literal"><span class="pre">pmax</span></code> have higher priority - even if the requirements for
-<code class="docutils literal"><span class="pre">gt</span></code>, <code class="docutils literal"><span class="pre">lt</span></code> and <code class="docutils literal"><span class="pre">st</span></code> are not met, a notification will always be sent
-at least once every <code class="docutils literal"><span class="pre">pmax</span></code> seconds - and conversely, even when the
-requirements for <code class="docutils literal"><span class="pre">gt</span></code>, <code class="docutils literal"><span class="pre">lt</span></code> and <code class="docutils literal"><span class="pre">st</span></code> are met, a notification will
-never be sent more often than once every <code class="docutils literal"><span class="pre">pmin</span></code> seconds.</li>
-<li>Requirements for just at least one of <code class="docutils literal"><span class="pre">gt</span></code>, <code class="docutils literal"><span class="pre">lt</span></code> or <code class="docutils literal"><span class="pre">st</span></code> need to be
+<li><code class="docutils literal notranslate"><span class="pre">pmin</span></code> and <code class="docutils literal notranslate"><span class="pre">pmax</span></code> have higher priority - even if the requirements for
+<code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code> and <code class="docutils literal notranslate"><span class="pre">st</span></code> are not met, a notification will always be sent
+at least once every <code class="docutils literal notranslate"><span class="pre">pmax</span></code> seconds - and conversely, even when the
+requirements for <code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code> and <code class="docutils literal notranslate"><span class="pre">st</span></code> are met, a notification will
+never be sent more often than once every <code class="docutils literal notranslate"><span class="pre">pmin</span></code> seconds.</li>
+<li>Requirements for just at least one of <code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code> or <code class="docutils literal notranslate"><span class="pre">st</span></code> need to be
 met if they are set at the same time. For example, if the new value differs
-by at least <code class="docutils literal"><span class="pre">st</span></code> from the previously sent one, it does not need to cross
-either of the <code class="docutils literal"><span class="pre">lt</span></code>/<code class="docutils literal"><span class="pre">gt</span></code> thresholds - the <code class="docutils literal"><span class="pre">st</span></code> condition alone is
+by at least <code class="docutils literal notranslate"><span class="pre">st</span></code> from the previously sent one, it does not need to cross
+either of the <code class="docutils literal notranslate"><span class="pre">lt</span></code>/<code class="docutils literal notranslate"><span class="pre">gt</span></code> thresholds - the <code class="docutils literal notranslate"><span class="pre">st</span></code> condition alone is
 enough to trigger sending notification.</li>
 </ul>
 </li>
@@ -468,7 +485,7 @@ LwM2M Server about its presence and availability. In this interface, the LwM2M
 Server acts as a CoAP server, and the LwM2M Client is a CoAP client. The
 requests that may be sent from the Client to the Server include:</p>
 <ul class="simple">
-<li><strong>Register</strong>, represented as a CoAP <strong>POST /rd?...</strong> request, is initially
+<li><strong>Register</strong>, represented as a CoAP <strong>POST /rd?…</strong> request, is initially
 sent by the Client when it goes online. It informs the Server that the Client
 is available for receiving commands on the
 <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a> and the
@@ -481,7 +498,7 @@ a response to <em>Register</em>. <strong>Update</strong> is sent in following si
 <li>periodically - to ensure the Server that the device is still online,</li>
 <li>whenever any of the information previously given in a Register message
 changes - so that the Server always has up-to-date information about the
-Client&#8217;s state.</li>
+Client’s state.</li>
 </ul>
 </li>
 <li><strong>De-register</strong> (CoAP <strong>DELETE</strong>) may be sent by the Client if it can
@@ -545,7 +562,7 @@ relation to the <a class="reference internal" href="#information-reporting-inter
 in the <a class="reference internal" href="#attributes">Attributes</a> section.</p>
 </li>
 <li><p class="first">A <strong>POST</strong> request targeting one of the root paths in the data model (called
-&#8220;Objects&#8221;, see <a class="reference internal" href="#id1">Data model</a>) represents the <strong>Create</strong> operation. It creates
+“Objects”, see <a class="reference internal" href="#id1">Data model</a>) represents the <strong>Create</strong> operation. It creates
 a new Object Instance, which gives a way to manage configuration entities that
 might have a variable and configurable number of similar but distinct entries
 - for example, software packages or APN connections.</p>
@@ -588,45 +605,46 @@ hours, to comply with
 </div>
 <div class="section" id="queue-mode">
 <h2><a class="toc-backref" href="#id12">2.4. Queue mode</a><a class="headerlink" href="#queue-mode" title="Permalink to this headline">¶</a></h2>
-<p>The <em>Register</em> and <em>Update</em> commands include a &#8220;Binding Mode&#8221; Parameter, which
+<p>The <em>Register</em> and <em>Update</em> commands include a “Binding Mode” Parameter, which
 may be one of the following:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">U</span></code> - UDP connection in standard mode</li>
-<li><code class="docutils literal"><span class="pre">UQ</span></code> - UDP connection in queue mode</li>
-<li><code class="docutils literal"><span class="pre">S</span></code> - SMS connection in standard mode</li>
-<li><code class="docutils literal"><span class="pre">SQ</span></code> - SMS connection in queue mode</li>
-<li><code class="docutils literal"><span class="pre">US</span></code> - both UDP and SMS connections active, both in standard mode</li>
-<li><code class="docutils literal"><span class="pre">UQS</span></code> - both UDP and SMS connections active; UDP in queue mode, SMS in
+<li><code class="docutils literal notranslate"><span class="pre">U</span></code> - UDP connection in standard mode</li>
+<li><code class="docutils literal notranslate"><span class="pre">UQ</span></code> - UDP connection in queue mode</li>
+<li><code class="docutils literal notranslate"><span class="pre">S</span></code> - SMS connection in standard mode</li>
+<li><code class="docutils literal notranslate"><span class="pre">SQ</span></code> - SMS connection in queue mode</li>
+<li><code class="docutils literal notranslate"><span class="pre">US</span></code> - both UDP and SMS connections active, both in standard mode</li>
+<li><code class="docutils literal notranslate"><span class="pre">UQS</span></code> - both UDP and SMS connections active; UDP in queue mode, SMS in
 standard mode</li>
 </ul>
-<p>The &#8220;queue mode&#8221; mentioned here is a special mode of operation in which the
+<p>The “queue mode” mentioned here is a special mode of operation in which the
 client device is not required to actively listen for incoming packets. The
 client is only required to listen for such packets for a limited period of time
 after each exchange of messages with the Server - typically after the <em>Update</em>
 command.</p>
-<p>The specification recommends to use CoAP&#8217;s <code class="docutils literal"><span class="pre">MAX_TRANSMIT_WAIT</span></code> value (93
+<p>The specification recommends to use CoAP’s <code class="docutils literal notranslate"><span class="pre">MAX_TRANSMIT_WAIT</span></code> value (93
 seconds by default) as that aforementioned limited period of time, and this
 recommendation is respected in Anjay.</p>
 <p>Anjay automatically handles the queue mode by hiding connections which are not
 required to actively listen from the library user. In particular, if the
-<code class="docutils literal"><span class="pre">anjay_get_sockets()</span></code> function returns an empty list, it likely means that all
+<code class="docutils literal notranslate"><span class="pre">anjay_get_sockets()</span></code> function returns an empty list, it likely means that all
 active connections are in queue mode and the listening period has passed. In
 that case, it is safe to passively sleep for the period returned by
-<code class="docutils literal"><span class="pre">anjay_sched_time_to_next()</span></code> (or one of its convenience wrappers).</p>
+<code class="docutils literal notranslate"><span class="pre">anjay_sched_time_to_next()</span></code> (or one of its convenience wrappers).</p>
 </div>
 </div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Compiling_client_applications.html" class="btn btn-neutral float-right" title="3. Compiling client applications" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Compiling_client_applications.html" class="btn btn-neutral float-right" title="3. Compiling client applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Introduction.html" class="btn btn-neutral" title="1. Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Introduction.html" class="btn btn-neutral" title="1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -639,7 +657,7 @@ that case, it is safe to passively sleep for the period returned by
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -657,10 +675,12 @@ that case, it is safe to passively sleep for the period returned by
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.10.1',
+            VERSION:'1.10.2',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -669,19 +689,13 @@ that case, it is safe to passively sleep for the period returned by
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

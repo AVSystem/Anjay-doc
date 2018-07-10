@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5. Custom LwM2M objects &mdash; Anjay 1.10.1 documentation</title>
+  <title>4.5. Custom LwM2M objects &mdash; Anjay 1.10.2 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.10.1 documentation" href="../index.html"/>
-        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
-        <link rel="next" title="4.5.1. Single-instance read-only object" href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html"/>
-        <link rel="prev" title="4.4. A few notes on general usage" href="BT4.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.5.1. Single-instance read-only object" href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html" />
+    <link rel="prev" title="4.4. A few notes on general usage" href="BT4.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.10.1
+                1.10.2
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -124,36 +120,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
-    <li>4.5. Custom LwM2M objects</li>
+        
+      <li>4.5. Custom LwM2M objects</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/BasicTutorial/BT5_CustomObject.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -161,14 +177,14 @@
             
   <div class="section" id="custom-lwm2m-objects">
 <h1>4.5. Custom LwM2M objects<a class="headerlink" href="#custom-lwm2m-objects" title="Permalink to this headline">¶</a></h1>
-<p>LwM2M Objects are described using the <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> struct,
+<p>LwM2M Objects are described using the <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> struct,
 which holds:</p>
 <ul class="simple">
 <li>Object ID,</li>
 <li>a list of Resource IDs that the Object might contain,</li>
 <li>a set of handlers used by the library to access and possibly modify the Object.</li>
 </ul>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/** A struct containing pointers to Object handlers. */</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/** A struct containing pointers to Object handlers. */</span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="cm">/** Get default Object attributes, @ref anjay_dm_object_read_default_attrs_t */</span>
     <span class="n">anjay_dm_object_read_default_attrs_t</span> <span class="o">*</span><span class="n">object_read_default_attrs</span><span class="p">;</span>
@@ -288,15 +304,16 @@ the most complex ones.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral float-right" title="4.5.1. Single-instance read-only object" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral float-right" title="4.5.1. Single-instance read-only object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT4.html" class="btn btn-neutral" title="4.4. A few notes on general usage" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT4.html" class="btn btn-neutral" title="4.4. A few notes on general usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -309,7 +326,7 @@ the most complex ones.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -327,10 +344,12 @@ the most complex ones.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.1',
+            VERSION:'1.10.2',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -339,19 +358,13 @@ the most complex ones.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
