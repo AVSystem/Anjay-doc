@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6. Tools &mdash; Anjay 1.10.2 documentation</title>
+  <title>6. Tools &mdash; Anjay 1.10.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -24,22 +22,27 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. Porting guide for non-POSIX platforms" href="PortingGuideForNonPOSIXPlatforms.html" />
-    <link rel="prev" title="5.6. Other library features" href="AdvancedTutorial/AT6.html" /> 
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Anjay 1.10.3 documentation" href="index.html"/>
+        <link rel="next" title="7. Porting guide for non-POSIX platforms" href="PortingGuideForNonPOSIXPlatforms.html"/>
+        <link rel="prev" title="5.6. Other library features" href="AdvancedTutorial/AT6.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +62,7 @@
             
             
               <div class="version">
-                1.10.2
+                1.10.3
               </div>
             
           
@@ -80,16 +83,15 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Compiling_client_applications.html">3. Compiling client applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasicTutorial.html">4. Basic tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AdvancedTutorial.html">5. Advanced tutorial</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">6. Tools</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms.html">7. Porting guide for non-POSIX platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Commercial_support.html">8. Commercial support</a></li>
 </ul>
@@ -103,54 +105,34 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>6. Tools</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>6. Tools</li>
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/Tools.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/Tools.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -168,7 +150,7 @@ fill in actual object logic.</p>
 Object Definition XML from <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>.</p>
 <div class="section" id="usage-examples">
 <h3>6.1.1. Usage examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># list registered LwM2M objects</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c1"># list registered LwM2M objects</span>
 ./tools/lwm2m_object_registry.py --list
 
 <span class="c1"># download Object Definition XML for object 3 (Device) to device.xml</span>
@@ -186,7 +168,7 @@ Object Definition XML from <a class="reference external" href="http://www.openmo
 <div class="section" id="output-example">
 <h3>6.1.2. Output example<a class="headerlink" href="#output-example" title="Permalink to this headline">¶</a></h3>
 <p>Consider the following xml Object definition:</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="nt">&lt;LWM2M</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">&quot;http://openmobilealliance.org/tech/profiles/LWM2M.xsd&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;Object</span> <span class="na">ObjectType=</span><span class="s">&quot;MODefinition&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;Name&gt;</span>Some Object Name<span class="nt">&lt;/Name&gt;</span>
@@ -233,7 +215,7 @@ Object Definition XML from <a class="reference external" href="http://www.openmo
 </pre></div>
 </div>
 <p>for which, the generator outputs the following source:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * Generated by anjay_codegen.py on 2017-10-05 10:55:11</span>
 <span class="cm"> *</span>
 <span class="cm"> * LwM2M Object: Some Object Name</span>
@@ -586,7 +568,7 @@ Object Definition XML from <a class="reference external" href="http://www.openmo
 </div>
 <p>Now that the basic object structure is created, one can start thinking about filling in
 missing parts marked in the code by the <cite>TODO</cite> comments. Then, to make the object present
-in the LwM2M Data Model, one shall instantiate it, and finally <a class="reference internal" href="BasicTutorial/BT2.html#registering-objects"><span class="std std-ref">register</span></a>
+in the LwM2M Data Model, one shall instantiate it, and finally <a class="reference internal" href="BasicTutorial/BT2.html#registering-objects"><span>register</span></a>
 it within Anjay.</p>
 </div>
 </div>
@@ -594,16 +576,15 @@ it within Anjay.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-right" title="7. Porting guide for non-POSIX platforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-right" title="7. Porting guide for non-POSIX platforms" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AdvancedTutorial/AT6.html" class="btn btn-neutral" title="5.6. Other library features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AdvancedTutorial/AT6.html" class="btn btn-neutral" title="5.6. Other library features" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -616,7 +597,7 @@ it within Anjay.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -634,12 +615,10 @@ it within Anjay.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.10.2',
-            LANGUAGE:'None',
+            VERSION:'1.10.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -648,13 +627,19 @@ it within Anjay.</p>
 
   
 
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>
