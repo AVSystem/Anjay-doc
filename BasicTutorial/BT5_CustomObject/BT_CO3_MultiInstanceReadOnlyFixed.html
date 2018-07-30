@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.5.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="4.5.4. Multi-instance writable object with fixed number of instances" href="BT_CO4_FixedInstanceWritable.html"/>
         <link rel="prev" title="4.5.2. Single-instance read-only object with an executable resource" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -96,7 +99,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.5.1. Single-instance read-only object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html">4.5.2. Single-instance read-only object with an executable resource</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">4.5.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.5.3. Multi-instance read-only object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.5.4. Multi-instance writable object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultiInstanceDynamic.html">4.5.5. Multi-instance writable object with dynamic number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO6_MultipleResourceInstances.html">4.5.6. Objects with Multiple Instance Resources</a></li>
@@ -148,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO3_MultiInstanceReadOnlyFixed.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO3_MultiInstanceReadOnlyFixed.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -172,11 +175,11 @@ for a multi-instance LwM2M Object,</li>
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
-<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span>Anjay Object stub generator</span></a>.</p>
+<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
 <p class="last">We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
-<p>The implemented Object will look as in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><em>Single-instance read-only object</em></a>,
+<p>The implemented Object will look as in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>,
 but will now support multiple Object Instances:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -235,11 +238,11 @@ but will now support multiple Object Instances:</p>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The code is based on <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><em>Single-instance read-only object</em></a>.</p>
+<p class="last">The code is based on <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
 </div>
 <p>First of all, let us define a structure that will hold both handlers and object
 state, initialize and register it:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">label</span><span class="p">;</span>
     <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
@@ -272,7 +275,7 @@ two more handlers are required:</p>
 <li><p class="first"><code class="docutils literal"><span class="pre">instance_present</span></code> - checking whether given Object Instance ID
 exists - in this case, it needs to return 1 for Instance IDs 0 and 1
 and 0 otherwise:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="n">test_object_t</span> <span class="o">*</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">test_object_t</span> <span class="o">*</span>
 <span class="nf">get_test_object</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 
@@ -298,7 +301,7 @@ and 0 otherwise:</p>
 </li>
 <li><p class="first"><code class="docutils literal"><span class="pre">instance_it</span></code> - used by the library to enumerate all existing Object
 Instance IDs:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_it</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_it</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                             <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                             <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span>
                             <span class="kt">void</span> <span class="o">**</span><span class="n">cookie</span><span class="p">)</span> <span class="p">{</span>
@@ -332,7 +335,7 @@ Instance IDs:</p>
 <p class="first admonition-title">Warning</p>
 <p>Any iterator data stored in <cite>*cookie</cite> <strong>must not</strong> require cleanup.
 The <cite>instance_it</cite> handler is used by the library as follows:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="kt">void</span> <span class="o">*</span><span class="n">cookie</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
 
@@ -358,7 +361,7 @@ of available Object Instances whenever the LwM2M Server requests one.</p>
 </div>
 <p>Having done that, <code class="docutils literal"><span class="pre">resource_read</span></code> handler needs to be slightly modified
 to correctly handle requests to different Object Instance IDs.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -387,7 +390,7 @@ to correctly handle requests to different Object Instance IDs.</p>
 </div>
 <p>The only thing left to do is plugging created handlers into the Object
 Definition struct:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">// Object ID</span>
     <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
 
@@ -452,7 +455,7 @@ main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

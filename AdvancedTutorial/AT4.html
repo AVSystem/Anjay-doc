@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.4. Access Control in multi-server environment &mdash; Anjay 1.10.3a documentation</title>
+  <title>5.4. Access Control in multi-server environment &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../index.html"/>
         <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
         <link rel="next" title="5.5. Retransmissions &amp; response caching" href="AT5.html"/>
         <link rel="prev" title="5.3. DTLS support" href="AT3.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -93,9 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="AT1.html">5.1. Attribute storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT2.html">5.2. Persistence support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT3.html">5.3. DTLS support</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">5.4. Access Control in multi-server environment</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.4. Access Control in multi-server environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT5.html">5.5. Retransmissions &amp; response caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT6.html">5.6. Other library features</a></li>
 </ul>
@@ -139,7 +140,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/AdvancedTutorial/AT4.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/AdvancedTutorial/AT4.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -152,7 +153,7 @@
   <div class="section" id="access-control-in-multi-server-environment">
 <h1>5.4. Access Control in multi-server environment<a class="headerlink" href="#access-control-in-multi-server-environment" title="Permalink to this headline">¶</a></h1>
 <p>LwM2M Client may be connected to more than one LwM2M Server. In such situation,
-restricting Server access to some part of the <a class="reference internal" href="../LwM2M.html#data-model"><span>data model</span></a>
+restricting Server access to some part of the <a class="reference internal" href="../LwM2M.html#data-model"><span class="std std-ref">data model</span></a>
 may be required.</p>
 <p>To resolve this problem the LwM2M Specification defines an Access Control
 Object that allows setting specific access rights on data model Instances
@@ -266,7 +267,7 @@ is an extremely complex Object to implement in a correct way.</p>
 <h2>5.4.3. Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
 <p>In this example, we are going to setup multiple-server
 environment. We will assign LwM2M Server with SSID 1 the <strong>Create</strong>
-permission on the <a class="reference internal" href="../BasicTutorial/BT5_CustomObject/BT_CO5_MultiInstanceDynamic.html"><em>Test Object developed in previous tutorials</em></a>.</p>
+permission on the <a class="reference internal" href="../BasicTutorial/BT5_CustomObject/BT_CO5_MultiInstanceDynamic.html"><span class="doc">Test Object developed in previous tutorials</span></a>.</p>
 <p>Additionally, we will allow both LwM2M Servers to read their respective LwM2M
 Server Instances.</p>
 <div class="admonition note">
@@ -279,7 +280,7 @@ permissions on its own in a multiple-server environment.</p>
 </div>
 <p>We start with installation of the Attribute Storage, Access Control, Security
 Object and Server Object modules:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">anjay_access_control_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
@@ -289,7 +290,7 @@ Object and Server Object modules:</p>
 </pre></div>
 </div>
 <p>Then we setup two LwM2M Servers:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="c1">// LwM2M Server account with SSID = 1</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// LwM2M Server account with SSID = 1</span>
 <span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance1</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
@@ -337,7 +338,7 @@ Object and Server Object modules:</p>
 </pre></div>
 </div>
 <p>And finally, we are ready to set access lists:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="c1">// Set LwM2M Create permission rights for SSID = 1, this will make SSID=1</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Set LwM2M Create permission rights for SSID = 1, this will make SSID=1</span>
 <span class="c1">// an exclusive owner of the Test Object</span>
 <span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
                              <span class="n">ANJAY_ACCESS_MASK_CREATE</span><span class="p">);</span>
@@ -363,7 +364,7 @@ Specification for more details on Access Control Object, as well as at our
 to delete your own implemented objects after calling <code class="docutils literal"><span class="pre">anjay_delete()</span></code>, as
 during the instance destruction Anjay may still try to refer to object&#8217;s
 data and premature object deletion could be disastrous in effects.</p>
-<div class="last highlight-c"><div class="highlight"><pre><span class="nl">cleanup</span><span class="p">:</span>
+<div class="last highlight-c"><div class="highlight"><pre><span></span><span class="nl">cleanup</span><span class="p">:</span>
     <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
     <span class="n">delete_test_object</span><span class="p">(</span><span class="n">test_obj</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
@@ -414,7 +415,7 @@ data and premature object deletion could be disastrous in effects.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

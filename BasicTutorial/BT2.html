@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Installing mandatory Objects &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.2. Installing mandatory Objects &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../index.html"/>
         <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
         <link rel="next" title="4.3. Event loop" href="BT3.html"/>
         <link rel="prev" title="4.1. Getting started!" href="BT1.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -90,9 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="BT1.html">4.1. Getting started!</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">4.2. Installing mandatory Objects</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Installing mandatory Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT3.html">4.3. Event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT4.html">4.4. A few notes on general usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT5_CustomObject.html">4.5. Custom LwM2M objects</a></li>
@@ -138,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/BasicTutorial/BT2.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/BasicTutorial/BT2.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -160,7 +161,7 @@ modules, and they can be used easily.</p>
 <p class="last">That doesn&#8217;t impact on Anjay flexibility &#8211; i.e. users can still
 provide their own implementation of these Objects if necessary.</p>
 </div>
-<p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BT1.html#anjay-hello-world"><span>hello world</span></a> example) it has no knowledge about the Data Model,
+<p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example) it has no knowledge about the Data Model,
 i.e. no LwM2M Objects are registered within it. Security and Server objects can
 be registered using installation mechanism, presented in the next subsection.</p>
 <div class="section" id="installing-objects">
@@ -172,20 +173,20 @@ representation and register created objects within Anjay. However, for now, we
 are going to install our preimplemented LwM2M Objects (Security, Server), so
 that you don&#8217;t have to worry about initializing the structure and object
 registration on your own. In case you are interested in this topic at that
-moment, you may jump to <a class="reference internal" href="BT5_CustomObject.html"><em>Custom LwM2M objects</em></a> to get more information.</p>
+moment, you may jump to <a class="reference internal" href="BT5_CustomObject.html"><span class="doc">Custom LwM2M objects</span></a> to get more information.</p>
 <p>To install objects we are going to use <code class="docutils literal"><span class="pre">anjay_security_object_install()</span></code> and
 <code class="docutils literal"><span class="pre">anjay_server_object_install()</span></code> functions:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="installing-server-and-security-objects">
 <h2>4.2.2. Installing Server and Security Objects<a class="headerlink" href="#installing-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
-<p>We are going to modify the code from the <a class="reference internal" href="BT1.html#anjay-hello-world"><span>previous tutorial</span></a>.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
+<p>We are going to modify the code from the <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">previous tutorial</span></a>.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
@@ -234,7 +235,7 @@ to connect to. In order to do this, we will create two structure instances
 (<code class="docutils literal"><span class="pre">anjay_server_instance_t</span></code>, <code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code>) and fill them
 accordingly. After that they are going to be added as respective Object
 Instances:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
     <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
@@ -259,7 +260,7 @@ Instances:</p>
 </div>
 <p>Great, so far it was really easy. But our client is currently unable to
 connect to the specified Server.  It is because we have not implemented
-an <a class="reference internal" href="BT3.html"><em>event loop</em></a> yet. It may be a little bit more complicated, as
+an <a class="reference internal" href="BT3.html"><span class="doc">event loop</span></a> yet. It may be a little bit more complicated, as
 you&#8217;ll see in the next chapter, but the example event loop will be provided,
 so that one can just copypaste it and run the Client finally.</p>
 </div>
@@ -272,23 +273,23 @@ so that one can just copypaste it and run the Client finally.</p>
 objects by default.</p>
 </div>
 <p>When a LwM2M Client registers to an LwM2M Server, it is often desired by the
-LwM2M Server to get an overview of the entire Data Model. While <a class="reference internal" href="../LwM2M.html#lwm2m-registration-interface"><span>LwM2M
+LwM2M Server to get an overview of the entire Data Model. While <a class="reference internal" href="../LwM2M.html#lwm2m-registration-interface"><span class="std std-ref">LwM2M
 Register</span></a> brings some information about Data
 Model tree (by listing registered Objects and their Instances in the payload),
-it does not contain any information about <a class="reference internal" href="../LwM2M.html#lwm2m-resources"><span>Resources</span></a>.</p>
-<p>Server-side, the resource discovery could be implemented as <a class="reference internal" href="../LwM2M.html#lwm2m-read"><span>LwM2M
-Read</span></a>, or <a class="reference internal" href="../LwM2M.html#lwm2m-discover"><span>LwM2M Discover</span></a>, executed for
+it does not contain any information about <a class="reference internal" href="../LwM2M.html#lwm2m-resources"><span class="std std-ref">Resources</span></a>.</p>
+<p>Server-side, the resource discovery could be implemented as <a class="reference internal" href="../LwM2M.html#lwm2m-read"><span class="std std-ref">LwM2M
+Read</span></a>, or <a class="reference internal" href="../LwM2M.html#lwm2m-discover"><span class="std std-ref">LwM2M Discover</span></a>, executed for
 each Object.</p>
 <p>The former could be suboptimal though, if resources happen to be
 long. Therefore allowing the Server to use the LwM2M Discover could be
 beneficial in terms of performance as well as bandwidth consumption.</p>
 <p>Anjay supports the LwM2M Discover operation, but it must be ensured
-that <a class="reference internal" href="../LwM2M.html#lwm2m-attributes"><span>Attributes</span></a> for a given Data Model entity
+that <a class="reference internal" href="../LwM2M.html#lwm2m-attributes"><span class="std std-ref">Attributes</span></a> for a given Data Model entity
 could be read. However, as you may have noticed: we did not implement any
 attribute-related handlers in this tutorial, and thus an attempt to perform
 an LwM2M Discover will result in <cite>Method Not Allowed</cite> response.</p>
-<p>Lucky for us, this could be fixed quickly as Anjay comes with <a class="reference internal" href="../AdvancedTutorial/AT1.html"><em>Attribute
-Storage</em></a> module, that contains pre-implemented
+<p>Lucky for us, this could be fixed quickly as Anjay comes with <a class="reference internal" href="../AdvancedTutorial/AT1.html"><span class="doc">Attribute
+Storage</span></a> module, that contains pre-implemented
 attribute handlers. Installing it is enough to enable LwM2M Discover.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -340,7 +341,7 @@ for most use cases.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

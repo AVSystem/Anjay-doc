@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="4.5.7. Bootstrap awareness" href="BT_CO7_BootstrapAwareness.html"/>
         <link rel="prev" title="4.5.5. Multi-instance writable object with dynamic number of instances" href="BT_CO5_MultiInstanceDynamic.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -99,9 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html">4.5.3. Multi-instance read-only object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.5.4. Multi-instance writable object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultiInstanceDynamic.html">4.5.5. Multi-instance writable object with dynamic number of instances</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">4.5.6. Objects with Multiple Instance Resources</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.5.6. Objects with Multiple Instance Resources</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO7_BootstrapAwareness.html">4.5.7. Bootstrap awareness</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO8_Notifications.html">4.5.8. Notifications for dynamically-changing Resources</a></li>
 </ul>
@@ -150,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO6_MultipleResourceInstances.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO6_MultipleResourceInstances.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,7 +174,7 @@
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
-<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span>Anjay Object stub generator</span></a>.</p>
+<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
 <p class="last">We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
@@ -196,11 +197,11 @@ results in undefined behavior.</p>
 them results in undefined behavior.</p>
 </div>
 <p>To instantiate them one uses functions:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="nf">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="nf">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>and</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="nf">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="nf">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>respectively.</p>
@@ -211,7 +212,7 @@ Instance ID (<cite>index</cite>) and the Resource Instance Value (<cite>value</c
 <h2>4.5.6.2. Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline">¶</a></h2>
 <p>We define following structure to represent a single Instance of our Multiple
 Instance Resource:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
     <span class="n">anjay_riid_t</span> <span class="n">index</span><span class="p">;</span>
     <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_value_instance_t</span><span class="p">;</span>
@@ -223,7 +224,7 @@ Instance Resource:</p>
 able to store all valid Resource Instance IDs.</p>
 </div>
 <p>We also edit <code class="docutils literal"><span class="pre">test_instance_t</span></code> structure definition:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
 
     <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
@@ -258,7 +259,7 @@ of a message by returning <code class="docutils literal"><span class="pre">ANJAY
 </div>
 <p>OK, based on the above, we are ready to create helper function which is going
 to read whole sequence of <cite>(index, value)</cite> pairs and store them on the list.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_array_write</span><span class="p">(</span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">out_instances</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_array_write</span><span class="p">(</span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">out_instances</span><span class="p">,</span>
                             <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">input_array</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
     <span class="n">test_value_instance_t</span> <span class="n">instance</span><span class="p">;</span>
@@ -327,7 +328,7 @@ as shown in this tutorial.</p>
 </div>
 <p>Last thing to do is to modify <code class="docutils literal"><span class="pre">test_resource_write</span></code> implementation to make use
 of our helper function:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                                <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -379,7 +380,7 @@ Multiple Instance Resource response is ready.</li>
 </ol>
 </div>
 <p>In the end, the read handler could look like this:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -465,7 +466,7 @@ subdirectory of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

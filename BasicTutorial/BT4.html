@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4. A few notes on general usage &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.4. A few notes on general usage &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../index.html"/>
         <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
         <link rel="next" title="4.5. Custom LwM2M objects" href="BT5_CustomObject.html"/>
         <link rel="prev" title="4.3. Event loop" href="BT3.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -92,9 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="BT1.html">4.1. Getting started!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT2.html">4.2. Installing mandatory Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT3.html">4.3. Event loop</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">4.4. A few notes on general usage</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.4. A few notes on general usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT5_CustomObject.html">4.5. Custom LwM2M objects</a></li>
 </ul>
 </li>
@@ -138,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/BasicTutorial/BT4.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/BasicTutorial/BT4.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -155,7 +156,7 @@
 <p>To start, we first need to establish that Anjay is a single-threaded
 library. It relies on the user calling <code class="docutils literal"><span class="pre">anjay_serve()</span></code> whenever some
 packet is receieved and <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> regularly, as described in the
-<a class="reference internal" href="BT3.html"><em>previous chapter</em></a>. Both of the methods block until the incoming
+<a class="reference internal" href="BT3.html"><span class="doc">previous chapter</span></a>. Both of the methods block until the incoming
 message or (respectively) a job is processed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -166,7 +167,7 @@ words: <code class="docutils literal"><span class="pre">anjay_serve()</span></co
 </div>
 <p>Because <code class="docutils literal"><span class="pre">anjay_serve()</span></code> blocks after a packet arrives, the library can
 handle at most one LwM2M Server at time, which makes its usage convenient,
-as one does not have to worry about <a class="reference internal" href="../LwM2M.html#data-model"><span>data model</span></a>
+as one does not have to worry about <a class="reference internal" href="../LwM2M.html#data-model"><span class="std std-ref">data model</span></a>
 being accessed or modified by multiple LwM2M Servers at the same time.
 Unfortunately it may happen to be a problem, as during blockwise transfers
 the library is unable to respond to other LwM2M Servers with anything else
@@ -180,7 +181,7 @@ be the best fit.</p>
 <p>We believe that pretty much all transfers of bigger amounts of data happen
 due to firmware update of the Client. In this case one may mitigate described
 problem quite easily by either spawning a child process which would download
-the firmware in the background, or by using our <a class="reference internal" href="../AdvancedTutorial/AT6.html#coap-pull-download"><span>asynchronous CoAP
+the firmware in the background, or by using our <a class="reference internal" href="../AdvancedTutorial/AT6.html#coap-pull-download"><span class="std std-ref">asynchronous CoAP
 downloader</span></a>. Both methods will leave the library in
 an operational state during the transfer.</p>
 </div>
@@ -252,7 +253,7 @@ proves the point.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

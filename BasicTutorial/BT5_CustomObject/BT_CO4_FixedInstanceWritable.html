@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.5.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="4.5.5. Multi-instance writable object with dynamic number of instances" href="BT_CO5_MultiInstanceDynamic.html"/>
         <link rel="prev" title="4.5.3. Multi-instance read-only object with fixed number of instances" href="BT_CO3_MultiInstanceReadOnlyFixed.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -97,9 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html">4.5.1. Single-instance read-only object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html">4.5.2. Single-instance read-only object with an executable resource</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html">4.5.3. Multi-instance read-only object with fixed number of instances</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">4.5.4. Multi-instance writable object with fixed number of instances</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.5.4. Multi-instance writable object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultiInstanceDynamic.html">4.5.5. Multi-instance writable object with dynamic number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO6_MultipleResourceInstances.html">4.5.6. Objects with Multiple Instance Resources</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO7_BootstrapAwareness.html">4.5.7. Bootstrap awareness</a></li>
@@ -150,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO4_FixedInstanceWritable.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO4_FixedInstanceWritable.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,11 +176,11 @@
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
-<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span>Anjay Object stub generator</span></a>.</p>
+<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
 <p class="last">We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
-<p>Implemented object is based on <a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html"><em>Multi-instance read-only object with fixed number of instances</em></a>,
+<p>Implemented object is based on <a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html"><span class="doc">Multi-instance read-only object with fixed number of instances</span></a>,
 but this time accepts Write requests.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -238,20 +239,20 @@ but this time accepts Write requests.</p>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The code is based on <a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html"><em>Multi-instance read-only object with fixed number of instances</em></a>.</p>
+<p class="last">The code is based on <a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html"><span class="doc">Multi-instance read-only object with fixed number of instances</span></a>.</p>
 </div>
 <div class="section" id="simple-variant">
 <h2>4.5.4.1. Simple variant<a class="headerlink" href="#simple-variant" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">test_instance_t</span></code> needs to be able to store arbitrary data. Let us set
 an arbitrary limit of 32 characters in length (including terminating nullbyte):</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
     <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Now the <code class="docutils literal"><span class="pre">anjay_dm_resource_write_t</span></code> handler implementation:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                                <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -301,9 +302,9 @@ an arbitrary limit of 32 characters in length (including terminating nullbyte):<
 any modifying operation (writing a value, creating or deleting an Object
 Instance) requires explicitly defined transaction handlers.
 <code class="docutils literal"><span class="pre">anjay_transaction_handler_NOOP</span></code> placeholder will be used for now, see
-<a class="reference internal" href="#fixedinstancewritable-transactional"><span>Transactional variant</span></a> for an actual implementation of
+<a class="reference internal" href="#fixedinstancewritable-transactional"><span class="std std-ref">Transactional variant</span></a> for an actual implementation of
 these.</p>
-<div class="highlight-c"><div class="highlight"><pre> <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
      <span class="c1">// ...</span>
      <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
          <span class="c1">// ...</span>
@@ -341,7 +342,7 @@ invalid.</p>
 <p class="last">Anjay does not distinguish Mandatory and Optional Resources - the user
 is responsible for ensuring the state of an Object is still valid after
 handling a request. This topic is covered in detail in
-<a class="reference internal" href="#fixedinstancewritable-transactional"><span>Transactional variant</span></a>; we will ignore it in this
+<a class="reference internal" href="#fixedinstancewritable-transactional"><span class="std std-ref">Transactional variant</span></a>; we will ignore it in this
 particular example.</p>
 </div>
 </li>
@@ -417,7 +418,7 @@ all LwM2M Write requests.</p>
 <p>Let&#8217;s start by implementing the <code class="docutils literal"><span class="pre">instance_reset</span></code> handler. Two boolean flags
 need to be added to <code class="docutils literal"><span class="pre">test_instance_t</span></code> to detect a situation where a value
 is considered &#8220;unset&#8221;:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
     <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
     <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
 
@@ -428,7 +429,7 @@ is considered &#8220;unset&#8221;:</p>
 </div>
 <p><code class="docutils literal"><span class="pre">instance_reset</span></code> and <code class="docutils literal"><span class="pre">resource_write</span></code> should then use these to appropriately
 mark Resources as set/unset:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
@@ -482,7 +483,7 @@ mark Resources as set/unset:</p>
 </div>
 <p>Having <code class="docutils literal"><span class="pre">has_label</span></code>/<code class="docutils literal"><span class="pre">has_value</span></code> flags ready, we can finally implement
 transaction handlers:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span>
 <span class="nf">test_transaction_begin</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
@@ -608,7 +609,7 @@ subdirectory of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

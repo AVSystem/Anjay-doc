@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.1. Getting started! &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.1. Getting started! &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../index.html"/>
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../index.html"/>
         <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
         <link rel="next" title="4.2. Installing mandatory Objects" href="BT2.html"/>
         <link rel="prev" title="4. Basic tutorial" href="../BasicTutorial.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -89,9 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../BasicTutorial.html">4. Basic tutorial</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">4.1. Getting started!</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.1. Getting started!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT2.html">4.2. Installing mandatory Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT3.html">4.3. Event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BT4.html">4.4. A few notes on general usage</a></li>
@@ -138,7 +139,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/BasicTutorial/BT1.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/BasicTutorial/BT1.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -152,7 +153,7 @@
 <h1>4.1. Getting started!<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <p>First, let&#8217;s create a minimum build environment for our example client. We
 will be using a following directory structure:</p>
-<div class="highlight-none"><div class="highlight"><pre>example/
+<div class="highlight-none"><div class="highlight"><pre><span></span>example/
   ├── CMakeLists.txt
   └── src/
       └── main.c
@@ -166,7 +167,7 @@ directory layout.</p>
 <h2>4.1.1. Build system<a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h2>
 <p>We are going to use CMake as a build system. Let&#8217;s create an initial minimal
 <code class="docutils literal"><span class="pre">CMakeLists.txt</span></code>:</p>
-<div class="highlight-cmake"><div class="highlight"><pre><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+<div class="highlight-cmake"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 <span class="nb">project</span><span class="p">(</span><span class="s">hello-world</span> <span class="s">C</span><span class="p">)</span>
 
 <span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span> <span class="s">REQUIRED</span><span class="p">)</span>
@@ -192,7 +193,7 @@ directory layout.</p>
 <span id="anjay-hello-world"></span><h2>4.1.2. Hello World client<a class="headerlink" href="#hello-world-client" title="Permalink to this headline">¶</a></h2>
 <p>At this moment we can begin to do actual coding, let&#8217;s create <code class="docutils literal"><span class="pre">main.c</span></code>
 source file:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
@@ -220,13 +221,13 @@ source file:</p>
 clear to you.</p>
 </div>
 <p>Let&#8217;s just build our minimal client and test that it works:</p>
-<div class="highlight-sh"><div class="highlight"><pre>$ cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> ./anjay-tutorial
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> ./anjay-tutorial
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">For more information on building process see
-<a class="reference internal" href="../Compiling_client_applications.html"><em>Compiling client applications</em></a>.</p>
+<a class="reference internal" href="../Compiling_client_applications.html"><span class="doc">Compiling client applications</span></a>.</p>
 </div>
 <p>Congratulations, you now learned how to initialize the Anjay library!</p>
 </div>
@@ -273,7 +274,7 @@ clear to you.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

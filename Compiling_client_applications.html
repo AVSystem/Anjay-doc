@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. Compiling client applications &mdash; Anjay 1.10.3a documentation</title>
+  <title>3. Compiling client applications &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="index.html"/>
         <link rel="next" title="4. Basic tutorial" href="BasicTutorial.html"/>
         <link rel="prev" title="2. OMA LwM2M - Brief description" href="LwM2M.html"/> 
 
@@ -62,7 +65,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -86,9 +89,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="LwM2M.html">2. OMA LwM2M - Brief description</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">3. Compiling client applications</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Compiling client applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasicTutorial.html">4. Basic tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AdvancedTutorial.html">5. Advanced tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tools.html">6. Tools</a></li>
@@ -128,7 +129,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/Compiling_client_applications.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/Compiling_client_applications.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -143,7 +144,7 @@
 <div class="section" id="compiling-the-library">
 <h2>3.1. Compiling the library<a class="headerlink" href="#compiling-the-library" title="Permalink to this headline">¶</a></h2>
 <p>Anjay uses CMake for project configuration. To compile the library with default settings:</p>
-<div class="highlight-bash"><div class="highlight"><pre>cmake . <span class="o">&amp;&amp;</span> make
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmake . <span class="o">&amp;&amp;</span> make
 </pre></div>
 </div>
 </div>
@@ -152,11 +153,11 @@
 <div class="section" id="arm-cortex-m3-powered-stm3220">
 <h3>3.2.1. ARM Cortex-M3-powered STM3220<a class="headerlink" href="#arm-cortex-m3-powered-stm3220" title="Permalink to this headline">¶</a></h3>
 <p>First, prepare a CMake toolchain file (see <a class="reference external" href="https://cmake.org/cmake/help/v3.0/manual/cmake-toolchains.7.html#cross-compiling">CMake documentation</a>), then pass <code class="code docutils literal"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> when configuring Anjay:</p>
-<div class="highlight-bash"><div class="highlight"><pre>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>$YOUR_TOOLCHAIN_FILE . <span class="o">&amp;&amp;</span> make
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$YOUR_TOOLCHAIN_FILE</span> . <span class="o">&amp;&amp;</span> make
 </pre></div>
 </div>
 <p>An example CMake toolchain file for an ARM Cortex-M3-powered STM3220 platform may look like so:</p>
-<div class="highlight-cmake"><div class="highlight"><pre><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span> <span class="s">Generic</span><span class="p">)</span>
+<div class="highlight-cmake"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span> <span class="s">Generic</span><span class="p">)</span>
 <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_VERSION</span> <span class="s">1</span><span class="p">)</span>
 
 <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span> <span class="s">arm-none-eabi-gcc</span><span class="p">)</span>
@@ -177,7 +178,7 @@
 have to pass <code class="docutils literal"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> from the NDK (we assume that
 <code class="docutils literal"><span class="pre">ANDROID_NDK</span></code> variable contains a path to the folder where Android NDK
 is extracted):</p>
-<div class="highlight-bash"><div class="highlight"><pre>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$A</span>NDROID_NDK/build/cmake/android.toolchain.cmake <span class="se">\</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake <span class="se">\</span>
       -DDTLS_BACKEND<span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="se">\</span>
       -DANDROID_ALLOW_UNDEFINED_SYMBOLS<span class="o">=</span>ON <span class="se">\</span>
       -DANDROID_PLATFORM<span class="o">=</span>android-18 <span class="se">\</span>
@@ -212,9 +213,9 @@ DTLS libraries are to be found, i.e. one of:</p>
 <div class="topic">
 <p class="topic-title first">Example compilation with mbed TLS backend</p>
 <p>First, we compile mbed TLS on Android:</p>
-<div class="highlight-bash"><div class="highlight"><pre>$ git clone https://github.com/ARMmbed/mbedtls -b mbedtls-2.5.0
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git clone https://github.com/ARMmbed/mbedtls -b mbedtls-2.5.0
 $ <span class="nb">cd</span> mbedtls
-$ cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$A</span>NDROID_NDK/build/cmake/android.toolchain.cmake <span class="se">\</span>
+$ cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake <span class="se">\</span>
         -DANDROID_PLATFORM<span class="o">=</span>android-18 <span class="se">\</span>
         -DANDROID_ABI<span class="o">=</span>armeabi <span class="se">\</span>
         -DENABLE_TESTING<span class="o">=</span>OFF <span class="se">\</span>
@@ -226,7 +227,7 @@ $ make install
 <p>We then go back to the Anjay source directory, to reconfigure Anjay to use
 mbed TLS binaries (we strongly suggest to clean all kind of CMake caches
 before proceeding, as it may not work otherwise):</p>
-<div class="highlight-bash"><div class="highlight"><pre>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$A</span>NDROID_NDK/build/cmake/android.toolchain.cmake <span class="se">\</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake <span class="se">\</span>
       -DDTLS_BACKEND<span class="o">=</span><span class="s2">&quot;mbedtls&quot;</span> <span class="se">\</span>
       -DMBEDTLS_ROOT_DIR<span class="o">=</span>/tmp/mbedtls/install <span class="se">\</span>
       -DANDROID_ALLOW_UNDEFINED_SYMBOLS<span class="o">=</span>ON <span class="se">\</span>
@@ -241,11 +242,11 @@ before proceeding, as it may not work otherwise):</p>
 <div class="section" id="installing-the-library">
 <h2>3.3. Installing the library<a class="headerlink" href="#installing-the-library" title="Permalink to this headline">¶</a></h2>
 <p>To install Anjay headers and libraries in <code class="code docutils literal"><span class="pre">/usr/local</span></code>:</p>
-<div class="highlight-bash"><div class="highlight"><pre>cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> sudo make install
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> sudo make install
 </pre></div>
 </div>
 <p>A custom installation prefix may be set using <code class="code docutils literal"><span class="pre">CMAKE_INSTALL_PREFIX</span></code>:</p>
-<div class="highlight-bash"><div class="highlight"><pre>cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/custom/path . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/custom/path . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
 </pre></div>
 </div>
 </div>
@@ -254,7 +255,7 @@ before proceeding, as it may not work otherwise):</p>
 <div class="section" id="cmake-projects">
 <h3>3.4.1. CMake projects<a class="headerlink" href="#cmake-projects" title="Permalink to this headline">¶</a></h3>
 <p>The preferred method of using Anjay in custom projects is to use CMake <code class="code docutils literal"><span class="pre">find_package</span></code> command after installing the library:</p>
-<div class="highlight-cmake"><div class="highlight"><pre><span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span><span class="p">)</span>
+<div class="highlight-cmake"><div class="highlight"><pre><span></span><span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span><span class="p">)</span>
 <span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">ANJAY_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_executable</span> <span class="o">${</span><span class="nv">ANJAY_LIBRARIES</span><span class="o">}</span><span class="p">)</span> <span class="c"># or ANJAY_LIBRARIES_STATIC for a static library</span>
 </pre></div>
@@ -267,7 +268,7 @@ before proceeding, as it may not work otherwise):</p>
 <div class="section" id="alternative-build-systems">
 <h3>3.4.2. Alternative build systems<a class="headerlink" href="#alternative-build-systems" title="Permalink to this headline">¶</a></h3>
 <p>For other build systems, necessary flags can be retrieved using <code class="code docutils literal"><span class="pre">cmake</span></code> command:</p>
-<div class="highlight-bash"><div class="highlight"><pre>cmake --find-package -DNAME<span class="o">=</span>anjay -DLANGUAGE<span class="o">=</span>C -DCOMPILER_ID<span class="o">=</span>Generic -DMODE<span class="o">=</span>&lt;mode&gt;
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cmake --find-package -DNAME<span class="o">=</span>anjay -DLANGUAGE<span class="o">=</span>C -DCOMPILER_ID<span class="o">=</span>Generic -DMODE<span class="o">=</span>&lt;mode&gt;
 </pre></div>
 </div>
 <p>Where <code class="code docutils literal"><span class="pre">&lt;mode&gt;</span></code> is one of:</p>
@@ -325,7 +326,7 @@ before proceeding, as it may not work otherwise):</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

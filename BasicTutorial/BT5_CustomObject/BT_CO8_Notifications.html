@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.8. Notifications for dynamically-changing Resources &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.5.8. Notifications for dynamically-changing Resources &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="5. Advanced tutorial" href="../../AdvancedTutorial.html"/>
         <link rel="prev" title="4.5.7. Bootstrap awareness" href="BT_CO7_BootstrapAwareness.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -101,9 +104,7 @@
 <li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultiInstanceDynamic.html">4.5.5. Multi-instance writable object with dynamic number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO6_MultipleResourceInstances.html">4.5.6. Objects with Multiple Instance Resources</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO7_BootstrapAwareness.html">4.5.7. Bootstrap awareness</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">4.5.8. Notifications for dynamically-changing Resources</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.5.8. Notifications for dynamically-changing Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -150,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO8_Notifications.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO8_Notifications.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,7 +170,7 @@ certain criteria.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">More information about available notification criteria can be found under
-<strong>&lt;NOTIFICATION&gt;</strong> Class Attributes description in <a class="reference internal" href="../../LwM2M.html#lwm2m-attributes"><span>Attributes</span></a>.</p>
+<strong>&lt;NOTIFICATION&gt;</strong> Class Attributes description in <a class="reference internal" href="../../LwM2M.html#lwm2m-attributes"><span class="std std-ref">Attributes</span></a>.</p>
 </div>
 <p>When some part of the data model changes by means other than LwM2M, one has to
 tell the library about it by calling an appropriate function:</p>
@@ -201,16 +202,16 @@ Object Instance.</p>
 <p>Correct handling of LwM2M Observe requests requires being able to store
 Object/Instance/Resource attributes. For that, one needs to either implement
 a set of attribute handlers, or use the pre-defined
-<a class="reference internal" href="../../AdvancedTutorial/AT1.html"><em>Attribute Storage module</em></a>. For simplicity,
+<a class="reference internal" href="../../AdvancedTutorial/AT1.html"><span class="doc">Attribute Storage module</span></a>. For simplicity,
 we will use the module in this tutorial.</p>
 </div>
 <div class="section" id="example">
 <h2>4.5.8.2. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>As an example we&#8217;ll add notification support for the test LwM2M Object defined
-in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><em>Single-instance read-only object</em></a> tutorial. It contains a Timestamp
+in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a> tutorial. It contains a Timestamp
 Resource, whose value changes every second. We need to periodically notify the
 library about that fact:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="c1">// Wait for the events if necessary, and handle them.</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Wait for the events if necessary, and handle them.</span>
 <span class="c1">// ...</span>
 
 <span class="c1">// Notify the library about a Resource value change.</span>
@@ -224,7 +225,7 @@ library about that fact:</p>
 </div>
 <p>One more thing to consider is setting up LwM2M attribute handlers - we&#8217;ll leave
 that to the Attribute Storage module:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="c1">// Let the Attribute Storage module implement all attribute handlers.</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Let the Attribute Storage module implement all attribute handlers.</span>
 <span class="c1">// The module is cleaned up automatically in anjay_delete().</span>
 <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
 
@@ -286,7 +287,7 @@ project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

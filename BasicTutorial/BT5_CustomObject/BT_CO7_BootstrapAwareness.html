@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="4.5.8. Notifications for dynamically-changing Resources" href="BT_CO8_Notifications.html"/>
         <link rel="prev" title="4.5.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -100,9 +103,7 @@
 <li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.5.4. Multi-instance writable object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO5_MultiInstanceDynamic.html">4.5.5. Multi-instance writable object with dynamic number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO6_MultipleResourceInstances.html">4.5.6. Objects with Multiple Instance Resources</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">4.5.7. Bootstrap awareness</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.5.7. Bootstrap awareness</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO8_Notifications.html">4.5.8. Notifications for dynamically-changing Resources</a></li>
 </ul>
 </li>
@@ -150,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO7_BootstrapAwareness.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO7_BootstrapAwareness.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -193,7 +194,7 @@ when the request is issued by a non-bootstrap server.</li>
 <div class="section" id="example-bootstrap-writable-resource">
 <h2>4.5.7.2. Example: bootstrap-writable Resource<a class="headerlink" href="#example-bootstrap-writable-resource" title="Permalink to this headline">¶</a></h2>
 <p>As an example, we will modify the Test Object from
-<a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><em>Multi-instance writable object with fixed number of instances</em></a> to prevent changing the value of <code class="docutils literal"><span class="pre">Label</span></code>
+<a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a> to prevent changing the value of <code class="docutils literal"><span class="pre">Label</span></code>
 Resource by non-bootstrap servers:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -251,7 +252,7 @@ Resource by non-bootstrap servers:</p>
 </tbody>
 </table>
 <p>To achieve that, <code class="docutils literal"><span class="pre">anjay_dm_resource_operations_t</span></code> handler is required:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                     <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                     <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
                                     <span class="n">anjay_dm_resource_op_mask_t</span> <span class="o">*</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span>
@@ -295,7 +296,7 @@ Resource by non-bootstrap servers:</p>
 LwM2M Server that is not a bootstrap one. Changing it to an LwM2M Bootstrap
 Server is a matter of setting <code class="docutils literal"><span class="pre">bootstrap_server</span> <span class="pre">=</span> <span class="pre">true</span></code> on
 <code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code> struct when initializing the Security Object:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">bootstrap_server</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
@@ -356,7 +357,7 @@ Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

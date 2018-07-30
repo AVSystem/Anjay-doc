@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="4.5.2. Single-instance read-only object with an executable resource" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html"/>
         <link rel="prev" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -94,7 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../BT3.html">4.3. Event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BT4.html">4.4. A few notes on general usage</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">4.5.1. Single-instance read-only object</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.5.1. Single-instance read-only object</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html">4.5.2. Single-instance read-only object with an executable resource</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html">4.5.3. Multi-instance read-only object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.5.4. Multi-instance writable object with fixed number of instances</a></li>
@@ -148,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -166,7 +169,7 @@
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
-<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span>Anjay Object stub generator</span></a>.</p>
+<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
 <p class="last">We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
@@ -236,7 +239,7 @@ happen if:</p>
 (mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</li>
 </ul>
 <p>The Read handler for our test object might be implemented as follows:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -270,7 +273,7 @@ handling in case anything goes wrong.</li>
 </ul>
 <p>Having the Read handler implemented, one can initialize the
 <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">// Object ID</span>
     <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
 
@@ -311,7 +314,7 @@ Control Object to check whether the server requesting an operation should
 be allowed to perform it.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">More info: <a class="reference internal" href="../../AdvancedTutorial/AT4.html"><em>Access Control in multi-server environment</em></a></p>
+<p class="last">More info: <a class="reference internal" href="../../AdvancedTutorial/AT4.html"><span class="doc">Access Control in multi-server environment</span></a></p>
 </div>
 </li>
 <li><p class="first">Resource ID 3 is searched for in the <code class="docutils literal"><span class="pre">supported_rids</span></code> list defined for
@@ -350,7 +353,7 @@ and Default Maximum Period Resources of the LwM2M Server object.</p>
 </div>
 <p>When the Object Definition is ready, the only thing left to do is registering
 it in the library:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// ... Anjay initialization</span>
 
     <span class="c1">// note: in this simple case the object does not have any state,</span>
@@ -415,7 +418,7 @@ project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

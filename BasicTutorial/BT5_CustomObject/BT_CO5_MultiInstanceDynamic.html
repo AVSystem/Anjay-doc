@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.10.3a documentation</title>
+  <title>4.5.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.10.4 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Anjay 1.10.3a documentation" href="../../index.html"/>
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
         <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
         <link rel="next" title="4.5.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html"/>
         <link rel="prev" title="4.5.4. Multi-instance writable object with fixed number of instances" href="BT_CO4_FixedInstanceWritable.html"/> 
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                1.10.3a
+                1.10.4
               </div>
             
           
@@ -98,9 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html">4.5.2. Single-instance read-only object with an executable resource</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO3_MultiInstanceReadOnlyFixed.html">4.5.3. Multi-instance read-only object with fixed number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO4_FixedInstanceWritable.html">4.5.4. Multi-instance writable object with fixed number of instances</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="">4.5.5. Multi-instance writable object with dynamic number of instances</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.5.5. Multi-instance writable object with dynamic number of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO6_MultipleResourceInstances.html">4.5.6. Objects with Multiple Instance Resources</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO7_BootstrapAwareness.html">4.5.7. Bootstrap awareness</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BT_CO8_Notifications.html">4.5.8. Notifications for dynamically-changing Resources</a></li>
@@ -150,7 +151,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO5_MultiInstanceDynamic.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO5_MultiInstanceDynamic.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,11 +176,11 @@
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
-<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span>Anjay Object stub generator</span></a>.</p>
+<a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
 <p class="last">We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
-<p>Implemented object will be roughly based on <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><em>Multi-instance writable object with fixed number of instances</em></a>.</p>
+<p>Implemented object will be roughly based on <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="37%" />
@@ -235,7 +236,7 @@ on what various parts of the LwM2M object code are for.</p>
 </tr>
 </tbody>
 </table>
-<p>The code is based on <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><em>previous tutorial</em></a>, yet in this
+<p>The code is based on <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">previous tutorial</span></a>, yet in this
 chapter all Test object related code was moved to a separate files to keep
 everything clean.</p>
 <div class="section" id="updating-the-object-structure">
@@ -247,7 +248,7 @@ that comes with unnecessary distraction, and as a matter of fact is a bit
 error-prone.  Therefore, in this tutorial, we are going to use <code class="docutils literal"><span class="pre">AVS_LIST</span></code>,
 which is an abstraction over singly linked list, and has been used in Anjay
 with success since the beginning of the project.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_object</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_object</span> <span class="p">{</span>
     <span class="c1">// handlers</span>
     <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">obj_def</span><span class="p">;</span>
 
@@ -270,7 +271,7 @@ you to refer to the <a class="reference external" href="TODOLINK">documentation<
 longer have such comfort, and have to be able to uniquely identify Object
 Instances. As a consequence, we will add <code class="docutils literal"><span class="pre">anjay_iid_t</span> <span class="pre">iid</span></code> field to
 <code class="docutils literal"><span class="pre">test_instance_t</span></code>:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
 
     <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
@@ -305,7 +306,7 @@ able to register it), unless some additional public API is provided.</li>
 </div>
 <p>To achieve proper control over object lifetime and initialization, we are
 going to introduce two functions, namely <code class="docutils literal"><span class="pre">create_test_object</span></code>:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="nf">create_test_object</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="nf">create_test_object</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test_object_t</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">repr</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">repr</span><span class="o">-&gt;</span><span class="n">obj_def</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
@@ -321,7 +322,7 @@ going to introduce two functions, namely <code class="docutils literal"><span cl
 <p>No, <code class="docutils literal"><span class="pre">NULL</span></code> is a valid (and only) representation of an empty <code class="docutils literal"><span class="pre">AVS_LIST</span></code>.</p>
 </div>
 <p>and <code class="docutils literal"><span class="pre">delete_test_object</span></code>:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">delete_test_object</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">delete_test_object</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
@@ -359,7 +360,7 @@ fact they MUST be unique.</li>
 <p>OK, now that we made our assumptions, we are ready to implement utility function
 <code class="docutils literal"><span class="pre">get_instance</span></code> which retrieves Test object instance with specified Instance ID.
 It will happen to be very useful in the next couple of subsections:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="nf">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="nf">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span>
 <span class="n">get_instance</span><span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
     <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
@@ -377,7 +378,7 @@ It will happen to be very useful in the next couple of subsections:</p>
 </pre></div>
 </div>
 <p>Let&#8217;s reimplement <code class="docutils literal"><span class="pre">test_instance_present</span></code> in terms of just defined <code class="docutils literal"><span class="pre">get_instance</span></code>:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                  <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
@@ -390,7 +391,7 @@ It will happen to be very useful in the next couple of subsections:</p>
 before going into details of <code class="docutils literal"><span class="pre">instance_create</span></code> and <code class="docutils literal"><span class="pre">instance_remove</span></code>
 and leaving the rest of the work of this kind as an exercise for the reader
 (or, if they are lazy, they can always look at the code):</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_it</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_it</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                             <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                             <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span>
                             <span class="kt">void</span> <span class="o">**</span><span class="n">cookie</span><span class="p">)</span> <span class="p">{</span>
@@ -436,7 +437,7 @@ lies on the implementor of the Object being instantiated.</p>
 will simply traverse Object Instance list, looking for any gaps in Instance IDs
 between consecutive Instances. If no gap is found, we&#8217;d take an upper bound of
 discovered Instance IDs during the iteration as a new Instance ID.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">assign_new_iid</span><span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">out_iid</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">assign_new_iid</span><span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">out_iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">preferred_iid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
     <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
@@ -466,7 +467,7 @@ storage).</p>
 <div class="section" id="instance-create-handler">
 <h2>4.5.5.5. <code class="docutils literal"><span class="pre">instance_create</span></code> handler<a class="headerlink" href="#instance-create-handler" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s have a look on <code class="docutils literal"><span class="pre">anjay_dm_instance_create_t</span></code> handler type signature:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                        <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">inout_iid</span><span class="p">,</span>
                                        <span class="n">anjay_ssid_t</span> <span class="n">ssid</span><span class="p">);</span>
@@ -485,7 +486,7 @@ are going to assign Instance ID ourselves:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Unset Instance ID is represented by <code class="docutils literal"><span class="pre">ANJAY_IID_INVALID</span></code> constant.</p>
 </div>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_create</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_create</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                 <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                 <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">inout_iid</span><span class="p">,</span>
                                 <span class="n">anjay_ssid_t</span> <span class="n">ssid</span><span class="p">)</span> <span class="p">{</span>
@@ -538,7 +539,7 @@ are going to assign Instance ID ourselves:</p>
 <h2>4.5.5.6. <code class="docutils literal"><span class="pre">instance_remove</span></code> handler<a class="headerlink" href="#instance-remove-handler" title="Permalink to this headline">¶</a></h2>
 <p>Fortunately <code class="docutils literal"><span class="pre">instance_remove</span></code> handler is much easier to implement as it does not
 have to perform anything other than removing the instance from our list.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_remove</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_remove</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                 <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                 <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
@@ -607,7 +608,7 @@ of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.3a',
+            VERSION:'1.10.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
