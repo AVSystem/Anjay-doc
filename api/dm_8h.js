@@ -42,15 +42,6 @@ var dm_8h =
     [ "anjay_dm_transaction_commit_t", "dm_8h.html#af5b8c307fbac5433da5ec781f40f4445", null ],
     [ "anjay_dm_transaction_rollback_t", "dm_8h.html#af9db8740d54818da8013320441bbe828", null ],
     [ "anjay_dm_transaction_validate_t", "dm_8h.html#a796fcf51d7d4478b2331685d94c7c57b", null ],
-    [ "anjay_binding_mode_t", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85", [
-      [ "ANJAY_BINDING_NONE", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85a91b94adc7571066a8324873fac962a4f", null ],
-      [ "ANJAY_BINDING_U", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85a3fb4f74a6d6df7dcc8367fe4797cb2eb", null ],
-      [ "ANJAY_BINDING_UQ", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85adbbae06b097b62675e8f363c481511b8", null ],
-      [ "ANJAY_BINDING_S", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85aea0acbd4c43f1fa3b21c11a81ebb0534", null ],
-      [ "ANJAY_BINDING_SQ", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85a48e26a1b20850df285b2a953dee06875", null ],
-      [ "ANJAY_BINDING_US", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85a91475d41a789bcaaa6b3c6b007c123d4", null ],
-      [ "ANJAY_BINDING_UQS", "dm_8h.html#ac8e7649507316b9e38f93a5d47a29c85ab7094c122572e8e6041eb719dac9043d", null ]
-    ] ],
     [ "anjay_dm_resource_op_bit_t", "dm_8h.html#aa0f4bb9808d0be2d1d9e83f75e282e17", [
       [ "ANJAY_DM_RESOURCE_OP_BIT_R", "dm_8h.html#aa0f4bb9808d0be2d1d9e83f75e282e17ae32c4a4414c9cdf70a1b50bf5958b4e8", null ],
       [ "ANJAY_DM_RESOURCE_OP_BIT_W", "dm_8h.html#aa0f4bb9808d0be2d1d9e83f75e282e17a16d60a391ed953b010c59e4c8e18738e", null ],
@@ -67,8 +58,7 @@ var dm_8h =
       [ "ANJAY_UDP_SECURITY_CERTIFICATE", "dm_8h.html#a4acb1a17210d84c4896550207288c67da8012c2f24b348338ee761e88caa2304e", null ],
       [ "ANJAY_UDP_SECURITY_NOSEC", "dm_8h.html#a4acb1a17210d84c4896550207288c67da8f0d145793dca32b4669dcdd71d65668", null ]
     ] ],
-    [ "anjay_binding_mode_as_str", "dm_8h.html#a05bb52cae05cc5afe651fd780452e688", null ],
-    [ "anjay_binding_mode_from_str", "dm_8h.html#ade75bdc7f334cbaf7eb5974604829f64", null ],
+    [ "anjay_binding_mode_valid", "dm_8h.html#a9be9ede98ed1a7c3f2ae205c6325c51f", null ],
     [ "anjay_dm_instance_it_SINGLE", "dm_8h.html#a14730b8aaa8f682a377dd7e93eba5ca7", null ],
     [ "anjay_dm_instance_present_SINGLE", "dm_8h.html#a5f77306e7a9c313e2688ee5b7138d4db", null ],
     [ "anjay_dm_resource_present_TRUE", "dm_8h.html#a8dcd229b587f59414913252d7730e759", null ],

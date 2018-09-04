@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.2. Single-instance read-only object with an executable resource &mdash; Anjay 1.10.4 documentation</title>
+  <title>4.5.2. Single-instance read-only object with an executable resource &mdash; Anjay 1.11.0 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
-        <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
-        <link rel="next" title="4.5.3. Multi-instance read-only object with fixed number of instances" href="BT_CO3_MultiInstanceReadOnlyFixed.html"/>
-        <link rel="prev" title="4.5.1. Single-instance read-only object" href="BT_CO1_SingleInstanceReadOnly.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.5.3. Multi-instance read-only object with fixed number of instances" href="BT_CO3_MultiInstanceReadOnlyFixed.html" />
+    <link rel="prev" title="4.5.1. Single-instance read-only object" href="BT_CO1_SingleInstanceReadOnly.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.10.4
+                1.11.0
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -124,38 +120,58 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
+        
           <li><a href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a> &raquo;</li>
-      
-    <li>4.5.2. Single-instance read-only object with an executable resource</li>
+        
+      <li>4.5.2. Single-instance read-only object with an executable resource</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO2_SingleInstanceExecutableAndReadOnly.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -166,8 +182,8 @@
 <p>In this example you will learn:</p>
 <ul class="simple">
 <li>what are LwM2M Execute arguments,</li>
-<li>how to parse them using Anjay&#8217;s API,</li>
-<li>how to implement <code class="docutils literal"><span class="pre">resource_execute</span></code> handler.</li>
+<li>how to parse them using Anjay’s API,</li>
+<li>how to implement <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> handler.</li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -239,7 +255,7 @@ on what various parts of the LwM2M object code are for.</p>
 <td>Execute</td>
 <td>Single</td>
 <td>Mandatory</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -256,10 +272,10 @@ a formal ABNF grammar.</p>
 into details of the grammar), here are few examples of valid argument list:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">5</span></code>,</li>
-<li><code class="docutils literal"><span class="pre">2='10.3'</span></code>,</li>
-<li><code class="docutils literal"><span class="pre">7,0='https://www.avsystem.com/'</span></code></li>
-<li><code class="docutils literal"><span class="pre">0,1,2,3,4</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">5</span></code>,</li>
+<li><code class="docutils literal notranslate"><span class="pre">2='10.3'</span></code>,</li>
+<li><code class="docutils literal notranslate"><span class="pre">7,0='https://www.avsystem.com/'</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">0,1,2,3,4</span></code></li>
 <li>an empty string.</li>
 </ul>
 </div></blockquote>
@@ -268,7 +284,7 @@ into details of the grammar), here are few examples of valid argument list:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>It is up to the implementation on how to interpret argument lists. One
-may, for example, think of each <code class="docutils literal"><span class="pre">[0-9]='value'</span></code> as a mapping between
+may, for example, think of each <code class="docutils literal notranslate"><span class="pre">[0-9]='value'</span></code> as a mapping between
 argument index and a corresponding value.</p>
 <p class="last">Then the value of the argument of index <cite>k</cite> could be applied as a <cite>k-th</cite>
 argument to some function for further processing. (we will be, in fact,
@@ -277,7 +293,7 @@ using this interpretation in this tutorial)</p>
 <p>While the grammar itself is rather simple, it could be tedious to implement a
 correct parser accepting it (with support for all corner-cases). In Anjay
 there are methods designed specifically to solve this problem, namely:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// ... One that returns the next argument from the Execute argument list</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// ... One that returns the next argument from the Execute argument list</span>
 <span class="kt">int</span> <span class="nf">anjay_execute_get_next_arg</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
                                <span class="kt">int</span> <span class="o">*</span><span class="n">out_arg</span><span class="p">,</span>
                                <span class="kt">bool</span> <span class="o">*</span><span class="n">out_has_value</span><span class="p">);</span>
@@ -293,7 +309,7 @@ there are methods designed specifically to solve this problem, namely:</p>
 <div class="section" id="implementation">
 <h2>4.5.2.2. Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <p>We start with adding our Resource to a supported list of Resources:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">// ...</span>
 
     <span class="p">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
@@ -302,14 +318,14 @@ there are methods designed specifically to solve this problem, namely:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>We can now implement <code class="docutils literal"><span class="pre">resource_execute</span></code> handler. Since our new resource will
+<p>We can now implement <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> handler. Since our new resource will
 be used to sum integers we have to store the addition result somewhere. For
-simplicity we are going to use a <code class="docutils literal"><span class="pre">static</span></code> variable:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">long</span> <span class="n">addition_result</span><span class="p">;</span>
+simplicity we are going to use a <code class="docutils literal notranslate"><span class="pre">static</span></code> variable:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">long</span> <span class="n">addition_result</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>And <code class="docutils literal"><span class="pre">resource_execute</span></code> could be implemented as follows:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_execute</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<p>And <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> could be implemented as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_execute</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                  <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                                  <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -339,7 +355,7 @@ simplicity we are going to use a <code class="docutils literal"><span class="pre
 </pre></div>
 </div>
 <p>Where <cite>get_arg_value</cite> function is:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">out_value</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">out_value</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// we expect arguments of form &lt;0-9&gt;=&#39;&lt;integer&gt;&#39;</span>
     <span class="kt">int</span> <span class="n">arg_number</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">has_value</span><span class="p">;</span>
@@ -376,7 +392,7 @@ simplicity we are going to use a <code class="docutils literal"><span class="pre
 </pre></div>
 </div>
 <dl class="docutils">
-<dt>Now, we need to update <code class="docutils literal"><span class="pre">resource_read</span></code> handler, so that:</dt>
+<dt>Now, we need to update <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler, so that:</dt>
 <dd><ul class="first last simple">
 <li>it returns 4.05 Method Not Allowed when an attempt to read Executable resource is made,</li>
 <li>it returns an addition result, when a Read is performed on a <cite>Value</cite> resource.</li>
@@ -391,7 +407,7 @@ even though it is possible to implement such resource within Anjay,
 one <strong>MUST NOT</strong> do it to stay compliant with the LwM2M.</p>
 </div>
 <p>So, here is how it could look like:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -411,8 +427,8 @@ one <strong>MUST NOT</strong> do it to stay compliant with the LwM2M.</p>
 </pre></div>
 </div>
 <p>Finally, we need to revisit an object definition to make sure our execute
-handler is set as a <code class="docutils literal"><span class="pre">resource_execute</span></code> implementation:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+handler is set as a <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> implementation:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
 <span class="c1">// ...</span>
     <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
         <span class="c1">// ...</span>
@@ -424,7 +440,7 @@ handler is set as a <code class="docutils literal"><span class="pre">resource_ex
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>And that&#8217;s it.</p>
+<p>And that’s it.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>As before, you can find full source-code of this example in
@@ -439,15 +455,16 @@ grep for the <cite>resource_execute</cite> keyword.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT_CO3_MultiInstanceReadOnlyFixed.html" class="btn btn-neutral float-right" title="4.5.3. Multi-instance read-only object with fixed number of instances" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT_CO3_MultiInstanceReadOnlyFixed.html" class="btn btn-neutral float-right" title="4.5.3. Multi-instance read-only object with fixed number of instances" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral" title="4.5.1. Single-instance read-only object" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral" title="4.5.1. Single-instance read-only object" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -460,7 +477,7 @@ grep for the <cite>resource_execute</cite> keyword.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -478,10 +495,12 @@ grep for the <cite>resource_execute</cite> keyword.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.4',
+            VERSION:'1.11.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
@@ -490,19 +509,13 @@ grep for the <cite>resource_execute</cite> keyword.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

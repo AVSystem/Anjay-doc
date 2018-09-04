@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 1.10.4 documentation</title>
+  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 1.11.0 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.10.4 documentation" href="../../index.html"/>
-        <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
-        <link rel="next" title="4.5.7. Bootstrap awareness" href="BT_CO7_BootstrapAwareness.html"/>
-        <link rel="prev" title="4.5.5. Multi-instance writable object with dynamic number of instances" href="BT_CO5_MultiInstanceDynamic.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.5.7. Bootstrap awareness" href="BT_CO7_BootstrapAwareness.html" />
+    <link rel="prev" title="4.5.5. Multi-instance writable object with dynamic number of instances" href="BT_CO5_MultiInstanceDynamic.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.10.4
+                1.11.0
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -124,38 +120,58 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
+        
           <li><a href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a> &raquo;</li>
-      
-    <li>4.5.6. Objects with Multiple Instance Resources</li>
+        
+      <li>4.5.6. Objects with Multiple Instance Resources</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO6_MultipleResourceInstances.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -183,9 +199,9 @@ by allowing <cite>Value</cite> Resource to contain multiple values.</p>
 <div class="section" id="api-for-multiple-instance-resources-management">
 <h2>4.5.6.1. API for Multiple Instance Resources management<a class="headerlink" href="#api-for-multiple-instance-resources-management" title="Permalink to this headline">¶</a></h2>
 <p>Reading Multiple Instance Resources or writing some in a response requires
-special contexts to be instantiated by the user, i.e. <code class="docutils literal"><span class="pre">anjay_input_ctx_t</span></code>
-and <code class="docutils literal"><span class="pre">anjay_output_ctx_t</span></code> out of contexts passed by Anjay to <code class="docutils literal"><span class="pre">resource_write</span></code>
-and <code class="docutils literal"><span class="pre">resource_read</span></code> handlers.</p>
+special contexts to be instantiated by the user, i.e. <code class="docutils literal notranslate"><span class="pre">anjay_input_ctx_t</span></code>
+and <code class="docutils literal notranslate"><span class="pre">anjay_output_ctx_t</span></code> out of contexts passed by Anjay to <code class="docutils literal notranslate"><span class="pre">resource_write</span></code>
+and <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handlers.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Trying to use original contexts to read / write Multiple Instance Resource
@@ -197,11 +213,11 @@ results in undefined behavior.</p>
 them results in undefined behavior.</p>
 </div>
 <p>To instantiate them one uses functions:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="nf">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="nf">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>and</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="nf">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="nf">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>respectively.</p>
@@ -212,7 +228,7 @@ Instance ID (<cite>index</cite>) and the Resource Instance Value (<cite>value</c
 <h2>4.5.6.2. Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline">¶</a></h2>
 <p>We define following structure to represent a single Instance of our Multiple
 Instance Resource:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
     <span class="n">anjay_riid_t</span> <span class="n">index</span><span class="p">;</span>
     <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_value_instance_t</span><span class="p">;</span>
@@ -220,11 +236,11 @@ Instance Resource:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal"><span class="pre">anjay_riid_t</span></code> is used for the first time in the tutorial. It is a data type
+<p class="last"><code class="docutils literal notranslate"><span class="pre">anjay_riid_t</span></code> is used for the first time in the tutorial. It is a data type
 able to store all valid Resource Instance IDs.</p>
 </div>
-<p>We also edit <code class="docutils literal"><span class="pre">test_instance_t</span></code> structure definition:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<p>We also edit <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> structure definition:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
 
     <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
@@ -236,7 +252,7 @@ able to store all valid Resource Instance IDs.</p>
 </pre></div>
 </div>
 <div class="topic">
-<p class="topic-title first">Why does <code class="docutils literal"><span class="pre">test_instance_t</span></code> still contain boolean flag indicating presence of the value?</p>
+<p class="topic-title first">Why does <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> still contain boolean flag indicating presence of the value?</p>
 <p>There is certainly a difference between lack of presence of Multiple
 Instance Resource value, and Multiple Instance Resource containing
 zero Instances (i.e. lack of list presence vs an empty list).</p>
@@ -248,18 +264,18 @@ zero Instances (i.e. lack of list presence vs an empty list).</p>
 <p class="topic-title first">General flow of function calls when LwM2M Write operation was
        issued on Multiple Instance Resource.</p>
 <ol class="arabic simple">
-<li><code class="docutils literal"><span class="pre">resource_write</span></code> handler is being called by Anjay, giving the control
+<li><code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler is being called by Anjay, giving the control
 to the user.</li>
-<li>User creates additional <code class="docutils literal"><span class="pre">anjay_input_context_t</span></code> out of provided (as an argument
-to <code class="docutils literal"><span class="pre">resource_write</span></code> handler) input context by calling <code class="docutils literal"><span class="pre">anjay_get_array</span></code>.</li>
-<li>User calls <code class="docutils literal"><span class="pre">anjay_get_array_index</span></code> and <code class="docutils literal"><span class="pre">anjay_get_*</span></code> until either
+<li>User creates additional <code class="docutils literal notranslate"><span class="pre">anjay_input_context_t</span></code> out of provided (as an argument
+to <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler) input context by calling <code class="docutils literal notranslate"><span class="pre">anjay_get_array</span></code>.</li>
+<li>User calls <code class="docutils literal notranslate"><span class="pre">anjay_get_array_index</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_get_*</span></code> until either
 the former fails, due to some kind of error, or finishes, indicating end
-of a message by returning <code class="docutils literal"><span class="pre">ANJAY_GET_INDEX_END</span></code>.</li>
+of a message by returning <code class="docutils literal notranslate"><span class="pre">ANJAY_GET_INDEX_END</span></code>.</li>
 </ol>
 </div>
 <p>OK, based on the above, we are ready to create helper function which is going
 to read whole sequence of <cite>(index, value)</cite> pairs and store them on the list.</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_array_write</span><span class="p">(</span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">out_instances</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_array_write</span><span class="p">(</span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">out_instances</span><span class="p">,</span>
                             <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">input_array</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
     <span class="n">test_value_instance_t</span> <span class="n">instance</span><span class="p">;</span>
@@ -318,7 +334,7 @@ stored, and mentioned array input context. It is pretty dense, indeed,
 but this is the cost of being correct.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you had looked at <code class="docutils literal"><span class="pre">anjay_get_array</span></code> documentation you&#8217;ve seen the
+<p class="last">If you had looked at <code class="docutils literal notranslate"><span class="pre">anjay_get_array</span></code> documentation you’ve seen the
 warning about possible interpretations of requests containing duplicated
 Resource Instance IDs. Presented implementation returns an error on such
 requests, but the LwM2M specification seem to not forbid implementations
@@ -326,9 +342,9 @@ from accepting it, as long as it does not break any invariants defined
 within specification. We would however recommend to take approach
 as shown in this tutorial.</p>
 </div>
-<p>Last thing to do is to modify <code class="docutils literal"><span class="pre">test_resource_write</span></code> implementation to make use
+<p>Last thing to do is to modify <code class="docutils literal notranslate"><span class="pre">test_resource_write</span></code> implementation to make use
 of our helper function:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                                <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -370,17 +386,17 @@ of our helper function:</p>
 <p class="topic-title first">General flow of function calls when LwM2M Read operation was
        issued on Multiple Instance Resource.</p>
 <ol class="arabic simple">
-<li><code class="docutils literal"><span class="pre">resource_read</span></code> handler is being called by Anjay, giving the control
+<li><code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler is being called by Anjay, giving the control
 to the user.</li>
-<li>User creates additional <code class="docutils literal"><span class="pre">anjay_output_context_t</span></code> out of provided (as an argument
-to <code class="docutils literal"><span class="pre">resource_read</span></code> handler) output context by calling <code class="docutils literal"><span class="pre">anjay_ret_array_start</span></code>.</li>
-<li>User calls <code class="docutils literal"><span class="pre">anjay_ret_array_index</span></code> and <code class="docutils literal"><span class="pre">anjay_ret_*</span></code> until they are done.</li>
-<li>In the end, user calls <code class="docutils literal"><span class="pre">anjay_ret_array_finish</span></code> to tell Anjay that the
+<li>User creates additional <code class="docutils literal notranslate"><span class="pre">anjay_output_context_t</span></code> out of provided (as an argument
+to <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler) output context by calling <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_start</span></code>.</li>
+<li>User calls <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_index</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_ret_*</span></code> until they are done.</li>
+<li>In the end, user calls <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_finish</span></code> to tell Anjay that the
 Multiple Instance Resource response is ready.</li>
 </ol>
 </div>
 <p>In the end, the read handler could look like this:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -427,15 +443,16 @@ subdirectory of main Anjay project repository.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT_CO7_BootstrapAwareness.html" class="btn btn-neutral float-right" title="4.5.7. Bootstrap awareness" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT_CO7_BootstrapAwareness.html" class="btn btn-neutral float-right" title="4.5.7. Bootstrap awareness" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO5_MultiInstanceDynamic.html" class="btn btn-neutral" title="4.5.5. Multi-instance writable object with dynamic number of instances" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO5_MultiInstanceDynamic.html" class="btn btn-neutral" title="4.5.5. Multi-instance writable object with dynamic number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -448,7 +465,7 @@ subdirectory of main Anjay project repository.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -466,10 +483,12 @@ subdirectory of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.10.4',
+            VERSION:'1.11.0',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
@@ -478,19 +497,13 @@ subdirectory of main Anjay project repository.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
