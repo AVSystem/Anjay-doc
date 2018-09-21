@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.12.0 documentation</title>
+  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.12.1 documentation</title>
   
 
-  
-  
   
   
 
@@ -24,22 +22,31 @@
 
   
 
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="4.5.2. Single-instance read-only object with an executable resource" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" />
-    <link rel="prev" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html" /> 
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.12.1 documentation" href="../../index.html"/>
+        <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
+        <link rel="next" title="4.5.2. Single-instance read-only object with an executable resource" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html"/>
+        <link rel="prev" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +66,7 @@
             
             
               <div class="version">
-                1.12.0
+                1.12.1
               </div>
             
           
@@ -80,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -120,58 +124,38 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-        
+      
           <li><a href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a> &raquo;</li>
-        
-      <li>4.5.1. Single-instance read-only object</li>
-    
-    
+      
+    <li>4.5.1. Single-instance read-only object</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -245,7 +229,7 @@ on what various parts of the LwM2M object code are for.</p>
 </tr>
 </tbody>
 </table>
-<p>In this case, the most interesting handler type is <code class="docutils literal notranslate"><span class="pre">anjay_dm_resource_read_t</span></code>,
+<p>In this case, the most interesting handler type is <code class="docutils literal"><span class="pre">anjay_dm_resource_read_t</span></code>,
 called whenever the library needs to get a value of a Resource. This might
 happen if:</p>
 <ul class="simple">
@@ -255,24 +239,24 @@ happen if:</p>
 (mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</li>
 </ul>
 <p>The Read handler for our test object might be implemented as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                              <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
                               <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">These</span> <span class="n">arguments</span> <span class="n">may</span> <span class="n">seem</span> <span class="n">superfluous</span> <span class="n">now</span><span class="p">,</span> <span class="n">but</span> <span class="n">they</span> <span class="n">will</span> <span class="n">come</span> <span class="ow">in</span> <span class="n">handy</span>
-    <span class="o">//</span> <span class="k">while</span> <span class="n">defining</span> <span class="n">more</span> <span class="nb">complex</span> <span class="n">objects</span>
-    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="o">//</span> <span class="n">unused</span>
-    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="o">//</span> <span class="n">unused</span><span class="p">:</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">holds</span> <span class="n">no</span> <span class="n">state</span>
-    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>     <span class="o">//</span> <span class="n">unused</span><span class="p">:</span> <span class="n">will</span> <span class="n">always</span> <span class="n">be</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">single</span><span class="o">-</span><span class="n">instance</span> <span class="n">Objects</span>
+    <span class="c1">// These arguments may seem superfluous now, but they will come in handy</span>
+    <span class="c1">// while defining more complex objects</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="c1">// unused: the object holds no state</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>     <span class="c1">// unused: will always be 0 for single-instance Objects</span>
 
-    <span class="n">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">case</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;Test object&quot;</span><span class="p">);</span>
-    <span class="n">case</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">avs_time_real_now</span><span class="p">()</span><span class="o">.</span><span class="n">since_real_epoch</span><span class="o">.</span><span class="n">seconds</span><span class="p">);</span>
-    <span class="n">default</span><span class="p">:</span>
-        <span class="o">//</span> <span class="n">control</span> <span class="n">will</span> <span class="n">never</span> <span class="n">reach</span> <span class="n">this</span> <span class="n">part</span> <span class="n">due</span> <span class="n">to</span> <span class="nb">object</span><span class="s1">&#39;s supported_rids</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;Test object&quot;</span><span class="p">);</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">avs_time_real_now</span><span class="p">().</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="p">);</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -280,36 +264,36 @@ happen if:</p>
 </div>
 <p>What happens here?</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">rid</span></code> value is compared against all known Resource IDs to determine what value
+<li><code class="docutils literal"><span class="pre">rid</span></code> value is compared against all known Resource IDs to determine what value
 should be returned to the library.</li>
-<li>Resource value is passed to the library via one of <code class="docutils literal notranslate"><span class="pre">anjay_ret_*</span></code> functions,
+<li>Resource value is passed to the library via one of <code class="docutils literal"><span class="pre">anjay_ret_*</span></code> functions,
 depending on the actual data type of a Resource. The value returned
 by an appropriate call is then forwarded up - this ensures correct error
 handling in case anything goes wrong.</li>
 </ul>
 <p>Having the Read handler implemented, one can initialize the
-<code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static const anjay_dm_object_def_t OBJECT_DEF = {
-    // Object ID
-    .oid = 1234,
+<code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// Object ID</span>
+    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
 
-    // List of supported Resource IDs
-    .supported_rids = ANJAY_DM_SUPPORTED_RIDS(0, 1),
+    <span class="c1">// List of supported Resource IDs</span>
+    <span class="p">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
 
-    .handlers = {
-        // single-instance Objects can use these pre-implemented handlers:
-        .instance_it = anjay_dm_instance_it_SINGLE,
-        .instance_present = anjay_dm_instance_present_SINGLE,
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// single-instance Objects can use these pre-implemented handlers:</span>
+        <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">anjay_dm_instance_it_SINGLE</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">anjay_dm_instance_present_SINGLE</span><span class="p">,</span>
 
-        // if all supported Resources are always available, one can use
-        // a pre-implemented `resource_present` handler too:
-        .resource_present = anjay_dm_resource_present_TRUE,
+        <span class="c1">// if all supported Resources are always available, one can use</span>
+        <span class="c1">// a pre-implemented `resource_present` handler too:</span>
+        <span class="p">.</span><span class="n">resource_present</span> <span class="o">=</span> <span class="n">anjay_dm_resource_present_TRUE</span><span class="p">,</span>
 
-        .resource_read = test_resource_read
+        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span>
 
-        // all other handlers can be left NULL if only Read operation is required
-    }
-};
+        <span class="c1">// all other handlers can be left NULL if only Read operation is required</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -322,7 +306,7 @@ some operation on the path /1/2/3:</p>
 <li><p class="first">First, the library checks whether an Object with ID = 1 is registered.
 If not, a Not Found response is issued.</p>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">instance_present</span></code> handler of Object 1 is called to determine whether
+<li><p class="first"><code class="docutils literal"><span class="pre">instance_present</span></code> handler of Object 1 is called to determine whether
 Instance 2 exists. If not, a Not Found response is issued.</p>
 </li>
 <li><p class="first">If multiple LwM2M Servers are configured, the library inspects Access
@@ -333,25 +317,25 @@ be allowed to perform it.</p>
 <p class="last">More info: <a class="reference internal" href="../../AdvancedTutorial/AT4.html"><span class="doc">Access Control in multi-server environment</span></a></p>
 </div>
 </li>
-<li><p class="first">Resource ID 3 is searched for in the <code class="docutils literal notranslate"><span class="pre">supported_rids</span></code> list defined for
+<li><p class="first">Resource ID 3 is searched for in the <code class="docutils literal"><span class="pre">supported_rids</span></code> list defined for
 the object. If it is not found, a Not Found response is issued.</p>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">resource_present</span></code> handler is called to ensure that Resource 3
+<li><p class="first"><code class="docutils literal"><span class="pre">resource_present</span></code> handler is called to ensure that Resource 3
 is instantiated for Object Instance 2. If the handler returns 0,
 a Not Found response is issued.</p>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler, if present, is used to determine whether
+<li><p class="first"><code class="docutils literal"><span class="pre">resource_operations</span></code> handler, if present, is used to determine whether
 requested operation is valid for given target. In case it is not (e.g.
 Execute request on a read-write Resource), Method Not Allowed response
 is issued.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler will be explained in detail in
+<p class="last"><code class="docutils literal"><span class="pre">resource_operations</span></code> handler will be explained in detail in
 further tutorials.</p>
 </div>
 </li>
 <li><p class="first">Finally, if all other checks succeeded, a specific handler (e.g.
-<code class="docutils literal notranslate"><span class="pre">resource_read</span></code> for Read operation) is called.</p>
+<code class="docutils literal"><span class="pre">resource_read</span></code> for Read operation) is called.</p>
 </li>
 </ol>
 <p>Any of the handlers above may also fail with a specific CoAP error code
@@ -369,16 +353,16 @@ and Default Maximum Period Resources of the LwM2M Server object.</p>
 </div>
 <p>When the Object Definition is ready, the only thing left to do is registering
 it in the library:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="o">...</span> <span class="n">Anjay</span> <span class="n">initialization</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ... Anjay initialization</span>
 
-    <span class="o">//</span> <span class="n">note</span><span class="p">:</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">simple</span> <span class="n">case</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">have</span> <span class="nb">any</span> <span class="n">state</span><span class="p">,</span>
-    <span class="o">//</span> <span class="n">so</span> <span class="n">it</span><span class="s1">&#39;s fine to use a plain double pointer to its definition struct</span>
-    <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">test_object_def_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
+    <span class="c1">// note: in this simple case the object does not have any state,</span>
+    <span class="c1">// so it&#39;s fine to use a plain double pointer to its definition struct</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">test_object_def_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
 
     <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">test_object_def_ptr</span><span class="p">);</span>
 
-    <span class="o">//</span> <span class="o">...</span> <span class="n">event</span> <span class="n">loop</span>
+    <span class="c1">// ... event loop</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -395,16 +379,15 @@ project repository.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" class="btn btn-neutral float-right" title="4.5.2. Single-instance read-only object with an executable resource" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" class="btn btn-neutral float-right" title="4.5.2. Single-instance read-only object with an executable resource" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../BT5_CustomObject.html" class="btn btn-neutral" title="4.5. Custom LwM2M objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../BT5_CustomObject.html" class="btn btn-neutral" title="4.5. Custom LwM2M objects" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -417,7 +400,7 @@ project repository.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -435,28 +418,31 @@ project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.12.0',
-            LANGUAGE:'None',
+            VERSION:'1.12.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>
