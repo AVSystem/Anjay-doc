@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Installing mandatory Objects &mdash; Anjay 1.11.0 documentation</title>
+  <title>4.2. Installing mandatory Objects &mdash; Anjay 1.12.0 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.11.0
+                1.12.0
               </div>
             
           
@@ -192,50 +192,50 @@ registration on your own. In case you are interested in this topic at that
 moment, you may jump to <a class="reference internal" href="BT5_CustomObject.html"><span class="doc">Custom LwM2M objects</span></a> to get more information.</p>
 <p>To install objects we are going to use <code class="docutils literal notranslate"><span class="pre">anjay_security_object_install()</span></code> and
 <code class="docutils literal notranslate"><span class="pre">anjay_server_object_install()</span></code> functions:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="installing-server-and-security-objects">
 <h2>4.2.2. Installing Server and Security Objects<a class="headerlink" href="#installing-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
 <p>We are going to modify the code from the <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">previous tutorial</span></a>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#include &lt;avsystem/commons/log.h&gt;
+#include &lt;anjay/anjay.h&gt;
+#include &lt;anjay/security.h&gt;
+#include &lt;anjay/server.h&gt;
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span>
-    <span class="p">};</span>
+int main(int argc, char *argv[]) {
+    static const anjay_configuration_t CONFIG = {
+        .endpoint_name = &quot;urn:dev:os:anjay-tutorial&quot;,
+        .in_buffer_size = 4000,
+        .out_buffer_size = 4000
+    };
 
-    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    anjay_t *anjay = anjay_new(&amp;CONFIG);
+    if (!anjay) {
+        avs_log(tutorial, ERROR, &quot;Could not create Anjay object&quot;);
+        return -1;
+    }
+    int result = 0;
 
-    <span class="c1">// Install necessary objects</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
-            <span class="o">||</span> <span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
-    <span class="p">}</span>
+    // Install necessary objects
+    if (anjay_security_object_install(anjay)
+            || anjay_server_object_install(anjay)) {
+        result = -1;
+        goto cleanup;
+    }
 
-    <span class="c1">// ...</span>
+    // ...
 
-    <span class="c1">// Event loop will go here</span>
+    // Event loop will go here
 
-<span class="nl">cleanup</span><span class="p">:</span>
-    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
+cleanup:
+    anjay_delete(anjay);
+    return result;
+}
 </pre></div>
 </div>
 <div class="admonition note">
@@ -251,19 +251,19 @@ to connect to. In order to do this, we will create two structure instances
 (<code class="docutils literal notranslate"><span class="pre">anjay_server_instance_t</span></code>, <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code>) and fill them
 accordingly. After that they are going to be added as respective Object
 Instances:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s2">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
 <span class="p">};</span>
 
-<span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s">&quot;U&quot;</span>
+<span class="n">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s2">&quot;U&quot;</span>
 <span class="p">};</span>
 
 <span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
@@ -358,7 +358,7 @@ for most use cases.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.11.0',
+            VERSION:'1.12.0',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -369,6 +369,7 @@ for most use cases.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

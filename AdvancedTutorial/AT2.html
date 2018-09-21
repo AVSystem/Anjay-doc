@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.2. Persistence support &mdash; Anjay 1.11.0 documentation</title>
+  <title>5.2. Persistence support &mdash; Anjay 1.12.0 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.11.0
+                1.12.0
               </div>
             
           
@@ -189,27 +189,27 @@ which makes persisted chunk of information on arbitrary architecture
 <h2>5.2.2. Persistence of preimplemented objects<a class="headerlink" href="#persistence-of-preimplemented-objects" title="Permalink to this headline">¶</a></h2>
 <p>Anjay’s preimplemented objects (Security, Server, Access Control) all
 support persistence:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_security_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span>
+<span class="nb">int</span> <span class="n">anjay_security_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                   <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
-<span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_security_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="nb">int</span> <span class="n">anjay_security_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                   <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_server_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span>
+<span class="nb">int</span> <span class="n">anjay_server_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                 <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
-<span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_server_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="nb">int</span> <span class="n">anjay_server_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                 <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_access_control_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span>
+<span class="nb">int</span> <span class="n">anjay_access_control_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                  <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
-<span class="c1">// ...</span>
-<span class="kt">int</span> <span class="nf">anjay_access_control_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="o">//</span> <span class="o">...</span>
+<span class="nb">int</span> <span class="n">anjay_access_control_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                  <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -225,88 +225,88 @@ functions behave under different conditions.</p>
 <p>As an example we’ll modify the code from the <a class="reference external" href="AT1">previous tutorial</a>. We would like
 to persist Object data when the LwM2M Client finishes its work and restore it on
 startup (if a valid persistence file exists).</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define PERSISTENCE_FILENAME &quot;at2-persistence.dat&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#define PERSISTENCE_FILENAME &quot;at2-persistence.dat&quot;
 
-<span class="kt">int</span> <span class="nf">persist_objects</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="s">&quot;Persisting objects to %s&quot;</span><span class="p">,</span> <span class="n">PERSISTENCE_FILENAME</span><span class="p">);</span>
+int persist_objects(anjay_t *anjay) {
+    avs_log(tutorial, INFO, &quot;Persisting objects to %s&quot;, PERSISTENCE_FILENAME);
 
-    <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">file_stream</span> <span class="o">=</span>
-            <span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">PERSISTENCE_FILENAME</span><span class="p">,</span> <span class="n">AVS_STREAM_FILE_WRITE</span><span class="p">);</span>
+    avs_stream_abstract_t *file_stream =
+            avs_stream_file_create(PERSISTENCE_FILENAME, AVS_STREAM_FILE_WRITE);
 
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">file_stream</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not open file for writing&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
+    if (!file_stream) {
+        avs_log(tutorial, ERROR, &quot;Could not open file for writing&quot;);
+        return -1;
+    }
 
-    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+    int result;
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_security_object_persist</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not persist Security Object&quot;</span><span class="p">);</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
+    if ((result = anjay_security_object_persist(anjay, file_stream))) {
+        avs_log(tutorial, ERROR, &quot;Could not persist Security Object&quot;);
+        goto finish;
+    }
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_server_object_persist</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not persist Server Object&quot;</span><span class="p">);</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
+    if ((result = anjay_server_object_persist(anjay, file_stream))) {
+        avs_log(tutorial, ERROR, &quot;Could not persist Server Object&quot;);
+        goto finish;
+    }
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not persist LwM2M attribute storage&quot;</span><span class="p">);</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
+    if ((result = anjay_attr_storage_persist(anjay, file_stream))) {
+        avs_log(tutorial, ERROR, &quot;Could not persist LwM2M attribute storage&quot;);
+        goto finish;
+    }
 
-<span class="nl">finish</span><span class="p">:</span>
-    <span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
+finish:
+    avs_stream_cleanup(&amp;file_stream);
+    return result;
+}
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">restore_objects_if_possible</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="s">&quot;Attempting to restore objects from persistence&quot;</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int restore_objects_if_possible(anjay_t *anjay) {
+    avs_log(tutorial, INFO, &quot;Attempting to restore objects from persistence&quot;);
+    int result;
 
-    <span class="n">errno</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">access</span><span class="p">(</span><span class="n">PERSISTENCE_FILENAME</span><span class="p">,</span> <span class="n">F_OK</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="k">switch</span> <span class="p">(</span><span class="n">errno</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="nl">ENOENT</span><span class="p">:</span>
-        <span class="k">case</span> <span class="nl">ENOTDIR</span><span class="p">:</span>
-            <span class="c1">// no persistence file means there is nothing to restore</span>
-            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">default</span><span class="o">:</span>
-            <span class="c1">// some other unpredicted error</span>
-            <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">access</span><span class="p">(</span><span class="n">PERSISTENCE_FILENAME</span><span class="p">,</span> <span class="n">R_OK</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="c1">// most likely file is just not readable</span>
-        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-    <span class="p">}</span>
+    errno = 0;
+    if ((result = access(PERSISTENCE_FILENAME, F_OK))) {
+        switch (errno) {
+        case ENOENT:
+        case ENOTDIR:
+            // no persistence file means there is nothing to restore
+            return 1;
+        default:
+            // some other unpredicted error
+            return result;
+        }
+    } else if ((result = access(PERSISTENCE_FILENAME, R_OK))) {
+        // most likely file is just not readable
+        return result;
+    }
 
-    <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">file_stream</span> <span class="o">=</span>
-        <span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">PERSISTENCE_FILENAME</span><span class="p">,</span> <span class="n">AVS_STREAM_FILE_READ</span><span class="p">);</span>
+    avs_stream_abstract_t *file_stream =
+        avs_stream_file_create(PERSISTENCE_FILENAME, AVS_STREAM_FILE_READ);
 
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">file_stream</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
+    if (!file_stream) {
+        return -1;
+    }
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_security_object_restore</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not restore Security Object&quot;</span><span class="p">);</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
+    if ((result = anjay_security_object_restore(anjay, file_stream))) {
+        avs_log(tutorial, ERROR, &quot;Could not restore Security Object&quot;);
+        goto finish;
+    }
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_server_object_restore</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not restore Server Object&quot;</span><span class="p">);</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
+    if ((result = anjay_server_object_restore(anjay, file_stream))) {
+        avs_log(tutorial, ERROR, &quot;Could not restore Server Object&quot;);
+        goto finish;
+    }
 
-    <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not restore LwM2M attribute storage&quot;</span><span class="p">);</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
+    if ((result = anjay_attr_storage_restore(anjay, file_stream))) {
+        avs_log(tutorial, ERROR, &quot;Could not restore LwM2M attribute storage&quot;);
+        goto finish;
+    }
 
-<span class="nl">finish</span><span class="p">:</span>
-    <span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
+finish:
+    avs_stream_cleanup(&amp;file_stream);
+    return result;
+}
 </pre></div>
 </div>
 <div class="admonition note">
@@ -363,7 +363,7 @@ order because objects’ data is being stored sequentially.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.11.0',
+            VERSION:'1.12.0',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -374,6 +374,7 @@ order because objects’ data is being stored sequentially.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

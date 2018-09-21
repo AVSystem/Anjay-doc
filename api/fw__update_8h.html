@@ -107,7 +107,10 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Firmware update result codes</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following result codes may be returned from <a class="el" href="fw__update_8h.html#ae148a3839561015f353ef47c330e9182">anjay_fw_update_stream_write_t</a>, <a class="el" href="fw__update_8h.html#a12fbe115b343ae099274cd73698ae660">anjay_fw_update_stream_finish_t</a> or <a class="el" href="fw__update_8h.html#a81c7c16c083eb93677d8a9d6df78a13c">anjay_fw_update_perform_upgrade_t</a> to control the value of the Update Result Resource after the failure.</p>
+<p>Their values correspond to negated numeric values of that resource. However, attempting to use other negated value will be checked and cause a fall-back to a value default for a given handler. </p>
+</div></td></tr>
 <tr class="memitem:aefc50329eabcf89ae42815834c2f7e03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#aefc50329eabcf89ae42815834c2f7e03">ANJAY_FW_UPDATE_ERR_NOT_ENOUGH_SPACE</a>&#160;&#160;&#160;(-2)</td></tr>
 <tr class="separator:aefc50329eabcf89ae42815834c2f7e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a740d43f61c0ba1dfa5b559d88835c32d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#a740d43f61c0ba1dfa5b559d88835c32d">ANJAY_FW_UPDATE_ERR_OUT_OF_MEMORY</a>&#160;&#160;&#160;(-3)</td></tr>
@@ -135,6 +138,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a81c7c16c083eb93677d8a9d6df78a13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec5a15639bf42820006bfdfcfd6118fe"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#aec5a15639bf42820006bfdfcfd6118fe">anjay_fw_update_get_security_info_t</a>(void *user_ptr, avs_net_security_info_t *out_security_info, const char *download_uri)</td></tr>
 <tr class="separator:aec5a15639bf42820006bfdfcfd6118fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0a274fbe4d73643df3aa62884d7decb"><td class="memItemLeft" align="right" valign="top">typedef avs_coap_tx_params_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#ad0a274fbe4d73643df3aa62884d7decb">anjay_fw_update_get_coap_tx_params_t</a>(void *user_ptr, const char *download_uri)</td></tr>
+<tr class="separator:ad0a274fbe4d73643df3aa62884d7decb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -183,8 +188,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The following result codes may be returned from <a class="el" href="fw__update_8h.html#ae148a3839561015f353ef47c330e9182">anjay_fw_update_stream_write_t</a>, <a class="el" href="fw__update_8h.html#a12fbe115b343ae099274cd73698ae660">anjay_fw_update_stream_finish_t</a> or <a class="el" href="fw__update_8h.html#a81c7c16c083eb93677d8a9d6df78a13c">anjay_fw_update_perform_upgrade_t</a> to control the value of the Update Result Resource after the failure.</p>
-<p>Their values correspond to negated numeric values of that resource. However, attempting to use other negated value will be checked and cause a fall-back to a value default for a given handler. </p>
 
 </div>
 </div>
@@ -217,6 +220,30 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="ad0a274fbe4d73643df3aa62884d7decb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0a274fbe4d73643df3aa62884d7decb">&#9670;&nbsp;</a></span>anjay_fw_update_get_coap_tx_params_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef avs_coap_tx_params_t anjay_fw_update_get_coap_tx_params_t(void *user_ptr, const char *download_uri)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns tx_params used to override default ones.</p>
+<p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <code>udp_tx_params</code> from <code>anjay_t</code> object are used.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user_ptr</td><td>Opaque pointer to user data, as passed to <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a> .</td></tr>
+    <tr><td class="paramname">download_uri</td><td>Target firmware URI.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Object with CoAP transmission parameters. </dd></dl>
+
+</div>
+</div>
 <a id="a270e3076262423d8ef7f99333249b9ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a270e3076262423d8ef7f99333249b9ac">&#9670;&nbsp;</a></span>anjay_fw_update_get_name_t</h2>
 
@@ -552,7 +579,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_e05d7e2b1ecd646af5bb94391405f3b5.html">modules</a></li><li class="navelem"><a class="el" href="dir_aa01a8637aa49ffd335cbf2b76be9ae7.html">fw_update</a></li><li class="navelem"><a class="el" href="dir_cab12f08c791e675dbf693fef0b9538e.html">include_public</a></li><li class="navelem"><a class="el" href="dir_efd9491ebce6ae5f6323788230eee553.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
-    <li class="footer">Generated on Tue Sep 4 2018 15:23:59 for anjay by
+    <li class="footer">Generated on Fri Sep 21 2018 14:31:01 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

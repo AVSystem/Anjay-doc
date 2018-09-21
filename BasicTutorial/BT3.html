@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.3. Event loop &mdash; Anjay 1.11.0 documentation</title>
+  <title>4.3. Event loop &mdash; Anjay 1.12.0 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.11.0
+                1.12.0
               </div>
             
           
@@ -246,58 +246,58 @@ modified.</li>
 </ol>
 </div>
 <p>So, it could be written like this:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Obtain all network data sources</span>
-        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">sockets</span> <span class="o">=</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">main_loop</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">//</span> <span class="n">Obtain</span> <span class="nb">all</span> <span class="n">network</span> <span class="n">data</span> <span class="n">sources</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="n">const</span><span class="p">)</span> <span class="n">sockets</span> <span class="o">=</span>
                 <span class="n">anjay_get_sockets</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
 
-        <span class="c1">// Prepare to poll() on them</span>
-        <span class="kt">size_t</span> <span class="n">numsocks</span> <span class="o">=</span> <span class="n">AVS_LIST_SIZE</span><span class="p">(</span><span class="n">sockets</span><span class="p">);</span>
-        <span class="k">struct</span> <span class="n">pollfd</span> <span class="n">pollfds</span><span class="p">[</span><span class="n">numsocks</span><span class="p">];</span>
-        <span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">sock</span><span class="p">;</span>
+        <span class="o">//</span> <span class="n">Prepare</span> <span class="n">to</span> <span class="n">poll</span><span class="p">()</span> <span class="n">on</span> <span class="n">them</span>
+        <span class="n">size_t</span> <span class="n">numsocks</span> <span class="o">=</span> <span class="n">AVS_LIST_SIZE</span><span class="p">(</span><span class="n">sockets</span><span class="p">);</span>
+        <span class="n">struct</span> <span class="n">pollfd</span> <span class="n">pollfds</span><span class="p">[</span><span class="n">numsocks</span><span class="p">];</span>
+        <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="n">const</span><span class="p">)</span> <span class="n">sock</span><span class="p">;</span>
         <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">sockets</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">fd</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="o">*</span><span class="n">sock</span><span class="p">);</span>
-            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">events</span> <span class="o">=</span> <span class="n">POLLIN</span><span class="p">;</span>
-            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">revents</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fd</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">const</span> <span class="nb">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="o">*</span><span class="n">sock</span><span class="p">);</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">POLLIN</span><span class="p">;</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">revents</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
             <span class="o">++</span><span class="n">i</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">const</span> <span class="kt">int</span> <span class="n">max_wait_time_ms</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
-        <span class="c1">// Determine the expected time to the next job in milliseconds.</span>
-        <span class="c1">// If there is no job we will wait till something arrives for</span>
-        <span class="c1">// at most 1 second (i.e. max_wait_time_ms).</span>
-        <span class="kt">int</span> <span class="n">wait_ms</span> <span class="o">=</span>
+        <span class="n">const</span> <span class="nb">int</span> <span class="n">max_wait_time_ms</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+        <span class="o">//</span> <span class="n">Determine</span> <span class="n">the</span> <span class="n">expected</span> <span class="n">time</span> <span class="n">to</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">milliseconds</span><span class="o">.</span>
+        <span class="o">//</span> <span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">no</span> <span class="n">job</span> <span class="n">we</span> <span class="n">will</span> <span class="n">wait</span> <span class="n">till</span> <span class="n">something</span> <span class="n">arrives</span> <span class="k">for</span>
+        <span class="o">//</span> <span class="n">at</span> <span class="n">most</span> <span class="mi">1</span> <span class="n">second</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">max_wait_time_ms</span><span class="p">)</span><span class="o">.</span>
+        <span class="nb">int</span> <span class="n">wait_ms</span> <span class="o">=</span>
                 <span class="n">anjay_sched_calculate_wait_time_ms</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">max_wait_time_ms</span><span class="p">);</span>
 
-        <span class="c1">// Wait for the events if necessary, and handle them.</span>
+        <span class="o">//</span> <span class="n">Wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">events</span> <span class="k">if</span> <span class="n">necessary</span><span class="p">,</span> <span class="ow">and</span> <span class="n">handle</span> <span class="n">them</span><span class="o">.</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">poll</span><span class="p">(</span><span class="n">pollfds</span><span class="p">,</span> <span class="n">numsocks</span><span class="p">,</span> <span class="n">wait_ms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">socket_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">socket</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+            <span class="nb">int</span> <span class="n">socket_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="n">const</span><span class="p">)</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
             <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">sockets</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">pollfds</span><span class="p">[</span><span class="n">socket_id</span><span class="p">].</span><span class="n">revents</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">pollfds</span><span class="p">[</span><span class="n">socket_id</span><span class="p">]</span><span class="o">.</span><span class="n">revents</span><span class="p">)</span> <span class="p">{</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">anjay_serve</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">*</span><span class="n">socket</span><span class="p">))</span> <span class="p">{</span>
-                        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;anjay_serve failed&quot;</span><span class="p">);</span>
+                        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;anjay_serve failed&quot;</span><span class="p">);</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
                 <span class="o">++</span><span class="n">socket_id</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="c1">// Finally run the scheduler (ignoring its return value, which</span>
-        <span class="c1">// is the number of tasks executed)</span>
-        <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay_sched_run</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+        <span class="o">//</span> <span class="n">Finally</span> <span class="n">run</span> <span class="n">the</span> <span class="n">scheduler</span> <span class="p">(</span><span class="n">ignoring</span> <span class="n">its</span> <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">which</span>
+        <span class="o">//</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">tasks</span> <span class="n">executed</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">anjay_sched_run</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="o">...</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">main_loop</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
 
-    <span class="c1">// ...</span>
+    <span class="o">//</span> <span class="o">...</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -356,7 +356,7 @@ this tutorial, but the presented code may be used as a good starting point.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.11.0',
+            VERSION:'1.12.0',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -367,6 +367,7 @@ this tutorial, but the presented code may be used as a good starting point.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

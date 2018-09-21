@@ -1,5 +1,6 @@
 var structanjay__download__config =
 [
+    [ "coap_tx_params", "structanjay__download__config.html#ab7f675beadde8d9f466bc83fef2ba1f3", null ],
     [ "etag", "structanjay__download__config.html#a4187551c581dcfd5b42e84940b2ce4f1", null ],
     [ "on_download_finished", "structanjay__download__config.html#aafd235d5c763f9b44f7f33e846053026", null ],
     [ "on_next_block", "structanjay__download__config.html#aab4096703745a47675b4558db02de277", null ],

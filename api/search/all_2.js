@@ -1,6 +1,7 @@
 var searchData=
 [
   ['client_5fholdoff_5fs',['client_holdoff_s',['../structanjay__security__instance__t.html#abe22f8c8164f40496fcf4e1d4d688cf2',1,'anjay_security_instance_t']]],
+  ['coap_5ftx_5fparams',['coap_tx_params',['../structanjay__download__config.html#ab7f675beadde8d9f466bc83fef2ba1f3',1,'anjay_download_config']]],
   ['common',['common',['../structanjay__dm__resource__attributes__t.html#acb05ff53e173ff139feea110f33047f5',1,'anjay_dm_resource_attributes_t']]],
   ['confirmable_5fnotifications',['confirmable_notifications',['../structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05',1,'anjay_configuration']]],
   ['core_2eh',['core.h',['../core_8h.html',1,'']]],

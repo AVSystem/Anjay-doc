@@ -112,6 +112,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a1aa33509c25e84e00151a555a00e7812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88e2031052985d0213a42f37a83abdd8"><td class="memItemLeft" align="right" valign="top">const avs_coap_tx_params_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a88e2031052985d0213a42f37a83abdd8">udp_tx_params</a></td></tr>
 <tr class="separator:a88e2031052985d0213a42f37a83abdd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8ca076537138e7d78bd1ee5d5e2031a"><td class="memItemLeft" align="right" valign="top">const avs_net_dtls_handshake_timeouts_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a">udp_dtls_hs_tx_params</a></td></tr>
+<tr class="separator:ab8ca076537138e7d78bd1ee5d5e2031a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3358d949a97ff9e10c8838740dabab68"><td class="memItemLeft" align="right" valign="top">const avs_coap_tx_params_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a3358d949a97ff9e10c8838740dabab68">sms_tx_params</a></td></tr>
 <tr class="separator:a3358d949a97ff9e10c8838740dabab68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86aadc48d030ec4c66750cd6204c5b05"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05">confirmable_notifications</a></td></tr>
@@ -317,6 +319,23 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="ab8ca076537138e7d78bd1ee5d5e2031a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8ca076537138e7d78bd1ee5d5e2031a">&#9670;&nbsp;</a></span>udp_dtls_hs_tx_params</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const avs_net_dtls_handshake_timeouts_t* udp_dtls_hs_tx_params</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configuration of the DTLS handshake retransmission timeouts for UDP connection.</p>
+<p>If NULL, the default configuration <a class="el" href="core_8h.html#a1aea6d25934c472e8dfa96b6c102d174">ANJAY_DTLS_DEFAULT_UDP_HS_TX_PARAMS</a> will be selected.</p>
+<p>NOTE: Parameters are copied during <a class="el" href="core_8h.html#a9d95a5005ff7c3b1d76573616c57d4cc">anjay_new()</a> and cannot be modified later on.</p>
+<p>IMPORTANT: In case of a need to adjust DTLS retransmission params to match the CoAP retransmission params, the <a class="el" href="structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a">udp_dtls_hs_tx_params</a> shall be initialized as <code>dtls_hs_params</code> is in the following code snippet: </p><div class="fragment"><div class="line"><span class="keyword">const</span> avs_coap_tx_params_t coap_tx_params = {</div><div class="line">    <span class="comment">// ... some initialization</span></div><div class="line">};</div><div class="line"></div><div class="line"><span class="comment">// Without ACK_RANDOM_FACTOR = 1.0, it is impossible to create a DTLS HS</span></div><div class="line"><span class="comment">// configuration that matches CoAP retransmission configuration</span></div><div class="line"><span class="comment">// perfectly.</span></div><div class="line">assert(coap_tx_params.ack_random_factor == 1.0);</div><div class="line"></div><div class="line"><span class="keyword">const</span> avs_net_dtls_handshake_timeouts_t dtls_hs_tx_params = {</div><div class="line">    .min = avs_time_duration_fmul(coap_tx_params.ack_timeout,</div><div class="line">                                  coap_tx_params.ack_random_factor),</div><div class="line">    .max = avs_time_duration_fmul(</div><div class="line">            coap_tx_params.ack_timeout,</div><div class="line">            (1 &lt;&lt; coap_tx_params.max_retransmit)</div><div class="line">                * coap_tx_params.ack_random_factor)</div><div class="line">};</div></div><!-- fragment --> 
+</div>
+</div>
 <a id="acf74549a99ca3ad5aedb227c4b0258ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf74549a99ca3ad5aedb227c4b0258ca">&#9670;&nbsp;</a></span>udp_listen_port</h2>
 
@@ -377,7 +396,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__configuration.html">anjay_configuration</a></li>
-    <li class="footer">Generated on Tue Sep 4 2018 15:23:59 for anjay by
+    <li class="footer">Generated on Fri Sep 21 2018 14:31:01 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -5,6 +5,7 @@ var core_8h =
     [ "ANJAY_COAP_DEFAULT_SMS_TX_PARAMS", "core_8h.html#ae70cfcbd2c5e6f2004f8d39a43fa3e8f", null ],
     [ "ANJAY_COAP_DEFAULT_UDP_TX_PARAMS", "core_8h.html#af7abd5fb313c7990fc4e2e52e5395da3", null ],
     [ "ANJAY_COAP_STATUS", "core_8h.html#aa702d2d4be8e066aa7b1a1936889c121", null ],
+    [ "ANJAY_DTLS_DEFAULT_UDP_HS_TX_PARAMS", "core_8h.html#a1aea6d25934c472e8dfa96b6c102d174", null ],
     [ "ANJAY_ERR_BAD_OPTION", "core_8h.html#adb7395e29c732b502bce5d9721d7dc70", null ],
     [ "ANJAY_ERR_BAD_REQUEST", "core_8h.html#ab482b6c6e5d7bdb3a343588cad964a15", null ],
     [ "ANJAY_ERR_FORBIDDEN", "core_8h.html#a306ed339bda74d51d7fc69fb53b66aca", null ],

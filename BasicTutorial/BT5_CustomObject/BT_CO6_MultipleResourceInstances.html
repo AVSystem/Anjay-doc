@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 1.11.0 documentation</title>
+  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 1.12.0 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.11.0
+                1.12.0
               </div>
             
           
@@ -213,11 +213,11 @@ results in undefined behavior.</p>
 them results in undefined behavior.</p>
 </div>
 <p>To instantiate them one uses functions:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="nf">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>and</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="nf">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>respectively.</p>
@@ -228,9 +228,9 @@ Instance ID (<cite>index</cite>) and the Resource Instance Value (<cite>value</c
 <h2>4.5.6.2. Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline">¶</a></h2>
 <p>We define following structure to represent a single Instance of our Multiple
 Instance Resource:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
     <span class="n">anjay_riid_t</span> <span class="n">index</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">int32_t</span> <span class="n">value</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_value_instance_t</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -240,13 +240,13 @@ Instance Resource:</p>
 able to store all valid Resource Instance IDs.</p>
 </div>
 <p>We also edit <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> structure definition:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
 
-    <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+    <span class="nb">bool</span> <span class="n">has_label</span><span class="p">;</span>
+    <span class="n">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
 
-    <span class="kt">bool</span> <span class="n">has_values</span><span class="p">;</span>
+    <span class="nb">bool</span> <span class="n">has_values</span><span class="p">;</span>
     <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">values</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
 </pre></div>
@@ -275,58 +275,58 @@ of a message by returning <code class="docutils literal notranslate"><span class
 </div>
 <p>OK, based on the above, we are ready to create helper function which is going
 to read whole sequence of <cite>(index, value)</cite> pairs and store them on the list.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_array_write</span><span class="p">(</span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">out_instances</span><span class="p">,</span>
-                            <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">input_array</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
-    <span class="n">test_value_instance_t</span> <span class="n">instance</span><span class="p">;</span>
-    <span class="n">AVS_ASSERT</span><span class="p">(</span><span class="o">*</span><span class="n">out_instances</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">,</span> <span class="s">&quot;Nonempty list provided&quot;</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_array_write(AVS_LIST(test_value_instance_t) *out_instances,
+                            anjay_input_ctx_t *input_array) {
+    int result;
+    test_value_instance_t instance;
+    AVS_ASSERT(*out_instances == NULL, &quot;Nonempty list provided&quot;);
 
-    <span class="k">while</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">anjay_get_array_index</span><span class="p">(</span><span class="n">input_array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">instance</span><span class="p">.</span><span class="n">index</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">input_array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">instance</span><span class="p">.</span><span class="n">value</span><span class="p">))</span> <span class="p">{</span>
-            <span class="c1">// An error occurred during the read.</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
-            <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
-        <span class="p">}</span>
+    while ((result = anjay_get_array_index(input_array, &amp;instance.index)) == 0) {
+        if (anjay_get_i32(input_array, &amp;instance.value)) {
+            // An error occurred during the read.
+            result = ANJAY_ERR_INTERNAL;
+            goto failure;
+        }
 
-        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">insert_it</span><span class="p">;</span>
+        AVS_LIST(test_value_instance_t) *insert_it;
 
-        <span class="c1">// Duplicate detection, and searching for the place to insert</span>
-        <span class="c1">// note that it makes the whole function O(n^2).</span>
-        <span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">insert_it</span><span class="p">,</span> <span class="n">out_instances</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">insert_it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">index</span> <span class="o">==</span> <span class="n">instance</span><span class="p">.</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// duplicate</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
-                <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">insert_it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">index</span> <span class="o">&gt;</span> <span class="n">instance</span><span class="p">.</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">break</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
+        // Duplicate detection, and searching for the place to insert
+        // note that it makes the whole function O(n^2).
+        AVS_LIST_FOREACH_PTR(insert_it, out_instances) {
+            if ((*insert_it)-&gt;index == instance.index) {
+                // duplicate
+                result = ANJAY_ERR_BAD_REQUEST;
+                goto failure;
+            } else if ((*insert_it)-&gt;index &gt; instance.index) {
+                break;
+            }
+        }
 
-        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">new_element</span> <span class="o">=</span>
-                <span class="n">AVS_LIST_NEW_ELEMENT</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">);</span>
+        AVS_LIST(test_value_instance_t) new_element =
+                AVS_LIST_NEW_ELEMENT(test_value_instance_t);
 
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">new_element</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// out of memory</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
-            <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
-        <span class="p">}</span>
+        if (!new_element) {
+            // out of memory
+            result = ANJAY_ERR_INTERNAL;
+            goto failure;
+        }
 
-        <span class="o">*</span><span class="n">new_element</span> <span class="o">=</span> <span class="n">instance</span><span class="p">;</span>
-        <span class="n">AVS_LIST_INSERT</span><span class="p">(</span><span class="n">insert_it</span><span class="p">,</span> <span class="n">new_element</span><span class="p">);</span>
-    <span class="p">}</span>
+        *new_element = instance;
+        AVS_LIST_INSERT(insert_it, new_element);
+    }
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">result</span> <span class="o">!=</span> <span class="n">ANJAY_GET_INDEX_END</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// malformed request</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
-        <span class="k">goto</span> <span class="n">failure</span><span class="p">;</span>
-    <span class="p">}</span>
+    if (result &amp;&amp; result != ANJAY_GET_INDEX_END) {
+        // malformed request
+        result = ANJAY_ERR_BAD_REQUEST;
+        goto failure;
+    }
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    return 0;
 
-<span class="nl">failure</span><span class="p">:</span>
-    <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="n">out_instances</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
+failure:
+    AVS_LIST_CLEAR(out_instances);
+    return result;
+}
 </pre></div>
 </div>
 <p>On input, the function takes a pointer to the list where values shall be
@@ -344,39 +344,39 @@ as shown in this tutorial.</p>
 </div>
 <p>Last thing to do is to modify <code class="docutils literal notranslate"><span class="pre">test_resource_write</span></code> implementation to make use
 of our helper function:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                               <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
-        <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">input_array</span> <span class="o">=</span> <span class="n">anjay_get_array</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">input_array</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// could not create input context for some reason</span>
-            <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
-        <span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_resource_write(anjay_t *anjay,
+                               const anjay_dm_object_def_t *const *obj_ptr,
+                               anjay_iid_t iid,
+                               anjay_rid_t rid,
+                               anjay_input_ctx_t *ctx) {
+    // ...
+    switch (rid) {
+    // ...
+    case 1: {
+        anjay_input_ctx_t *input_array = anjay_get_array(ctx);
+        if (!input_array) {
+            // could not create input context for some reason
+            return ANJAY_ERR_INTERNAL;
+        }
 
-        <span class="c1">// free memory associated with old values</span>
-        <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">);</span>
+        // free memory associated with old values
+        AVS_LIST_CLEAR(&amp;current_instance-&gt;values);
 
-        <span class="c1">// try to read new values from an RPC</span>
-        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">test_array_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">,</span>
-                                      <span class="n">input_array</span><span class="p">);</span>
+        // try to read new values from an RPC
+        int result = test_array_write(&amp;current_instance-&gt;values,
+                                      input_array);
 
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">has_values</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="p">}</span>
+        if (!result) {
+            current_instance-&gt;has_values = true;
+        }
 
-        <span class="c1">// either test_array_write succeeded and result is 0, or not</span>
-        <span class="c1">// in which case result contains appropriate error code.</span>
-        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">// ...</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+        // either test_array_write succeeded and result is 0, or not
+        // in which case result contains appropriate error code.
+        return result;
+    }
+    // ...
+    }
+}
 </pre></div>
 </div>
 </div>
@@ -396,40 +396,40 @@ Multiple Instance Resource response is ready.</li>
 </ol>
 </div>
 <p>In the end, the read handler could look like this:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                              <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
-        <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">array_output</span> <span class="o">=</span> <span class="n">anjay_ret_array_start</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">array_output</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// cannot instantiate array output context</span>
-            <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
-        <span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_resource_read(anjay_t *anjay,
+                              const anjay_dm_object_def_t *const *obj_ptr,
+                              anjay_iid_t iid,
+                              anjay_rid_t rid,
+                              anjay_output_ctx_t *ctx) {
+    // ...
+    switch (rid) {
+    // ...
+    case 1: {
+        anjay_output_ctx_t *array_output = anjay_ret_array_start(ctx);
+        if (!array_output) {
+            // cannot instantiate array output context
+            return ANJAY_ERR_INTERNAL;
+        }
 
-        <span class="n">AVS_LIST</span><span class="p">(</span><span class="k">const</span> <span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
-        <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_ret_array_index</span><span class="p">(</span><span class="n">array_output</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">index</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// failed to return an index</span>
-                <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-            <span class="p">}</span>
+        AVS_LIST(const test_value_instance_t) it;
+        AVS_LIST_FOREACH(it, current_instance-&gt;values) {
+            int result = anjay_ret_array_index(array_output, it-&gt;index);
+            if (result) {
+                // failed to return an index
+                return result;
+            }
 
-            <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">array_output</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// failed to return value</span>
-                <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">anjay_ret_array_finish</span><span class="p">(</span><span class="n">array_output</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="c1">// ...</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+            result = anjay_ret_i32(array_output, it-&gt;value);
+            if (result) {
+                // failed to return value
+                return result;
+            }
+        }
+        return anjay_ret_array_finish(array_output);
+    }
+    // ...
+    }
+}
 </pre></div>
 </div>
 <div class="admonition note">
@@ -483,7 +483,7 @@ subdirectory of main Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.11.0',
+            VERSION:'1.12.0',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -494,6 +494,7 @@ subdirectory of main Anjay project repository.</p>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

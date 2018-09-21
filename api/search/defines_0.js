@@ -17,6 +17,7 @@ var searchData=
   ['anjay_5fdm_5fdim_5finvalid',['ANJAY_DM_DIM_INVALID',['../dm_8h.html#a4d4f3f426c13dd133757c97c30fb1ee7',1,'dm.h']]],
   ['anjay_5fdm_5fresource_5fop_5fnone',['ANJAY_DM_RESOURCE_OP_NONE',['../dm_8h.html#a17bb147eb018e248cab24e9336d10fc4',1,'dm.h']]],
   ['anjay_5fdm_5fsupported_5frids',['ANJAY_DM_SUPPORTED_RIDS',['../dm_8h.html#ac6bc288991cb0f595b9a979b91e6884a',1,'dm.h']]],
+  ['anjay_5fdtls_5fdefault_5fudp_5fhs_5ftx_5fparams',['ANJAY_DTLS_DEFAULT_UDP_HS_TX_PARAMS',['../core_8h.html#a1aea6d25934c472e8dfa96b6c102d174',1,'core.h']]],
   ['anjay_5ferr_5fbad_5foption',['ANJAY_ERR_BAD_OPTION',['../core_8h.html#adb7395e29c732b502bce5d9721d7dc70',1,'core.h']]],
   ['anjay_5ferr_5fbad_5frequest',['ANJAY_ERR_BAD_REQUEST',['../core_8h.html#ab482b6c6e5d7bdb3a343588cad964a15',1,'core.h']]],
   ['anjay_5ferr_5fforbidden',['ANJAY_ERR_FORBIDDEN',['../core_8h.html#a306ed339bda74d51d7fc69fb53b66aca',1,'core.h']]],

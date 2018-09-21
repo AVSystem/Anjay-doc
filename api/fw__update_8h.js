@@ -6,6 +6,7 @@ var fw__update_8h =
     [ "ANJAY_FW_UPDATE_ERR_NOT_ENOUGH_SPACE", "fw__update_8h.html#aefc50329eabcf89ae42815834c2f7e03", null ],
     [ "ANJAY_FW_UPDATE_ERR_OUT_OF_MEMORY", "fw__update_8h.html#a740d43f61c0ba1dfa5b559d88835c32d", null ],
     [ "ANJAY_FW_UPDATE_ERR_UNSUPPORTED_PACKAGE_TYPE", "fw__update_8h.html#a577fdccd2bede0ee6e284ef55b24621b", null ],
+    [ "anjay_fw_update_get_coap_tx_params_t", "fw__update_8h.html#ad0a274fbe4d73643df3aa62884d7decb", null ],
     [ "anjay_fw_update_get_name_t", "fw__update_8h.html#a270e3076262423d8ef7f99333249b9ac", null ],
     [ "anjay_fw_update_get_security_info_t", "fw__update_8h.html#aec5a15639bf42820006bfdfcfd6118fe", null ],
     [ "anjay_fw_update_get_version_t", "fw__update_8h.html#a3a2a8ad514cff78979eb806dba248713", null ],

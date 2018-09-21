@@ -1,5 +1,6 @@
 var structanjay__fw__update__handlers__t =
 [
+    [ "get_coap_tx_params", "structanjay__fw__update__handlers__t.html#a824f9d27f760cf93b93541c46739cadc", null ],
     [ "get_name", "structanjay__fw__update__handlers__t.html#a0f645244a29f96a63c6fd78c025fa20b", null ],
     [ "get_security_info", "structanjay__fw__update__handlers__t.html#a057740f398f6bcf56c63b5e247c07bd2", null ],
     [ "get_version", "structanjay__fw__update__handlers__t.html#a52d2e349008d79ee37a870d36f6e5de8", null ],

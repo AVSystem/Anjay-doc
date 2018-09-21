@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.11.0 documentation</title>
+  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.12.0 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.11.0
+                1.12.0
               </div>
             
           
@@ -255,24 +255,24 @@ happen if:</p>
 (mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</li>
 </ul>
 <p>The Read handler for our test object might be implemented as follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
                               <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// These arguments may seem superfluous now, but they will come in handy</span>
-    <span class="c1">// while defining more complex objects</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="c1">// unused: the object holds no state</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>     <span class="c1">// unused: will always be 0 for single-instance Objects</span>
+    <span class="o">//</span> <span class="n">These</span> <span class="n">arguments</span> <span class="n">may</span> <span class="n">seem</span> <span class="n">superfluous</span> <span class="n">now</span><span class="p">,</span> <span class="n">but</span> <span class="n">they</span> <span class="n">will</span> <span class="n">come</span> <span class="ow">in</span> <span class="n">handy</span>
+    <span class="o">//</span> <span class="k">while</span> <span class="n">defining</span> <span class="n">more</span> <span class="nb">complex</span> <span class="n">objects</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="o">//</span> <span class="n">unused</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="o">//</span> <span class="n">unused</span><span class="p">:</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">holds</span> <span class="n">no</span> <span class="n">state</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>     <span class="o">//</span> <span class="n">unused</span><span class="p">:</span> <span class="n">will</span> <span class="n">always</span> <span class="n">be</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">single</span><span class="o">-</span><span class="n">instance</span> <span class="n">Objects</span>
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;Test object&quot;</span><span class="p">);</span>
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">avs_time_real_now</span><span class="p">().</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="p">);</span>
-    <span class="k">default</span><span class="o">:</span>
-        <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
+    <span class="n">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">case</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;Test object&quot;</span><span class="p">);</span>
+    <span class="n">case</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">avs_time_real_now</span><span class="p">()</span><span class="o">.</span><span class="n">since_real_epoch</span><span class="o">.</span><span class="n">seconds</span><span class="p">);</span>
+    <span class="n">default</span><span class="p">:</span>
+        <span class="o">//</span> <span class="n">control</span> <span class="n">will</span> <span class="n">never</span> <span class="n">reach</span> <span class="n">this</span> <span class="n">part</span> <span class="n">due</span> <span class="n">to</span> <span class="nb">object</span><span class="s1">&#39;s supported_rids</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -289,27 +289,27 @@ handling in case anything goes wrong.</li>
 </ul>
 <p>Having the Read handler implemented, one can initialize the
 <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">// Object ID</span>
-    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static const anjay_dm_object_def_t OBJECT_DEF = {
+    // Object ID
+    .oid = 1234,
 
-    <span class="c1">// List of supported Resource IDs</span>
-    <span class="p">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    // List of supported Resource IDs
+    .supported_rids = ANJAY_DM_SUPPORTED_RIDS(0, 1),
 
-    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1">// single-instance Objects can use these pre-implemented handlers:</span>
-        <span class="p">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">anjay_dm_instance_it_SINGLE</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">anjay_dm_instance_present_SINGLE</span><span class="p">,</span>
+    .handlers = {
+        // single-instance Objects can use these pre-implemented handlers:
+        .instance_it = anjay_dm_instance_it_SINGLE,
+        .instance_present = anjay_dm_instance_present_SINGLE,
 
-        <span class="c1">// if all supported Resources are always available, one can use</span>
-        <span class="c1">// a pre-implemented `resource_present` handler too:</span>
-        <span class="p">.</span><span class="n">resource_present</span> <span class="o">=</span> <span class="n">anjay_dm_resource_present_TRUE</span><span class="p">,</span>
+        // if all supported Resources are always available, one can use
+        // a pre-implemented `resource_present` handler too:
+        .resource_present = anjay_dm_resource_present_TRUE,
 
-        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span>
+        .resource_read = test_resource_read
 
-        <span class="c1">// all other handlers can be left NULL if only Read operation is required</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+        // all other handlers can be left NULL if only Read operation is required
+    }
+};
 </pre></div>
 </div>
 <div class="topic">
@@ -369,16 +369,16 @@ and Default Maximum Period Resources of the LwM2M Server object.</p>
 </div>
 <p>When the Object Definition is ready, the only thing left to do is registering
 it in the library:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// ... Anjay initialization</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="o">...</span> <span class="n">Anjay</span> <span class="n">initialization</span>
 
-    <span class="c1">// note: in this simple case the object does not have any state,</span>
-    <span class="c1">// so it&#39;s fine to use a plain double pointer to its definition struct</span>
-    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">test_object_def_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
+    <span class="o">//</span> <span class="n">note</span><span class="p">:</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">simple</span> <span class="n">case</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">have</span> <span class="nb">any</span> <span class="n">state</span><span class="p">,</span>
+    <span class="o">//</span> <span class="n">so</span> <span class="n">it</span><span class="s1">&#39;s fine to use a plain double pointer to its definition struct</span>
+    <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">test_object_def_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
 
     <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">test_object_def_ptr</span><span class="p">);</span>
 
-    <span class="c1">// ... event loop</span>
+    <span class="o">//</span> <span class="o">...</span> <span class="n">event</span> <span class="n">loop</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -435,7 +435,7 @@ project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.11.0',
+            VERSION:'1.12.0',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -446,6 +446,7 @@ project repository.</p>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
