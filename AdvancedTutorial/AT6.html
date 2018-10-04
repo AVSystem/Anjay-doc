@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.6. Other library features &mdash; Anjay 1.12.1 documentation</title>
+  <title>5.6. Network error handling &mdash; Anjay 1.13.0 documentation</title>
   
 
+  
+  
   
   
 
@@ -35,9 +37,9 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.12.1 documentation" href="../index.html"/>
+    <link rel="top" title="Anjay 1.13.0 documentation" href="../index.html"/>
         <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
-        <link rel="next" title="6. Tools" href="../Tools.html"/>
+        <link rel="next" title="5.7. Other library features" href="AT7.html"/>
         <link rel="prev" title="5.5. Retransmissions &amp; response caching" href="AT5.html"/> 
 
   
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                1.12.1
+                1.13.0
               </div>
             
           
@@ -87,7 +90,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -98,7 +104,8 @@
 <li class="toctree-l2"><a class="reference internal" href="AT3.html">5.3. DTLS support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT4.html">5.4. Access Control in multi-server environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT5.html">5.5. Retransmissions &amp; response caching</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5.6. Other library features</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.6. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT7.html">5.7. Other library features</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Tools.html">6. Tools</a></li>
@@ -116,8 +123,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
@@ -126,54 +135,226 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-      
-    <li>5.6. Other library features</li>
+        
+      <li>5.6. Network error handling</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/AdvancedTutorial/AT6.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="other-library-features">
-<h1>5.6. Other library features<a class="headerlink" href="#other-library-features" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="coap-pull-download">
-<span id="id1"></span><h2>5.6.1. CoAP PULL download<a class="headerlink" href="#coap-pull-download" title="Permalink to this headline">¶</a></h2>
-<p>If the LwM2M client needs to download a large file from an external CoAP server,
-it may use the <a class="reference external" href="../api/download_8h.html">anjay_download API</a>. The built-in
-downloader supports both CoAP and CoAP/DTLS connections and is able to perform
-transfers without interrupting regular LwM2M operations.</p>
-<p>For a simple example, see <cite>examples/tutorial/downloader</cite> subdirectory of main
-Anjay project repository.</p>
+  <div class="section" id="network-error-handling">
+<h1>5.6. Network error handling<a class="headerlink" href="#network-error-handling" title="Permalink to this headline">¶</a></h1>
+<p>Like any software that needs to communicate with other hosts over the network,
+Anjay needs to be prepared to handle communication errors. This page documents
+the library’s behaviour during various error conditions.</p>
+<div class="section" id="outgoing-rpc-error-handling-table">
+<h2>5.6.1. Outgoing RPC error handling table<a class="headerlink" href="#outgoing-rpc-error-handling-table" title="Permalink to this headline">¶</a></h2>
+<p>The following table describes the behaviour of Anjay when various error
+conditions happen while performing each of the client-initiated RPC methods.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="13%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Request
+Bootstrap</th>
+<th class="head">Register</th>
+<th class="head">Update</th>
+<th class="head">De-register</th>
+<th class="head">Notify
+(confirmable)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>Timeout
+(DTLS)</strong> <a class="footnote-reference" href="#t" id="id1">[1]</a></td>
+<td>Retry DTLS
+handshake <a class="footnote-reference" href="#hs" id="id2">[2]</a></td>
+<td>Retry DTLS
+handshake <a class="footnote-reference" href="#hs" id="id3">[2]</a></td>
+<td rowspan="2">Fall back
+to Register</td>
+<td rowspan="6">Ignored</td>
+<td rowspan="2">Ignored; will be
+retried whenever
+next notification
+(either
+confirmable or
+not) is scheduled</td>
+</tr>
+<tr class="row-odd"><td><strong>Timeout
+(NoSec)</strong> <a class="footnote-reference" href="#t" id="id4">[1]</a></td>
+<td rowspan="5">Abort <a class="footnote-reference" href="#a" id="id5">[3]</a></td>
+<td rowspan="5">Fall back to
+Client-Initiated
+Bootstrap <a class="footnote-reference" href="#bs" id="id6">[4]</a></td>
+</tr>
+<tr class="row-even"><td><strong>Network
+(e.g. ICMP)
+error</strong></td>
+<td>Fall back to
+Client-Initiated
+Bootstrap <a class="footnote-reference" href="#bs" id="id7">[4]</a></td>
+<td>Fall back to
+Client-Initiated
+Bootstrap <a class="footnote-reference" href="#bs" id="id8">[4]</a></td>
+</tr>
+<tr class="row-odd"><td><strong>CoAP error
+(4.xx, 5.xx)</strong></td>
+<td>Fall back
+to Register</td>
+<td>n/a</td>
+</tr>
+<tr class="row-even"><td><strong>CoAP Reset</strong></td>
+<td rowspan="2">Fall back to
+Client-Initiated
+Bootstrap <a class="footnote-reference" href="#bs" id="id9">[4]</a></td>
+<td>Cancel
+observation</td>
+</tr>
+<tr class="row-odd"><td><strong>Internal
+error</strong></td>
+<td>Cancel
+observation if
+“Notification
+storing” is
+disabled</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="other-error-conditions">
+<h2>5.6.2. Other error conditions<a class="headerlink" href="#other-error-conditions" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><strong>DTLS handshakes</strong> are performed by the DTLS backend library used. This
+includes handling non-fatal errors and retransmissions. In case of no response
+from the server, DTLS handshake retransmissions are expected to follow
+<a class="reference external" href="https://tools.ietf.org/html/rfc6347#section-4.2.4">RFC 6347, Section 4.2.4.  Timeout and Retransmission</a>.
+The handshake timers can be customized during Anjay initialization, by setting
+<a class="reference external" href="../api/structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a">anjay_configuration_t::udp_dtls_hs_tx_params</a>.</p>
+<p>In case of the ultimate timeout, network-layer error, or an internal error
+during the handshake attempt, Anjay will fall back to Client-Initiated
+Bootstrap <a class="footnote-reference" href="#bs" id="id10">[4]</a> or, if the attempt was to connect to a Bootstrap Server,
+cease any attempts to communicate with it (note that unless regular Server
+accounts are available, this will mean abortion of all communication <a class="footnote-reference" href="#a" id="id11">[3]</a>).</p>
+</li>
+<li><p class="first">Errors while receiving an incoming request, or any unrecognized incoming
+packets, will be ignored</p>
+</li>
+<li><p class="first">Errors during <a class="reference external" href="../api/download_8h.html#a48c3e4dbd57b091aa76e070baaace927">anjay_download()</a> data transfers
+will be passed to the appropriate callback handler, see the <a class="reference external" href="../api/download_8h.html#a3e13610535a1b47620336e6e965f0995">documentation to
+anjay_download_finished_handler_t</a> for details.</p>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="t" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Retransmissions, as specified in
+<a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.2">RFC 7252, Section 4.2.  Messages Transmitted Reliably</a>, are attempted
+before performing the actions described in the table. The <a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8">transmission
+parameters</a> that
+affect specific retransmission timing can be customized during Anjay
+initialization, by setting the <a class="reference external" href="../api/structanjay__configuration.html#a88e2031052985d0213a42f37a83abdd8">udp_tx_params</a>
+and <a class="reference external" href="../api/structanjay__configuration.html#a3358d949a97ff9e10c8838740dabab68">sms_tx_params</a>
+fields in <a class="reference external" href="../api/structanjay__configuration.html">anjay_configuration_t</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="hs" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> To prevent infinite loop of handshakes, DTLS handshake is only retried
+if the failed RPC was <strong>not</strong> performed immediately after the previous
+handshake; otherwise the behaviour described in “Timeout (NoSec)” is
+used.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id11">2</a>)</em> Communication with all servers will be aborted and
+<a class="reference external" href="../api/core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed()</a> will start
+returning <code class="docutils literal"><span class="pre">true</span></code>. Operation can be restored by calling
+<a class="reference external" href="../api/core_8h.html#a5c6dad6c4f234e89b99a4a07f762479e">anjay_schedule_reconnect()</a> or
+<a class="reference external" href="../api/core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server()</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="bs" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><em>(<a class="fn-backref" href="#id6">1</a>, <a class="fn-backref" href="#id7">2</a>, <a class="fn-backref" href="#id8">3</a>, <a class="fn-backref" href="#id9">4</a>, <a class="fn-backref" href="#id10">5</a>)</em> <p>Client-Initiated Bootstrap will be performed only if all the following
+preconditions are met:</p>
+<ul class="simple">
+<li>a Bootstrap Server Account exists</li>
+<li>no other LwM2M Server has usable connection</li>
+<li>the Bootstrap Server Account has not aborted due to previous errors</li>
+</ul>
+<p class="last">Otherwise, further communication with the server with which the
+operation failed will be aborted. This may cause
+<a class="reference external" href="../api/core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed()</a> to start
+returning <code class="docutils literal"><span class="pre">true</span></code> if that was the last operational connection.
+Connection can be retried by calling <a class="reference external" href="../api/core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server()</a> or
+<a class="reference external" href="../api/core_8h.html#a5c6dad6c4f234e89b99a4a07f762479e">anjay_schedule_reconnect()</a>.</p>
+</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Tools.html" class="btn btn-neutral float-right" title="6. Tools" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT7.html" class="btn btn-neutral float-right" title="5.7. Other library features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT5.html" class="btn btn-neutral" title="5.5. Retransmissions &amp; response caching" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT5.html" class="btn btn-neutral" title="5.5. Retransmissions &amp; response caching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -204,10 +385,11 @@ Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.12.1',
+            VERSION:'1.13.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

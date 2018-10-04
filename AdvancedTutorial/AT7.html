@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.5. Retransmissions &amp; response caching &mdash; Anjay 1.13.0 documentation</title>
+  <title>5.7. Other library features &mdash; Anjay 1.13.0 documentation</title>
   
 
   
@@ -39,8 +39,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Anjay 1.13.0 documentation" href="../index.html"/>
         <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
-        <link rel="next" title="5.6. Network error handling" href="AT6.html"/>
-        <link rel="prev" title="5.4. Access Control in multi-server environment" href="AT4.html"/> 
+        <link rel="next" title="6. Tools" href="../Tools.html"/>
+        <link rel="prev" title="5.6. Network error handling" href="AT6.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -103,9 +103,9 @@
 <li class="toctree-l2"><a class="reference internal" href="AT2.html">5.2. Persistence support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT3.html">5.3. DTLS support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT4.html">5.4. Access Control in multi-server environment</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5.5. Retransmissions &amp; response caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT5.html">5.5. Retransmissions &amp; response caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT6.html">5.6. Network error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT7.html">5.7. Other library features</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.7. Other library features</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Tools.html">6. Tools</a></li>
@@ -157,13 +157,13 @@
         
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
         
-      <li>5.5. Retransmissions &amp; response caching</li>
+      <li>5.7. Other library features</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/AdvancedTutorial/AT5.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/AdvancedTutorial/AT7.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -176,80 +176,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="retransmissions-response-caching">
-<h1>5.5. Retransmissions &amp; response caching<a class="headerlink" href="#retransmissions-response-caching" title="Permalink to this headline">¶</a></h1>
-<p>Due to potential network instability, the need to retransmit a message
-between a Client and a Server may sometimes occur. Detecting retransmissions
-is especially important if the operation has some observable side effects.</p>
-<div class="section" id="motivational-examples">
-<h2>5.5.1. Motivational examples<a class="headerlink" href="#motivational-examples" title="Permalink to this headline">¶</a></h2>
-<p>Imagine an LwM2M Object with a numeric, executable Resource, whose value is
-incremented every time an LwM2M Server performs Execute on it. Now, consider
-the following scenario:</p>
-<ul class="simple">
-<li>the LwM2M Server performs an Execute on this specific Resource,</li>
-<li>the LwM2M Client receives the request, bumps the value, and sends a response,</li>
-<li>the response is lost due to unfortunate network conditions,</li>
-<li>the LwM2M Server attempts to increment the Resource again (sending exactly
-the same Execute request as before),</li>
-<li>the LwM2M Client receives the request.</li>
-</ul>
-<p>LwM2M Client obtained both requests, and if it was unable to classify the
-second one as a retransmission of the first, the resource would be incremented
-twice, even though it would make much more sense to increment it just once.
-On the other hand, caching the response, and detecting a retransmission,
-would improve Client-Server communication integrity by preventing this
-from happening.</p>
-<p>Another scenario could be that the response is computationally expensive
-(and time-consuming) to generate. In this case caching mechanism would
-yield measurable performance benefits.</p>
-</div>
-<div class="section" id="caching-mechanism">
-<h2>5.5.2. Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Permalink to this headline">¶</a></h2>
-<p>Anjay provides a built-in message cache (as an optional feature), that can be
-(and is, by default) enabled at a compile time (via
-<code class="docutils literal"><span class="pre">WITH_AVS_COAP_MESSAGE_CACHE</span></code> CMake option).</p>
-<p>When the request is received, Anjay checks if there exists an appropriate
-response to it in the cache already. In case there is one, it is
-retransmitted. Otherwise Anjay processes the request as usual, in the end
-placing response in the cache for future use.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Cached response, matching a specific CoAP Request is identified by the
-following triplet:</p>
-<blockquote class="last">
-<div><ul class="simple">
-<li>CoAP Message Token,</li>
-<li>CoAP Message ID,</li>
-<li>Server endpoint name (host and port).</li>
-</ul>
-</div></blockquote>
-</div>
-<p>Every response in the cache sits there for at most <code class="docutils literal"><span class="pre">MAX_TRANSMIT_SPAN</span></code>
-as defined in <a class="reference external" href="https://tools.ietf.org/html/rfc7252">RFC7252</a>, in
-<a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8.2">Section 4.8.2.  Time Values Derived from Transmission Parameters</a>, and after that time
-it is automatically removed.</p>
-</div>
-<div class="section" id="cache-size">
-<h2>5.5.3. Cache size<a class="headerlink" href="#cache-size" title="Permalink to this headline">¶</a></h2>
-<p>The size of the cache is specified at Anjay instantiation time by setting
-<code class="docutils literal"><span class="pre">anjay_configuration_t::msg_cache_size</span></code> to a non-zero value (zero disables
-any caching). This limits the number of bytes used to store cached responses.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The cache size limit is global for all Servers - i.e. all responses,
-to all Servers are stored within a single cache.</p>
-</div>
-</div>
-<div class="section" id="limitations">
-<h2>5.5.4. Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>If a response is too big to fit into the cache, it is <strong>not cached</strong>,</li>
-<li>If a response would fit into the cache, but the cache is currently full,
-responses (starting from the oldest) are <strong>dropped</strong> from the cache (even if
-they are still considered valid in terms of mentioned <code class="docutils literal"><span class="pre">MAX_TRANSMIT_SPAN</span></code>),
-till the new response fits.</li>
-</ul>
+  <div class="section" id="other-library-features">
+<h1>5.7. Other library features<a class="headerlink" href="#other-library-features" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="coap-pull-download">
+<span id="id1"></span><h2>5.7.1. CoAP PULL download<a class="headerlink" href="#coap-pull-download" title="Permalink to this headline">¶</a></h2>
+<p>If the LwM2M client needs to download a large file from an external CoAP server,
+it may use the <a class="reference external" href="../api/download_8h.html">anjay_download API</a>. The built-in
+downloader supports both CoAP and CoAP/DTLS connections and is able to perform
+transfers without interrupting regular LwM2M operations.</p>
+<p>For a simple example, see <cite>examples/tutorial/downloader</cite> subdirectory of main
+Anjay project repository.</p>
 </div>
 </div>
 
@@ -263,10 +199,10 @@ till the new response fits.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT6.html" class="btn btn-neutral float-right" title="5.6. Network error handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../Tools.html" class="btn btn-neutral float-right" title="6. Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT4.html" class="btn btn-neutral" title="5.4. Access Control in multi-server environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT6.html" class="btn btn-neutral" title="5.6. Network error handling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

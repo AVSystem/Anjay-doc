@@ -6,7 +6,6 @@ var structanjay__configuration =
     [ "endpoint_name", "structanjay__configuration.html#aafab5578aa377788d6208d5ea6dc2da9", null ],
     [ "in_buffer_size", "structanjay__configuration.html#a0be70dc47a294104527cac8e84786f02", null ],
     [ "local_msisdn", "structanjay__configuration.html#ab6bb44906738be517af97e3319a8ca78", null ],
-    [ "max_icmp_failures", "structanjay__configuration.html#a7c447938dd10b0b2f96cc8f63110346f", null ],
     [ "msg_cache_size", "structanjay__configuration.html#a3bb16de58b283370b1ab20698dd4849a", null ],
     [ "out_buffer_size", "structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4", null ],
     [ "prefer_multipart_sms", "structanjay__configuration.html#a2625aac713bfd44b47ec7b6087d9eea3", null ],
