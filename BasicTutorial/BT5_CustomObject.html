@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5. Custom LwM2M objects &mdash; Anjay 1.13.1 documentation</title>
+  <title>4.5. Custom LwM2M objects &mdash; Anjay 1.14.0 documentation</title>
   
 
-  
-  
   
   
 
@@ -24,22 +22,31 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.5.1. Single-instance read-only object" href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html" />
-    <link rel="prev" title="4.4. A few notes on general usage" href="BT4.html" /> 
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Anjay 1.14.0 documentation" href="../index.html"/>
+        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
+        <link rel="next" title="4.5.1. Single-instance read-only object" href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html"/>
+        <link rel="prev" title="4.4. A few notes on general usage" href="BT4.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +66,7 @@
             
             
               <div class="version">
-                1.13.1
+                1.14.0
               </div>
             
           
@@ -80,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -120,56 +124,36 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-        
-      <li>4.5. Custom LwM2M objects</li>
-    
-    
+      
+    <li>4.5. Custom LwM2M objects</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/BasicTutorial/BT5_CustomObject.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -177,142 +161,142 @@
             
   <div class="section" id="custom-lwm2m-objects">
 <h1>4.5. Custom LwM2M objects<a class="headerlink" href="#custom-lwm2m-objects" title="Permalink to this headline">¶</a></h1>
-<p>LwM2M Objects are described using the <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> struct,
+<p>LwM2M Objects are described using the <code class="docutils literal"><span class="pre">anjay_dm_object_def_t</span></code> struct,
 which holds:</p>
 <ul class="simple">
 <li>Object ID,</li>
 <li>a list of Resource IDs that the Object might contain,</li>
 <li>a set of handlers used by the library to access and possibly modify the Object.</li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span> <span class="n">A</span> <span class="n">struct</span> <span class="n">containing</span> <span class="n">pointers</span> <span class="n">to</span> <span class="n">Object</span> <span class="n">handlers</span><span class="o">.</span> <span class="o">*/</span>
-<span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Get</span> <span class="n">default</span> <span class="n">Object</span> <span class="n">attributes</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_object_read_default_attrs_t</span>
-     <span class="o">*/</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cm">/** A struct containing pointers to Object handlers. */</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Get default Object attributes, @ref anjay_dm_object_read_default_attrs_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_object_read_default_attrs_t</span> <span class="o">*</span><span class="n">object_read_default_attrs</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Set</span> <span class="n">default</span> <span class="n">Object</span> <span class="n">attributes</span><span class="p">,</span>
-     <span class="o">*</span> <span class="nd">@ref</span> <span class="n">anjay_dm_object_write_default_attrs_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Set default Object attributes,</span>
+<span class="cm">     * @ref anjay_dm_object_write_default_attrs_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_object_write_default_attrs_t</span> <span class="o">*</span><span class="n">object_write_default_attrs</span><span class="p">;</span>
 
-    <span class="o">/**</span> <span class="n">Enumerate</span> <span class="n">available</span> <span class="n">Object</span> <span class="n">Instances</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_instance_it_t</span> <span class="o">*/</span>
+    <span class="cm">/** Enumerate available Object Instances, @ref anjay_dm_instance_it_t */</span>
     <span class="n">anjay_dm_instance_it_t</span> <span class="o">*</span><span class="n">instance_it</span><span class="p">;</span>
-    <span class="o">/**</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">an</span> <span class="n">Object</span> <span class="n">Instance</span> <span class="n">exists</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_instance_present_t</span> <span class="o">*/</span>
+    <span class="cm">/** Check if an Object Instance exists, @ref anjay_dm_instance_present_t */</span>
     <span class="n">anjay_dm_instance_present_t</span> <span class="o">*</span><span class="n">instance_present</span><span class="p">;</span>
 
-    <span class="o">/**</span> <span class="n">Resets</span> <span class="n">an</span> <span class="n">Object</span> <span class="n">Instance</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_instance_reset_t</span> <span class="o">*/</span>
+    <span class="cm">/** Resets an Object Instance, @ref anjay_dm_instance_reset_t */</span>
     <span class="n">anjay_dm_instance_reset_t</span> <span class="o">*</span><span class="n">instance_reset</span><span class="p">;</span>
-    <span class="o">/**</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">Object</span> <span class="n">Instance</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_instance_create_t</span> <span class="o">*/</span>
+    <span class="cm">/** Create an Object Instance, @ref anjay_dm_instance_create_t */</span>
     <span class="n">anjay_dm_instance_create_t</span> <span class="o">*</span><span class="n">instance_create</span><span class="p">;</span>
-    <span class="o">/**</span> <span class="n">Delete</span> <span class="n">an</span> <span class="n">Object</span> <span class="n">Instance</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_instance_remove_t</span> <span class="o">*/</span>
+    <span class="cm">/** Delete an Object Instance, @ref anjay_dm_instance_remove_t */</span>
     <span class="n">anjay_dm_instance_remove_t</span> <span class="o">*</span><span class="n">instance_remove</span><span class="p">;</span>
 
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Get</span> <span class="n">default</span> <span class="n">Object</span> <span class="n">Instance</span> <span class="n">attributes</span><span class="p">,</span>
-     <span class="o">*</span> <span class="nd">@ref</span> <span class="n">anjay_dm_instance_read_default_attrs_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Get default Object Instance attributes,</span>
+<span class="cm">     * @ref anjay_dm_instance_read_default_attrs_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_instance_read_default_attrs_t</span> <span class="o">*</span><span class="n">instance_read_default_attrs</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Set</span> <span class="n">default</span> <span class="n">Object</span> <span class="n">Instance</span> <span class="n">attributes</span><span class="p">,</span>
-     <span class="o">*</span> <span class="nd">@ref</span> <span class="n">anjay_dm_instance_write_default_attrs_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Set default Object Instance attributes,</span>
+<span class="cm">     * @ref anjay_dm_instance_write_default_attrs_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_instance_write_default_attrs_t</span> <span class="o">*</span><span class="n">instance_write_default_attrs</span><span class="p">;</span>
 
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">a</span> <span class="n">Resource</span> <span class="ow">is</span> <span class="n">present</span> <span class="ow">in</span> <span class="n">given</span> <span class="n">Object</span> <span class="n">Instance</span><span class="p">,</span>
-     <span class="o">*</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_present_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Check if a Resource is present in given Object Instance,</span>
+<span class="cm">     * @ref anjay_dm_resource_present_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_resource_present_t</span> <span class="o">*</span><span class="n">resource_present</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Returns</span> <span class="n">a</span> <span class="n">mask</span> <span class="n">of</span> <span class="n">supported</span> <span class="n">operations</span> <span class="n">on</span> <span class="n">a</span> <span class="n">given</span> <span class="n">Resource</span><span class="p">,</span>
-     <span class="o">*</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_operations_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Returns a mask of supported operations on a given Resource,</span>
+<span class="cm">     * @ref anjay_dm_resource_operations_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_resource_operations_t</span> <span class="o">*</span><span class="n">resource_operations</span><span class="p">;</span>
 
-    <span class="o">/**</span> <span class="n">Get</span> <span class="n">Resource</span> <span class="n">value</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_read_t</span> <span class="o">*/</span>
+    <span class="cm">/** Get Resource value, @ref anjay_dm_resource_read_t */</span>
     <span class="n">anjay_dm_resource_read_t</span> <span class="o">*</span><span class="n">resource_read</span><span class="p">;</span>
-    <span class="o">/**</span> <span class="n">Set</span> <span class="n">Resource</span> <span class="n">value</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_write_t</span> <span class="o">*/</span>
+    <span class="cm">/** Set Resource value, @ref anjay_dm_resource_write_t */</span>
     <span class="n">anjay_dm_resource_write_t</span> <span class="o">*</span><span class="n">resource_write</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Perform</span> <span class="n">Execute</span> <span class="n">action</span> <span class="n">on</span> <span class="n">a</span> <span class="n">Resource</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_execute_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Perform Execute action on a Resource, @ref anjay_dm_resource_execute_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_resource_execute_t</span> <span class="o">*</span><span class="n">resource_execute</span><span class="p">;</span>
 
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Get</span> <span class="n">number</span> <span class="n">of</span> <span class="n">Multiple</span> <span class="n">Resource</span> <span class="n">instances</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_dim_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Get number of Multiple Resource instances, @ref anjay_dm_resource_dim_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_resource_dim_t</span> <span class="o">*</span><span class="n">resource_dim</span><span class="p">;</span>
-    <span class="o">/**</span> <span class="n">Get</span> <span class="n">Resource</span> <span class="n">attributes</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_read_attrs_t</span> <span class="o">*/</span>
+    <span class="cm">/** Get Resource attributes, @ref anjay_dm_resource_read_attrs_t */</span>
     <span class="n">anjay_dm_resource_read_attrs_t</span> <span class="o">*</span><span class="n">resource_read_attrs</span><span class="p">;</span>
-    <span class="o">/**</span> <span class="n">Set</span> <span class="n">Resource</span> <span class="n">attributes</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_resource_write_attrs_t</span> <span class="o">*/</span>
+    <span class="cm">/** Set Resource attributes, @ref anjay_dm_resource_write_attrs_t */</span>
     <span class="n">anjay_dm_resource_write_attrs_t</span> <span class="o">*</span><span class="n">resource_write_attrs</span><span class="p">;</span>
 
-    <span class="o">/**</span> <span class="n">Begin</span> <span class="n">a</span> <span class="n">transaction</span> <span class="n">on</span> <span class="n">this</span> <span class="n">Object</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_transaction_begin_t</span> <span class="o">*/</span>
+    <span class="cm">/** Begin a transaction on this Object, @ref anjay_dm_transaction_begin_t */</span>
     <span class="n">anjay_dm_transaction_begin_t</span> <span class="o">*</span><span class="n">transaction_begin</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Validate</span> <span class="n">whether</span> <span class="n">a</span> <span class="n">transaction</span> <span class="n">on</span> <span class="n">this</span> <span class="n">Object</span> <span class="n">can</span> <span class="n">be</span> <span class="n">cleanly</span> <span class="n">committed</span><span class="o">.</span>
-     <span class="o">*</span> <span class="n">See</span> <span class="nd">@ref</span> <span class="n">anjay_dm_transaction_validate_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Validate whether a transaction on this Object can be cleanly committed.</span>
+<span class="cm">     * See @ref anjay_dm_transaction_validate_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_transaction_validate_t</span> <span class="o">*</span><span class="n">transaction_validate</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Commit</span> <span class="n">changes</span> <span class="n">made</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">transaction</span><span class="p">,</span> <span class="nd">@ref</span> <span class="n">anjay_dm_transaction_commit_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Commit changes made in a transaction, @ref anjay_dm_transaction_commit_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_transaction_commit_t</span> <span class="o">*</span><span class="n">transaction_commit</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Rollback</span> <span class="n">changes</span> <span class="n">made</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">transaction</span><span class="p">,</span>
-     <span class="o">*</span> <span class="nd">@ref</span> <span class="n">anjay_dm_transaction_rollback_t</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Rollback changes made in a transaction,</span>
+<span class="cm">     * @ref anjay_dm_transaction_rollback_t</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_transaction_rollback_t</span> <span class="o">*</span><span class="n">transaction_rollback</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">anjay_dm_handlers_t</span><span class="p">;</span>
 
-<span class="o">/**</span> <span class="n">A</span> <span class="n">simple</span> <span class="n">array</span><span class="o">-</span><span class="n">plus</span><span class="o">-</span><span class="n">size</span> <span class="n">container</span> <span class="k">for</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">supported</span> <span class="n">Resource</span> <span class="n">IDs</span><span class="o">.</span> <span class="o">*/</span>
-<span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
-    <span class="o">/**</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">array</span> <span class="o">*/</span>
-    <span class="n">size_t</span> <span class="n">count</span><span class="p">;</span>
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">an</span> <span class="n">array</span> <span class="n">of</span> <span class="n">Resource</span> <span class="n">IDs</span> <span class="n">supported</span> <span class="n">by</span> <span class="n">the</span> <span class="nb">object</span><span class="o">.</span> <span class="n">A</span> <span class="n">Resource</span>
-     <span class="o">*</span> <span class="ow">is</span> <span class="n">considered</span> <span class="n">SUPPORTED</span> <span class="k">if</span> <span class="n">it</span> <span class="n">may</span> <span class="n">ever</span> <span class="n">be</span> <span class="n">present</span> <span class="n">within</span> <span class="n">the</span> <span class="n">Object</span><span class="o">.</span> <span class="n">The</span>
-     <span class="o">*</span> <span class="n">array</span> <span class="n">MUST</span> <span class="n">be</span> <span class="n">exactly</span> <span class="o">&lt;</span><span class="n">c</span><span class="o">&gt;</span><span class="n">count</span><span class="o">&lt;/</span><span class="n">c</span><span class="o">&gt;</span> <span class="n">elements</span> <span class="n">long</span> <span class="ow">and</span> <span class="nb">sorted</span> <span class="ow">in</span> <span class="n">strictly</span>
-     <span class="o">*</span> <span class="n">ascending</span> <span class="n">order</span><span class="o">.</span>
-     <span class="o">*/</span>
-    <span class="n">const</span> <span class="n">uint16_t</span> <span class="o">*</span><span class="n">rids</span><span class="p">;</span>
+<span class="cm">/** A simple array-plus-size container for a list of supported Resource IDs. */</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="cm">/** Number of element in the array */</span>
+    <span class="kt">size_t</span> <span class="n">count</span><span class="p">;</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Pointer to an array of Resource IDs supported by the object. A Resource</span>
+<span class="cm">     * is considered SUPPORTED if it may ever be present within the Object. The</span>
+<span class="cm">     * array MUST be exactly &lt;c&gt;count&lt;/c&gt; elements long and sorted in strictly</span>
+<span class="cm">     * ascending order.</span>
+<span class="cm">     */</span>
+    <span class="k">const</span> <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">rids</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">anjay_dm_supported_rids_t</span><span class="p">;</span>
 
-<span class="o">//</span> <span class="o">...</span>
-<span class="o">/**</span>
- <span class="o">*</span> <span class="n">Convenience</span> <span class="n">macro</span> <span class="k">for</span> <span class="n">initializing</span> <span class="nd">@ref</span> <span class="n">anjay_dm_supported_rids_t</span> <span class="n">objects</span><span class="o">.</span>
- <span class="o">*</span>
- <span class="o">*</span> <span class="n">The</span> <span class="n">parameters</span> <span class="n">shall</span> <span class="n">compose</span> <span class="n">a</span> <span class="n">properly</span> <span class="nb">sorted</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">supported</span> <span class="n">Resource</span>
- <span class="o">*</span> <span class="n">IDs</span><span class="o">.</span> <span class="n">The</span> <span class="n">result</span> <span class="n">of</span> <span class="n">the</span> <span class="n">macro</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">initializer</span> <span class="nb">list</span> <span class="n">suitable</span> <span class="k">for</span> <span class="n">initializing</span>
- <span class="o">*</span> <span class="n">an</span> <span class="nb">object</span> <span class="n">of</span> <span class="nb">type</span> <span class="o">&lt;</span><span class="n">c</span><span class="o">&gt;</span><span class="n">anjay_dm_supported_rids_t</span><span class="o">&lt;/</span><span class="n">c</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">like</span> <span class="k">for</span> <span class="n">example</span> <span class="n">the</span>
- <span class="o">*</span> <span class="o">&lt;</span><span class="n">c</span><span class="o">&gt;</span><span class="n">supported_rids</span><span class="o">&lt;/</span><span class="n">c</span><span class="o">&gt;</span> <span class="n">field</span> <span class="n">of</span> <span class="nd">@ref</span> <span class="n">anjay_dm_object_def_t</span><span class="o">.</span> <span class="n">The</span> <span class="o">&lt;</span><span class="n">c</span><span class="o">&gt;</span><span class="n">count</span><span class="o">&lt;/</span><span class="n">c</span><span class="o">&gt;</span>
- <span class="o">*</span> <span class="n">field</span> <span class="n">will</span> <span class="n">be</span> <span class="n">automatically</span> <span class="n">calculated</span><span class="o">.</span>
- <span class="o">*/</span>
-<span class="c1">#    define ANJAY_DM_SUPPORTED_RIDS(...)                                   \</span>
-        <span class="o">//</span> <span class="o">...</span>
+<span class="c1">// ...</span>
+<span class="cm">/**</span>
+<span class="cm"> * Convenience macro for initializing @ref anjay_dm_supported_rids_t objects.</span>
+<span class="cm"> *</span>
+<span class="cm"> * The parameters shall compose a properly sorted list of supported Resource</span>
+<span class="cm"> * IDs. The result of the macro is an initializer list suitable for initializing</span>
+<span class="cm"> * an object of type &lt;c&gt;anjay_dm_supported_rids_t&lt;/c&gt;, like for example the</span>
+<span class="cm"> * &lt;c&gt;supported_rids&lt;/c&gt; field of @ref anjay_dm_object_def_t. The &lt;c&gt;count&lt;/c&gt;</span>
+<span class="cm"> * field will be automatically calculated.</span>
+<span class="cm"> */</span>
+<span class="cp">#    define ANJAY_DM_SUPPORTED_RIDS(...)                                   \</span>
+<span class="cp">        </span><span class="c1">// ...</span>
 
-<span class="o">/**</span> <span class="n">A</span> <span class="n">struct</span> <span class="n">defining</span> <span class="n">an</span> <span class="n">LwM2M</span> <span class="n">Object</span><span class="o">.</span> <span class="o">*/</span>
-<span class="n">struct</span> <span class="n">anjay_dm_object_def_struct</span> <span class="p">{</span>
-    <span class="o">/**</span> <span class="n">Object</span> <span class="n">ID</span> <span class="o">*/</span>
+<span class="cm">/** A struct defining an LwM2M Object. */</span>
+<span class="k">struct</span> <span class="n">anjay_dm_object_def_struct</span> <span class="p">{</span>
+    <span class="cm">/** Object ID */</span>
     <span class="n">anjay_oid_t</span> <span class="n">oid</span><span class="p">;</span>
 
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">Object</span> <span class="n">version</span><span class="p">:</span> <span class="n">a</span> <span class="n">string</span> <span class="k">with</span> <span class="n">static</span> <span class="n">lifetime</span><span class="p">,</span> <span class="n">containing</span> <span class="n">two</span> <span class="n">digits</span>
-     <span class="o">*</span> <span class="n">separated</span> <span class="n">by</span> <span class="n">a</span> <span class="n">dot</span> <span class="p">(</span><span class="k">for</span> <span class="n">example</span><span class="p">:</span> <span class="s2">&quot;1.1&quot;</span><span class="p">)</span><span class="o">.</span>
-     <span class="o">*</span> <span class="n">If</span> <span class="n">left</span> <span class="n">NULL</span><span class="p">,</span> <span class="n">client</span> <span class="n">will</span> <span class="ow">not</span> <span class="n">include</span> <span class="n">the</span> <span class="s2">&quot;ver=&quot;</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">Register</span>
-     <span class="o">*</span> <span class="ow">and</span> <span class="n">Discover</span> <span class="n">messages</span><span class="p">,</span> <span class="n">which</span> <span class="n">implies</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span>
-     <span class="o">*/</span>
-    <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">version</span><span class="p">;</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Object version: a string with static lifetime, containing two digits</span>
+<span class="cm">     * separated by a dot (for example: &quot;1.1&quot;).</span>
+<span class="cm">     * If left NULL, client will not include the &quot;ver=&quot; attribute in Register</span>
+<span class="cm">     * and Discover messages, which implies version 1.0.</span>
+<span class="cm">     */</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">version</span><span class="p">;</span>
 
-    <span class="o">/**</span>
-     <span class="o">*</span> <span class="n">List</span> <span class="n">of</span> <span class="n">Resource</span> <span class="n">IDs</span> <span class="n">supported</span> <span class="n">by</span> <span class="n">the</span> <span class="nb">object</span><span class="o">.</span> <span class="n">The</span>
-     <span class="o">*</span> <span class="nd">@ref</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span> <span class="n">macro</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">preferred</span> <span class="n">way</span> <span class="n">of</span> <span class="n">initializing</span>
-     <span class="o">*</span> <span class="n">it</span><span class="o">.</span>
-     <span class="o">*/</span>
+    <span class="cm">/**</span>
+<span class="cm">     * List of Resource IDs supported by the object. The</span>
+<span class="cm">     * @ref ANJAY_DM_SUPPORTED_RIDS macro is the preferred way of initializing</span>
+<span class="cm">     * it.</span>
+<span class="cm">     */</span>
     <span class="n">anjay_dm_supported_rids_t</span> <span class="n">supported_rids</span><span class="p">;</span>
 
-    <span class="o">/**</span> <span class="n">Handler</span> <span class="n">callbacks</span> <span class="k">for</span> <span class="n">this</span> <span class="nb">object</span><span class="o">.</span> <span class="o">*/</span>
+    <span class="cm">/** Handler callbacks for this object. */</span>
     <span class="n">anjay_dm_handlers_t</span> <span class="n">handlers</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
@@ -339,16 +323,15 @@ the most complex ones.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral float-right" title="4.5.1. Single-instance read-only object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT5_CustomObject/BT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral float-right" title="4.5.1. Single-instance read-only object" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT4.html" class="btn btn-neutral" title="4.4. A few notes on general usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT4.html" class="btn btn-neutral" title="4.4. A few notes on general usage" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -361,7 +344,7 @@ the most complex ones.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -379,28 +362,31 @@ the most complex ones.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.13.1',
-            LANGUAGE:'None',
+            VERSION:'1.14.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

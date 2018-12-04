@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.8. Notifications for dynamically-changing Resources &mdash; Anjay 1.13.1 documentation</title>
+  <title>4.5.8. Notifications for dynamically-changing Resources &mdash; Anjay 1.14.0 documentation</title>
   
 
-  
-  
   
   
 
@@ -24,22 +22,31 @@
 
   
 
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5. Advanced tutorial" href="../../AdvancedTutorial.html" />
-    <link rel="prev" title="4.5.7. Bootstrap awareness" href="BT_CO7_BootstrapAwareness.html" /> 
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Anjay 1.14.0 documentation" href="../../index.html"/>
+        <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
+        <link rel="next" title="5. Advanced tutorial" href="../../AdvancedTutorial.html"/>
+        <link rel="prev" title="4.5.7. Bootstrap awareness" href="BT_CO7_BootstrapAwareness.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -59,7 +66,7 @@
             
             
               <div class="version">
-                1.13.1
+                1.14.0
               </div>
             
           
@@ -80,10 +87,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -120,58 +124,38 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Anjay</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Anjay</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-        
+      
           <li><a href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a> &raquo;</li>
-        
-      <li>4.5.8. Notifications for dynamically-changing Resources</li>
-    
-    
+      
+    <li>4.5.8. Notifications for dynamically-changing Resources</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO8_Notifications.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -223,36 +207,36 @@ we will use the module in this tutorial.</p>
 </div>
 <div class="section" id="example">
 <h2>4.5.8.2. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>As an example we’ll add notification support for the test LwM2M Object defined
+<p>As an example we&#8217;ll add notification support for the test LwM2M Object defined
 in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a> tutorial. It contains a Timestamp
 Resource, whose value changes every second. We need to periodically notify the
 library about that fact:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">events</span> <span class="k">if</span> <span class="n">necessary</span><span class="p">,</span> <span class="ow">and</span> <span class="n">handle</span> <span class="n">them</span><span class="o">.</span>
-<span class="o">//</span> <span class="o">...</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Wait for the events if necessary, and handle them.</span>
+<span class="c1">// ...</span>
 
-<span class="o">//</span> <span class="n">Notify</span> <span class="n">the</span> <span class="n">library</span> <span class="n">about</span> <span class="n">a</span> <span class="n">Resource</span> <span class="n">value</span> <span class="n">change</span><span class="o">.</span>
-<span class="o">//</span> <span class="n">Timestamp</span> <span class="p">(</span><span class="n">Object</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">Instance</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Resource</span> <span class="mi">1</span><span class="p">)</span> <span class="n">value</span> <span class="n">changes</span> <span class="n">each</span>
-<span class="o">//</span> <span class="n">second</span><span class="p">,</span> <span class="ow">and</span> <span class="n">this</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span> <span class="ow">is</span> <span class="n">executed</span> <span class="n">roughly</span> <span class="n">every</span> <span class="n">second</span><span class="o">.</span>
+<span class="c1">// Notify the library about a Resource value change.</span>
+<span class="c1">// Timestamp (Object 1234, Instance 0, Resource 1) value changes each</span>
+<span class="c1">// second, and this part of the code is executed roughly every second.</span>
 <span class="n">anjay_notify_changed</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-<span class="o">//</span> <span class="n">Finally</span> <span class="n">run</span> <span class="n">the</span> <span class="n">scheduler</span> <span class="p">(</span><span class="n">ignoring</span> <span class="n">its</span> <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">which</span>
-<span class="o">//</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">tasks</span> <span class="n">executed</span><span class="p">)</span>
+<span class="c1">// Finally run the scheduler (ignoring its return value, which</span>
+<span class="c1">// is the number of tasks executed)</span>
 </pre></div>
 </div>
-<p>One more thing to consider is setting up LwM2M attribute handlers - we’ll leave
+<p>One more thing to consider is setting up LwM2M attribute handlers - we&#8217;ll leave
 that to the Attribute Storage module:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Let</span> <span class="n">the</span> <span class="n">Attribute</span> <span class="n">Storage</span> <span class="n">module</span> <span class="n">implement</span> <span class="nb">all</span> <span class="n">attribute</span> <span class="n">handlers</span><span class="o">.</span>
-<span class="o">//</span> <span class="n">The</span> <span class="n">module</span> <span class="ow">is</span> <span class="n">cleaned</span> <span class="n">up</span> <span class="n">automatically</span> <span class="ow">in</span> <span class="n">anjay_delete</span><span class="p">()</span><span class="o">.</span>
-<span class="nb">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="c1">// Let the Attribute Storage module implement all attribute handlers.</span>
+<span class="c1">// The module is cleaned up automatically in anjay_delete().</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
 
-<span class="o">//</span> <span class="o">...</span>
+<span class="c1">// ...</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>That’s all you need to make your client support LwM2M Observe/Notify operations!</p>
+<p>That&#8217;s all you need to make your client support LwM2M Observe/Notify operations!</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Complete code of this example can be found in
@@ -264,16 +248,15 @@ project repository.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../AdvancedTutorial.html" class="btn btn-neutral float-right" title="5. Advanced tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../../AdvancedTutorial.html" class="btn btn-neutral float-right" title="5. Advanced tutorial" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO7_BootstrapAwareness.html" class="btn btn-neutral" title="4.5.7. Bootstrap awareness" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO7_BootstrapAwareness.html" class="btn btn-neutral" title="4.5.7. Bootstrap awareness" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -286,7 +269,7 @@ project repository.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -304,28 +287,31 @@ project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.13.1',
-            LANGUAGE:'None',
+            VERSION:'1.14.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

@@ -21,6 +21,7 @@ var searchData=
   ['start_5foffset',['start_offset',['../structanjay__download__config.html#a3abb6fc45eddaf98e0a68595534f0abb',1,'anjay_download_config']]],
   ['stats_2eh',['stats.h',['../stats_8h.html',1,'']]],
   ['step',['step',['../structanjay__dm__resource__attributes__t.html#a4736138d712d9ee570d0652f08a4786a',1,'anjay_dm_resource_attributes_t']]],
+  ['stored_5fnotification_5flimit',['stored_notification_limit',['../structanjay__configuration.html#af68d15e4d42c77139595eb70802ea97f',1,'anjay_configuration']]],
   ['stream_5ffinish',['stream_finish',['../structanjay__fw__update__handlers__t.html#a014433f0d0c58e6c28f6ba28ba1e7fb2',1,'anjay_fw_update_handlers_t']]],
   ['stream_5fopen',['stream_open',['../structanjay__fw__update__handlers__t.html#aad3c7927fb3277d82784447ccb93c41a',1,'anjay_fw_update_handlers_t']]],
   ['stream_5fwrite',['stream_write',['../structanjay__fw__update__handlers__t.html#acac351c9591d489dfddabcd4e401cbb7',1,'anjay_fw_update_handlers_t']]],
