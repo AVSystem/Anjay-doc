@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.3. Event loop &mdash; Anjay 1.14.0 documentation</title>
+  <title>4.3. Event loop &mdash; Anjay 1.14.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.14.0 documentation" href="../index.html"/>
-        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
-        <link rel="next" title="4.4. A few notes on general usage" href="BT4.html"/>
-        <link rel="prev" title="4.2. Installing mandatory Objects" href="BT2.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.4. A few notes on general usage" href="BT4.html" />
+    <link rel="prev" title="4.2. Installing mandatory Objects" href="BT2.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.14.0
+                1.14.1
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -114,36 +110,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
-    <li>4.3. Event loop</li>
+        
+      <li>4.3. Event loop</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/BasicTutorial/BT3.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -157,29 +173,29 @@ whole application.</p>
 of incoming events is necessary. Those events may come from a number of sources:</p>
 <ul class="simple">
 <li>Network packets from LwM2M servers</li>
-<li>Anjay&#8217;s internal task scheduler</li>
+<li>Anjay’s internal task scheduler</li>
 <li>External events specific to the client application</li>
 </ul>
 <p>On POSIX systems, a simple and portable way to handle all these events is to use
-the <code class="docutils literal"><span class="pre">poll()</span></code> system call.</p>
+the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> system call.</p>
 <div class="section" id="incoming-network-packets">
 <h2>4.3.1. Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Permalink to this headline">¶</a></h2>
 <p>UDP sockets that Anjay uses to communicate with LwM2M servers are accessible
-via the <code class="docutils literal"><span class="pre">anjay_get_sockets()</span></code> call. All the used sockets are returned as an
-<code class="docutils literal"><span class="pre">AVS_LIST</span></code> (implemented and documented in the <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons Library</a>).</p>
+via the <code class="docutils literal notranslate"><span class="pre">anjay_get_sockets()</span></code> call. All the used sockets are returned as an
+<code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> (implemented and documented in the <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons Library</a>).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">To retrieve a low-level operating system handle (on POSIX systems it is
-a file descriptor) use the <code class="docutils literal"><span class="pre">avs_net_socket_get_system()</span></code> call.</p>
+a file descriptor) use the <code class="docutils literal notranslate"><span class="pre">avs_net_socket_get_system()</span></code> call.</p>
 </div>
-<p>When there is a new incoming packet on some socket, <code class="docutils literal"><span class="pre">anjay_serve()</span></code> shall
+<p>When there is a new incoming packet on some socket, <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> shall
 be called to handle it.</p>
 <p>Therefore our first attempt to write an event loop could look like this:</p>
 <ol class="arabic simple" id="incomplete-event-loop-idea">
 <li>Obtain all sources of incoming packets (i.e. server sockets) from the
 library.</li>
-<li>Use <code class="docutils literal"><span class="pre">poll()</span></code> on them to wait for some communication.</li>
-<li>When the packet arrives, call <code class="docutils literal"><span class="pre">anjay_serve()</span></code> that will handle the
+<li>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> on them to wait for some communication.</li>
+<li>When the packet arrives, call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> that will handle the
 message.</li>
 </ol>
 <p>Before doing that though, you should also understand a very important concept
@@ -190,21 +206,21 @@ Anjay is using, i.e. <a class="reference internal" href="#task-scheduler"><span 
 <p>Anjay uses an internal scheduler for a number of tasks, including automated
 sending of Registration Updates and notifications, among others.</p>
 <p>During runtime, Anjay schedules jobs with specific deadlines, and
-expects them to be executed when the right time comes &#8211; it is relying on
-<code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> being regularly invoked.</p>
-<p>The <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> iterates over the scheduled jobs (checking if some
+expects them to be executed when the right time comes – it is relying on
+<code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> being regularly invoked.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> iterates over the scheduled jobs (checking if some
 of them should be run at this particular moment) and executes them if
 necessary.</p>
-<p>The requirement of regularly invoking <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> is a direct
+<p>The requirement of regularly invoking <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> is a direct
 consequence of Anjay being a single-threaded application. It is not a problem
-however, as you may call <code class="docutils literal"><span class="pre">anjay_sched_run()</span></code> repeatedly in the main program
+however, as you may call <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> repeatedly in the main program
 loop that you would have to write anyway.</p>
 <p>Unfortunately, a naive implementation could cause unnecessary waste of CPU
-time. This problem is addressed by <code class="docutils literal"><span class="pre">anjay_sched_calculate_wait_time_ms()</span></code>
+time. This problem is addressed by <code class="docutils literal notranslate"><span class="pre">anjay_sched_calculate_wait_time_ms()</span></code>
 which returns the number of milliseconds before the next scheduled job -
 so, unless there is a communication going on, it would be the amount of
 time the CPU can sleep. In the next example we will use this value as a
-<code class="docutils literal"><span class="pre">poll()</span></code> timeout.</p>
+<code class="docutils literal notranslate"><span class="pre">poll()</span></code> timeout.</p>
 </div>
 <div class="section" id="event-loop-finally">
 <span id="basic-event-loop"></span><h2>4.3.3. Event loop finally<a class="headerlink" href="#event-loop-finally" title="Permalink to this headline">¶</a></h2>
@@ -213,9 +229,9 @@ presented <a class="reference internal" href="#incomplete-event-loop-idea"><span
 <ol class="arabic simple">
 <li>Obtain all sources of incoming packets (i.e. server sockets) from the library.</li>
 <li>Determine what is the expected time to the next job that has to be executed.</li>
-<li>Use <code class="docutils literal"><span class="pre">poll()</span></code> to wait for the incoming communication (but not for too long,
+<li>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> to wait for the incoming communication (but not for too long,
 to prevent missing any pending scheduler jobs).</li>
-<li>Call <code class="docutils literal"><span class="pre">anjay_serve()</span></code> on packet arrival, which will handle the message.</li>
+<li>Call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on packet arrival, which will handle the message.</li>
 <li>Run the scheduler to execute any outstanding jobs.</li>
 </ol>
 <div class="topic">
@@ -230,7 +246,7 @@ modified.</li>
 </ol>
 </div>
 <p>So, it could be written like this:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Obtain all network data sources</span>
         <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">sockets</span> <span class="o">=</span>
@@ -286,12 +302,12 @@ modified.</li>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>That&#8217;s it! You should now be able to connect to your LwM2M Server and exchange
+<p>That’s it! You should now be able to connect to your LwM2M Server and exchange
 messages with it interactively.</p>
 </div>
 <div class="section" id="other-events">
 <h2>4.3.4. Other events<a class="headerlink" href="#other-events" title="Permalink to this headline">¶</a></h2>
-<p>As we&#8217;ve been discussing, the code above is enough to handle all events that
+<p>As we’ve been discussing, the code above is enough to handle all events that
 may happen within the Anjay library itself. Of course, the application usually
 needs to handle its own activity, this is however outside of the scope of
 this tutorial, but the presented code may be used as a good starting point.</p>
@@ -300,15 +316,16 @@ this tutorial, but the presented code may be used as a good starting point.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT4.html" class="btn btn-neutral float-right" title="4.4. A few notes on general usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT4.html" class="btn btn-neutral float-right" title="4.4. A few notes on general usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT2.html" class="btn btn-neutral" title="4.2. Installing mandatory Objects" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT2.html" class="btn btn-neutral" title="4.2. Installing mandatory Objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -317,11 +334,11 @@ this tutorial, but the presented code may be used as a good starting point.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -339,10 +356,12 @@ this tutorial, but the presented code may be used as a good starting point.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.14.0',
+            VERSION:'1.14.1',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -351,19 +370,13 @@ this tutorial, but the presented code may be used as a good starting point.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

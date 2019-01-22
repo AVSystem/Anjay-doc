@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.6. Network error handling &mdash; Anjay 1.14.0 documentation</title>
+  <title>5.6. Network error handling &mdash; Anjay 1.14.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.14.0 documentation" href="../index.html"/>
-        <link rel="up" title="5. Advanced tutorial" href="../AdvancedTutorial.html"/>
-        <link rel="next" title="5.7. Other library features" href="AT7.html"/>
-        <link rel="prev" title="5.5. Retransmissions &amp; response caching" href="AT5.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.7. Other library features" href="AT7.html" />
+    <link rel="prev" title="5.5. Retransmissions &amp; response caching" href="AT5.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.14.0
+                1.14.1
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -116,36 +112,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../AdvancedTutorial.html">5. Advanced tutorial</a> &raquo;</li>
-      
-    <li>5.6. Network error handling</li>
+        
+      <li>5.6. Network error handling</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/AdvancedTutorial/AT6.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -155,7 +171,7 @@
 <h1>5.6. Network error handling<a class="headerlink" href="#network-error-handling" title="Permalink to this headline">¶</a></h1>
 <p>Like any software that needs to communicate with other hosts over the network,
 Anjay needs to be prepared to handle communication errors. This page documents
-the library&#8217;s behaviour during various error conditions.</p>
+the library’s behaviour during various error conditions.</p>
 <div class="section" id="outgoing-rpc-error-handling-table">
 <h2>5.6.1. Outgoing RPC error handling table<a class="headerlink" href="#outgoing-rpc-error-handling-table" title="Permalink to this headline">¶</a></h2>
 <p>The following table describes the behaviour of Anjay when various error
@@ -170,7 +186,7 @@ conditions happen while performing each of the client-initiated RPC methods.</p>
 <col width="18%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">&nbsp;</th>
+<tr class="row-odd"><th class="head">&#160;</th>
 <th class="head">Request
 Bootstrap</th>
 <th class="head">Register</th>
@@ -231,8 +247,8 @@ observation</td>
 error</strong></td>
 <td>Cancel
 observation if
-&#8220;Notification
-storing&#8221; is
+“Notification
+storing” is
 disabled</td>
 </tr>
 </tbody>
@@ -280,7 +296,7 @@ fields in <a class="reference external" href="../api/structanjay__configuration.
 <tbody valign="top">
 <tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> To prevent infinite loop of handshakes, DTLS handshake is only retried
 if the failed RPC was <strong>not</strong> performed immediately after the previous
-handshake; otherwise the behaviour described in &#8220;Timeout (NoSec)&#8221; is
+handshake; otherwise the behaviour described in “Timeout (NoSec)” is
 used.</td></tr>
 </tbody>
 </table>
@@ -289,7 +305,7 @@ used.</td></tr>
 <tbody valign="top">
 <tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id11">2</a>)</em> Communication with all servers will be aborted and
 <a class="reference external" href="../api/core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed()</a> will start
-returning <code class="docutils literal"><span class="pre">true</span></code>. Operation can be restored by calling
+returning <code class="docutils literal notranslate"><span class="pre">true</span></code>. Operation can be restored by calling
 <a class="reference external" href="../api/core_8h.html#a5c6dad6c4f234e89b99a4a07f762479e">anjay_schedule_reconnect()</a> or
 <a class="reference external" href="../api/core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server()</a>.</td></tr>
 </tbody>
@@ -307,7 +323,7 @@ preconditions are met:</p>
 <p class="last">Otherwise, further communication with the server with which the
 operation failed will be aborted. This may cause
 <a class="reference external" href="../api/core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed()</a> to start
-returning <code class="docutils literal"><span class="pre">true</span></code> if that was the last operational connection.
+returning <code class="docutils literal notranslate"><span class="pre">true</span></code> if that was the last operational connection.
 Connection can be retried by calling <a class="reference external" href="../api/core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server()</a> or
 <a class="reference external" href="../api/core_8h.html#a5c6dad6c4f234e89b99a4a07f762479e">anjay_schedule_reconnect()</a>.</p>
 </td></tr>
@@ -318,15 +334,16 @@ Connection can be retried by calling <a class="reference external" href="../api/
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="AT7.html" class="btn btn-neutral float-right" title="5.7. Other library features" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="AT7.html" class="btn btn-neutral float-right" title="5.7. Other library features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT5.html" class="btn btn-neutral" title="5.5. Retransmissions &amp; response caching" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT5.html" class="btn btn-neutral" title="5.5. Retransmissions &amp; response caching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -335,11 +352,11 @@ Connection can be retried by calling <a class="reference external" href="../api/
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -357,10 +374,12 @@ Connection can be retried by calling <a class="reference external" href="../api/
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.14.0',
+            VERSION:'1.14.1',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -369,19 +388,13 @@ Connection can be retried by calling <a class="reference external" href="../api/
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

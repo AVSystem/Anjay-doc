@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.1. Getting started! &mdash; Anjay 1.14.0 documentation</title>
+  <title>4.1. Getting started! &mdash; Anjay 1.14.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../genindex.html"/>
-        <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Anjay 1.14.0 documentation" href="../index.html"/>
-        <link rel="up" title="4. Basic tutorial" href="../BasicTutorial.html"/>
-        <link rel="next" title="4.2. Installing mandatory Objects" href="BT2.html"/>
-        <link rel="prev" title="4. Basic tutorial" href="../BasicTutorial.html"/> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.2. Installing mandatory Objects" href="BT2.html" />
+    <link rel="prev" title="4. Basic tutorial" href="../BasicTutorial.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.14.0
+                1.14.1
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -114,36 +110,56 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
-    <li>4.1. Getting started!</li>
+        
+      <li>4.1. Getting started!</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../_sources/BasicTutorial/BT1.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -151,23 +167,23 @@
             
   <div class="section" id="getting-started">
 <h1>4.1. Getting started!<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p>First, let&#8217;s create a minimum build environment for our example client. We
+<p>First, let’s create a minimum build environment for our example client. We
 will be using a following directory structure:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>example/
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>example/
   ├── CMakeLists.txt
   └── src/
       └── main.c
 </pre></div>
 </div>
 <p>Note that all code found in this tutorial is available under
-<code class="docutils literal"><span class="pre">examples/tutorial/BTx</span></code> in Anjay source directory, where <code class="docutils literal"><span class="pre">x</span></code> stands for
+<code class="docutils literal notranslate"><span class="pre">examples/tutorial/BTx</span></code> in Anjay source directory, where <code class="docutils literal notranslate"><span class="pre">x</span></code> stands for
 the index of tutorial chapter. Each tutorial project follows the same project
 directory layout.</p>
 <div class="section" id="build-system">
 <h2>4.1.1. Build system<a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h2>
-<p>We are going to use CMake as a build system. Let&#8217;s create an initial minimal
-<code class="docutils literal"><span class="pre">CMakeLists.txt</span></code>:</p>
-<div class="highlight-cmake"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+<p>We are going to use CMake as a build system. Let’s create an initial minimal
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
 <span class="nb">project</span><span class="p">(</span><span class="s">hello-world</span> <span class="s">C</span><span class="p">)</span>
 
 <span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span> <span class="s">REQUIRED</span><span class="p">)</span>
@@ -191,10 +207,10 @@ directory layout.</p>
 </div>
 <div class="section" id="hello-world-client">
 <span id="anjay-hello-world"></span><h2>4.1.2. Hello World client<a class="headerlink" href="#hello-world-client" title="Permalink to this headline">¶</a></h2>
-<p>At this moment we can begin to do actual coding, let&#8217;s create <code class="docutils literal"><span class="pre">main.c</span></code>
+<p>At this moment we can begin to do actual coding, let’s create <code class="docutils literal notranslate"><span class="pre">main.c</span></code>
 source file:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/log.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
     <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
@@ -217,11 +233,11 @@ source file:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">We recommend you to look at the doxygen generated
-<a class="reference external" href="../api/">API documentation</a> if something isn&#8217;t immediately
+<a class="reference external" href="../api/">API documentation</a> if something isn’t immediately
 clear to you.</p>
 </div>
-<p>Let&#8217;s just build our minimal client and test that it works:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> ./anjay-tutorial
+<p>Let’s just build our minimal client and test that it works:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> ./anjay-tutorial
 </pre></div>
 </div>
 <div class="admonition note">
@@ -235,15 +251,16 @@ clear to you.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT2.html" class="btn btn-neutral float-right" title="4.2. Installing mandatory Objects" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT2.html" class="btn btn-neutral float-right" title="4.2. Installing mandatory Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../BasicTutorial.html" class="btn btn-neutral" title="4. Basic tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../BasicTutorial.html" class="btn btn-neutral" title="4. Basic tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -252,11 +269,11 @@ clear to you.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -274,10 +291,12 @@ clear to you.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'1.14.0',
+            VERSION:'1.14.1',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -286,19 +305,13 @@ clear to you.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

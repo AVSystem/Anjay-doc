@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.14.0 documentation</title>
+  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.14.1 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,31 +24,22 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="../../genindex.html"/>
-        <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="Anjay 1.14.0 documentation" href="../../index.html"/>
-        <link rel="up" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html"/>
-        <link rel="next" title="4.5.8. Notifications for dynamically-changing Resources" href="BT_CO8_Notifications.html"/>
-        <link rel="prev" title="4.5.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html"/> 
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.5.8. Notifications for dynamically-changing Resources" href="BT_CO8_Notifications.html" />
+    <link rel="prev" title="4.5.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +59,7 @@
             
             
               <div class="version">
-                1.14.0
+                1.14.1
               </div>
             
           
@@ -87,7 +80,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
@@ -124,38 +120,58 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Anjay</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../BasicTutorial.html">4. Basic tutorial</a> &raquo;</li>
-      
+        
           <li><a href="../BT5_CustomObject.html">4.5. Custom LwM2M objects</a> &raquo;</li>
-      
-    <li>4.5.7. Bootstrap awareness</li>
+        
+      <li>4.5.7. Bootstrap awareness</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/BasicTutorial/BT5_CustomObject/BT_CO7_BootstrapAwareness.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -165,36 +181,36 @@
 <h1>4.5.7. Bootstrap awareness<a class="headerlink" href="#bootstrap-awareness" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial you will learn:</p>
 <ul class="simple">
-<li>how to use <code class="docutils literal"><span class="pre">resource_operations</span></code> handler to prevent Anjay from calling
+<li>how to use <code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler to prevent Anjay from calling
 some handlers in non-bootstrap context,</li>
 <li>how to setup Resources writable only by the LwM2M Bootstrap Server.</li>
 </ul>
 <div class="section" id="handling-lwm2m-bootstrap-server">
 <h2>4.5.7.1. Handling LwM2M Bootstrap Server<a class="headerlink" href="#handling-lwm2m-bootstrap-server" title="Permalink to this headline">¶</a></h2>
 <p>LwM2M Bootstrap Server is an unusual entity: it is allowed to modify Instances
-and Resources not accessible to &#8220;regular&#8221; LwM2M Servers. That is useful for
+and Resources not accessible to “regular” LwM2M Servers. That is useful for
 setting up sensitive data that servers should not change (or even read) during
 normal operation of the device - DTLS keys or certificates, for example.</p>
 <p>Whenever an LwM2M Bootstrap Server sends a Bootstrap Write request, Anjay uses
-the same <code class="docutils literal"><span class="pre">instance_create</span></code> and <code class="docutils literal"><span class="pre">resource_write</span></code> handlers as for &#8220;regular&#8221;
+the same <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> and <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handlers as for “regular”
 LwM2M Server operations. The only difference is that Anjay <em>does not call</em>
-<code class="docutils literal"><span class="pre">resource_operations</span></code> <em>handler</em> for bootstrap requests, allowing Bootstrap
+<code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> <em>handler</em> for bootstrap requests, allowing Bootstrap
 Server to do anything it wants.</p>
 <p>If a device has to implement a Resource that must only be writable by the LwM2M
 Bootstrap Server, its handlers should be implemented like so:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">resource_write</span></code> handler must be able to set the value of a Resource,
+<li><code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler must be able to set the value of a Resource,
 as if it was a writable one,</li>
-<li><code class="docutils literal"><span class="pre">resource_operations</span></code> handler should not set the
-<code class="docutils literal"><span class="pre">ANJAY_DM_RESOURCE_OP_BIT_W</span></code> in returned access flags. That will prevent
-Anjay from calling the <code class="docutils literal"><span class="pre">resource_write</span></code> handler for this particular Resource
+<li><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler should not set the
+<code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RESOURCE_OP_BIT_W</span></code> in returned access flags. That will prevent
+Anjay from calling the <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler for this particular Resource
 when the request is issued by a non-bootstrap server.</li>
 </ul>
 </div>
 <div class="section" id="example-bootstrap-writable-resource">
 <h2>4.5.7.2. Example: bootstrap-writable Resource<a class="headerlink" href="#example-bootstrap-writable-resource" title="Permalink to this headline">¶</a></h2>
 <p>As an example, we will modify the Test Object from
-<a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a> to prevent changing the value of <code class="docutils literal"><span class="pre">Label</span></code>
+<a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a> to prevent changing the value of <code class="docutils literal notranslate"><span class="pre">Label</span></code>
 Resource by non-bootstrap servers:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -251,8 +267,8 @@ Resource by non-bootstrap servers:</p>
 </tr>
 </tbody>
 </table>
-<p>To achieve that, <code class="docutils literal"><span class="pre">anjay_dm_resource_operations_t</span></code> handler is required:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<p>To achieve that, <code class="docutils literal notranslate"><span class="pre">anjay_dm_resource_operations_t</span></code> handler is required:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                     <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                     <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
                                     <span class="n">anjay_dm_resource_op_mask_t</span> <span class="o">*</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span>
@@ -294,9 +310,9 @@ Resource by non-bootstrap servers:</p>
 </div>
 <p>That leaves one more issue with the example project: it has a pre-configured
 LwM2M Server that is not a bootstrap one. Changing it to an LwM2M Bootstrap
-Server is a matter of setting <code class="docutils literal"><span class="pre">bootstrap_server</span> <span class="pre">=</span> <span class="pre">true</span></code> on
-<code class="docutils literal"><span class="pre">anjay_security_instance_t</span></code> struct when initializing the Security Object:</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+Server is a matter of setting <code class="docutils literal notranslate"><span class="pre">bootstrap_server</span> <span class="pre">=</span> <span class="pre">true</span></code> on
+<code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> struct when initializing the Security Object:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">bootstrap_server</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
     <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
@@ -318,15 +334,16 @@ Anjay project repository.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BT_CO8_Notifications.html" class="btn btn-neutral float-right" title="4.5.8. Notifications for dynamically-changing Resources" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BT_CO8_Notifications.html" class="btn btn-neutral float-right" title="4.5.8. Notifications for dynamically-changing Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral" title="4.5.6. Objects with Multiple Instance Resources" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral" title="4.5.6. Objects with Multiple Instance Resources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -335,11 +352,11 @@ Anjay project repository.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -357,10 +374,12 @@ Anjay project repository.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'1.14.0',
+            VERSION:'1.14.1',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
@@ -369,19 +388,13 @@ Anjay project repository.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
