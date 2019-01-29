@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.2. Single-instance read-only object with an executable resource &mdash; Anjay 1.14.1 documentation</title>
+  <title>4.5.2. Single-instance read-only object with an executable resource &mdash; Anjay 1.14.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.14.1
+                1.14.2
               </div>
             
           
@@ -293,15 +293,15 @@ using this interpretation in this tutorial)</p>
 <p>While the grammar itself is rather simple, it could be tedious to implement a
 correct parser accepting it (with support for all corner-cases). In Anjay
 there are methods designed specifically to solve this problem, namely:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// ... One that returns the next argument from the Execute argument list</span>
-<span class="kt">int</span> <span class="nf">anjay_execute_get_next_arg</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
-                               <span class="kt">int</span> <span class="o">*</span><span class="n">out_arg</span><span class="p">,</span>
-                               <span class="kt">bool</span> <span class="o">*</span><span class="n">out_has_value</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span> <span class="n">One</span> <span class="n">that</span> <span class="n">returns</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">argument</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">Execute</span> <span class="n">argument</span> <span class="nb">list</span>
+<span class="nb">int</span> <span class="n">anjay_execute_get_next_arg</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
+                               <span class="nb">int</span> <span class="o">*</span><span class="n">out_arg</span><span class="p">,</span>
+                               <span class="nb">bool</span> <span class="o">*</span><span class="n">out_has_value</span><span class="p">);</span>
 
-<span class="c1">// ... And the one that obtains its value (if any)</span>
-<span class="kt">ssize_t</span> <span class="nf">anjay_execute_get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
-                                    <span class="kt">char</span> <span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
-                                    <span class="kt">size_t</span> <span class="n">buf_size</span><span class="p">);</span>
+<span class="o">//</span> <span class="o">...</span> <span class="n">And</span> <span class="n">the</span> <span class="n">one</span> <span class="n">that</span> <span class="n">obtains</span> <span class="n">its</span> <span class="n">value</span> <span class="p">(</span><span class="k">if</span> <span class="nb">any</span><span class="p">)</span>
+<span class="n">ssize_t</span> <span class="n">anjay_execute_get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
+                                    <span class="n">char</span> <span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
+                                    <span class="n">size_t</span> <span class="n">buf_size</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>They will greatly simplify parsing process, as you will see in the next section.</p>
@@ -309,86 +309,86 @@ there are methods designed specifically to solve this problem, namely:</p>
 <div class="section" id="implementation">
 <h2>4.5.2.2. Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <p>We start with adding our Resource to a supported list of Resources:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="o">...</span>
 
-    <span class="p">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="o">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 
-    <span class="c1">// ...</span>
+    <span class="o">//</span> <span class="o">...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>We can now implement <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> handler. Since our new resource will
 be used to sum integers we have to store the addition result somewhere. For
 simplicity we are going to use a <code class="docutils literal notranslate"><span class="pre">static</span></code> variable:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">long</span> <span class="n">addition_result</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">long</span> <span class="n">addition_result</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>And <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> could be implemented as follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_execute</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                 <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                                 <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                                 <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                                 <span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="p">{</span>
-        <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
-        <span class="k">do</span> <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">arg_value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="n">get_arg_value</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arg_value</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">sum</span> <span class="o">+=</span> <span class="n">arg_value</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_resource_execute(anjay_t *anjay,
+                                 const anjay_dm_object_def_t *const *obj_ptr,
+                                 anjay_iid_t iid,
+                                 anjay_rid_t rid,
+                                 anjay_execute_ctx_t *ctx) {
+    switch (rid) {
+    case 2: {
+        long sum = 0;
+        int result;
+        do {
+            int arg_value = 0;
+            if ((result = get_arg_value(ctx, &amp;arg_value)) == 0) {
+                sum += arg_value;
+            }
+        } while (!result);
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">ANJAY_EXECUTE_GET_ARG_END</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">addition_result</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">default</span><span class="o">:</span>
-        <span class="c1">// no other resource is executable</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+        if (result != ANJAY_EXECUTE_GET_ARG_END) {
+            return result;
+        }
+        addition_result = sum;
+        return 0;
+    }
+    default:
+        // no other resource is executable
+        return ANJAY_ERR_METHOD_NOT_ALLOWED;
+    }
+}
 </pre></div>
 </div>
 <p>Where <cite>get_arg_value</cite> function is:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">out_value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// we expect arguments of form &lt;0-9&gt;=&#39;&lt;integer&gt;&#39;</span>
-    <span class="kt">int</span> <span class="n">arg_number</span><span class="p">;</span>
-    <span class="kt">bool</span> <span class="n">has_value</span><span class="p">;</span>
-    <span class="kt">ssize_t</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_execute_get_next_arg</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arg_number</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">has_value</span><span class="p">);</span>
-    <span class="c1">// note that we do not check against duplicated argument ids</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">arg_number</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int get_arg_value(anjay_execute_ctx_t *ctx, int *out_value) {
+    // we expect arguments of form &lt;0-9&gt;=&#39;&lt;integer&gt;&#39;
+    int arg_number;
+    bool has_value;
+    ssize_t result = anjay_execute_get_next_arg(ctx, &amp;arg_number, &amp;has_value);
+    // note that we do not check against duplicated argument ids
+    (void) arg_number;
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">result</span> <span class="o">==</span> <span class="n">ANJAY_EXECUTE_GET_ARG_END</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// an error occured or there is just nothing more to read</span>
-        <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">result</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">has_value</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// we expect arguments with values only</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
-    <span class="p">}</span>
+    if (result &lt; 0 || result == ANJAY_EXECUTE_GET_ARG_END) {
+        // an error occured or there is just nothing more to read
+        return (int) result;
+    }
+    if (!has_value) {
+        // we expect arguments with values only
+        return ANJAY_ERR_BAD_REQUEST;
+    }
 
-    <span class="kt">char</span> <span class="n">value_buffer</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_execute_get_arg_value</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">value_buffer</span><span class="p">,</span>
-                                         <span class="k">sizeof</span><span class="p">(</span><span class="n">value_buffer</span><span class="p">));</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">result</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value_buffer</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// the value must have been malformed or it is too long - either way, we</span>
-        <span class="c1">// don&#39;t like it</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">endptr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="kt">long</span> <span class="n">value</span> <span class="o">=</span> <span class="n">strtol</span><span class="p">(</span><span class="n">value_buffer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">endptr</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">endptr</span> <span class="o">||</span> <span class="o">*</span><span class="n">endptr</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span> <span class="o">||</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">INT_MIN</span> <span class="o">||</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">INT_MAX</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// either not an integer or the number is too small / too big</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">*</span><span class="n">out_value</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">value</span><span class="p">;</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+    char value_buffer[10];
+    result = anjay_execute_get_arg_value(ctx, value_buffer,
+                                         sizeof(value_buffer));
+    if (result &lt; 0 || result &gt; sizeof(value_buffer) - 1) {
+        // the value must have been malformed or it is too long - either way, we
+        // don&#39;t like it
+        return ANJAY_ERR_BAD_REQUEST;
+    }
+    char *endptr = NULL;
+    long value = strtol(value_buffer, &amp;endptr, 10);
+    if (!endptr || *endptr != &#39;\0&#39; || value &lt; INT_MIN || value &gt; INT_MAX) {
+        // either not an integer or the number is too small / too big
+        return ANJAY_ERR_BAD_REQUEST;
+    }
+    *out_value = (int) value;
+    return 0;
+}
 </pre></div>
 </div>
 <dl class="docutils">
@@ -407,20 +407,20 @@ even though it is possible to implement such resource within Anjay,
 one <strong>MUST NOT</strong> do it to stay compliant with the LwM2M.</p>
 </div>
 <p>So, here is how it could look like:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
                               <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+    <span class="o">//</span> <span class="o">...</span>
+    <span class="n">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="o">...</span>
+    <span class="n">case</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">addition_result</span><span class="p">);</span>
-    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+    <span class="n">case</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
-    <span class="k">default</span><span class="o">:</span>
-        <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
+    <span class="n">default</span><span class="p">:</span>
+        <span class="o">//</span> <span class="n">control</span> <span class="n">will</span> <span class="n">never</span> <span class="n">reach</span> <span class="n">this</span> <span class="n">part</span> <span class="n">due</span> <span class="n">to</span> <span class="nb">object</span><span class="s1">&#39;s supported_rids</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -428,15 +428,15 @@ one <strong>MUST NOT</strong> do it to stay compliant with the LwM2M.</p>
 </div>
 <p>Finally, we need to revisit an object definition to make sure our execute
 handler is set as a <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> implementation:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
-<span class="c1">// ...</span>
-    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1">// ...</span>
-        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">resource_execute</span> <span class="o">=</span> <span class="n">test_resource_execute</span>
-        <span class="c1">// ...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+<span class="o">//</span> <span class="o">...</span>
+    <span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">//</span> <span class="o">...</span>
+        <span class="o">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">resource_execute</span> <span class="o">=</span> <span class="n">test_resource_execute</span>
+        <span class="o">//</span> <span class="o">...</span>
     <span class="p">}</span>
-<span class="c1">// ...</span>
+<span class="o">//</span> <span class="o">...</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -473,7 +473,7 @@ grep for the <cite>resource_execute</cite> keyword.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem
 
     </p>
   </div>
@@ -492,20 +492,14 @@ grep for the <cite>resource_execute</cite> keyword.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'1.14.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
 
   
 

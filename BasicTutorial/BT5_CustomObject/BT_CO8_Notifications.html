@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.8. Notifications for dynamically-changing Resources &mdash; Anjay 1.14.1 documentation</title>
+  <title>4.5.8. Notifications for dynamically-changing Resources &mdash; Anjay 1.14.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.14.1
+                1.14.2
               </div>
             
           
@@ -227,28 +227,28 @@ we will use the module in this tutorial.</p>
 in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a> tutorial. It contains a Timestamp
 Resource, whose value changes every second. We need to periodically notify the
 library about that fact:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Wait for the events if necessary, and handle them.</span>
-<span class="c1">// ...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">events</span> <span class="k">if</span> <span class="n">necessary</span><span class="p">,</span> <span class="ow">and</span> <span class="n">handle</span> <span class="n">them</span><span class="o">.</span>
+<span class="o">//</span> <span class="o">...</span>
 
-<span class="c1">// Notify the library about a Resource value change.</span>
-<span class="c1">// Timestamp (Object 1234, Instance 0, Resource 1) value changes each</span>
-<span class="c1">// second, and this part of the code is executed roughly every second.</span>
+<span class="o">//</span> <span class="n">Notify</span> <span class="n">the</span> <span class="n">library</span> <span class="n">about</span> <span class="n">a</span> <span class="n">Resource</span> <span class="n">value</span> <span class="n">change</span><span class="o">.</span>
+<span class="o">//</span> <span class="n">Timestamp</span> <span class="p">(</span><span class="n">Object</span> <span class="mi">1234</span><span class="p">,</span> <span class="n">Instance</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Resource</span> <span class="mi">1</span><span class="p">)</span> <span class="n">value</span> <span class="n">changes</span> <span class="n">each</span>
+<span class="o">//</span> <span class="n">second</span><span class="p">,</span> <span class="ow">and</span> <span class="n">this</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span> <span class="ow">is</span> <span class="n">executed</span> <span class="n">roughly</span> <span class="n">every</span> <span class="n">second</span><span class="o">.</span>
 <span class="n">anjay_notify_changed</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">1234</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 
-<span class="c1">// Finally run the scheduler (ignoring its return value, which</span>
-<span class="c1">// is the number of tasks executed)</span>
+<span class="o">//</span> <span class="n">Finally</span> <span class="n">run</span> <span class="n">the</span> <span class="n">scheduler</span> <span class="p">(</span><span class="n">ignoring</span> <span class="n">its</span> <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">which</span>
+<span class="o">//</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">tasks</span> <span class="n">executed</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>One more thing to consider is setting up LwM2M attribute handlers - we’ll leave
 that to the Attribute Storage module:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Let the Attribute Storage module implement all attribute handlers.</span>
-<span class="c1">// The module is cleaned up automatically in anjay_delete().</span>
-<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Let</span> <span class="n">the</span> <span class="n">Attribute</span> <span class="n">Storage</span> <span class="n">module</span> <span class="n">implement</span> <span class="nb">all</span> <span class="n">attribute</span> <span class="n">handlers</span><span class="o">.</span>
+<span class="o">//</span> <span class="n">The</span> <span class="n">module</span> <span class="ow">is</span> <span class="n">cleaned</span> <span class="n">up</span> <span class="n">automatically</span> <span class="ow">in</span> <span class="n">anjay_delete</span><span class="p">()</span><span class="o">.</span>
+<span class="nb">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
 
-<span class="c1">// ...</span>
+<span class="o">//</span> <span class="o">...</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+    <span class="n">goto</span> <span class="n">cleanup</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -282,7 +282,7 @@ project repository.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem
 
     </p>
   </div>
@@ -301,20 +301,14 @@ project repository.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'1.14.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
 
   
 

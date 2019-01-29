@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.14.1 documentation</title>
+  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.14.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.14.1
+                1.14.2
               </div>
             
           
@@ -268,42 +268,42 @@ Resource by non-bootstrap servers:</p>
 </tbody>
 </table>
 <p>To achieve that, <code class="docutils literal notranslate"><span class="pre">anjay_dm_resource_operations_t</span></code> handler is required:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                    <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                     <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
                                     <span class="n">anjay_dm_resource_op_mask_t</span> <span class="o">*</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span>
     <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">ANJAY_DM_RESOURCE_OP_NONE</span><span class="p">;</span>
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
-        <span class="c1">// only allow reading Resource 0 by LwM2M Servers</span>
-        <span class="c1">// this will be ignored for LwM2M Bootstrap Server</span>
+    <span class="n">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">case</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="o">//</span> <span class="n">only</span> <span class="n">allow</span> <span class="n">reading</span> <span class="n">Resource</span> <span class="mi">0</span> <span class="n">by</span> <span class="n">LwM2M</span> <span class="n">Servers</span>
+        <span class="o">//</span> <span class="n">this</span> <span class="n">will</span> <span class="n">be</span> <span class="n">ignored</span> <span class="k">for</span> <span class="n">LwM2M</span> <span class="n">Bootstrap</span> <span class="n">Server</span>
         <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">ANJAY_DM_RESOURCE_OP_BIT_R</span><span class="p">;</span>
         <span class="k">break</span><span class="p">;</span>
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-        <span class="c1">// Value Resource can be read/written by LwM2M Servers</span>
+    <span class="n">case</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="o">//</span> <span class="n">Value</span> <span class="n">Resource</span> <span class="n">can</span> <span class="n">be</span> <span class="n">read</span><span class="o">/</span><span class="n">written</span> <span class="n">by</span> <span class="n">LwM2M</span> <span class="n">Servers</span>
         <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">ANJAY_DM_RESOURCE_OP_BIT_R</span> <span class="o">|</span> <span class="n">ANJAY_DM_RESOURCE_OP_BIT_W</span><span class="p">;</span>
         <span class="k">break</span><span class="p">;</span>
-    <span class="k">default</span><span class="o">:</span>
+    <span class="n">default</span><span class="p">:</span>
         <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c1">// ...</span>
+<span class="o">//</span> <span class="o">...</span>
 
-<span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">// Object ID</span>
-    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
-    <span class="c1">// ...</span>
-    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1">// ... other handlers</span>
+<span class="n">static</span> <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">Object</span> <span class="n">ID</span>
+    <span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
+    <span class="o">//</span> <span class="o">...</span>
+    <span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">//</span> <span class="o">...</span> <span class="n">other</span> <span class="n">handlers</span>
 
-        <span class="p">.</span><span class="n">resource_operations</span> <span class="o">=</span> <span class="n">test_resource_operations</span><span class="p">,</span>
-        <span class="c1">// ... other handlers</span>
+        <span class="o">.</span><span class="n">resource_operations</span> <span class="o">=</span> <span class="n">test_resource_operations</span><span class="p">,</span>
+        <span class="o">//</span> <span class="o">...</span> <span class="n">other</span> <span class="n">handlers</span>
     <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -312,11 +312,11 @@ Resource by non-bootstrap servers:</p>
 LwM2M Server that is not a bootstrap one. Changing it to an LwM2M Bootstrap
 Server is a matter of setting <code class="docutils literal notranslate"><span class="pre">bootstrap_server</span> <span class="pre">=</span> <span class="pre">true</span></code> on
 <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> struct when initializing the Security Object:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">bootstrap_server</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">bootstrap_server</span> <span class="o">=</span> <span class="n">true</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s2">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -352,7 +352,7 @@ Anjay project repository.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem
 
     </p>
   </div>
@@ -371,20 +371,14 @@ Anjay project repository.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'1.14.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
 
   
 

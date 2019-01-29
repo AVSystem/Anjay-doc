@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.3. DTLS support &mdash; Anjay 1.14.1 documentation</title>
+  <title>5.3. DTLS support &mdash; Anjay 1.14.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.14.1
+                1.14.2
               </div>
             
           
@@ -268,11 +268,11 @@ how to implement such factory defaults for DTLS connection.</p>
 <h3><a class="toc-backref" href="#id3">5.3.2.1. Configuring DTLS version</a><a class="headerlink" href="#configuring-dtls-version" title="Permalink to this headline">¶</a></h3>
 <p>First of all, it is important to configure the appropriate DTLS version when
 initializing Anjay:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">dtls_version</span> <span class="o">=</span> <span class="n">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s2">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">dtls_version</span> <span class="o">=</span> <span class="n">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span>
 <span class="p">};</span>
 
 <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
@@ -305,22 +305,22 @@ LwM2M Client is operating on, is raw data.</p>
 <p>If you’re using the implementation of the Security object that is provided in
 Anjay’s <code class="docutils literal notranslate"><span class="pre">security</span></code> module, you can simply fill them in the
 <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> structure as follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">;</span>
-<span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_KEY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s2">&quot;identity&quot;</span><span class="p">;</span>
+<span class="n">static</span> <span class="n">const</span> <span class="n">char</span> <span class="n">PSK_KEY</span><span class="p">[]</span> <span class="o">=</span> <span class="s2">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
 
 <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_PSK</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
-    <span class="p">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_KEY</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">private_cert_or_psk_key_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s2">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_PSK</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="n">const</span> <span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
+    <span class="o">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="p">(</span><span class="n">const</span> <span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_KEY</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">private_cert_or_psk_key_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>Now the only thing left is to add the new Security object instance:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
                                        <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
@@ -342,69 +342,69 @@ that you would like to load the certificates from files.</p>
 <h3><a class="toc-backref" href="#id6">5.3.3.1. Loading certificate files</a><a class="headerlink" href="#loading-certificate-files" title="Permalink to this headline">¶</a></h3>
 <p>All actual parsing is performed by the TLS backend library, so it is enough to
 just load contents of certificate files in DER format into memory:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span>
-<span class="nf">load_buffer_from_file</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">f</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;could not open %s&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">long</span> <span class="n">size</span> <span class="o">=</span> <span class="n">ftell</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">SIZE_MAX</span> <span class="o">||</span> <span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">*</span><span class="n">out_size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">size</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_malloc</span><span class="p">(</span><span class="o">*</span><span class="n">out_size</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="o">*</span><span class="n">out_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_free</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">);</span>
-        <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="nl">finish</span><span class="p">:</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;could not read %s&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int
+load_buffer_from_file(uint8_t **out, size_t *out_size, const char *filename) {
+    FILE *f = fopen(filename, &quot;rb&quot;);
+    if (!f) {
+        avs_log(tutorial, ERROR, &quot;could not open %s&quot;, filename);
+        return -1;
+    }
+    int result = -1;
+    if (fseek(f, 0, SEEK_END)) {
+        goto finish;
+    }
+    long size = ftell(f);
+    if (size &lt; 0 || (unsigned long) size &gt; SIZE_MAX || fseek(f, 0, SEEK_SET)) {
+        goto finish;
+    }
+    *out_size = (size_t) size;
+    if (!(*out = (uint8_t *) avs_malloc(*out_size))) {
+        goto finish;
+    }
+    if (fread(*out, *out_size, 1, f) != 1) {
+        avs_free(*out);
+        *out = NULL;
+        goto finish;
+    }
+    result = 0;
+finish:
+    fclose(f);
+    if (result) {
+        avs_log(tutorial, ERROR, &quot;could not read %s&quot;, filename);
+    }
+    return result;
+}
 </pre></div>
 </div>
 <p>This function can then be used to fill the relevant fields in the
 <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> structure:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_CERTIFICATE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s2">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_CERTIFICATE</span>
 <span class="p">};</span>
 
-<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="n">load_buffer_from_file</span><span class="p">(</span>
-            <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">,</span>
-            <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span><span class="p">,</span>
-            <span class="s">&quot;client_cert.der&quot;</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="o">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">,</span>
+            <span class="o">&amp;</span><span class="n">security_instance</span><span class="o">.</span><span class="n">public_cert_or_psk_identity_size</span><span class="p">,</span>
+            <span class="s2">&quot;client_cert.der&quot;</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">load_buffer_from_file</span><span class="p">(</span>
-                   <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="p">,</span>
-                   <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">private_cert_or_psk_key_size</span><span class="p">,</span>
-                   <span class="s">&quot;client_key.der&quot;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="n">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="o">.</span><span class="n">private_cert_or_psk_key</span><span class="p">,</span>
+                   <span class="o">&amp;</span><span class="n">security_instance</span><span class="o">.</span><span class="n">private_cert_or_psk_key_size</span><span class="p">,</span>
+                   <span class="s2">&quot;client_key.der&quot;</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">load_buffer_from_file</span><span class="p">(</span>
-                   <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">server_public_key</span><span class="p">,</span>
-                   <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">server_public_key_size</span><span class="p">,</span>
-                   <span class="s">&quot;server_cert.der&quot;</span><span class="p">))</span> <span class="p">{</span>
+                   <span class="p">(</span><span class="n">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="o">.</span><span class="n">server_public_key</span><span class="p">,</span>
+                   <span class="o">&amp;</span><span class="n">security_instance</span><span class="o">.</span><span class="n">server_public_key_size</span><span class="p">,</span>
+                   <span class="s2">&quot;server_cert.der&quot;</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+    <span class="n">goto</span> <span class="n">cleanup</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Now the only thing left is to add the new Security object instance:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
                                        <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
@@ -415,9 +415,9 @@ just load contents of certificate files in DER format into memory:</p>
 <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> structure into the internal state of the
 <code class="docutils literal notranslate"><span class="pre">security</span></code> module, so it is now safe to release the memory allocated by the
 file loading routine:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">);</span>
-<span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="p">);</span>
-<span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">server_public_key</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">avs_free</span><span class="p">((</span><span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="o">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">);</span>
+<span class="n">avs_free</span><span class="p">((</span><span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="o">.</span><span class="n">private_cert_or_psk_key</span><span class="p">);</span>
+<span class="n">avs_free</span><span class="p">((</span><span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="o">.</span><span class="n">server_public_key</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -444,7 +444,7 @@ file loading routine:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem
 
     </p>
   </div>
@@ -463,20 +463,14 @@ file loading routine:</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1.14.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
 
   
 

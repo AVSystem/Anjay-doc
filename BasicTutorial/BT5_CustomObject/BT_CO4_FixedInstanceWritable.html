@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 1.14.1 documentation</title>
+  <title>4.5.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 1.14.2 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.14.1
+                1.14.2
               </div>
             
           
@@ -261,57 +261,57 @@ but this time accepts Write requests.</p>
 <h2>4.5.4.1. Simple variant<a class="headerlink" href="#simple-variant" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> needs to be able to store arbitrary data. Let us set
 an arbitrary limit of 32 characters in length (including terminating nullbyte):</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-    <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+    <span class="n">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+    <span class="n">int32_t</span> <span class="n">value</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Now the <code class="docutils literal notranslate"><span class="pre">anjay_dm_resource_write_t</span></code> handler implementation:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                               <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_resource_write(anjay_t *anjay,
+                               const anjay_dm_object_def_t *const *obj_ptr,
+                               anjay_iid_t iid,
+                               anjay_rid_t rid,
+                               anjay_input_ctx_t *ctx) {
+    (void) anjay; // unused
 
-    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    test_object_t *test = get_test_object(obj_ptr);
 
-    <span class="c1">// IID validity was checked by the `anjay_dm_instance_present_t` handler.</span>
-    <span class="c1">// If the Object Instance set does not change, or can only be modifed</span>
-    <span class="c1">// via LwM2M Create/Delete requests, it is safe to assume IID is correct.</span>
-    <span class="n">assert</span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">iid</span> <span class="o">&lt;</span> <span class="n">NUM_INSTANCES</span><span class="p">);</span>
-    <span class="k">struct</span> <span class="n">test_instance</span> <span class="o">*</span><span class="n">current_instance</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
+    // IID validity was checked by the `anjay_dm_instance_present_t` handler.
+    // If the Object Instance set does not change, or can only be modifed
+    // via LwM2M Create/Delete requests, it is safe to assume IID is correct.
+    assert((size_t) iid &lt; NUM_INSTANCES);
+    struct test_instance *current_instance = &amp;test-&gt;instances[iid];
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="p">{</span>
-        <span class="c1">// `anjay_get_string` may return a chunk of data instead of the</span>
-        <span class="c1">// whole value - we need to make sure the client is able to hold</span>
-        <span class="c1">// the entire value</span>
-        <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">label</span><span class="p">)];</span>
-        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
+    switch (rid) {
+    case 0: {
+        // `anjay_get_string` may return a chunk of data instead of the
+        // whole value - we need to make sure the client is able to hold
+        // the entire value
+        char buffer[sizeof(current_instance-&gt;label)];
+        int result = anjay_get_string(ctx, buffer, sizeof(buffer));
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// value OK - save it</span>
-            <span class="n">memcpy</span><span class="p">(</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">label</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">ANJAY_BUFFER_TOO_SHORT</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// the value is too long to store in the buffer</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
-        <span class="p">}</span>
+        if (result == 0) {
+            // value OK - save it
+            memcpy(current_instance-&gt;label, buffer, sizeof(buffer));
+        } else if (result == ANJAY_BUFFER_TOO_SHORT) {
+            // the value is too long to store in the buffer
+            result = ANJAY_ERR_BAD_REQUEST;
+        }
 
-        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-    <span class="p">}</span>
+        return result;
+    }
 
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-        <span class="c1">// reading primitive values can be done directly - the value will only</span>
-        <span class="c1">// be written to the output variable if everything went fine</span>
-        <span class="k">return</span> <span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+    case 1:
+        // reading primitive values can be done directly - the value will only
+        // be written to the output variable if everything went fine
+        return anjay_get_i32(ctx, &amp;current_instance-&gt;value);
 
-    <span class="k">default</span><span class="o">:</span>
-        <span class="c1">// control will never reach this part due to object&#39;s supported_rids</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    default:
+        // control will never reach this part due to object&#39;s supported_rids
+        return ANJAY_ERR_INTERNAL;
+    }
+}
 </pre></div>
 </div>
 <p>Everything that was left to do is plugging in handlers. There is a catch though:
@@ -320,17 +320,17 @@ Instance) requires explicitly defined transaction handlers.
 <code class="docutils literal notranslate"><span class="pre">anjay_transaction_handler_NOOP</span></code> placeholder will be used for now, see
 <a class="reference internal" href="#fixedinstancewritable-transactional"><span class="std std-ref">Transactional variant</span></a> for an actual implementation of
 these.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
-     <span class="c1">// ...</span>
-     <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-         <span class="c1">// ...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">static</span> <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="o">//</span> <span class="o">...</span>
+     <span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="o">//</span> <span class="o">...</span>
 
-         <span class="p">.</span><span class="n">resource_write</span> <span class="o">=</span> <span class="n">test_resource_write</span><span class="p">,</span>
+         <span class="o">.</span><span class="n">resource_write</span> <span class="o">=</span> <span class="n">test_resource_write</span><span class="p">,</span>
 
-         <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-         <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-         <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-         <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span>
+         <span class="o">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+         <span class="o">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+         <span class="o">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+         <span class="o">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span>
      <span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
@@ -434,141 +434,141 @@ all LwM2M Write requests.</p>
 <p>Let’s start by implementing the <code class="docutils literal notranslate"><span class="pre">instance_reset</span></code> handler. Two boolean flags
 need to be added to <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> to detect a situation where a value
 is considered “unset”:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
-    <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+    <span class="nb">bool</span> <span class="n">has_label</span><span class="p">;</span>
+    <span class="n">char</span> <span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
 
-    <span class="kt">bool</span> <span class="n">has_value</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
+    <span class="nb">bool</span> <span class="n">has_value</span><span class="p">;</span>
+    <span class="n">int32_t</span> <span class="n">value</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">instance_reset</span></code> and <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> should then use these to appropriately
 mark Resources as set/unset:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_instance_reset(anjay_t *anjay,
+                               const anjay_dm_object_def_t *const *obj_ptr,
+                               anjay_iid_t iid) {
+    (void) anjay; // unused
 
-    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    test_object_t *test = get_test_object(obj_ptr);
 
-    <span class="c1">// IID validity was checked by the `anjay_dm_instance_present_t` handler.</span>
-    <span class="c1">// If the Object Instance set does not change, or can only be modifed</span>
-    <span class="c1">// via LwM2M Create/Delete requests, it is safe to assume IID is correct.</span>
-    <span class="n">assert</span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">iid</span> <span class="o">&lt;</span> <span class="n">NUM_INSTANCES</span><span class="p">);</span>
+    // IID validity was checked by the `anjay_dm_instance_present_t` handler.
+    // If the Object Instance set does not change, or can only be modifed
+    // via LwM2M Create/Delete requests, it is safe to assume IID is correct.
+    assert((size_t) iid &lt; NUM_INSTANCES);
 
-    <span class="c1">// mark all Resource values for Object Instance `iid` as unset</span>
-    <span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">].</span><span class="n">has_label</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">].</span><span class="n">has_value</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+    // mark all Resource values for Object Instance `iid` as unset
+    test-&gt;instances[iid].has_label = false;
+    test-&gt;instances[iid].has_value = false;
+    return 0;
+}
 
-<span class="c1">// ...</span>
+// ...
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">test_resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                              <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
+static int test_resource_write(anjay_t *anjay,
+                              const anjay_dm_object_def_t *const *obj_ptr,
+                              anjay_iid_t iid,
+                              anjay_rid_t rid,
+                              anjay_input_ctx_t *ctx) {
+    // ...
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="p">{</span>
-                <span class="c1">// ...</span>
+    switch (rid) {
+    case 0: {
+                // ...
 
-                <span class="c1">// value OK - save it</span>
-                <span class="n">memcpy</span><span class="p">(</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">label</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span>
-                <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">has_label</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                // value OK - save it
+                memcpy(current_instance-&gt;label, buffer, sizeof(buffer));
+                current_instance-&gt;has_label = true;
 
-                <span class="c1">// ...</span>
-        <span class="p">}</span>
+                // ...
+        }
 
-    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
-        <span class="c1">// reading primitive values can be done directly - the value will only</span>
-        <span class="c1">// be written to the output variable if everything went fine</span>
-        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">has_value</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-    <span class="p">}</span>
+    case 1: {
+        // reading primitive values can be done directly - the value will only
+        // be written to the output variable if everything went fine
+        int result = anjay_get_i32(ctx, &amp;current_instance-&gt;value);
+        if (result == 0) {
+            current_instance-&gt;has_value = true;
+        }
+        return result;
+    }
 
-    <span class="c1">// ...</span>
-<span class="p">}</span>
+    // ...
+}
 </pre></div>
 </div>
 <p>Having <code class="docutils literal notranslate"><span class="pre">has_label</span></code>/<code class="docutils literal notranslate"><span class="pre">has_value</span></code> flags ready, we can finally implement
 transaction handlers:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_transaction_begin</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                  <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_transaction_begin(anjay_t *anjay,
+                                  const anjay_dm_object_def_t *const *obj_ptr) {
+    (void) anjay; // unused
 
-    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    test_object_t *test = get_test_object(obj_ptr);
 
-    <span class="c1">// store a snapshot of object state</span>
-    <span class="n">memcpy</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">backup_instances</span><span class="p">,</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+    // store a snapshot of object state
+    memcpy(test-&gt;backup_instances, test-&gt;instances, sizeof(test-&gt;instances));
+    return 0;
+}
 
-<span class="k">static</span> <span class="kt">int</span>
-<span class="nf">test_transaction_validate</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+static int
+test_transaction_validate(anjay_t *anjay,
+                          const anjay_dm_object_def_t *const *obj_ptr) {
+    (void) anjay; // unused
 
-    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    test_object_t *test = get_test_object(obj_ptr);
 
-    <span class="c1">// ensure all Object Instances contain all Mandatory Resources</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM_INSTANCES</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">has_label</span> <span class="o">||</span> <span class="o">!</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">has_value</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// validation failed: Object state invalid, rollback required</span>
-            <span class="k">return</span> <span class="n">ANJAY_ERR_BAD_REQUEST</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+    // ensure all Object Instances contain all Mandatory Resources
+    for (size_t i = 0; i &lt; NUM_INSTANCES; ++i) {
+        if (!test-&gt;instances[i].has_label || !test-&gt;instances[i].has_value) {
+            // validation failed: Object state invalid, rollback required
+            return ANJAY_ERR_BAD_REQUEST;
+        }
+    }
 
-    <span class="c1">// validation successful, can commit</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+    // validation successful, can commit
+    return 0;
+}
 
-<span class="k">static</span> <span class="kt">int</span>
-<span class="nf">test_transaction_commit</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="c1">// unused</span>
+static int
+test_transaction_commit(anjay_t *anjay,
+                        const anjay_dm_object_def_t *const *obj_ptr) {
+    (void) anjay;   // unused
+    (void) obj_ptr; // unused
 
-    <span class="c1">// no action required in this implementation; if object state snapshot was</span>
-    <span class="c1">// dynamically allocated, this would be the place for releasing it</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+    // no action required in this implementation; if object state snapshot was
+    // dynamically allocated, this would be the place for releasing it
+    return 0;
+}
 
-<span class="k">static</span> <span class="kt">int</span>
-<span class="nf">test_transaction_rollback</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+static int
+test_transaction_rollback(anjay_t *anjay,
+                          const anjay_dm_object_def_t *const *obj_ptr) {
+    (void) anjay; // unused
 
-    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    test_object_t *test = get_test_object(obj_ptr);
 
-    <span class="c1">// restore saved object state</span>
-    <span class="n">memcpy</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">,</span> <span class="n">test</span><span class="o">-&gt;</span><span class="n">backup_instances</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+    // restore saved object state
+    memcpy(test-&gt;instances, test-&gt;backup_instances, sizeof(test-&gt;instances));
+    return 0;
+}
 
-<span class="c1">// ...</span>
+// ...
 
-<span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1">// ...</span>
+static const anjay_dm_object_def_t OBJECT_DEF = {
+    // ...
+    .handlers = {
+        // ...
 
-        <span class="p">.</span><span class="n">instance_reset</span> <span class="o">=</span> <span class="n">test_instance_reset</span><span class="p">,</span>
+        .instance_reset = test_instance_reset,
 
-        <span class="c1">// ...</span>
+        // ...
 
-        <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">test_transaction_begin</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">test_transaction_validate</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">test_transaction_commit</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">test_transaction_rollback</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+        .transaction_begin = test_transaction_begin,
+        .transaction_validate = test_transaction_validate,
+        .transaction_commit = test_transaction_commit,
+        .transaction_rollback = test_transaction_rollback
+    }
+};
 </pre></div>
 </div>
 <p>That is everything one needs to set up a complete, transaction-aware writable
@@ -602,7 +602,7 @@ subdirectory of main Anjay project repository.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2019, AVSystem.
+        &copy; Copyright 2017-2019, AVSystem
 
     </p>
   </div>
@@ -621,20 +621,14 @@ subdirectory of main Anjay project repository.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'1.14.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
 
   
 
