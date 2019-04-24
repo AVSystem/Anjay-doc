@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.15.4 documentation</title>
+  <title>4.5.1. Single-instance read-only object &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.5.2. Single-instance read-only object with an executable resource" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" />
     <link rel="prev" title="4.5. Custom LwM2M objects" href="../BT5_CustomObject.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -180,68 +182,68 @@
   <div class="section" id="single-instance-read-only-object">
 <h1>4.5.1. Single-instance read-only object<a class="headerlink" href="#single-instance-read-only-object" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section explains manual implementation of custom objects. If the
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
 <a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
-<p class="last">We still encourage you to read the tutorial to have a clear understanding
+<p>We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
 <p>This is the simplest possible case. Let us implement following custom Object:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="37%" />
-<col width="31%" />
-<col width="31%" />
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Object ID</th>
-<th class="head">Instances</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Test object</td>
-<td>1234</td>
-<td>Single</td>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Single</p></td>
 </tr>
 </tbody>
 </table>
 <p>With two simple Resources:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="19%" />
-<col width="19%" />
-<col width="17%" />
-<col width="16%" />
-<col width="16%" />
-<col width="13%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Resource ID</th>
-<th class="head">Operations</th>
-<th class="head">Instances</th>
-<th class="head">Mandatory</th>
-<th class="head">Type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Object name</td>
-<td>0</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>String</td>
+<tbody>
+<tr class="row-even"><td><p>Object name</p></td>
+<td><p>0</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td>Timestamp</td>
-<td>1</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>Integer</td>
+<tr class="row-odd"><td><p>Timestamp</p></td>
+<td><p>1</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
 </tr>
 </tbody>
 </table>
@@ -249,10 +251,10 @@ on what various parts of the LwM2M object code are for.</p>
 called whenever the library needs to get a value of a Resource. This might
 happen if:</p>
 <ul class="simple">
-<li>an LwM2M server sends a Read request,</li>
-<li>the Resource is being observed and the library needs to send a Notify message,</li>
-<li>value of the Resource is required for the library to function correctly
-(mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</li>
+<li><p>an LwM2M server sends a Read request,</p></li>
+<li><p>the Resource is being observed and the library needs to send a Notify message,</p></li>
+<li><p>value of the Resource is required for the library to function correctly
+(mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</p></li>
 </ul>
 <p>The Read handler for our test object might be implemented as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -280,12 +282,12 @@ happen if:</p>
 </div>
 <p>What happens here?</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">rid</span></code> value is compared against all known Resource IDs to determine what value
-should be returned to the library.</li>
-<li>Resource value is passed to the library via one of <code class="docutils literal notranslate"><span class="pre">anjay_ret_*</span></code> functions,
+<li><p><code class="docutils literal notranslate"><span class="pre">rid</span></code> value is compared against all known Resource IDs to determine what value
+should be returned to the library.</p></li>
+<li><p>Resource value is passed to the library via one of <code class="docutils literal notranslate"><span class="pre">anjay_ret_*</span></code> functions,
 depending on the actual data type of a Resource. The value returned
 by an appropriate call is then forwarded up - this ensures correct error
-handling in case anything goes wrong.</li>
+handling in case anything goes wrong.</p></li>
 </ul>
 <p>Having the Read handler implemented, one can initialize the
 <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
@@ -320,40 +322,35 @@ it first performs a number of checks to ensure the target path is correct
 and the operation itself is allowed. Assuming an LwM2M Server requests
 some operation on the path /1/2/3:</p>
 <ol class="arabic">
-<li><p class="first">First, the library checks whether an Object with ID = 1 is registered.
-If not, a Not Found response is issued.</p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">instance_present</span></code> handler of Object 1 is called to determine whether
-Instance 2 exists. If not, a Not Found response is issued.</p>
-</li>
-<li><p class="first">If multiple LwM2M Servers are configured, the library inspects Access
+<li><p>First, the library checks whether an Object with ID = 1 is registered.
+If not, a Not Found response is issued.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instance_present</span></code> handler of Object 1 is called to determine whether
+Instance 2 exists. If not, a Not Found response is issued.</p></li>
+<li><p>If multiple LwM2M Servers are configured, the library inspects Access
 Control Object to check whether the server requesting an operation should
 be allowed to perform it.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">More info: <a class="reference internal" href="../../AdvancedTutorial/AT4.html"><span class="doc">Access Control in multi-server environment</span></a></p>
+<p class="admonition-title">Note</p>
+<p>More info: <a class="reference internal" href="../../AdvancedTutorial/AT4.html"><span class="doc">Access Control in multi-server environment</span></a></p>
 </div>
 </li>
-<li><p class="first">Resource ID 3 is searched for in the <code class="docutils literal notranslate"><span class="pre">supported_rids</span></code> list defined for
-the object. If it is not found, a Not Found response is issued.</p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">resource_present</span></code> handler is called to ensure that Resource 3
+<li><p>Resource ID 3 is searched for in the <code class="docutils literal notranslate"><span class="pre">supported_rids</span></code> list defined for
+the object. If it is not found, a Not Found response is issued.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resource_present</span></code> handler is called to ensure that Resource 3
 is instantiated for Object Instance 2. If the handler returns 0,
-a Not Found response is issued.</p>
-</li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler, if present, is used to determine whether
+a Not Found response is issued.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler, if present, is used to determine whether
 requested operation is valid for given target. In case it is not (e.g.
 Execute request on a read-write Resource), Method Not Allowed response
 is issued.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler will be explained in detail in
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler will be explained in detail in
 further tutorials.</p>
 </div>
 </li>
-<li><p class="first">Finally, if all other checks succeeded, a specific handler (e.g.
-<code class="docutils literal notranslate"><span class="pre">resource_read</span></code> for Read operation) is called.</p>
-</li>
+<li><p>Finally, if all other checks succeeded, a specific handler (e.g.
+<code class="docutils literal notranslate"><span class="pre">resource_read</span></code> for Read operation) is called.</p></li>
 </ol>
 <p>Any of the handlers above may also fail with a specific CoAP error code
 (see <a class="reference external" href="../../api/core_8h.html">ANJAY_ERR_* constants</a>), aborting the
@@ -387,8 +384,8 @@ it in the library:</p>
 on Object 1234 or any of its Resources, Anjay will take care of preparing
 a response containing the value of requested Resource.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Complete code of this example can be found in
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
 <cite>examples/tutorial/custom-object/read-only</cite> subdirectory of main Anjay
 project repository.</p>
 </div>
@@ -405,7 +402,7 @@ project repository.</p>
         <a href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" class="btn btn-neutral float-right" title="4.5.2. Single-instance read-only object with an executable resource" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../BT5_CustomObject.html" class="btn btn-neutral" title="4.5. Custom LwM2M objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../BT5_CustomObject.html" class="btn btn-neutral float-left" title="4.5. Custom LwM2M objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -431,26 +428,16 @@ project repository.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

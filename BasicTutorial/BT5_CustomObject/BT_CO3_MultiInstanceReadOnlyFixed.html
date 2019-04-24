@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 1.15.4 documentation</title>
+  <title>4.5.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.5.4. Multi-instance writable object with fixed number of instances" href="BT_CO4_FixedInstanceWritable.html" />
     <link rel="prev" title="4.5.2. Single-instance read-only object with an executable resource" href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -181,80 +183,80 @@
 <h1>4.5.3. Multi-instance read-only object with fixed number of instances<a class="headerlink" href="#multi-instance-read-only-object-with-fixed-number-of-instances" title="Permalink to this headline">¶</a></h1>
 <p>In this example you will learn:</p>
 <ul class="simple">
-<li>how to implement <code class="docutils literal notranslate"><span class="pre">instance_it</span></code> and <code class="docutils literal notranslate"><span class="pre">instance_present</span></code> handlers
-for a multi-instance LwM2M Object,</li>
-<li>how to use <code class="docutils literal notranslate"><span class="pre">container_of</span></code> pattern to access registered object state.</li>
+<li><p>how to implement <code class="docutils literal notranslate"><span class="pre">instance_it</span></code> and <code class="docutils literal notranslate"><span class="pre">instance_present</span></code> handlers
+for a multi-instance LwM2M Object,</p></li>
+<li><p>how to use <code class="docutils literal notranslate"><span class="pre">container_of</span></code> pattern to access registered object state.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section explains manual implementation of custom objects. If the
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
 <a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
-<p class="last">We still encourage you to read the tutorial to have a clear understanding
+<p>We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
 <p>The implemented Object will look as in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>,
 but will now support multiple Object Instances:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="37%" />
-<col width="31%" />
-<col width="31%" />
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Object ID</th>
-<th class="head">Instances</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Test object</td>
-<td>1234</td>
-<td>Multiple</td>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Multiple</p></td>
 </tr>
 </tbody>
 </table>
 <p>Each Object Instance has two Resources:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="11%" />
-<col width="21%" />
-<col width="19%" />
-<col width="17%" />
-<col width="17%" />
-<col width="14%" />
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 14%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Resource ID</th>
-<th class="head">Operations</th>
-<th class="head">Instances</th>
-<th class="head">Mandatory</th>
-<th class="head">Type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Label</td>
-<td>0</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>String</td>
+<tbody>
+<tr class="row-even"><td><p>Label</p></td>
+<td><p>0</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td>Value</td>
-<td>1</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>Integer</td>
+<tr class="row-odd"><td><p>Value</p></td>
+<td><p>1</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The code is based on <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
+<p class="admonition-title">Note</p>
+<p>The code is based on <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
 </div>
 <p>First of all, let us define a structure that will hold both handlers and object
 state, initialize and register it:</p>
@@ -288,7 +290,7 @@ state, initialize and register it:</p>
 <p>Now, to inform the library the Object contains two Instances with IDs 0 and 1,
 two more handlers are required:</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">instance_present</span></code> - checking whether given Object Instance ID
+<li><p><code class="docutils literal notranslate"><span class="pre">instance_present</span></code> - checking whether given Object Instance ID
 exists - in this case, it needs to return 1 for Instance IDs 0 and 1
 and 0 otherwise:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static test_object_t *
@@ -315,7 +317,7 @@ static int test_instance_present(anjay_t *anjay,
 </pre></div>
 </div>
 </li>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">instance_it</span></code> - used by the library to enumerate all existing Object
+<li><p><code class="docutils literal notranslate"><span class="pre">instance_it</span></code> - used by the library to enumerate all existing Object
 Instance IDs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_instance_it(anjay_t *anjay,
                             const anjay_dm_object_def_t *const *obj_ptr,
@@ -348,7 +350,7 @@ Instance IDs:</p>
 </li>
 </ul>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>Any iterator data stored in <cite>*cookie</cite> <strong>must not</strong> require cleanup.
 The <cite>instance_it</cite> handler is used by the library as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -365,7 +367,7 @@ The <cite>instance_it</cite> handler is used by the library as follows:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p class="last">For more details see <a class="reference external" href="../../api/dm_8h.html">anjay_dm_instance_it_t documentation</a>.</p>
+<p>For more details see <a class="reference external" href="../../api/dm_8h.html">anjay_dm_instance_it_t documentation</a>.</p>
 </div>
 <div class="topic">
 <p class="topic-title first">Why is enumerating Object Instances necessary?</p>
@@ -423,8 +425,8 @@ Definition struct:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Complete code of this example can be found in
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
 <cite>examples/tutorial/custom-object/read-only-multiple-fixed</cite> subdirectory of
 main Anjay project repository.</p>
 </div>
@@ -441,7 +443,7 @@ main Anjay project repository.</p>
         <a href="BT_CO4_FixedInstanceWritable.html" class="btn btn-neutral float-right" title="4.5.4. Multi-instance writable object with fixed number of instances" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" class="btn btn-neutral" title="4.5.2. Single-instance read-only object with an executable resource" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO2_SingleInstanceExecutableAndReadOnly.html" class="btn btn-neutral float-left" title="4.5.2. Single-instance read-only object with an executable resource" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -467,26 +469,16 @@ main Anjay project repository.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

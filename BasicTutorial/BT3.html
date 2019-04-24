@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.3. Event loop &mdash; Anjay 1.15.4 documentation</title>
+  <title>4.3. Event loop &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.4. A few notes on general usage" href="BT4.html" />
     <link rel="prev" title="4.2. Installing mandatory Objects" href="BT2.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -172,9 +174,9 @@ whole application.</p>
 <p>Anjay currently does not use any self-contained threads, so some manual handling
 of incoming events is necessary. Those events may come from a number of sources:</p>
 <ul class="simple">
-<li>Network packets from LwM2M servers</li>
-<li>Anjay’s internal task scheduler</li>
-<li>External events specific to the client application</li>
+<li><p>Network packets from LwM2M servers</p></li>
+<li><p>Anjay’s internal task scheduler</p></li>
+<li><p>External events specific to the client application</p></li>
 </ul>
 <p>On POSIX systems, a simple and portable way to handle all these events is to use
 the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> system call.</p>
@@ -184,19 +186,19 @@ the <code class="docutils literal notranslate"><span class="pre">poll()</span></
 via the <code class="docutils literal notranslate"><span class="pre">anjay_get_sockets()</span></code> call. All the used sockets are returned as an
 <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> (implemented and documented in the <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons Library</a>).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">To retrieve a low-level operating system handle (on POSIX systems it is
+<p class="admonition-title">Note</p>
+<p>To retrieve a low-level operating system handle (on POSIX systems it is
 a file descriptor) use the <code class="docutils literal notranslate"><span class="pre">avs_net_socket_get_system()</span></code> call.</p>
 </div>
 <p>When there is a new incoming packet on some socket, <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> shall
 be called to handle it.</p>
 <p>Therefore our first attempt to write an event loop could look like this:</p>
 <ol class="arabic simple" id="incomplete-event-loop-idea">
-<li>Obtain all sources of incoming packets (i.e. server sockets) from the
-library.</li>
-<li>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> on them to wait for some communication.</li>
-<li>When the packet arrives, call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> that will handle the
-message.</li>
+<li><p>Obtain all sources of incoming packets (i.e. server sockets) from the
+library.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> on them to wait for some communication.</p></li>
+<li><p>When the packet arrives, call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> that will handle the
+message.</p></li>
 </ol>
 <p>Before doing that though, you should also understand a very important concept
 Anjay is using, i.e. <a class="reference internal" href="#task-scheduler"><span class="std std-ref">Task scheduler</span></a>.</p>
@@ -227,22 +229,22 @@ time the CPU can sleep. In the next example we will use this value as a
 <p>Taking into account previous subsections we could modify the event loop
 presented <a class="reference internal" href="#incomplete-event-loop-idea"><span class="std std-ref">before</span></a> as follows:</p>
 <ol class="arabic simple">
-<li>Obtain all sources of incoming packets (i.e. server sockets) from the library.</li>
-<li>Determine what is the expected time to the next job that has to be executed.</li>
-<li>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> to wait for the incoming communication (but not for too long,
-to prevent missing any pending scheduler jobs).</li>
-<li>Call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on packet arrival, which will handle the message.</li>
-<li>Run the scheduler to execute any outstanding jobs.</li>
+<li><p>Obtain all sources of incoming packets (i.e. server sockets) from the library.</p></li>
+<li><p>Determine what is the expected time to the next job that has to be executed.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> to wait for the incoming communication (but not for too long,
+to prevent missing any pending scheduler jobs).</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on packet arrival, which will handle the message.</p></li>
+<li><p>Run the scheduler to execute any outstanding jobs.</p></li>
 </ol>
 <div class="topic">
 <p class="topic-title first">Wait, why do I have to repeatedly get the sources of packets?</p>
 <p>There are at least two reasons for doing that:</p>
 <ol class="arabic simple">
-<li>At some point network error might have happened, forcing the library
-to reconnect the socket, possibly changing its underlying descriptor.</li>
-<li>The data model might have changed (for instance due to spontaneous Bootstrap
+<li><p>At some point network error might have happened, forcing the library
+to reconnect the socket, possibly changing its underlying descriptor.</p></li>
+<li><p>The data model might have changed (for instance due to spontaneous Bootstrap
 Write) and some Server were added / removed or their credentials were
-modified.</li>
+modified.</p></li>
 </ol>
 </div>
 <p>So, it could be written like this:</p>
@@ -325,7 +327,7 @@ this tutorial, but the presented code may be used as a good starting point.</p>
         <a href="BT4.html" class="btn btn-neutral float-right" title="4.4. A few notes on general usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT2.html" class="btn btn-neutral" title="4.2. Installing mandatory Objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT2.html" class="btn btn-neutral float-left" title="4.2. Installing mandatory Objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -351,26 +353,16 @@ this tutorial, but the presented code may be used as a good starting point.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

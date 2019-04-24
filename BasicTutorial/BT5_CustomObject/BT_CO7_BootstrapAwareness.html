@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.15.4 documentation</title>
+  <title>4.5.7. Bootstrap awareness &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.5.8. Notifications for dynamically-changing Resources" href="BT_CO8_Notifications.html" />
     <link rel="prev" title="4.5.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -181,9 +183,9 @@
 <h1>4.5.7. Bootstrap awareness<a class="headerlink" href="#bootstrap-awareness" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial you will learn:</p>
 <ul class="simple">
-<li>how to use <code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler to prevent Anjay from calling
-some handlers in non-bootstrap context,</li>
-<li>how to setup Resources writable only by the LwM2M Bootstrap Server.</li>
+<li><p>how to use <code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler to prevent Anjay from calling
+some handlers in non-bootstrap context,</p></li>
+<li><p>how to setup Resources writable only by the LwM2M Bootstrap Server.</p></li>
 </ul>
 <div class="section" id="handling-lwm2m-bootstrap-server">
 <h2>4.5.7.1. Handling LwM2M Bootstrap Server<a class="headerlink" href="#handling-lwm2m-bootstrap-server" title="Permalink to this headline">¶</a></h2>
@@ -199,12 +201,12 @@ Server to do anything it wants.</p>
 <p>If a device has to implement a Resource that must only be writable by the LwM2M
 Bootstrap Server, its handlers should be implemented like so:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler must be able to set the value of a Resource,
-as if it was a writable one,</li>
-<li><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler should not set the
+<li><p><code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler must be able to set the value of a Resource,
+as if it was a writable one,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resource_operations</span></code> handler should not set the
 <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RESOURCE_OP_BIT_W</span></code> in returned access flags. That will prevent
 Anjay from calling the <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler for this particular Resource
-when the request is issued by a non-bootstrap server.</li>
+when the request is issued by a non-bootstrap server.</p></li>
 </ul>
 </div>
 <div class="section" id="example-bootstrap-writable-resource">
@@ -212,58 +214,58 @@ when the request is issued by a non-bootstrap server.</li>
 <p>As an example, we will modify the Test Object from
 <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a> to prevent changing the value of <code class="docutils literal notranslate"><span class="pre">Label</span></code>
 Resource by non-bootstrap servers:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="37%" />
-<col width="31%" />
-<col width="31%" />
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Object ID</th>
-<th class="head">Instances</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Test object</td>
-<td>1234</td>
-<td>Multiple</td>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Multiple</p></td>
 </tr>
 </tbody>
 </table>
 <p>Each Object Instance has two Resources:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="11%" />
-<col width="21%" />
-<col width="19%" />
-<col width="17%" />
-<col width="17%" />
-<col width="14%" />
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 14%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Resource ID</th>
-<th class="head">Operations</th>
-<th class="head">Instances</th>
-<th class="head">Mandatory</th>
-<th class="head">Type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Label</td>
-<td>0</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>String</td>
+<tbody>
+<tr class="row-even"><td><p>Label</p></td>
+<td><p>0</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td>Value</td>
-<td>1</td>
-<td>Read/Write</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>Integer</td>
+<tr class="row-odd"><td><p>Value</p></td>
+<td><p>1</p></td>
+<td><p>Read/Write</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
 </tr>
 </tbody>
 </table>
@@ -324,8 +326,8 @@ Server is a matter of setting <code class="docutils literal notranslate"><span c
 instance and no Server Object instances. For that reason, the example project
 deliberately does not initialize any Server Object Instances.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Complete code of this example can be found in
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
 <cite>examples/tutorial/custom-object/bootstrap-awareness</cite> subdirectory of main
 Anjay project repository.</p>
 </div>
@@ -343,7 +345,7 @@ Anjay project repository.</p>
         <a href="BT_CO8_Notifications.html" class="btn btn-neutral float-right" title="4.5.8. Notifications for dynamically-changing Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral" title="4.5.6. Objects with Multiple Instance Resources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-left" title="4.5.6. Objects with Multiple Instance Resources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -369,26 +371,16 @@ Anjay project repository.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

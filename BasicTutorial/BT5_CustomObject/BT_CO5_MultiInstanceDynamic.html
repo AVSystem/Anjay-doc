@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.15.4 documentation</title>
+  <title>4.5.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4.5.6. Objects with Multiple Instance Resources" href="BT_CO6_MultipleResourceInstances.html" />
     <link rel="prev" title="4.5.4. Multi-instance writable object with fixed number of instances" href="BT_CO4_FixedInstanceWritable.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -181,74 +183,74 @@
 <h1>4.5.5. Multi-instance writable object with dynamic number of instances<a class="headerlink" href="#multi-instance-writable-object-with-dynamic-number-of-instances" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial you will learn:</p>
 <ul class="simple">
-<li>how to implement <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> handler to create Instances,</li>
-<li>how to implement <code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler to remove Instances,</li>
-<li>how to assign instance identifiers to a newly created Instances,</li>
-<li>basics of the <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> utility library.</li>
+<li><p>how to implement <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> handler to create Instances,</p></li>
+<li><p>how to implement <code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler to remove Instances,</p></li>
+<li><p>how to assign instance identifiers to a newly created Instances,</p></li>
+<li><p>basics of the <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> utility library.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section explains manual implementation of custom objects. If the
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
 <a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
-<p class="last">We still encourage you to read the tutorial to have a clear understanding
+<p>We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
 <p>Implemented object will be roughly based on <a class="reference internal" href="BT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a>.</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="37%" />
-<col width="31%" />
-<col width="31%" />
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Object ID</th>
-<th class="head">Instances</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Test object</td>
-<td>1234</td>
-<td>Multiple</td>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Multiple</p></td>
 </tr>
 </tbody>
 </table>
 <p>As before, each Object Instance has two Resources:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="11%" />
-<col width="21%" />
-<col width="19%" />
-<col width="17%" />
-<col width="17%" />
-<col width="14%" />
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 14%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Resource ID</th>
-<th class="head">Operations</th>
-<th class="head">Instances</th>
-<th class="head">Mandatory</th>
-<th class="head">Type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Label</td>
-<td>0</td>
-<td>Read/Write</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>String</td>
+<tbody>
+<tr class="row-even"><td><p>Label</p></td>
+<td><p>0</p></td>
+<td><p>Read/Write</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td>Value</td>
-<td>1</td>
-<td>Read/Write</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>Integer</td>
+<tr class="row-odd"><td><p>Value</p></td>
+<td><p>1</p></td>
+<td><p>Read/Write</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
 </tr>
 </tbody>
 </table>
@@ -276,8 +278,8 @@ with success since the beginning of the project.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">AVS_LIST(x)</span></code> is actually a macro that expands to a pointer of type <code class="docutils literal notranslate"><span class="pre">x</span></code>. It
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">AVS_LIST(x)</span></code> is actually a macro that expands to a pointer of type <code class="docutils literal notranslate"><span class="pre">x</span></code>. It
 has therefore a pointer semantics and can be treated like that (standard dereferencing
 and dereferencing with assignment will work as expected). This is however, not everything
 you need to know about them, as they are more complicated than that. We recommend
@@ -308,16 +310,16 @@ we won’t be able to proceed further without allocating memory on demand.</p>
 <p class="topic-title first">Wait, you could still allocate objects on stack, and initialize them later!</p>
 <p>Yes, but it may be considered bad coding style for at least two reasons:</p>
 <ol class="arabic simple">
-<li>Having partially initialized or uninitialized objects floating around is
+<li><p>Having partially initialized or uninitialized objects floating around is
 almost always a bad idea, as it is easy to forget about initialization
 and accessing uninitialized data is undefined behavior. Allocating
 objects on a heap however, allows the implementation to fully initialize
-an object before returning a reference to it.</li>
-<li>End user of an Object should NOT be exposed to its internal representation,
+an object before returning a reference to it.</p></li>
+<li><p>End user of an Object should NOT be exposed to its internal representation,
 i.e. notice how handles to all objects shown to you so far were returned as
 pointers to <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> – clearly, it indicates to the user
 that they have nothing interesting to do with such reference (besides being
-able to register it), unless some additional public API is provided.</li>
+able to register it), unless some additional public API is provided.</p></li>
 </ol>
 </div>
 <p>To achieve proper control over object lifetime and initialization, we are
@@ -351,15 +353,15 @@ going to introduce two functions, namely <code class="docutils literal notransla
 </div>
 <p>As you can see, dynamic memory management is semi-automatically handled by <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">AVS_LIST_CLEAR</span></code> iterates over the list, in the process frees memory allocated for
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">AVS_LIST_CLEAR</span></code> iterates over the list, in the process frees memory allocated for
 each element, and in the end sets list handle to <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
 </div>
 <p>Using functions defined above to create, register and free the Test object is similar
 as in previous tutorials.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Before calling <code class="docutils literal notranslate"><span class="pre">delete_test_object()</span></code> the object must be unregistered. You
+<p class="admonition-title">Note</p>
+<p>Before calling <code class="docutils literal notranslate"><span class="pre">delete_test_object()</span></code> the object must be unregistered. You
 can do this by calling <code class="docutils literal notranslate"><span class="pre">anjay_unregister_object()</span></code>. Also <code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code>
 will deregister (but not delete) all of registered objects before destruction
 of Anjay instance.</p>
@@ -369,9 +371,9 @@ of Anjay instance.</p>
 <h2>4.5.5.3. Updating old, already implemented handlers to use <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code><a class="headerlink" href="#updating-old-already-implemented-handlers-to-use-avs-list" title="Permalink to this headline">¶</a></h2>
 <p>To simplify matters, we have to agree upon one contract:</p>
 <ol class="arabic simple">
-<li>We establish a natural Instace ordering on their Instance IDs, exploiting the
-fact they MUST be unique.</li>
-<li>We store Instaces of the Test object in an ordered (as above) list.</li>
+<li><p>We establish a natural Instace ordering on their Instance IDs, exploiting the
+fact they MUST be unique.</p></li>
+<li><p>We store Instaces of the Test object in an ordered (as above) list.</p></li>
 </ol>
 <p>OK, now that we made our assumptions, we are ready to implement utility function
 <code class="docutils literal notranslate"><span class="pre">get_instance</span></code> which retrieves Test object instance with specified Instance ID.
@@ -500,8 +502,8 @@ sure no Object Instance with given Instance ID exists.</p>
 valid Instance ID and we should use it, or it is unset, in which case we
 are going to assign Instance ID ourselves:</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Unset Instance ID is represented by <code class="docutils literal notranslate"><span class="pre">ANJAY_IID_INVALID</span></code> constant.</p>
+<p class="admonition-title">Note</p>
+<p>Unset Instance ID is represented by <code class="docutils literal notranslate"><span class="pre">ANJAY_IID_INVALID</span></code> constant.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_instance_create(anjay_t *anjay,
                                 const anjay_dm_object_def_t *const *obj_ptr,
@@ -546,8 +548,8 @@ are going to assign Instance ID ourselves:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There is a lot going on in this function, also new concepts regarding
+<p class="admonition-title">Note</p>
+<p>There is a lot going on in this function, also new concepts regarding
 <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> are being used. We advise you to look at <code class="docutils literal notranslate"><span class="pre">AVS_LIST_FOREACH_PTR</span></code>,
 <code class="docutils literal notranslate"><span class="pre">AVS_LIST_NEW_ELEMENT</span></code> and <code class="docutils literal notranslate"><span class="pre">AVS_LIST_INSERT</span></code> documentation for more details.</p>
 </div>
@@ -576,8 +578,8 @@ have to perform anything other than removing the instance from our list.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Complete code of this example can be found in
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
 <cite>examples/tutorial/custom-object/multi-instance-dynamic</cite> subdirectory
 of main Anjay project repository.</p>
 </div>
@@ -595,7 +597,7 @@ of main Anjay project repository.</p>
         <a href="BT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-right" title="4.5.6. Objects with Multiple Instance Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT_CO4_FixedInstanceWritable.html" class="btn btn-neutral" title="4.5.4. Multi-instance writable object with fixed number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT_CO4_FixedInstanceWritable.html" class="btn btn-neutral float-left" title="4.5.4. Multi-instance writable object with fixed number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -621,26 +623,16 @@ of main Anjay project repository.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

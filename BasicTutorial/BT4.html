@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4. A few notes on general usage &mdash; Anjay 1.15.4 documentation</title>
+  <title>4.4. A few notes on general usage &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.5. Custom LwM2M objects" href="BT5_CustomObject.html" />
     <link rel="prev" title="4.3. Event loop" href="BT3.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -178,44 +180,44 @@ methods block until the incoming message or (respectively) a job is processed.</
 between multiple packets, however <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> is called just for the
 first one. Other parts (if any) are fetched internally by the library. In other
 words: <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks until the message gets handled completely.</p>
-<div class="figure" id="id3">
+<div class="figure align-center" id="id3">
 <a class="reference internal image-reference" href="../_images/anjay-server-request.svg"><img alt="../_images/anjay-server-request.svg" src="../_images/anjay-server-request.svg" width="100%" /></a>
 <p class="caption"><span class="caption-text">Handling a single LwM2M request. The application gets notified a packet
 was received on a socket using <code class="docutils literal notranslate"><span class="pre">poll()</span></code>/<code class="docutils literal notranslate"><span class="pre">select()</span></code> and calls
 <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on that socket, allowing the library to interpret the
-request and create a response.</span></p>
+request and create a response.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 <p>When considering a request from the LwM2M server, the block-wise transfer may
 be initiated either by server (e.g. a big Write request) or by the client
 (e.g. a large response to a Read request).</p>
-<div class="figure" id="id4">
+<div class="figure align-center" id="id4">
 <a class="reference internal image-reference" href="../_images/anjay-server-block-request.svg"><img alt="../_images/anjay-server-block-request.svg" src="../_images/anjay-server-block-request.svg" width="100%" /></a>
 <p class="caption"><span class="caption-text">Handling a block-wise request from the LwM2M server. The server realizes
 its request is too big to fit in a single packet and explicitly initiates
 block-wise transfer by adding CoAP BLOCK option to the request. A single
 call to <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks the client until the request is completely
-handled.</span></p>
+handled.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure" id="id5">
+<div class="figure align-center" id="id5">
 <a class="reference internal image-reference" href="../_images/anjay-block-response-to-server-request.svg"><img alt="../_images/anjay-block-response-to-server-request.svg" src="../_images/anjay-block-response-to-server-request.svg" width="100%" /></a>
 <p class="caption"><span class="caption-text">A block-wise response to a non-block request from the LwM2M server. In
 this case, the server performs a simple Read request. The client realizes
 that returned data is too big, and adds a BLOCK option to the response.
 The server then requests further blocks of a response. The call to
-<code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> only returns after the last block of a response is sent.</span></p>
+<code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> only returns after the last block of a response is sent.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 <p>Similar situation arises when the client attempts to send a Register or Update
 LwM2M request to the server with a large list of available Object Instances,
 or a big Notify message. The difference is that the client sends its own
 requests from within <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> call instead of <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code>.</p>
-<div class="figure" id="id6">
+<div class="figure align-center" id="id6">
 <a class="reference internal image-reference" href="../_images/anjay-client-request.svg"><img alt="../_images/anjay-client-request.svg" src="../_images/anjay-client-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">A simple request from the LwM2M client.</span></p>
+<p class="caption"><span class="caption-text">A simple request from the LwM2M client.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure" id="id7">
+<div class="figure align-center" id="id7">
 <a class="reference internal image-reference" href="../_images/anjay-block-client-request.svg"><img alt="../_images/anjay-block-client-request.svg" src="../_images/anjay-block-client-request.svg" width="100%" /></a>
 <p class="caption"><span class="caption-text">A block-wise request from the LwM2M client. <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> call
-blocks until the full transfer is complete.</span></p>
+blocks until the full transfer is complete.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 <p>Because <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks after a packet arrives, the library can
 handle at most one LwM2M Server at time, which makes its usage convenient,
@@ -230,8 +232,8 @@ and transfer big amounts of data regularly through LwM2M which, in context of
 resource constrained environments targeted by the LwM2M protocol might not
 be the best fit.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The blocking behavior does not apply to firmware downloaded using the PULL
+<p class="admonition-title">Note</p>
+<p>The blocking behavior does not apply to firmware downloaded using the PULL
 method. See <a class="reference internal" href="#firmware-transfer"><span class="std std-ref">Firmware transfer</span></a> for details.</p>
 </div>
 </div>
@@ -265,24 +267,24 @@ proves the point.</p>
 <p>In LwM2M, the firmware may be transferred to a client using two possible
 methods:</p>
 <ul class="simple">
-<li><strong>PUSH</strong> - the download is initiated by the server, performing a Write
+<li><p><strong>PUSH</strong> - the download is initiated by the server, performing a Write
 operation on the /5/0/0 (Package) Resource. This usually means a block-wise
 transfer, which for Anjay based clients will prevent handling other
 LwM2M requests until the Write completes, as described in
-<a class="reference internal" href="#single-request-single-function-call"><span class="std std-ref">Single request - single function call</span></a>.</li>
-<li><strong>PULL</strong> - the LwM2M server indicates where should the client download
+<a class="reference internal" href="#single-request-single-function-call"><span class="std std-ref">Single request - single function call</span></a>.</p></li>
+<li><p><strong>PULL</strong> - the LwM2M server indicates where should the client download
 firmware package from with Write on /5/0/1 (Package URI) Resource. The client
 then performs the download asynchronously, while still being able to handle
-LwM2M requests.</li>
+LwM2M requests.</p></li>
 </ul>
-<div class="figure" id="id8">
+<div class="figure align-center" id="id8">
 <a class="reference internal image-reference" href="../_images/anjay-firmware-download-coap-pull.svg"><img alt="../_images/anjay-firmware-download-coap-pull.svg" src="../_images/anjay-firmware-download-coap-pull.svg" width="100%" /></a>
 <p class="caption"><span class="caption-text">Anjay generally handles asynchronous CoAP downloads within
 <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> calls. The <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> may initiate the
 download or retransmit requests in case of packet loss. Downloaded firmware
 is passed to the application through callbacks configured using
 <code class="docutils literal notranslate"><span class="pre">fw_update</span></code> field of the <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> struct passed to
-<code class="docutils literal notranslate"><span class="pre">anjay_new()</span></code>. For more details, see API reference.</span></p>
+<code class="docutils literal notranslate"><span class="pre">anjay_new()</span></code>. For more details, see API reference.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="notifications">
@@ -291,13 +293,13 @@ is passed to the application through callbacks configured using
 a notification has to be sent, it is done from within <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code>
 function.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Calling <code class="docutils literal notranslate"><span class="pre">anjay_notify_changed()</span></code> or <code class="docutils literal notranslate"><span class="pre">anjay_notify_instances_changed()</span></code>
+<p class="admonition-title">Note</p>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">anjay_notify_changed()</span></code> or <code class="docutils literal notranslate"><span class="pre">anjay_notify_instances_changed()</span></code>
 does not send notifications immediately - they use the scheduler instead.</p>
 </div>
-<div class="figure" id="id9">
+<div class="figure align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/anjay-notification.svg"><img alt="../_images/anjay-notification.svg" src="../_images/anjay-notification.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Sending a LwM2M Notify message.</span></p>
+<p class="caption"><span class="caption-text">Sending a LwM2M Notify message.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -313,7 +315,7 @@ does not send notifications immediately - they use the scheduler instead.</p>
         <a href="BT5_CustomObject.html" class="btn btn-neutral float-right" title="4.5. Custom LwM2M objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BT3.html" class="btn btn-neutral" title="4.3. Event loop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BT3.html" class="btn btn-neutral float-left" title="4.3. Event loop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -339,26 +341,16 @@ does not send notifications immediately - they use the scheduler instead.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

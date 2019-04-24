@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. Compiling client applications &mdash; Anjay 1.15.4 documentation</title>
+  <title>3. Compiling client applications &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="4. Basic tutorial" href="BasicTutorial.html" />
     <link rel="prev" title="2. OMA LwM2M - Brief description" href="LwM2M.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -204,12 +206,12 @@ is extracted):</p>
 </div>
 <p>After that Anjay can be compiled as usual via <cite>make</cite>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Android platforms older than <cite>android-18</cite> are not supported.</p>
+<p class="admonition-title">Note</p>
+<p>Android platforms older than <cite>android-18</cite> are not supported.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">ANDROID_ALLOW_UNDEFINED_SYMBOLS</span></code> is set, so that unresolved symbols
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">ANDROID_ALLOW_UNDEFINED_SYMBOLS</span></code> is set, so that unresolved symbols
 required by the <cite>libanjay.so</cite> are not reported during the linking
 stage. They shall be resolved by providing dependencies to the final
 exectuable as it is illustrated in the next section.</p>
@@ -221,9 +223,9 @@ for more details) along with specific variable indicating where the required
 DTLS libraries are to be found, i.e. one of:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">OPENSSL_ROOT_DIR</span></code> (as <cite>FindOpenSSL.cmake</cite> suggests),</li>
-<li><code class="docutils literal notranslate"><span class="pre">MBEDTLS_ROOT_DIR</span></code>,</li>
-<li><code class="docutils literal notranslate"><span class="pre">TINYDTLS_ROOT_DIR</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OPENSSL_ROOT_DIR</span></code> (as <cite>FindOpenSSL.cmake</cite> suggests),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MBEDTLS_ROOT_DIR</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TINYDTLS_ROOT_DIR</span></code></p></li>
 </ul>
 </div></blockquote>
 <p>depending on the chosen backend.</p>
@@ -278,8 +280,8 @@ before proceeding, as it may not work otherwise):</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If a custom installation path is used, you need to set <code class="code docutils literal notranslate"><span class="pre">anjay_DIR</span></code> CMake variable to <code class="code docutils literal notranslate"><span class="pre">$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>If a custom installation path is used, you need to set <code class="code docutils literal notranslate"><span class="pre">anjay_DIR</span></code> CMake variable to <code class="code docutils literal notranslate"><span class="pre">$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
 </div>
 </div>
 <div class="section" id="alternative-build-systems">
@@ -290,13 +292,13 @@ before proceeding, as it may not work otherwise):</p>
 </div>
 <p>Where <code class="code docutils literal notranslate"><span class="pre">&lt;mode&gt;</span></code> is one of:</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">EXIST</span></code> - check whether the library can be found,</li>
-<li><code class="code docutils literal notranslate"><span class="pre">COMPILE</span></code> - print compilation flags,</li>
-<li><code class="code docutils literal notranslate"><span class="pre">LINK</span></code> - print linking arguments.</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">EXIST</span></code> - check whether the library can be found,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">COMPILE</span></code> - print compilation flags,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">LINK</span></code> - print linking arguments.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If a custom installation prefix is used, you need to also pass <code class="code docutils literal notranslate"><span class="pre">-Danjay_DIR=$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>If a custom installation prefix is used, you need to also pass <code class="code docutils literal notranslate"><span class="pre">-Danjay_DIR=$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
 </div>
 </div>
 </div>
@@ -313,7 +315,7 @@ before proceeding, as it may not work otherwise):</p>
         <a href="BasicTutorial.html" class="btn btn-neutral float-right" title="4. Basic tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="LwM2M.html" class="btn btn-neutral" title="2. OMA LwM2M - Brief description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="LwM2M.html" class="btn btn-neutral float-left" title="2. OMA LwM2M - Brief description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -339,26 +341,16 @@ before proceeding, as it may not work otherwise):</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

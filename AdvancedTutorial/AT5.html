@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.5. Retransmissions, timeouts &amp; response caching &mdash; Anjay 1.15.4 documentation</title>
+  <title>5.5. Retransmissions, timeouts &amp; response caching &mdash; Anjay 1.15.5 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5.6. Network error handling" href="AT6.html" />
     <link rel="prev" title="5.4. Access Control in multi-server environment" href="AT4.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -59,7 +61,7 @@
             
             
               <div class="version">
-                1.15.4
+                1.15.5
               </div>
             
           
@@ -178,12 +180,12 @@ is especially important if the operation has some observable side effects.</p>
 incremented every time an LwM2M Server performs Execute on it. Now, consider
 the following scenario:</p>
 <ul class="simple">
-<li>the LwM2M Server performs an Execute on this specific Resource,</li>
-<li>the LwM2M Client receives the request, bumps the value, and sends a response,</li>
-<li>the response is lost due to unfortunate network conditions,</li>
-<li>the LwM2M Server attempts to increment the Resource again (sending exactly
-the same Execute request as before),</li>
-<li>the LwM2M Client receives the request.</li>
+<li><p>the LwM2M Server performs an Execute on this specific Resource,</p></li>
+<li><p>the LwM2M Client receives the request, bumps the value, and sends a response,</p></li>
+<li><p>the response is lost due to unfortunate network conditions,</p></li>
+<li><p>the LwM2M Server attempts to increment the Resource again (sending exactly
+the same Execute request as before),</p></li>
+<li><p>the LwM2M Client receives the request.</p></li>
 </ul>
 <p>LwM2M Client obtained both requests, and if it was unable to classify the
 second one as a retransmission of the first, the resource would be incremented
@@ -205,14 +207,14 @@ response to it in the cache already. In case there is one, it is
 retransmitted. Otherwise Anjay processes the request as usual, in the end
 placing response in the cache for future use.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Cached response, matching a specific CoAP Request is identified by the
 following triplet:</p>
-<blockquote class="last">
+<blockquote>
 <div><ul class="simple">
-<li>CoAP Message Token,</li>
-<li>CoAP Message ID,</li>
-<li>Server endpoint name (host and port).</li>
+<li><p>CoAP Message Token,</p></li>
+<li><p>CoAP Message ID,</p></li>
+<li><p>Server endpoint name (host and port).</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -227,19 +229,19 @@ it is automatically removed.</p>
 <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::msg_cache_size</span></code> to a non-zero value (zero disables
 any caching). This limits the number of bytes used to store cached responses.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The cache size limit is global for all Servers - i.e. all responses,
+<p class="admonition-title">Note</p>
+<p>The cache size limit is global for all Servers - i.e. all responses,
 to all Servers are stored within a single cache.</p>
 </div>
 </div>
 <div class="section" id="limitations">
 <h2>5.5.4. Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>If a response is too big to fit into the cache, it is <strong>not cached</strong>,</li>
-<li>If a response would fit into the cache, but the cache is currently full,
+<li><p>If a response is too big to fit into the cache, it is <strong>not cached</strong>,</p></li>
+<li><p>If a response would fit into the cache, but the cache is currently full,
 responses (starting from the oldest) are <strong>dropped</strong> from the cache (even if
 they are still considered valid in terms of mentioned <code class="docutils literal notranslate"><span class="pre">MAX_TRANSMIT_SPAN</span></code>),
-till the new response fits.</li>
+till the new response fits.</p></li>
 </ul>
 </div>
 <div class="section" id="configuring-retransmissions-and-timeouts">
@@ -264,30 +266,30 @@ defined as follows:</p>
 </div>
 <p>It should be noted that without any additional configuration,
 Anjay uses default values as specified in the <a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8">Section 4.8 of RFC7252</a>:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="26%" />
-<col width="17%" />
-<col width="56%" />
+<col style="width: 26%" />
+<col style="width: 17%" />
+<col style="width: 56%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Parameter</th>
-<th class="head">Default value</th>
-<th class="head">Corresponding field in <code class="docutils literal notranslate"><span class="pre">avs_coap_tx_params_t</span></code></th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Corresponding field in <code class="docutils literal notranslate"><span class="pre">avs_coap_tx_params_t</span></code></p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code></td>
-<td>2 seconds</td>
-<td><code class="docutils literal notranslate"><span class="pre">ack_timeout</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code></p></td>
+<td><p>2 seconds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ack_timeout</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code></td>
-<td>1.5</td>
-<td><code class="docutils literal notranslate"><span class="pre">ack_random_factor</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code></p></td>
+<td><p>1.5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ack_random_factor</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code></td>
-<td>4</td>
-<td><code class="docutils literal notranslate"><span class="pre">max_retransmit</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code></p></td>
+<td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max_retransmit</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -301,17 +303,17 @@ an initial message (<code class="docutils literal notranslate"><span class="pre"
 be at least <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. The randomness is mixed in as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li>generate a random number <code class="docutils literal notranslate"><span class="pre">r</span></code> from a closed range <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">ACK_RANDOM_FACTOR]</span></code>,</li>
-<li>multiply the <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> by <code class="docutils literal notranslate"><span class="pre">r</span></code> and use it as initial timeout.</li>
+<li><p>generate a random number <code class="docutils literal notranslate"><span class="pre">r</span></code> from a closed range <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">ACK_RANDOM_FACTOR]</span></code>,</p></li>
+<li><p>multiply the <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> by <code class="docutils literal notranslate"><span class="pre">r</span></code> and use it as initial timeout.</p></li>
 </ul>
 </div></blockquote>
 <div class="hint admonition">
-<p class="first admonition-title">Example</p>
+<p class="admonition-title">Example</p>
 <p>Say the library has <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> set to <cite>16s</cite>.</p>
 <p>Now, if the <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code> is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, no random behavior is
 introduced, because the library is forced to pick a random number from
 a trivial interval <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">1.0]</span></code>.</p>
-<p class="last">However, if the <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code> is, say, <code class="docutils literal notranslate"><span class="pre">1.5</span></code>, the number picked
+<p>However, if the <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code> is, say, <code class="docutils literal notranslate"><span class="pre">1.5</span></code>, the number picked
 may lie in range <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">1.5]</span></code>, thus the actual time the library would wait
 may vary between <code class="docutils literal notranslate"><span class="pre">[16,</span> <span class="pre">24]</span></code> seconds.</p>
 </div>
@@ -321,9 +323,9 @@ may vary between <code class="docutils literal notranslate"><span class="pre">[1
 <p>Configures the amount of time the library shall wait for the response to the
 initial confirmable message (not retransmission).</p>
 <div class="hint admonition">
-<p class="first admonition-title">Example</p>
+<p class="admonition-title">Example</p>
 <p>Say the library wants to send a confirmable message.</p>
-<p class="last">If <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> is set to, say, <cite>10</cite> seconds, the library sends the
+<p>If <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> is set to, say, <cite>10</cite> seconds, the library sends the
 message and then waits <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">*</span> <span class="pre">r</span></code> seconds (<code class="docutils literal notranslate"><span class="pre">r</span></code> is defined as in the
 above discussion about <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code>) for the initial response.</p>
 </div>
@@ -333,11 +335,11 @@ above discussion about <code class="docutils literal notranslate"><span class="p
 <p>Configures the total number of retransmissions the library is allowed to
 perform before giving up on message delivery.</p>
 <div class="hint admonition">
-<p class="first admonition-title">Example</p>
+<p class="admonition-title">Example</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code> is set to, say, <cite>4</cite>, the library would send <cite>1</cite>
 initial message + up to <cite>4</cite> retransmissions, accounting for up to <cite>5</cite>
 messages in total.</p>
-<p class="last">If <code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code> is set to <cite>0</cite>, no retransmission would be attempted,
+<p>If <code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code> is set to <cite>0</cite>, no retransmission would be attempted,
 and the library would give up if no response arrived after <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span> <span class="pre">*</span>
 <span class="pre">r</span></code> seconds.</p>
 </div>
@@ -374,50 +376,50 @@ other words, retransmissions are performed with exponential back-off.</p>
 </div>
 <p>The above configuration would result in the following retransmission times to a confirmable
 message:</p>
-<table border="1" class="docutils">
+<table class="docutils align-center">
 <colgroup>
-<col width="12%" />
-<col width="17%" />
-<col width="38%" />
-<col width="33%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 38%" />
+<col style="width: 33%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Time [s]</th>
-<th class="head">Retry number</th>
-<th class="head">Wait time for the response [s]</th>
-<th class="head">Action by the library</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Time [s]</p></th>
+<th class="head"><p>Retry number</p></th>
+<th class="head"><p>Wait time for the response [s]</p></th>
+<th class="head"><p>Action by the library</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>0</td>
-<td>0</td>
-<td>4</td>
-<td>send initial message</td>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>4</p></td>
+<td><p>send initial message</p></td>
 </tr>
-<tr class="row-odd"><td>4</td>
-<td>1</td>
-<td>8</td>
-<td>1st retransmission</td>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>1</p></td>
+<td><p>8</p></td>
+<td><p>1st retransmission</p></td>
 </tr>
-<tr class="row-even"><td>12</td>
-<td>2</td>
-<td>16</td>
-<td>2nd retransmission</td>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>2</p></td>
+<td><p>16</p></td>
+<td><p>2nd retransmission</p></td>
 </tr>
-<tr class="row-odd"><td>28</td>
-<td>3</td>
-<td>32</td>
-<td>3rd retransmission</td>
+<tr class="row-odd"><td><p>28</p></td>
+<td><p>3</p></td>
+<td><p>32</p></td>
+<td><p>3rd retransmission</p></td>
 </tr>
-<tr class="row-even"><td>60</td>
-<td>4</td>
-<td>64</td>
-<td>4th (final) retransmission</td>
+<tr class="row-even"><td><p>60</p></td>
+<td><p>4</p></td>
+<td><p>64</p></td>
+<td><p>4th (final) retransmission</p></td>
 </tr>
-<tr class="row-odd"><td>124</td>
-<td>–</td>
-<td>–</td>
-<td>give up</td>
+<tr class="row-odd"><td><p>124</p></td>
+<td><p>–</p></td>
+<td><p>–</p></td>
+<td><p>give up</p></td>
 </tr>
 </tbody>
 </table>
@@ -428,11 +430,11 @@ message:</p>
 <p>While setting <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code> parameter
 covers most cases, there are also means to configure:</p>
 <ul class="simple">
-<li>DTLS handshake retransmissions
-(<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_dtls_hs_tx_params</span></code> <a class="reference external" href="../api/structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a">docs</a>),</li>
-<li>SMS retransmission parameters (<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::sms_tx_params</span></code> <a class="reference external" href="../api/structanjay__configuration.html#a3358d949a97ff9e10c8838740dabab68">docs</a>),</li>
-<li>firmware update module retransmissions (by implementing
-custom <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_get_coap_tx_params_t</span></code> handler <a class="reference external" href="../api/fw__update_8h.html#ad0a274fbe4d73643df3aa62884d7decb">docs</a>).</li>
+<li><p>DTLS handshake retransmissions
+(<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_dtls_hs_tx_params</span></code> <a class="reference external" href="../api/structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a">docs</a>),</p></li>
+<li><p>SMS retransmission parameters (<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::sms_tx_params</span></code> <a class="reference external" href="../api/structanjay__configuration.html#a3358d949a97ff9e10c8838740dabab68">docs</a>),</p></li>
+<li><p>firmware update module retransmissions (by implementing
+custom <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_get_coap_tx_params_t</span></code> handler <a class="reference external" href="../api/fw__update_8h.html#ad0a274fbe4d73643df3aa62884d7decb">docs</a>).</p></li>
 </ul>
 <p>We recommend to refer to the doxygen documentation for more details.</p>
 </div>
@@ -449,7 +451,7 @@ custom <code class="docutils literal notranslate"><span class="pre">anjay_fw_upd
         <a href="AT6.html" class="btn btn-neutral float-right" title="5.6. Network error handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AT4.html" class="btn btn-neutral" title="5.4. Access Control in multi-server environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AT4.html" class="btn btn-neutral float-left" title="5.4. Access Control in multi-server environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -475,26 +477,16 @@ custom <code class="docutils literal notranslate"><span class="pre">anjay_fw_upd
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
