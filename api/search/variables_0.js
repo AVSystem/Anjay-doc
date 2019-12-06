@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['anjay_5fdm_5fattribs_5fempty',['ANJAY_DM_ATTRIBS_EMPTY',['../dm_8h.html#aa192f58ee4f03fe2cd2342828356bb3c',1,'dm.h']]],
-  ['anjay_5fres_5fattribs_5fempty',['ANJAY_RES_ATTRIBS_EMPTY',['../dm_8h.html#a9546170d485441be3c8ae03494be2118',1,'dm.h']]]
+  ['anjay_5fdm_5foi_5fattributes_5fempty',['ANJAY_DM_OI_ATTRIBUTES_EMPTY',['../dm_8h.html#ad35f0f269a9e2f6e79db63d1482d8a03',1,'dm.h']]],
+  ['anjay_5fdm_5fr_5fattributes_5fempty',['ANJAY_DM_R_ATTRIBUTES_EMPTY',['../dm_8h.html#a41decea7d5968e6bdc951addef39c010',1,'dm.h']]]
 ];

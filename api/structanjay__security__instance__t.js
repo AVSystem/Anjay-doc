@@ -7,7 +7,7 @@ var structanjay__security__instance__t =
     [ "private_cert_or_psk_key_size", "structanjay__security__instance__t.html#aa5ce9d5c3e2e0cea06e073fcb62ddea1", null ],
     [ "public_cert_or_psk_identity", "structanjay__security__instance__t.html#af38e5e9bb1b1f71c628482352000699f", null ],
     [ "public_cert_or_psk_identity_size", "structanjay__security__instance__t.html#aa8ecce236962728c4e463a9289f22c4e", null ],
-    [ "security_mode", "structanjay__security__instance__t.html#acfe4763732ff1107362591c5f9a46834", null ],
+    [ "security_mode", "structanjay__security__instance__t.html#a06e841e9f19b78556cbed8641c3f32a9", null ],
     [ "server_public_key", "structanjay__security__instance__t.html#a5936d0a9743cd26ef18b08825354e8d2", null ],
     [ "server_public_key_size", "structanjay__security__instance__t.html#a5f68172ac00440f8ac138da3c749175d", null ],
     [ "server_sms_number", "structanjay__security__instance__t.html#ae221bb2b9ecc1daf0cc0c2445573079e", null ],

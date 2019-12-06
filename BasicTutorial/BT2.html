@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Installing mandatory Objects &mdash; Anjay 1.15.5 documentation</title>
+  <title>4.2. Installing mandatory Objects &mdash; Anjay 2.2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.15.5
+                2.2.1
               </div>
             
           
@@ -175,8 +175,8 @@ Server (<code class="docutils literal notranslate"><span class="pre">/1</span></
 <p>Fortunately, Anjay provides both of these Objects in form of preimplemented
 modules, and they can be used easily.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>That doesn’t impact on Anjay flexibility – i.e. users can still
+<p class="first admonition-title">Note</p>
+<p class="last">That doesn’t impact on Anjay flexibility – i.e. users can still
 provide their own implementation of these Objects if necessary.</p>
 </div>
 <p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BT1.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example) it has no knowledge about the Data Model,
@@ -241,8 +241,8 @@ cleanup:
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> will automatically delete installed modules after
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> will automatically delete installed modules after
 destruction of Anjay instance.</p>
 </div>
 </div>
@@ -256,7 +256,7 @@ Instances:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="o">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s2">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
-    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_NOSEC</span>
+    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_NOSEC</span>
 <span class="p">};</span>
 
 <span class="n">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
@@ -268,8 +268,8 @@ Instances:</p>
     <span class="o">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s2">&quot;U&quot;</span>
 <span class="p">};</span>
 
-<span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
-<span class="n">anjay_iid_t</span> <span class="n">server_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_iid_t</span> <span class="n">server_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
 <span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
                                    <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">);</span>
 <span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
@@ -285,8 +285,8 @@ so that one can just copypaste it and run the Client finally.</p>
 <div class="section" id="enabling-lwm2m-discover-on-objects">
 <h2>4.2.4. Enabling LwM2M Discover on Objects<a class="headerlink" href="#enabling-lwm2m-discover-on-objects" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>LwM2M Specification requires support of LwM2M Discover, therefore we do
+<p class="first admonition-title">Note</p>
+<p class="last">LwM2M Specification requires support of LwM2M Discover, therefore we do
 <strong>recommend</strong> to read this section and enable discovery support for all
 objects by default.</p>
 </div>
@@ -310,8 +310,8 @@ an LwM2M Discover will result in <cite>Method Not Allowed</cite> response.</p>
 Storage</span></a> module, that contains pre-implemented
 attribute handlers. Installing it is enough to enable LwM2M Discover.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Of course, one can implement all attribute-related handles on their own
+<p class="first admonition-title">Note</p>
+<p class="last">Of course, one can implement all attribute-related handles on their own
 (if needed), though we believe Attribute Storage should be sufficient
 for most use cases.</p>
 </div>

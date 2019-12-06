@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 1.15.5 documentation</title>
+  <title>4.5.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 2.2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.15.5
+                2.2.1
               </div>
             
           
@@ -183,80 +183,79 @@
 <h1>4.5.3. Multi-instance read-only object with fixed number of instances<a class="headerlink" href="#multi-instance-read-only-object-with-fixed-number-of-instances" title="Permalink to this headline">¶</a></h1>
 <p>In this example you will learn:</p>
 <ul class="simple">
-<li><p>how to implement <code class="docutils literal notranslate"><span class="pre">instance_it</span></code> and <code class="docutils literal notranslate"><span class="pre">instance_present</span></code> handlers
-for a multi-instance LwM2M Object,</p></li>
-<li><p>how to use <code class="docutils literal notranslate"><span class="pre">container_of</span></code> pattern to access registered object state.</p></li>
+<li>how to implement <code class="docutils literal notranslate"><span class="pre">list_instances</span></code> handler for a multi-instance LwM2M Object,</li>
+<li>how to use <code class="docutils literal notranslate"><span class="pre">container_of</span></code> pattern to access registered object state.</li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
+<p class="first admonition-title">Note</p>
 <p>This section explains manual implementation of custom objects. If the
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
 <a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
-<p>We still encourage you to read the tutorial to have a clear understanding
+<p class="last">We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
 <p>The implemented Object will look as in <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>,
 but will now support multiple Object Instances:</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 37%" />
-<col style="width: 31%" />
-<col style="width: 31%" />
+<col width="37%" />
+<col width="31%" />
+<col width="31%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Object ID</p></th>
-<th class="head"><p>Instances</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Object ID</th>
+<th class="head">Instances</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>Test object</p></td>
-<td><p>1234</p></td>
-<td><p>Multiple</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>Test object</td>
+<td>1234</td>
+<td>Multiple</td>
 </tr>
 </tbody>
 </table>
 <p>Each Object Instance has two Resources:</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 11%" />
-<col style="width: 21%" />
-<col style="width: 19%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 14%" />
+<col width="11%" />
+<col width="21%" />
+<col width="19%" />
+<col width="17%" />
+<col width="17%" />
+<col width="14%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Resource ID</p></th>
-<th class="head"><p>Operations</p></th>
-<th class="head"><p>Instances</p></th>
-<th class="head"><p>Mandatory</p></th>
-<th class="head"><p>Type</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Resource ID</th>
+<th class="head">Operations</th>
+<th class="head">Instances</th>
+<th class="head">Mandatory</th>
+<th class="head">Type</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>Label</p></td>
-<td><p>0</p></td>
-<td><p>Read</p></td>
-<td><p>Single</p></td>
-<td><p>Mandatory</p></td>
-<td><p>String</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>Label</td>
+<td>0</td>
+<td>Read</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>String</td>
 </tr>
-<tr class="row-odd"><td><p>Value</p></td>
-<td><p>1</p></td>
-<td><p>Read</p></td>
-<td><p>Single</p></td>
-<td><p>Mandatory</p></td>
-<td><p>Integer</p></td>
+<tr class="row-odd"><td>Value</td>
+<td>1</td>
+<td>Read</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>Integer</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The code is based on <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
+<p class="first admonition-title">Note</p>
+<p class="last">The code is based on <a class="reference internal" href="BT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
 </div>
 <p>First of all, let us define a structure that will hold both handlers and object
 state, initialize and register it:</p>
@@ -278,102 +277,43 @@ state, initialize and register it:</p>
 <span class="o">//</span> <span class="n">initialize</span> <span class="ow">and</span> <span class="n">register</span> <span class="n">the</span> <span class="n">test</span> <span class="nb">object</span>
 <span class="n">const</span> <span class="n">test_object_t</span> <span class="n">test_object</span> <span class="o">=</span> <span class="p">{</span>
     <span class="o">.</span><span class="n">obj_def</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">,</span>
-    <span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">{</span> <span class="s2">&quot;First&quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">},</span>
-        <span class="p">{</span> <span class="s2">&quot;Second&quot;</span><span class="p">,</span> <span class="mi">2</span> <span class="p">}</span>
-    <span class="p">}</span>
+    <span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span> <span class="s2">&quot;First&quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">},</span> <span class="p">{</span> <span class="s2">&quot;Second&quot;</span><span class="p">,</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">}</span>
 <span class="p">};</span>
 
 <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">test_object</span><span class="o">.</span><span class="n">obj_def</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Now, to inform the library the Object contains two Instances with IDs 0 and 1,
-two more handlers are required:</p>
+one additional handler is required:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">instance_present</span></code> - checking whether given Object Instance ID
-exists - in this case, it needs to return 1 for Instance IDs 0 and 1
-and 0 otherwise:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static test_object_t *
-get_test_object(const anjay_dm_object_def_t *const *obj) {
-    assert(obj);
-
-    // use the container_of pattern to retrieve test_object_t pointer
-    // AVS_CONTAINER_OF macro provided by avsystem/commons/defs.h
-    return AVS_CONTAINER_OF(obj, test_object_t, obj_def);
-}
-
-// ...
-
-static int test_instance_present(anjay_t *anjay,
-                                 const anjay_dm_object_def_t *const *obj_ptr,
-                                 anjay_iid_t iid) {
-    (void) anjay;   // unused
-
-    test_object_t *test = get_test_object(obj_ptr);
-
-    // return 1 (true) if `iid` is a valid index of `TEST_INSTANCES` array
-    return (size_t)iid &lt; sizeof(test-&gt;instances) / sizeof(test-&gt;instances[0]);
-}
-</pre></div>
-</div>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">instance_it</span></code> - used by the library to enumerate all existing Object
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">list_instances</span></code> - used by the library to enumerate all existing Object
 Instance IDs:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_instance_it(anjay_t *anjay,
-                            const anjay_dm_object_def_t *const *obj_ptr,
-                            anjay_iid_t *out,
-                            void **cookie) {
-    (void) anjay;   // unused
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="o">//</span> <span class="n">unused</span>
 
-    anjay_iid_t curr = 0;
-    test_object_t *test = get_test_object(obj_ptr);
+    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
 
-    // if `*cookie == NULL`, then the iteration has just started,
-    // otherwise `*cookie` contains iterator value saved below
-    if (*cookie) {
-        curr = (anjay_iid_t)(intptr_t)*cookie;
-    }
-
-    if ((size_t)curr &lt; sizeof(test-&gt;instances) / sizeof(test-&gt;instances[0])) {
-        *out = curr;
-    } else {
-        // no more Object Instances available
-        *out = ANJAY_IID_INVALID;
-    }
-
-    // use `*cookie` to store the iterator
-    *cookie = (void*)(intptr_t)(curr + 1);
-    return 0;
-}
-</pre></div>
-</div>
-</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Any iterator data stored in <cite>*cookie</cite> <strong>must not</strong> require cleanup.
-The <cite>instance_it</cite> handler is used by the library as follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kt">void</span> <span class="o">*</span><span class="n">cookie</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
-
-<span class="k">while</span> <span class="p">((</span><span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">object</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">instance_it</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">object</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">iid</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cookie</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
-            <span class="o">&amp;&amp;</span> <span class="n">iid</span> <span class="o">!=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">some_operation</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span> <span class="o">==</span> <span class="n">SHOULD_BREAK_ITERATION</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// NOTE: the iteration may stop at any point before all</span>
-        <span class="c1">// available Object Instances are returned by the handler</span>
-        <span class="k">break</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">anjay_iid_t</span> <span class="n">iid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+         <span class="p">(</span><span class="n">size_t</span><span class="p">)</span> <span class="n">iid</span> <span class="o">&lt;</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="o">/</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+         <span class="o">++</span><span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
     <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>For more details see <a class="reference external" href="../../api/dm_8h.html">anjay_dm_instance_it_t documentation</a>.</p>
-</div>
+<p>Note that the instances MUST be returned in a strictly ascending, sorted
+order.</p>
+</li>
+</ul>
 <div class="topic">
 <p class="topic-title first">Why is enumerating Object Instances necessary?</p>
 <p>LwM2M does not require existing Object Instances to have consecutive IDs.
 It is perfectly fine to implement an Object that only contains Instances
-3 and 40235. Without <code class="docutils literal notranslate"><span class="pre">instance_it</span></code> handler the library would need
+3 and 40235. Without <code class="docutils literal notranslate"><span class="pre">list_instances</span></code> handler the library would need
 to iterate over all possible Instance IDs to be able to prepare a list
 of available Object Instances whenever the LwM2M Server requests one.</p>
 </div>
@@ -383,41 +323,42 @@ to correctly handle requests to different Object Instance IDs.</p>
                               const anjay_dm_object_def_t *const *obj_ptr,
                               anjay_iid_t iid,
                               anjay_rid_t rid,
+                              anjay_riid_t riid,
                               anjay_output_ctx_t *ctx) {
-   (void) anjay;   // unused
+    (void) anjay; // unused
 
-   test_object_t *test = get_test_object(obj_ptr);
+    test_object_t *test = get_test_object(obj_ptr);
 
-   // IID validity was checked by the `anjay_dm_instance_present_t` handler.
-   // If the Object Instance set does not change, or can only be modifed
-   // via LwM2M Create/Delete requests, it is safe to assume IID is correct.
-   assert((size_t)iid &lt; sizeof(test-&gt;instances) / sizeof(test-&gt;instances[0]));
-   const struct test_instance *current_instance = &amp;test-&gt;instances[iid];
+    // IID validity was checked by the `anjay_dm_list_instances_t` handler.
+    // If the Object Instance set does not change, or can only be modifed
+    // via LwM2M Create/Delete requests, it is safe to assume IID is correct.
+    assert((size_t) iid &lt; sizeof(test-&gt;instances) / sizeof(test-&gt;instances[0]));
+    const struct test_instance *current_instance = &amp;test-&gt;instances[iid];
 
-   switch (rid) {
-   case 0:
-       return anjay_ret_string(ctx, current_instance-&gt;label);
-   case 1:
-       return anjay_ret_i32(ctx, current_instance-&gt;value);
-   default:
-       // control will never reach this part due to object&#39;s supported_rids
-       return ANJAY_ERR_INTERNAL;
-   }
+    // We have no Multiple-Instance Resources, so it is safe to assume
+    // that RIID is never set.
+    assert(riid == ANJAY_ID_INVALID);
+
+    switch (rid) {
+    case 0:
+        return anjay_ret_string(ctx, current_instance-&gt;label);
+    case 1:
+        return anjay_ret_i32(ctx, current_instance-&gt;value);
+    default:
+        // control will never reach this part due to test_list_resources
+        return ANJAY_ERR_INTERNAL;
+    }
 }
 </pre></div>
 </div>
-<p>The only thing left to do is plugging created handlers into the Object
-Definition struct:</p>
+<p>The only thing left to do is plugging created handler into the Object Definition
+struct:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
     <span class="o">//</span> <span class="n">Object</span> <span class="n">ID</span>
     <span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
 
-    <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">supported</span> <span class="n">Resource</span> <span class="n">IDs</span>
-    <span class="o">.</span><span class="n">supported_rids</span> <span class="o">=</span> <span class="n">ANJAY_DM_SUPPORTED_RIDS</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-
     <span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="o">.</span><span class="n">instance_it</span> <span class="o">=</span> <span class="n">test_instance_it</span><span class="p">,</span>
-        <span class="o">.</span><span class="n">instance_present</span> <span class="o">=</span> <span class="n">test_instance_present</span><span class="p">,</span>
+        <span class="o">.</span><span class="n">list_instances</span> <span class="o">=</span> <span class="n">test_list_instances</span><span class="p">,</span>
 
         <span class="o">//</span> <span class="o">...</span> <span class="n">other</span> <span class="n">handlers</span>
     <span class="p">}</span>
@@ -425,8 +366,8 @@ Definition struct:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Complete code of this example can be found in
+<p class="first admonition-title">Note</p>
+<p class="last">Complete code of this example can be found in
 <cite>examples/tutorial/custom-object/read-only-multiple-fixed</cite> subdirectory of
 main Anjay project repository.</p>
 </div>

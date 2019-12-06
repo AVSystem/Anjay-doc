@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 1.15.5 documentation</title>
+  <title>4.5.6. Objects with Multiple Instance Resources &mdash; Anjay 2.2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.15.5
+                2.2.1
               </div>
             
           
@@ -183,51 +183,70 @@
 <h1>4.5.6. Objects with Multiple Instance Resources<a class="headerlink" href="#objects-with-multiple-instance-resources" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial you will learn:</p>
 <ul class="simple">
-<li><p>how to retrieve a Multiple Instance Resource using Anjay API,</p></li>
-<li><p>how to send a Multiple Instance Resource using Anjay API.</p></li>
+<li>how to retrieve a Multiple Instance Resource using Anjay API,</li>
+<li>how to send a Multiple Instance Resource using Anjay API.</li>
 </ul>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
+<p class="first admonition-title">Note</p>
 <p>This section explains manual implementation of custom objects. If the
 object you wish to implement is a standard one, registered in <a class="reference external" href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M
 Object and Resource Registry</a>,
 you can generate Anjay object stub from the Object Definition XML with
 <a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a>.</p>
-<p>We still encourage you to read the tutorial to have a clear understanding
+<p class="last">We still encourage you to read the tutorial to have a clear understanding
 on what various parts of the LwM2M object code are for.</p>
 </div>
 <p>We will extend the Test object from <a class="reference external" href="BT_CO4_MultiInstanceDynamic">previous tutorial</a>
 by allowing <cite>Value</cite> Resource to contain multiple values.</p>
 <div class="section" id="api-for-multiple-instance-resources-management">
 <h2>4.5.6.1. API for Multiple Instance Resources management<a class="headerlink" href="#api-for-multiple-instance-resources-management" title="Permalink to this headline">¶</a></h2>
-<p>Reading Multiple Instance Resources or writing some in a response requires
-special contexts to be instantiated by the user, i.e. <code class="docutils literal notranslate"><span class="pre">anjay_input_ctx_t</span></code>
-and <code class="docutils literal notranslate"><span class="pre">anjay_output_ctx_t</span></code> out of contexts passed by Anjay to <code class="docutils literal notranslate"><span class="pre">resource_write</span></code>
-and <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handlers.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Trying to use original contexts to read / write Multiple Instance Resource
-results in undefined behavior.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Trying to use original contexts after special contexts were created on top of
-them results in undefined behavior.</p>
-</div>
-<p>To instantiate them one uses functions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">anjay_get_array</span><span class="p">(</span><span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<p>Dealing with Multiple Instance Resources in the data model requires implementing
+additional handlers. The most important in the <code class="docutils literal notranslate"><span class="pre">list_resource_instances</span></code>
+handler:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="nb">int</span>
+<span class="n">anjay_dm_list_resource_instances_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                   <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                                   <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                                   <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                                   <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>and</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">anjay_ret_array_start</span><span class="p">(</span><span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+<p>This handler needs to be implemented for any Object that has some Multiple
+Instance Resource. It will only be called on Multiple Resources, as determined
+by the <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument passed to <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit_res()</span></code> in the
+<code class="docutils literal notranslate"><span class="pre">list_resources</span></code> handler. It shall list (via the passed
+<code class="docutils literal notranslate"><span class="pre">anjay_dm_list_ctx_t</span></code>) all the currently existing instances of the resource.</p>
+<p>To allow writing to Multiple Instance Resources, the <code class="docutils literal notranslate"><span class="pre">resource_reset</span></code> handler
+needs to be implemented as well:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="nb">int</span>
+<span class="n">anjay_dm_resource_reset_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                          <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>respectively.</p>
-<p>From now on, created contexts shall be used to receive or send Resource
-Instance ID (<cite>index</cite>) and the Resource Instance Value (<cite>value</cite>).</p>
+<p>This handler will only be called on Resources that has been determined to have
+multiple instances. It shall put the Resource in a state that it is present, but
+having zero instances.</p>
+<p>The actual reads and writes are performed using the usual <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> and
+<code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler. The <code class="docutils literal notranslate"><span class="pre">riid</span></code> argument that we have previously been
+ignoring, is used to determine the Resource Instance that is targeted.</p>
 </div>
 <div class="section" id="preparing-test-object-for-multiple-instance-resources">
 <h2>4.5.6.2. Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline">¶</a></h2>
+<p>First of all, we need to update the List Resources handler so that the library
+knows that Resource 1 now has multiple instances:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                               <span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="o">...</span>
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_RWM</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>We define following structure to represent a single Instance of our Multiple
 Instance Resource:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="n">test_value_instance</span> <span class="p">{</span>
@@ -237,8 +256,8 @@ Instance Resource:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">anjay_riid_t</span></code> is used for the first time in the tutorial. It is a data type
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">anjay_riid_t</span></code> is used for the first time in the tutorial. It is a data type
 able to store all valid Resource Instance IDs.</p>
 </div>
 <p>We also edit <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> structure definition:</p>
@@ -260,90 +279,148 @@ Instance Resource value, and Multiple Instance Resource containing
 zero Instances (i.e. lack of list presence vs an empty list).</p>
 </div>
 </div>
-<div class="section" id="handling-multiple-instance-resources-in-write-rpc">
-<h2>4.5.6.3. Handling Multiple Instance Resources in Write RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-write-rpc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="implementing-the-list-resource-instances-handler">
+<h2>4.5.6.3. Implementing the List Resource Instances handler<a class="headerlink" href="#implementing-the-list-resource-instances-handler" title="Permalink to this headline">¶</a></h2>
+<p>Here is how the List Resource Instances is implemented for our test object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span>
+<span class="n">test_list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                             <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                             <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                             <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                             <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="o">//</span> <span class="n">unused</span>
+    <span class="n">test_instance_t</span> <span class="o">*</span><span class="n">current_instance</span> <span class="o">=</span>
+            <span class="p">(</span><span class="n">test_instance_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">get_instance</span><span class="p">(</span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">),</span> <span class="n">iid</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">this</span> <span class="n">handler</span> <span class="n">can</span> <span class="n">only</span> <span class="n">be</span> <span class="n">called</span> <span class="k">for</span> <span class="n">Multiple</span><span class="o">-</span><span class="n">Instance</span> <span class="n">Resources</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">rid</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">index</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As you can see, the <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit()</span></code> function is used to pass all the
+existing Resource Instances to Anjay, similar to the <code class="docutils literal notranslate"><span class="pre">list_instances</span></code> and
+<code class="docutils literal notranslate"><span class="pre">list_resources</span></code> handlers.</p>
+<p>Note that the resource instances MUST be returned in a strictly ascending,
+sorted order. We will keep the resource instances in sorted order, so this
+implementation satisfies this contract.</p>
+</div>
+<div class="section" id="handling-multiple-instance-resources-in-read-rpc">
+<h2>4.5.6.4. Handling Multiple Instance Resources in Read RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-read-rpc" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler is being called by Anjay for each Resource Instance
+referenced by the server, giving the control to the user. Thus, the read handler
+could look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                              <span class="n">anjay_riid_t</span> <span class="n">riid</span><span class="p">,</span>
+                              <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="o">...</span>
+    <span class="n">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="o">...</span>
+    <span class="n">case</span> <span class="mi">1</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">const</span> <span class="n">test_value_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
+        <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">index</span> <span class="o">==</span> <span class="n">riid</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="o">//</span> <span class="n">Resource</span> <span class="n">Instance</span> <span class="ow">not</span> <span class="n">found</span>
+        <span class="k">return</span> <span class="n">ANJAY_ERR_NOT_FOUND</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">//</span> <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="implementing-the-resource-reset-handler">
+<h2>4.5.6.5. Implementing the Resource Reset handler<a class="headerlink" href="#implementing-the-resource-reset-handler" title="Permalink to this headline">¶</a></h2>
 <div class="topic">
 <p class="topic-title first">General flow of function calls when LwM2M Write operation was
        issued on Multiple Instance Resource.</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler is being called by Anjay, giving the control
-to the user.</p></li>
-<li><p>User creates additional <code class="docutils literal notranslate"><span class="pre">anjay_input_context_t</span></code> out of provided (as an argument
-to <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler) input context by calling <code class="docutils literal notranslate"><span class="pre">anjay_get_array</span></code>.</p></li>
-<li><p>User calls <code class="docutils literal notranslate"><span class="pre">anjay_get_array_index</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_get_*</span></code> until either
-the former fails, due to some kind of error, or finishes, indicating end
-of a message by returning <code class="docutils literal notranslate"><span class="pre">ANJAY_GET_INDEX_END</span></code>.</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">resource_reset</span></code> handler is being called by Anjay, to clear the
+Multiple Instance Resource.</li>
+<li><code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler is being called by Anjay for each Resource
+Instance referenced by the server, giving the control to the user. The
+handler shall add or replace the Resource with the instance it is being
+called for.</li>
 </ol>
 </div>
-<p>OK, based on the above, we are ready to create helper function which is going
-to read whole sequence of <cite>(index, value)</cite> pairs and store them on the list.</p>
+<p>The above means that the Resource Reset handler is rather simple to implement,
+as it only needs to clear the resource:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="nb">int</span> <span class="n">test_resource_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="n">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                               <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="n">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="o">//</span> <span class="n">unused</span>
+
+    <span class="n">test_instance_t</span> <span class="o">*</span><span class="n">current_instance</span> <span class="o">=</span>
+            <span class="p">(</span><span class="n">test_instance_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">get_instance</span><span class="p">(</span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">),</span> <span class="n">iid</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">this</span> <span class="n">handler</span> <span class="n">can</span> <span class="n">only</span> <span class="n">be</span> <span class="n">called</span> <span class="k">for</span> <span class="n">Multiple</span><span class="o">-</span><span class="n">Instance</span> <span class="n">Resources</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">rid</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">free</span> <span class="n">memory</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">old</span> <span class="n">values</span>
+    <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">);</span>
+    <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">has_values</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handling-multiple-instance-resources-in-write-rpc">
+<h2>4.5.6.6. Handling Multiple Instance Resources in Write RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-write-rpc" title="Permalink to this headline">¶</a></h2>
+<p>Now we are ready to actually implement the write operation. We will create a
+helper function for actually updating the Resource Instance list with a newly
+written value.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_array_write(AVS_LIST(test_value_instance_t) *out_instances,
-                            anjay_input_ctx_t *input_array) {
-    int result;
-    test_value_instance_t instance;
-    AVS_ASSERT(*out_instances == NULL, &quot;Nonempty list provided&quot;);
+                            anjay_riid_t index,
+                            anjay_input_ctx_t *input_ctx) {
+    test_value_instance_t instance = {
+        .index = index
+    };
 
-    while ((result = anjay_get_array_index(input_array, &amp;instance.index))
-           == 0) {
-        if (anjay_get_i32(input_array, &amp;instance.value)) {
-            // An error occurred during the read.
-            result = ANJAY_ERR_INTERNAL;
-            goto failure;
+    if (anjay_get_i32(input_ctx, &amp;instance.value)) {
+        // An error occurred during the read.
+        return ANJAY_ERR_INTERNAL;
+    }
+
+    AVS_LIST(test_value_instance_t) *insert_it;
+
+    // Searching for the place to insert;
+    // note that it makes the whole function O(n).
+    AVS_LIST_FOREACH_PTR(insert_it, out_instances) {
+        if ((*insert_it)-&gt;index &gt;= instance.index) {
+            break;
         }
+    }
 
-        AVS_LIST(test_value_instance_t) *insert_it;
-
-        // Duplicate detection, and searching for the place to insert
-        // note that it makes the whole function O(n^2).
-        AVS_LIST_FOREACH_PTR(insert_it, out_instances) {
-            if ((*insert_it)-&gt;index == instance.index) {
-                // duplicate
-                result = ANJAY_ERR_BAD_REQUEST;
-                goto failure;
-            } else if ((*insert_it)-&gt;index &gt; instance.index) {
-                break;
-            }
-        }
-
+    if ((*insert_it)-&gt;index != instance.index) {
         AVS_LIST(test_value_instance_t) new_element =
                 AVS_LIST_NEW_ELEMENT(test_value_instance_t);
 
         if (!new_element) {
             // out of memory
-            result = ANJAY_ERR_INTERNAL;
-            goto failure;
+            return ANJAY_ERR_INTERNAL;
         }
 
-        *new_element = instance;
         AVS_LIST_INSERT(insert_it, new_element);
     }
 
-    if (result &amp;&amp; result != ANJAY_GET_INDEX_END) {
-        // malformed request
-        result = ANJAY_ERR_BAD_REQUEST;
-        goto failure;
-    }
+    assert((*insert_it)-&gt;index == instance.index);
+    **insert_it = instance;
 
     return 0;
-
-failure:
-    AVS_LIST_CLEAR(out_instances);
-    return result;
 }
 </pre></div>
-</div>
-<p>On input, the function takes a pointer to the list where values shall be
-stored, and mentioned array input context. It is pretty dense, indeed,
-but this is the cost of being correct.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you had looked at <code class="docutils literal notranslate"><span class="pre">anjay_get_array</span></code> documentation you’ve seen the
-warning about possible interpretations of requests containing duplicated
-Resource Instance IDs. Presented implementation returns an error on such
-requests, but the LwM2M specification seem to not forbid implementations
-from accepting it, as long as it does not break any invariants defined
-within specification. We would however recommend to take approach
-as shown in this tutorial.</p>
 </div>
 <p>Last thing to do is to modify <code class="docutils literal notranslate"><span class="pre">test_resource_write</span></code> implementation to make use
 of our helper function:</p>
@@ -351,24 +428,13 @@ of our helper function:</p>
                                const anjay_dm_object_def_t *const *obj_ptr,
                                anjay_iid_t iid,
                                anjay_rid_t rid,
+                               anjay_riid_t riid,
                                anjay_input_ctx_t *ctx) {
     // ...
     switch (rid) {
     // ...
     case 1: {
-        anjay_input_ctx_t *input_array = anjay_get_array(ctx);
-        if (!input_array) {
-            // could not create input context for some reason
-            return ANJAY_ERR_INTERNAL;
-        }
-
-        // free memory associated with old values
-        AVS_LIST_CLEAR(&amp;current_instance-&gt;values);
-
-        // try to read new values from an RPC
-        int result = test_array_write(&amp;current_instance-&gt;values,
-                                      input_array);
-
+        int result = test_array_write(&amp;current_instance-&gt;values, riid, ctx);
         if (!result) {
             current_instance-&gt;has_values = true;
         }
@@ -382,62 +448,9 @@ of our helper function:</p>
 }
 </pre></div>
 </div>
-</div>
-<div class="section" id="handling-multiple-instance-resources-in-read-rpc">
-<h2>4.5.6.4. Handling Multiple Instance Resources in Read RPC<a class="headerlink" href="#handling-multiple-instance-resources-in-read-rpc" title="Permalink to this headline">¶</a></h2>
-<div class="topic">
-<p class="topic-title first">General flow of function calls when LwM2M Read operation was
-       issued on Multiple Instance Resource.</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler is being called by Anjay, giving the control
-to the user.</p></li>
-<li><p>User creates additional <code class="docutils literal notranslate"><span class="pre">anjay_output_context_t</span></code> out of provided (as an argument
-to <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler) output context by calling <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_start</span></code>.</p></li>
-<li><p>User calls <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_index</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_ret_*</span></code> until they are done.</p></li>
-<li><p>In the end, user calls <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_finish</span></code> to tell Anjay that the
-Multiple Instance Resource response is ready.</p></li>
-</ol>
-</div>
-<p>In the end, the read handler could look like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>static int test_resource_read(anjay_t *anjay,
-                              const anjay_dm_object_def_t *const *obj_ptr,
-                              anjay_iid_t iid,
-                              anjay_rid_t rid,
-                              anjay_output_ctx_t *ctx) {
-    // ...
-    switch (rid) {
-    // ...
-    case 1: {
-        anjay_output_ctx_t *array_output = anjay_ret_array_start(ctx);
-        if (!array_output) {
-            // cannot instantiate array output context
-            return ANJAY_ERR_INTERNAL;
-        }
-
-        AVS_LIST(const test_value_instance_t) it;
-        AVS_LIST_FOREACH(it, current_instance-&gt;values) {
-            int result = anjay_ret_array_index(array_output, it-&gt;index);
-            if (result) {
-                // failed to return an index
-                return result;
-            }
-
-            result = anjay_ret_i32(array_output, it-&gt;value);
-            if (result) {
-                // failed to return value
-                return result;
-            }
-        }
-        return anjay_ret_array_finish(array_output);
-    }
-    // ...
-    }
-}
-</pre></div>
-</div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Complete code of this example can be found in
+<p class="first admonition-title">Note</p>
+<p class="last">Complete code of this example can be found in
 <cite>examples/tutorial/custom-object/multi-instance-resources-dynamic</cite>
 subdirectory of main Anjay project repository.</p>
 </div>

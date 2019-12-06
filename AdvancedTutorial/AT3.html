@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.3. DTLS support &mdash; Anjay 1.15.5 documentation</title>
+  <title>5.3. DTLS support &mdash; Anjay 2.2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.15.5
+                2.2.1
               </div>
             
           
@@ -179,30 +179,28 @@ using the <code class="docutils literal notranslate"><span class="pre">security<
 perhaps decide to implement the Security Object yourself from scratch. The
 library will always read the necessary DTLS configuration from the data model.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Either <strong>mbed TLS 2.0 or newer</strong> or <strong>OpenSSL 1.1 or newer</strong> or
+<p class="first admonition-title">Note</p>
+<p class="last">Either <strong>mbed TLS 2.0 or newer</strong> or <strong>OpenSSL 1.1 or newer</strong> or
 <strong>tinydtls 0.9 or newer</strong> is required for proper, conformant support
 for the security modes defined in the LwM2M specification.</p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Anjay will likely compile successfully with older DTLS library
+<p class="first admonition-title">Warning</p>
+<p class="last">Anjay will likely compile successfully with older DTLS library
 versions, but this will cause some cipher suites REQUIRED by the
 LwM2M specification to not be supported, which may cause serious
 interoperability problems.</p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#supported-connection-modes" id="id1">Supported connection modes</a></p></li>
-<li><p><a class="reference internal" href="#provisioning-security-configuration-psk-mode" id="id2">Provisioning security configuration - PSK mode</a></p>
-<ul>
-<li><p><a class="reference internal" href="#configuring-dtls-version" id="id3">Configuring DTLS version</a></p></li>
-<li><p><a class="reference internal" href="#configuring-encryption-keys" id="id4">Configuring encryption keys</a></p></li>
+<li><a class="reference internal" href="#supported-connection-modes" id="id1">Supported connection modes</a></li>
+<li><a class="reference internal" href="#provisioning-security-configuration-psk-mode" id="id2">Provisioning security configuration - PSK mode</a><ul>
+<li><a class="reference internal" href="#configuring-dtls-version" id="id3">Configuring DTLS version</a></li>
+<li><a class="reference internal" href="#configuring-encryption-keys" id="id4">Configuring encryption keys</a></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#provisioning-security-configuration-certificate-mode" id="id5">Provisioning security configuration - Certificate mode</a></p>
-<ul>
-<li><p><a class="reference internal" href="#loading-certificate-files" id="id6">Loading certificate files</a></p></li>
+<li><a class="reference internal" href="#provisioning-security-configuration-certificate-mode" id="id5">Provisioning security configuration - Certificate mode</a><ul>
+<li><a class="reference internal" href="#loading-certificate-files" id="id6">Loading certificate files</a></li>
 </ul>
 </li>
 </ul>
@@ -212,36 +210,36 @@ interoperability problems.</p>
 <p>The connection mode is determined based on the <em>Security Mode</em> Resource in a
 given instance of the Security Object (<code class="docutils literal notranslate"><span class="pre">/0/*/2</span></code>). Supported values are:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> - <strong>Pre-Shared Key mode</strong> - In this mode, communication is symmetrically
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">0</span></code> - <strong>Pre-Shared Key mode</strong> - In this mode, communication is symmetrically
 encrypted using the same secret key, shared between the server and the client.</p>
 <ul class="simple">
-<li><p>The TLS-PSK identity is stored in the <em>Public Key or Identity</em> Resource
+<li>The TLS-PSK identity is stored in the <em>Public Key or Identity</em> Resource
 (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>). It is a string identifying the key being used, so that the
 server can uniquely determine which key to use for communication. This
-string shall be directly stored in the aforementioned Resource.</p></li>
-<li><p>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the secret pre-shared
+string shall be directly stored in the aforementioned Resource.</li>
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the secret pre-shared
 key itself, directly in an opaque binary format appropriate for the
-cipher suite used by the server.</p></li>
+cipher suite used by the server.</li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> - <strong>Certificate mode</strong> - In this mode, an asymmetrical public-key
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">2</span></code> - <strong>Certificate mode</strong> - In this mode, an asymmetrical public-key
 cryptographic algorithm is used to authenticate the connection endpoints and
 initialize payload encryption.</p>
 <p>Appropriate Certificates need to be generated for both the LwM2M Client and
 the LwM2M Server. Public certificates of both ends are available on both
 sides, and each side also has access to its own corresponding private key.</p>
 <ul class="simple">
-<li><p>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>) Resource shall
+<li>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>) Resource shall
 contain the Client’s own public certificate in binary, DER-encoded X.509
-format.</p></li>
-<li><p>The <em>Server Public Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
-public certificate, also in binary, DER-encoded X.509 format.</p></li>
-<li><p>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
+format.</li>
+<li>The <em>Server Public Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
+public certificate, also in binary, DER-encoded X.509 format.</li>
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
 private key, corresponding to the public key contained in the <em>Public Key or
 Identity</em> Resource. It needs to be in a format defined in
 <a class="reference external" href="https://tools.ietf.org/html/rfc5958">RFC 5958</a> (also known as PKCS#8, the
 name which was used in previous versions of the format), DER-encoded into a
-binary value.</p></li>
+binary value.</li>
 </ul>
 <p>Note that in the Certificate mode, it is not enough if the Server’s
 certificate <em>just matches</em> the one stored in the <em>Server Public Key</em> resource.
@@ -249,11 +247,12 @@ It is also verified that the certificate is issued for the same domain name
 that is contained in the Server URI, and if it is signed by some external CA,
 that CA needs to be trusted as well.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption is disabled completely and
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption is disabled completely and
 the CoAP messages are passed in plain text over the network. It shall not be
 used in production environments, unless end-to-end security is provided on a
 lower layer (e.g. IPsec). It is also useful for development, testing and
-debugging purposes.</p></li>
+debugging purposes.</p>
+</li>
 </ul>
 <p>The <em>Raw Public Key</em> and <em>Certificate with EST</em> modes described in the LwM2M
 specification are not currently supported.</p>
@@ -285,15 +284,15 @@ initializing Anjay:</p>
 rather than DTLS. However, a version of DTLS based on the selected TLS version
 will be used. Thus:</p>
 <ul class="simple">
-<li><p>to use <strong>DTLS v1.0</strong>, set the field to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1</span></code> or
-<code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_1</span></code></p></li>
-<li><p>to use <strong>DTLS v1.2</strong>, set it to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> or
+<li>to use <strong>DTLS v1.0</strong>, set the field to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1</span></code> or
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_1</span></code></li>
+<li>to use <strong>DTLS v1.2</strong>, set it to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> or
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_DEFAULT</span></code> (its numeric value is <code class="docutils literal notranslate"><span class="pre">0</span></code>, so it is the
-default after zero-initializing the <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> structure)</p></li>
+default after zero-initializing the <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> structure)</li>
 </ul>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>The LwM2M specification mandates use of DTLS v1.2.</strong> The option
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>The LwM2M specification mandates use of DTLS v1.2.</strong> The option
 to use earlier versions has been provided only to aid with various
 debugging scenarios. Any version other than DTLS v1.2 shall never
 be used in production environments - failing to comply with this
@@ -314,7 +313,7 @@ Anjay’s <code class="docutils literal notranslate"><span class="pre">security<
 <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="o">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s2">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
-    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_PSK</span><span class="p">,</span>
+    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span>
     <span class="o">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="n">const</span> <span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
     <span class="o">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
     <span class="o">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="p">(</span><span class="n">const</span> <span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_KEY</span><span class="p">,</span>
@@ -323,7 +322,7 @@ Anjay’s <code class="docutils literal notranslate"><span class="pre">security<
 </pre></div>
 </div>
 <p>Now the only thing left is to add the new Security object instance:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
                                        <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
@@ -384,7 +383,7 @@ finish:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
     <span class="o">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="o">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s2">&quot;coaps://localhost:5684&quot;</span><span class="p">,</span>
-    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_UDP_SECURITY_CERTIFICATE</span>
+    <span class="o">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_CERTIFICATE</span>
 <span class="p">};</span>
 
 <span class="nb">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -407,7 +406,7 @@ finish:
 </pre></div>
 </div>
 <p>Now the only thing left is to add the new Security object instance:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_IID_INVALID</span><span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
                                        <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>

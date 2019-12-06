@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.1. Getting started! &mdash; Anjay 1.15.5 documentation</title>
+  <title>4.1. Getting started! &mdash; Anjay 2.2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.15.5
+                2.2.1
               </div>
             
           
@@ -185,25 +185,16 @@ directory layout.</p>
 <h2>4.1.1. Build system<a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h2>
 <p>We are going to use CMake as a build system. Let’s create an initial minimal
 <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.1</span><span class="p">)</span>
 <span class="nb">project</span><span class="p">(</span><span class="s">hello-world</span> <span class="s">C</span><span class="p">)</span>
 
-<span class="nb">if</span><span class="p">(</span><span class="s">NOT</span> <span class="s">CMAKE_VERSION</span> <span class="s">VERSION_LESS</span> <span class="s">3.1</span><span class="p">)</span>
-    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD</span> <span class="s">99</span><span class="p">)</span>
-    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_EXTENSIONS</span> <span class="s">OFF</span><span class="p">)</span>
-<span class="nb">elseif</span><span class="p">(</span><span class="s">CMAKE_COMPILER_IS_GNUCC</span> <span class="s">OR</span> <span class="s">CMAKE_C_COMPILER_ID</span> <span class="s">MATCHES</span> <span class="s2">&quot;Clang&quot;</span><span class="p">)</span>
-    <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_FLAGS</span> <span class="s2">&quot;${CMAKE_C_FLAGS} -std=c99&quot;</span><span class="p">)</span>
-<span class="nb">endif</span><span class="p">()</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD</span> <span class="s">99</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_EXTENSIONS</span> <span class="s">OFF</span><span class="p">)</span>
 
 <span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span> <span class="s">REQUIRED</span><span class="p">)</span>
 
-<span class="nb">set</span><span class="p">(</span><span class="s">TUTORIAL_SOURCES</span>
-    <span class="s">src/main.c</span><span class="p">)</span>
-
-<span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">ANJAY_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
-
-<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">TUTORIAL_SOURCES</span><span class="o">}</span><span class="p">)</span>
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">ANJAY_LIBRARIES_STATIC</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">src/main.c</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PRIVATE</span> <span class="s">anjay</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -233,8 +224,8 @@ source file:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>We recommend you to look at the doxygen generated
+<p class="first admonition-title">Note</p>
+<p class="last">We recommend you to look at the doxygen generated
 <a class="reference external" href="../api/">API documentation</a> if something isn’t immediately
 clear to you.</p>
 </div>
@@ -243,8 +234,8 @@ clear to you.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For more information on building process see
+<p class="first admonition-title">Note</p>
+<p class="last">For more information on building process see
 <a class="reference internal" href="../Compiling_client_applications.html"><span class="doc">Compiling client applications</span></a>.</p>
 </div>
 <p>Congratulations, you now learned how to initialize the Anjay library!</p>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.1. Attribute storage &mdash; Anjay 1.15.5 documentation</title>
+  <title>5.1. Attribute storage &mdash; Anjay 2.2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.15.5
+                2.2.1
               </div>
             
           
@@ -175,8 +175,8 @@
 interface, use a concept of Attributes that may be set for Resources, Object
 Instances or Objects.</p>
 <div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><a class="reference internal" href="../LwM2M.html"><span class="doc">OMA LwM2M - Brief description</span></a> chapter contains more information about LwM2M Attributes.</p>
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../LwM2M.html"><span class="doc">OMA LwM2M - Brief description</span></a> chapter contains more information about LwM2M Attributes.</p>
 </div>
 <p>When the library needs to read or write these attributes, it calls
 <code class="docutils literal notranslate"><span class="pre">resource_read_attrs</span></code> or <code class="docutils literal notranslate"><span class="pre">resource_write_attrs</span></code> handlers, respectively, in
@@ -231,22 +231,21 @@ serialize and deserialize all the stored attributes to some kind of external
 memory.</p>
 <p>These two functions can be used for this purpose:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                               <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                       <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 
 <span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                               <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The data are read or written to and from objects of the
-<code class="docutils literal notranslate"><span class="pre">avs_stream_abstract_t</span></code> type. Please refer to documentation of
+<code class="docutils literal notranslate"><span class="pre">avs_stream_t</span></code> type. Please refer to documentation of
 <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons</a> for information on
 what it is and how to create one.</p>
 <p>For the simple case, the <code class="docutils literal notranslate"><span class="pre">avs_stream_file_</span></code> family of functions may be useful.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The persistence functions shall be called after registering all the
+<p class="first admonition-title">Note</p>
+<p class="last">The persistence functions shall be called after registering all the
 LwM2M Objects in the Anjay object and fully loading the data model
 structure (i.e. instantiating all the Object Instances that are
 supposed to be instantiated). Otherwise, attributes stored for

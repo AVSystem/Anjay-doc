@@ -1,8 +1,7 @@
 var searchData=
 [
   ['client_5fholdoff_5fs',['client_holdoff_s',['../structanjay__security__instance__t.html#abe22f8c8164f40496fcf4e1d4d688cf2',1,'anjay_security_instance_t']]],
-  ['coap_5ftx_5fparams',['coap_tx_params',['../structanjay__download__config.html#ab7f675beadde8d9f466bc83fef2ba1f3',1,'anjay_download_config']]],
-  ['common',['common',['../structanjay__dm__resource__attributes__t.html#acb05ff53e173ff139feea110f33047f5',1,'anjay_dm_resource_attributes_t']]],
-  ['confirmable_5fnotifications',['confirmable_notifications',['../structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05',1,'anjay_configuration']]],
-  ['count',['count',['../structanjay__dm__supported__rids__t.html#a76d971a3c552bc58ba9f0d5fceae9806',1,'anjay_dm_supported_rids_t']]]
+  ['coap_5ftx_5fparams',['coap_tx_params',['../structanjay__download__config.html#aceb2f7b7c21b5f899a2fb7019573383b',1,'anjay_download_config']]],
+  ['common',['common',['../structanjay__dm__r__attributes__t.html#adf95e4da149032ab8de25a53d3475e3b',1,'anjay_dm_r_attributes_t']]],
+  ['confirmable_5fnotifications',['confirmable_notifications',['../structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05',1,'anjay_configuration']]]
 ];

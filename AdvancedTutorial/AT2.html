@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.2. Persistence support &mdash; Anjay 1.15.5 documentation</title>
+  <title>5.2. Persistence support &mdash; Anjay 2.2.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.15.5
+                2.2.1
               </div>
             
           
@@ -174,12 +174,12 @@
 <div class="section" id="anjay-s-persistence-in-general">
 <h2>5.2.1. Anjay’s persistence in general<a class="headerlink" href="#anjay-s-persistence-in-general" title="Permalink to this headline">¶</a></h2>
 <p>Anjay supports persistence of data to <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> generic <cite>stream</cite>
-(<code class="docutils literal notranslate"><span class="pre">avs_stream_abstract_t</span></code>). Underlying implementation of a stream may
+(<code class="docutils literal notranslate"><span class="pre">avs_stream_t</span></code>). Underlying implementation of a stream may
 abstract any kind of storage access. <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> itself provides:</p>
 <ul class="simple">
-<li><p>file streams,</p></li>
-<li><p>network streams,</p></li>
-<li><p>memory buffered streams.</p></li>
+<li>file streams,</li>
+<li>network streams,</li>
+<li>memory buffered streams.</li>
 </ul>
 <p>Any of them can be used with Anjay’s persistence API. Additionally, one
 can easily adapt other types of storages to be used by persistence API,
@@ -193,32 +193,32 @@ which makes persisted chunk of information on arbitrary architecture
 <p>Anjay’s preimplemented objects (Security, Server, Access Control) all
 support persistence:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_security_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                  <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_security_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                          <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 <span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_security_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                  <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_security_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                          <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_server_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_server_object_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                        <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 <span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_server_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_server_object_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                        <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_access_control_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                 <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_access_control_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                         <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 <span class="o">//</span> <span class="o">...</span>
-<span class="nb">int</span> <span class="n">anjay_access_control_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                 <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+<span class="n">avs_error_t</span> <span class="n">anjay_access_control_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                         <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>All of the mentioned objects have complicated semantics, which is why you
+<p class="first admonition-title">Note</p>
+<p class="last">All of the mentioned objects have complicated semantics, which is why you
 should refer to their <a class="reference external" href="../api">documentation</a> for more details on how persistence
 functions behave under different conditions.</p>
 </div>
@@ -233,7 +233,7 @@ startup (if a valid persistence file exists).</p>
 int persist_objects(anjay_t *anjay) {
     avs_log(tutorial, INFO, &quot;Persisting objects to %s&quot;, PERSISTENCE_FILENAME);
 
-    avs_stream_abstract_t *file_stream =
+    avs_stream_t *file_stream =
             avs_stream_file_create(PERSISTENCE_FILENAME, AVS_STREAM_FILE_WRITE);
 
     if (!file_stream) {
@@ -241,23 +241,24 @@ int persist_objects(anjay_t *anjay) {
         return -1;
     }
 
-    int result;
+    int result = -1;
 
-    if ((result = anjay_security_object_persist(anjay, file_stream))) {
+    if (avs_is_err(anjay_security_object_persist(anjay, file_stream))) {
         avs_log(tutorial, ERROR, &quot;Could not persist Security Object&quot;);
         goto finish;
     }
 
-    if ((result = anjay_server_object_persist(anjay, file_stream))) {
+    if (avs_is_err(anjay_server_object_persist(anjay, file_stream))) {
         avs_log(tutorial, ERROR, &quot;Could not persist Server Object&quot;);
         goto finish;
     }
 
-    if ((result = anjay_attr_storage_persist(anjay, file_stream))) {
+    if (avs_is_err(anjay_attr_storage_persist(anjay, file_stream))) {
         avs_log(tutorial, ERROR, &quot;Could not persist LwM2M attribute storage&quot;);
         goto finish;
     }
 
+    result = 0;
 finish:
     avs_stream_cleanup(&amp;file_stream);
     return result;
@@ -284,28 +285,31 @@ finish:
         return result;
     }
 
-    avs_stream_abstract_t *file_stream =
+    avs_stream_t *file_stream =
             avs_stream_file_create(PERSISTENCE_FILENAME, AVS_STREAM_FILE_READ);
 
     if (!file_stream) {
         return -1;
     }
 
-    if ((result = anjay_security_object_restore(anjay, file_stream))) {
+    result = -1;
+
+    if (avs_is_err(anjay_security_object_restore(anjay, file_stream))) {
         avs_log(tutorial, ERROR, &quot;Could not restore Security Object&quot;);
         goto finish;
     }
 
-    if ((result = anjay_server_object_restore(anjay, file_stream))) {
+    if (avs_is_err(anjay_server_object_restore(anjay, file_stream))) {
         avs_log(tutorial, ERROR, &quot;Could not restore Server Object&quot;);
         goto finish;
     }
 
-    if ((result = anjay_attr_storage_restore(anjay, file_stream))) {
+    if (avs_is_err(anjay_attr_storage_restore(anjay, file_stream))) {
         avs_log(tutorial, ERROR, &quot;Could not restore LwM2M attribute storage&quot;);
         goto finish;
     }
 
+    result = 0;
 finish:
     avs_stream_cleanup(&amp;file_stream);
     return result;
@@ -313,8 +317,8 @@ finish:
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Persisting as well as restoring functions MUST be both called in the same
+<p class="first admonition-title">Note</p>
+<p class="last">Persisting as well as restoring functions MUST be both called in the same
 order because objects’ data is being stored sequentially.</p>
 </div>
 </div>
