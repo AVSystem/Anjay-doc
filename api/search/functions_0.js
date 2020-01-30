@@ -53,6 +53,7 @@ var searchData=
   ['anjay_5fnotify_5fchanged',['anjay_notify_changed',['../dm_8h.html#a0d3faf342184356ea20b9028cf45051a',1,'dm.h']]],
   ['anjay_5fnotify_5finstances_5fchanged',['anjay_notify_instances_changed',['../dm_8h.html#a0487d4ec4a386915557f3a03a5c0cfbd',1,'dm.h']]],
   ['anjay_5fregister_5fobject',['anjay_register_object',['../dm_8h.html#a1468b47fa9169474920c8c86d533b991',1,'dm.h']]],
+  ['anjay_5fresource_5fobservation_5fstatus',['anjay_resource_observation_status',['../dm_8h.html#a29b3ae5bd67acca9b5d10b772a2edfa7',1,'dm.h']]],
   ['anjay_5fret_5fbool',['anjay_ret_bool',['../io_8h.html#a442fdb39da64698a5262b0920f9a3a23',1,'io.h']]],
   ['anjay_5fret_5fbytes',['anjay_ret_bytes',['../io_8h.html#a720e89af778281f09c86ceb43ab2db09',1,'io.h']]],
   ['anjay_5fret_5fbytes_5fappend',['anjay_ret_bytes_append',['../io_8h.html#ac03b5aec5d596605f6ebe200df9f3ca1',1,'io.h']]],

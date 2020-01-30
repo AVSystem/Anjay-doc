@@ -181,6 +181,8 @@ var searchData=
   ['anjay_5foid_5ft',['anjay_oid_t',['../core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32',1,'core.h']]],
   ['anjay_5foutput_5fctx_5ft',['anjay_output_ctx_t',['../io_8h.html#ad1c262689306f83ddc7ee9ec187bf56c',1,'io.h']]],
   ['anjay_5fregister_5fobject',['anjay_register_object',['../dm_8h.html#a1468b47fa9169474920c8c86d533b991',1,'dm.h']]],
+  ['anjay_5fresource_5fobservation_5fstatus',['anjay_resource_observation_status',['../dm_8h.html#a29b3ae5bd67acca9b5d10b772a2edfa7',1,'dm.h']]],
+  ['anjay_5fresource_5fobservation_5fstatus_5ft',['anjay_resource_observation_status_t',['../structanjay__resource__observation__status__t.html',1,'']]],
   ['anjay_5fret_5fbool',['anjay_ret_bool',['../io_8h.html#a442fdb39da64698a5262b0920f9a3a23',1,'io.h']]],
   ['anjay_5fret_5fbytes',['anjay_ret_bytes',['../io_8h.html#a720e89af778281f09c86ceb43ab2db09',1,'io.h']]],
   ['anjay_5fret_5fbytes_5fappend',['anjay_ret_bytes_append',['../io_8h.html#ac03b5aec5d596605f6ebe200df9f3ca1',1,'io.h']]],

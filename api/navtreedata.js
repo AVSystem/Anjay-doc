@@ -27,7 +27,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "access__control_8h.html",
-"security_8h.html#a25a9fbd4f84f05a8a2ce50f526c7bc77"
+"security_8h.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

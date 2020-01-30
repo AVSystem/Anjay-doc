@@ -4,6 +4,7 @@ var dm_8h =
     [ "anjay_dm_r_attributes_t", "structanjay__dm__r__attributes__t.html", "structanjay__dm__r__attributes__t" ],
     [ "anjay_dm_handlers_t", "structanjay__dm__handlers__t.html", "structanjay__dm__handlers__t" ],
     [ "anjay_dm_object_def_struct", "structanjay__dm__object__def__struct.html", "structanjay__dm__object__def__struct" ],
+    [ "anjay_resource_observation_status_t", "structanjay__resource__observation__status__t.html", "structanjay__resource__observation__status__t" ],
     [ "ANJAY_ACCESS_LIST_OWNER_BOOTSTRAP", "dm_8h.html#a6dc6f3f1e5dc44fdd5f6157adcb72360", null ],
     [ "ANJAY_ACCESS_MASK_CREATE", "dm_8h.html#af176f2bc64b21e7071214e9998778e62", null ],
     [ "ANJAY_ACCESS_MASK_DELETE", "dm_8h.html#a19e7669b7c45da5e223e8c9803aa5c67", null ],
@@ -53,6 +54,7 @@ var dm_8h =
     [ "anjay_notify_changed", "dm_8h.html#a0d3faf342184356ea20b9028cf45051a", null ],
     [ "anjay_notify_instances_changed", "dm_8h.html#a0487d4ec4a386915557f3a03a5c0cfbd", null ],
     [ "anjay_register_object", "dm_8h.html#a1468b47fa9169474920c8c86d533b991", null ],
+    [ "anjay_resource_observation_status", "dm_8h.html#a29b3ae5bd67acca9b5d10b772a2edfa7", null ],
     [ "anjay_unregister_object", "dm_8h.html#a6f1973b9e7a006012de6270329329a85", null ],
     [ "ANJAY_DM_OI_ATTRIBUTES_EMPTY", "dm_8h.html#ad35f0f269a9e2f6e79db63d1482d8a03", null ],
     [ "ANJAY_DM_R_ATTRIBUTES_EMPTY", "dm_8h.html#a41decea7d5968e6bdc951addef39c010", null ]

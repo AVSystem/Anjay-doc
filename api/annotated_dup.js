@@ -10,6 +10,7 @@ var annotated_dup =
     [ "anjay_etag", "structanjay__etag.html", "structanjay__etag" ],
     [ "anjay_fw_update_handlers_t", "structanjay__fw__update__handlers__t.html", "structanjay__fw__update__handlers__t" ],
     [ "anjay_fw_update_initial_state_t", "structanjay__fw__update__initial__state__t.html", "structanjay__fw__update__initial__state__t" ],
+    [ "anjay_resource_observation_status_t", "structanjay__resource__observation__status__t.html", "structanjay__resource__observation__status__t" ],
     [ "anjay_security_config_t", "structanjay__security__config__t.html", "structanjay__security__config__t" ],
     [ "anjay_security_instance_t", "structanjay__security__instance__t.html", "structanjay__security__instance__t" ],
     [ "anjay_server_instance_t", "structanjay__server__instance__t.html", "structanjay__server__instance__t" ],
