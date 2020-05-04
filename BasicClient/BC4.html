@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4. Enabling secure communication &mdash; Anjay 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.5. Implementing standard Object" href="BC5.html" />
+    <link rel="prev" title="4.3. Event loop" href="BC3.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../BasicClient.html">4. Basic client</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BC1.html">4.1. Anjay initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC2.html">4.2. Installing mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC3.html">4.3. Event loop</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.4. Enabling secure communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC5.html">4.5. Implementing standard Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC6.html">4.6. Notifications support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC7.html">4.7. A few notes on general usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../BasicClient.html">4. Basic client</a> &raquo;</li>
+        
+      <li>4.4. Enabling secure communication</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/BasicClient/BC4.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="enabling-secure-communication">
+<h1>4.4. Enabling secure communication<a class="headerlink" href="#enabling-secure-communication" title="Permalink to this headline">¶</a></h1>
+<p>If Anjay is compiled with support for DTLS and linked with one of the
+supported DTLS libraries, connection encryption is automatically handled
+according to values of Resources in the Security (<code class="docutils literal notranslate"><span class="pre">/0</span></code>) Object.</p>
+<p>This automatic configuration will be performed regardless of whether you are
+using the <code class="docutils literal notranslate"><span class="pre">security</span></code> module that pre-implements the Security Object, or if you
+perhaps decide to implement the Security Object yourself from scratch. The
+library will always read the necessary DTLS configuration from the data model.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>mbed TLS 2.0 or newer</strong> or <strong>OpenSSL 1.1 or newer</strong> or
+<strong>tinydtls 0.9 or newer</strong> is required for proper, conformant support
+for the security modes defined in the LwM2M specification.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Anjay will likely compile successfully with older DTLS library
+versions, but some REQUIRED cipher suites won’t be supported and
+serious interoperability problems may arise.</p>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#supported-security-modes" id="id1">Supported security modes</a></li>
+<li><a class="reference internal" href="#provisioning-security-configuration" id="id2">Provisioning security configuration</a></li>
+</ul>
+</div>
+<div class="section" id="supported-security-modes">
+<h2><a class="toc-backref" href="#id1">4.4.1. Supported security modes</a><a class="headerlink" href="#supported-security-modes" title="Permalink to this headline">¶</a></h2>
+<p>The security mode is determined based on the <em>Security Mode</em> Resource in a
+given instance of the Security Object (<code class="docutils literal notranslate"><span class="pre">/0/*/2</span></code>). Supported values are:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">0</span></code> - <strong>Pre-Shared Key mode</strong> - In this mode, communication is symmetrically
+encrypted and authenticated using the same secret key, shared between the
+server and the client.</p>
+<ul class="simple">
+<li>The TLS-PSK identity is stored in the <em>Public Key or Identity</em> Resource
+(<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>). It is a string identifying the key being used, so that the
+server can uniquely determine which key to use for communication. This
+string shall be directly stored in the aforementioned Resource.</li>
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the secret pre-shared
+key itself, directly in an opaque binary format appropriate for the
+cipher suite used by the server.</li>
+</ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">2</span></code> - <strong>Certificate mode</strong> - In this mode, an asymmetrical public-key
+cryptographic algorithm is used to authenticate the connection endpoints and
+initialize payload encryption.</p>
+<p>Appropriate certificates need to be generated for both the LwM2M Client and
+the LwM2M Server. Public certificates of both parties mutually available,
+and each party also has access to its own corresponding private key.</p>
+<ul class="simple">
+<li>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>) Resource shall
+contain the Client’s own public certificate in binary, DER-encoded X.509
+format.</li>
+<li>The <em>Server Public Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
+public certificate, also in binary, DER-encoded X.509 format.</li>
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
+private key, corresponding to the public key contained in the <em>Public Key or
+Identity</em> Resource. It needs to be in a format defined in
+<a class="reference external" href="https://tools.ietf.org/html/rfc5958">RFC 5958</a> (also known as PKCS#8, the
+name which was used in previous versions of the format), DER-encoded into a
+binary value.</li>
+</ul>
+<p>Note that in the Certificate mode, it is not enough if the Server’s
+certificate <em>just matches</em> the one stored in the <em>Server Public Key</em> resource.
+It is also verified that the certificate is issued for the same domain name
+that the Server URI points to and that it is signed by a trusted CA.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption and authentication is
+disabled completely and the CoAP messages are passed in plain text over the
+network. It shall not be used in production environments, unless end-to-end
+security is provided on a lower layer (e.g. IPsec). It is also useful for
+development, testing and debugging purposes.</p>
+</li>
+</ul>
+<p>The <em>Raw Public Key</em> and <em>Certificate with EST</em> modes described in the LwM2M
+specification are not currently supported.</p>
+<p>In this tutorial we will focus on enabling security using the PSK mode. If you
+are interested in using certificates, please refer to
+<a class="reference internal" href="../AdvancedTopics/AT-Certificates.html"><span class="doc">DTLS connection using certificates</span></a>.</p>
+</div>
+<div class="section" id="provisioning-security-configuration">
+<h2><a class="toc-backref" href="#id2">4.4.2. Provisioning security configuration</a><a class="headerlink" href="#provisioning-security-configuration" title="Permalink to this headline">¶</a></h2>
+<p>According to the LwM2M specification, the aforementioned Resources shall be
+provisioned during the Bootstrap Phase. However, if Bootstrap from Smartcard is
+not used, the Client will need to contain some factory defaults for connecting
+to a LwM2M Server or a LwM2M Bootstrap Server. In this section, we will learn
+how to implement such factory defaults for DTLS connection.</p>
+<p>The full code for the following example can be also found in the
+<code class="docutils literal notranslate"><span class="pre">examples/tutorial/BC4</span></code> directory in Anjay sources.</p>
+<p><strong>Configuring encryption keys</strong></p>
+<p>As mentioned above, in the case of PSK mode, the security-related data that the
+LwM2M Client is operating on, is raw data. They are set using
+<code class="docutils literal notranslate"><span class="pre">public_cert_or_psk_identity</span></code>, <code class="docutils literal notranslate"><span class="pre">public_cert_or_psk_identity_size</span></code>,
+<code class="docutils literal notranslate"><span class="pre">private_cert_or_psk_key</span></code> and <code class="docutils literal notranslate"><span class="pre">private_cert_or_psk_key_size</span></code> fields of
+<code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> struct.</p>
+<p><strong>Complete code</strong></p>
+<p>Continuing the previous tutorial, we can modify <code class="docutils literal notranslate"><span class="pre">setup_security_object()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">main()</span></code> as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;poll.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Obtain all network data sources</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">sockets</span> <span class="o">=</span> <span class="n">anjay_get_sockets</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+
+        <span class="c1">// Prepare to poll() on them</span>
+        <span class="kt">size_t</span> <span class="n">numsocks</span> <span class="o">=</span> <span class="n">AVS_LIST_SIZE</span><span class="p">(</span><span class="n">sockets</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="n">pollfd</span> <span class="n">pollfds</span><span class="p">[</span><span class="n">numsocks</span><span class="p">];</span>
+        <span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">sock</span><span class="p">;</span>
+        <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">sockets</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">fd</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="o">*</span><span class="n">sock</span><span class="p">);</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">events</span> <span class="o">=</span> <span class="n">POLLIN</span><span class="p">;</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">revents</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="o">++</span><span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">const</span> <span class="kt">int</span> <span class="n">max_wait_time_ms</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+        <span class="c1">// Determine the expected time to the next job in milliseconds.</span>
+        <span class="c1">// If there is no job we will wait till something arrives for</span>
+        <span class="c1">// at most 1 second (i.e. max_wait_time_ms).</span>
+        <span class="kt">int</span> <span class="n">wait_ms</span> <span class="o">=</span>
+                <span class="n">anjay_sched_calculate_wait_time_ms</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">max_wait_time_ms</span><span class="p">);</span>
+
+        <span class="c1">// Wait for the events if necessary, and handle them.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">poll</span><span class="p">(</span><span class="n">pollfds</span><span class="p">,</span> <span class="n">numsocks</span><span class="p">,</span> <span class="n">wait_ms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">socket_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">socket</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+            <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">sockets</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">pollfds</span><span class="p">[</span><span class="n">socket_id</span><span class="p">].</span><span class="n">revents</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_serve</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">*</span><span class="n">socket</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;anjay_serve failed&quot;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="o">++</span><span class="n">socket_id</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Finally run the scheduler</span>
+        <span class="n">anjay_sched_run</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Installs Security Object and adds and instance of it.</span>
+<span class="c1">// An instance of Security Object provides information needed to connect to</span>
+<span class="c1">// LwM2M server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="hll">    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_KEY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://127.0.0.1:5684&quot;</span><span class="p">,</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_KEY</span><span class="p">,</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">private_cert_or_psk_key_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span>
+</span><span class="hll">    <span class="p">};</span>
+</span>
+    <span class="c1">// Anjay will assign Instance ID automatically</span>
+    <span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+                                           <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Installs Server Object and adds and instance of it.</span>
+<span class="c1">// An instance of Server Object provides the data related to a LwM2M Server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// Server Short ID</span>
+        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Client will send Update message often than every 60 seconds</span>
+        <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="c1">// Disable Default Minimum Period resource</span>
+        <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Disable Default Maximum Period resource</span>
+        <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Disable Disable Timeout resource</span>
+        <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Sets preferred transport to UDP</span>
+        <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s">&quot;U&quot;</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Anjay will assign Instance ID automatically</span>
+    <span class="n">anjay_iid_t</span> <span class="n">server_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
+                                         <span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
+    <span class="p">};</span>
+
+    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// Install Attribute storage and setup necessary objects</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span> <span class="o">||</span> <span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+            <span class="o">||</span> <span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">main_loop</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Please note, that <code class="docutils literal notranslate"><span class="pre">server_uri</span></code> field changed too. Now there is <code class="docutils literal notranslate"><span class="pre">coaps</span></code>
+URI scheme and port <code class="docutils literal notranslate"><span class="pre">5684</span></code> (default for secure CoAP).</p>
+<p>All remaining activities related to establishing secure communication channel
+with the LwM2M Server are performed automatically by Anjay.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="BC5.html" class="btn btn-neutral float-right" title="4.5. Implementing standard Object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BC3.html" class="btn btn-neutral float-left" title="4.3. Event loop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2020, AVSystem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

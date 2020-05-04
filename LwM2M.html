@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2. OMA LwM2M - Brief description &mdash; Anjay 2.2.5 documentation</title>
+  <title>2. OMA LwM2M - Brief description &mdash; Anjay 2.3 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.2.5
+                2.3
               </div>
             
           
@@ -89,11 +89,13 @@
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Compiling_client_applications.html">3. Compiling client applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BasicTutorial.html">4. Basic tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AdvancedTutorial.html">5. Advanced tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tools.html">6. Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms.html">7. Porting guide for non-POSIX platforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Commercial_support.html">8. Commercial support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Commercial_support.html">10. Commercial support</a></li>
 </ul>
 
             
@@ -205,7 +207,7 @@ entities:</p>
 <li><strong>LwM2M Clients</strong> are located on end devices. They communicate with server(s),
 allowing them to manage and monitor the devices’ resources, which are exposed
 via a standardized <a class="reference internal" href="#id1">data model</a>.<ul>
-<li>An LwM2M Client is uniquely identified independently of its network address
+<li>A LwM2M Client is uniquely identified independently of its network address
 by an <strong>Endpoint Client Name</strong> - a URN uniquely assigned to a device by its
 manufacturer. OMA recommends the Endpoint Client Name to be in one of the
 following formats:<ul>
@@ -229,7 +231,7 @@ phone number)</li>
 Client during its first or every boot-up. Its only purpose is to initialize
 the data model, including connections to regular LwM2M Servers, before first
 contact to such. The Bootstrap Server communicates with the Client using a
-different set of commands, so it cannot be considered an “LwM2M Server” in the
+different set of commands, so it cannot be considered a “LwM2M Server” in the
 ordinary sense.</li>
 <li><strong>LwM2M Servers</strong> maintain connections with the clients and have the ability
 to read from and write to the data model exposed by the clients. Any given
@@ -241,7 +243,7 @@ of this article will be written from the Client perspective.</p>
 </div>
 <div class="section" id="data-model">
 <span id="id1"></span><h2><a class="toc-backref" href="#id3">2.2. Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
-<p>Each LwM2M client presents a <em>data model</em> - standardized, symbolic
+<p>Each LwM2M Client presents a <em>data model</em> - standardized, symbolic
 representation of its configuration and state that is accessible for reading
 and modifying by LwM2M Servers. It can be thought of as a combination of a
 hierarchical configuration file, and a view on statistical information about the
@@ -251,8 +253,8 @@ on each of those levels are identified with numerical identifiers. Those three
 levels are:</p>
 <ul>
 <li><p class="first"><strong>Object</strong> - each Object represent some different concept of data accessible
-via the LwM2M client. For example, separate Objects are defined for managing
-connections with LwM2M servers, for managing network connections, for
+via the LwM2M Client. For example, separate Objects are defined for managing
+connections with LwM2M Servers, for managing network connections, for
 accessing data from various types of sensors, etc.</p>
 <p>Each Object is assigned a unique numerical identifier in the range 0-65535,
 inclusive. OMA manages a <a class="reference external" href="https://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">registry of known Object IDs</a>. Each
@@ -323,14 +325,11 @@ module.</p>
 <span id="lwm2m-resources"></span><h3><a class="toc-backref" href="#id5">2.2.2. Resources</a><a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
 <p>Each of the Resource definitions, contained in each Object definition, features
 the following information:</p>
-<ul>
-<li><p class="first"><strong>ID</strong> - numerical identifier of the Object.</p>
-</li>
-<li><p class="first"><strong>Name</strong> - short description of the resource; it is not used in the actual
-on-wire protocol.</p>
-</li>
-<li><p class="first"><strong>Operations</strong> - one of:</p>
 <ul class="simple">
+<li><strong>ID</strong> - numerical identifier of the Object.</li>
+<li><strong>Name</strong> - short description of the resource; it is not used in the actual
+on-wire protocol.</li>
+<li><strong>Operations</strong> - one of:<ul>
 <li><strong>R</strong> - read-only Resource</li>
 <li><strong>W</strong> - write-only Resource</li>
 <li><strong>RW</strong> - writeable Resource</li>
@@ -339,30 +338,21 @@ on-wire protocol.</p>
 accessible via the <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a></li>
 </ul>
 </li>
-<li><p class="first"><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; “Multiple” means that the type of data
+<li><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; “Multiple” means that the type of data
 in the resource is actually an “array” - called such in the Anjay API, but
 actually more similar to an associative data structure. It is a list of pairs,
 each of which containing a unique Resource Instance ID (range 0-65535,
 inclusive) and instance value, of the type referred in the Resource
-definition.</p>
-<p>To implement Multiple Resources in Anjay, you will need to use
-<code class="docutils literal notranslate"><span class="pre">anjay_get_array</span></code> (for reading) and <code class="docutils literal notranslate"><span class="pre">anjay_ret_array_*</span></code> (for writing)
-functions. Please refer to appropriate API documentation for details.</p>
-</li>
-<li><p class="first"><strong>Mandatory</strong> - <em>Mandatory</em> or <em>Optional</em>; Mandatory resources need to be
+definition.</li>
+<li><strong>Mandatory</strong> - <em>Mandatory</em> or <em>Optional</em>; Mandatory resources need to be
 present in all Instances on all devices. Optional resources may not be present
-in all Instances, and may even be not supported at all on some Clients.</p>
-</li>
-<li><p class="first"><strong>Type</strong> - data type of the Resource value (or its instances in case of
-Multiple Resources).</p>
-</li>
-<li><p class="first"><strong>Range or Enumeration</strong> - specification of valid values for the Resource,
-within the given data type.</p>
-</li>
-<li><p class="first"><strong>Units</strong> - units in which a numerical value is given.</p>
-</li>
-<li><p class="first"><strong>Description</strong> - detailed description of the resource.</p>
-</li>
+in all Instances, and may even be not supported at all on some Clients.</li>
+<li><strong>Type</strong> - data type of the Resource value (or its instances in case of
+Multiple Resources).</li>
+<li><strong>Range or Enumeration</strong> - specification of valid values for the Resource,
+within the given data type.</li>
+<li><strong>Units</strong> - units in which a numerical value is given.</li>
+<li><strong>Description</strong> - detailed description of the resource.</li>
 </ul>
 </div>
 <div class="section" id="attributes">
@@ -520,13 +510,12 @@ via the <a class="reference internal" href="#registration-interface">Registratio
 client/server relationship on the CoAP layer is reversible at any time.</p>
 <p>The Device Management and Service Enablement interface defines the following
 commands:</p>
-<ul class="simple" id="lwm2m-discover">
-<li><strong>Discover</strong> (CoAP <strong>GET Accept: application/link-format</strong>) allows the Server
+<ul>
+<li><p class="first"><strong>Discover</strong> (CoAP <strong>GET Accept: application/link-format</strong>) allows the Server
 to get a list of all supported and present Objects, Object Instances and
 Resources, and to read <a class="reference internal" href="#attributes">Attributes</a> attached to them. Data stored in Resources
-is not returned.</li>
-</ul>
-<ul id="lwm2m-read">
+is not returned.</p>
+</li>
 <li><p class="first"><strong>Read</strong> (CoAP <strong>GET</strong> other than the above) reads data - either from a single
 Resource, entire Object Instance, or even a whole Object at once.</p>
 </li>

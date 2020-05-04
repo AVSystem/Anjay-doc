@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5.4.7. Bootstrap awareness &mdash; Anjay 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.5. Network error handling" href="../AT-NetworkErrorHandling.html" />
+    <link rel="prev" title="5.4.6. Objects with Multiple Instance Resources" href="AT_CO6_MultipleResourceInstances.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-AttributeStorage.html">5.2. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../AT-CustomObjects.html">5.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="AT_CO1_SingleInstanceReadOnly.html">5.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO2_SingleInstanceExecutableAndReadOnly.html">5.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO3_MultiInstanceReadOnlyFixed.html">5.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO4_FixedInstanceWritable.html">5.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO5_MultiInstanceDynamic.html">5.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO6_MultipleResourceInstances.html">5.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.4.7. Bootstrap awareness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-OtherFeatures.html">5.6. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-Persistence.html">5.7. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+        
+          <li><a href="../AT-CustomObjects.html">5.4. Custom LwM2M objects</a> &raquo;</li>
+        
+      <li>5.4.7. Bootstrap awareness</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/AdvancedTopics/AT-CustomObjects/AT_CO7_BootstrapAwareness.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bootstrap-awareness">
+<h1>5.4.7. Bootstrap awareness<a class="headerlink" href="#bootstrap-awareness" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial you will learn how to setup Resources writable only by the
+LwM2M Bootstrap Server.</p>
+<div class="section" id="handling-lwm2m-bootstrap-server">
+<h2>5.4.7.1. Handling LwM2M Bootstrap Server<a class="headerlink" href="#handling-lwm2m-bootstrap-server" title="Permalink to this headline">¶</a></h2>
+<p>LwM2M Bootstrap Server is an unusual entity: it is allowed to modify Instances
+and Resources not accessible to “regular” LwM2M Servers. That is useful for
+setting up sensitive data that servers should not change (or even read) during
+normal operation of the device - DTLS keys or certificates, for example.</p>
+<p>Whenever a LwM2M Bootstrap Server sends a Bootstrap Write request, Anjay uses
+the same <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> and <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handlers as for “regular”
+LwM2M Server operations. The only difference is that Anjay <em>ignores the
+operations declared through the</em> <code class="docutils literal notranslate"><span class="pre">kind</span></code> <em>argument to</em> <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit_res()</span></code>
+<em>calls inside the</em> <code class="docutils literal notranslate"><span class="pre">list_resources</span></code> <em>handler</em> for bootstrap requests, allowing
+Bootstrap Server to do anything it wants.</p>
+<p>If a device has to implement a Resource that must only be writable by the LwM2M
+Bootstrap Server, its handlers should be implemented like so:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler must be able to set the value of a Resource,
+as if it was a writable one,</li>
+<li><code class="docutils literal notranslate"><span class="pre">list_resources</span></code> handler should pass a <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument that does not allow
+writing to <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit_res()</span></code>. That will prevent Anjay from calling the
+<code class="docutils literal notranslate"><span class="pre">resource_write</span></code> handler for this particular Resource when the request is
+issued by a non-bootstrap server.</li>
+</ul>
+</div>
+<div class="section" id="example-bootstrap-writable-resource">
+<h2>5.4.7.2. Example: bootstrap-writable Resource<a class="headerlink" href="#example-bootstrap-writable-resource" title="Permalink to this headline">¶</a></h2>
+<p>As an example, we will modify the Test Object from
+<a class="reference internal" href="AT_CO4_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a> to prevent changing the value of <code class="docutils literal notranslate"><span class="pre">Label</span></code>
+Resource by non-bootstrap servers:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Object ID</th>
+<th class="head">Instances</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Test object</td>
+<td>1234</td>
+<td>Multiple</td>
+</tr>
+</tbody>
+</table>
+<p>Each Object Instance has two Resources:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="21%" />
+<col width="19%" />
+<col width="17%" />
+<col width="17%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Resource ID</th>
+<th class="head">Operations</th>
+<th class="head">Instances</th>
+<th class="head">Mandatory</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Label</td>
+<td>0</td>
+<td>Read</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>String</td>
+</tr>
+<tr class="row-odd"><td>Value</td>
+<td>1</td>
+<td>Read/Write</td>
+<td>Single</td>
+<td>Mandatory</td>
+<td>Integer</td>
+</tr>
+</tbody>
+</table>
+<p>To achieve that, we need to update the <code class="docutils literal notranslate"><span class="pre">test_list_resources</span></code> handler so that
+it disallows writing to Resource 0:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                               <span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="c1">// only allow reading Resource 0 by LwM2M Servers</span>
+    <span class="c1">// this will be ignored for LwM2M Bootstrap Server</span>
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_R</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="c1">// Value Resource can be read/written by LwM2M Servers</span>
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>That leaves one more issue with the example project: it has a pre-configured
+LwM2M Server that is not a bootstrap one. Changing it to a LwM2M Bootstrap
+Server is a matter of setting <code class="docutils literal notranslate"><span class="pre">bootstrap_server</span> <span class="pre">=</span> <span class="pre">true</span></code> on
+<code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> struct when initializing the Security Object:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">bootstrap_server</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_NOSEC</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>It is worth noting that the LwM2M Bootstrap Server has only a Security Object
+instance and no Server Object instances. For that reason, the example project
+deliberately does not initialize any Server Object Instances.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Complete code of this example can be found in
+<cite>examples/tutorial/AT-CustomObjects/bootstrap-awareness</cite> subdirectory of main
+Anjay project repository.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../AT-NetworkErrorHandling.html" class="btn btn-neutral float-right" title="5.5. Network error handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-left" title="5.4.6. Objects with Multiple Instance Resources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2020, AVSystem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

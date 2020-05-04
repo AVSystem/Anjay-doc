@@ -9,6 +9,7 @@ var structanjay__configuration =
     [ "msg_cache_size", "structanjay__configuration.html#a3bb16de58b283370b1ab20698dd4849a", null ],
     [ "out_buffer_size", "structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4", null ],
     [ "prefer_hierarchical_formats", "structanjay__configuration.html#a9f7a28ca709a1e195b202eca9ba82f55", null ],
+    [ "prng_ctx", "structanjay__configuration.html#a87caa58c7de566e8c837d996b779f936", null ],
     [ "socket_config", "structanjay__configuration.html#a14968e097106889daad258f9e3a066d9", null ],
     [ "stored_notification_limit", "structanjay__configuration.html#af68d15e4d42c77139595eb70802ea97f", null ],
     [ "udp_dtls_hs_tx_params", "structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a", null ],

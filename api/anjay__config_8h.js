@@ -1,0 +1,28 @@
+var anjay__config_8h =
+[
+    [ "ANJAY_DTLS_SESSION_BUFFER_SIZE", "anjay__config_8h.html#a5a2af7df20d4af954b059285bf9d8082", null ],
+    [ "ANJAY_MAX_DOUBLE_STRING_SIZE", "anjay__config_8h.html#a5c4af7225e70339a9a8bf6f7ea3691dd", null ],
+    [ "ANJAY_MAX_PK_OR_IDENTITY_SIZE", "anjay__config_8h.html#ab0f0c7d580b87f00e7a3e0ba7863439a", null ],
+    [ "ANJAY_MAX_SECRET_KEY_SIZE", "anjay__config_8h.html#a07617d932867cb801411f90bd0b45fdf", null ],
+    [ "ANJAY_MAX_SERVER_PK_OR_IDENTITY_SIZE", "anjay__config_8h.html#ac0623e1b8a992927fb3fe7bc83d6c40f", null ],
+    [ "ANJAY_MAX_URI_QUERY_SEGMENT_SIZE", "anjay__config_8h.html#a8b8bf42dd67ac3d09514513db1ada414", null ],
+    [ "ANJAY_MAX_URI_SEGMENT_SIZE", "anjay__config_8h.html#a31a131b0d27f70943f60f743dbb58167", null ],
+    [ "ANJAY_WITH_ACCESS_CONTROL", "anjay__config_8h.html#abfe94aeaa70dc8ad4e9c4b3df4442a0b", null ],
+    [ "ANJAY_WITH_BOOTSTRAP", "anjay__config_8h.html#a8a70f38b1f092c1eff76496512d0695f", null ],
+    [ "ANJAY_WITH_COAP_DOWNLOAD", "anjay__config_8h.html#ac0c49e6eb1f1bf4233d4100f75e02ef3", null ],
+    [ "ANJAY_WITH_CON_ATTR", "anjay__config_8h.html#a748f705c32b8e352089e7e233bb7782e", null ],
+    [ "ANJAY_WITH_DISCOVER", "anjay__config_8h.html#a55fa5826aba0829bd86563a976b4bd88", null ],
+    [ "ANJAY_WITH_DOWNLOADER", "anjay__config_8h.html#a9879332ce70641480bdf8752bdd74907", null ],
+    [ "ANJAY_WITH_HTTP_DOWNLOAD", "anjay__config_8h.html#a9ad86ed37979ceead668e68b1e9e439e", null ],
+    [ "ANJAY_WITH_LOGS", "anjay__config_8h.html#a5caf0af969edccfbd8e19ea44b581902", null ],
+    [ "ANJAY_WITH_LWM2M_JSON", "anjay__config_8h.html#ab69302a2066492a5260f11d8950e1b3c", null ],
+    [ "ANJAY_WITH_MODULE_ACCESS_CONTROL", "anjay__config_8h.html#a3197f7e5fcb8086c8e7c573ed5b5fc26", null ],
+    [ "ANJAY_WITH_MODULE_ATTR_STORAGE", "anjay__config_8h.html#abbbcea44c92b2af315a7ea7dcec5de8b", null ],
+    [ "ANJAY_WITH_MODULE_FW_UPDATE", "anjay__config_8h.html#a2a1fefa3a82d7d3defdcb13597733e06", null ],
+    [ "ANJAY_WITH_MODULE_SECURITY", "anjay__config_8h.html#af3826c0f2b7e58651d8237f2d8f71394", null ],
+    [ "ANJAY_WITH_MODULE_SERVER", "anjay__config_8h.html#af53296d4db302f03403cdf2b0443b59a", null ],
+    [ "ANJAY_WITH_NET_STATS", "anjay__config_8h.html#a16f03e937cee569e516ff4616c3b97fc", null ],
+    [ "ANJAY_WITH_OBSERVATION_STATUS", "anjay__config_8h.html#a94b3894de8e54ba40684218883475ac2", null ],
+    [ "ANJAY_WITH_OBSERVE", "anjay__config_8h.html#add6266e9abb910f6d276143fbe185837", null ],
+    [ "ANJAY_WITH_TRACE_LOGS", "anjay__config_8h.html#a0bf7c70c2e84aed245739dbfb9c09a79", null ]
+];

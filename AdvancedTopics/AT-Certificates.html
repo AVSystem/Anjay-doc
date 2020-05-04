@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5.3. DTLS connection using certificates &mdash; Anjay 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.4. Custom LwM2M objects" href="AT-CustomObjects.html" />
+    <link rel="prev" title="5.2. Attribute storage" href="AT-AttributeStorage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.2. Attribute storage</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.3. DTLS connection using certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.4. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.6. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.7. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+        
+      <li>5.3. DTLS connection using certificates</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/AdvancedTopics/AT-Certificates.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dtls-connection-using-certificates">
+<h1>5.3. DTLS connection using certificates<a class="headerlink" href="#dtls-connection-using-certificates" title="Permalink to this headline">¶</a></h1>
+<p>In <a class="reference internal" href="../BasicClient/BC4.html"><span class="doc">Enabling secure communication</span></a> section you learned how to use PSK to enable secure
+connection in Anjay using DTLS. In this section, we will show how to use
+certificates instead of PSK.</p>
+<p>Preparing a LwM2M Client written using Anjay to use X.509 certificates requires
+essentially the same steps as using the PSK mode. However, it is very likely
+that you would like to load the certificates from files.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The full code for the following example can be found in the
+<code class="docutils literal notranslate"><span class="pre">examples/tutorial/AT-Certificates</span></code> directory in Anjay sources.</p>
+</div>
+<p>All actual parsing is performed by the TLS backend library, so it is enough to
+just load contents of certificate files in DER format into memory. The code from
+listing below is based on <a class="reference internal" href="../BasicClient/BC3.html"><span class="doc">Event loop</span></a> example and highlights the
+modified parts.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;poll.h&gt;</span><span class="cp"></span>
+<span class="hll"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Obtain all network data sources</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">sockets</span> <span class="o">=</span> <span class="n">anjay_get_sockets</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+
+        <span class="c1">// Prepare to poll() on them</span>
+        <span class="kt">size_t</span> <span class="n">numsocks</span> <span class="o">=</span> <span class="n">AVS_LIST_SIZE</span><span class="p">(</span><span class="n">sockets</span><span class="p">);</span>
+        <span class="k">struct</span> <span class="n">pollfd</span> <span class="n">pollfds</span><span class="p">[</span><span class="n">numsocks</span><span class="p">];</span>
+        <span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">sock</span><span class="p">;</span>
+        <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">sockets</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">fd</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="o">*</span><span class="n">sock</span><span class="p">);</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">events</span> <span class="o">=</span> <span class="n">POLLIN</span><span class="p">;</span>
+            <span class="n">pollfds</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">revents</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="o">++</span><span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">const</span> <span class="kt">int</span> <span class="n">max_wait_time_ms</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+        <span class="c1">// Determine the expected time to the next job in milliseconds.</span>
+        <span class="c1">// If there is no job we will wait till something arrives for</span>
+        <span class="c1">// at most 1 second (i.e. max_wait_time_ms).</span>
+        <span class="kt">int</span> <span class="n">wait_ms</span> <span class="o">=</span>
+                <span class="n">anjay_sched_calculate_wait_time_ms</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">max_wait_time_ms</span><span class="p">);</span>
+
+        <span class="c1">// Wait for the events if necessary, and handle them.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">poll</span><span class="p">(</span><span class="n">pollfds</span><span class="p">,</span> <span class="n">numsocks</span><span class="p">,</span> <span class="n">wait_ms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">socket_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="k">const</span><span class="p">)</span> <span class="n">socket</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+            <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">sockets</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">pollfds</span><span class="p">[</span><span class="n">socket_id</span><span class="p">].</span><span class="n">revents</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_serve</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">*</span><span class="n">socket</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;anjay_serve failed&quot;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="o">++</span><span class="n">socket_id</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Finally run the scheduler</span>
+        <span class="n">anjay_sched_run</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="k">static</span> <span class="kt">int</span>
+</span><span class="hll"><span class="nf">load_buffer_from_file</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">    <span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;could not open %s&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+</span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="kt">long</span> <span class="n">size</span> <span class="o">=</span> <span class="n">ftell</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">SIZE_MAX</span> <span class="o">||</span> <span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="o">*</span><span class="n">out_size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">size</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_malloc</span><span class="p">(</span><span class="o">*</span><span class="n">out_size</span><span class="p">)))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="o">*</span><span class="n">out_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">avs_free</span><span class="p">(</span><span class="o">*</span><span class="n">out</span><span class="p">);</span>
+</span><span class="hll">        <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">goto</span> <span class="n">finish</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="hll"><span class="nl">finish</span><span class="p">:</span>
+</span><span class="hll">    <span class="n">fclose</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;could not read %s&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span>
+<span class="c1">// Installs Security Object and adds and instance of it.</span>
+<span class="c1">// An instance of Security Object provides information needed to connect to</span>
+<span class="c1">// LwM2M server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://127.0.0.1:5684&quot;</span><span class="p">,</span>
+<span class="hll">        <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_CERTIFICATE</span>
+</span>    <span class="p">};</span>
+
+<span class="hll">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">load_buffer_from_file</span><span class="p">(</span>
+</span><span class="hll">                <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">,</span>
+</span><span class="hll">                <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span><span class="p">,</span>
+</span><span class="hll">                <span class="s">&quot;client_cert.der&quot;</span><span class="p">)</span>
+</span><span class="hll">            <span class="o">||</span> <span class="n">load_buffer_from_file</span><span class="p">(</span>
+</span><span class="hll">                       <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="p">,</span>
+</span><span class="hll">                       <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">private_cert_or_psk_key_size</span><span class="p">,</span>
+</span><span class="hll">                       <span class="s">&quot;client_key.der&quot;</span><span class="p">)</span>
+</span><span class="hll">            <span class="o">||</span> <span class="n">load_buffer_from_file</span><span class="p">(</span>
+</span><span class="hll">                       <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">server_public_key</span><span class="p">,</span>
+</span><span class="hll">                       <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">.</span><span class="n">server_public_key_size</span><span class="p">,</span>
+</span><span class="hll">                       <span class="s">&quot;server_cert.der&quot;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">goto</span> <span class="n">cleanup</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="c1">// Anjay will assign Instance ID automatically</span>
+</span><span class="hll">    <span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+</span><span class="hll">                                           <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="nl">cleanup</span><span class="p">:</span>
+</span><span class="hll">    <span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="p">);</span>
+</span><span class="hll">    <span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="p">);</span>
+</span><span class="hll">    <span class="n">avs_free</span><span class="p">((</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">security_instance</span><span class="p">.</span><span class="n">server_public_key</span><span class="p">);</span>
+</span><span class="hll">
+</span>    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Installs Server Object and adds and instance of it.</span>
+<span class="c1">// An instance of Server Object provides the data related to a LwM2M Server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// Server Short ID</span>
+        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Client will send Update message often than every 60 seconds</span>
+        <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="c1">// Disable Default Minimum Period resource</span>
+        <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Disable Default Maximum Period resource</span>
+        <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Disable Disable Timeout resource</span>
+        <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Sets preferred transport to UDP</span>
+        <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s">&quot;U&quot;</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Anjay will assign Instance ID automatically</span>
+    <span class="n">anjay_iid_t</span> <span class="n">server_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
+                                         <span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
+    <span class="p">};</span>
+
+    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// Install Attribute storage and setup necessary objects</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span> <span class="o">||</span> <span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+            <span class="o">||</span> <span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">main_loop</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">anjay_security_object_add_instance()</span></code> copies the buffers present in the
+<code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code> structure into the internal state of the
+<code class="docutils literal notranslate"><span class="pre">security</span></code> module, so it is safe to release the memory allocated by the
+file loading routine.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="AT-CustomObjects.html" class="btn btn-neutral float-right" title="5.4. Custom LwM2M objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AT-AttributeStorage.html" class="btn btn-neutral float-left" title="5.2. Attribute storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2020, AVSystem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

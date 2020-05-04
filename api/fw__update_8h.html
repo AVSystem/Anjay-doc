@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>anjay: modules/fw_update/include_public/anjay/fw_update.h File Reference</title>
+<title>anjay: include_public/anjay/fw_update.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -170,8 +170,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a058f05510e5b22fbdf53466a03cc6d38"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, const <a class="el" href="structanjay__fw__update__handlers__t.html">anjay_fw_update_handlers_t</a> *handlers, void *user_arg, const <a class="el" href="structanjay__fw__update__initial__state__t.html">anjay_fw_update_initial_state_t</a> *initial_state)</td></tr>
 <tr class="separator:a058f05510e5b22fbdf53466a03cc6d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57483ced696c088a21a2be60a8bd82ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#a57483ced696c088a21a2be60a8bd82ed">anjay_fw_update_load_security_from_dm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, const char *raw_url)</td></tr>
-<tr class="separator:a57483ced696c088a21a2be60a8bd82ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c0a6d661a8fa9bfae4f1f968a0cbecf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#a7c0a6d661a8fa9bfae4f1f968a0cbecf">anjay_fw_update_load_security_from_dm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, const char *uri)</td></tr>
+<tr class="separator:a7c0a6d661a8fa9bfae4f1f968a0cbecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac863d2d01b8796cb047fd4520f737b6f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#ac863d2d01b8796cb047fd4520f737b6f">anjay_fw_update_set_result</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="fw__update_8h.html#a7f9a69c33597a29d9f37ca42a3560139">anjay_fw_update_result_t</a> result)</td></tr>
 <tr class="separator:ac863d2d01b8796cb047fd4520f737b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -296,7 +296,7 @@ Functions</h2></td></tr>
 <p>Queries security information that shall be used for an encrypted connection with a PULL-mode download server.</p>
 <p>May be called before <a class="el" href="fw__update_8h.html#a024b15279a6415219f67ba9e2dadaa61">anjay_fw_update_stream_open_t</a> if the download is to be performed in PULL mode and the connection needs to use TLS or DTLS encryption.</p>
 <p>Note that the <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> contains references to file paths, binary security keys, and/or ciphersuite lists. It is the user's responsibility to appropriately allocate them and ensure proper lifetime of the returned pointers. The returned security information may only be invalidated in a call to <a class="el" href="fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a">anjay_fw_update_reset_t</a> or after a call to <a class="el" href="core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete</a> .</p>
-<p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <a class="el" href="fw__update_8h.html#a57483ced696c088a21a2be60a8bd82ed">anjay_fw_update_load_security_from_dm</a> will be used as a default way to get security information. You may also use that function yourself, for example as a fallback mechanism.</p>
+<p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <a class="el" href="fw__update_8h.html#a7c0a6d661a8fa9bfae4f1f968a0cbecf">anjay_fw_update_load_security_from_dm</a> will be used as a default way to get security information. You may also use that function yourself, for example as a fallback mechanism.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">user_ptr</td><td>Opaque pointer to user data, as passed to <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a></td></tr>
@@ -574,8 +574,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a57483ced696c088a21a2be60a8bd82ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57483ced696c088a21a2be60a8bd82ed">&#9670;&nbsp;</a></span>anjay_fw_update_load_security_from_dm()</h2>
+<a id="a7c0a6d661a8fa9bfae4f1f968a0cbecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c0a6d661a8fa9bfae4f1f968a0cbecf">&#9670;&nbsp;</a></span>anjay_fw_update_load_security_from_dm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -590,7 +590,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>raw_url</em>&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -665,8 +665,8 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_e05d7e2b1ecd646af5bb94391405f3b5.html">modules</a></li><li class="navelem"><a class="el" href="dir_aa01a8637aa49ffd335cbf2b76be9ae7.html">fw_update</a></li><li class="navelem"><a class="el" href="dir_cab12f08c791e675dbf693fef0b9538e.html">include_public</a></li><li class="navelem"><a class="el" href="dir_efd9491ebce6ae5f6323788230eee553.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
-    <li class="footer">Generated on Fri Feb 7 2020 15:34:53 for anjay by
+    <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
+    <li class="footer">Generated on Mon May 4 2020 16:45:49 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

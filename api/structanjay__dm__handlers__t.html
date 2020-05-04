@@ -145,7 +145,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create an Object Instance, <a class="el" href="dm_8h.html#a4608a3d78255362e3770f132f5d7e81c">anjay_dm_instance_create_t</a> </p>
+<p>Create an Object Instance, <a class="el" href="dm_8h.html#a4608a3d78255362e3770f132f5d7e81c">anjay_dm_instance_create_t</a></p>
+<p>Required for handling <em>LwM2M Create</em> operation.</p>
+<p>Can be NULL for single instance objects. </p>
 
 </div>
 </div>
@@ -160,7 +162,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get default Object Instance attributes, <a class="el" href="dm_8h.html#a3d07435b39f30242395a2e0e5ef5e06c">anjay_dm_instance_read_default_attrs_t</a> </p>
+<p>Get default Object Instance attributes, <a class="el" href="dm_8h.html#a3d07435b39f30242395a2e0e5ef5e06c">anjay_dm_instance_read_default_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Discover</em> and <em>LwM2M Observe</em> operations.</p>
+<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -175,7 +179,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Delete an Object Instance, <a class="el" href="dm_8h.html#a12f234fb77ef6995eff912111555777e">anjay_dm_instance_remove_t</a> </p>
+<p>Delete an Object Instance, <a class="el" href="dm_8h.html#a12f234fb77ef6995eff912111555777e">anjay_dm_instance_remove_t</a></p>
+<p>Required for handling <em>LwM2M Delete</em> operation.</p>
+<p>Can be NULL for single instance objects. </p>
 
 </div>
 </div>
@@ -190,7 +196,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Resets an Object Instance, <a class="el" href="dm_8h.html#adc3c75f2cd2aa41acb851951f2820db2">anjay_dm_instance_reset_t</a> </p>
+<p>Resets an Object Instance, <a class="el" href="dm_8h.html#adc3c75f2cd2aa41acb851951f2820db2">anjay_dm_instance_reset_t</a></p>
+<p>Required for handling <em>LwM2M Write</em> operation in <em>replace mode</em>.</p>
+<p>Can be NULL if the object does not contain writable resources. </p>
 
 </div>
 </div>
@@ -205,7 +213,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set default Object Instance attributes, <a class="el" href="dm_8h.html#ac205836b3a8bd08a1f5f57f88ec49b15">anjay_dm_instance_write_default_attrs_t</a> </p>
+<p>Set default Object Instance attributes, <a class="el" href="dm_8h.html#ac205836b3a8bd08a1f5f57f88ec49b15">anjay_dm_instance_write_default_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Write-Attributes</em> operation.</p>
+<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -220,7 +230,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Enumerate available Object Instances, <a class="el" href="dm_8h.html#aca2d02d6992ecda52cfc3d05f00a8265">anjay_dm_list_instances_t</a> </p>
+<p>Enumerate available Object Instances, <a class="el" href="dm_8h.html#aca2d02d6992ecda52cfc3d05f00a8265">anjay_dm_list_instances_t</a></p>
+<p>Required for every LwM2M operation.</p>
+<p><b>Must not be NULL.</b> <a class="el" href="dm_8h.html#afeaf1adea86ba0be78be58bf917c1dee">anjay_dm_list_instances_SINGLE</a> can be used here. </p>
 
 </div>
 </div>
@@ -235,7 +247,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Enumerate available Resource Instances, <a class="el" href="dm_8h.html#aee65a69517777a147831d871f8c3cd37">anjay_dm_list_resource_instances_t</a> </p>
+<p>Enumerate available Resource Instances, <a class="el" href="dm_8h.html#aee65a69517777a147831d871f8c3cd37">anjay_dm_list_resource_instances_t</a></p>
+<p>Required for <em>LwM2M Read</em>, <em>LwM2M Write</em> and <em>LwM2M Discover</em> operations performed on multiple-instance resources..</p>
+<p>Can be NULL if the object does not contain multiple resources. </p>
 
 </div>
 </div>
@@ -250,7 +264,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Enumerate PRESENT Resources in a given Object Instance, <a class="el" href="dm_8h.html#ae92f90af3ba345134b27c6e33848a233">anjay_dm_list_resources_t</a> </p>
+<p>Enumerate PRESENT Resources in a given Object Instance, <a class="el" href="dm_8h.html#ae92f90af3ba345134b27c6e33848a233">anjay_dm_list_resources_t</a></p>
+<p>Required for every LwM2M operation.</p>
+<p><b>Must not be NULL.</b> </p>
 
 </div>
 </div>
@@ -265,7 +281,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get default Object attributes, <a class="el" href="dm_8h.html#aa16f8b6c72169a756f06619f33fbe4c5">anjay_dm_object_read_default_attrs_t</a> </p>
+<p>Get default Object attributes, <a class="el" href="dm_8h.html#aa16f8b6c72169a756f06619f33fbe4c5">anjay_dm_object_read_default_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Discover</em> and <em>LwM2M Observe</em> operations.</p>
+<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -280,7 +298,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set default Object attributes, <a class="el" href="dm_8h.html#a2367df16032435ea8b98f2471b8138b6">anjay_dm_object_write_default_attrs_t</a> </p>
+<p>Set default Object attributes, <a class="el" href="dm_8h.html#a2367df16032435ea8b98f2471b8138b6">anjay_dm_object_write_default_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Write-Attributes</em> operation.</p>
+<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -295,7 +315,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Perform Execute action on a Resource, <a class="el" href="dm_8h.html#afe743b92ad59a910e521a3f6388e067e">anjay_dm_resource_execute_t</a> </p>
+<p>Perform Execute action on a Resource, <a class="el" href="dm_8h.html#afe743b92ad59a910e521a3f6388e067e">anjay_dm_resource_execute_t</a></p>
+<p>Required for <em>LwM2M Execute</em> operation.</p>
+<p>Can be NULL if the object does not contain executable resources. </p>
 
 </div>
 </div>
@@ -310,7 +332,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get Resource value, <a class="el" href="dm_8h.html#aa2d7e8eb745e007ece93d33bbfd1ec6d">anjay_dm_resource_read_t</a> </p>
+<p>Get Resource value, <a class="el" href="dm_8h.html#aa2d7e8eb745e007ece93d33bbfd1ec6d">anjay_dm_resource_read_t</a></p>
+<p>Required for <em>LwM2M Read</em> operation.</p>
+<p>Can be NULL if the object does not contain readable resources. </p>
 
 </div>
 </div>
@@ -325,7 +349,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get Resource attributes, <a class="el" href="dm_8h.html#a4aae18dd2e0baa962c11e92afee80434">anjay_dm_resource_read_attrs_t</a> </p>
+<p>Get Resource attributes, <a class="el" href="dm_8h.html#a4aae18dd2e0baa962c11e92afee80434">anjay_dm_resource_read_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Discover</em> and <em>LwM2M Observe</em> operations.</p>
+<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -340,7 +366,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Remove all Resource Instances from a Multiple Resource, <a class="el" href="dm_8h.html#a6abe3f484a773a4e723f62d1bf46309e">anjay_dm_resource_reset_t</a> </p>
+<p>Remove all Resource Instances from a Multiple Resource, <a class="el" href="dm_8h.html#a6abe3f484a773a4e723f62d1bf46309e">anjay_dm_resource_reset_t</a></p>
+<p>Required for <em>LwM2M Write</em> operation performed on multiple-instance resources.</p>
+<p>Can be NULL if the object does not contain multiple writable resources. </p>
 
 </div>
 </div>
@@ -355,7 +383,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set Resource value, <a class="el" href="dm_8h.html#ae3ed2e8373ab6dbffb72729f3f9dd6d7">anjay_dm_resource_write_t</a> </p>
+<p>Set Resource value, <a class="el" href="dm_8h.html#ae3ed2e8373ab6dbffb72729f3f9dd6d7">anjay_dm_resource_write_t</a></p>
+<p>Required for <em>LwM2M Write</em> operation.</p>
+<p>Can be NULL if the object does not contain writable resources. </p>
 
 </div>
 </div>
@@ -370,7 +400,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set Resource attributes, <a class="el" href="dm_8h.html#a24a7e144564028de3c638b597f39c91e">anjay_dm_resource_write_attrs_t</a> </p>
+<p>Set Resource attributes, <a class="el" href="dm_8h.html#a24a7e144564028de3c638b597f39c91e">anjay_dm_resource_write_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Write-Attributes</em> operation.</p>
+<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -385,7 +417,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Begin a transaction on this Object, <a class="el" href="dm_8h.html#a184ed965f790d8ef0995b64c663197fb">anjay_dm_transaction_begin_t</a> </p>
+<p>Begin a transaction on this Object, <a class="el" href="dm_8h.html#a184ed965f790d8ef0995b64c663197fb">anjay_dm_transaction_begin_t</a></p>
+<p>Required for handling modifying operation: <em>LwM2M Write</em>, <em>LwM2M Create</em> or <em>LwM2M Delete</em>.</p>
+<p>Can be NULL for read-only objects. <a class="el" href="dm_8h.html#adaa863b92d1eeb00ef4e86468248603f">anjay_dm_transaction_NOOP</a> can be used here. </p>
 
 </div>
 </div>
@@ -400,7 +434,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Commit changes made in a transaction, <a class="el" href="dm_8h.html#af5b8c307fbac5433da5ec781f40f4445">anjay_dm_transaction_commit_t</a> </p>
+<p>Commit changes made in a transaction, <a class="el" href="dm_8h.html#af5b8c307fbac5433da5ec781f40f4445">anjay_dm_transaction_commit_t</a></p>
+<p>Required for handling modifying operation: <em>LwM2M Write</em>, <em>LwM2M Create</em> or <em>LwM2M Delete</em>.</p>
+<p>Can be NULL for read-only objects. <a class="el" href="dm_8h.html#adaa863b92d1eeb00ef4e86468248603f">anjay_dm_transaction_NOOP</a> can be used here. </p>
 
 </div>
 </div>
@@ -415,7 +451,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Rollback changes made in a transaction, <a class="el" href="dm_8h.html#af9db8740d54818da8013320441bbe828">anjay_dm_transaction_rollback_t</a> </p>
+<p>Rollback changes made in a transaction, <a class="el" href="dm_8h.html#af9db8740d54818da8013320441bbe828">anjay_dm_transaction_rollback_t</a></p>
+<p>Required for handling modifying operation: <em>LwM2M Write</em>, <em>LwM2M Create</em> or <em>LwM2M Delete</em>.</p>
+<p>Can be NULL for read-only objects. <a class="el" href="dm_8h.html#adaa863b92d1eeb00ef4e86468248603f">anjay_dm_transaction_NOOP</a> can be used here. </p>
 
 </div>
 </div>
@@ -430,7 +468,9 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Validate whether a transaction on this Object can be cleanly committed. See <a class="el" href="dm_8h.html#a796fcf51d7d4478b2331685d94c7c57b">anjay_dm_transaction_validate_t</a> </p>
+<p>Validate whether a transaction on this Object can be cleanly committed. See <a class="el" href="dm_8h.html#a796fcf51d7d4478b2331685d94c7c57b">anjay_dm_transaction_validate_t</a></p>
+<p>Required for handling modifying operation: <em>LwM2M Write</em>, <em>LwM2M Create</em> or <em>LwM2M Delete</em>.</p>
+<p>Can be NULL for read-only objects. <a class="el" href="dm_8h.html#adaa863b92d1eeb00ef4e86468248603f">anjay_dm_transaction_NOOP</a> can be used here. </p>
 
 </div>
 </div>
@@ -443,7 +483,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__dm__handlers__t.html">anjay_dm_handlers_t</a></li>
-    <li class="footer">Generated on Fri Feb 7 2020 15:34:53 for anjay by
+    <li class="footer">Generated on Mon May 4 2020 16:45:49 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

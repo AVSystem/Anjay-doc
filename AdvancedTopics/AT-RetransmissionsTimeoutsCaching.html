@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5.8. Retransmissions, timeouts &amp; response caching &mdash; Anjay 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Firmware Update Tutorial" href="../FirmwareUpdateTutorial.html" />
+    <link rel="prev" title="5.7. Persistence support" href="AT-Persistence.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.2. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.4. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.6. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.7. Persistence support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.8. Retransmissions, timeouts &amp; response caching</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+        
+      <li>5.8. Retransmissions, timeouts &amp; response caching</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/AdvancedTopics/AT-RetransmissionsTimeoutsCaching.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="retransmissions-timeouts-response-caching">
+<h1>5.8. Retransmissions, timeouts &amp; response caching<a class="headerlink" href="#retransmissions-timeouts-response-caching" title="Permalink to this headline">¶</a></h1>
+<p>Due to potential network instability, the need to retransmit a message
+between a Client and a Server may sometimes occur. Detecting retransmissions
+is especially important if the operation has some observable side effects.</p>
+<div class="section" id="motivational-examples">
+<h2>5.8.1. Motivational examples<a class="headerlink" href="#motivational-examples" title="Permalink to this headline">¶</a></h2>
+<p>Imagine a LwM2M Object with a numeric, executable Resource, whose value is
+incremented every time a LwM2M Server performs Execute on it. Now, consider
+the following scenario:</p>
+<ul class="simple">
+<li>the LwM2M Server performs an Execute on this specific Resource,</li>
+<li>the LwM2M Client receives the request, bumps the value, and sends a response,</li>
+<li>the response is lost due to unfortunate network conditions,</li>
+<li>the LwM2M Server attempts to increment the Resource again (sending exactly
+the same Execute request as before),</li>
+<li>the LwM2M Client receives the request.</li>
+</ul>
+<p>LwM2M Client obtained both requests, and if it was unable to classify the
+second one as a retransmission of the first, the resource would be incremented
+twice, even though it would make much more sense to increment it just once.
+On the other hand, caching the response, and detecting a retransmission,
+would improve Client-Server communication integrity by preventing this
+from happening.</p>
+<p>Another scenario could be that the response is computationally expensive
+(and time-consuming) to generate. In this case caching mechanism would
+yield measurable performance benefits.</p>
+</div>
+<div class="section" id="caching-mechanism">
+<h2>5.8.2. Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Permalink to this headline">¶</a></h2>
+<p>Anjay provides a built-in message cache - when the request is received, Anjay
+checks if there exists an appropriate response to it in the cache already. In
+case there is one, it is retransmitted. Otherwise Anjay processes the request as
+usual, in the end placing response in the cache for future use.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Cached response, matching a specific CoAP Request is identified by the
+following triplet:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>CoAP Message Token,</li>
+<li>CoAP Message ID,</li>
+<li>Server endpoint name (host and port).</li>
+</ul>
+</div></blockquote>
+</div>
+<p>Every response in the cache sits there for at most <code class="docutils literal notranslate"><span class="pre">MAX_TRANSMIT_SPAN</span></code>
+as defined in <a class="reference external" href="https://tools.ietf.org/html/rfc7252">RFC7252</a>, in
+<a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8.2">Section 4.8.2.  Time Values Derived from Transmission Parameters</a>, and after that time
+it is automatically removed.</p>
+</div>
+<div class="section" id="cache-size">
+<h2>5.8.3. Cache size<a class="headerlink" href="#cache-size" title="Permalink to this headline">¶</a></h2>
+<p>The size of the cache is specified at Anjay instantiation time by setting
+<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::msg_cache_size</span></code> to a non-zero value (zero disables
+any caching). This limits the number of bytes used to store cached responses.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The cache size limit is global for all Servers - i.e. all responses,
+to all Servers are stored within a single cache.</p>
+</div>
+</div>
+<div class="section" id="limitations">
+<h2>5.8.4. Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>If a response is too big to fit into the cache, it is <strong>not cached</strong>,</li>
+<li>If a response would fit into the cache, but the cache is currently full,
+responses (starting from the oldest) are <strong>dropped</strong> from the cache (even if
+they are still considered valid in terms of mentioned <code class="docutils literal notranslate"><span class="pre">MAX_TRANSMIT_SPAN</span></code>),
+till the new response fits.</li>
+</ul>
+</div>
+<div class="section" id="configuring-retransmissions-and-timeouts">
+<span id="coap-retransmission-parameters"></span><h2>5.8.5. Configuring retransmissions and timeouts<a class="headerlink" href="#configuring-retransmissions-and-timeouts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="background">
+<h3>5.8.5.1. Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
+<p>To provide custom retransmission policy, affecting CoAP layer across
+the library, one needs to set <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code>
+accordingly prior library instantiation with <code class="docutils literal notranslate"><span class="pre">anjay_new()</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code> is a <code class="docutils literal notranslate"><span class="pre">avs_coap_udp_tx_params_t</span></code>
+structure, defined as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/** CoAP transmission params object. */</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="cm">/** RFC 7252: ACK_TIMEOUT */</span>
+    <span class="n">avs_time_duration_t</span> <span class="n">ack_timeout</span><span class="p">;</span>
+    <span class="cm">/** RFC 7252: ACK_RANDOM_FACTOR */</span>
+    <span class="kt">double</span> <span class="n">ack_random_factor</span><span class="p">;</span>
+    <span class="cm">/** RFC 7252: MAX_RETRANSMIT */</span>
+    <span class="kt">unsigned</span> <span class="n">max_retransmit</span><span class="p">;</span>
+    <span class="cm">/** RFC 7252: NSTART */</span>
+    <span class="kt">size_t</span> <span class="n">nstart</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">avs_coap_udp_tx_params_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>It should be noted that without any additional configuration,
+Anjay uses default values as specified in the <a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8">Section 4.8 of RFC7252</a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="16%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Default value</th>
+<th class="head">Corresponding field in <code class="docutils literal notranslate"><span class="pre">avs_coap_udp_tx_params_t</span></code></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code></td>
+<td>2 seconds</td>
+<td><code class="docutils literal notranslate"><span class="pre">ack_timeout</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code></td>
+<td>1.5</td>
+<td><code class="docutils literal notranslate"><span class="pre">ack_random_factor</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code></td>
+<td>4</td>
+<td><code class="docutils literal notranslate"><span class="pre">max_retransmit</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">NSTART</span></code></td>
+<td>1</td>
+<td><code class="docutils literal notranslate"><span class="pre">nstart</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions">
+<h3>5.8.5.2. Meaning of each parameter, calculations of timeouts and the number of retransmissions<a class="headerlink" href="#meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="ack-random-factor">
+<h4>5.8.5.2.1. <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code><a class="headerlink" href="#ack-random-factor" title="Permalink to this headline">¶</a></h4>
+<p>Configures the amount of random perturbation to a timeout to a response to
+an initial message (<code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code>, see next subsection). Its value has to
+be at least <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. The randomness is mixed in as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>generate a random number <code class="docutils literal notranslate"><span class="pre">r</span></code> from a closed range <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">ACK_RANDOM_FACTOR]</span></code>,</li>
+<li>multiply the <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> by <code class="docutils literal notranslate"><span class="pre">r</span></code> and use it as initial timeout.</li>
+</ul>
+</div></blockquote>
+<div class="hint admonition">
+<p class="first admonition-title">Example</p>
+<p>Say the library has <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> set to <cite>16s</cite>.</p>
+<p>Now, if the <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code> is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, no random behavior is
+introduced, because the library is forced to pick a random number from
+a trivial interval <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">1.0]</span></code>.</p>
+<p class="last">However, if the <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code> is, say, <code class="docutils literal notranslate"><span class="pre">1.5</span></code>, the number picked
+may lie in range <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">1.5]</span></code>, thus the actual time the library would wait
+may vary between <code class="docutils literal notranslate"><span class="pre">[16,</span> <span class="pre">24]</span></code> seconds.</p>
+</div>
+</div>
+<div class="section" id="ack-timeout">
+<h4>5.8.5.2.2. <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code><a class="headerlink" href="#ack-timeout" title="Permalink to this headline">¶</a></h4>
+<p>Configures the amount of time the library shall wait for the response to the
+initial confirmable message (not retransmission).</p>
+<div class="hint admonition">
+<p class="first admonition-title">Example</p>
+<p>Say the library wants to send a confirmable message.</p>
+<p class="last">If <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code> is set to, say, <cite>10</cite> seconds, the library sends the
+message and then waits <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">*</span> <span class="pre">r</span></code> seconds (<code class="docutils literal notranslate"><span class="pre">r</span></code> is defined as in the
+above discussion about <code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code>) for the initial response.</p>
+</div>
+</div>
+<div class="section" id="max-retransmit">
+<h4>5.8.5.2.3. <code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code><a class="headerlink" href="#max-retransmit" title="Permalink to this headline">¶</a></h4>
+<p>Configures the total number of retransmissions the library is allowed to
+perform before giving up on message delivery.</p>
+<div class="hint admonition">
+<p class="first admonition-title">Example</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code> is set to, say, <cite>4</cite>, the library would send <cite>1</cite>
+initial message + up to <cite>4</cite> retransmissions, accounting for up to <cite>5</cite>
+messages in total.</p>
+<p class="last">If <code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code> is set to <cite>0</cite>, no retransmission would be attempted,
+and the library would give up if no response arrived after <code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span> <span class="pre">*</span>
+<span class="pre">r</span></code> seconds.</p>
+</div>
+</div>
+<div class="section" id="nstart">
+<h4>5.8.5.2.4. <code class="docutils literal notranslate"><span class="pre">NSTART</span></code><a class="headerlink" href="#nstart" title="Permalink to this headline">¶</a></h4>
+<p>Configures the maximum number of exchanges that may be ongoing at the same time
+with a given remote CoAP endpoint (i.e., a LwM2M Server).</p>
+<p>In Anjay, it is mostly ignored. It is not recommended to set it to any other
+value than the default of 1.</p>
+<p>Higher values may be useful when writing applications using the low-level CoAP
+APIs.</p>
+</div>
+<div class="section" id="exponential-back-off">
+<h4>5.8.5.2.5. Exponential back-off<a class="headerlink" href="#exponential-back-off" title="Permalink to this headline">¶</a></h4>
+<p>After waiting for a response for <code class="docutils literal notranslate"><span class="pre">t</span></code> seconds , the wait time for the next
+retransmission (in the absence of response) would be <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">t</span></code> seconds. In
+other words, retransmissions are performed with exponential back-off.</p>
+</div>
+</div>
+<div class="section" id="example-configuration">
+<h3>5.8.5.3. Example configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline">¶</a></h3>
+<p>As an example, we may configure the library as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_coap_udp_tx_params_t</span> <span class="n">udp_tx_params</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="c1">// Wait at least 4 seconds for the initial response.</span>
+   <span class="p">.</span><span class="n">ack_timeout</span> <span class="o">=</span> <span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">),</span>
+   <span class="c1">// Do not randomize wait times for simplicity of the discussion,</span>
+   <span class="c1">// thus &quot;at least&quot; in the comment above should be thought of as</span>
+   <span class="c1">// &quot;exactly&quot;.</span>
+   <span class="p">.</span><span class="n">ack_random_factor</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+   <span class="c1">// Allow up to 4 retransmissions.</span>
+   <span class="p">.</span><span class="n">max_retransmit</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+   <span class="c1">// leave the NSTART parameter at the default value of 1</span>
+   <span class="p">.</span><span class="n">nstart</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">};</span>
+
+<span class="n">anjay_configuration_t</span> <span class="n">configuration</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="c1">// Some other configuration ...</span>
+   <span class="p">.</span><span class="n">udp_tx_params</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">udp_tx_params</span>
+<span class="p">};</span>
+
+<span class="c1">// Create Anjay instance with custom transmission parameters</span>
+<span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">configuration</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The above configuration would result in the following retransmission times to a confirmable
+message:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="17%" />
+<col width="38%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Time [s]</th>
+<th class="head">Retry number</th>
+<th class="head">Wait time for the response [s]</th>
+<th class="head">Action by the library</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>0</td>
+<td>4</td>
+<td>send initial message</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>1</td>
+<td>8</td>
+<td>1st retransmission</td>
+</tr>
+<tr class="row-even"><td>12</td>
+<td>2</td>
+<td>16</td>
+<td>2nd retransmission</td>
+</tr>
+<tr class="row-odd"><td>28</td>
+<td>3</td>
+<td>32</td>
+<td>3rd retransmission</td>
+</tr>
+<tr class="row-even"><td>60</td>
+<td>4</td>
+<td>64</td>
+<td>4th (final) retransmission</td>
+</tr>
+<tr class="row-odd"><td>124</td>
+<td>–</td>
+<td>–</td>
+<td>give up</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="other-retransmission-parameters">
+<h2>5.8.6. Other retransmission parameters<a class="headerlink" href="#other-retransmission-parameters" title="Permalink to this headline">¶</a></h2>
+<p>While setting <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code> parameter
+covers most cases, there are also means to configure:</p>
+<ul class="simple">
+<li>DTLS handshake retransmissions
+(<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_dtls_hs_tx_params</span></code> <a class="reference external" href="../api/structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a">docs</a>),</li>
+<li>firmware update module retransmissions (by implementing
+custom <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_get_coap_tx_params_t</span></code> handler <a class="reference external" href="../api/fw__update_8h.html#a50900e2aaff21e91df693795965136b2">docs</a>),</li>
+<li>in the commercial versions, there are also additional fields in
+<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> that configure transmission parameters for non-UDP
+transports.</li>
+</ul>
+<p>We recommend to refer to the doxygen documentation for more details.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../FirmwareUpdateTutorial.html" class="btn btn-neutral float-right" title="6. Firmware Update Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AT-Persistence.html" class="btn btn-neutral float-left" title="5.7. Persistence support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2020, AVSystem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

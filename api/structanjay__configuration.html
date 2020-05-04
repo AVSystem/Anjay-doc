@@ -120,6 +120,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a0165032f6801d2c79d377f498fdc3970"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5c0d3b6618cce9452d224a361e7479f"><td class="memItemLeft" align="right" valign="top">avs_net_socket_tls_ciphersuites_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#ab5c0d3b6618cce9452d224a361e7479f">default_tls_ciphersuites</a></td></tr>
 <tr class="separator:ab5c0d3b6618cce9452d224a361e7479f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87caa58c7de566e8c837d996b779f936"><td class="memItemLeft" align="right" valign="top">avs_crypto_prng_ctx_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a87caa58c7de566e8c837d996b779f936">prng_ctx</a></td></tr>
+<tr class="separator:a87caa58c7de566e8c837d996b779f936"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a86aadc48d030ec4c66750cd6204c5b05"></a>
@@ -266,6 +268,23 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a87caa58c7de566e8c837d996b779f936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87caa58c7de566e8c837d996b779f936">&#9670;&nbsp;</a></span>prng_ctx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_crypto_prng_ctx_t* prng_ctx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Custom PRNG context to use. If <code>NULL</code> , a default one is used, with entropy source specific to selected cryptograpic backend. If default entropy source isn't available, creation of Anjay object will fail.</p>
+<p>Used for establishing TLS and DTLS connections, generation of tokens and by OSCORE module, if it's available.</p>
+<p>If not <code>NULL</code> , then MUST outlive created Anjay object. </p>
+
+</div>
+</div>
 <a id="a14968e097106889daad258f9e3a066d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14968e097106889daad258f9e3a066d9">&#9670;&nbsp;</a></span>socket_config</h2>
 
@@ -375,7 +394,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__configuration.html">anjay_configuration</a></li>
-    <li class="footer">Generated on Fri Feb 7 2020 15:34:53 for anjay by
+    <li class="footer">Generated on Mon May 4 2020 16:45:49 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

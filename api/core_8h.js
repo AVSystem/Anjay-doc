@@ -39,6 +39,7 @@ var core_8h =
     [ "anjay_enable_server", "core_8h.html#abc4b554e51a56da874238f3e64bff074", null ],
     [ "anjay_enter_offline", "core_8h.html#a82fbb9e51e1f2b71858d94208c284684", null ],
     [ "anjay_exit_offline", "core_8h.html#a15f6ef4e35b54db0ff90913086489b53", null ],
+    [ "anjay_get_scheduler", "core_8h.html#abb564689d6abd23010b5782bf4967819", null ],
     [ "anjay_get_socket_entries", "core_8h.html#accc841d429905c688957594c05c59e52", null ],
     [ "anjay_get_sockets", "core_8h.html#afb06d3039ea169fc8f0d551bc04c929f", null ],
     [ "anjay_get_version", "core_8h.html#ad2fa000fb24ae72702fd552c2f207472", null ],

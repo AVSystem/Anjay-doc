@@ -92,10 +92,12 @@ $(document).ready(function(){initNavTree('core_8h.html','');});
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
 <code>#include &lt;avsystem/coap/udp.h&gt;</code><br />
-<code>#include &lt;avsystem/commons/list.h&gt;</code><br />
-<code>#include &lt;avsystem/commons/net.h&gt;</code><br />
-<code>#include &lt;avsystem/commons/stream.h&gt;</code><br />
-<code>#include &lt;avsystem/commons/time.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/avs_list.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/avs_net.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/avs_prng.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/avs_sched.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/avs_stream.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/avs_time.h&gt;</code><br />
 </div>
 <p><a href="core_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -186,6 +188,8 @@ Functions</h2></td></tr>
 <tr class="separator:accc841d429905c688957594c05c59e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa743e53b432d4a7b82001c5cdad163fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, avs_net_socket_t *ready_socket)</td></tr>
 <tr class="separator:aa743e53b432d4a7b82001c5cdad163fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb564689d6abd23010b5782bf4967819"><td class="memItemLeft" align="right" valign="top">avs_sched_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#abb564689d6abd23010b5782bf4967819">anjay_get_scheduler</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
+<tr class="separator:abb564689d6abd23010b5782bf4967819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad83be53577741a9f3f94c39c464def09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ad83be53577741a9f3f94c39c464def09">anjay_sched_time_to_next</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, avs_time_duration_t *out_delay)</td></tr>
 <tr class="separator:ad83be53577741a9f3f94c39c464def09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3998f24f83f30c17d96077ad673345ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a3998f24f83f30c17d96077ad673345ce">anjay_sched_time_to_next_ms</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, int *out_delay_ms)</td></tr>
@@ -668,7 +672,7 @@ Functions</h2></td></tr>
 <p>NOTE: It shall be called <b>before</b> freeing LwM2M Objects registered within the <code>anjay</code> object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">anjay</td><td>Anjay object to delete. </td></tr>
+    <tr><td class="paramname">anjay</td><td>Anjay object to delete. MUST NOT be <code>NULL</code> . </td></tr>
   </table>
   </dd>
 </dl>
@@ -751,7 +755,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
     <tr><td class="paramname">ssid</td><td>Short Server ID of the server to put in a disabled state. </td></tr>
-    <tr><td class="paramname">timeout</td><td>Disable timeout. If set to AVS_TIME_DURATION_INVALID, the server will remain disabled until explicit call to <a class="el" href="core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server</a> . Otherwise, the server will get enabled automatically after <code>timeout</code> .</td></tr>
+    <tr><td class="paramname">timeout</td><td>Disable timeout. If set to <code>AVS_TIME_DURATION_INVALID</code>, the server will remain disabled until explicit call to <a class="el" href="core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server</a> . Otherwise, the server will get enabled automatically after <code>timeout</code> .</td></tr>
   </table>
   </dd>
 </dl>
@@ -849,6 +853,35 @@ Disabled or Offline" resource.</p>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 on success, a negative value in case of error. </dd></dl>
+
+</div>
+</div>
+<a id="abb564689d6abd23010b5782bf4967819"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb564689d6abd23010b5782bf4967819">&#9670;&nbsp;</a></span>anjay_get_scheduler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_sched_t* anjay_get_scheduler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Extracts the scheduler used by Anjay allowing the user to schedule his own tasks.</p>
+<p>See docs of <a href="https://github.com/AVSystem/avs_commons/
+blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for API of <code>avs_sched_t</code> object.</p>
+<p><b>Must not</b> use <code>avs_sched_cleanup</code> on the returned scheduler. Anjay will cleanup it itself.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>non-null scheduler object used by Anjay. </dd></dl>
 
 </div>
 </div>
@@ -1226,7 +1259,7 @@ Disabled or Offline" resource.</p>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Fri Feb 7 2020 15:34:53 for anjay by
+    <li class="footer">Generated on Mon May 4 2020 16:45:49 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

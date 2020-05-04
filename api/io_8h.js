@@ -24,7 +24,7 @@ var io_8h =
     ] ],
     [ "anjay_dm_emit", "io_8h.html#a1da2d93aad64ca26a51fa0a40920b287", null ],
     [ "anjay_dm_emit_res", "io_8h.html#a1d7622e822cf8eef8ba8201c62256df2", null ],
-    [ "anjay_execute_get_arg_value", "io_8h.html#a79e423f2f42bba665c9ad447597decb3", null ],
+    [ "anjay_execute_get_arg_value", "io_8h.html#a8f8d8be21101f9bed5a60edd45e5fc55", null ],
     [ "anjay_execute_get_next_arg", "io_8h.html#a166823938b9f4be61a3ca78a76e48d3f", null ],
     [ "anjay_get_bool", "io_8h.html#ad2f9d88a8d55aab1154b2ed91c133697", null ],
     [ "anjay_get_bytes", "io_8h.html#a8f964be4881dd0fd3310be7841993a2b", null ],

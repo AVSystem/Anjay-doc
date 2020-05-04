@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5.2. Attribute storage &mdash; Anjay 2.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.3. DTLS connection using certificates" href="AT-Certificates.html" />
+    <link rel="prev" title="5.1. Access Control in multi-server environment" href="AT-AccessControl.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.2. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.4. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.6. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.7. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+        
+      <li>5.2. Attribute storage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/AdvancedTopics/AT-AttributeStorage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="attribute-storage">
+<h1>5.2. Attribute storage<a class="headerlink" href="#attribute-storage" title="Permalink to this headline">¶</a></h1>
+<p>The Write Attributes and Discover RPCs, as well as the Information Reporting
+interface, use a concept of Attributes that may be set for Resources, Object
+Instances or Objects.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../LwM2M.html"><span class="doc">OMA LwM2M - Brief description</span></a> chapter contains more information about LwM2M Attributes.</p>
+</div>
+<p>When the library needs to read or write these attributes, it calls
+<code class="docutils literal notranslate"><span class="pre">resource_read_attrs</span></code> or <code class="docutils literal notranslate"><span class="pre">resource_write_attrs</span></code> handlers, respectively, in
+case of Resources, or appropriately <code class="docutils literal notranslate"><span class="pre">instance_read_default_attrs</span></code>,
+<code class="docutils literal notranslate"><span class="pre">instance_write_default_attrs</span></code>, <code class="docutils literal notranslate"><span class="pre">object_read_default_attrs</span></code> or
+<code class="docutils literal notranslate"><span class="pre">object_write_default_attrs</span></code>, in case of Object Instances or Objects. Note
+that the library will automatically call the “default” handlers if there are
+some unset attributes on the more specific level.</p>
+<div class="section" id="attr-storage-module">
+<h2>5.2.1. <code class="docutils literal notranslate"><span class="pre">attr_storage</span></code> module<a class="headerlink" href="#attr-storage-module" title="Permalink to this headline">¶</a></h2>
+<p>As the cases described above are very common and generic – and as such, usually
+implemented in exactly the same manner for all objects in the code base, the
+library includes a module that implements all the attribute-related handlers in
+a generic and reusable way.</p>
+<p>To use the Attribute Storage module, you first need to include the appropriate
+header:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
+</pre></div>
+</div>
+<p>Then, in the main program logic, you need to initialize the attribute storage
+module by calling <code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_install()</span></code>. After installation, its life
+cycle is automatically managed - it will be removed during the
+<code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> call.</p>
+<p>No additional steps are necessary - the Attribute Storage module will take over
+the implementations of attribute-related handlers in the original objects with
+its own implementation, unless some handlers are actually already implemented
+(set to anything else than <code class="docutils literal notranslate"><span class="pre">NULL</span></code>). For a detailed description on how does the
+handler replacement behave when only some of the handlers are implemented, refer
+to the <a class="reference external" href="../api/attr__storage_8h.html">documentation</a>.</p>
+<div class="section" id="persistence">
+<span id="id1"></span><h3>5.2.1.1. Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
+<p>To facilitate storing attribute values between executions of the program, the
+<code class="docutils literal notranslate"><span class="pre">attr_storage</span></code> module contains a persistence code, that can be used to
+serialize and deserialize all the stored attributes to some kind of external
+memory.</p>
+<p>These two functions can be used for this purpose:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span> <span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                       <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span> <span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The data are read or written to and from objects of the
+<code class="docutils literal notranslate"><span class="pre">avs_stream_t</span></code> type. Please refer to documentation of
+<a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons</a> for information on
+what it is and how to create one.</p>
+<p>For the simple case, the <code class="docutils literal notranslate"><span class="pre">avs_stream_file_</span></code> family of functions may be useful.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The persistence functions shall be called after registering all the
+LwM2M Objects in the Anjay object and fully loading the data model
+structure (i.e. instantiating all the Object Instances that are
+supposed to be instantiated). Otherwise, attributes stored for
+non-existent Objects or their Instances will be discarded.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="AT-Certificates.html" class="btn btn-neutral float-right" title="5.3. DTLS connection using certificates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AT-AccessControl.html" class="btn btn-neutral float-left" title="5.1. Access Control in multi-server environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2020, AVSystem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
