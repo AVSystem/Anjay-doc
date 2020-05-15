@@ -21,7 +21,7 @@ var core_8h =
     [ "ANJAY_ID_INVALID", "core_8h.html#a76bba83ae1b2f9d2037fdaea8a81e9d6", null ],
     [ "ANJAY_SSID_ANY", "core_8h.html#a75735105ebc11358f8f707568a8b11fa", null ],
     [ "ANJAY_SSID_BOOTSTRAP", "core_8h.html#a857486d85f02514fc3f69ae7b2566f4c", null ],
-    [ "anjay_configuration_t", "core_8h.html#ac003787b377980e1af6196f70d486aeb", null ],
+    [ "anjay_configuration_t", "core_8h.html#ae0a489fe34c85c5caa003c6629301ef2", null ],
     [ "anjay_iid_t", "core_8h.html#a4738d24ad04e0e49991008e29cb054a4", null ],
     [ "anjay_oid_t", "core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32", null ],
     [ "anjay_rid_t", "core_8h.html#a3e5fb971be8a1cf5778973482a5504d8", null ],

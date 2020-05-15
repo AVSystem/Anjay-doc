@@ -96,7 +96,7 @@ var NAVTREEINDEX1 =
 "structanjay__download__config.html#aceb2f7b7c21b5f899a2fb7019573383b":[0,0,5,0],
 "structanjay__download__config.html#aec657bef26e5ff27b9442563a591d9ec":[0,0,5,6],
 "structanjay__download__status__t.html":[0,0,6],
-"structanjay__download__status__t.html#a2f17ed6063d5edb3bc2e11abde37812f":[0,0,6,0],
+"structanjay__download__status__t.html#a1d44a17e19509d3b31d9fbeb2e58cab7":[0,0,6,0],
 "structanjay__download__status__t.html#a599ef0d65fc5719583a6ed2831e8345a":[0,0,6,2],
 "structanjay__download__status__t.html#abb43deb415ce8e3b53e5f7bedf2d7d41":[0,0,6,1],
 "structanjay__download__status__t.html#ac275fb0ffa19246e789b4c3c9febcf00":[0,0,6,3],
