@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"io_8h.html#a92a77e4ee5397106e691d57f3aef8ce6":[1,0,0,0,8,25],
+"io_8h.html#a9b2b4670b7b04d43f23cb6e9919e83ca":[1,0,0,0,8,21],
+"io_8h.html#aa589c1813cb42656d8bbd99cb10543eb":[1,0,0,0,8,9],
+"io_8h.html#aa589c1813cb42656d8bbd99cb10543eba762790d088b34f4d71704a4a0ecff92e":[1,0,0,0,8,9,1],
+"io_8h.html#aa589c1813cb42656d8bbd99cb10543ebacb98ce1bcd0e821cfadd76d2ce954c63":[1,0,0,0,8,9,0],
+"io_8h.html#aafdcab41f67e59d05b770ff98e55734b":[1,0,0,0,8,5],
 "io_8h.html#ab37ce76fc82b7752375eb3e0472326f7":[1,0,0,0,8,2],
 "io_8h.html#ab42bb2dd9acc42fec434b521caaad979":[1,0,0,0,8,1],
 "io_8h.html#ac03b5aec5d596605f6ebe200df9f3ca1":[1,0,0,0,8,24],
@@ -21,12 +27,13 @@ var NAVTREEINDEX1 =
 "security_8h.html#ae0bb9e4afad60fe21f2614d998c28b14":[1,0,0,0,9,1],
 "security_8h_source.html":[1,0,0,0,9],
 "server_8h.html":[1,0,0,0,10],
-"server_8h.html#a06462631da239d037bc218e37406926e":[1,0,0,0,10,5],
-"server_8h.html#a36a369c0d7d1b2ad42c898ac47b75765":[1,0,0,0,10,2],
-"server_8h.html#a6dcbf3360218dbdba852a4c5d2a81f53":[1,0,0,0,10,3],
-"server_8h.html#a768a40ef019f12baf72437ade02b50ff":[1,0,0,0,10,4],
-"server_8h.html#aa1535d6a9c19b9375f4e8065ac888afa":[1,0,0,0,10,1],
-"server_8h.html#ae010e57b86a3f63418c2b9e79615d292":[1,0,0,0,10,6],
+"server_8h.html#a06462631da239d037bc218e37406926e":[1,0,0,0,10,6],
+"server_8h.html#a36a369c0d7d1b2ad42c898ac47b75765":[1,0,0,0,10,3],
+"server_8h.html#a53ef85b0f96e14aa1d875b31265e6e5d":[1,0,0,0,10,1],
+"server_8h.html#a6dcbf3360218dbdba852a4c5d2a81f53":[1,0,0,0,10,4],
+"server_8h.html#a768a40ef019f12baf72437ade02b50ff":[1,0,0,0,10,5],
+"server_8h.html#aa1535d6a9c19b9375f4e8065ac888afa":[1,0,0,0,10,2],
+"server_8h.html#ae010e57b86a3f63418c2b9e79615d292":[1,0,0,0,10,7],
 "server_8h_source.html":[1,0,0,0,10],
 "stats_8h.html":[1,0,0,0,11],
 "stats_8h.html#a3fe253df366cb33eae9bad5e666ef3e1":[1,0,0,0,11,2],
@@ -156,5 +163,8 @@ var NAVTREEINDEX1 =
 "structanjay__socket__entry__t.html#a4d58c28c450d30bb248f2e9d90132207":[0,0,14,0],
 "structanjay__socket__entry__t.html#a661af3675ddfb29608e7b48a44de557e":[0,0,14,2],
 "structanjay__socket__entry__t.html#a8138e934efc9113fa1b46ec6fe790dd7":[0,0,14,3],
-"structanjay__socket__entry__t.html#aa05391f76b578a92592b35fe088dd4c3":[0,0,14,1]
+"structanjay__socket__entry__t.html#aa05391f76b578a92592b35fe088dd4c3":[0,0,14,1],
+"structanjay__transport__set__t.html":[0,0,15],
+"structanjay__transport__set__t.html#a136cfddc5ec9ed96811d418f0e73a34e":[0,0,15,0],
+"structanjay__transport__set__t.html#ab093586650b1cac22e2def5050295f33":[0,0,15,1]
 };

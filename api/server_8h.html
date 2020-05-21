@@ -104,6 +104,8 @@ Functions</h2></td></tr>
 <tr class="separator:aa1535d6a9c19b9375f4e8065ac888afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06462631da239d037bc218e37406926e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a06462631da239d037bc218e37406926e">anjay_server_object_purge</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:a06462631da239d037bc218e37406926e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53ef85b0f96e14aa1d875b31265e6e5d"><td class="memItemLeft" align="right" valign="top">AVS_LIST[const <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a53ef85b0f96e14aa1d875b31265e6e5d">anjay_server_get_ssids</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
+<tr class="separator:a53ef85b0f96e14aa1d875b31265e6e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a768a40ef019f12baf72437ade02b50ff"><td class="memItemLeft" align="right" valign="top">avs_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a768a40ef019f12baf72437ade02b50ff">anjay_server_object_persist</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, avs_stream_t *out_stream)</td></tr>
 <tr class="separator:a768a40ef019f12baf72437ade02b50ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae010e57b86a3f63418c2b9e79615d292"><td class="memItemLeft" align="right" valign="top">avs_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#ae010e57b86a3f63418c2b9e79615d292">anjay_server_object_restore</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, avs_stream_t *in_stream)</td></tr>
@@ -114,6 +116,35 @@ Functions</h2></td></tr>
 <tr class="separator:a36a369c0d7d1b2ad42c898ac47b75765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a53ef85b0f96e14aa1d875b31265e6e5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ef85b0f96e14aa1d875b31265e6e5d">&#9670;&nbsp;</a></span>anjay_server_get_ssids()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AVS_LIST [ const <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ] anjay_server_get_ssids </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retrieves a list of SSIDs currently present in the Server object. The SSIDs are NOT guaranteed to be returned in any particular order. Returned list may not be freed nor modified.</p>
+<p>Attempting to call this function if <a class="el" href="server_8h.html#a36a369c0d7d1b2ad42c898ac47b75765">anjay_server_object_install</a> has not been previously successfully called on the same Anjay instance yields undefined behavior.</p>
+<p>The returned list pointer shall be considered invalidated by any call to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>, <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>, <a class="el" href="server_8h.html#aa1535d6a9c19b9375f4e8065ac888afa">anjay_server_object_add_instance</a>, <a class="el" href="server_8h.html#a06462631da239d037bc218e37406926e">anjay_server_object_purge</a>, <a class="el" href="server_8h.html#ae010e57b86a3f63418c2b9e79615d292">anjay_server_object_restore</a>, or, if called from within some callback handler, on return from that handler.</p>
+<p>If a transaction on the Server object is currently ongoing (e.g., during Bootstrap), last known state from before the transaction will be returned.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay instance with Server Object installed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of known SSIDs on success, NULL when the object is empty. </dd></dl>
+
+</div>
+</div>
 <a id="aa1535d6a9c19b9375f4e8065ac888afa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1535d6a9c19b9375f4e8065ac888afa">&#9670;&nbsp;</a></span>anjay_server_object_add_instance()</h2>
 
@@ -312,7 +343,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="server_8h.html">server.h</a></li>
-    <li class="footer">Generated on Fri May 15 2020 16:37:22 for anjay by
+    <li class="footer">Generated on Thu May 21 2020 17:47:10 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

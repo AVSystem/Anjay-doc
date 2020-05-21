@@ -14,5 +14,6 @@ var annotated_dup =
     [ "anjay_security_config_t", "structanjay__security__config__t.html", "structanjay__security__config__t" ],
     [ "anjay_security_instance_t", "structanjay__security__instance__t.html", "structanjay__security__instance__t" ],
     [ "anjay_server_instance_t", "structanjay__server__instance__t.html", "structanjay__server__instance__t" ],
-    [ "anjay_socket_entry_t", "structanjay__socket__entry__t.html", "structanjay__socket__entry__t" ]
+    [ "anjay_socket_entry_t", "structanjay__socket__entry__t.html", "structanjay__socket__entry__t" ],
+    [ "anjay_transport_set_t", "structanjay__transport__set__t.html", "structanjay__transport__set__t" ]
 ];
