@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4. Enabling secure communication &mdash; Anjay 2.4 documentation</title>
+  <title>4.4. Enabling secure communication &mdash; Anjay 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4
+                2.4.1
               </div>
             
           
@@ -336,7 +336,7 @@ LwM2M Client is operating on, is raw data. They are set using
 </span><span class="hll">
 </span><span class="hll">    <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="hll">        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class="hll">        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://127.0.0.1:5684&quot;</span><span class="p">,</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://try-anjay.avsystem.com:5684&quot;</span><span class="p">,</span>
 </span><span class="hll">        <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span>
 </span><span class="hll">        <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
 </span><span class="hll">        <span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
@@ -387,8 +387,13 @@ LwM2M Client is operating on, is raw data. They are set using
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
         <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
@@ -420,6 +425,14 @@ LwM2M Client is operating on, is raw data. They are set using
 URI scheme and port <code class="docutils literal notranslate"><span class="pre">5684</span></code> (default for secure CoAP).</p>
 <p>All remaining activities related to establishing secure communication channel
 with the LwM2M Server are performed automatically by Anjay.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>For many LwM2M Servers, including the <a class="reference external" href="https://www.avsystem.com/try-anjay/">Try Anjay platform</a>, you will need to change server-side
+configuration if you previously used NoSec connectivity for the same
+endpoint name.</p>
+<p class="last">The simplest solution might often be to remove the device entry completely
+and create it from scratch.</p>
+</div>
 </div>
 </div>
 

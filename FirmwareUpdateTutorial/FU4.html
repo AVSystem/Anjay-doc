@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.4. Secure downloads &mdash; Anjay 2.4 documentation</title>
+  <title>6.4. Secure downloads &mdash; Anjay 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4
+                2.4.1
               </div>
             
           
@@ -517,9 +517,11 @@ are highlighted:</p>
     <span class="p">}</span>
     <span class="n">fclose</span><span class="p">(</span><span class="n">marker</span><span class="p">);</span>
 
+    <span class="n">assert</span><span class="p">(</span><span class="n">ENDPOINT_NAME</span><span class="p">);</span>
     <span class="c1">// If the call below succeeds, the firmware is considered as &quot;upgraded&quot;,</span>
     <span class="c1">// and we hope the newly started client registers to the Server.</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">execl</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">execl</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="n">ENDPOINT_NAME</span><span class="p">,</span>
+                 <span class="nb">NULL</span><span class="p">);</span>
     <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;execl() failed: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
     <span class="c1">// If we are here, it means execl() failed. Marker file MUST now be removed,</span>
     <span class="c1">// as the firmware update failed.</span>
@@ -570,6 +572,8 @@ are highlighted:</p>
 <span class="hll">    <span class="p">.</span><span class="n">perform_upgrade</span> <span class="o">=</span> <span class="n">fw_perform_upgrade</span><span class="p">,</span>
 </span>    <span class="p">.</span><span class="n">get_security_config</span> <span class="o">=</span> <span class="n">fw_get_security_config</span>
 <span class="p">};</span>
+
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ENDPOINT_NAME</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">fw_update_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">anjay_fw_update_initial_state_t</span> <span class="n">state</span><span class="p">;</span>

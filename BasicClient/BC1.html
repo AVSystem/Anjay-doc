@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.1. Anjay initialization &mdash; Anjay 2.4 documentation</title>
+  <title>4.1. Anjay initialization &mdash; Anjay 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4
+                2.4.1
               </div>
             
           
@@ -210,8 +210,13 @@ instantiation of Anjay object is presented below:</p>
 <span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
         <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
@@ -234,8 +239,18 @@ instantiation of Anjay object is presented below:</p>
 <a class="reference external" href="../api/">API documentation</a> if something isn’t immediately
 clear to you.</p>
 </div>
-<p>Let’s just build our minimal client and test that it works:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> ./anjay-bc1
+<p>Let’s build our minimal client:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ cmake . <span class="o">&amp;&amp;</span> make
+</pre></div>
+</div>
+<p>If that succeeds, we can now run it. We need to pass an endpoint name as the
+program’s argument - this is not important now, but when we get to the point of
+being able to communicate with a server, this will be a name that the client
+uses to identify itself to the server. Please look ino the <a class="reference internal" href="../LwM2M.html#clients-and-servers"><span class="std std-ref">brief
+description of LwM2M</span></a> for details on recommended formats
+of the endpoint name.</p>
+<p>A simple idea for generating an endpoint name is to use the local hostname:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ./anjay-bc1 urn:dev:os:<span class="k">$(</span>hostname<span class="k">)</span>
 </pre></div>
 </div>
 <div class="admonition important">

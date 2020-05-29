@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>8. Porting guide for non-POSIX platforms &mdash; Anjay 2.4 documentation</title>
+  <title>8. Porting guide for non-POSIX platforms &mdash; Anjay 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4
+                2.4.1
               </div>
             
           
@@ -209,10 +209,11 @@ toolchain, the user needs to provide custom implementations.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
-<p>The function should create a socket object, and return its pointer cast to
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument.
-The socket object should be a struct, whose first field is
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code> filled with pointers to method handlers.</p>
+<p>The function should return <code class="docutils literal notranslate"><span class="pre">AVS_OK</span></code> on success and an error code on error.
+It should create a socket object, and return its pointer cast to
+<code class="docutils literal notranslate"><span class="pre">avs_net_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument. The socket object
+should be a struct, whose first field is <code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code>
+filled with pointers to method handlers.</p>
 <p>Minimal set of socket methods that have to be implemented:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">bind</span></code></li>
@@ -247,10 +248,11 @@ should support HTTP/HTTPS transfers. Otherwise, can be safely implemented as
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
-<p>The function should create a socket object, and return its pointer case to
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument.
-The socket object should be a struct, whose first field is
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code> filled with pointers to method handlers.</p>
+<p>The function should return <code class="docutils literal notranslate"><span class="pre">AVS_OK</span></code> on success and an error code on error.
+It should create a socket object, and return its pointer cast to
+<code class="docutils literal notranslate"><span class="pre">avs_net_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument. The socket object
+should be a struct, whose first field is <code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code>
+filled with pointers to method handlers.</p>
 <p>Minimal set of socket methods that have to be implemented:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></li>
@@ -262,6 +264,25 @@ The socket object should be a struct, whose first field is
 <li><code class="docutils literal notranslate"><span class="pre">set_opt</span></code> able to set the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code> option</li>
 <li><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></li>
 </ul>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">_avs_net_initialize_global_compat_state</span></code> - a function with following
+signature:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span> <span class="nf">_avs_net_initialize_global_compat_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The function should return <code class="docutils literal notranslate"><span class="pre">AVS_OK</span></code> on success and an error code on error.
+It should initialize any global state that needs to be kept by the network
+stack. If there is no such global state or it is initialized elsewhere, it
+is safe to implement this function as a no-op (<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">AVS_OK;</span></code>).</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">_avs_net_cleanup_global_compat_state</span></code> - a function with following
+signature:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">_avs_net_cleanup_global_compat_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The function should clean up any global state that is kept by the network
+stack. If there is no such global state or it is managed elsewhere, it is
+safe to implement this function as a no-op.</p>
 </li>
 </ul>
 </li>

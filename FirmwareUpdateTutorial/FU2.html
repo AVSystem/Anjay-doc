@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.2. Basic implementation &mdash; Anjay 2.4 documentation</title>
+  <title>6.2. Basic implementation &mdash; Anjay 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4
+                2.4.1
               </div>
             
           
@@ -218,12 +218,18 @@ the function declared in <code class="docutils literal notranslate"><span class=
 <span class="cp">#include</span> <span class="cpf">&lt;anjay/fw_update.h&gt;</span><span class="cp"></span>
 
 <span class="cm">/**</span>
-<span class="cm"> * Installs the firmware update module.</span>
-<span class="cm"> *</span>
-<span class="cm"> * @returns 0 on success, negative value otherwise.</span>
+<span class="cm"> * Buffer for the endpoint name that will be used when re-launching the client</span>
+<span class="cm"> * after firmware upgrade.</span>
 <span class="cm"> */</span>
-<span class="kt">int</span> <span class="nf">fw_update_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<span class="k">extern</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ENDPOINT_NAME</span><span class="p">;</span>
 
+<span class="hll"><span class="cm">/**</span>
+</span><span class="hll"><span class="cm"> * Installs the firmware update module.</span>
+</span><span class="hll"><span class="cm"> *</span>
+</span><span class="hll"><span class="cm"> * @returns 0 on success, negative value otherwise.</span>
+</span><span class="hll"><span class="cm"> */</span>
+</span><span class="hll"><span class="kt">int</span> <span class="nf">fw_update_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+</span>
 <span class="cp">#endif </span><span class="c1">// FIRMWARE_UPDATE_H</span>
 </pre></div>
 </div>
@@ -299,7 +305,7 @@ the function declared in <code class="docutils literal notranslate"><span class=
 
     <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://127.0.0.1:5684&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://try-anjay.avsystem.com:5684&quot;</span><span class="p">,</span>
         <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span>
         <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
         <span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
@@ -350,8 +356,15 @@ the function declared in <code class="docutils literal notranslate"><span class=
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">ENDPOINT_NAME</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">ENDPOINT_NAME</span><span class="p">,</span>
         <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
@@ -389,6 +402,15 @@ the function declared in <code class="docutils literal notranslate"><span class=
     <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>As you may see, there is also an additional <code class="docutils literal notranslate"><span class="pre">ENDPOINT_NAME</span></code> global
+variable that now stores the command line argument. As we will use the same
+kind of program binary as the update image, we will need this to properly
+launch it as part of the upgrade process.</p>
+<p class="last">This is usually not necessary in production code, as the endpoint name is
+usually either hard-coded, or configured through other means.</p>
 </div>
 </div>
 <div class="section" id="implementing-handlers-and-installation-routine">
@@ -538,9 +560,11 @@ if the upgrade was performed or not,</li>
     <span class="p">}</span>
     <span class="n">fclose</span><span class="p">(</span><span class="n">marker</span><span class="p">);</span>
 
+    <span class="n">assert</span><span class="p">(</span><span class="n">ENDPOINT_NAME</span><span class="p">);</span>
     <span class="c1">// If the call below succeeds, the firmware is considered as &quot;upgraded&quot;,</span>
     <span class="c1">// and we hope the newly started client registers to the Server.</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">execl</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">execl</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="n">ENDPOINT_NAME</span><span class="p">,</span>
+                 <span class="nb">NULL</span><span class="p">);</span>
     <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;execl() failed: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
     <span class="c1">// If we are here, it means execl() failed. Marker file MUST now be removed,</span>
     <span class="c1">// as the firmware update failed.</span>
@@ -555,6 +579,8 @@ if the upgrade was performed or not,</li>
     <span class="p">.</span><span class="n">reset</span> <span class="o">=</span> <span class="n">fw_reset</span><span class="p">,</span>
     <span class="p">.</span><span class="n">perform_upgrade</span> <span class="o">=</span> <span class="n">fw_perform_upgrade</span>
 <span class="p">};</span>
+
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ENDPOINT_NAME</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">fw_update_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">anjay_fw_update_initial_state_t</span> <span class="n">state</span><span class="p">;</span>

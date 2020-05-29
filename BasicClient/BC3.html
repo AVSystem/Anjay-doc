@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.3. Event loop &mdash; Anjay 2.4 documentation</title>
+  <title>4.3. Event loop &mdash; Anjay 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4
+                2.4.1
               </div>
             
           
@@ -313,7 +313,7 @@ modified.</li>
 
     <span class="k">const</span> <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coap://try-anjay.avsystem.com:5683&quot;</span><span class="p">,</span>
         <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_NOSEC</span>
     <span class="p">};</span>
 
@@ -360,8 +360,13 @@ modified.</li>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="s">&quot;urn:dev:os:anjay-tutorial&quot;</span><span class="p">,</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
         <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
         <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
@@ -390,10 +395,10 @@ modified.</li>
 </pre></div>
 </div>
 <p>After running the client, you should see <code class="docutils literal notranslate"><span class="pre">registration</span> <span class="pre">successful,</span> <span class="pre">location</span> <span class="pre">=</span>
-<span class="pre">/rd/urn:dev:os:anjay-tutorial</span></code> once and <code class="docutils literal notranslate"><span class="pre">registration</span> <span class="pre">successfully</span> <span class="pre">updated</span></code>
-every 30 seconds in logs. It means, that the client has connected to the server
-and successfully sends Update messages. Now you can perform some Reads for
-example from the LwM2M Server side.</p>
+<span class="pre">/rd/&lt;server-dependent</span> <span class="pre">identifier&gt;</span></code> once and <code class="docutils literal notranslate"><span class="pre">registration</span> <span class="pre">successfully</span>
+<span class="pre">updated</span></code> every 30 seconds in logs. It means, that the client has connected to
+the server and successfully sends Update messages. Now you can perform some
+Reads for example from the LwM2M Server side.</p>
 </div>
 <div class="section" id="application-events">
 <h2>4.3.4. Application events<a class="headerlink" href="#application-events" title="Permalink to this headline">¶</a></h2>

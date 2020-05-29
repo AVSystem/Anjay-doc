@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2. OMA LwM2M - Brief description &mdash; Anjay 2.4 documentation</title>
+  <title>2. OMA LwM2M - Brief description &mdash; Anjay 2.4.1 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4
+                2.4.1
               </div>
             
           
@@ -164,21 +164,21 @@
 <h1>2. OMA LwM2M - Brief description<a class="headerlink" href="#oma-lwm2m-brief-description" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#clients-and-servers" id="id2">Clients and servers</a></li>
-<li><a class="reference internal" href="#data-model" id="id3">Data model</a><ul>
-<li><a class="reference internal" href="#objects" id="id4">Objects</a></li>
-<li><a class="reference internal" href="#resources" id="id5">Resources</a></li>
-<li><a class="reference internal" href="#attributes" id="id6">Attributes</a></li>
+<li><a class="reference internal" href="#clients-and-servers" id="id3">Clients and servers</a></li>
+<li><a class="reference internal" href="#data-model" id="id4">Data model</a><ul>
+<li><a class="reference internal" href="#objects" id="id5">Objects</a></li>
+<li><a class="reference internal" href="#resources" id="id6">Resources</a></li>
+<li><a class="reference internal" href="#attributes" id="id7">Attributes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#interfaces" id="id7">Interfaces</a><ul>
-<li><a class="reference internal" href="#bootstrap-interface" id="id8">Bootstrap Interface</a></li>
-<li><a class="reference internal" href="#registration-interface" id="id9">Registration Interface</a></li>
-<li><a class="reference internal" href="#device-management-and-service-enablement-interface" id="id10">Device Management and Service Enablement Interface</a></li>
-<li><a class="reference internal" href="#information-reporting-interface" id="id11">Information Reporting Interface</a></li>
+<li><a class="reference internal" href="#interfaces" id="id8">Interfaces</a><ul>
+<li><a class="reference internal" href="#bootstrap-interface" id="id9">Bootstrap Interface</a></li>
+<li><a class="reference internal" href="#registration-interface" id="id10">Registration Interface</a></li>
+<li><a class="reference internal" href="#device-management-and-service-enablement-interface" id="id11">Device Management and Service Enablement Interface</a></li>
+<li><a class="reference internal" href="#information-reporting-interface" id="id12">Information Reporting Interface</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#queue-mode" id="id12">Queue mode</a></li>
+<li><a class="reference internal" href="#queue-mode" id="id13">Queue mode</a></li>
 </ul>
 </div>
 <p><a class="reference external" href="https://www.omaspecworks.org/what-is-oma-specworks/iot/lightweight-m2m-lwm2m/">Lightweight Machine to Machine</a>
@@ -200,13 +200,13 @@ to understand the general philosophy and semantics of the parts that remain to
 be implemented. You are encouraged to read the <a class="reference external" href="https://www.omaspecworks.org/what-is-oma-specworks/iot/lightweight-m2m-lwm2m/">full specification</a>,
 but this article provides a quick summary of the most important concepts.</p>
 <div class="section" id="clients-and-servers">
-<h2><a class="toc-backref" href="#id2">2.1. Clients and servers</a><a class="headerlink" href="#clients-and-servers" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id3">2.1. Clients and servers</a><a class="headerlink" href="#clients-and-servers" title="Permalink to this headline">¶</a></h2>
 <p>A network environment using the LwM2M protocol consists of three types of
 entities:</p>
 <ul class="simple">
 <li><strong>LwM2M Clients</strong> are located on end devices. They communicate with server(s),
 allowing them to manage and monitor the devices’ resources, which are exposed
-via a standardized <a class="reference internal" href="#id1">data model</a>.<ul>
+via a standardized <a class="reference internal" href="#id2">data model</a>.<ul>
 <li>A LwM2M Client is uniquely identified independently of its network address
 by an <strong>Endpoint Client Name</strong> - a URN uniquely assigned to a device by its
 manufacturer. OMA recommends the Endpoint Client Name to be in one of the
@@ -242,7 +242,7 @@ of them may have access only to a part of the whole data model.</li>
 of this article will be written from the Client perspective.</p>
 </div>
 <div class="section" id="data-model">
-<span id="id1"></span><h2><a class="toc-backref" href="#id3">2.2. Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id4">2.2. Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
 <p>Each LwM2M Client presents a <em>data model</em> - standardized, symbolic
 representation of its configuration and state that is accessible for reading
 and modifying by LwM2M Servers. It can be thought of as a combination of a
@@ -288,7 +288,7 @@ Resource ID=3 in Object Instance ID=2 of Object ID=1. Whole Object Instances
 (<code class="docutils literal notranslate"><span class="pre">/1/2</span></code>) or event Objects (<code class="docutils literal notranslate"><span class="pre">/1</span></code>) may be referred to using this syntax as
 well.</p>
 <div class="section" id="objects">
-<h3><a class="toc-backref" href="#id4">2.2.1. Objects</a><a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">2.2.1. Objects</a><a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h3>
 <p>Each Object definition, which may be found in the LwM2M specification, features
 the following information:</p>
 <ul class="simple">
@@ -322,7 +322,7 @@ Implementation of this object is readily available in Anjay’s <code class="doc
 module.</p>
 </div>
 <div class="section" id="resources">
-<span id="lwm2m-resources"></span><h3><a class="toc-backref" href="#id5">2.2.2. Resources</a><a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
+<span id="lwm2m-resources"></span><h3><a class="toc-backref" href="#id6">2.2.2. Resources</a><a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
 <p>Each of the Resource definitions, contained in each Object definition, features
 the following information:</p>
 <ul class="simple">
@@ -356,7 +356,7 @@ within the given data type.</li>
 </ul>
 </div>
 <div class="section" id="attributes">
-<span id="lwm2m-attributes"></span><h3><a class="toc-backref" href="#id6">2.2.3. Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<span id="lwm2m-attributes"></span><h3><a class="toc-backref" href="#id7">2.2.3. Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
 <p>Each entity in the data model (Resource, Object Instance or Object) can have
 various “attributes” attached. There are two types of attributes currently
 defined in the LwM2M specification:</p>
@@ -415,7 +415,7 @@ enough to trigger sending notification.</li>
 </div>
 </div>
 <div class="section" id="interfaces">
-<h2><a class="toc-backref" href="#id7">2.3. Interfaces</a><a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">2.3. Interfaces</a><a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
 <p>LwM2M currently consists of four interfaces through which the Clients, Servers
 and Bootstrap Servers communicate:</p>
 <ul class="simple">
@@ -425,7 +425,7 @@ and Bootstrap Servers communicate:</p>
 <li><a class="reference internal" href="#information-reporting-interface">Information Reporting Interface</a></li>
 </ul>
 <div class="section" id="bootstrap-interface">
-<h3><a class="toc-backref" href="#id8">2.3.1. Bootstrap Interface</a><a class="headerlink" href="#bootstrap-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">2.3.1. Bootstrap Interface</a><a class="headerlink" href="#bootstrap-interface" title="Permalink to this headline">¶</a></h3>
 <p>Bootstrap Interface defines the set of commands that the Bootstrap Server may
 use to provision the initial configuration onto the client. In this interface,
 both the LwM2M Client and the LwM2M Bootstrap Server act as both a CoAP server
@@ -471,7 +471,7 @@ at the factory, or read from a smart-card. In those cases, an attempt to contact
 a Bootstrap Server may not even be made.</p>
 </div>
 <div class="section" id="registration-interface">
-<span id="lwm2m-registration-interface"></span><h3><a class="toc-backref" href="#id9">2.3.2. Registration Interface</a><a class="headerlink" href="#registration-interface" title="Permalink to this headline">¶</a></h3>
+<span id="lwm2m-registration-interface"></span><h3><a class="toc-backref" href="#id10">2.3.2. Registration Interface</a><a class="headerlink" href="#registration-interface" title="Permalink to this headline">¶</a></h3>
 <p>The Registration Interface defines the protocol the Client uses to inform an
 LwM2M Server about its presence and availability. In this interface, the LwM2M
 Server acts as a CoAP server, and the LwM2M Client is a CoAP client. The
@@ -501,7 +501,7 @@ with a Register or Update message for a configured period of time.</li>
 </ul>
 </div>
 <div class="section" id="device-management-and-service-enablement-interface">
-<h3><a class="toc-backref" href="#id10">2.3.3. Device Management and Service Enablement Interface</a><a class="headerlink" href="#device-management-and-service-enablement-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">2.3.3. Device Management and Service Enablement Interface</a><a class="headerlink" href="#device-management-and-service-enablement-interface" title="Permalink to this headline">¶</a></h3>
 <p>This is the main interface on which the actual device management occurs. In this
 interface, the LwM2M Server acts as a CoAP client, sending requests to the LwM2M
 Client, which acts as a server on the CoAP layer. However, please note that
@@ -553,7 +553,7 @@ relation to the <a class="reference internal" href="#information-reporting-inter
 in the <a class="reference internal" href="#attributes">Attributes</a> section.</p>
 </li>
 <li><p class="first">A <strong>POST</strong> request targeting one of the root paths in the data model (called
-“Objects”, see <a class="reference internal" href="#id1">Data model</a>) represents the <strong>Create</strong> operation. It creates
+“Objects”, see <a class="reference internal" href="#id2">Data model</a>) represents the <strong>Create</strong> operation. It creates
 a new Object Instance, which gives a way to manage configuration entities that
 might have a variable and configurable number of similar but distinct entries
 - for example, software packages or APN connections.</p>
@@ -564,7 +564,7 @@ allowing to remove previously created Object Instances.</p>
 </ul>
 </div>
 <div class="section" id="information-reporting-interface">
-<h3><a class="toc-backref" href="#id11">2.3.4. Information Reporting Interface</a><a class="headerlink" href="#information-reporting-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">2.3.4. Information Reporting Interface</a><a class="headerlink" href="#information-reporting-interface" title="Permalink to this headline">¶</a></h3>
 <p>This interface can be thought of as an extension to the
 <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a>, allowing the Server to
 automatically receive periodic updates about some values in the data model it is
@@ -595,7 +595,7 @@ hours, to comply with
 </div>
 </div>
 <div class="section" id="queue-mode">
-<h2><a class="toc-backref" href="#id12">2.4. Queue mode</a><a class="headerlink" href="#queue-mode" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">2.4. Queue mode</a><a class="headerlink" href="#queue-mode" title="Permalink to this headline">¶</a></h2>
 <p>The <em>Register</em> and <em>Update</em> commands include a “Binding Mode” Parameter, which
 may be one of the following:</p>
 <ul class="simple">
