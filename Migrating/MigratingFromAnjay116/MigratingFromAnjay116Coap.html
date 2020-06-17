@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.1.2. Replacement of CoAP implementation &mdash; Anjay 2.4.1 documentation</title>
+  <title>9.1.2. Replacement of CoAP implementation &mdash; Anjay 2.4.2 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.1
+                2.4.2
               </div>
             
           
@@ -151,11 +151,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../Migrating.html">9. Migrating from older versions</a> &raquo;</li>
+          <li><a href="../../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
         
-          <li><a href="../MigratingFromAnjay116.html">9.1. Migrating from Anjay 1.16</a> &raquo;</li>
+          <li><a href="../MigratingFromAnjay116.html"><span class="section-number">9.1. </span>Migrating from Anjay 1.16</a> &raquo;</li>
         
-      <li>9.1.2. Replacement of CoAP implementation</li>
+      <li><span class="section-number">9.1.2. </span>Replacement of CoAP implementation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,15 +175,15 @@
            <div itemprop="articleBody">
             
   <div class="section" id="replacement-of-coap-implementation">
-<h1>9.1.2. Replacement of CoAP implementation<a class="headerlink" href="#replacement-of-coap-implementation" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9.1.2. </span>Replacement of CoAP implementation<a class="headerlink" href="#replacement-of-coap-implementation" title="Permalink to this headline">¶</a></h1>
 <p>Anjay 2.x uses a completely new CoAP implementation called <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code>. The old
 CoAP component of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> has been removed in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 that
 Anjay 2.3 uses. If your code used the raw CoAP APIs of that component, you will
 need to migrate to either the new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> library or an entirely different
 CoAP implementation.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> library has a higher-level API, designed to abstract
+<p class="admonition-title">Note</p>
+<p>The new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> library has a higher-level API, designed to abstract
 away the differences between e.g. UDP and TCP transports. Some of the
 functionality of the legacy library, especially that related to parsing,
 serializing, sending and receiving raw, isolated messages (as opposed to
@@ -191,12 +191,12 @@ proper, conformant CoAP exchanges), is not provided in the public API for
 this reason.</p>
 </div>
 <div class="section" id="udp-transmission-parameters-type">
-<h2>9.1.2.1. UDP transmission parameters type<a class="headerlink" href="#udp-transmission-parameters-type" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.1.2.1. </span>UDP transmission parameters type<a class="headerlink" href="#udp-transmission-parameters-type" title="Permalink to this headline">¶</a></h2>
 <p>In Anjay configuration, whenever the CoAP/UDP transmission parameters has to be
 specified, the new <code class="docutils literal notranslate"><span class="pre">avs_coap_udp_tx_params_t</span></code> type replaces the
 <code class="docutils literal notranslate"><span class="pre">avs_coap_tx_params_t</span></code> type from the old CoAP implementation.</p>
 <ul>
-<li><p class="first"><strong>Old API:</strong></p>
+<li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/** CoAP transmission params object. */</span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="cm">/** RFC 7252: ACK_TIMEOUT */</span>
@@ -209,7 +209,7 @@ specified, the new <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New API:</strong></p>
+<li><p><strong>New API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/** CoAP transmission params object. */</span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="cm">/** RFC 7252: ACK_TIMEOUT */</span>
@@ -226,14 +226,14 @@ specified, the new <code class="docutils literal notranslate"><span class="pre">
 </li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">While the <code class="docutils literal notranslate"><span class="pre">ack_timeout</span></code>, <code class="docutils literal notranslate"><span class="pre">ack_random_factor</span></code> and <code class="docutils literal notranslate"><span class="pre">max_retransmit</span></code>
+<p class="admonition-title">Note</p>
+<p>While the <code class="docutils literal notranslate"><span class="pre">ack_timeout</span></code>, <code class="docutils literal notranslate"><span class="pre">ack_random_factor</span></code> and <code class="docutils literal notranslate"><span class="pre">max_retransmit</span></code>
 fields have equivalent semantics, <strong>the new</strong> <code class="docutils literal notranslate"><span class="pre">nstart</span></code> <strong>field has a
 default value of</strong> <code class="docutils literal notranslate"><span class="pre">1</span></code>, <strong>and it is not allowed to leave it as</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Support for <code class="docutils literal notranslate"><span class="pre">nstart</span></code> values other than <code class="docutils literal notranslate"><span class="pre">1</span></code> in Anjay and <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> is
+<p class="admonition-title">Warning</p>
+<p>Support for <code class="docutils literal notranslate"><span class="pre">nstart</span></code> values other than <code class="docutils literal notranslate"><span class="pre">1</span></code> in Anjay and <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> is
 considered experimental.</p>
 </div>
 </div>

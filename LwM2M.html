@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2. OMA LwM2M - Brief description &mdash; Anjay 2.4.1 documentation</title>
+  <title>2. OMA LwM2M - Brief description &mdash; Anjay 2.4.2 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.1
+                2.4.2
               </div>
             
           
@@ -141,7 +141,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>2. OMA LwM2M - Brief description</li>
+      <li><span class="section-number">2. </span>OMA LwM2M - Brief description</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,24 +161,26 @@
            <div itemprop="articleBody">
             
   <div class="section" id="oma-lwm2m-brief-description">
-<h1>2. OMA LwM2M - Brief description<a class="headerlink" href="#oma-lwm2m-brief-description" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2. </span>OMA LwM2M - Brief description<a class="headerlink" href="#oma-lwm2m-brief-description" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#clients-and-servers" id="id3">Clients and servers</a></li>
-<li><a class="reference internal" href="#data-model" id="id4">Data model</a><ul>
-<li><a class="reference internal" href="#objects" id="id5">Objects</a></li>
-<li><a class="reference internal" href="#resources" id="id6">Resources</a></li>
-<li><a class="reference internal" href="#attributes" id="id7">Attributes</a></li>
+<li><p><a class="reference internal" href="#clients-and-servers" id="id3">Clients and servers</a></p></li>
+<li><p><a class="reference internal" href="#data-model" id="id4">Data model</a></p>
+<ul>
+<li><p><a class="reference internal" href="#objects" id="id5">Objects</a></p></li>
+<li><p><a class="reference internal" href="#resources" id="id6">Resources</a></p></li>
+<li><p><a class="reference internal" href="#attributes" id="id7">Attributes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#interfaces" id="id8">Interfaces</a><ul>
-<li><a class="reference internal" href="#bootstrap-interface" id="id9">Bootstrap Interface</a></li>
-<li><a class="reference internal" href="#registration-interface" id="id10">Registration Interface</a></li>
-<li><a class="reference internal" href="#device-management-and-service-enablement-interface" id="id11">Device Management and Service Enablement Interface</a></li>
-<li><a class="reference internal" href="#information-reporting-interface" id="id12">Information Reporting Interface</a></li>
+<li><p><a class="reference internal" href="#interfaces" id="id8">Interfaces</a></p>
+<ul>
+<li><p><a class="reference internal" href="#bootstrap-interface" id="id9">Bootstrap Interface</a></p></li>
+<li><p><a class="reference internal" href="#registration-interface" id="id10">Registration Interface</a></p></li>
+<li><p><a class="reference internal" href="#device-management-and-service-enablement-interface" id="id11">Device Management and Service Enablement Interface</a></p></li>
+<li><p><a class="reference internal" href="#information-reporting-interface" id="id12">Information Reporting Interface</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#queue-mode" id="id13">Queue mode</a></li>
+<li><p><a class="reference internal" href="#queue-mode" id="id13">Queue mode</a></p></li>
 </ul>
 </div>
 <p><a class="reference external" href="https://www.omaspecworks.org/what-is-oma-specworks/iot/lightweight-m2m-lwm2m/">Lightweight Machine to Machine</a>
@@ -200,49 +202,51 @@ to understand the general philosophy and semantics of the parts that remain to
 be implemented. You are encouraged to read the <a class="reference external" href="https://www.omaspecworks.org/what-is-oma-specworks/iot/lightweight-m2m-lwm2m/">full specification</a>,
 but this article provides a quick summary of the most important concepts.</p>
 <div class="section" id="clients-and-servers">
-<span id="id1"></span><h2><a class="toc-backref" href="#id3">2.1. Clients and servers</a><a class="headerlink" href="#clients-and-servers" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id3"><span class="section-number">2.1. </span>Clients and servers</a><a class="headerlink" href="#clients-and-servers" title="Permalink to this headline">¶</a></h2>
 <p>A network environment using the LwM2M protocol consists of three types of
 entities:</p>
 <ul class="simple">
-<li><strong>LwM2M Clients</strong> are located on end devices. They communicate with server(s),
+<li><p><strong>LwM2M Clients</strong> are located on end devices. They communicate with server(s),
 allowing them to manage and monitor the devices’ resources, which are exposed
-via a standardized <a class="reference internal" href="#id2">data model</a>.<ul>
-<li>A LwM2M Client is uniquely identified independently of its network address
+via a standardized <a class="reference internal" href="#id2">data model</a>.</p>
+<ul>
+<li><p>A LwM2M Client is uniquely identified independently of its network address
 by an <strong>Endpoint Client Name</strong> - a URN uniquely assigned to a device by its
 manufacturer. OMA recommends the Endpoint Client Name to be in one of the
-following formats:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">urn:uuid:########-####-####-############</span></code> (UUID = Universally Unique
-Identifier)</li>
-<li><code class="docutils literal notranslate"><span class="pre">urn:dev:ops:{OUI}-{ProductClass}-{SerialNumber}</span></code> (OUI =
-Organizationally Unique Identifier - as in e.g. MAC addresses)</li>
-<li><code class="docutils literal notranslate"><span class="pre">urn:dev:os:{OUI}-{SerialNumber}</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">urn:imei:###############</span></code> (IMEI = International Mobile Equipment
-Identity)</li>
-<li><code class="docutils literal notranslate"><span class="pre">urn:esn:########</span></code> (ESN = Electronic Serial Number)</li>
-<li><code class="docutils literal notranslate"><span class="pre">urn:meid:##############</span></code> (MEID = Mobile Equipment Identifier)</li>
-<li><code class="docutils literal notranslate"><span class="pre">urn:imei-msisdn:###############-###############</span></code> (MSISDN = Mobile
+following formats:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:uuid:########-####-####-############</span></code> (UUID = Universally Unique
+Identifier)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:dev:ops:{OUI}-{ProductClass}-{SerialNumber}</span></code> (OUI =
+Organizationally Unique Identifier - as in e.g. MAC addresses)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:dev:os:{OUI}-{SerialNumber}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:imei:###############</span></code> (IMEI = International Mobile Equipment
+Identity)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:esn:########</span></code> (ESN = Electronic Serial Number)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:meid:##############</span></code> (MEID = Mobile Equipment Identifier)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:imei-msisdn:###############-###############</span></code> (MSISDN = Mobile
 Station International Subscriber Directory Number, i.e. a standardized
-phone number)</li>
+phone number)</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>LwM2M Bootstrap Server</strong> is a specific server that may be contacted by the
+<li><p><strong>LwM2M Bootstrap Server</strong> is a specific server that may be contacted by the
 Client during its first or every boot-up. Its only purpose is to initialize
 the data model, including connections to regular LwM2M Servers, before first
 contact to such. The Bootstrap Server communicates with the Client using a
 different set of commands, so it cannot be considered a “LwM2M Server” in the
-ordinary sense.</li>
-<li><strong>LwM2M Servers</strong> maintain connections with the clients and have the ability
+ordinary sense.</p></li>
+<li><p><strong>LwM2M Servers</strong> maintain connections with the clients and have the ability
 to read from and write to the data model exposed by the clients. Any given
 client may be concurrently connected to more than one LwM2M Server, and each
-of them may have access only to a part of the whole data model.</li>
+of them may have access only to a part of the whole data model.</p></li>
 </ul>
 <p>Anjay is a framework for implementing LwM2M Clients. For this reason, the rest
 of this article will be written from the Client perspective.</p>
 </div>
 <div class="section" id="data-model">
-<span id="id2"></span><h2><a class="toc-backref" href="#id4">2.2. Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id4"><span class="section-number">2.2. </span>Data model</a><a class="headerlink" href="#data-model" title="Permalink to this headline">¶</a></h2>
 <p>Each LwM2M Client presents a <em>data model</em> - standardized, symbolic
 representation of its configuration and state that is accessible for reading
 and modifying by LwM2M Servers. It can be thought of as a combination of a
@@ -252,7 +256,7 @@ device and its environment.</p>
 on each of those levels are identified with numerical identifiers. Those three
 levels are:</p>
 <ul>
-<li><p class="first"><strong>Object</strong> - each Object represent some different concept of data accessible
+<li><p><strong>Object</strong> - each Object represent some different concept of data accessible
 via the LwM2M Client. For example, separate Objects are defined for managing
 connections with LwM2M Servers, for managing network connections, for
 accessing data from various types of sensors, etc.</p>
@@ -261,7 +265,7 @@ inclusive. OMA manages a <a class="reference external" href="https://www.openmob
 Object defines a set of Resources whose meanings are common for each Object
 Instance.</p>
 </li>
-<li><p class="first"><strong>Object Instance</strong> - some Objects are described as “single-instance” - such
+<li><p><strong>Object Instance</strong> - some Objects are described as “single-instance” - such
 Objects always have exactly one Instance with identifier 0. Examples of such
 Objects include the Device object which describes the device itself, and the
 Firmware Update object which is used to perform firmware upgrades.</p>
@@ -274,13 +278,12 @@ creatable). Identifiers for each Instance of such Objects may be arbitrarily
 chosen in the range 0-65534, inclusive - note that 65535 is reserved and
 forbidden in this context.</p>
 </li>
-<li><p class="first"><strong>Resource</strong> - each Object Instance of a given Object supports the same set
+<li><p><strong>Resource</strong> - each Object Instance of a given Object supports the same set
 of Resources, as defined by the Object definition. Within a given Object,
 each Resource ID (which may be in the range 0-65535, inclusive) has a
 well-defined meaning, and represent the same concept. However, some Resources
 may not be present in some Object Instances, and, obviously, their values and
-mapping onto real-world entities may be different.</p>
-</li>
+mapping onto real-world entities may be different.</p></li>
 </ul>
 <p>The numerical identifiers on each of these levels form a path, which is used
 as the path portion of CoAP URLs. For example, a path <code class="docutils literal notranslate"><span class="pre">/1/2/3</span></code> refers to
@@ -288,33 +291,33 @@ Resource ID=3 in Object Instance ID=2 of Object ID=1. Whole Object Instances
 (<code class="docutils literal notranslate"><span class="pre">/1/2</span></code>) or event Objects (<code class="docutils literal notranslate"><span class="pre">/1</span></code>) may be referred to using this syntax as
 well.</p>
 <div class="section" id="objects">
-<h3><a class="toc-backref" href="#id5">2.2.1. Objects</a><a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5"><span class="section-number">2.2.1. </span>Objects</a><a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h3>
 <p>Each Object definition, which may be found in the LwM2M specification, features
 the following information:</p>
 <ul class="simple">
-<li><strong>Name</strong> - description of the object; it is not used in the actual on-wire
-protocol.</li>
-<li><strong>Object ID</strong> - numerical identifier of the Object</li>
-<li><strong>Instances</strong> - <em>Single</em> (always has one Instance with ID=0) or <em>Multiple</em>
-(may have arbitrary number of Instances depending on current configuration)</li>
-<li><strong>Mandatory</strong> - <em>Mandatory</em> (must be supported by all LwM2M Client
-implementations) or <em>Optional</em> (may not be supported)</li>
-<li><strong>Object URN</strong></li>
-<li>Resource definitions</li>
+<li><p><strong>Name</strong> - description of the object; it is not used in the actual on-wire
+protocol.</p></li>
+<li><p><strong>Object ID</strong> - numerical identifier of the Object</p></li>
+<li><p><strong>Instances</strong> - <em>Single</em> (always has one Instance with ID=0) or <em>Multiple</em>
+(may have arbitrary number of Instances depending on current configuration)</p></li>
+<li><p><strong>Mandatory</strong> - <em>Mandatory</em> (must be supported by all LwM2M Client
+implementations) or <em>Optional</em> (may not be supported)</p></li>
+<li><p><strong>Object URN</strong></p></li>
+<li><p>Resource definitions</p></li>
 </ul>
 <p>The current set of Mandatory Objects consists of:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">/0</span></code> - <strong>LwM2M Security</strong> - contains confidential part of information about
+<li><p><code class="docutils literal notranslate"><span class="pre">/0</span></code> - <strong>LwM2M Security</strong> - contains confidential part of information about
 connections to the LwM2M Servers configured in the Client. From the on-wire
 protocol perspective, it is write-only and accessible only via the
 <a class="reference internal" href="#bootstrap-interface">Bootstrap Interface</a>. Implementation of this object is readily available in
-Anjay’s <code class="docutils literal notranslate"><span class="pre">security</span></code> module.</li>
-<li><code class="docutils literal notranslate"><span class="pre">/1</span></code> - <strong>LwM2M Server</strong> - contains non-confidential part of information
+Anjay’s <code class="docutils literal notranslate"><span class="pre">security</span></code> module.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/1</span></code> - <strong>LwM2M Server</strong> - contains non-confidential part of information
 about connections to the LwM2M Servers configured in the Client.
 Implementation of this object is readily available in Anjay’s <code class="docutils literal notranslate"><span class="pre">server</span></code>
-module.</li>
-<li><code class="docutils literal notranslate"><span class="pre">/3</span></code> - <strong>Device</strong> - contains basic information about the device, such as
-e.g. serial number.</li>
+module.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/3</span></code> - <strong>Device</strong> - contains basic information about the device, such as
+e.g. serial number.</p></li>
 </ul>
 <p>Additionally, Object <code class="docutils literal notranslate"><span class="pre">/2</span></code> (<strong>Access Control</strong>) needs to be supported and
 present if the Client supports more than one LwM2M Server connection at once.
@@ -322,58 +325,59 @@ Implementation of this object is readily available in Anjay’s <code class="doc
 module.</p>
 </div>
 <div class="section" id="resources">
-<span id="lwm2m-resources"></span><h3><a class="toc-backref" href="#id6">2.2.2. Resources</a><a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
+<span id="lwm2m-resources"></span><h3><a class="toc-backref" href="#id6"><span class="section-number">2.2.2. </span>Resources</a><a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
 <p>Each of the Resource definitions, contained in each Object definition, features
 the following information:</p>
 <ul class="simple">
-<li><strong>ID</strong> - numerical identifier of the Object.</li>
-<li><strong>Name</strong> - short description of the resource; it is not used in the actual
-on-wire protocol.</li>
-<li><strong>Operations</strong> - one of:<ul>
-<li><strong>R</strong> - read-only Resource</li>
-<li><strong>W</strong> - write-only Resource</li>
-<li><strong>RW</strong> - writeable Resource</li>
-<li><strong>E</strong> - executable Resource</li>
-<li><em>(empty)</em> - used only in the LwM2M Security Object; signifies a Resource not
-accessible via the <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a></li>
+<li><p><strong>ID</strong> - numerical identifier of the Object.</p></li>
+<li><p><strong>Name</strong> - short description of the resource; it is not used in the actual
+on-wire protocol.</p></li>
+<li><p><strong>Operations</strong> - one of:</p>
+<ul>
+<li><p><strong>R</strong> - read-only Resource</p></li>
+<li><p><strong>W</strong> - write-only Resource</p></li>
+<li><p><strong>RW</strong> - writeable Resource</p></li>
+<li><p><strong>E</strong> - executable Resource</p></li>
+<li><p><em>(empty)</em> - used only in the LwM2M Security Object; signifies a Resource not
+accessible via the <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a></p></li>
 </ul>
 </li>
-<li><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; “Multiple” means that the type of data
+<li><p><strong>Instances</strong> - <em>Single</em> or <em>Multiple</em>; “Multiple” means that the type of data
 in the resource is actually an “array” - called such in the Anjay API, but
 actually more similar to an associative data structure. It is a list of pairs,
 each of which containing a unique Resource Instance ID (range 0-65535,
 inclusive) and instance value, of the type referred in the Resource
-definition.</li>
-<li><strong>Mandatory</strong> - <em>Mandatory</em> or <em>Optional</em>; Mandatory resources need to be
+definition.</p></li>
+<li><p><strong>Mandatory</strong> - <em>Mandatory</em> or <em>Optional</em>; Mandatory resources need to be
 present in all Instances on all devices. Optional resources may not be present
-in all Instances, and may even be not supported at all on some Clients.</li>
-<li><strong>Type</strong> - data type of the Resource value (or its instances in case of
-Multiple Resources).</li>
-<li><strong>Range or Enumeration</strong> - specification of valid values for the Resource,
-within the given data type.</li>
-<li><strong>Units</strong> - units in which a numerical value is given.</li>
-<li><strong>Description</strong> - detailed description of the resource.</li>
+in all Instances, and may even be not supported at all on some Clients.</p></li>
+<li><p><strong>Type</strong> - data type of the Resource value (or its instances in case of
+Multiple Resources).</p></li>
+<li><p><strong>Range or Enumeration</strong> - specification of valid values for the Resource,
+within the given data type.</p></li>
+<li><p><strong>Units</strong> - units in which a numerical value is given.</p></li>
+<li><p><strong>Description</strong> - detailed description of the resource.</p></li>
 </ul>
 </div>
 <div class="section" id="attributes">
-<span id="lwm2m-attributes"></span><h3><a class="toc-backref" href="#id7">2.2.3. Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<span id="lwm2m-attributes"></span><h3><a class="toc-backref" href="#id7"><span class="section-number">2.2.3. </span>Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
 <p>Each entity in the data model (Resource, Object Instance or Object) can have
 various “attributes” attached. There are two types of attributes currently
 defined in the LwM2M specification:</p>
 <ul>
-<li><p class="first"><strong>&lt;PROPERTIES&gt;</strong> Class Attributes are read-only metadata that may be read by
+<li><p><strong>&lt;PROPERTIES&gt;</strong> Class Attributes are read-only metadata that may be read by
 Servers without accessing the data itself, possibly allowing it to operate
 more effectively. These include:</p>
 <ul class="simple">
-<li><strong>Dimension</strong> (<code class="docutils literal notranslate"><span class="pre">dim</span></code>) - in case of Multiple Resources, it is the number of
+<li><p><strong>Dimension</strong> (<code class="docutils literal notranslate"><span class="pre">dim</span></code>) - in case of Multiple Resources, it is the number of
 Resource Instances. Anjay calculates this Attribute automatically, but a
-dedicated callback for calculating it can also be optionally supplied.</li>
-<li><strong>Object Version</strong> (<code class="docutils literal notranslate"><span class="pre">ver</span></code>) - provides a way for versioning Object
+dedicated callback for calculating it can also be optionally supplied.</p></li>
+<li><p><strong>Object Version</strong> (<code class="docutils literal notranslate"><span class="pre">ver</span></code>) - provides a way for versioning Object
 definitions. It is currently not supported in Anjay, so all Objects are
-currently locked at version 1.0.</li>
+currently locked at version 1.0.</p></li>
 </ul>
 </li>
-<li><p class="first"><strong>&lt;NOTIFICATION&gt;</strong> Class Attributes are writeable by LwM2M Servers and affect
+<li><p><strong>&lt;NOTIFICATION&gt;</strong> Class Attributes are writeable by LwM2M Servers and affect
 the way changes in observed resources are notified over the
 <a class="reference internal" href="#information-reporting-interface">Information Reporting Interface</a>.</p>
 <p>By default, <em>Notify</em> messages are sent each time there is some change to the
@@ -382,78 +386,78 @@ given Object Instance or Object, if the Observe request was called on such
 higher-level path).</p>
 <p>This behaviour can be modified using the following available attributes:</p>
 <ul class="simple">
-<li><strong>Minimum Period</strong> (<code class="docutils literal notranslate"><span class="pre">pmin</span></code>) - if set to a non-zero value, notifications
-will never be sent more often than once every <code class="docutils literal notranslate"><span class="pre">pmin</span></code> seconds.</li>
-<li><strong>Maximum Period</strong> (<code class="docutils literal notranslate"><span class="pre">pmax</span></code>) - if set, notifications will <em>always</em> be sent
-at least once every <code class="docutils literal notranslate"><span class="pre">pmax</span></code> seconds, even if the value did not change.</li>
-<li><strong>Greater Than</strong> (<code class="docutils literal notranslate"><span class="pre">gt</span></code>) and <strong>Less Than</strong> (<code class="docutils literal notranslate"><span class="pre">lt</span></code>) - applicable only to
+<li><p><strong>Minimum Period</strong> (<code class="docutils literal notranslate"><span class="pre">pmin</span></code>) - if set to a non-zero value, notifications
+will never be sent more often than once every <code class="docutils literal notranslate"><span class="pre">pmin</span></code> seconds.</p></li>
+<li><p><strong>Maximum Period</strong> (<code class="docutils literal notranslate"><span class="pre">pmax</span></code>) - if set, notifications will <em>always</em> be sent
+at least once every <code class="docutils literal notranslate"><span class="pre">pmax</span></code> seconds, even if the value did not change.</p></li>
+<li><p><strong>Greater Than</strong> (<code class="docutils literal notranslate"><span class="pre">gt</span></code>) and <strong>Less Than</strong> (<code class="docutils literal notranslate"><span class="pre">lt</span></code>) - applicable only to
 numeric Resources - if set, notifications will only be sent when the value
 changes from below to above or from above to below the specified threshold.
 Contrary to what the names of these Attributes might suggest, there is no
 semantic difference between the two - both behave as equivalent
-bi-directional thresholds.</li>
-<li><strong>Step</strong> (<code class="docutils literal notranslate"><span class="pre">st</span></code>) - applicable only to numeric Resources - if set,
+bi-directional thresholds.</p></li>
+<li><p><strong>Step</strong> (<code class="docutils literal notranslate"><span class="pre">st</span></code>) - applicable only to numeric Resources - if set,
 notifications will only be sent if the numerical value is different from the
-previously notified value by at least <code class="docutils literal notranslate"><span class="pre">st</span></code>.</li>
+previously notified value by at least <code class="docutils literal notranslate"><span class="pre">st</span></code>.</p></li>
 </ul>
 <p>When several Attributes are specified at the same time, the relations between
 them are as follows:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">pmin</span></code> and <code class="docutils literal notranslate"><span class="pre">pmax</span></code> have higher priority - even if the requirements for
+<li><p><code class="docutils literal notranslate"><span class="pre">pmin</span></code> and <code class="docutils literal notranslate"><span class="pre">pmax</span></code> have higher priority - even if the requirements for
 <code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code> and <code class="docutils literal notranslate"><span class="pre">st</span></code> are not met, a notification will always be sent
 at least once every <code class="docutils literal notranslate"><span class="pre">pmax</span></code> seconds - and conversely, even when the
 requirements for <code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code> and <code class="docutils literal notranslate"><span class="pre">st</span></code> are met, a notification will
-never be sent more often than once every <code class="docutils literal notranslate"><span class="pre">pmin</span></code> seconds.</li>
-<li>Requirements for just at least one of <code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code> or <code class="docutils literal notranslate"><span class="pre">st</span></code> need to be
+never be sent more often than once every <code class="docutils literal notranslate"><span class="pre">pmin</span></code> seconds.</p></li>
+<li><p>Requirements for just at least one of <code class="docutils literal notranslate"><span class="pre">gt</span></code>, <code class="docutils literal notranslate"><span class="pre">lt</span></code> or <code class="docutils literal notranslate"><span class="pre">st</span></code> need to be
 met if they are set at the same time. For example, if the new value differs
 by at least <code class="docutils literal notranslate"><span class="pre">st</span></code> from the previously sent one, it does not need to cross
 either of the <code class="docutils literal notranslate"><span class="pre">lt</span></code>/<code class="docutils literal notranslate"><span class="pre">gt</span></code> thresholds - the <code class="docutils literal notranslate"><span class="pre">st</span></code> condition alone is
-enough to trigger sending notification.</li>
+enough to trigger sending notification.</p></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="interfaces">
-<h2><a class="toc-backref" href="#id8">2.3. Interfaces</a><a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8"><span class="section-number">2.3. </span>Interfaces</a><a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
 <p>LwM2M currently consists of four interfaces through which the Clients, Servers
 and Bootstrap Servers communicate:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#bootstrap-interface">Bootstrap Interface</a></li>
-<li><a class="reference internal" href="#registration-interface">Registration Interface</a></li>
-<li><a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a></li>
-<li><a class="reference internal" href="#information-reporting-interface">Information Reporting Interface</a></li>
+<li><p><a class="reference internal" href="#bootstrap-interface">Bootstrap Interface</a></p></li>
+<li><p><a class="reference internal" href="#registration-interface">Registration Interface</a></p></li>
+<li><p><a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a></p></li>
+<li><p><a class="reference internal" href="#information-reporting-interface">Information Reporting Interface</a></p></li>
 </ul>
 <div class="section" id="bootstrap-interface">
-<h3><a class="toc-backref" href="#id9">2.3.1. Bootstrap Interface</a><a class="headerlink" href="#bootstrap-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9"><span class="section-number">2.3.1. </span>Bootstrap Interface</a><a class="headerlink" href="#bootstrap-interface" title="Permalink to this headline">¶</a></h3>
 <p>Bootstrap Interface defines the set of commands that the Bootstrap Server may
 use to provision the initial configuration onto the client. In this interface,
 both the LwM2M Client and the LwM2M Bootstrap Server act as both a CoAP server
 and a CoAP client. The messages that may be exchanged between those include:</p>
 <ul class="simple">
-<li><strong>POST /bs?ep={Endpoint Client Name}</strong> request sent from the Client to the
+<li><p><strong>POST /bs?ep={Endpoint Client Name}</strong> request sent from the Client to the
 Bootstrap Server signifies a <strong>Bootstrap Request</strong> command. It informs the
 Bootstrap Server that a new client has appeared on the network and is
 requesting bootstrap information. However, the protocol also allows the
 Bootstrap Server to start issuing Bootstrap commands on its own, without
-receiving a Bootstrap Request message.</li>
-<li><strong>PUT</strong> requests sent from the Bootstrap Server to the Client are interpreted
+receiving a Bootstrap Request message.</p></li>
+<li><p><strong>PUT</strong> requests sent from the Bootstrap Server to the Client are interpreted
 as <strong>Bootstrap Write</strong> commands. These allow creating and writing to Object
 Instances and Resources in order initialize the data model to a state
-appropriate for communication with regular LwM2M Servers.</li>
-<li><strong>Bootstrap Delete</strong> command, represented as <strong>DELETE</strong> requests from the
+appropriate for communication with regular LwM2M Servers.</p></li>
+<li><p><strong>Bootstrap Delete</strong> command, represented as <strong>DELETE</strong> requests from the
 Bootstrap Server to the Client, allows the Bootstrap Server to delete existing
-Object Instances.</li>
-<li>The Bootstrap Server may also send <strong>GET</strong> requests, interpreted as
+Object Instances.</p></li>
+<li><p>The Bootstrap Server may also send <strong>GET</strong> requests, interpreted as
 <strong>Bootstrap Discover</strong>. It allows the Bootstrap Server to get information
 about the data model supported by and present on the client device. Only a
 list of Object Instances with some additional metadata is accessible. The
-Bootstrap Server <em>cannot</em> read Resource values.</li>
-<li>Finally, the Bootstrap Server sends a <strong>Bootstrap Finish</strong> command,
+Bootstrap Server <em>cannot</em> read Resource values.</p></li>
+<li><p>Finally, the Bootstrap Server sends a <strong>Bootstrap Finish</strong> command,
 represented as a <strong>POST /bs</strong> CoAP request send to the Client. Upon receiving
 it, the Client validates the data model, and in case of success, connects to
 regular LwM2M Servers, according to the configured stored within the data
-model.</li>
+model.</p></li>
 </ul>
 <p>As you can see, the Bootstrap Interface is mostly write-only. The Bootstrap
 Server is not able to do any actual management or monitoring of the Client. It
@@ -471,37 +475,38 @@ at the factory, or read from a smart-card. In those cases, an attempt to contact
 a Bootstrap Server may not even be made.</p>
 </div>
 <div class="section" id="registration-interface">
-<span id="lwm2m-registration-interface"></span><h3><a class="toc-backref" href="#id10">2.3.2. Registration Interface</a><a class="headerlink" href="#registration-interface" title="Permalink to this headline">¶</a></h3>
+<span id="lwm2m-registration-interface"></span><h3><a class="toc-backref" href="#id10"><span class="section-number">2.3.2. </span>Registration Interface</a><a class="headerlink" href="#registration-interface" title="Permalink to this headline">¶</a></h3>
 <p>The Registration Interface defines the protocol the Client uses to inform an
 LwM2M Server about its presence and availability. In this interface, the LwM2M
 Server acts as a CoAP server, and the LwM2M Client is a CoAP client. The
 requests that may be sent from the Client to the Server include:</p>
 <ul class="simple">
-<li><strong>Register</strong>, represented as a CoAP <strong>POST /rd?…</strong> request, is initially
+<li><p><strong>Register</strong>, represented as a CoAP <strong>POST /rd?…</strong> request, is initially
 sent by the Client when it goes online. It informs the Server that the Client
 is available for receiving commands on the
 <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a> and the
 <a class="reference internal" href="#information-reporting-interface">Information Reporting Interface</a>, and presents it with basic metadata
 describing its data model. It also gives the server the IP address and port
 (or phone number, in case of SMS transport) on which the Client is accessible
-- these are taken directly from the source fields in IP and UDP layer headers.</li>
-<li><strong>Update</strong>, which is a CoAP <strong>POST</strong> request on an URL previously returned in
-a response to <em>Register</em>. <strong>Update</strong> is sent in following situations:<ul>
-<li>periodically - to ensure the Server that the device is still online,</li>
-<li>whenever any of the information previously given in a Register message
+- these are taken directly from the source fields in IP and UDP layer headers.</p></li>
+<li><p><strong>Update</strong>, which is a CoAP <strong>POST</strong> request on an URL previously returned in
+a response to <em>Register</em>. <strong>Update</strong> is sent in following situations:</p>
+<ul>
+<li><p>periodically - to ensure the Server that the device is still online,</p></li>
+<li><p>whenever any of the information previously given in a Register message
 changes - so that the Server always has up-to-date information about the
-Client’s state.</li>
+Client’s state.</p></li>
 </ul>
 </li>
-<li><strong>De-register</strong> (CoAP <strong>DELETE</strong>) may be sent by the Client if it can
+<li><p><strong>De-register</strong> (CoAP <strong>DELETE</strong>) may be sent by the Client if it can
 determine that it is shutting down. It terminates the association between
 the Client and Server. Sending it is, however, not required, as the Server
 will also consider the association terminated if the Client does not report
-with a Register or Update message for a configured period of time.</li>
+with a Register or Update message for a configured period of time.</p></li>
 </ul>
 </div>
 <div class="section" id="device-management-and-service-enablement-interface">
-<h3><a class="toc-backref" href="#id11">2.3.3. Device Management and Service Enablement Interface</a><a class="headerlink" href="#device-management-and-service-enablement-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11"><span class="section-number">2.3.3. </span>Device Management and Service Enablement Interface</a><a class="headerlink" href="#device-management-and-service-enablement-interface" title="Permalink to this headline">¶</a></h3>
 <p>This is the main interface on which the actual device management occurs. In this
 interface, the LwM2M Server acts as a CoAP client, sending requests to the LwM2M
 Client, which acts as a server on the CoAP layer. However, please note that
@@ -511,24 +516,22 @@ client/server relationship on the CoAP layer is reversible at any time.</p>
 <p>The Device Management and Service Enablement interface defines the following
 commands:</p>
 <ul>
-<li><p class="first"><strong>Discover</strong> (CoAP <strong>GET Accept: application/link-format</strong>) allows the Server
+<li><p><strong>Discover</strong> (CoAP <strong>GET Accept: application/link-format</strong>) allows the Server
 to get a list of all supported and present Objects, Object Instances and
 Resources, and to read <a class="reference internal" href="#attributes">Attributes</a> attached to them. Data stored in Resources
-is not returned.</p>
-</li>
-<li><p class="first"><strong>Read</strong> (CoAP <strong>GET</strong> other than the above) reads data - either from a single
-Resource, entire Object Instance, or even a whole Object at once.</p>
-</li>
-<li><p class="first"><strong>Write</strong> allows the Server to modify the data model. It comes in two
+is not returned.</p></li>
+<li><p><strong>Read</strong> (CoAP <strong>GET</strong> other than the above) reads data - either from a single
+Resource, entire Object Instance, or even a whole Object at once.</p></li>
+<li><p><strong>Write</strong> allows the Server to modify the data model. It comes in two
 flavours:</p>
 <ul class="simple">
-<li><strong>PUT /{Object ID}/{Instance ID}[/{Resource ID}]</strong> request signifies the
+<li><p><strong>PUT /{Object ID}/{Instance ID}[/{Resource ID}]</strong> request signifies the
 <em>Replace</em> method. It can be called on either a single Resource to replace
 its value, or on a whole Object Instance - in that case all existing
-contents of that Instance are erased and replaced with the supplied data.</li>
-<li><strong>POST /{Object ID}/{Instance ID}</strong> request means <em>Partial Update</em>. It can
+contents of that Instance are erased and replaced with the supplied data.</p></li>
+<li><p><strong>POST /{Object ID}/{Instance ID}</strong> request means <em>Partial Update</em>. It can
 only be called on a whole Object Instance and only replaces the Resources
-present in the request payload, retaining other previously existing data.</li>
+present in the request payload, retaining other previously existing data.</p></li>
 </ul>
 <p>Both methods require the <em>Content-Format</em> option to be included in the
 request.</p>
@@ -539,32 +542,28 @@ called <em>Reset</em> is introduced, called before the series of writes during a
 <em>Replace</em> and intended to revert the Object Instance to its initial, empty
 state.</p>
 </li>
-<li><p class="first">While most entities in the data model are designed to be read and written,
+<li><p>While most entities in the data model are designed to be read and written,
 a given entity may alternatively be specified as supporting the <strong>Execute</strong>
 operation, represented by a <strong>POST /{Object ID}/{Instance ID}/{Resource ID}</strong>
 request. Execute operation is introduced in the data model wherever a way is
 necessary to instruct the device to perform some non-idempotent operation such
-as a reboot or a firmware upgrade.</p>
-</li>
-<li><p class="first">A <strong>PUT</strong> request <em>without</em> a <em>Content-Format</em> option is interpreted as
+as a reboot or a firmware upgrade.</p></li>
+<li><p>A <strong>PUT</strong> request <em>without</em> a <em>Content-Format</em> option is interpreted as
 <strong>Write Attributes</strong>. The Attributes are passed as query string elements in
 the target URL. These Attributes mostly alter the way the Client behaves in
 relation to the <a class="reference internal" href="#information-reporting-interface">Information Reporting Interface</a> and are explained in detail
-in the <a class="reference internal" href="#attributes">Attributes</a> section.</p>
-</li>
-<li><p class="first">A <strong>POST</strong> request targeting one of the root paths in the data model (called
+in the <a class="reference internal" href="#attributes">Attributes</a> section.</p></li>
+<li><p>A <strong>POST</strong> request targeting one of the root paths in the data model (called
 “Objects”, see <a class="reference internal" href="#id2">Data model</a>) represents the <strong>Create</strong> operation. It creates
 a new Object Instance, which gives a way to manage configuration entities that
 might have a variable and configurable number of similar but distinct entries
-- for example, software packages or APN connections.</p>
-</li>
-<li><p class="first">Finally, the <strong>Delete</strong> operation (CoAP <strong>DELETE</strong>) is the reverse of Create,
-allowing to remove previously created Object Instances.</p>
-</li>
+- for example, software packages or APN connections.</p></li>
+<li><p>Finally, the <strong>Delete</strong> operation (CoAP <strong>DELETE</strong>) is the reverse of Create,
+allowing to remove previously created Object Instances.</p></li>
 </ul>
 </div>
 <div class="section" id="information-reporting-interface">
-<h3><a class="toc-backref" href="#id12">2.3.4. Information Reporting Interface</a><a class="headerlink" href="#information-reporting-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12"><span class="section-number">2.3.4. </span>Information Reporting Interface</a><a class="headerlink" href="#information-reporting-interface" title="Permalink to this headline">¶</a></h3>
 <p>This interface can be thought of as an extension to the
 <a class="reference internal" href="#device-management-and-service-enablement-interface">Device Management and Service Enablement Interface</a>, allowing the Server to
 automatically receive periodic updates about some values in the data model it is
@@ -572,16 +571,14 @@ particularly interested in. It is based on the
 <a class="reference external" href="https://tools.ietf.org/html/rfc7641">OBSERVE extension to CoAP</a>, applying its
 semantics mostly unchanged onto the LwM2M mapping of CoAP concepts.</p>
 <ul>
-<li><p class="first">A <em>Read</em> operation (CoAP <strong>GET</strong>), after adding the <strong>Observe option = 0</strong>,
+<li><p>A <em>Read</em> operation (CoAP <strong>GET</strong>), after adding the <strong>Observe option = 0</strong>,
 becomes <strong>Observe</strong>. Upon receiving such request, in addition to returning the
 current value, the Client will start sending <em>Notify</em> messages when
-appropriate.</p>
-</li>
-<li><p class="first"><strong>Cancel Observation</strong> command can be issued either by performing a <em>Read</em>
+appropriate.</p></li>
+<li><p><strong>Cancel Observation</strong> command can be issued either by performing a <em>Read</em>
 with <strong>Observe option = 1</strong> or by responding to the <em>Notify</em> message with a
-<strong>CoAP RESET</strong>.</p>
-</li>
-<li><p class="first"><strong>Notify</strong> is an <strong>asynchronous CoAP response</strong> as described in
+<strong>CoAP RESET</strong>.</p></li>
+<li><p><strong>Notify</strong> is an <strong>asynchronous CoAP response</strong> as described in
 <a class="reference external" href="https://tools.ietf.org/html/rfc7641">RFC 7641</a>. It is essentially a
 repeated reply to a <em>Read</em>, sent whenever the observed value changes, and/or
 periodically, according to relevant <a class="reference internal" href="#attributes">Attributes</a>.</p>
@@ -595,17 +592,17 @@ hours, to comply with
 </div>
 </div>
 <div class="section" id="queue-mode">
-<h2><a class="toc-backref" href="#id13">2.4. Queue mode</a><a class="headerlink" href="#queue-mode" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13"><span class="section-number">2.4. </span>Queue mode</a><a class="headerlink" href="#queue-mode" title="Permalink to this headline">¶</a></h2>
 <p>The <em>Register</em> and <em>Update</em> commands include a “Binding Mode” Parameter, which
 may be one of the following:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">U</span></code> - UDP connection in standard mode</li>
-<li><code class="docutils literal notranslate"><span class="pre">UQ</span></code> - UDP connection in queue mode</li>
-<li><code class="docutils literal notranslate"><span class="pre">S</span></code> - SMS connection in standard mode</li>
-<li><code class="docutils literal notranslate"><span class="pre">SQ</span></code> - SMS connection in queue mode</li>
-<li><code class="docutils literal notranslate"><span class="pre">US</span></code> - both UDP and SMS connections active, both in standard mode</li>
-<li><code class="docutils literal notranslate"><span class="pre">UQS</span></code> - both UDP and SMS connections active; UDP in queue mode, SMS in
-standard mode</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U</span></code> - UDP connection in standard mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UQ</span></code> - UDP connection in queue mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span></code> - SMS connection in standard mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SQ</span></code> - SMS connection in queue mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">US</span></code> - both UDP and SMS connections active, both in standard mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UQS</span></code> - both UDP and SMS connections active; UDP in queue mode, SMS in
+standard mode</p></li>
 </ul>
 <p>The “queue mode” mentioned here is a special mode of operation in which the
 client device is not required to actively listen for incoming packets. The

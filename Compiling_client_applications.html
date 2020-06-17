@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. Compiling client applications &mdash; Anjay 2.4.1 documentation</title>
+  <title>3. Compiling client applications &mdash; Anjay 2.4.2 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.1
+                2.4.2
               </div>
             
           
@@ -141,7 +141,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>3. Compiling client applications</li>
+      <li><span class="section-number">3. </span>Compiling client applications</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,12 +161,12 @@
            <div itemprop="articleBody">
             
   <div class="section" id="compiling-client-applications">
-<h1>3. Compiling client applications<a class="headerlink" href="#compiling-client-applications" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">3. </span>Compiling client applications<a class="headerlink" href="#compiling-client-applications" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="compiling-the-library">
-<h2>3.1. Compiling the library<a class="headerlink" href="#compiling-the-library" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.1. </span>Compiling the library<a class="headerlink" href="#compiling-the-library" title="Permalink to this headline">¶</a></h2>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">If you cloned Anjay from a Git repository, ensure that you updated
+<p class="admonition-title">Important</p>
+<p>If you cloned Anjay from a Git repository, ensure that you updated
 submodules by calling <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span> <span class="pre">--init</span></code> before continuing.</p>
 </div>
 <p>Anjay uses CMake for project configuration. To compile the library with default
@@ -176,17 +176,17 @@ settings, call the following command in Anjay root directory:</p>
 </div>
 </div>
 <div class="section" id="cross-compiling">
-<h2>3.2. Cross-compiling<a class="headerlink" href="#cross-compiling" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2. </span>Cross-compiling<a class="headerlink" href="#cross-compiling" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Cross-compilation is necessary only if you are compiling the library to use
+<p class="admonition-title">Note</p>
+<p>Cross-compilation is necessary only if you are compiling the library to use
 on a different system, than the one used for compilation. If you, for
 example, want to use Anjay on Raspberry Pi, then you can perform
 compilation on Raspberry Pi as described above or cross-compilation on your
 PC.</p>
 </div>
 <div class="section" id="arm-cortex-m3-powered-stm3220">
-<h3>3.2.1. ARM Cortex-M3-powered STM3220<a class="headerlink" href="#arm-cortex-m3-powered-stm3220" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.2.1. </span>ARM Cortex-M3-powered STM3220<a class="headerlink" href="#arm-cortex-m3-powered-stm3220" title="Permalink to this headline">¶</a></h3>
 <p>First, prepare a CMake toolchain file (see <a class="reference external" href="https://cmake.org/cmake/help/v3.0/manual/cmake-toolchains.7.html#cross-compiling">CMake documentation</a>), then pass <code class="code docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> when configuring Anjay:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$YOUR_TOOLCHAIN_FILE</span> . <span class="o">&amp;&amp;</span> make
 </pre></div>
@@ -208,7 +208,7 @@ PC.</p>
 </div>
 </div>
 <div class="section" id="android">
-<h3>3.2.2. Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.2.2. </span>Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h3>
 <p>Compilation on Android platform is rather straightforward. First you have to get <a class="reference external" href="https://developer.android.com/ndk/index.html">Android NDK</a>. To configure Anjay you
 have to pass <code class="docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> from the NDK (we assume that
 <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK</span></code> variable contains a path to the folder where Android NDK
@@ -222,12 +222,12 @@ is extracted):</p>
 </div>
 <p>After that Anjay can be compiled as usual via <cite>make</cite>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Android platforms older than <cite>android-18</cite> are not supported.</p>
+<p class="admonition-title">Note</p>
+<p>Android platforms older than <cite>android-18</cite> are not supported.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">ANDROID_ALLOW_UNDEFINED_SYMBOLS</span></code> is set, so that unresolved symbols
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">ANDROID_ALLOW_UNDEFINED_SYMBOLS</span></code> is set, so that unresolved symbols
 required by the <cite>libanjay.so</cite> are not reported during the linking
 stage. They shall be resolved by providing dependencies to the final
 executable as it is illustrated in the next section.</p>
@@ -239,9 +239,9 @@ for more details) along with specific variable indicating where the required
 DTLS libraries are to be found, i.e. one of:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">OPENSSL_ROOT_DIR</span></code> (as <cite>FindOpenSSL.cmake</cite> suggests),</li>
-<li><code class="docutils literal notranslate"><span class="pre">MBEDTLS_ROOT_DIR</span></code>,</li>
-<li><code class="docutils literal notranslate"><span class="pre">TINYDTLS_ROOT_DIR</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OPENSSL_ROOT_DIR</span></code> (as <cite>FindOpenSSL.cmake</cite> suggests),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MBEDTLS_ROOT_DIR</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TINYDTLS_ROOT_DIR</span></code></p></li>
 </ul>
 </div></blockquote>
 <p>depending on the chosen backend.</p>
@@ -275,9 +275,9 @@ before proceeding, as it may not work otherwise):</p>
 </div>
 </div>
 <div class="section" id="installing-the-library">
-<h2>3.3. Installing the library<a class="headerlink" href="#installing-the-library" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.3. </span>Installing the library<a class="headerlink" href="#installing-the-library" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="building-with-cmake">
-<h3>3.3.1. Building with CMake<a class="headerlink" href="#building-with-cmake" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.3.1. </span>Building with CMake<a class="headerlink" href="#building-with-cmake" title="Permalink to this headline">¶</a></h3>
 <p>The preferred way of building Anjay is to use CMake.</p>
 <p>To install Anjay headers and libraries in <code class="code docutils literal notranslate"><span class="pre">/usr/local</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> sudo make install
@@ -289,41 +289,44 @@ before proceeding, as it may not work otherwise):</p>
 </div>
 </div>
 <div class="section" id="alternative-build-systems">
-<span id="no-cmake"></span><h3>3.3.2. Alternative build systems<a class="headerlink" href="#alternative-build-systems" title="Permalink to this headline">¶</a></h3>
+<span id="no-cmake"></span><h3><span class="section-number">3.3.2. </span>Alternative build systems<a class="headerlink" href="#alternative-build-systems" title="Permalink to this headline">¶</a></h3>
 <p>Alternatively, you may use any other build system. You will need to:</p>
 <ul class="simple">
-<li>Prepare your <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_coap_config.h</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> files.<ul>
-<li>Comments in <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_commons_config.h.in">avs_commons_config.h.in</a>,
+<li><p>Prepare your <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_coap_config.h</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> files.</p>
+<ul>
+<li><p>Comments in <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_commons_config.h.in">avs_commons_config.h.in</a>,
 <a class="reference external" href="https://github.com/AVSystem/Anjay/blob/master/deps/avs_coap/include_public/avsystem/coap/avs_coap_config.h.in">avs_coap_config.h.in</a>
 and <a class="reference external" href="https://github.com/AVSystem/Anjay/blob/master/include_public/anjay/anjay_config.h.in">anjay_config.h.in</a>
-will guide you about the meaning of various settings.</li>
-<li>You may use one of the directories from <a class="reference external" href="https://github.com/AVSystem/Anjay/blob/master/example_configs">example_configs</a> as a starting point. See
+will guide you about the meaning of various settings.</p></li>
+<li><p>You may use one of the directories from <a class="reference external" href="https://github.com/AVSystem/Anjay/blob/master/example_configs">example_configs</a> as a starting point. See
 <a class="reference external" href="https://github.com/AVSystem/Anjay/blob/master/example_configs/README.md">README.md inside that directory</a> for details. You may
 even set one of the subdirectories there are as an include path directly in your compiler if you
-do not need any customizations.</li>
+do not need any customizations.</p></li>
 </ul>
 </li>
-<li>Configure your build system so that:<ul>
-<li>At least all <code class="docutils literal notranslate"><span class="pre">*.c</span></code> and <code class="docutils literal notranslate"><span class="pre">*.h</span></code> files from <code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">include_public</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/src</span></code>,
+<li><p>Configure your build system so that:</p>
+<ul>
+<li><p>At least all <code class="docutils literal notranslate"><span class="pre">*.c</span></code> and <code class="docutils literal notranslate"><span class="pre">*.h</span></code> files from <code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">include_public</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/src</span></code>,
 <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/include_public</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/src</span></code> and
 <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code> directories are preserved, with the directory structure
-intact.<ul>
-<li>It is also safe to merge contents of all <code class="docutils literal notranslate"><span class="pre">include_public</span></code> directories into one. Merging
-<code class="docutils literal notranslate"><span class="pre">src</span></code> directories should be safe, too, but is not explicitly supported.</li>
+intact.</p>
+<ul>
+<li><p>It is also safe to merge contents of all <code class="docutils literal notranslate"><span class="pre">include_public</span></code> directories into one. Merging
+<code class="docutils literal notranslate"><span class="pre">src</span></code> directories should be safe, too, but is not explicitly supported.</p></li>
 </ul>
 </li>
-<li>All <code class="docutils literal notranslate"><span class="pre">*.c</span></code> files inside <code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/src</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/src</span></code>, or any of
-their direct or indirect subdirectories are compiled.</li>
-<li><code class="docutils literal notranslate"><span class="pre">deps/avs_commons/src</span></code> and <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code> directories are included in the
-header search path when compiling <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">deps/avs_coap/src</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/include_public</span></code> and <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code>
-directories are included in the header search path when compiling <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">include_public</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/include_public</span></code> and
+<li><p>All <code class="docutils literal notranslate"><span class="pre">*.c</span></code> files inside <code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/src</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/src</span></code>, or any of
+their direct or indirect subdirectories are compiled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deps/avs_commons/src</span></code> and <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code> directories are included in the
+header search path when compiling <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deps/avs_coap/src</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/include_public</span></code> and <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code>
+directories are included in the header search path when compiling <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">include_public</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/include_public</span></code> and
 <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code> directories are included in the header search path when
-compiling Anjay.</li>
-<li><code class="docutils literal notranslate"><span class="pre">include_public</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/include_public</span></code> and <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code>
+compiling Anjay.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">include_public</span></code>, <code class="docutils literal notranslate"><span class="pre">deps/avs_coap/include_public</span></code> and <code class="docutils literal notranslate"><span class="pre">deps/avs_commons/include_public</span></code>
 directories, or copies of them (possibly merged into one directory) are included in the header
-search path when compiling dependent application code.</li>
+search path when compiling dependent application code.</p></li>
 </ul>
 </li>
 </ul>
@@ -349,9 +352,9 @@ cp -r config/* /usr/local/include/
 </div>
 </div>
 <div class="section" id="including-the-library-in-an-application">
-<h2>3.4. Including the library in an application<a class="headerlink" href="#including-the-library-in-an-application" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.4. </span>Including the library in an application<a class="headerlink" href="#including-the-library-in-an-application" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="cmake-projects">
-<h3>3.4.1. CMake projects<a class="headerlink" href="#cmake-projects" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.4.1. </span>CMake projects<a class="headerlink" href="#cmake-projects" title="Permalink to this headline">¶</a></h3>
 <p>The preferred method of using Anjay in custom projects is to use CMake <code class="code docutils literal notranslate"><span class="pre">find_package</span></code> command after installing the library:</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span><span class="p">)</span>
 <span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">ANJAY_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
@@ -359,12 +362,12 @@ cp -r config/* /usr/local/include/
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If a custom installation path is used, you need to set <code class="code docutils literal notranslate"><span class="pre">anjay_DIR</span></code> CMake variable to <code class="code docutils literal notranslate"><span class="pre">$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>If a custom installation path is used, you need to set <code class="code docutils literal notranslate"><span class="pre">anjay_DIR</span></code> CMake variable to <code class="code docutils literal notranslate"><span class="pre">$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
 </div>
 </div>
 <div class="section" id="id1">
-<h3>3.4.2. Alternative build systems<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.4.2. </span>Alternative build systems<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>If Anjay itself has been compiled using CMake, flags necessary for other build systems can be
 retrieved using <code class="code docutils literal notranslate"><span class="pre">cmake</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --find-package -DNAME<span class="o">=</span>anjay -DLANGUAGE<span class="o">=</span>C -DCOMPILER_ID<span class="o">=</span>Generic -DMODE<span class="o">=</span>&lt;mode&gt;
@@ -372,42 +375,44 @@ retrieved using <code class="code docutils literal notranslate"><span class="pre
 </div>
 <p>Where <code class="code docutils literal notranslate"><span class="pre">&lt;mode&gt;</span></code> is one of:</p>
 <ul class="simple">
-<li><code class="code docutils literal notranslate"><span class="pre">EXIST</span></code> - check whether the library can be found,</li>
-<li><code class="code docutils literal notranslate"><span class="pre">COMPILE</span></code> - print compilation flags,</li>
-<li><code class="code docutils literal notranslate"><span class="pre">LINK</span></code> - print linking arguments.</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">EXIST</span></code> - check whether the library can be found,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">COMPILE</span></code> - print compilation flags,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">LINK</span></code> - print linking arguments.</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If a custom installation prefix is used, you need to also pass <code class="code docutils literal notranslate"><span class="pre">-Danjay_DIR=$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
+<p class="admonition-title">Note</p>
+<p>If a custom installation prefix is used, you need to also pass <code class="code docutils literal notranslate"><span class="pre">-Danjay_DIR=$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
 </div>
 </div>
 <div class="section" id="anjay-compiled-without-cmake">
-<h3>3.4.3. Anjay compiled without CMake<a class="headerlink" href="#anjay-compiled-without-cmake" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.4.3. </span>Anjay compiled without CMake<a class="headerlink" href="#anjay-compiled-without-cmake" title="Permalink to this headline">¶</a></h3>
 <p>If Anjay has been compiled without using CMake, you will need to provide necessary flags manually.</p>
 <p>Specific dependencies will vary according to:</p>
 <ul class="simple">
-<li>compile-time configuration, including:<ul>
-<li>avs_compat_threading backend</li>
-<li>avs_crypto backend, if any</li>
-<li>avs_net DTLS backend, if any</li>
-<li><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_HTTP_WITH_ZLIB</span></code> setting, if avs_http is enabled</li>
+<li><p>compile-time configuration, including:</p>
+<ul>
+<li><p>avs_compat_threading backend</p></li>
+<li><p>avs_crypto backend, if any</p></li>
+<li><p>avs_net DTLS backend, if any</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_HTTP_WITH_ZLIB</span></code> setting, if avs_http is enabled</p></li>
 </ul>
 </li>
-<li>target platform</li>
-<li>build environment</li>
+<li><p>target platform</p></li>
+<li><p>build environment</p></li>
 </ul>
 <p class="rubric">Example</p>
 <p>For the following conditions:</p>
 <ul class="simple">
-<li>Anjay compiled with all optional features enabled, and:<ul>
-<li>mbed TLS security enabled as avs_net DTLS backend and/or avs_crypto backend</li>
-<li>PThread used as avs_compat_threading backend</li>
-<li>avs_http enabled with zlib support</li>
+<li><p>Anjay compiled with all optional features enabled, and:</p>
+<ul>
+<li><p>mbed TLS security enabled as avs_net DTLS backend and/or avs_crypto backend</p></li>
+<li><p>PThread used as avs_compat_threading backend</p></li>
+<li><p>avs_http enabled with zlib support</p></li>
 </ul>
 </li>
-<li>Target platform being a typical desktop GNU/Linux distribution</li>
-<li>GCC or Clang used as the compiler</li>
-<li>Anjay compiled and installed as shown in the example in the <a class="reference internal" href="#no-cmake"><span class="std std-ref">Alternative build systems</span></a> section</li>
+<li><p>Target platform being a typical desktop GNU/Linux distribution</p></li>
+<li><p>GCC or Clang used as the compiler</p></li>
+<li><p>Anjay compiled and installed as shown in the example in the <a class="reference internal" href="#no-cmake"><span class="std std-ref">Alternative build systems</span></a> section</p></li>
 </ul>
 <p>the flags necessary to link client applications would be:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-lanjay -lz -lmbedtls -lmbedcrypto -lmbedx509 -lm -pthread

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.4.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 2.4.1 documentation</title>
+  <title>5.4.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 2.4.2 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.1
+                2.4.2
               </div>
             
           
@@ -160,11 +160,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
         
-          <li><a href="../AT-CustomObjects.html">5.4. Custom LwM2M objects</a> &raquo;</li>
+          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
         
-      <li>5.4.3. Multi-instance read-only object with fixed number of instances</li>
+      <li><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,13 +184,13 @@
            <div itemprop="articleBody">
             
   <div class="section" id="multi-instance-read-only-object-with-fixed-number-of-instances">
-<h1>5.4.3. Multi-instance read-only object with fixed number of instances<a class="headerlink" href="#multi-instance-read-only-object-with-fixed-number-of-instances" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances<a class="headerlink" href="#multi-instance-read-only-object-with-fixed-number-of-instances" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
 Anjay, either defined in <a class="reference external" href="https://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>
 or designed by user.</p>
-<p class="last">Although most of the Object’s code can be generated using
+<p>Although most of the Object’s code can be generated using
 <a class="reference internal" href="../../Tools.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a> if you have Object’s definition in XML,
 it is recommended to read this section to have a clear understanding on what
 various parts of the LwM2M Object code are for.</p>
@@ -199,64 +199,64 @@ various parts of the LwM2M Object code are for.</p>
 multi-instance LwM2M Object.</p>
 <p>The implemented Object will look as in <a class="reference internal" href="AT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>,
 but will now support multiple Object Instances:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="37%" />
-<col width="31%" />
-<col width="31%" />
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Object ID</th>
-<th class="head">Instances</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Test object</td>
-<td>1234</td>
-<td>Multiple</td>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Multiple</p></td>
 </tr>
 </tbody>
 </table>
 <p>Each Object Instance has two Resources:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="21%" />
-<col width="19%" />
-<col width="17%" />
-<col width="17%" />
-<col width="14%" />
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 14%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Resource ID</th>
-<th class="head">Operations</th>
-<th class="head">Instances</th>
-<th class="head">Mandatory</th>
-<th class="head">Type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Label</td>
-<td>0</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>String</td>
+<tbody>
+<tr class="row-even"><td><p>Label</p></td>
+<td><p>0</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td>Value</td>
-<td>1</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>Integer</td>
+<tr class="row-odd"><td><p>Value</p></td>
+<td><p>1</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The code is based on <a class="reference internal" href="AT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
+<p class="admonition-title">Note</p>
+<p>The code is based on <a class="reference internal" href="AT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
 </div>
 <p>First of all, let us define a structure that will hold both handlers and object
 state, initialize and register it:</p>
@@ -287,7 +287,7 @@ state, initialize and register it:</p>
 <p>Now, to inform the library the Object contains two Instances with IDs 0 and 1,
 one additional handler is required:</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">list_instances</span></code> - used by the library to enumerate all existing Object
+<li><p><code class="docutils literal notranslate"><span class="pre">list_instances</span></code> - used by the library to enumerate all existing Object
 Instance IDs:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
@@ -367,8 +367,8 @@ struct:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Complete code of this example can be found in
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
 <cite>examples/tutorial/AT-CustomObjects/read-only-multiple-fixed</cite> subdirectory of
 main Anjay project repository.</p>
 </div>

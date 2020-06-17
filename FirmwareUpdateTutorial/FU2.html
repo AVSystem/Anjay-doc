@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.2. Basic implementation &mdash; Anjay 2.4.1 documentation</title>
+  <title>6.2. Basic implementation &mdash; Anjay 2.4.2 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.1
+                2.4.2
               </div>
             
           
@@ -149,9 +149,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a> &raquo;</li>
+          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
         
-      <li>6.2. Basic implementation</li>
+      <li><span class="section-number">6.2. </span>Basic implementation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -171,12 +171,12 @@
            <div itemprop="articleBody">
             
   <div class="section" id="basic-implementation">
-<h1>6.2. Basic implementation<a class="headerlink" href="#basic-implementation" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6.2. </span>Basic implementation<a class="headerlink" href="#basic-implementation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="project-structure">
-<h2>6.2.1. Project structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.2.1. </span>Project structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h2>
 <p>We shall start with the code from <a class="reference internal" href="../BasicClient/BC6.html"><span class="doc">Notifications support</span></a> chapter. In the
 end, our project structure would look as follows:</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span>examples/tutorial/firmware-update/basic-implementation/
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>examples/tutorial/firmware-update/basic-implementation/
 ├── CMakeLists.txt
 └── src
     ├── firmware_update.c
@@ -190,7 +190,7 @@ end, our project structure would look as follows:</p>
 chapter.</p>
 </div>
 <div class="section" id="installing-the-firmware-update-module">
-<h2>6.2.2. Installing the Firmware Update module<a class="headerlink" href="#installing-the-firmware-update-module" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.2.2. </span>Installing the Firmware Update module<a class="headerlink" href="#installing-the-firmware-update-module" title="Permalink to this headline">¶</a></h2>
 <p>In order to install the module, we are going to use:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_fw_update_install</span><span class="p">(</span>
         <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -204,8 +204,8 @@ and <code class="docutils literal notranslate"><span class="pre">user_arg</span>
 <p>We already discussed <code class="docutils literal notranslate"><span class="pre">handlers</span></code> structure in <a class="reference internal" href="FU1.html#firmware-update-api"><span class="std std-ref">API in Anjay</span></a>, and we will
 shortly provide simple implementations of required callbacks.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">user_arg</span></code> <strong>is a pointer passed to every callback, when Anjay
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">user_arg</span></code> <strong>is a pointer passed to every callback, when Anjay
 actually calls it</strong>. This pointer can be used by the callback implementation
 to store any kind of context to operate on. Alternatively, the implementation
 may set it to <cite>NULL</cite> and rely on the use of global variables.</p>
@@ -404,17 +404,17 @@ the function declared in <code class="docutils literal notranslate"><span class=
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>As you may see, there is also an additional <code class="docutils literal notranslate"><span class="pre">ENDPOINT_NAME</span></code> global
 variable that now stores the command line argument. As we will use the same
 kind of program binary as the update image, we will need this to properly
 launch it as part of the upgrade process.</p>
-<p class="last">This is usually not necessary in production code, as the endpoint name is
+<p>This is usually not necessary in production code, as the endpoint name is
 usually either hard-coded, or configured through other means.</p>
 </div>
 </div>
 <div class="section" id="implementing-handlers-and-installation-routine">
-<h2>6.2.3. Implementing handlers and installation routine<a class="headerlink" href="#implementing-handlers-and-installation-routine" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.2.3. </span>Implementing handlers and installation routine<a class="headerlink" href="#implementing-handlers-and-installation-routine" title="Permalink to this headline">¶</a></h2>
 <p>First, let’s think about what would we need to implement I/O operations
 required to download the firmware. The approach we could take is to
 open a <code class="docutils literal notranslate"><span class="pre">FILE</span></code> during a call to the <code class="docutils literal notranslate"><span class="pre">stream_open</span></code> callback, write to
@@ -435,8 +435,8 @@ it. In <code class="docutils literal notranslate"><span class="pre">firmware_upd
 </span></pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The numerous headers included will be useful in further stages of the
+<p class="admonition-title">Note</p>
+<p>The numerous headers included will be useful in further stages of the
 development.</p>
 </div>
 <p id="fw-download-io">Having the global state structure, we can proceed with implementation of:
@@ -515,13 +515,13 @@ the format of a downloaded image be, nor how would it be applied.</p>
 and then in <code class="docutils literal notranslate"><span class="pre">fw_perform_upgrade</span></code> we could be using <code class="docutils literal notranslate"><span class="pre">execl()</span></code> to start a
 new (downloaded) version of our Client.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>In a more realistic scenario, one would be doing things such as:</p>
-<blockquote class="last">
+<blockquote>
 <div><ul class="simple">
-<li>firmware verification,</li>
-<li>saving it to some persistent storage (e.g. flash), rather than to <code class="docutils literal notranslate"><span class="pre">/tmp</span></code>,</li>
-<li>other platform specific stuff.</li>
+<li><p>firmware verification,</p></li>
+<li><p>saving it to some persistent storage (e.g. flash), rather than to <code class="docutils literal notranslate"><span class="pre">/tmp</span></code>,</p></li>
+<li><p>other platform specific stuff.</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -533,10 +533,10 @@ actually succeeded.</p>
 upgraded. Specifically, the idea is as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li>just before performing the upgrade, a “marker” file is created,</li>
-<li>the logic in the Client can check for the existence of the “marker” and conclude,
-if the upgrade was performed or not,</li>
-<li>finally, the “marker” gets removed.</li>
+<li><p>just before performing the upgrade, a “marker” file is created,</p></li>
+<li><p>the logic in the Client can check for the existence of the “marker” and conclude,
+if the upgrade was performed or not,</p></li>
+<li><p>finally, the “marker” gets removed.</p></li>
 </ul>
 </div></blockquote>
 <p>The code is self explanatory:</p>

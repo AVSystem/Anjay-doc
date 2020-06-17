@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.3. Event loop &mdash; Anjay 2.4.1 documentation</title>
+  <title>4.3. Event loop &mdash; Anjay 2.4.2 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.1
+                2.4.2
               </div>
             
           
@@ -150,9 +150,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../BasicClient.html">4. Basic client</a> &raquo;</li>
+          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
         
-      <li>4.3. Event loop</li>
+      <li><span class="section-number">4.3. </span>Event loop</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -172,42 +172,42 @@
            <div itemprop="articleBody">
             
   <div class="section" id="event-loop">
-<h1>4.3. Event loop<a class="headerlink" href="#event-loop" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">4.3. </span>Event loop<a class="headerlink" href="#event-loop" title="Permalink to this headline">¶</a></h1>
 <p>The next task to complete is to write the event loop which will control the
 whole application.</p>
 <p>Anjay currently does not use any self-contained threads, so some manual handling
 of incoming events is necessary. These events may come from a number of sources:</p>
 <ul class="simple">
-<li>network packets from LwM2M Servers,</li>
-<li>Anjay’s internal task scheduler,</li>
-<li>external events specific to the client application.</li>
+<li><p>network packets from LwM2M Servers,</p></li>
+<li><p>Anjay’s internal task scheduler,</p></li>
+<li><p>external events specific to the client application.</p></li>
 </ul>
 <p>On POSIX compliant systems, a simple and portable way to handle all these events
 is to use the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> system call.</p>
 <div class="section" id="incoming-network-packets">
-<h2>4.3.1. Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3.1. </span>Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Permalink to this headline">¶</a></h2>
 <p>UDP sockets that Anjay uses to communicate with LwM2M Servers are accessible
 via the <code class="docutils literal notranslate"><span class="pre">anjay_get_sockets()</span></code> call. All the used sockets are returned as an
 <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> (implemented and documented in the <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons Library</a>).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">To retrieve a low-level operating system handle (on POSIX systems it is
+<p class="admonition-title">Note</p>
+<p>To retrieve a low-level operating system handle (on POSIX systems it is
 a file descriptor) use the <code class="docutils literal notranslate"><span class="pre">avs_net_socket_get_system()</span></code> call.</p>
 </div>
 <p>When there is a new incoming packet on some socket, <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> shall
 be called to handle it.</p>
 <p>Therefore our first version of the event loop could look like this:</p>
 <ol class="arabic simple" id="incomplete-event-loop-idea">
-<li>Obtain all sources of incoming packets (i.e. server sockets) from the
-library.</li>
-<li>Call <code class="docutils literal notranslate"><span class="pre">poll()</span></code> on them and wait for an event to arrive.</li>
-<li>When an event occurs, call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> that will handle the message.</li>
+<li><p>Obtain all sources of incoming packets (i.e. server sockets) from the
+library.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">poll()</span></code> on them and wait for an event to arrive.</p></li>
+<li><p>When an event occurs, call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> that will handle the message.</p></li>
 </ol>
 <p>Before doing that though, you should also understand a very important concept
 Anjay is using, the task scheduler.</p>
 </div>
 <div class="section" id="task-scheduler">
-<span id="id1"></span><h2>4.3.2. Task scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2><span class="section-number">4.3.2. </span>Task scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this headline">¶</a></h2>
 <p>Anjay uses an internal scheduler for executing a number of tasks, including
 automated sending of Registration Updates and notifications, among others.</p>
 <p>During runtime, Anjay schedules jobs with specific deadlines, and
@@ -227,27 +227,27 @@ communication going on, it would be the amount of time the CPU can sleep. In the
 next example we will use this value as a <code class="docutils literal notranslate"><span class="pre">poll()</span></code> timeout.</p>
 </div>
 <div class="section" id="event-loop-implementation">
-<span id="basic-event-loop"></span><h2>4.3.3. Event loop implementation<a class="headerlink" href="#event-loop-implementation" title="Permalink to this headline">¶</a></h2>
+<span id="basic-event-loop"></span><h2><span class="section-number">4.3.3. </span>Event loop implementation<a class="headerlink" href="#event-loop-implementation" title="Permalink to this headline">¶</a></h2>
 <p>Taking into account previous subsections we could modify the event loop
 presented <a class="reference internal" href="#incomplete-event-loop-idea"><span class="std std-ref">before</span></a> as follows:</p>
 <ol class="arabic simple">
-<li>Obtain all sources of incoming packets (i.e. server sockets) from the library.</li>
-<li>Determine what is the expected time to the next job that has to be executed.</li>
-<li>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> to wait for the incoming communication event (but not for too
-long, to prevent missing any pending scheduler jobs).</li>
-<li>Call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on packet arrival, which will handle the message.</li>
-<li>Run the scheduler by calling <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> to execute any outstanding
-jobs.</li>
+<li><p>Obtain all sources of incoming packets (i.e. server sockets) from the library.</p></li>
+<li><p>Determine what is the expected time to the next job that has to be executed.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">poll()</span></code> to wait for the incoming communication event (but not for too
+long, to prevent missing any pending scheduler jobs).</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on packet arrival, which will handle the message.</p></li>
+<li><p>Run the scheduler by calling <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> to execute any outstanding
+jobs.</p></li>
 </ol>
 <div class="topic">
 <p class="topic-title">Wait, why do I have to repeatedly get the sources of packets?</p>
 <p>There are at least two reasons for doing that:</p>
 <ol class="arabic simple">
-<li>At some point network error might have happened, forcing the library
-to reconnect the socket, possibly changing its underlying descriptor.</li>
-<li>The data model might have changed (for instance due to spontaneous Bootstrap
+<li><p>At some point network error might have happened, forcing the library
+to reconnect the socket, possibly changing its underlying descriptor.</p></li>
+<li><p>The data model might have changed (for instance due to spontaneous Bootstrap
 Write) and some Server were added / removed or their credentials were
-modified.</li>
+modified.</p></li>
 </ol>
 </div>
 <p>So, it could be written like this:</p>
@@ -401,7 +401,7 @@ the server and successfully sends Update messages. Now you can perform some
 Reads for example from the LwM2M Server side.</p>
 </div>
 <div class="section" id="application-events">
-<h2>4.3.4. Application events<a class="headerlink" href="#application-events" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3.4. </span>Application events<a class="headerlink" href="#application-events" title="Permalink to this headline">¶</a></h2>
 <p>As we’ve been discussing, the code above is enough to handle all events that
 may happen within the Anjay library itself. Of course, the application usually
 needs to handle its own functionality, this is however outside of the scope of

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.6. Download resumption &mdash; Anjay 2.4.1 documentation</title>
+  <title>6.6. Download resumption &mdash; Anjay 2.4.2 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.4.1
+                2.4.2
               </div>
             
           
@@ -149,9 +149,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a> &raquo;</li>
+          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
         
-      <li>6.6. Download resumption</li>
+      <li><span class="section-number">6.6. </span>Download resumption</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -171,9 +171,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="download-resumption">
-<h1>6.6. Download resumption<a class="headerlink" href="#download-resumption" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6.6. </span>Download resumption<a class="headerlink" href="#download-resumption" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
-<h2>6.6.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.6.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Imagine that due to some bug or, for example, a power loss, the device
 unexpectedly reboots during firmware download. Some portion of the firmware
 could already have been written to a persistent memory, and it could be
@@ -184,7 +184,7 @@ not expire (i.e. has the same ETag) there is a good chance the Client will
 be able to resume a partially finished download.</p>
 </div>
 <div class="section" id="anjay-and-firmware-update-initial-state">
-<h2>6.6.2. Anjay and Firmware Update initial state<a class="headerlink" href="#anjay-and-firmware-update-initial-state" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.6.2. </span>Anjay and Firmware Update initial state<a class="headerlink" href="#anjay-and-firmware-update-initial-state" title="Permalink to this headline">¶</a></h2>
 <p>Let’s have a look at the <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_initial_state_t</span></code>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="cm">/**</span>
@@ -244,20 +244,20 @@ be able to resume a partially finished download.</p>
 that we already passed this structure to <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_install</span></code> in
 previous chapters, but we’ve always made it zero-initialized before doing so.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><strong>Quick remainder:</strong> download resumption is supported for <strong>PULL</strong>
+<p class="admonition-title">Note</p>
+<p><strong>Quick remainder:</strong> download resumption is supported for <strong>PULL</strong>
 mode downloads only.</p>
 </div>
 <p>Anyway, as you can see from the structure above, we’re going to need three
 pieces of information:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">persisted_uri</span></code> - that is, the URI from which the download was
-originally started,</li>
-<li><code class="docutils literal notranslate"><span class="pre">resume_offset</span></code> - which is just the number of bytes successfully
-stored before the device crashed / unexpectedly rebooted / whatever,</li>
-<li><code class="docutils literal notranslate"><span class="pre">resume_tag</span></code> - tag, allowing to validate that the Server still has
-the same firmware file available under given URI.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">persisted_uri</span></code> - that is, the URI from which the download was
+originally started,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resume_offset</span></code> - which is just the number of bytes successfully
+stored before the device crashed / unexpectedly rebooted / whatever,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resume_tag</span></code> - tag, allowing to validate that the Server still has
+the same firmware file available under given URI.</p></li>
 </ul>
 </div></blockquote>
 <p>Implementation-wise, we’ll start with introducing a structure that’d hold
@@ -402,13 +402,13 @@ the state from persistent storage:</p>
 be done.</p>
 </div>
 <div class="section" id="persisting-firmware-state">
-<h2>6.6.3. Persisting firmware state<a class="headerlink" href="#persisting-firmware-state" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.6.3. </span>Persisting firmware state<a class="headerlink" href="#persisting-firmware-state" title="Permalink to this headline">¶</a></h2>
 <p>When <a class="reference internal" href="FU2.html#fw-download-io"><span class="std std-ref">we implemented</span></a> the <code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code> callback,
 we ignored <code class="docutils literal notranslate"><span class="pre">package_uri</span></code> and <code class="docutils literal notranslate"><span class="pre">package_etag</span></code>, because we didn’t need it
 at that time.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Persisting firmware state makes sense only if both <code class="docutils literal notranslate"><span class="pre">package_uri</span></code>
+<p class="admonition-title">Note</p>
+<p>Persisting firmware state makes sense only if both <code class="docutils literal notranslate"><span class="pre">package_uri</span></code>
 and <code class="docutils literal notranslate"><span class="pre">package_etag</span></code> are non-<cite>NULL</cite>. <code class="docutils literal notranslate"><span class="pre">package_uri</span></code> indicates it is
 a <strong>PULL</strong> mode transfer (the only mode supporting resumption), while
 <code class="docutils literal notranslate"><span class="pre">package_etag</span></code> allows the Client to verify that the downloaded file
@@ -424,15 +424,15 @@ explicitly wants the Client to discard the firmware downloaded so far. These
 ideas can be summarized as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li>on a call to <code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code> we’ll store <code class="docutils literal notranslate"><span class="pre">package_uri</span></code> and
-<code class="docutils literal notranslate"><span class="pre">package_etag</span></code> in <code class="docutils literal notranslate"><span class="pre">FW_STATE</span></code>,</li>
-<li>on a call to <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> we’ll update the <code class="docutils literal notranslate"><span class="pre">resume_offset</span></code>
-state and write the whole state information to persistent storage,</li>
-<li>on a call to <code class="docutils literal notranslate"><span class="pre">fw_reset</span></code> we’ll erase the download state.</li>
+<li><p>on a call to <code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code> we’ll store <code class="docutils literal notranslate"><span class="pre">package_uri</span></code> and
+<code class="docutils literal notranslate"><span class="pre">package_etag</span></code> in <code class="docutils literal notranslate"><span class="pre">FW_STATE</span></code>,</p></li>
+<li><p>on a call to <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> we’ll update the <code class="docutils literal notranslate"><span class="pre">resume_offset</span></code>
+state and write the whole state information to persistent storage,</p></li>
+<li><p>on a call to <code class="docutils literal notranslate"><span class="pre">fw_reset</span></code> we’ll erase the download state.</p></li>
 </ul>
 </div></blockquote>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
+<p class="admonition-title">Important</p>
 <p>The implementation of <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> as described above will be
 awkward on a UNIX-like systems. Complicated operating systems tend to
 have multiple layers of IO buffering, and it may take some time before
@@ -450,7 +450,7 @@ of file), it’s more appropriate to update <code class="docutils literal notran
 <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> instead, remembering to do so ONLY after having a
 high degree of certainty that the chunk of firmware was successfully
 written to the flash memory.</p>
-<p class="last">Since we want to show the correct way of handling download resumption on
+<p>Since we want to show the correct way of handling download resumption on
 embedded hardware while being relatively correct on non-embedded platforms,
 we’ll use inefficient the <code class="docutils literal notranslate"><span class="pre">fflush()</span></code> and <code class="docutils literal notranslate"><span class="pre">fsync()</span></code> calls after each
 <code class="docutils literal notranslate"><span class="pre">fwrite()</span></code> which should flush the caches and trigger physical writes
