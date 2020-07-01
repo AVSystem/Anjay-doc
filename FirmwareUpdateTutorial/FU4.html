@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.4. Secure downloads &mdash; Anjay 2.4.2 documentation</title>
+  <title>6.4. Secure downloads &mdash; Anjay 2.4.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
 
   
   
@@ -17,7 +21,9 @@
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -29,11 +35,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6.5. Poor network connectivity" href="FU5.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Anjay
           
 
           
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.4.2
+                2.4.4
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
         
@@ -273,22 +276,22 @@ is:</p>
 <span class="cm"> * Certificate and key information may be read from files or passed as raw data.</span>
 <span class="cm"> *</span>
 <span class="cm"> * User should initialize:</span>
-<span class="cm"> *  - @ref avs_net_certificate_info_t#client_cert,</span>
-<span class="cm"> *  - @ref avs_net_certificate_info_t#client_key,</span>
-<span class="cm"> *  - @ref avs_net_certificate_info_t#trusted_certs</span>
+<span class="cm"> *  - @ref avs_crypto_certificate_info_t#client_cert,</span>
+<span class="cm"> *  - @ref avs_crypto_certificate_info_t#client_key,</span>
+<span class="cm"> *  - @ref avs_crypto_certificate_info_t#trusted_certs</span>
 <span class="cm"> * via helper functions:</span>
-<span class="cm"> *  - @ref avs_net_client_cert_from_*</span>
-<span class="cm"> *  - @ref avs_net_client_key_from_*</span>
-<span class="cm"> *  - @ref avs_net_trusted_cert_source_from_*</span>
+<span class="cm"> *  - @ref avs_crypto_client_cert_from_*</span>
+<span class="cm"> *  - @ref avs_crypto_client_key_from_*</span>
+<span class="cm"> *  - @ref avs_crypto_trusted_cert_source_from_*</span>
 <span class="cm"> *</span>
 <span class="cm"> * Moreover, to enable CA chain validation one MUST set @ref</span>
 <span class="cm"> * avs_net_certificate_info_t#server_cert_validation to true.</span>
 <span class="cm"> */</span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="kt">bool</span> <span class="n">server_cert_validation</span><span class="p">;</span>
-    <span class="n">avs_net_trusted_cert_info_t</span> <span class="n">trusted_certs</span><span class="p">;</span>
-    <span class="n">avs_net_client_cert_info_t</span> <span class="n">client_cert</span><span class="p">;</span>
-    <span class="n">avs_net_client_key_info_t</span> <span class="n">client_key</span><span class="p">;</span>
+    <span class="n">avs_crypto_trusted_cert_info_t</span> <span class="n">trusted_certs</span><span class="p">;</span>
+    <span class="n">avs_crypto_client_cert_info_t</span> <span class="n">client_cert</span><span class="p">;</span>
+    <span class="n">avs_crypto_client_key_info_t</span> <span class="n">client_key</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">avs_net_certificate_info_t</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -308,13 +311,14 @@ would suffice to do the necessary work.</p>
 from files, we could do something like this:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">avs_net_certificate_info_t</span> <span class="n">cert_info</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">server_cert_validation</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">trusted_certs</span> <span class="o">=</span> <span class="n">avs_net_trusted_cert_info_from_path</span><span class="p">(</span><span class="s">&quot;./CA.crt&quot;</span><span class="p">),</span>
-    <span class="p">.</span><span class="n">client_cert</span> <span class="o">=</span> <span class="n">avs_net_client_cert_info_from_file</span><span class="p">(</span><span class="s">&quot;./client.crt&quot;</span><span class="p">),</span>
+    <span class="p">.</span><span class="n">trusted_certs</span> <span class="o">=</span> <span class="n">avs_crypto_trusted_cert_info_from_path</span><span class="p">(</span><span class="s">&quot;./CA.crt&quot;</span><span class="p">),</span>
+    <span class="p">.</span><span class="n">client_cert</span> <span class="o">=</span> <span class="n">avs_crypto_client_cert_info_from_file</span><span class="p">(</span><span class="s">&quot;./client.crt&quot;</span><span class="p">),</span>
     <span class="c1">// NOTE: &quot;password&quot; may be NULL if no password is required</span>
-    <span class="p">.</span><span class="n">client_key</span> <span class="o">=</span> <span class="n">avs_net_client_key_info_from_file</span><span class="p">(</span><span class="s">&quot;./client.key&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">client_key</span> <span class="o">=</span>
+            <span class="n">avs_crypto_client_key_info_from_file</span><span class="p">(</span><span class="s">&quot;./client.key&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">)</span>
 <span class="p">};</span>
 <span class="n">avs_net_security_info_t</span> <span class="n">cert_security</span> <span class="o">=</span>
-    <span class="n">avs_net_security_info_from_certificates</span><span class="p">(</span><span class="n">cert_info</span><span class="p">);</span>
+        <span class="n">avs_net_security_info_from_certificates</span><span class="p">(</span><span class="n">cert_info</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -551,26 +555,28 @@ are highlighted:</p>
 </span><span class="hll">    <span class="c1">// no match found, fallback to loading certificates from given paths</span>
 </span><span class="hll">    <span class="k">const</span> <span class="n">avs_net_certificate_info_t</span> <span class="n">cert_info</span> <span class="o">=</span> <span class="p">{</span>
 </span><span class="hll">        <span class="p">.</span><span class="n">server_cert_validation</span> <span class="o">=</span> <span class="nb">true</span><span class="p">,</span>
-</span><span class="hll">        <span class="p">.</span><span class="n">trusted_certs</span> <span class="o">=</span> <span class="n">avs_net_trusted_cert_info_from_path</span><span class="p">(</span><span class="s">&quot;./certs/CA.crt&quot;</span><span class="p">),</span>
-</span><span class="hll">        <span class="p">.</span><span class="n">client_cert</span> <span class="o">=</span> <span class="n">avs_net_client_cert_info_from_file</span><span class="p">(</span><span class="s">&quot;./certs/client.crt&quot;</span><span class="p">),</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">trusted_certs</span> <span class="o">=</span>
+</span><span class="hll">                <span class="n">avs_crypto_trusted_cert_info_from_path</span><span class="p">(</span><span class="s">&quot;./certs/CA.crt&quot;</span><span class="p">),</span>
+</span><span class="hll">        <span class="p">.</span><span class="n">client_cert</span> <span class="o">=</span>
+</span><span class="hll">                <span class="n">avs_crypto_client_cert_info_from_file</span><span class="p">(</span><span class="s">&quot;./certs/client.crt&quot;</span><span class="p">),</span>
 </span><span class="hll">        <span class="p">.</span><span class="n">client_key</span> <span class="o">=</span>
-</span><span class="hll">                <span class="n">avs_net_client_key_info_from_file</span><span class="p">(</span><span class="s">&quot;./certs/client.key&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span>
+</span><span class="hll">                <span class="n">avs_crypto_client_key_info_from_file</span><span class="p">(</span><span class="s">&quot;./certs/client.key&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span>
 </span><span class="hll">    <span class="p">};</span>
 </span><span class="hll">    <span class="c1">// NOTE: this assignment is safe, because cert_info contains pointers to</span>
 </span><span class="hll">    <span class="c1">// string literals only. If the configuration were to load certificate info</span>
 </span><span class="hll">    <span class="c1">// from buffers they would have to be stored somewhere - e.g. on the heap.</span>
 </span><span class="hll">    <span class="n">out_security_info</span><span class="o">-&gt;</span><span class="n">security_info</span> <span class="o">=</span>
 </span><span class="hll">            <span class="n">avs_net_security_info_from_certificates</span><span class="p">(</span><span class="n">cert_info</span><span class="p">);</span>
-</span><span class="hll">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class="hll"><span class="p">}</span>
-</span>
+</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
 <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_fw_update_handlers_t</span> <span class="n">HANDLERS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">stream_open</span> <span class="o">=</span> <span class="n">fw_stream_open</span><span class="p">,</span>
     <span class="p">.</span><span class="n">stream_write</span> <span class="o">=</span> <span class="n">fw_stream_write</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">stream_finish</span> <span class="o">=</span> <span class="n">fw_stream_finish</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">reset</span> <span class="o">=</span> <span class="n">fw_reset</span><span class="p">,</span>
-<span class="hll">    <span class="p">.</span><span class="n">perform_upgrade</span> <span class="o">=</span> <span class="n">fw_perform_upgrade</span><span class="p">,</span>
-</span>    <span class="p">.</span><span class="n">get_security_config</span> <span class="o">=</span> <span class="n">fw_get_security_config</span>
+<span class="hll">    <span class="p">.</span><span class="n">stream_finish</span> <span class="o">=</span> <span class="n">fw_stream_finish</span><span class="p">,</span>
+</span>    <span class="p">.</span><span class="n">reset</span> <span class="o">=</span> <span class="n">fw_reset</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">perform_upgrade</span> <span class="o">=</span> <span class="n">fw_perform_upgrade</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">get_security_config</span> <span class="o">=</span> <span class="n">fw_get_security_config</span>
 <span class="p">};</span>
 
 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ENDPOINT_NAME</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -583,12 +589,12 @@ are highlighted:</p>
         <span class="c1">// marker file exists, it means firmware update succeded!</span>
         <span class="n">state</span><span class="p">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_FW_UPDATE_INITIAL_SUCCESS</span><span class="p">;</span>
         <span class="n">unlink</span><span class="p">(</span><span class="n">FW_UPDATED_MARKER</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="c1">// make sure this module is installed for single Anjay instance only</span>
-<span class="hll">    <span class="n">assert</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-</span><span class="hll">    <span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay</span><span class="p">;</span>
-</span><span class="hll">    <span class="c1">// install the module, pass handlers that we implemented and initial state</span>
-</span>    <span class="c1">// that we discovered upon startup</span>
+<span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="c1">// make sure this module is installed for single Anjay instance only</span>
+</span><span class="hll">    <span class="n">assert</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+</span>    <span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="c1">// install the module, pass handlers that we implemented and initial state</span>
+    <span class="c1">// that we discovered upon startup</span>
     <span class="k">return</span> <span class="n">anjay_fw_update_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">HANDLERS</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">state</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
@@ -616,11 +622,19 @@ are highlighted:</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -631,7 +645,6 @@ are highlighted:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

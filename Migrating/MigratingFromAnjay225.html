@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.2. Migrating from Anjay 2.2.5 &mdash; Anjay 2.4.2 documentation</title>
+  <title>9.2. Migrating from Anjay 2.2.5 &mdash; Anjay 2.4.4 documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
 
   
   
@@ -17,7 +21,9 @@
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -29,11 +35,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="9.3. Migrating mbed TLS custom entropy initializers" href="MigratingCustomEntropy.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Anjay
           
 
           
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.4.2
+                2.4.4
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -98,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay116.html">9.1. Migrating from Anjay 1.16</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">9.2. Migrating from Anjay 2.2.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingCustomEntropy.html">9.3. Migrating mbed TLS custom entropy initializers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay24.html">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
@@ -106,6 +109,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -144,7 +148,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
         
@@ -171,37 +175,38 @@
 <h1><span class="section-number">9.2. </span>Migrating from Anjay 2.2.5<a class="headerlink" href="#migrating-from-anjay-2-2-5" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-anjay-proper" id="id2">Changes in Anjay proper</a></p>
+<li><p><a class="reference internal" href="#introduction" id="id3">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-anjay-proper" id="id4">Changes in Anjay proper</a></p>
 <ul>
-<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-anjay-apis" id="id3">Removal of ssize_t usages from Anjay APIs</a></p></li>
-<li><p><a class="reference internal" href="#other-changes" id="id4">Other changes</a></p></li>
+<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-anjay-apis" id="id5">Removal of ssize_t usages from Anjay APIs</a></p></li>
+<li><p><a class="reference internal" href="#other-changes" id="id6">Other changes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#changes-in-avs-coap" id="id5">Changes in avs_coap</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id6">Changes in avs_commons</a></p>
+<li><p><a class="reference internal" href="#changes-in-avs-coap" id="id7">Changes in avs_coap</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id8">Changes in avs_commons</a></p>
 <ul>
-<li><p><a class="reference internal" href="#avs-commons-header-rename" id="id7">avs_commons header rename</a></p></li>
-<li><p><a class="reference internal" href="#changes-to-avs-net-socket-api" id="id8">Changes to avs_net socket API</a></p></li>
-<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-avs-commons-apis" id="id9">Removal of ssize_t usages from avs_commons APIs</a></p></li>
-<li><p><a class="reference internal" href="#changes-to-public-configuration-macros" id="id10">Changes to public configuration macros</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-component-dependencies" id="id11">Changes in component dependencies</a></p></li>
-<li><p><a class="reference internal" href="#removal-of-the-legacy-coap-component" id="id12">Removal of the legacy CoAP component</a></p></li>
+<li><p><a class="reference internal" href="#avs-commons-header-rename" id="id9">avs_commons header rename</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-avs-net-socket-api" id="id10">Changes to avs_net socket API</a></p></li>
+<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-avs-commons-apis" id="id11">Removal of ssize_t usages from avs_commons APIs</a></p></li>
+<li><p><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id12">Move of public-key cryptography APIs from avs_net to avs_crypto</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-public-configuration-macros" id="id13">Changes to public configuration macros</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-component-dependencies" id="id14">Changes in component dependencies</a></p></li>
+<li><p><a class="reference internal" href="#removal-of-the-legacy-coap-component" id="id15">Removal of the legacy CoAP component</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">9.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3"><span class="section-number">9.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Anjay 2.3 is a minor upgrade in terms of feature set, so no major changes in
 code flow are required when porting from Anjay 2.2. However, there has been a
 significant refactor in project structure, so some changes may be breaking for
 some users.</p>
 </div>
 <div class="section" id="changes-in-anjay-proper">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">9.2.2. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4"><span class="section-number">9.2.2. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="removal-of-ssize-t-usages-from-anjay-apis">
-<h3><a class="toc-backref" href="#id3"><span class="section-number">9.2.2.1. </span>Removal of ssize_t usages from Anjay APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-anjay-apis" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5"><span class="section-number">9.2.2.1. </span>Removal of ssize_t usages from Anjay APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-anjay-apis" title="Permalink to this headline">¶</a></h3>
 <p>Most changes in Anjay proper relate to the removal of usages of the
 POSIX-specific <code class="docutils literal notranslate"><span class="pre">size_t</span></code> type in Anjay and all related projects. See also
 <a class="reference internal" href="#ssize-t-removal-in-commons-225"><span class="std std-ref">Removal of ssize_t usages from avs_commons APIs</span></a>.</p>
@@ -236,7 +241,7 @@ it can also be <code class="docutils literal notranslate"><span class="pre">NULL
 </ul>
 </div>
 <div class="section" id="other-changes">
-<h3><a class="toc-backref" href="#id4"><span class="section-number">9.2.2.2. </span>Other changes</a><a class="headerlink" href="#other-changes" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6"><span class="section-number">9.2.2.2. </span>Other changes</a><a class="headerlink" href="#other-changes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Declaration of <code class="docutils literal notranslate"><span class="pre">anjay_smsdrv_cleanup()</span></code> (only relevant for the commercial
 version) has been moved from <code class="docutils literal notranslate"><span class="pre">anjay/core.h</span></code> to <code class="docutils literal notranslate"><span class="pre">anjay/sms.h</span></code>.</p></li>
@@ -252,7 +257,7 @@ actually used in Anjay 2.x:</p>
 </div>
 </div>
 <div class="section" id="changes-in-avs-coap">
-<h2><a class="toc-backref" href="#id5"><span class="section-number">9.2.3. </span>Changes in avs_coap</a><a class="headerlink" href="#changes-in-avs-coap" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7"><span class="section-number">9.2.3. </span>Changes in avs_coap</a><a class="headerlink" href="#changes-in-avs-coap" title="Permalink to this headline">¶</a></h2>
 <p>If you are using <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> APIs directly (e.g. when communicating over raw
 CoAP protocol), please note that following breaking changes in the <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code>
 component:</p>
@@ -298,13 +303,13 @@ argument to the functions above.</p>
 </div>
 </div>
 <div class="section" id="changes-in-avs-commons">
-<h2><a class="toc-backref" href="#id6"><span class="section-number">9.2.4. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8"><span class="section-number">9.2.4. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 contains a number of breaking changes compared to version
 4.0 used by Anjay 2.2. If you are using any of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> APIs directly
 (which is especially likely for e.g. the logging API and querying sockets in the
 event loop), you will need to adjust your code.</p>
 <div class="section" id="avs-commons-header-rename">
-<h3><a class="toc-backref" href="#id7"><span class="section-number">9.2.4.1. </span>avs_commons header rename</a><a class="headerlink" href="#avs-commons-header-rename" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9"><span class="section-number">9.2.4.1. </span>avs_commons header rename</a><a class="headerlink" href="#avs-commons-header-rename" title="Permalink to this headline">¶</a></h3>
 <p>All headers of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> component have been renamed to make their
 names more unique. Please adjust your <code class="docutils literal notranslate"><span class="pre">#include</span></code> directives accordingly.</p>
 <p>The general rename patterns are:</p>
@@ -317,8 +322,8 @@ names more unique. Please adjust your <code class="docutils literal notranslate"
 <p>Below is a detailed list of all renamed files:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 51%" />
-<col style="width: 49%" />
+<col style="width: 48%" />
+<col style="width: 52%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Old header file</p></th>
@@ -390,7 +395,12 @@ names more unique. Please adjust your <code class="docutils literal notranslate"
 <td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_shared_buffer.h</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code> <a class="footnote-reference brackets" href="#pki" id="id1">1</a></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code> <a class="footnote-reference brackets" href="#pki" id="id2">1</a></div>
+</div>
+</td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket_v_table.h</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket_v_table.h</span></code></p></td>
@@ -454,9 +464,19 @@ names more unique. Please adjust your <code class="docutils literal notranslate"
 </tr>
 </tbody>
 </table>
+<dl class="footnote brackets">
+<dt class="label" id="pki"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Some symbols related to public-key cryptography have been refactored
+by moving from <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code> to
+<code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>, with additional renames. Old
+names are available for compatibility via
+<code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code>. For details, see
+<a class="reference internal" href="#avs-commons-pki-move-225"><span class="std std-ref">Move of public-key cryptography APIs from avs_net to avs_crypto</span></a>.</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="changes-to-avs-net-socket-api">
-<h3><a class="toc-backref" href="#id8"><span class="section-number">9.2.4.2. </span>Changes to avs_net socket API</a><a class="headerlink" href="#changes-to-avs-net-socket-api" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10"><span class="section-number">9.2.4.2. </span>Changes to avs_net socket API</a><a class="headerlink" href="#changes-to-avs-net-socket-api" title="Permalink to this headline">¶</a></h3>
 <p>Below is a reference of changes made to the <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> socket API:</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
@@ -531,7 +551,7 @@ See <a class="reference internal" href="MigratingCustomEntropy.html"><span class
 </div>
 </div>
 <div class="section" id="removal-of-ssize-t-usages-from-avs-commons-apis">
-<span id="ssize-t-removal-in-commons-225"></span><h3><a class="toc-backref" href="#id9"><span class="section-number">9.2.4.3. </span>Removal of ssize_t usages from avs_commons APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-avs-commons-apis" title="Permalink to this headline">¶</a></h3>
+<span id="ssize-t-removal-in-commons-225"></span><h3><a class="toc-backref" href="#id11"><span class="section-number">9.2.4.3. </span>Removal of ssize_t usages from avs_commons APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-avs-commons-apis" title="Permalink to this headline">¶</a></h3>
 <p>All usages of the POSIX-specific <code class="docutils literal notranslate"><span class="pre">ssize_t</span></code> type in public APIs have been
 removed. Instead of replacing it with some other signed integer type, additional
 out-arguments have been introduced to functions that used it.</p>
@@ -638,8 +658,61 @@ related to the <code class="docutils literal notranslate"><span class="pre">inpu
 the output buffer as is the case with the rest of these functions.</p>
 </div>
 </div>
+<div class="section" id="move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto">
+<span id="avs-commons-pki-move-225"></span><h3><a class="toc-backref" href="#id12"><span class="section-number">9.2.4.4. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h3>
+<p>Public key cryptography APIs, previously defined in
+<code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code>, have been moved into a new header called
+<code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>.</p>
+<p>Additionally, the following types and functions have been renamed:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Old symbol name</p></th>
+<th class="head"><p>New symbol name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_t</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_t</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_union_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_t</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_buffer()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_from_buffer()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_file()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_from_file()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_buffer()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_from_buffer()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_file()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_from_file()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_buffer()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_buffer()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_file()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_file()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_path()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_path()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="changes-to-public-configuration-macros">
-<h3><a class="toc-backref" href="#id10"><span class="section-number">9.2.4.4. </span>Changes to public configuration macros</a><a class="headerlink" href="#changes-to-public-configuration-macros" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13"><span class="section-number">9.2.4.5. </span>Changes to public configuration macros</a><a class="headerlink" href="#changes-to-public-configuration-macros" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 introduces a new header file,
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_commons_config.h</span></code>, that encapsulates all its
 compile-time configuration, allowing compiling the library without the use of
@@ -652,8 +725,8 @@ better namespace separation.</p>
 adjustments.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 63%" />
-<col style="width: 37%" />
+<col style="width: 61%" />
+<col style="width: 39%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Old macro name</p></th>
@@ -667,32 +740,40 @@ adjustments.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_IPV6</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_IPV6</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_AVS_MICRO_LOGS</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PKI</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_AVS_MICRO_LOGS</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_MICRO_LOGS</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HAVE_NET_IF_H</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HAVE_NET_IF_H</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_HAVE_NET_IF_H</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_SSIZE_T_DEFINED</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_SSIZE_T_DEFINED</span></code></p></td>
 <td><p><em>removed completely</em></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HAVE_SYS_TYPES_H</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HAVE_SYS_TYPES_H</span></code></p></td>
 <td><p><em>removed completely</em></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_MBEDTLS_CUSTOM_ENTROPY_INITIALIZER</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_MBEDTLS_CUSTOM_ENTROPY_INITIALIZER</span></code></p></td>
 <td><p><em>removed completely</em></p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code>, the corresponding CMake variable has also been
+renamed to <code class="docutils literal notranslate"><span class="pre">WITH_PKI</span></code>. The old name is still recognized, but deprecated.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Names of CMake variables corresponding to the macros listed above have not
-changed (aside from those removed completely). This change affects <strong>only</strong>
-the C preprocessor.</p>
+<p>Aside from the one variable mentioned above, and those removed completely,
+the CMake variable names have not changed - the renames affect <strong>only</strong> the
+C preprocessor.</p>
 </div>
 </div>
 <div class="section" id="changes-in-component-dependencies">
-<h3><a class="toc-backref" href="#id11"><span class="section-number">9.2.4.5. </span>Changes in component dependencies</a><a class="headerlink" href="#changes-in-component-dependencies" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14"><span class="section-number">9.2.4.6. </span>Changes in component dependencies</a><a class="headerlink" href="#changes-in-component-dependencies" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">avs_net</span></code> now depends on <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code></p>
 <ul>
@@ -709,7 +790,7 @@ option.</p></li>
 </ul>
 </div>
 <div class="section" id="removal-of-the-legacy-coap-component">
-<h3><a class="toc-backref" href="#id12"><span class="section-number">9.2.4.6. </span>Removal of the legacy CoAP component</a><a class="headerlink" href="#removal-of-the-legacy-coap-component" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15"><span class="section-number">9.2.4.7. </span>Removal of the legacy CoAP component</a><a class="headerlink" href="#removal-of-the-legacy-coap-component" title="Permalink to this headline">¶</a></h3>
 <p>While the new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> has been used as the CoAP implementation in all
 versions of Anjay 2.x, the old CoAP component of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> remained in the
 repository in the 4.0 branch of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>.</p>
@@ -749,11 +830,19 @@ this reason.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -764,7 +853,6 @@ this reason.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
