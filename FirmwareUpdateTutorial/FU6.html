@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.6. Download resumption &mdash; Anjay 2.4.4 documentation</title>
+  <title>6.6. Download resumption &mdash; Anjay 2.5.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.4.4
+                2.5.0
               </div>
             
           
@@ -323,15 +323,10 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">size</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">size</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="c1">// NOTE: anjay_etag_t is a flexible array member, which means it</span>
-</span><span class="hll">    <span class="c1">// has an array of runtime-allocated size at the end of it. That&#39;s</span>
-</span><span class="hll">    <span class="c1">// why it is created using avs_malloc().</span>
-</span><span class="hll">    <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag</span> <span class="o">=</span>
-</span><span class="hll">            <span class="p">(</span><span class="n">anjay_etag_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_malloc</span><span class="p">(</span><span class="n">offsetof</span><span class="p">(</span><span class="n">anjay_etag_t</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="n">size</span><span class="p">);</span>
+</span><span class="hll">    <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag</span> <span class="o">=</span> <span class="n">anjay_etag_new</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">etag</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
 </span><span class="hll">
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">avs_free</span><span class="p">(</span><span class="n">etag</span><span class="p">);</span>
@@ -387,19 +382,21 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="n">memset</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">state</span><span class="p">));</span>
 </span><span class="hll">    <span class="n">unlink</span><span class="p">(</span><span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
 </span><span class="hll"><span class="p">}</span>
-</span>
-<span class="k">static</span> <span class="k">struct</span> <span class="n">fw_state_t</span> <span class="p">{</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">firmware_file</span><span class="p">;</span>
-    <span class="c1">// anjay instance this firmware update singleton is associated with</span>
+</span><span class="hll">
+</span><span class="hll"><span class="k">static</span> <span class="k">struct</span> <span class="n">fw_state_t</span> <span class="p">{</span>
+</span><span class="hll">    <span class="kt">FILE</span> <span class="o">*</span><span class="n">firmware_file</span><span class="p">;</span>
+</span>    <span class="c1">// anjay instance this firmware update singleton is associated with</span>
     <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">;</span>
     <span class="c1">// pointer to configuration loaded from data model, we need to keep it</span>
     <span class="c1">// to be able to avs_free() it later</span>
     <span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="n">dm_security_config</span><span class="p">;</span>
-<span class="hll">    <span class="c1">// Current state of the download. It is updated and persited on each</span>
-</span><span class="hll">    <span class="c1">// fw_stream_write() call.</span>
-</span><span class="hll">    <span class="n">download_state_t</span> <span class="n">download_state</span><span class="p">;</span>
-</span><span class="p">}</span> <span class="n">FW_STATE</span><span class="p">;</span>
-</pre></div>
+    <span class="c1">// Current state of the download. It is updated and persited on each</span>
+    <span class="c1">// fw_stream_write() call.</span>
+    <span class="n">download_state_t</span> <span class="n">download_state</span><span class="p">;</span>
+<span class="hll"><span class="p">}</span> <span class="n">FW_STATE</span><span class="p">;</span>
+</span><span class="hll">
+</span><span class="hll"><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span> <span class="o">=</span> <span class="s">&quot;/tmp/firmware_image.bin&quot;</span><span class="p">;</span>
+</span></pre></div>
 </div>
 <p>In the next section, we’ll discuss when state storing and restoring should
 be done.</p>
@@ -499,14 +496,10 @@ accordingly:</p>
         <span class="p">}</span>
         <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag_copy</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">package_etag</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">const</span> <span class="kt">size_t</span> <span class="n">etag_size</span> <span class="o">=</span>
-                    <span class="n">offsetof</span><span class="p">(</span><span class="n">anjay_etag_t</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="n">package_etag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
-            <span class="n">etag_copy</span> <span class="o">=</span> <span class="p">(</span><span class="n">anjay_etag_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_malloc</span><span class="p">(</span><span class="n">etag_size</span><span class="p">);</span>
+            <span class="n">etag_copy</span> <span class="o">=</span> <span class="n">anjay_etag_clone</span><span class="p">(</span><span class="n">package_etag</span><span class="p">);</span>
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">etag_copy</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not duplicate package ETag</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="n">memcpy</span><span class="p">(</span><span class="n">etag_copy</span><span class="p">,</span> <span class="n">package_etag</span><span class="p">,</span> <span class="n">etag_size</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>

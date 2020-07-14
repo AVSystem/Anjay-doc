@@ -41,7 +41,8 @@ var dm_8h =
       [ "ANJAY_SECURITY_PSK", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8ada16e34abfd18871b391e303c4ad881d", null ],
       [ "ANJAY_SECURITY_RPK", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8a60cb897b819aa4015dd0037de3597676", null ],
       [ "ANJAY_SECURITY_CERTIFICATE", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8ab21670bf32899c5878628507dc278e29", null ],
-      [ "ANJAY_SECURITY_NOSEC", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8a8946dac74c7d9f6dfc225de1bd13f376", null ]
+      [ "ANJAY_SECURITY_NOSEC", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8a8946dac74c7d9f6dfc225de1bd13f376", null ],
+      [ "ANJAY_SECURITY_EST", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8a94355b5a450d5aa1896e1397326c8764", null ]
     ] ],
     [ "anjay_sms_security_mode_t", "dm_8h.html#a079ce3203007a192a2f618e1f3a2e7d0", [
       [ "ANJAY_SMS_SECURITY_DTLS_PSK", "dm_8h.html#a079ce3203007a192a2f618e1f3a2e7d0aa5f8f45fa5258236810eddd461eb8b08", null ],

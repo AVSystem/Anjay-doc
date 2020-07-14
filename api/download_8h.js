@@ -17,5 +17,7 @@ var download_8h =
       [ "ANJAY_DOWNLOAD_ERR_ABORTED", "download_8h.html#a47dbe0de23694dbc230dc84b13bd580aa0a938a12f5ab97ed040595685005ae87", null ]
     ] ],
     [ "anjay_download", "download_8h.html#a7a4d736c0a4ada68f0770e5eb45a84ce", null ],
-    [ "anjay_download_abort", "download_8h.html#a27e638a6569742faabffef4c870f0cf6", null ]
+    [ "anjay_download_abort", "download_8h.html#a27e638a6569742faabffef4c870f0cf6", null ],
+    [ "anjay_etag_clone", "download_8h.html#aaaed72e05c83db399a38e1391105046d", null ],
+    [ "anjay_etag_new", "download_8h.html#a0f6620b0915f52b649559712eb34551b", null ]
 ];
