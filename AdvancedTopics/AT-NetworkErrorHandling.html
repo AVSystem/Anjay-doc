@@ -1,40 +1,39 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.5. Network error handling &mdash; Anjay 2.5.0 documentation</title>
+  <title>5.5. Network error handling &mdash; Anjay 2.6.0 documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5.6. Other library features" href="AT-OtherFeatures.html" />
@@ -52,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Anjay
+            <a href="../index.html" class="icon icon-home"> Anjay
           
 
           
@@ -62,7 +61,7 @@
             
             
               <div class="version">
-                2.5.0
+                2.6.0
               </div>
             
           
@@ -79,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -113,7 +111,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -152,11 +149,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
         
-      <li><span class="section-number">5.5. </span>Network error handling</li>
+      <li>5.5. Network error handling</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -176,96 +173,96 @@
            <div itemprop="articleBody">
             
   <div class="section" id="network-error-handling">
-<h1><span class="section-number">5.5. </span>Network error handling<a class="headerlink" href="#network-error-handling" title="Permalink to this headline">¶</a></h1>
+<h1>5.5. Network error handling<a class="headerlink" href="#network-error-handling" title="Permalink to this headline">¶</a></h1>
 <p>Like any software that needs to communicate with other hosts over the network,
 Anjay needs to be prepared to handle communication errors. This page documents
 the library’s behaviour during various error conditions.</p>
 <div class="section" id="outgoing-rpc-error-handling-table">
-<h2><span class="section-number">5.5.1. </span>Outgoing RPC error handling table<a class="headerlink" href="#outgoing-rpc-error-handling-table" title="Permalink to this headline">¶</a></h2>
+<h2>5.5.1. Outgoing RPC error handling table<a class="headerlink" href="#outgoing-rpc-error-handling-table" title="Permalink to this headline">¶</a></h2>
 <p>The following table describes the behaviour of Anjay when various error
 conditions happen while performing each of the client-initiated RPC methods.</p>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 13%" />
-<col style="width: 18%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="13%" />
+<col width="18%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"></th>
-<th class="head"><p>Request
-Bootstrap</p></th>
-<th class="head"><p>Register</p></th>
-<th class="head"><p>Update</p></th>
-<th class="head"><p>De-register</p></th>
-<th class="head"><p>Notify
-(confirmable)</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Request
+Bootstrap</th>
+<th class="head">Register</th>
+<th class="head">Update</th>
+<th class="head">De-register</th>
+<th class="head">Notify
+(confirmable)</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p><strong>Timeout
-(DTLS)</strong> <a class="footnote-reference brackets" href="#t" id="id1">1</a></p></td>
-<td><p>Retry DTLS
-handshake <a class="footnote-reference brackets" href="#hs" id="id2">2</a></p></td>
-<td><p>Retry DTLS
-handshake <a class="footnote-reference brackets" href="#hs" id="id3">2</a></p></td>
-<td rowspan="2"><p>Fall back
-to Register</p></td>
-<td rowspan="6"><p>Ignored</p></td>
-<td rowspan="2"><p>Ignored; will be
+<tbody valign="top">
+<tr class="row-even"><td><strong>Timeout
+(DTLS)</strong> <a class="footnote-reference" href="#t" id="id1">[1]</a></td>
+<td>Retry DTLS
+handshake <a class="footnote-reference" href="#hs" id="id2">[2]</a></td>
+<td>Retry DTLS
+handshake <a class="footnote-reference" href="#hs" id="id3">[2]</a></td>
+<td rowspan="2">Fall back
+to Register</td>
+<td rowspan="6">Ignored</td>
+<td rowspan="2">Ignored; will be
 retried whenever
 next notification
 (either
 confirmable or
-not) is scheduled</p></td>
+not) is scheduled</td>
 </tr>
-<tr class="row-odd"><td><p><strong>Timeout
-(NoSec)</strong> <a class="footnote-reference brackets" href="#t" id="id4">1</a></p></td>
-<td rowspan="5"><p>Abort <a class="footnote-reference brackets" href="#a" id="id5">3</a></p></td>
-<td rowspan="5"><p>Fall back to
+<tr class="row-odd"><td><strong>Timeout
+(NoSec)</strong> <a class="footnote-reference" href="#t" id="id4">[1]</a></td>
+<td rowspan="5">Abort <a class="footnote-reference" href="#a" id="id5">[3]</a></td>
+<td rowspan="5">Fall back to
 Client-Initiated
-Bootstrap <a class="footnote-reference brackets" href="#bs" id="id6">4</a></p></td>
+Bootstrap <a class="footnote-reference" href="#bs" id="id6">[4]</a></td>
 </tr>
-<tr class="row-even"><td><p><strong>Network
+<tr class="row-even"><td><strong>Network
 (e.g. ICMP)
-error</strong></p></td>
-<td><p>Fall back to
+error</strong></td>
+<td>Fall back to
 Client-Initiated
-Bootstrap <a class="footnote-reference brackets" href="#bs" id="id7">4</a></p></td>
-<td><p>Fall back to
+Bootstrap <a class="footnote-reference" href="#bs" id="id7">[4]</a></td>
+<td>Fall back to
 Client-Initiated
-Bootstrap <a class="footnote-reference brackets" href="#bs" id="id8">4</a></p></td>
+Bootstrap <a class="footnote-reference" href="#bs" id="id8">[4]</a></td>
 </tr>
-<tr class="row-odd"><td><p><strong>CoAP error
-(4.xx, 5.xx)</strong></p></td>
-<td><p>Fall back
-to Register</p></td>
-<td><p>n/a</p></td>
+<tr class="row-odd"><td><strong>CoAP error
+(4.xx, 5.xx)</strong></td>
+<td>Fall back
+to Register</td>
+<td>n/a</td>
 </tr>
-<tr class="row-even"><td><p><strong>CoAP Reset</strong></p></td>
-<td rowspan="2"><p>Fall back to
+<tr class="row-even"><td><strong>CoAP Reset</strong></td>
+<td rowspan="2">Fall back to
 Client-Initiated
-Bootstrap <a class="footnote-reference brackets" href="#bs" id="id9">4</a></p></td>
-<td><p>Cancel
-observation</p></td>
+Bootstrap <a class="footnote-reference" href="#bs" id="id9">[4]</a></td>
+<td>Cancel
+observation</td>
 </tr>
-<tr class="row-odd"><td><p><strong>Internal
-error</strong></p></td>
-<td><p>Cancel
+<tr class="row-odd"><td><strong>Internal
+error</strong></td>
+<td>Cancel
 observation if
 “Notification
 storing” is
-disabled</p></td>
+disabled</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="other-error-conditions">
-<h2><span class="section-number">5.5.2. </span>Other error conditions<a class="headerlink" href="#other-error-conditions" title="Permalink to this headline">¶</a></h2>
+<h2>5.5.2. Other error conditions<a class="headerlink" href="#other-error-conditions" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p><strong>DTLS handshakes</strong> are performed by the DTLS backend library used. This
+<li><p class="first"><strong>DTLS handshakes</strong> are performed by the DTLS backend library used. This
 includes handling non-fatal errors and retransmissions. In case of no response
 from the server, DTLS handshake retransmissions are expected to follow
 <a class="reference external" href="https://tools.ietf.org/html/rfc6347#section-4.2.4">RFC 6347, Section 4.2.4.  Timeout and Retransmission</a>.
@@ -273,57 +270,70 @@ The handshake timers can be customized during Anjay initialization, by setting
 <a class="reference external" href="../api/structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a">anjay_configuration_t::udp_dtls_hs_tx_params</a>.</p>
 <p>In case of the ultimate timeout, network-layer error, or an internal error
 during the handshake attempt, Anjay will fall back to Client-Initiated
-Bootstrap <a class="footnote-reference brackets" href="#bs" id="id10">4</a> or, if the attempt was to connect to a Bootstrap Server,
+Bootstrap <a class="footnote-reference" href="#bs" id="id10">[4]</a> or, if the attempt was to connect to a Bootstrap Server,
 cease any attempts to communicate with it (note that unless regular Server
-accounts are available, this will mean abortion of all communication <a class="footnote-reference brackets" href="#a" id="id11">3</a>).</p>
+accounts are available, this will mean abortion of all communication <a class="footnote-reference" href="#a" id="id11">[3]</a>).</p>
 </li>
-<li><p>Errors while receiving an incoming request, or any unrecognized incoming
-packets, will be ignored</p></li>
-<li><p>Errors during <a class="reference external" href="../api/download_8h.html#a7a4d736c0a4ada68f0770e5eb45a84ce">anjay_download()</a> data transfers
+<li><p class="first">Errors while receiving an incoming request, or any unrecognized incoming
+packets, will be ignored</p>
+</li>
+<li><p class="first">Errors during <a class="reference external" href="../api/download_8h.html#a7a4d736c0a4ada68f0770e5eb45a84ce">anjay_download()</a> data transfers
 will be passed to the appropriate callback handler, see the <a class="reference external" href="../api/download_8h.html#a44f0d37ec9ef8123bf88aa9ea9ee7291">documentation to
-anjay_download_finished_handler_t</a> for details.</p></li>
+anjay_download_finished_handler_t</a> for details.</p>
+</li>
 </ul>
 <p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="t"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id4">2</a>)</span></dt>
-<dd><p>Retransmissions, as specified in
+<table class="docutils footnote" frame="void" id="t" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Retransmissions, as specified in
 <a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.2">RFC 7252, Section 4.2.  Messages Transmitted Reliably</a>, are attempted
 before performing the actions described in the table. The <a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8">transmission
 parameters</a> that
 affect specific retransmission timing can be customized during Anjay
 initialization, by setting the <a class="reference external" href="../api/structanjay__configuration.html#a9690621b087639e06dd0c747206d0679">udp_tx_params</a>
 and <a class="reference external" href="../api/structanjay__configuration.html#ab656e5dad737416e5b66272f917df108">sms_tx_params</a>
-fields in <a class="reference external" href="../api/structanjay__configuration.html">anjay_configuration_t</a>.</p>
-</dd>
-<dt class="label" id="hs"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
-<dd><p>To prevent infinite loop of handshakes, DTLS handshake is only retried
+fields in <a class="reference external" href="../api/structanjay__configuration.html">anjay_configuration_t</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="hs" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> To prevent infinite loop of handshakes, DTLS handshake is only retried
 if the failed RPC was <strong>not</strong> performed immediately after the previous
 handshake; otherwise the behaviour described in “Timeout (NoSec)” is
-used.</p>
-</dd>
-<dt class="label" id="a"><span class="brackets">3</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id11">2</a>)</span></dt>
-<dd><p>Communication with all servers will be aborted and
+used.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id11">2</a>)</em> Communication with all servers will be aborted and
 <a class="reference external" href="../api/core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed()</a> will start
 returning <code class="docutils literal notranslate"><span class="pre">true</span></code>. Operation can be restored by calling
 <a class="reference external" href="../api/core_8h.html#ad895be5694083d015ffcd8d0b87d0b2a">anjay_transport_schedule_reconnect()</a> or
-<a class="reference external" href="../api/core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server()</a>.</p>
-</dd>
-<dt class="label" id="bs"><span class="brackets">4</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id7">2</a>,<a href="#id8">3</a>,<a href="#id9">4</a>,<a href="#id10">5</a>)</span></dt>
-<dd><p>Client-Initiated Bootstrap will be performed only if all the following
+<a class="reference external" href="../api/core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server()</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="bs" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><em>(<a class="fn-backref" href="#id6">1</a>, <a class="fn-backref" href="#id7">2</a>, <a class="fn-backref" href="#id8">3</a>, <a class="fn-backref" href="#id9">4</a>, <a class="fn-backref" href="#id10">5</a>)</em> <p>Client-Initiated Bootstrap will be performed only if all the following
 preconditions are met:</p>
 <ul class="simple">
-<li><p>a Bootstrap Server Account exists</p></li>
-<li><p>no other LwM2M Server has usable connection</p></li>
-<li><p>the Bootstrap Server Account has not aborted due to previous errors</p></li>
+<li>a Bootstrap Server Account exists</li>
+<li>no other LwM2M Server has usable connection</li>
+<li>the Bootstrap Server Account has not aborted due to previous errors</li>
 </ul>
-<p>Otherwise, further communication with the server with which the
+<p class="last">Otherwise, further communication with the server with which the
 operation failed will be aborted. This may cause
 <a class="reference external" href="../api/core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed()</a> to start
 returning <code class="docutils literal notranslate"><span class="pre">true</span></code> if that was the last operational connection.
 Connection can be retried by calling <a class="reference external" href="../api/core_8h.html#abc4b554e51a56da874238f3e64bff074">anjay_enable_server()</a> or
 <a class="reference external" href="../api/core_8h.html#ad895be5694083d015ffcd8d0b87d0b2a">anjay_transport_schedule_reconnect()</a>.</p>
-</dd>
-</dl>
+</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -347,19 +357,11 @@ Connection can be retried by calling <a class="reference external" href="../api/
 
   <div role="contentinfo">
     <p>
-        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -370,6 +372,7 @@ Connection can be retried by calling <a class="reference external" href="../api/
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

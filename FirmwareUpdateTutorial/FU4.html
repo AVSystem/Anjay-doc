@@ -1,40 +1,39 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.4. Secure downloads &mdash; Anjay 2.5.0 documentation</title>
+  <title>6.4. Secure downloads &mdash; Anjay 2.6.0 documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6.5. Poor network connectivity" href="FU5.html" />
@@ -52,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Anjay
+            <a href="../index.html" class="icon icon-home"> Anjay
           
 
           
@@ -62,7 +61,7 @@
             
             
               <div class="version">
-                2.5.0
+                2.6.0
               </div>
             
           
@@ -79,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -111,7 +109,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -150,11 +147,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
+          <li><a href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a> &raquo;</li>
         
-      <li><span class="section-number">6.4. </span>Secure downloads</li>
+      <li>6.4. Secure downloads</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -174,9 +171,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="secure-downloads">
-<h1><span class="section-number">6.4. </span>Secure downloads<a class="headerlink" href="#secure-downloads" title="Permalink to this headline">¶</a></h1>
+<h1>6.4. Secure downloads<a class="headerlink" href="#secure-downloads" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
-<h2><span class="section-number">6.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2>6.4.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Up until now, we developed a basic client application that’s capable of
 downloading firmware in <strong>PUSH</strong> and <strong>PULL</strong> modes. If the Server connection
 is secure, then of course any <strong>PUSH</strong> transfer is automatically secured. In
@@ -186,28 +183,28 @@ of credentials required to establishing the secure connection.</p>
 <strong>PULL</strong> mode transfers.</p>
 </div>
 <div class="section" id="two-ways-of-security-configuration">
-<h2><span class="section-number">6.4.2. </span>Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Permalink to this headline">¶</a></h2>
+<h2>6.4.2. Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Permalink to this headline">¶</a></h2>
 <p>When a secure firmware transfer is initiated, firmware update module implemented
 in Anjay gets security configuration in one of two following ways.</p>
 <ol class="arabic simple">
-<li><p>If the user implements a <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback located in
+<li>If the user implements a <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback located in
 <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_handlers_t</span></code>, it is expected to provide the library with
-security information.</p></li>
-<li><p>Otherwise, the library looks through Security Object instances, matching
+security information.</li>
+<li>Otherwise, the library looks through Security Object instances, matching
 the download URI host with configured URI in Security Object Instance. When
 the matching Instance is found, the security information from that instance
-is used. When no match is found, the download fails.</p></li>
+is used. When no match is found, the download fails.</li>
 </ol>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It may seem as the described methods are mutually
+<p class="first admonition-title">Note</p>
+<p class="last">It may seem as the described methods are mutually
 exclusive. However, in <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback one can use
-<code class="docutils literal notranslate"><span class="pre">anjay_fw_update_load_security_from_dm()</span></code> to attempt URI matching
-with entities already configured in Security Object Instances.</p>
+<code class="docutils literal notranslate"><span class="pre">anjay_security_config_from_dm()</span></code> to attempt URI matching with entities
+already configured in Security Object Instances.</p>
 </div>
 </div>
 <div class="section" id="supported-security-modes">
-<h2><span class="section-number">6.4.3. </span>Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this headline">¶</a></h2>
+<h2>6.4.3. Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this headline">¶</a></h2>
 <p>The download can be secured by either <a class="reference external" href="https://en.wikipedia.org/wiki/Pre-shared_key">PSK</a>, or by <a class="reference external" href="https://en.wikipedia.org/wiki/Public_key_certificate">Public key
 certificates</a>.</p>
 <p>Security information is configured in Anjay through a structure:</p>
@@ -216,6 +213,16 @@ certificates</a>.</p>
 <span class="cm">     * DTLS keys or certificates.</span>
 <span class="cm">     */</span>
     <span class="n">avs_net_security_info_t</span> <span class="n">security_info</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Single DANE TLSA record to use for certificate verification, if</span>
+<span class="cm">     * applicable.</span>
+<span class="cm">     *</span>
+<span class="cm">     * NOTE: If used with @ref anjay_download, this pointer, as well as its</span>
+<span class="cm">     * &lt;c&gt;association_data&lt;/c&gt; field, need to remain valid until the download is</span>
+<span class="cm">     * finished, aborted or cancelled.</span>
+<span class="cm">     */</span>
+    <span class="k">const</span> <span class="n">avs_net_socket_dane_tlsa_record_t</span> <span class="o">*</span><span class="n">dane_tlsa_record</span><span class="p">;</span>
 
     <span class="cm">/**</span>
 <span class="cm">     * TLS ciphersuites to use.</span>
@@ -231,12 +238,12 @@ certificates</a>.</p>
 <p>And specifically, it’s the <code class="docutils literal notranslate"><span class="pre">security_info</span></code> field that is of interest to
 us. <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> can be configured by:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_psk()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_certificates()</span></code>.</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_psk()</span></code>,</li>
+<li><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_certificates()</span></code>.</li>
 </ul>
 <p>We will now have a closer look at both of these methods.</p>
 <div class="section" id="configuration-of-psk">
-<h3><span class="section-number">6.4.3.1. </span>Configuration of PSK<a class="headerlink" href="#configuration-of-psk" title="Permalink to this headline">¶</a></h3>
+<h3>6.4.3.1. Configuration of PSK<a class="headerlink" href="#configuration-of-psk" title="Permalink to this headline">¶</a></h3>
 <p>This is the most straightforward. The structure representing the PSK
 configuration is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
@@ -269,28 +276,65 @@ the following example:</p>
 </div>
 </div>
 <div class="section" id="configuration-of-certificates">
-<h3><span class="section-number">6.4.3.2. </span>Configuration of Certificates<a class="headerlink" href="#configuration-of-certificates" title="Permalink to this headline">¶</a></h3>
+<h3>6.4.3.2. Configuration of Certificates<a class="headerlink" href="#configuration-of-certificates" title="Permalink to this headline">¶</a></h3>
 <p>That’s a bit more involving. The structure representing Certificate configuration
 is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
-<span class="cm"> * Certificate and key information may be read from files or passed as raw data.</span>
-<span class="cm"> *</span>
-<span class="cm"> * User should initialize:</span>
-<span class="cm"> *  - @ref avs_crypto_certificate_info_t#client_cert,</span>
-<span class="cm"> *  - @ref avs_crypto_certificate_info_t#client_key,</span>
-<span class="cm"> *  - @ref avs_crypto_certificate_info_t#trusted_certs</span>
-<span class="cm"> * via helper functions:</span>
-<span class="cm"> *  - @ref avs_crypto_client_cert_from_*</span>
-<span class="cm"> *  - @ref avs_crypto_client_key_from_*</span>
-<span class="cm"> *  - @ref avs_crypto_trusted_cert_source_from_*</span>
-<span class="cm"> *</span>
-<span class="cm"> * Moreover, to enable CA chain validation one MUST set @ref</span>
-<span class="cm"> * avs_net_certificate_info_t#server_cert_validation to true.</span>
+<span class="cm"> * Configuration for certificate-mode (D)TLS connection.</span>
 <span class="cm"> */</span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Enables validation of peer certificate chain. If disabled,</span>
+<span class="cm">     * #ignore_system_trust_store and #trusted_certs are ignored.</span>
+<span class="cm">     */</span>
     <span class="kt">bool</span> <span class="n">server_cert_validation</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Setting this flag to true disables the usage of system-wide trust store</span>
+<span class="cm">     * (e.g. &lt;c&gt;/etc/ssl/certs&lt;/c&gt; on most Unix-like systems).</span>
+<span class="cm">     *</span>
+<span class="cm">     * NOTE: System-wide trust store is currently supported only by the OpenSSL</span>
+<span class="cm">     * backend. This field is ignored by the Mbed TLS backend.</span>
+<span class="cm">     */</span>
+    <span class="kt">bool</span> <span class="n">ignore_system_trust_store</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Enable use of DNS-based Authentication of Named Entities (DANE) if</span>
+<span class="cm">     * possible.</span>
+<span class="cm">     *</span>
+<span class="cm">     * If this field is set to true, but #server_cert_validation is disabled,</span>
+<span class="cm">     * &quot;opportunistic DANE&quot; is used.</span>
+<span class="cm">     */</span>
+    <span class="kt">bool</span> <span class="n">dane</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Store of trust anchor certificates. This field is optional and can be</span>
+<span class="cm">     * left zero-initialized. If used, it shall be initialized using one of the</span>
+<span class="cm">     * &lt;c&gt;avs_crypto_trusted_cert_info_from_*&lt;/c&gt; helper functions.</span>
+<span class="cm">     */</span>
     <span class="n">avs_crypto_trusted_cert_info_t</span> <span class="n">trusted_certs</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Store of certificate revocation lists. This field is optional and can be</span>
+<span class="cm">     * left zero-initialized. If used, it shall be initialized using one of the</span>
+<span class="cm">     * &lt;c&gt;avs_crypto_cert_revocation_list_info_from_*&lt;/c&gt; helper functions.</span>
+<span class="cm">     */</span>
+    <span class="n">avs_crypto_cert_revocation_list_info_t</span> <span class="n">cert_revocation_lists</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Local certificate to use for authenticating with the peer. This field is</span>
+<span class="cm">     * optional and can be left zero-initialized. If used, it shall be</span>
+<span class="cm">     * initialized using one of the &lt;c&gt;avs_crypto_client_cert_info_from_*&lt;/c&gt;</span>
+<span class="cm">     * helper functions.</span>
+<span class="cm">     */</span>
     <span class="n">avs_crypto_client_cert_info_t</span> <span class="n">client_cert</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Private key matching #client_cert to use for authenticating with the</span>
+<span class="cm">     * peer. This field is optional and can be left zero-initialized, unless</span>
+<span class="cm">     * #client_cert is also specified. If used, it shall be initialized using</span>
+<span class="cm">     * one of the &lt;c&gt;avs_crypto_client_key_info_from_*&lt;/c&gt; helper functions.</span>
+<span class="cm">     */</span>
     <span class="n">avs_crypto_client_key_info_t</span> <span class="n">client_key</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">avs_net_certificate_info_t</span><span class="p">;</span>
 </pre></div>
@@ -298,11 +342,11 @@ is:</p>
 <p>To populate it properly, we’re gonna need at least two pieces of information
 from the following list:</p>
 <ul class="simple">
-<li><p>Trusted Certificates, also known as CA / Root certificates (required only
+<li>Trusted Certificates, also known as CA / Root certificates (required only
 if we intend to verify certificates presented to us by the Server; although
-it’s optional it is <strong>highly recommended</strong>),</p></li>
-<li><p>Client Certificate, which is <strong>required</strong>,</p></li>
-<li><p>Client Private Key, which is also <strong>required</strong>.</p></li>
+it’s optional it is <strong>highly recommended</strong>),</li>
+<li>Client Certificate, which is <strong>required</strong>,</li>
+<li>Client Private Key, which is also <strong>required</strong>.</li>
 </ul>
 <p>Each of them come in variety of formats (text, binary, etc.) that need to
 be loaded and parsed. In most scenarios however, the API provided by <cite>avs_commons</cite>
@@ -324,7 +368,7 @@ from files, we could do something like this:</p>
 </div>
 </div>
 <div class="section" id="security-configuration-with-get-security-config-callback">
-<h2><span class="section-number">6.4.4. </span>Security configuration with <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback<a class="headerlink" href="#security-configuration-with-get-security-config-callback" title="Permalink to this headline">¶</a></h2>
+<h2>6.4.4. Security configuration with <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback<a class="headerlink" href="#security-configuration-with-get-security-config-callback" title="Permalink to this headline">¶</a></h2>
 <p>Firmware update module provided with Anjay, lets the user implement security
 configuration per download URI. The relevant API is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">anjay_fw_update_get_security_config_t</span><span class="p">(</span>
@@ -372,12 +416,22 @@ by the user:</p>
 </pre></div>
 </div>
 <p>Now, the <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_get_security_config_t</span></code> job is to fill
-<code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code> properly. This structure consists of two fields:</p>
+<code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code> properly. This structure consists of three fields:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="cm">/**</span>
 <span class="cm">     * DTLS keys or certificates.</span>
 <span class="cm">     */</span>
     <span class="n">avs_net_security_info_t</span> <span class="n">security_info</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Single DANE TLSA record to use for certificate verification, if</span>
+<span class="cm">     * applicable.</span>
+<span class="cm">     *</span>
+<span class="cm">     * NOTE: If used with @ref anjay_download, this pointer, as well as its</span>
+<span class="cm">     * &lt;c&gt;association_data&lt;/c&gt; field, need to remain valid until the download is</span>
+<span class="cm">     * finished, aborted or cancelled.</span>
+<span class="cm">     */</span>
+    <span class="k">const</span> <span class="n">avs_net_socket_dane_tlsa_record_t</span> <span class="o">*</span><span class="n">dane_tlsa_record</span><span class="p">;</span>
 
     <span class="cm">/**</span>
 <span class="cm">     * TLS ciphersuites to use.</span>
@@ -392,33 +446,32 @@ by the user:</p>
 </div>
 <p>We’ve already seen in previous sections how to configure
 <code class="docutils literal notranslate"><span class="pre">security_info</span></code>. Also, for now there is no need to worry about
-<code class="docutils literal notranslate"><span class="pre">tls_ciphersuites</span></code> - they can be reset to zero.</p>
+<code class="docutils literal notranslate"><span class="pre">dane_tlsa_record</span></code> or <code class="docutils literal notranslate"><span class="pre">tls_ciphersuites</span></code> - they can be reset to zero.</p>
 </div>
 <div class="section" id="implementation">
-<h2><span class="section-number">6.4.5. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<h2>6.4.5. Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <p>Our implementation will use the following strategy:</p>
 <ol class="arabic simple">
-<li><p>Try loading security info from the data model first (i.e. Security Object).</p></li>
-<li><p>If that failed, attempt loading certificates from predefined paths.</p></li>
+<li>Try loading security info from the data model first (i.e. Security Object).</li>
+<li>If that failed, attempt loading certificates from predefined paths.</li>
 </ol>
 <div class="admonition important">
-<p class="admonition-title">Important</p>
+<p class="first admonition-title">Important</p>
 <p>Before we jump into implementation, there’s one more important thing
 to keep in mind: the lifetime of <code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code>
 fields. Failing to satisfy lifetime requirements will be met with
 undefined behavior.</p>
-<p>The fields of <code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code> contain references to file
+<p class="last">The fields of <code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code> contain references to file
 paths, binary security keys, and/or ciphersuite lists. After our
 <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> is called, they are not immediately stored
 anywhere, and for that reason we need to ensure their lifetime is as
 long as necessary. The documentation describes this in more detail,
 and we recommend to have a glance at it.</p>
 </div>
-<p>Our simplified implementation uses either
-<code class="docutils literal notranslate"><span class="pre">anjay_fw_update_load_security_from_dm()</span></code> which already returns a pointer
-to the heap allocated space, or when the fallback to certificates is needed,
-only literal c-strings are used, thus the lifetime of security configuration
-in both cases is just right.</p>
+<p>Our simplified implementation uses either <code class="docutils literal notranslate"><span class="pre">anjay_security_config_from_dm()</span></code>
+which already returns a pointer to the heap allocated space, or when the
+fallback to certificates is needed, only literal c-strings are used, thus the
+lifetime of security configuration in both cases is just right.</p>
 <p>The implementation is presented below. Changes made since <a class="reference internal" href="FU2.html"><span class="doc">last time</span></a>
 are highlighted:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;./firmware_update.h&quot;</span><span class="cp"></span>
@@ -544,7 +597,7 @@ are highlighted:</p>
 </span><span class="hll">        <span class="n">FW_STATE</span><span class="p">.</span><span class="n">dm_security_config</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="n">FW_STATE</span><span class="p">.</span><span class="n">dm_security_config</span> <span class="o">=</span>
-</span><span class="hll">            <span class="n">anjay_fw_update_load_security_from_dm</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span> <span class="n">download_uri</span><span class="p">);</span>
+</span><span class="hll">            <span class="n">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span> <span class="n">download_uri</span><span class="p">);</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">dm_security_config</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="c1">// found a match</span>
 </span><span class="hll">        <span class="n">memcpy</span><span class="p">(</span><span class="n">out_security_info</span><span class="p">,</span>
@@ -622,19 +675,11 @@ are highlighted:</p>
 
   <div role="contentinfo">
     <p>
-        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -645,6 +690,7 @@ are highlighted:</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

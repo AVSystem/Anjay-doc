@@ -1,40 +1,39 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Installing mandatory Objects &mdash; Anjay 2.5.0 documentation</title>
+  <title>4.2. Installing mandatory Objects &mdash; Anjay 2.6.0 documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.3. Event loop" href="BC3.html" />
@@ -52,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Anjay
+            <a href="../index.html" class="icon icon-home"> Anjay
           
 
           
@@ -62,7 +61,7 @@
             
             
               <div class="version">
-                2.5.0
+                2.6.0
               </div>
             
           
@@ -79,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -112,7 +110,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -151,11 +148,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
+          <li><a href="../BasicClient.html">4. Basic client</a> &raquo;</li>
         
-      <li><span class="section-number">4.2. </span>Installing mandatory Objects</li>
+      <li>4.2. Installing mandatory Objects</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,7 +172,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="installing-mandatory-objects">
-<h1><span class="section-number">4.2. </span>Installing mandatory Objects<a class="headerlink" href="#installing-mandatory-objects" title="Permalink to this headline">¶</a></h1>
+<h1>4.2. Installing mandatory Objects<a class="headerlink" href="#installing-mandatory-objects" title="Permalink to this headline">¶</a></h1>
 <p>In order to be able to connect to some LwM2M Server and handle incoming
 packets our client has to have at least <a class="reference external" href="https://www.openmobilealliance.org/tech/profiles/LWM2M_Security-v1_0.xml">LwM2M Security</a>
 (<code class="docutils literal notranslate"><span class="pre">/0</span></code>) and <a class="reference external" href="https://www.openmobilealliance.org/tech/profiles/LWM2M_Server-v1_0.xml">LwM2M Server</a>
@@ -183,22 +180,22 @@ packets our client has to have at least <a class="reference external" href="http
 <p>Fortunately, Anjay provides both of these Objects in the form of preimplemented
 modules, and they can be used easily.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It doesn’t impact on Anjay flexibility – i.e., users can still provide
+<p class="first admonition-title">Note</p>
+<p class="last">It doesn’t impact on Anjay flexibility – i.e., users can still provide
 their own implementation of these Objects if necessary.</p>
 </div>
 <p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BC1.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example), it has no knowledge about the Data Model,
 i.e., no LwM2M Objects are registered within it. Security and Server objects can
 be registered using installation mechanism, presented in the next subsection.</p>
 <div class="section" id="installing-objects">
-<h2><span class="section-number">4.2.1. </span>Installing Objects<a class="headerlink" href="#installing-objects" title="Permalink to this headline">¶</a></h2>
+<h2>4.2.1. Installing Objects<a class="headerlink" href="#installing-objects" title="Permalink to this headline">¶</a></h2>
 <p>Each LwM2M Object is defined by an instance of the <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code>
 structure. To add support for a new Object, you’d need to:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>fill the <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> structure,</p></li>
-<li><p>implement appropriate callback functions,</p></li>
-<li><p>register created object in Anjay.</p></li>
+<li>fill the <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> structure,</li>
+<li>implement appropriate callback functions,</li>
+<li>register created object in Anjay.</li>
 </ul>
 </div></blockquote>
 <p>However, for now, we are going to install our preimplemented LwM2M Objects
@@ -211,13 +208,13 @@ storage module using <code class="docutils literal notranslate"><span class="pre
 operation. Since it is not important right now, it will be described in details
 later.</p>
 <div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Remember to include <code class="docutils literal notranslate"><span class="pre">anjay/attr_storage.h</span></code>, <code class="docutils literal notranslate"><span class="pre">anjay/security.h</span></code> and
+<p class="first admonition-title">Important</p>
+<p class="last">Remember to include <code class="docutils literal notranslate"><span class="pre">anjay/attr_storage.h</span></code>, <code class="docutils literal notranslate"><span class="pre">anjay/security.h</span></code> and
 <code class="docutils literal notranslate"><span class="pre">anjay/server.h</span></code> headers to use the the functions mentioned above.</p>
 </div>
 </div>
 <div class="section" id="setting-up-server-and-security-objects">
-<h2><span class="section-number">4.2.2. </span>Setting up Server and Security Objects<a class="headerlink" href="#setting-up-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
+<h2>4.2.2. Setting up Server and Security Objects<a class="headerlink" href="#setting-up-server-and-security-objects" title="Permalink to this headline">¶</a></h2>
 <p>Now we are going to create functions which install Server and Security Objects
 and add instances of them. We modify the code from the
 <a class="reference internal" href="BC1.html#anjay-hello-world"><span class="std std-ref">previous tutorial</span></a>.</p>
@@ -323,8 +320,8 @@ Resource (<code class="docutils literal notranslate"><span class="pre">ssid</spa
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> will automatically delete installed modules after
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> will automatically delete installed modules after
 destruction of Anjay instance.</p>
 </div>
 <p>Our next goal is to implement an event loop, to make the client aware of network
@@ -352,19 +349,11 @@ events, be able to send notifications, and work in general.</p>
 
   <div role="contentinfo">
     <p>
-        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -375,6 +364,7 @@ events, be able to send notifications, and work in general.</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

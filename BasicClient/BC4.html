@@ -1,40 +1,39 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.4. Enabling secure communication &mdash; Anjay 2.5.0 documentation</title>
+  <title>4.4. Enabling secure communication &mdash; Anjay 2.6.0 documentation</title>
   
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.5. Implementing standard Object" href="BC5.html" />
@@ -52,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Anjay
+            <a href="../index.html" class="icon icon-home"> Anjay
           
 
           
@@ -62,7 +61,7 @@
             
             
               <div class="version">
-                2.5.0
+                2.6.0
               </div>
             
           
@@ -79,7 +78,6 @@
           
         </div>
 
-        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -112,7 +110,6 @@
             
           
         </div>
-        
       </div>
     </nav>
 
@@ -151,11 +148,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
+          <li><a href="../BasicClient.html">4. Basic client</a> &raquo;</li>
         
-      <li><span class="section-number">4.4. </span>Enabling secure communication</li>
+      <li>4.4. Enabling secure communication</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,7 +172,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="enabling-secure-communication">
-<h1><span class="section-number">4.4. </span>Enabling secure communication<a class="headerlink" href="#enabling-secure-communication" title="Permalink to this headline">¶</a></h1>
+<h1>4.4. Enabling secure communication<a class="headerlink" href="#enabling-secure-communication" title="Permalink to this headline">¶</a></h1>
 <p>If Anjay is compiled with support for DTLS and linked with one of the
 supported DTLS libraries, connection encryption is automatically handled
 according to values of Resources in the Security (<code class="docutils literal notranslate"><span class="pre">/0</span></code>) Object.</p>
@@ -184,70 +181,71 @@ using the <code class="docutils literal notranslate"><span class="pre">security<
 perhaps decide to implement the Security Object yourself from scratch. The
 library will always read the necessary DTLS configuration from the data model.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>mbed TLS 2.0 or newer</strong> or <strong>OpenSSL 1.1 or newer</strong> or
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>mbed TLS 2.0 or newer</strong> or <strong>OpenSSL 1.1 or newer</strong> or
 <strong>tinydtls 0.9 or newer</strong> is required for proper, conformant support
 for the security modes defined in the LwM2M specification.</p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Anjay will likely compile successfully with older DTLS library
+<p class="first admonition-title">Warning</p>
+<p class="last">Anjay will likely compile successfully with older DTLS library
 versions, but some REQUIRED cipher suites won’t be supported and
 serious interoperability problems may arise.</p>
 </div>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#supported-security-modes" id="id1">Supported security modes</a></p></li>
-<li><p><a class="reference internal" href="#provisioning-security-configuration" id="id2">Provisioning security configuration</a></p></li>
+<li><a class="reference internal" href="#supported-security-modes" id="id1">Supported security modes</a></li>
+<li><a class="reference internal" href="#provisioning-security-configuration" id="id2">Provisioning security configuration</a></li>
 </ul>
 </div>
 <div class="section" id="supported-security-modes">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">4.4.1. </span>Supported security modes</a><a class="headerlink" href="#supported-security-modes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id1">4.4.1. Supported security modes</a><a class="headerlink" href="#supported-security-modes" title="Permalink to this headline">¶</a></h2>
 <p>The security mode is determined based on the <em>Security Mode</em> Resource in a
 given instance of the Security Object (<code class="docutils literal notranslate"><span class="pre">/0/*/2</span></code>). Supported values are:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> - <strong>Pre-Shared Key mode</strong> - In this mode, communication is symmetrically
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">0</span></code> - <strong>Pre-Shared Key mode</strong> - In this mode, communication is symmetrically
 encrypted and authenticated using the same secret key, shared between the
 server and the client.</p>
 <ul class="simple">
-<li><p>The TLS-PSK identity is stored in the <em>Public Key or Identity</em> Resource
+<li>The TLS-PSK identity is stored in the <em>Public Key or Identity</em> Resource
 (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>). It is a string identifying the key being used, so that the
 server can uniquely determine which key to use for communication. This
-string shall be directly stored in the aforementioned Resource.</p></li>
-<li><p>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the secret pre-shared
+string shall be directly stored in the aforementioned Resource.</li>
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the secret pre-shared
 key itself, directly in an opaque binary format appropriate for the
-cipher suite used by the server.</p></li>
+cipher suite used by the server.</li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> - <strong>Certificate mode</strong> - In this mode, an asymmetrical public-key
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">2</span></code> - <strong>Certificate mode</strong> - In this mode, an asymmetrical public-key
 cryptographic algorithm is used to authenticate the connection endpoints and
 initialize payload encryption.</p>
 <p>Appropriate certificates need to be generated for both the LwM2M Client and
 the LwM2M Server. Public certificates of both parties mutually available,
 and each party also has access to its own corresponding private key.</p>
 <ul class="simple">
-<li><p>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>) Resource shall
+<li>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>) Resource shall
 contain the Client’s own public certificate in binary, DER-encoded X.509
-format.</p></li>
-<li><p>The <em>Server Public Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
-public certificate, also in binary, DER-encoded X.509 format.</p></li>
-<li><p>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
+format.</li>
+<li>The <em>Server Public Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
+public certificate, also in binary, DER-encoded X.509 format.</li>
+<li>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
 private key, corresponding to the public key contained in the <em>Public Key or
 Identity</em> Resource. It needs to be in a format defined in
 <a class="reference external" href="https://tools.ietf.org/html/rfc5958">RFC 5958</a> (also known as PKCS#8, the
 name which was used in previous versions of the format), DER-encoded into a
-binary value.</p></li>
+binary value.</li>
 </ul>
 <p>Note that in the Certificate mode, it is not enough if the Server’s
 certificate <em>just matches</em> the one stored in the <em>Server Public Key</em> resource.
 It is also verified that the certificate is issued for the same domain name
 that the Server URI points to and that it is signed by a trusted CA.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption and authentication is
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption and authentication is
 disabled completely and the CoAP messages are passed in plain text over the
 network. It shall not be used in production environments, unless end-to-end
 security is provided on a lower layer (e.g. IPsec). It is also useful for
-development, testing and debugging purposes.</p></li>
+development, testing and debugging purposes.</p>
+</li>
 </ul>
 <p>The <em>Raw Public Key</em> and <em>Certificate with EST</em> modes described in the LwM2M
 specification are not currently supported.</p>
@@ -256,7 +254,7 @@ are interested in using certificates, please refer to
 <a class="reference internal" href="../AdvancedTopics/AT-Certificates.html"><span class="doc">DTLS connection using certificates</span></a>.</p>
 </div>
 <div class="section" id="provisioning-security-configuration">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">4.4.2. </span>Provisioning security configuration</a><a class="headerlink" href="#provisioning-security-configuration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">4.4.2. Provisioning security configuration</a><a class="headerlink" href="#provisioning-security-configuration" title="Permalink to this headline">¶</a></h2>
 <p>According to the LwM2M specification, the aforementioned Resources shall be
 provisioned during the Bootstrap Phase. However, if Bootstrap from Smartcard is
 not used, the Client will need to contain some factory defaults for connecting
@@ -428,11 +426,11 @@ URI scheme and port <code class="docutils literal notranslate"><span class="pre"
 <p>All remaining activities related to establishing secure communication channel
 with the LwM2M Server are performed automatically by Anjay.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
+<p class="first admonition-title">Note</p>
 <p>For many LwM2M Servers, including the <a class="reference external" href="https://www.avsystem.com/try-anjay/">Try Anjay platform</a>, you will need to change server-side
 configuration if you previously used NoSec connectivity for the same
 endpoint name.</p>
-<p>The simplest solution might often be to remove the device entry completely
+<p class="last">The simplest solution might often be to remove the device entry completely
 and create it from scratch.</p>
 </div>
 </div>
@@ -458,19 +456,11 @@ and create it from scratch.</p>
 
   <div role="contentinfo">
     <p>
-        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -481,6 +471,7 @@ and create it from scratch.</p>
 
   </div>
   
+
 
   <script type="text/javascript">
       jQuery(function () {

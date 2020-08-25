@@ -7,9 +7,7 @@ var fw__update_8h =
     [ "ANJAY_FW_UPDATE_ERR_OUT_OF_MEMORY", "fw__update_8h.html#a740d43f61c0ba1dfa5b559d88835c32d", null ],
     [ "ANJAY_FW_UPDATE_ERR_UNSUPPORTED_PACKAGE_TYPE", "fw__update_8h.html#a577fdccd2bede0ee6e284ef55b24621b", null ],
     [ "anjay_fw_update_get_coap_tx_params_t", "fw__update_8h.html#a50900e2aaff21e91df693795965136b2", null ],
-    [ "anjay_fw_update_get_name_t", "fw__update_8h.html#a270e3076262423d8ef7f99333249b9ac", null ],
     [ "anjay_fw_update_get_security_config_t", "fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397", null ],
-    [ "anjay_fw_update_get_version_t", "fw__update_8h.html#a3a2a8ad514cff78979eb806dba248713", null ],
     [ "anjay_fw_update_perform_upgrade_t", "fw__update_8h.html#a81c7c16c083eb93677d8a9d6df78a13c", null ],
     [ "anjay_fw_update_reset_t", "fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a", null ],
     [ "anjay_fw_update_stream_finish_t", "fw__update_8h.html#a12fbe115b343ae099274cd73698ae660", null ],
@@ -36,7 +34,8 @@ var fw__update_8h =
       [ "ANJAY_FW_UPDATE_RESULT_FAILED", "fw__update_8h.html#a7f9a69c33597a29d9f37ca42a3560139ac69495d989a67c701c40c6cc97157cb1", null ],
       [ "ANJAY_FW_UPDATE_RESULT_UNSUPPORTED_PROTOCOL", "fw__update_8h.html#a7f9a69c33597a29d9f37ca42a3560139abc980454fe6aee4b77dc9061e1639454", null ]
     ] ],
+    [ "anjay_fw_update_get_name_t", "fw__update_8h.html#a26aec1fb6d0bbccc033e583e34632997", null ],
+    [ "anjay_fw_update_get_version_t", "fw__update_8h.html#aaaf91ebd969e7337a931eacdf90ac9d9", null ],
     [ "anjay_fw_update_install", "fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38", null ],
-    [ "anjay_fw_update_load_security_from_dm", "fw__update_8h.html#a7c0a6d661a8fa9bfae4f1f968a0cbecf", null ],
     [ "anjay_fw_update_set_result", "fw__update_8h.html#ac863d2d01b8796cb047fd4520f737b6f", null ]
 ];
