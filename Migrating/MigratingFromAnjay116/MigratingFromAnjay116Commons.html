@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.1.3. Changes in avs_commons &mdash; Anjay 2.6.1 documentation</title>
+  <title>9.1.3. Changes in avs_commons &mdash; Anjay 2.7.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.6.1
+                2.7.0
               </div>
             
           
@@ -104,6 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay225.html">9.2. Migrating from Anjay 2.2.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MigratingCustomEntropy.html">9.3. Migrating mbed TLS custom entropy initializers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay24.html">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay26.html">9.5. Migrating from Anjay 2.5.x or 2.6.x</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
@@ -1073,11 +1074,13 @@ mentioned in <a class="reference internal" href="#avs-commons-type-renames"><spa
 <p>Public key cryptography APIs, previously defined in
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code>, have been moved into a new header called
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>.</p>
-<p>Additionally, the following types and functions have been renamed:</p>
+<p>Additionally, client-side and server-side certificate info structures are no
+longer separate, and both have been merged into a single type.</p>
+<p>Here is a summary of renames:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="47%" />
+<col width="53%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Old symbol name</th>
@@ -1085,38 +1088,41 @@ mentioned in <a class="reference internal" href="#avs-commons-type-renames"><spa
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_t</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_t</span></code></td>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_t</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_t</span></code></div>
+</div>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_t</span></code></td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_t</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_t</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_t</span></code></td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_union_t</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_t</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_t</span></code></td>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_buffer()</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_buffer()</span></code></div>
+</div>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_buffer()</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_buffer()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_from_buffer()</span></code></td>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_file()</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_file()</span></code></div>
+</div>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_file()</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_file()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_from_file()</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_buffer()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_buffer()</span></code></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_buffer()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_from_buffer()</span></code></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_file()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_file()</span></code></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_file()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_from_file()</span></code></td>
-</tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_buffer()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_buffer()</span></code></td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_file()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_file()</span></code></td>
-</tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_path()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_path()</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_path()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_path()</span></code></td>
 </tr>
 </tbody>
 </table>

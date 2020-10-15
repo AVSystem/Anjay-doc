@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.6. Download resumption &mdash; Anjay 2.6.1 documentation</title>
+  <title>6.6. Download resumption &mdash; Anjay 2.7.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.6.1
+                2.7.0
               </div>
             
           
@@ -379,18 +379,15 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="n">memset</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">state</span><span class="p">));</span>
 </span><span class="hll">    <span class="n">unlink</span><span class="p">(</span><span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
 </span><span class="hll"><span class="p">}</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="k">struct</span> <span class="n">fw_state_t</span> <span class="p">{</span>
-</span><span class="hll">    <span class="kt">FILE</span> <span class="o">*</span><span class="n">firmware_file</span><span class="p">;</span>
-</span>    <span class="c1">// anjay instance this firmware update singleton is associated with</span>
+</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">fw_state_t</span> <span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">firmware_file</span><span class="p">;</span>
+    <span class="c1">// anjay instance this firmware update singleton is associated with</span>
     <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">;</span>
-    <span class="c1">// pointer to configuration loaded from data model, we need to keep it</span>
-    <span class="c1">// to be able to avs_free() it later</span>
-    <span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="n">dm_security_config</span><span class="p">;</span>
-    <span class="c1">// Current state of the download. It is updated and persited on each</span>
-    <span class="c1">// fw_stream_write() call.</span>
-    <span class="n">download_state_t</span> <span class="n">download_state</span><span class="p">;</span>
-<span class="hll"><span class="p">}</span> <span class="n">FW_STATE</span><span class="p">;</span>
+<span class="hll">    <span class="c1">// Current state of the download. It is updated and persited on each</span>
+</span><span class="hll">    <span class="c1">// fw_stream_write() call.</span>
+</span><span class="hll">    <span class="n">download_state_t</span> <span class="n">download_state</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span> <span class="n">FW_STATE</span><span class="p">;</span>
 </span><span class="hll">
 </span><span class="hll"><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span> <span class="o">=</span> <span class="s">&quot;/tmp/firmware_image.bin&quot;</span><span class="p">;</span>
 </span></pre></div>
@@ -546,10 +543,6 @@ accordingly:</p>
         <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">fclose</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">);</span>
         <span class="c1">// and reset our global state to initial value.</span>
         <span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">dm_security_config</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_free</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">dm_security_config</span><span class="p">);</span>
-        <span class="n">FW_STATE</span><span class="p">.</span><span class="n">dm_security_config</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="c1">// Finally, let&#39;s remove any downloaded payload</span>
     <span class="n">unlink</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">);</span>

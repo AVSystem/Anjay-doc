@@ -4,7 +4,6 @@ var anjay__config_8h =
     [ "ANJAY_MAX_DOUBLE_STRING_SIZE", "anjay__config_8h.html#a5c4af7225e70339a9a8bf6f7ea3691dd", null ],
     [ "ANJAY_MAX_PK_OR_IDENTITY_SIZE", "anjay__config_8h.html#ab0f0c7d580b87f00e7a3e0ba7863439a", null ],
     [ "ANJAY_MAX_SECRET_KEY_SIZE", "anjay__config_8h.html#a07617d932867cb801411f90bd0b45fdf", null ],
-    [ "ANJAY_MAX_SERVER_PK_OR_IDENTITY_SIZE", "anjay__config_8h.html#ac0623e1b8a992927fb3fe7bc83d6c40f", null ],
     [ "ANJAY_MAX_URI_QUERY_SEGMENT_SIZE", "anjay__config_8h.html#a8b8bf42dd67ac3d09514513db1ada414", null ],
     [ "ANJAY_MAX_URI_SEGMENT_SIZE", "anjay__config_8h.html#a31a131b0d27f70943f60f743dbb58167", null ],
     [ "ANJAY_WITH_ACCESS_CONTROL", "anjay__config_8h.html#abfe94aeaa70dc8ad4e9c4b3df4442a0b", null ],

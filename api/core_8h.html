@@ -224,8 +224,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad895be5694083d015ffcd8d0b87d0b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4329b620520c565fd61b526ba760e59f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:a4329b620520c565fd61b526ba760e59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57cfddc7b9183c22de1aec02c94d4e97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a57cfddc7b9183c22de1aec02c94d4e97">anjay_security_config_from_dm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, const char *uri)</td></tr>
-<tr class="separator:a57cfddc7b9183c22de1aec02c94d4e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81ad4e5b9168d53fbbd965bfbdea4a47"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a81ad4e5b9168d53fbbd965bfbdea4a47">anjay_security_config_from_dm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> *out_config, const char *raw_url)</td></tr>
+<tr class="separator:a81ad4e5b9168d53fbbd965bfbdea4a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497b359f5c1660fc3e02a56362a819ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a497b359f5c1660fc3e02a56362a819ea">anjay_ongoing_registration_exists</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:a497b359f5c1660fc3e02a56362a819ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -1177,14 +1177,14 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 
 </div>
 </div>
-<a id="a57cfddc7b9183c22de1aec02c94d4e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57cfddc7b9183c22de1aec02c94d4e97">&#9670;&nbsp;</a></span>anjay_security_config_from_dm()</h2>
+<a id="a81ad4e5b9168d53fbbd965bfbdea4a47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81ad4e5b9168d53fbbd965bfbdea4a47">&#9670;&nbsp;</a></span>anjay_security_config_from_dm()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a>* anjay_security_config_from_dm </td>
+          <td class="memname">int anjay_security_config_from_dm </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
           <td class="paramname"><em>anjay</em>, </td>
@@ -1192,8 +1192,14 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> *&#160;</td>
+          <td class="paramname"><em>out_config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>uri</em>&#160;</td>
+          <td class="paramname"><em>raw_url</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1211,11 +1217,13 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object whose data model shall be queried.</td></tr>
+    <tr><td class="paramname">out_config</td><td>Pointer to an <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> structure that will be filled with the appropriate information, if found.</td></tr>
     <tr><td class="paramname">uri</td><td>URI for which to find security configuration.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Security configuration found, or <code>NULL</code> if no suitable LwM2M Security Object instance could be found. The returned structure is heap-allocated; to release all memory allocated for it, it is enough to call <code>avs_free()</code> on the returned pointer. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 for success, or a negative value in case of error, including if no suitable LwM2M Security Object instance could be found.</dd></dl>
+<p><b>NOTE:</b> The returned structure will contain pointers to buffers allocated within the <code>anjay</code> object. They will only be valid until next call to <code><a class="el" href="core_8h.html#a81ad4e5b9168d53fbbd965bfbdea4a47">anjay_security_config_from_dm()</a></code> or <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>. Note that this is enough for direct use in <a class="el" href="fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397">anjay_fw_update_get_security_config_t</a> implementations. If you need this information for a longer period, you will need to manually create a deep copy. </p>
 
 </div>
 </div>
@@ -1522,7 +1530,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Mon Aug 31 2020 12:50:02 for anjay by
+    <li class="footer">Generated on Thu Oct 15 2020 12:07:59 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -49,7 +49,7 @@ var core_8h =
     [ "anjay_sched_time_to_next", "core_8h.html#ad83be53577741a9f3f94c39c464def09", null ],
     [ "anjay_sched_time_to_next_ms", "core_8h.html#a3998f24f83f30c17d96077ad673345ce", null ],
     [ "anjay_schedule_registration_update", "core_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b", null ],
-    [ "anjay_security_config_from_dm", "core_8h.html#a57cfddc7b9183c22de1aec02c94d4e97", null ],
+    [ "anjay_security_config_from_dm", "core_8h.html#a81ad4e5b9168d53fbbd965bfbdea4a47", null ],
     [ "anjay_serve", "core_8h.html#aa743e53b432d4a7b82001c5cdad163fe", null ],
     [ "anjay_transport_enter_offline", "core_8h.html#a4bba7333f0d433ebf05a7f7d5bf41ae7", null ],
     [ "anjay_transport_exit_offline", "core_8h.html#a729710b680f3d11a569b1a0a9617ff83", null ],

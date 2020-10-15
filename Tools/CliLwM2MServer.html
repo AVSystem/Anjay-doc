@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>7.1. LwM2M testing shell &mdash; Anjay 2.6.1 documentation</title>
+  <title>7.1. LwM2M testing shell &mdash; Anjay 2.7.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.6.1
+                2.7.0
               </div>
             
           
@@ -169,7 +169,8 @@
   <div class="section" id="lwm2m-testing-shell">
 <h1>7.1. LwM2M testing shell<a class="headerlink" href="#lwm2m-testing-shell" title="Permalink to this headline">¶</a></h1>
 <p>For the purpose of early testing of Anjay-based clients, we provide a simple CLI implementation of
-LwM2M that supports only the UDP protocol. It is written in Python using <cite>powercmd</cite> library.
+LwM2M that supports the UDP and TCP (although the TCP support is in a very early stage, and it may
+not be as stable as UDP) protocols. It is written in Python using <cite>powercmd</cite> library.
 You can find it in commercial version of Anjay in <cite>bootstrap/framework/nsh_lwm2m/</cite> directory.</p>
 <div class="section" id="running-the-server">
 <h2>7.1.1. Running the server<a class="headerlink" href="#running-the-server" title="Permalink to this headline">¶</a></h2>
@@ -188,7 +189,10 @@ with the following optional arguments:</p>
 <tr><td class="option-group" colspan="2">
 <kbd><span class="option">--listen <var>PORT</var></span>, <span class="option">-l <var>PORT</var></span></kbd></td>
 </tr>
-<tr><td>&#160;</td><td>Immediately starts listening on the proper CoAP port, so it uses <cite>PORT</cite> if it is specified and the default one (5683 for CoAP, 5684 for CoAP/DTLS) otherwise.</td></tr>
+<tr><td>&#160;</td><td>Immediately starts listening on specified CoAP port. Default UDP, can be TCP if –tcp is passed. If <cite>PORT</cite> is not specified, default one is used (5683 for CoAP, 5684 for CoAP/(D)TLS)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--tcp</span>, <span class="option">-t</span></kbd></td>
+<td>Listen on TCP port</td></tr>
 <tr><td class="option-group" colspan="2">
 <kbd><span class="option">--psk-identity <var>IDENTITY</var></span>, <span class="option">-i <var>IDENTITY</var></span></kbd></td>
 </tr>

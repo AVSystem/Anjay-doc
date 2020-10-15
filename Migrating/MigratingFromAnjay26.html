@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>9.5. Migrating from Anjay 2.5.x or 2.6.x &mdash; Anjay 2.7.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10. Commercial support" href="../Commercial_support.html" />
+    <link rel="prev" title="9.4. Migrating from Anjay 2.3.x or 2.4.x" href="MigratingFromAnjay24.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anjay
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.7.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay116.html">9.1. Migrating from Anjay 1.16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay225.html">9.2. Migrating from Anjay 2.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingCustomEntropy.html">9.3. Migrating mbed TLS custom entropy initializers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay24.html">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.5. Migrating from Anjay 2.5.x or 2.6.x</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../Migrating.html">9. Migrating from older versions</a> &raquo;</li>
+        
+      <li>9.5. Migrating from Anjay 2.5.x or 2.6.x</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/Migrating/MigratingFromAnjay26.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="migrating-from-anjay-2-5-x-or-2-6-x">
+<h1>9.5. Migrating from Anjay 2.5.x or 2.6.x<a class="headerlink" href="#migrating-from-anjay-2-5-x-or-2-6-x" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
+<li><a class="reference internal" href="#changes-in-anjay-proper" id="id2">Changes in Anjay proper</a><ul>
+<li><a class="reference internal" href="#change-of-security-configuration-lifetime" id="id3">Change of security configuration lifetime</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#changes-in-avs-commons" id="id4">Changes in avs_commons</a><ul>
+<li><a class="reference internal" href="#changes-in-public-key-cryptography-apis" id="id5">Changes in public-key cryptography APIs</a><ul>
+<li><a class="reference internal" href="#compatibility-features" id="id6">Compatibility features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id1">9.5.1. Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Anjay 2.7 is a minor upgrade, but changes in certificate-based security support
+in Anjay 2.7 required additional redesign in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> cryptography
+support libraries. While backwards compatibility should be maintained in most
+practical usages, there are some changes which might prove to be breaking if
+public-key cryptography APIs of <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> have been used directly.</p>
+</div>
+<div class="section" id="changes-in-anjay-proper">
+<h2><a class="toc-backref" href="#id2">9.5.2. Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="change-of-security-configuration-lifetime">
+<h3><a class="toc-backref" href="#id3">9.5.2.1. Change of security configuration lifetime</a><a class="headerlink" href="#change-of-security-configuration-lifetime" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><strong>Getter function for retrieving security information from data model</strong></p>
+<ul>
+<li><p class="first"><strong>Old API:</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">uri</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>New API:</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                  <span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="n">out_config</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">raw_url</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The security configuration is now returned through an output argument with
+any necessary internal buffers cached inside the Anjay object instead of
+using heap allocation. Please refer to the Doxygen-based documenation of
+this function for details.</p>
+<p>Due to the change in lifetime requirements, no compatibility variant is
+provided.</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="changes-in-avs-commons">
+<h2><a class="toc-backref" href="#id4">9.5.3. Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="changes-in-public-key-cryptography-apis">
+<h3><a class="toc-backref" href="#id5">9.5.3.1. Changes in public-key cryptography APIs</a><a class="headerlink" href="#changes-in-public-key-cryptography-apis" title="Permalink to this headline">¶</a></h3>
+<p>Client-side and server-side certificate info structures are no longer separate,
+and both have been merged into a single type. Additionally, the client key info
+structure have also been renamed for consistency.</p>
+<p>Here is a summary of renames:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Old symbol name</th>
+<th class="head">New Symbol name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_t</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_t</span></code></div>
+</div>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_t</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_t</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_t</span></code></td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_file()</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_from_file()</span></code></div>
+</div>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_file()</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_path()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_path()</span></code></td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_buffer()</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_info_from_buffer()</span></code></div>
+</div>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_buffer()</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_array()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_array()</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_copy_as_array()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_copy_as_array()</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_from_list()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_list()</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_trusted_cert_info_copy_as_list()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_copy_as_list()</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_from_file()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_file()</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_key_info_from_buffer()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_buffer()</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_crypto_client_cert_expiration_date()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_expiration_date()</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="compatibility-features">
+<h4><a class="toc-backref" href="#id6">9.5.3.1.1. Compatibility features</a><a class="headerlink" href="#compatibility-features" title="Permalink to this headline">¶</a></h4>
+<p>The new <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki_compat.h</span></code> header can be included,
+which aliases all the symbols mentioned in this chapter to their old names.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Commercial_support.html" class="btn btn-neutral float-right" title="10. Commercial support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="MigratingFromAnjay24.html" class="btn btn-neutral float-left" title="9.4. Migrating from Anjay 2.3.x or 2.4.x" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2020, AVSystem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.1.1. Changes in Anjay proper &mdash; Anjay 2.6.1 documentation</title>
+  <title>9.1.1. Changes in Anjay proper &mdash; Anjay 2.7.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.6.1
+                2.7.0
               </div>
             
           
@@ -104,6 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay225.html">9.2. Migrating from Anjay 2.2.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MigratingCustomEntropy.html">9.3. Migrating mbed TLS custom entropy initializers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay24.html">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay26.html">9.5. Migrating from Anjay 2.5.x or 2.6.x</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
@@ -1156,10 +1157,6 @@ the values previously available.</p>
     <span class="cm">/**</span>
 <span class="cm">     * Single DANE TLSA record to use for certificate verification, if</span>
 <span class="cm">     * applicable.</span>
-<span class="cm">     *</span>
-<span class="cm">     * NOTE: If used with @ref anjay_download, this pointer, as well as its</span>
-<span class="cm">     * &lt;c&gt;association_data&lt;/c&gt; field, need to remain valid until the download is</span>
-<span class="cm">     * finished, aborted or cancelled.</span>
 <span class="cm">     */</span>
     <span class="k">const</span> <span class="n">avs_net_socket_dane_tlsa_record_t</span> <span class="o">*</span><span class="n">dane_tlsa_record</span><span class="p">;</span>
 
@@ -1266,15 +1263,18 @@ function type have been renamed to use the word <code class="docutils literal no
 </div>
 </li>
 <li><p class="first"><strong>New API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">uri</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                  <span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="n">out_config</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">raw_url</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">The equivalent function is now declared in <code class="docutils literal notranslate"><span class="pre">anjay/core.h</span></code> instead of
-<code class="docutils literal notranslate"><span class="pre">anjay/fw_update.h</span></code>, and has a different return type.</p>
-<p>The old name is still available, but its return type has also been altered
-so that it returns <code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span> <span class="pre">*</span></code> as well.</p>
+<code class="docutils literal notranslate"><span class="pre">anjay/fw_update.h</span></code>, and has a different signature.</p>
+<p>The security configuration is now returned through an output argument with
+any necessary internal buffers cached inside the Anjay object instead of
+using heap allocation. Please refer to the Doxygen-based documenation of
+this function for details.</p>
 </li>
 </ul>
 </li>
