@@ -1,39 +1,37 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.4.2. Single-instance read-only object with an executable resource &mdash; Anjay 2.7.0 documentation</title>
+  <title>5.4.2. Single-instance read-only object with an executable resource &mdash; Anjay 2.8.0 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="5.4.3. Multi-instance read-only object with fixed number of instances" href="AT_CO3_MultiInstanceReadOnlyFixed.html" />
@@ -47,13 +45,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
           
 
           
-            <a href="../../index.html" class="icon icon-home"> Anjay
+            <a href="../../index.html">
           
 
+          
+            
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.7.0
+                2.8.0
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -120,6 +122,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -158,20 +161,18 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
         
-          <li><a href="../AT-CustomObjects.html">5.4. Custom LwM2M objects</a> &raquo;</li>
+          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
         
-      <li>5.4.2. Single-instance read-only object with an executable resource</li>
+      <li><span class="section-number">5.4.2. </span>Single-instance read-only object with an executable resource</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/AdvancedTopics/AT-CustomObjects/AT_CO2_SingleInstanceExecutableAndReadOnly.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -184,84 +185,84 @@
            <div itemprop="articleBody">
             
   <div class="section" id="single-instance-read-only-object-with-an-executable-resource">
-<h1>5.4.2. Single-instance read-only object with an executable resource<a class="headerlink" href="#single-instance-read-only-object-with-an-executable-resource" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.4.2. </span>Single-instance read-only object with an executable resource<a class="headerlink" href="#single-instance-read-only-object-with-an-executable-resource" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
 Anjay, either defined in <a class="reference external" href="https://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>
 or designed by user.</p>
-<p class="last">Although most of the Object’s code can be generated using
+<p>Although most of the Object’s code can be generated using
 <a class="reference internal" href="../../Tools/StubGenerator.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a> if you have Object’s definition in XML,
 it is recommended to read this section to have a clear understanding on what
 various parts of the LwM2M Object code are for.</p>
 </div>
 <p>In this example you will learn:</p>
 <ul class="simple">
-<li>what are LwM2M Execute arguments,</li>
-<li>how to parse them using Anjay’s API,</li>
-<li>how to implement <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> handler.</li>
+<li><p>what are LwM2M Execute arguments,</p></li>
+<li><p>how to parse them using Anjay’s API,</p></li>
+<li><p>how to implement <code class="docutils literal notranslate"><span class="pre">resource_execute</span></code> handler.</p></li>
 </ul>
 <p>The implemented Object will be be based on the previous tutorial
 <a class="reference internal" href="AT_CO1_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>, but with additional executable resource:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="37%" />
-<col width="31%" />
-<col width="31%" />
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Object ID</th>
-<th class="head">Instances</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Test object</td>
-<td>1234</td>
-<td>Multiple</td>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Multiple</p></td>
 </tr>
 </tbody>
 </table>
 <p>Each Object Instance has three Resources:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="18%" />
-<col width="19%" />
-<col width="18%" />
-<col width="16%" />
-<col width="16%" />
-<col width="13%" />
+<col style="width: 18%" />
+<col style="width: 19%" />
+<col style="width: 18%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Resource ID</th>
-<th class="head">Operations</th>
-<th class="head">Instances</th>
-<th class="head">Mandatory</th>
-<th class="head">Type</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Label</td>
-<td>0</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>String</td>
+<tbody>
+<tr class="row-even"><td><p>Label</p></td>
+<td><p>0</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
 </tr>
-<tr class="row-odd"><td>Value</td>
-<td>1</td>
-<td>Read</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>Integer</td>
+<tr class="row-odd"><td><p>Value</p></td>
+<td><p>1</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
 </tr>
-<tr class="row-even"><td>Add</td>
-<td>2</td>
-<td>Execute</td>
-<td>Single</td>
-<td>Mandatory</td>
-<td>&#160;</td>
+<tr class="row-even"><td><p>Add</p></td>
+<td><p>2</p></td>
+<td><p>Execute</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -269,30 +270,30 @@ various parts of the LwM2M Object code are for.</p>
 storing the result in the <cite>Value</cite> resource. The integers are to be specified
 as arguments to the LwM2M Execute operation.</p>
 <div class="section" id="lwm2m-execute-arguments">
-<h2>5.4.2.1. LwM2M Execute arguments<a class="headerlink" href="#lwm2m-execute-arguments" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.2.1. </span>LwM2M Execute arguments<a class="headerlink" href="#lwm2m-execute-arguments" title="Permalink to this headline">¶</a></h2>
 <p>The LwM2M specification defines a syntax of the Execute argument list as
 a formal ABNF grammar.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Just to give you an idea of how the syntax looks like (without getting
 into details of the grammar), here are few examples of valid argument list:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">5</span></code>,</li>
-<li><code class="docutils literal notranslate"><span class="pre">2='10.3'</span></code>,</li>
-<li><code class="docutils literal notranslate"><span class="pre">7,0='https://www.avsystem.com/'</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">0,1,2,3,4</span></code></li>
-<li>an empty string.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">5</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2='10.3'</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7,0='https://www.avsystem.com/'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0,1,2,3,4</span></code></p></li>
+<li><p>an empty string.</p></li>
 </ul>
 </div></blockquote>
-<p class="last">Also note that argument indices are limited to range 0-9 inclusively.</p>
+<p>Also note that argument indices are limited to range 0-9 inclusively.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>It is up to the implementation on how to interpret argument lists. One
 may, for example, think of each <code class="docutils literal notranslate"><span class="pre">[0-9]='value'</span></code> as a mapping between
 argument index and a corresponding value.</p>
-<p class="last">Then the value of the argument of index <cite>k</cite> could be applied as a <cite>k-th</cite>
+<p>Then the value of the argument of index <cite>k</cite> could be applied as a <cite>k-th</cite>
 argument to some function for further processing. (we will be, in fact,
 using this interpretation in this tutorial)</p>
 </div>
@@ -314,7 +315,7 @@ there are methods designed specifically to solve this problem, namely:</p>
 <p>They will greatly simplify parsing process, as you will see in the next section.</p>
 </div>
 <div class="section" id="implementation">
-<h2>5.4.2.2. Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.2.2. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <p>We start with adding our Resource to the list of supported Resources:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
@@ -401,17 +402,16 @@ simplicity we are going to use a <code class="docutils literal notranslate"><spa
 <span class="p">}</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Now, we need to update <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler, so that:</dt>
-<dd><ul class="first last simple">
-<li>it returns 4.05 Method Not Allowed when an attempt to read Executable resource is made,</li>
-<li>it returns an addition result, when a Read is performed on a <cite>Value</cite> resource.</li>
+<dl class="simple">
+<dt>Now, we need to update <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler, so that:</dt><dd><ul class="simple">
+<li><p>it returns 4.05 Method Not Allowed when an attempt to read Executable resource is made,</p></li>
+<li><p>it returns an addition result, when a Read is performed on a <cite>Value</cite> resource.</p></li>
 </ul>
 </dd>
 </dl>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">It is worth to mention that the LwM2M specification <strong>explicitly forbids</strong>
+<p class="admonition-title">Warning</p>
+<p>It is worth to mention that the LwM2M specification <strong>explicitly forbids</strong>
 existence of executable resources that could be read at the same time.</p>
 </div>
 <p>So, here is how it could look like:</p>
@@ -451,11 +451,11 @@ handler is set as a <code class="docutils literal notranslate"><span class="pre"
 </div>
 <p>And that’s it.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>As before, you can find full source-code of this example in
 <cite>examples/tutorial/AT-CustomObjects/read-only-with-executable</cite> subdirectory
 of the Anjay root source dir.</p>
-<p class="last">More examples of the Execute handlers can be found in object
+<p>More examples of the Execute handlers can be found in object
 implementations of the demo client (in the <cite>demo</cite> subdirectory). Just
 grep for the <cite>resource_execute</cite> keyword.</p>
 </div>
@@ -482,11 +482,11 @@ grep for the <cite>resource_execute</cite> keyword.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -497,7 +497,6 @@ grep for the <cite>resource_execute</cite> keyword.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

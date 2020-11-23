@@ -1,39 +1,37 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.2. Attribute storage &mdash; Anjay 2.7.0 documentation</title>
+  <title>5.2. Attribute storage &mdash; Anjay 2.8.0 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5.3. DTLS connection using certificates" href="AT-Certificates.html" />
@@ -47,13 +45,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.7.0
+                2.8.0
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -111,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -149,18 +152,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
         
-      <li>5.2. Attribute storage</li>
+      <li><span class="section-number">5.2. </span>Attribute storage</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/AdvancedTopics/AT-AttributeStorage.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -173,13 +174,13 @@
            <div itemprop="articleBody">
             
   <div class="section" id="attribute-storage">
-<h1>5.2. Attribute storage<a class="headerlink" href="#attribute-storage" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.2. </span>Attribute storage<a class="headerlink" href="#attribute-storage" title="Permalink to this headline">¶</a></h1>
 <p>The Write Attributes and Discover RPCs, as well as the Information Reporting
 interface, use a concept of Attributes that may be set for Resources, Object
 Instances or Objects.</p>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../LwM2M.html"><span class="doc">OMA LwM2M - Brief description</span></a> chapter contains more information about LwM2M Attributes.</p>
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../LwM2M.html"><span class="doc">OMA LwM2M - Brief description</span></a> chapter contains more information about LwM2M Attributes.</p>
 </div>
 <p>When the library needs to read or write these attributes, it calls
 <code class="docutils literal notranslate"><span class="pre">resource_read_attrs</span></code> or <code class="docutils literal notranslate"><span class="pre">resource_write_attrs</span></code> handlers, respectively, in
@@ -189,7 +190,7 @@ case of Resources, or appropriately <code class="docutils literal notranslate"><
 that the library will automatically call the “default” handlers if there are
 some unset attributes on the more specific level.</p>
 <div class="section" id="attr-storage-module">
-<h2>5.2.1. <code class="docutils literal notranslate"><span class="pre">attr_storage</span></code> module<a class="headerlink" href="#attr-storage-module" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.2.1. </span><code class="docutils literal notranslate"><span class="pre">attr_storage</span></code> module<a class="headerlink" href="#attr-storage-module" title="Permalink to this headline">¶</a></h2>
 <p>As the cases described above are very common and generic – and as such, usually
 implemented in exactly the same manner for all objects in the code base, the
 library includes a module that implements all the attribute-related handlers in
@@ -210,7 +211,7 @@ its own implementation, unless some handlers are actually already implemented
 handler replacement behave when only some of the handlers are implemented, refer
 to the <a class="reference external" href="../api/attr__storage_8h.html">documentation</a>.</p>
 <div class="section" id="persistence">
-<span id="id1"></span><h3>5.2.1.1. Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3><span class="section-number">5.2.1.1. </span>Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h3>
 <p>To facilitate storing attribute values between executions of the program, the
 <code class="docutils literal notranslate"><span class="pre">attr_storage</span></code> module contains a persistence code, that can be used to
 serialize and deserialize all the stored attributes to some kind of external
@@ -229,8 +230,8 @@ memory.</p>
 what it is and how to create one.</p>
 <p>For the simple case, the <code class="docutils literal notranslate"><span class="pre">avs_stream_file_</span></code> family of functions may be useful.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The persistence functions shall be called after registering all the
+<p class="admonition-title">Note</p>
+<p>The persistence functions shall be called after registering all the
 LwM2M Objects in the Anjay object and fully loading the data model
 structure (i.e. instantiating all the Object Instances that are
 supposed to be instantiated). Otherwise, attributes stored for
@@ -260,11 +261,11 @@ non-existent Objects or their Instances will be discarded.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -275,7 +276,6 @@ non-existent Objects or their Instances will be discarded.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

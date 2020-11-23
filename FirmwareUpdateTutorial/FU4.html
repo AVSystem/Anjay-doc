@@ -1,39 +1,37 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>6.4. Secure downloads &mdash; Anjay 2.7.0 documentation</title>
+  <title>6.4. Secure downloads &mdash; Anjay 2.8.0 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6.5. Poor network connectivity" href="FU5.html" />
@@ -47,13 +45,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.7.0
+                2.8.0
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,18 +150,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a> &raquo;</li>
+          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
         
-      <li>6.4. Secure downloads</li>
+      <li><span class="section-number">6.4. </span>Secure downloads</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/FirmwareUpdateTutorial/FU4.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -171,9 +172,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="secure-downloads">
-<h1>6.4. Secure downloads<a class="headerlink" href="#secure-downloads" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">6.4. </span>Secure downloads<a class="headerlink" href="#secure-downloads" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
-<h2>6.4.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Up until now, we developed a basic client application that’s capable of
 downloading firmware in <strong>PUSH</strong> and <strong>PULL</strong> modes. If the Server connection
 is secure, then of course any <strong>PUSH</strong> transfer is automatically secured. In
@@ -183,28 +184,28 @@ of credentials required to establishing the secure connection.</p>
 <strong>PULL</strong> mode transfers.</p>
 </div>
 <div class="section" id="two-ways-of-security-configuration">
-<h2>6.4.2. Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.4.2. </span>Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Permalink to this headline">¶</a></h2>
 <p>When a secure firmware transfer is initiated, firmware update module implemented
 in Anjay gets security configuration in one of two following ways.</p>
 <ol class="arabic simple">
-<li>If the user implements a <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback located in
+<li><p>If the user implements a <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback located in
 <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_handlers_t</span></code>, it is expected to provide the library with
-security information.</li>
-<li>Otherwise, the library looks through Security Object instances, matching
+security information.</p></li>
+<li><p>Otherwise, the library looks through Security Object instances, matching
 the download URI host with configured URI in Security Object Instance. When
 the matching Instance is found, the security information from that instance
-is used. When no match is found, the download fails.</li>
+is used. When no match is found, the download fails.</p></li>
 </ol>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It may seem as the described methods are mutually
+<p class="admonition-title">Note</p>
+<p>It may seem as the described methods are mutually
 exclusive. However, in <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback one can use
 <code class="docutils literal notranslate"><span class="pre">anjay_security_config_from_dm()</span></code> to attempt URI matching with entities
 already configured in Security Object Instances.</p>
 </div>
 </div>
 <div class="section" id="supported-security-modes">
-<h2>6.4.3. Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.4.3. </span>Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this headline">¶</a></h2>
 <p>The download can be secured by either <a class="reference external" href="https://en.wikipedia.org/wiki/Pre-shared_key">PSK</a>, or by <a class="reference external" href="https://en.wikipedia.org/wiki/Public_key_certificate">Public key
 certificates</a>.</p>
 <p>Security information is configured in Anjay through a structure:</p>
@@ -234,12 +235,12 @@ certificates</a>.</p>
 <p>And specifically, it’s the <code class="docutils literal notranslate"><span class="pre">security_info</span></code> field that is of interest to
 us. <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> can be configured by:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_psk()</span></code>,</li>
-<li><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_certificates()</span></code>.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_psk()</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_certificates()</span></code>.</p></li>
 </ul>
 <p>We will now have a closer look at both of these methods.</p>
 <div class="section" id="configuration-of-psk">
-<h3>6.4.3.1. Configuration of PSK<a class="headerlink" href="#configuration-of-psk" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">6.4.3.1. </span>Configuration of PSK<a class="headerlink" href="#configuration-of-psk" title="Permalink to this headline">¶</a></h3>
 <p>This is the most straightforward. The structure representing the PSK
 configuration is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
@@ -272,7 +273,7 @@ the following example:</p>
 </div>
 </div>
 <div class="section" id="configuration-of-certificates">
-<h3>6.4.3.2. Configuration of Certificates<a class="headerlink" href="#configuration-of-certificates" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">6.4.3.2. </span>Configuration of Certificates<a class="headerlink" href="#configuration-of-certificates" title="Permalink to this headline">¶</a></h3>
 <p>That’s a bit more involving. The structure representing Certificate configuration
 is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
@@ -318,8 +319,8 @@ is:</p>
     <span class="n">avs_crypto_cert_revocation_list_info_t</span> <span class="n">cert_revocation_lists</span><span class="p">;</span>
 
     <span class="cm">/**</span>
-<span class="cm">     * Local certificate to use for authenticating with the peer. This field is</span>
-<span class="cm">     * optional and can be left zero-initialized. If used, it shall be</span>
+<span class="cm">     * Local certificate chain to use for authenticating with the peer. This</span>
+<span class="cm">     * field is optional and can be left zero-initialized. If used, it shall be</span>
 <span class="cm">     * initialized using one of the</span>
 <span class="cm">     * &lt;c&gt;avs_crypto_certificate_chain_info_from_*&lt;/c&gt; helper functions.</span>
 <span class="cm">     */</span>
@@ -332,17 +333,28 @@ is:</p>
 <span class="cm">     * one of the &lt;c&gt;avs_crypto_private_key_info_from_*&lt;/c&gt; helper functions.</span>
 <span class="cm">     */</span>
     <span class="n">avs_crypto_private_key_info_t</span> <span class="n">client_key</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Enable rebuilding of client certificate chain based on certificates in</span>
+<span class="cm">     * the trust store.</span>
+<span class="cm">     *</span>
+<span class="cm">     * If this field is set to &lt;c&gt;true&lt;/c&gt;, and the last certificate in the</span>
+<span class="cm">     * #client_cert chain is not self-signed, the library will attempt to find</span>
+<span class="cm">     * its ancestors in #trusted_certs and append them to the chain presented</span>
+<span class="cm">     * during handshake.</span>
+<span class="cm">     */</span>
+    <span class="kt">bool</span> <span class="n">rebuild_client_cert_chain</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">avs_net_certificate_info_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>To populate it properly, we’re gonna need at least two pieces of information
 from the following list:</p>
 <ul class="simple">
-<li>Trusted Certificates, also known as CA / Root certificates (required only
+<li><p>Trusted Certificates, also known as CA / Root certificates (required only
 if we intend to verify certificates presented to us by the Server; although
-it’s optional it is <strong>highly recommended</strong>),</li>
-<li>Client Certificate, which is <strong>required</strong>,</li>
-<li>Client Private Key, which is also <strong>required</strong>.</li>
+it’s optional it is <strong>highly recommended</strong>),</p></li>
+<li><p>Client Certificate, which is <strong>required</strong>,</p></li>
+<li><p>Client Private Key, which is also <strong>required</strong>.</p></li>
 </ul>
 <p>Each of them come in variety of formats (text, binary, etc.) that need to
 be loaded and parsed. In most scenarios however, the API provided by <cite>avs_commons</cite>
@@ -364,7 +376,7 @@ from files, we could do something like this:</p>
 </div>
 </div>
 <div class="section" id="security-configuration-with-get-security-config-callback">
-<h2>6.4.4. Security configuration with <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback<a class="headerlink" href="#security-configuration-with-get-security-config-callback" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.4.4. </span>Security configuration with <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback<a class="headerlink" href="#security-configuration-with-get-security-config-callback" title="Permalink to this headline">¶</a></h2>
 <p>Firmware update module provided with Anjay, lets the user implement security
 configuration per download URI. The relevant API is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">anjay_fw_update_get_security_config_t</span><span class="p">(</span>
@@ -441,19 +453,19 @@ by the user:</p>
 <code class="docutils literal notranslate"><span class="pre">dane_tlsa_record</span></code> or <code class="docutils literal notranslate"><span class="pre">tls_ciphersuites</span></code> - they can be reset to zero.</p>
 </div>
 <div class="section" id="implementation">
-<h2>6.4.5. Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">6.4.5. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <p>Our implementation will use the following strategy:</p>
 <ol class="arabic simple">
-<li>Try loading security info from the data model first (i.e. Security Object).</li>
-<li>If that failed, attempt loading certificates from predefined paths.</li>
+<li><p>Try loading security info from the data model first (i.e. Security Object).</p></li>
+<li><p>If that failed, attempt loading certificates from predefined paths.</p></li>
 </ol>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
+<p class="admonition-title">Important</p>
 <p>Before we jump into implementation, there’s one more important thing
 to keep in mind: the lifetime of <code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code>
 fields. Failing to satisfy lifetime requirements will be met with
 undefined behavior.</p>
-<p class="last">The fields of <code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code> contain references to file
+<p>The fields of <code class="docutils literal notranslate"><span class="pre">anjay_security_config_t</span></code> contain references to file
 paths, binary security keys, and/or ciphersuite lists. After our
 <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> is called, they are not immediately stored
 anywhere, and for that reason we need to ensure their lifetime is as
@@ -653,11 +665,11 @@ are highlighted:</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -668,7 +680,6 @@ are highlighted:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

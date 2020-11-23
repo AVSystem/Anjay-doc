@@ -1,39 +1,37 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.4. Migrating from Anjay 2.3.x or 2.4.x &mdash; Anjay 2.7.0 documentation</title>
+  <title>9.4. Migrating from Anjay 2.3.x or 2.4.x &mdash; Anjay 2.8.0 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="9.5. Migrating from Anjay 2.5.x or 2.6.x" href="MigratingFromAnjay26.html" />
@@ -47,13 +45,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.7.0
+                2.8.0
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,6 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="MigratingCustomEntropy.html">9.3. Migrating mbed TLS custom entropy initializers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay26.html">9.5. Migrating from Anjay 2.5.x or 2.6.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay27.html">9.6. Migrating from Anjay 2.7.x</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
@@ -108,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -146,18 +150,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../Migrating.html">9. Migrating from older versions</a> &raquo;</li>
+          <li><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
         
-      <li>9.4. Migrating from Anjay 2.3.x or 2.4.x</li>
+      <li><span class="section-number">9.4. </span>Migrating from Anjay 2.3.x or 2.4.x</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/Migrating/MigratingFromAnjay24.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -170,55 +172,63 @@
            <div itemprop="articleBody">
             
   <div class="section" id="migrating-from-anjay-2-3-x-or-2-4-x">
-<h1>9.4. Migrating from Anjay 2.3.x or 2.4.x<a class="headerlink" href="#migrating-from-anjay-2-3-x-or-2-4-x" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9.4. </span>Migrating from Anjay 2.3.x or 2.4.x<a class="headerlink" href="#migrating-from-anjay-2-3-x-or-2-4-x" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
-<li><a class="reference internal" href="#changes-in-anjay-proper" id="id2">Changes in Anjay proper</a><ul>
-<li><a class="reference internal" href="#change-of-security-configuration-lifetime" id="id3">Change of security configuration lifetime</a></li>
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-anjay-proper" id="id2">Changes in Anjay proper</a></p>
+<ul>
+<li><p><a class="reference internal" href="#change-of-security-configuration-lifetime" id="id3">Change of security configuration lifetime</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#changes-in-avs-commons" id="id4">Changes in avs_commons</a><ul>
-<li><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id5">Move of public-key cryptography APIs from avs_net to avs_crypto</a><ul>
-<li><a class="reference internal" href="#renamed-cmake-configuration-options" id="id6">Renamed CMake configuration options</a></li>
-<li><a class="reference internal" href="#renamed-configuration-macros-in-avs-commons-config-h" id="id7">Renamed configuration macros in avs_commons_config.h</a></li>
-<li><a class="reference internal" href="#compatibility-features" id="id8">Compatibility features</a></li>
+<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id4">Changes in avs_commons</a></p>
+<ul>
+<li><p><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id5">Move of public-key cryptography APIs from avs_net to avs_crypto</a></p>
+<ul>
+<li><p><a class="reference internal" href="#renamed-cmake-configuration-options" id="id6">Renamed CMake configuration options</a></p></li>
+<li><p><a class="reference internal" href="#renamed-configuration-macros-in-avs-commons-config-h" id="id7">Renamed configuration macros in avs_commons_config.h</a></p></li>
+<li><p><a class="reference internal" href="#compatibility-features" id="id8">Compatibility features</a></p></li>
 </ul>
 </li>
+<li><p><a class="reference internal" href="#separation-of-avs-url-module" id="id9">Separation of avs_url module</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-avs-net-validate-ip-address" id="id10">Refactor of avs_net_validate_ip_address()</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id1">9.4.1. Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Anjay 2.5, 2.6 and 2.7 are minor upgrades, but EST support in commercial version
-of Anjay 2.5 and changes in certificate-based security support in Anjay 2.7
-required significant redesign in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> cryptography support libraries.
-While backwards compatibility should be maintained in most practical usages,
-there are some changes which might prove to be breaking if public-key
+<h2><a class="toc-backref" href="#id1"><span class="section-number">9.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Anjay 2.5 through 2.8 are minor upgrades, but EST support in commercial version
+of Anjay 2.5 and changes in certificate-based security support in Anjay 2.7 and
+2.8 required significant redesign in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> cryptography support
+libraries. While backwards compatibility should be maintained in most practical
+usages, there are some changes which might prove to be breaking if public-key
 cryptography APIs of <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> have been used directly.</p>
+<p>Additional slight updates might be necessary if you are using any alternative
+build system instead of CMake to compile your project, of if you maintain your
+own implementation of the socket layer.</p>
 </div>
 <div class="section" id="changes-in-anjay-proper">
-<h2><a class="toc-backref" href="#id2">9.4.2. Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2"><span class="section-number">9.4.2. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="change-of-security-configuration-lifetime">
-<h3><a class="toc-backref" href="#id3">9.4.2.1. Change of security configuration lifetime</a><a class="headerlink" href="#change-of-security-configuration-lifetime" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id3"><span class="section-number">9.4.2.1. </span>Change of security configuration lifetime</a><a class="headerlink" href="#change-of-security-configuration-lifetime" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first"><strong>Getter function for retrieving security information from data model</strong></p>
+<li><p><strong>Getter function for retrieving security information from data model</strong></p>
 <ul>
-<li><p class="first"><strong>Old API:</strong></p>
+<li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                                        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">uri</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New API:</strong></p>
+<li><p><strong>New API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                   <span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="n">out_config</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">raw_url</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">The security configuration is now returned through an output argument with
+<li><p>The security configuration is now returned through an output argument with
 any necessary internal buffers cached inside the Anjay object instead of
 using heap allocation. Please refer to the Doxygen-based documenation of
 this function for details.</p>
@@ -231,113 +241,134 @@ provided.</p>
 </div>
 </div>
 <div class="section" id="changes-in-avs-commons">
-<h2><a class="toc-backref" href="#id4">9.4.3. Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4"><span class="section-number">9.4.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto">
-<h3><a class="toc-backref" href="#id5">9.4.3.1. Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5"><span class="section-number">9.4.3.1. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h3>
 <p>Public key cryptography APIs, previously defined in
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code>, have been moved into a new header called
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>.</p>
 <p>Additionally, client-side and server-side certificate info structures are no
 longer separate, and both have been merged into a single type.</p>
 <p>Here is a summary of renames:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="47%" />
-<col width="53%" />
+<col style="width: 47%" />
+<col style="width: 53%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Old symbol name</th>
-<th class="head">New symbol name</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Old symbol name</p></th>
+<th class="head"><p>New symbol name</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><div class="first last line-block">
+<tbody>
+<tr class="row-even"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_t</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_t</span></code></div>
 </div>
 </td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_t</span></code></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_t</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_t</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_t</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_t</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_union_t</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_union_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_buffer()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_buffer()</span></code></div>
 </div>
 </td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_buffer()</span></code></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_buffer()</span></code></p></td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_file()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_file()</span></code></div>
 </div>
 </td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_file()</span></code></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_file()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_buffer()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_buffer()</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_buffer()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_buffer()</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_file()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_file()</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_file()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_file()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_path()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_path()</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_path()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_path()</span></code></p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="renamed-cmake-configuration-options">
-<h4><a class="toc-backref" href="#id6">9.4.3.1.1. Renamed CMake configuration options</a><a class="headerlink" href="#renamed-cmake-configuration-options" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id6"><span class="section-number">9.4.3.1.1. </span>Renamed CMake configuration options</a><a class="headerlink" href="#renamed-cmake-configuration-options" title="Permalink to this headline">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code> CMake configuration option is now deprecated; the new
 equivalent option is <code class="docutils literal notranslate"><span class="pre">WITH_PKI</span></code>. Please update CMake invocations in your
 configuration scripts.</p>
 </div>
 <div class="section" id="renamed-configuration-macros-in-avs-commons-config-h">
-<h4><a class="toc-backref" href="#id7">9.4.3.1.2. Renamed configuration macros in avs_commons_config.h</a><a class="headerlink" href="#renamed-configuration-macros-in-avs-commons-config-h" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id7"><span class="section-number">9.4.3.1.2. </span>Renamed configuration macros in avs_commons_config.h</a><a class="headerlink" href="#renamed-configuration-macros-in-avs-commons-config-h" title="Permalink to this headline">¶</a></h4>
 <p>The following configuration macros in <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code> has been renamed.
 You may need to update your configuration files if you are not using CMake, or
 your preprocessor directives if you check these macros in your code:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="45%" />
-<col width="55%" />
+<col style="width: 45%" />
+<col style="width: 55%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Old macro name</th>
-<th class="head">New macro name</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Old macro name</p></th>
+<th class="head"><p>New macro name</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_X509</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PKI</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_X509</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PKI</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_VALGRIND</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_VALGRIND</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_VALGRIND</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_VALGRIND</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="compatibility-features">
-<h4><a class="toc-backref" href="#id8">9.4.3.1.3. Compatibility features</a><a class="headerlink" href="#compatibility-features" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id8"><span class="section-number">9.4.3.1.3. </span>Compatibility features</a><a class="headerlink" href="#compatibility-features" title="Permalink to this headline">¶</a></h4>
 <p>Because the changes are minor, attempts to improve backwards compatibility have
 been taken, specifically:</p>
 <ul class="simple">
-<li>The new <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code> header can be included,
-which aliases all the symbols mentioned in this chapter to their old names.</li>
-<li>If <code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code> CMake variable is manually defined (e.g. by the <code class="docutils literal notranslate"><span class="pre">-D</span></code>
+<li><p>The new <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code> header can be included,
+which aliases all the symbols mentioned in this chapter to their old names.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code> CMake variable is manually defined (e.g. by the <code class="docutils literal notranslate"><span class="pre">-D</span></code>
 command-line option), the <code class="docutils literal notranslate"><span class="pre">WITH_PKI</span></code> variable is automatically set
-accordingly. A warning message is displayed in that case.</li>
-<li>If the <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_X509</span></code> macro is defined (e.g. in a legacy
+accordingly. A warning message is displayed in that case.</p></li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_X509</span></code> macro is defined (e.g. in a legacy
 <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code> file), it is interpreted as equivalent to
 <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PKI</span></code>, and additionally causes the
 aforementioned <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code> header to be included
 from <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code>. A warning message is displayed in that
-case.</li>
+case.</p></li>
 </ul>
 </div>
+</div>
+<div class="section" id="separation-of-avs-url-module">
+<h3><a class="toc-backref" href="#id9"><span class="section-number">9.4.3.2. </span>Separation of avs_url module</a><a class="headerlink" href="#separation-of-avs-url-module" title="Permalink to this headline">¶</a></h3>
+<p>URL handling routines, previously a part of <code class="docutils literal notranslate"><span class="pre">avs_net</span></code>, are now a separate
+component of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. The specific consequences of that may vary
+depending on your build process, e.g.:</p>
+<ul class="simple">
+<li><p>You will need to add <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">AVS_COMMONS_WITH_AVS_URL</span></code> to your
+<code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code> if you specify it manually</p></li>
+<li><p>You may need to add <code class="docutils literal notranslate"><span class="pre">-lavs_url</span></code> to your link command if you’re using
+<code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> that has been manually compiled separately using CMake</p></li>
+</ul>
+</div>
+<div class="section" id="refactor-of-avs-net-validate-ip-address">
+<h3><a class="toc-backref" href="#id10"><span class="section-number">9.4.3.3. </span>Refactor of avs_net_validate_ip_address()</a><a class="headerlink" href="#refactor-of-avs-net-validate-ip-address" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">avs_net_validate_ip_address()</span></code> is now no longer used by Anjay or
+<code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. It was previously necessary to implement it as part of the
+socket implementation. This is no longer required, and in fact, keeping that
+implementation might lead to problems - for compatibility, the function has been
+reimplemented as a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
+<code class="docutils literal notranslate"><span class="pre">avs_net_addrinfo_*()</span></code> APIs.</p>
 </div>
 </div>
 </div>
@@ -362,11 +393,11 @@ case.</li>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -377,7 +408,6 @@ case.</li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

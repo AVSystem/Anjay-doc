@@ -1,39 +1,37 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>7.1. LwM2M testing shell &mdash; Anjay 2.7.0 documentation</title>
+  <title>7.1. LwM2M testing shell &mdash; Anjay 2.8.0 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="7.2. Anjay Object stub generator" href="StubGenerator.html" />
@@ -47,13 +45,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.7.0
+                2.8.0
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -105,6 +107,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -143,18 +146,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../Tools.html">7. Tools</a> &raquo;</li>
+          <li><a href="../Tools.html"><span class="section-number">7. </span>Tools</a> &raquo;</li>
         
-      <li>7.1. LwM2M testing shell</li>
+      <li><span class="section-number">7.1. </span>LwM2M testing shell</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/Tools/CliLwM2MServer.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -167,48 +168,41 @@
            <div itemprop="articleBody">
             
   <div class="section" id="lwm2m-testing-shell">
-<h1>7.1. LwM2M testing shell<a class="headerlink" href="#lwm2m-testing-shell" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.1. </span>LwM2M testing shell<a class="headerlink" href="#lwm2m-testing-shell" title="Permalink to this headline">¶</a></h1>
 <p>For the purpose of early testing of Anjay-based clients, we provide a simple CLI implementation of
 LwM2M that supports the UDP and TCP (although the TCP support is in a very early stage, and it may
 not be as stable as UDP) protocols. It is written in Python using <cite>powercmd</cite> library.
 You can find it in commercial version of Anjay in <cite>bootstrap/framework/nsh_lwm2m/</cite> directory.</p>
 <div class="section" id="running-the-server">
-<h2>7.1.1. Running the server<a class="headerlink" href="#running-the-server" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.1.1. </span>Running the server<a class="headerlink" href="#running-the-server" title="Permalink to this headline">¶</a></h2>
 <p>You can start the server (from the main Anjay directory) by running <cite>./bootstrap/framework/nsh-lwm2m/nsh_lwm2m.py</cite>
 with the following optional arguments:</p>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">--help</span>, <span class="option">-h</span></kbd></td>
-<td>Show help.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--ipv6</span>, <span class="option">-6</span></kbd></td>
-<td>Use IPv6 by default.</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">--listen <var>PORT</var></span>, <span class="option">-l <var>PORT</var></span></kbd></td>
-</tr>
-<tr><td>&#160;</td><td>Immediately starts listening on specified CoAP port. Default UDP, can be TCP if –tcp is passed. If <cite>PORT</cite> is not specified, default one is used (5683 for CoAP, 5684 for CoAP/(D)TLS)</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--tcp</span>, <span class="option">-t</span></kbd></td>
-<td>Listen on TCP port</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">--psk-identity <var>IDENTITY</var></span>, <span class="option">-i <var>IDENTITY</var></span></kbd></td>
-</tr>
-<tr><td>&#160;</td><td>PSK identity to use for DTLS connection (literal string).</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">--psk-key <var>KEY</var></span>, <span class="option">-k <var>KEY</var></span></kbd></td>
-</tr>
-<tr><td>&#160;</td><td>PSK key to use for DTLS connection (literal string).</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--debug</span></kbd></td>
-<td>Enable mbed TLS debug output.</td></tr>
-</tbody>
-</table>
+<dl class="option-list">
+<dt><kbd><span class="option">--help</span>, <span class="option">-h</span></kbd></dt>
+<dd><p>Show help.</p>
+</dd>
+<dt><kbd><span class="option">--ipv6</span>, <span class="option">-6</span></kbd></dt>
+<dd><p>Use IPv6 by default.</p>
+</dd>
+<dt><kbd><span class="option">--listen <var>PORT</var></span>, <span class="option">-l <var>PORT</var></span></kbd></dt>
+<dd><p>Immediately starts listening on specified CoAP port. Default UDP, can be TCP if –tcp is passed. If <cite>PORT</cite> is not specified, default one is used (5683 for CoAP, 5684 for CoAP/(D)TLS)</p>
+</dd>
+<dt><kbd><span class="option">--tcp</span>, <span class="option">-t</span></kbd></dt>
+<dd><p>Listen on TCP port</p>
+</dd>
+<dt><kbd><span class="option">--psk-identity <var>IDENTITY</var></span>, <span class="option">-i <var>IDENTITY</var></span></kbd></dt>
+<dd><p>PSK identity to use for DTLS connection (literal string).</p>
+</dd>
+<dt><kbd><span class="option">--psk-key <var>KEY</var></span>, <span class="option">-k <var>KEY</var></span></kbd></dt>
+<dd><p>PSK key to use for DTLS connection (literal string).</p>
+</dd>
+<dt><kbd><span class="option">--debug</span></kbd></dt>
+<dd><p>Enable mbed TLS debug output.</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="supported-commands">
-<h2>7.1.2. Supported commands<a class="headerlink" href="#supported-commands" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.1.2. </span>Supported commands<a class="headerlink" href="#supported-commands" title="Permalink to this headline">¶</a></h2>
 <p>In this section we present the commands supported by the shell, with a bunch of examples.
 The initial setup for most of the provided examples can be obtained by two commands, both runned from the main Anjay directory,
 first for setting up the server:</p>
@@ -220,81 +214,55 @@ first for setting up the server:</p>
 </pre></div>
 </div>
 <div class="section" id="handling-messages">
-<h3>7.1.2.1. Handling messages<a class="headerlink" href="#handling-messages" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.1. </span>Handling messages<a class="headerlink" href="#handling-messages" title="Permalink to this headline">¶</a></h3>
 <p>The most important group of commands are those for sending messages. Most of them just send the corresponding LwM2M message:</p>
-<dl class="docutils">
-<dt>bootstrap_finish <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt>
-<dd></dd>
-<dt>changed <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt>
-<dd></dd>
-<dt>coap_get <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code></dt>
-<dd></dd>
-<dt>content  <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>continue <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>create <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code></dt>
-<dd></dd>
-<dt>created <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>delete <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>deleted <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>deregister <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>discover <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>empty</dt>
-<dd></dd>
-<dt>error_response <code class="docutils literal notranslate"><span class="pre">CODE</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>est_coaps_simple_enroll <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">URI_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">URI_QUERY</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt>
-<dd></dd>
-<dt>execute <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>notify <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">CONFIRMABLE</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>observe <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>observe_composite <code class="docutils literal notranslate"><span class="pre">PATHS</span></code> <code class="docutils literal notranslate"><span class="pre">OBSERVE</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>read <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>read_composite <code class="docutils literal notranslate"><span class="pre">PATHS</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>request_bootstrap <code class="docutils literal notranslate"><span class="pre">ENDPOINT_NAME</span></code> <code class="docutils literal notranslate"><span class="pre">PREFERRED_CONTENT_FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">URI_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">URI_QUERY</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt>
-<dd></dd>
-<dt>reset <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code></dt>
-<dd></dd>
-<dt>send <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt>
-<dd></dd>
-<dt>write <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>write_attributes <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">LT</span></code> <code class="docutils literal notranslate"><span class="pre">GT</span></code> <code class="docutils literal notranslate"><span class="pre">ST</span></code> <code class="docutils literal notranslate"><span class="pre">PMIN</span></code> <code class="docutils literal notranslate"><span class="pre">PMAX</span></code> <code class="docutils literal notranslate"><span class="pre">EPMIN</span></code> <code class="docutils literal notranslate"><span class="pre">EPMAX</span></code> <code class="docutils literal notranslate"><span class="pre">QUERY</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
-<dt>write_composite <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt>
-<dd></dd>
+<dl class="simple">
+<dt>bootstrap_finish <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt><dd></dd>
+<dt>changed <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt><dd></dd>
+<dt>coap_get <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code></dt><dd></dd>
+<dt>content  <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>continue <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>create <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code></dt><dd></dd>
+<dt>created <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>delete <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>deleted <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>deregister <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>discover <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>empty</dt><dd></dd>
+<dt>error_response <code class="docutils literal notranslate"><span class="pre">CODE</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>est_coaps_simple_enroll <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">URI_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">URI_QUERY</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt><dd></dd>
+<dt>execute <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>notify <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">CONFIRMABLE</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>observe <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>observe_composite <code class="docutils literal notranslate"><span class="pre">PATHS</span></code> <code class="docutils literal notranslate"><span class="pre">OBSERVE</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>read <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>read_composite <code class="docutils literal notranslate"><span class="pre">PATHS</span></code> <code class="docutils literal notranslate"><span class="pre">ACCEPT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>request_bootstrap <code class="docutils literal notranslate"><span class="pre">ENDPOINT_NAME</span></code> <code class="docutils literal notranslate"><span class="pre">PREFERRED_CONTENT_FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">URI_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">URI_QUERY</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt><dd></dd>
+<dt>reset <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code></dt><dd></dd>
+<dt>send <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt><dd></dd>
+<dt>write <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">UPDATE</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>write_attributes <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">LT</span></code> <code class="docutils literal notranslate"><span class="pre">GT</span></code> <code class="docutils literal notranslate"><span class="pre">ST</span></code> <code class="docutils literal notranslate"><span class="pre">PMIN</span></code> <code class="docutils literal notranslate"><span class="pre">PMAX</span></code> <code class="docutils literal notranslate"><span class="pre">EPMIN</span></code> <code class="docutils literal notranslate"><span class="pre">EPMAX</span></code> <code class="docutils literal notranslate"><span class="pre">QUERY</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
+<dt>write_composite <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code></dt><dd></dd>
 </dl>
 <p>Because sometimes it might be necessary to use Write message with a large block of data (e.g. when performing a firmware update)
 it may be handy to load the data from a file instead of writing it by hand.
 Nsh supports an additional command for this case:</p>
-<dl class="docutils">
-<dt>write_file <code class="docutils literal notranslate"><span class="pre">FNAME</span></code> <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">CHUNKSIZE</span></code> <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code></dt>
-<dd>Opens file <code class="docutils literal notranslate"><span class="pre">FNAME</span></code> and attempts to push it using BLOCK1 to the Client.</dd>
+<dl class="simple">
+<dt>write_file <code class="docutils literal notranslate"><span class="pre">FNAME</span></code> <code class="docutils literal notranslate"><span class="pre">PATH</span></code> <code class="docutils literal notranslate"><span class="pre">FORMAT</span></code> <code class="docutils literal notranslate"><span class="pre">CHUNKSIZE</span></code> <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code></dt><dd><p>Opens file <code class="docutils literal notranslate"><span class="pre">FNAME</span></code> and attempts to push it using BLOCK1 to the Client.</p>
+</dd>
 </dl>
 <p>It is also possible to send a custom CoAP message/UDP datagram using Nsh:</p>
-<dl class="docutils">
-<dt>coap <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">CODE</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">RESPOND</span></code></dt>
-<dd>Send a custom CoAP message.</dd>
-<dt>udp <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt>
-<dd>Send a custom UDP datagram.</dd>
+<dl class="simple">
+<dt>coap <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">CODE</span></code> <code class="docutils literal notranslate"><span class="pre">MSG_ID</span></code> <code class="docutils literal notranslate"><span class="pre">TOKEN</span></code> <code class="docutils literal notranslate"><span class="pre">OPTIONS</span></code> <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code> <code class="docutils literal notranslate"><span class="pre">RESPOND</span></code></dt><dd><p>Send a custom CoAP message.</p>
+</dd>
+<dt>udp <code class="docutils literal notranslate"><span class="pre">CONTENT</span></code></dt><dd><p>Send a custom UDP datagram.</p>
+</dd>
 </dl>
 <p>And finally, there is a command waiting for a message sent by the client:</p>
-<dl class="docutils">
-<dt>recv <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code></dt>
-<dd>Waits for a next incoming message. If <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code> is specified, the
-command will not wait longer than <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code> if no messages are received.</dd>
+<dl class="simple">
+<dt>recv <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code></dt><dd><p>Waits for a next incoming message. If <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code> is specified, the
+command will not wait longer than <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code> if no messages are received.</p>
+</dd>
 </dl>
 <p>Nsh provide also one more feature for handling messages.
 When the user enters an empty line while the flags <code class="docutils literal notranslate"><span class="pre">AUTO_UPDATE</span></code>, <code class="docutils literal notranslate"><span class="pre">AUTO_REREGISTER</span></code> or <code class="docutils literal notranslate"><span class="pre">AUTO_ACK</span></code>
@@ -309,15 +277,15 @@ the result of entering an empty line on Nsh side should be:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Usually there is no need for passing all of the command arguments. To see which are optional
+<p class="admonition-title">Note</p>
+<p>Usually there is no need for passing all of the command arguments. To see which are optional
 you can use <strong>help</strong> for the considred command. In the output they are printed with <code class="docutils literal notranslate"><span class="pre">?</span></code> signs.</p>
 </div>
 </div>
 <div class="section" id="working-with-payloads">
-<h3>7.1.2.2. Working with payloads<a class="headerlink" href="#working-with-payloads" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.2. </span>Working with payloads<a class="headerlink" href="#working-with-payloads" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="introduction">
-<h4>7.1.2.2.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.2.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h4>
 <p>When a binary payload contains a non-printable character, it is
 impossible to encode it as a plain text. To overcome this inconvenience the shell introduces a special
 type: <code class="docutils literal notranslate"><span class="pre">EscapedBytes</span></code>, in which you can hex-encode some of the bytes (in many cases it might be quite handy to
@@ -328,49 +296,48 @@ To build TLV or CBOR payloads (which are binary formats), nsh exposes subshells.
 Each of them has its own set of commands, however, some of them are common.
 <strong>help</strong>, <strong>get_error</strong> and <strong>exit</strong> behave in a similar way to those known from the main shell.
 Other commands common for the subshells are:</p>
-<dl class="docutils">
-<dt>serialize</dt>
-<dd>Displays the prepared strucure as an encoded hex-escaped string (ready to use as EscapedBytes).</dd>
-<dt>show</dt>
-<dd>Displays current element structure in a human-readable form.</dd>
+<dl class="simple">
+<dt>serialize</dt><dd><p>Displays the prepared strucure as an encoded hex-escaped string (ready to use as EscapedBytes).</p>
+</dd>
+<dt>show</dt><dd><p>Displays current element structure in a human-readable form.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="cbor-subshell">
-<h4>7.1.2.2.2. CBOR subshell<a class="headerlink" href="#cbor-subshell" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.2.2. </span>CBOR subshell<a class="headerlink" href="#cbor-subshell" title="Permalink to this headline">¶</a></h4>
 <p>This subshell is entered by <strong>cbor</strong> command. The only extra command supported is:</p>
-<dl class="docutils">
-<dt>add_resource <code class="docutils literal notranslate"><span class="pre">BASENAME</span></code> <code class="docutils literal notranslate"><span class="pre">NAME</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">VALUE</span></code></dt>
-<dd>Adds the next entry to the existing CBOR data. <code class="docutils literal notranslate"><span class="pre">BASENAME</span></code> argument is optional and it can contain the parent path. In <code class="docutils literal notranslate"><span class="pre">NAME</span></code>
-a path to some value-containing Resource/Resource Instance is kept.</dd>
+<dl class="simple">
+<dt>add_resource <code class="docutils literal notranslate"><span class="pre">BASENAME</span></code> <code class="docutils literal notranslate"><span class="pre">NAME</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">VALUE</span></code></dt><dd><p>Adds the next entry to the existing CBOR data. <code class="docutils literal notranslate"><span class="pre">BASENAME</span></code> argument is optional and it can contain the parent path. In <code class="docutils literal notranslate"><span class="pre">NAME</span></code>
+a path to some value-containing Resource/Resource Instance is kept.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="tlv-subshell">
-<h4>7.1.2.2.3. TLV subshell<a class="headerlink" href="#tlv-subshell" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.2.3. </span>TLV subshell<a class="headerlink" href="#tlv-subshell" title="Permalink to this headline">¶</a></h4>
 <p>TLV subshell is entered by <strong>tlv</strong> command. It supports a few commands more:</p>
-<dl class="docutils">
-<dt>add_instance <code class="docutils literal notranslate"><span class="pre">ID</span></code></dt>
-<dd>Creates an object instance with a given <code class="docutils literal notranslate"><span class="pre">ID</span></code>. It must be created as a top-level element.</dd>
-<dt>add_multiple_resource <code class="docutils literal notranslate"><span class="pre">ID</span></code></dt>
-<dd>Creates a Multiple Resource under the currently selected Object Instance (as a top-level element, if none is selected).</dd>
-<dt>add_resource <code class="docutils literal notranslate"><span class="pre">ID</span></code> <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code></dt>
-<dd>Creates a Resource with a given <code class="docutils literal notranslate"><span class="pre">ID</span></code> under the currently selected Object Instance. If there is none, it is created as a top-level element.</dd>
-<dt>add_resource_instance <code class="docutils literal notranslate"><span class="pre">ID</span></code> <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code></dt>
-<dd>Creates a Resource Instance of the currently selected Multiple Resource.</dd>
-<dt>deserialize <code class="docutils literal notranslate"><span class="pre">DATA</span></code></dt>
-<dd>Loads a TLV-encoded element structure for further processing. It is helpful, when we recieve data from <em>read</em> request from the client.</dd>
-<dt>make_multires <code class="docutils literal notranslate"><span class="pre">(RIID,VALUE),...</span></code></dt>
-<dd><p class="first">Builds Multiple Resource Instances from the list of pairs of <code class="docutils literal notranslate"><span class="pre">RIID</span></code> and <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> (of type <code class="docutils literal notranslate"><span class="pre">EscapedBytes</span></code>).
-The pairs need to be comma separated and no spaces are allowed.</p>
-<p class="last">For example <code class="docutils literal notranslate"><span class="pre">(1,\x04),(5,\x02)</span></code> represents two object instances, first with ID 1 and value 4 and second with ID 5 and value 2.</p>
+<dl>
+<dt>add_instance <code class="docutils literal notranslate"><span class="pre">ID</span></code></dt><dd><p>Creates an object instance with a given <code class="docutils literal notranslate"><span class="pre">ID</span></code>. It must be created as a top-level element.</p>
 </dd>
-<dt>remove <code class="docutils literal notranslate"><span class="pre">PATH</span></code></dt>
-<dd>Removes an element to which the path points. The path consists of 1 - 3 integers, separated by <code class="docutils literal notranslate"><span class="pre">/</span></code> character.</dd>
-<dt>select <code class="docutils literal notranslate"><span class="pre">PATH</span></code></dt>
-<dd>Selects an Object Instance or Multiple Resource that further add_* calls will add elements into.</dd>
+<dt>add_multiple_resource <code class="docutils literal notranslate"><span class="pre">ID</span></code></dt><dd><p>Creates a Multiple Resource under the currently selected Object Instance (as a top-level element, if none is selected).</p>
+</dd>
+<dt>add_resource <code class="docutils literal notranslate"><span class="pre">ID</span></code> <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code></dt><dd><p>Creates a Resource with a given <code class="docutils literal notranslate"><span class="pre">ID</span></code> under the currently selected Object Instance. If there is none, it is created as a top-level element.</p>
+</dd>
+<dt>add_resource_instance <code class="docutils literal notranslate"><span class="pre">ID</span></code> <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code></dt><dd><p>Creates a Resource Instance of the currently selected Multiple Resource.</p>
+</dd>
+<dt>deserialize <code class="docutils literal notranslate"><span class="pre">DATA</span></code></dt><dd><p>Loads a TLV-encoded element structure for further processing. It is helpful, when we recieve data from <em>read</em> request from the client.</p>
+</dd>
+<dt>make_multires <code class="docutils literal notranslate"><span class="pre">(RIID,VALUE),...</span></code></dt><dd><p>Builds Multiple Resource Instances from the list of pairs of <code class="docutils literal notranslate"><span class="pre">RIID</span></code> and <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> (of type <code class="docutils literal notranslate"><span class="pre">EscapedBytes</span></code>).
+The pairs need to be comma separated and no spaces are allowed.</p>
+<p>For example <code class="docutils literal notranslate"><span class="pre">(1,\x04),(5,\x02)</span></code> represents two object instances, first with ID 1 and value 4 and second with ID 5 and value 2.</p>
+</dd>
+<dt>remove <code class="docutils literal notranslate"><span class="pre">PATH</span></code></dt><dd><p>Removes an element to which the path points. The path consists of 1 - 3 integers, separated by <code class="docutils literal notranslate"><span class="pre">/</span></code> character.</p>
+</dd>
+<dt>select <code class="docutils literal notranslate"><span class="pre">PATH</span></code></dt><dd><p>Selects an Object Instance or Multiple Resource that further add_* calls will add elements into.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="using-subshells-example">
-<h4>7.1.2.2.4. Using subshells example<a class="headerlink" href="#using-subshells-example" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.2.4. </span>Using subshells example<a class="headerlink" href="#using-subshells-example" title="Permalink to this headline">¶</a></h4>
 <p>Let’s suppose that we would like to encode some simple data as both CBOR ans TLV, let its structure be:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/0 (Instance)
   -&gt; /0 (Multiple Resource)
@@ -441,13 +408,13 @@ exiting
 </div>
 </div>
 <div class="section" id="decoding-messages">
-<h3>7.1.2.3. Decoding messages<a class="headerlink" href="#decoding-messages" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.3. </span>Decoding messages<a class="headerlink" href="#decoding-messages" title="Permalink to this headline">¶</a></h3>
 <p>Nsh supports two commands which are connected to both previously discussed topics - tools for decoding CoAP/LwM2M messages:</p>
-<dl class="docutils">
-<dt>coap_decode <code class="docutils literal notranslate"><span class="pre">DATA</span></code></dt>
-<dd>Decodes a CoAP message and displays it in a human-readable form.</dd>
-<dt>lwm2m_decode <code class="docutils literal notranslate"><span class="pre">DATA</span></code></dt>
-<dd>Decodes a LwM2M message and displays it in a human-readable form.</dd>
+<dl class="simple">
+<dt>coap_decode <code class="docutils literal notranslate"><span class="pre">DATA</span></code></dt><dd><p>Decodes a CoAP message and displays it in a human-readable form.</p>
+</dd>
+<dt>lwm2m_decode <code class="docutils literal notranslate"><span class="pre">DATA</span></code></dt><dd><p>Decodes a LwM2M message and displays it in a human-readable form.</p>
+</dd>
 </dl>
 <p>For example, we can decode an empty coap message (with <em>EscapedBytes</em> representation <code class="docutils literal notranslate"><span class="pre">\x60\x00\x13\x38</span></code>):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Lwm2mCmd] port: 9000, client: 127.0.0.1:47748 $ coap_decode \x60\x00\x13\x38
@@ -464,16 +431,16 @@ content: 0 bytes
 </div>
 </div>
 <div class="section" id="inspecting-previous-messages">
-<h3>7.1.2.4. Inspecting previous messages<a class="headerlink" href="#inspecting-previous-messages" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.4. </span>Inspecting previous messages<a class="headerlink" href="#inspecting-previous-messages" title="Permalink to this headline">¶</a></h3>
 <p>Nsh supports also a bunch of tools for inspecting the results of the previous commands.</p>
 <div class="section" id="message-history">
-<h4>7.1.2.4.1. Message history<a class="headerlink" href="#message-history" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.4.1. </span>Message history<a class="headerlink" href="#message-history" title="Permalink to this headline">¶</a></h4>
 <p>The first such tool is the <em>message history</em> which can be handled using two commands:</p>
-<dl class="docutils">
-<dt>details <code class="docutils literal notranslate"><span class="pre">N</span></code></dt>
-<dd>Displays details of a <code class="docutils literal notranslate"><span class="pre">N</span></code>-th last message, or the last message, if <code class="docutils literal notranslate"><span class="pre">N</span></code> is not given.</dd>
-<dt>reset_history</dt>
-<dd>Clears command history.</dd>
+<dl class="simple">
+<dt>details <code class="docutils literal notranslate"><span class="pre">N</span></code></dt><dd><p>Displays details of a <code class="docutils literal notranslate"><span class="pre">N</span></code>-th last message, or the last message, if <code class="docutils literal notranslate"><span class="pre">N</span></code> is not given.</p>
+</dd>
+<dt>reset_history</dt><dd><p>Clears command history.</p>
+</dd>
 </dl>
 <p>To see how they work, let’s send a few messages, e.g.:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>read /1/1/3/1
@@ -527,19 +494,19 @@ ascii-ish:
 <strong>details</strong> (with any parameter) runned after that, returns only a warning <code class="docutils literal notranslate"><span class="pre">message</span> <span class="pre">not</span> <span class="pre">found</span></code>.</p>
 </div>
 <div class="section" id="payload-buffer">
-<h4>7.1.2.4.2. Payload buffer<a class="headerlink" href="#payload-buffer" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.4.2. </span>Payload buffer<a class="headerlink" href="#payload-buffer" title="Permalink to this headline">¶</a></h4>
 <p>Another important tool is <strong>payload buffer</strong>.
 It stores the contents of the messages recieved by the server and
 can be accessed with a set of functions <strong>payload_buffer_*</strong>:</p>
-<dl class="docutils">
-<dt>payload_buffer_clear</dt>
-<dd>Clears payload buffer.</dd>
-<dt>payload_buffer_show</dt>
-<dd>Shows the payload buffer content.</dd>
-<dt>payload_buffer_show_hex</dt>
-<dd>Shows the payload buffer content presented as hex.</dd>
-<dt>payload_buffer_show_tlv</dt>
-<dd>Shows the payload buffer content presented as tlv.</dd>
+<dl class="simple">
+<dt>payload_buffer_clear</dt><dd><p>Clears payload buffer.</p>
+</dd>
+<dt>payload_buffer_show</dt><dd><p>Shows the payload buffer content.</p>
+</dd>
+<dt>payload_buffer_show_hex</dt><dd><p>Shows the payload buffer content presented as hex.</p>
+</dd>
+<dt>payload_buffer_show_tlv</dt><dd><p>Shows the payload buffer content presented as tlv.</p>
+</dd>
 </dl>
 <p>Let’s see an example. After reading an object instance (with some human readable format, e.g. <em>JSON</em>):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Lwm2mCmd] port: 9000, client: 127.0.0.1:47748 $ read /1/1 APPLICATION_LWM2M_JSON
@@ -600,7 +567,7 @@ TLV (9 elements):
 </div>
 </div>
 <div class="section" id="checking-errors">
-<h4>7.1.2.4.3. Checking errors<a class="headerlink" href="#checking-errors" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.4.3. </span>Checking errors<a class="headerlink" href="#checking-errors" title="Permalink to this headline">¶</a></h4>
 <p>When something was wrong with your last command Nsh will return an error.
 It might be helpful to get some more details and for this purpose you can
 use <strong>get_error</strong> command. To see how it works, let’s try the following <strong>read</strong>:</p>
@@ -648,53 +615,51 @@ ValueError: could not send Lwm2mRead (not a valid CoAP path: 0/3)
 </div>
 </div>
 <div class="section" id="dealing-with-connections">
-<h3>7.1.2.5. Dealing with connections<a class="headerlink" href="#dealing-with-connections" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.5. </span>Dealing with connections<a class="headerlink" href="#dealing-with-connections" title="Permalink to this headline">¶</a></h3>
 <p>To this point we always used the same setting of the client and the server, with the server port
 given as a command line parameter. This approach is sufficient for most of cases, but Nsh supports
 three commands for modyfing the connection in runtime:</p>
-<dl class="docutils">
-<dt>connect <code class="docutils literal notranslate"><span class="pre">HOST</span></code> <code class="docutils literal notranslate"><span class="pre">PORT</span></code></dt>
-<dd>Connects the socket to given <code class="docutils literal notranslate"><span class="pre">HOST:PORT</span></code>. Future packets will be sent to this address.</dd>
-<dt>listen <code class="docutils literal notranslate"><span class="pre">PORT</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code> <code class="docutils literal notranslate"><span class="pre">CA_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CA_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">CRT_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">KEY_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">IPV6</span></code> <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> <code class="docutils literal notranslate"><span class="pre">CONNECTION_ID</span></code></dt>
-<dd>Starts listening on given <code class="docutils literal notranslate"><span class="pre">PORT</span></code>. If any of <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code>, <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code>, <code class="docutils literal notranslate"><span class="pre">CA_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">CA_FILE</span></code>, <code class="docutils literal notranslate"><span class="pre">CRT_FILE</span></code> or <code class="docutils literal notranslate"><span class="pre">KEY_FILE</span></code> are specified, sets up a DTLS server, otherwise - raw CoAP server.</dd>
-<dt>unconnect</dt>
-<dd>“Unconnects” the socket from an already accepted client. The idea is that then the server will be able to receive packets from different (host, port), which may be useful for testing purposes.</dd>
+<dl class="simple">
+<dt>connect <code class="docutils literal notranslate"><span class="pre">HOST</span></code> <code class="docutils literal notranslate"><span class="pre">PORT</span></code></dt><dd><p>Connects the socket to given <code class="docutils literal notranslate"><span class="pre">HOST:PORT</span></code>. Future packets will be sent to this address.</p>
+</dd>
+<dt>listen <code class="docutils literal notranslate"><span class="pre">PORT</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code> <code class="docutils literal notranslate"><span class="pre">CA_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CA_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">CRT_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">KEY_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">IPV6</span></code> <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> <code class="docutils literal notranslate"><span class="pre">CONNECTION_ID</span></code></dt><dd><p>Starts listening on given <code class="docutils literal notranslate"><span class="pre">PORT</span></code>. If any of <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code>, <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code>, <code class="docutils literal notranslate"><span class="pre">CA_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">CA_FILE</span></code>, <code class="docutils literal notranslate"><span class="pre">CRT_FILE</span></code> or <code class="docutils literal notranslate"><span class="pre">KEY_FILE</span></code> are specified, sets up a DTLS server, otherwise - raw CoAP server.</p>
+</dd>
+<dt>unconnect</dt><dd><p>“Unconnects” the socket from an already accepted client. The idea is that then the server will be able to receive packets from different (host, port), which may be useful for testing purposes.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="testing">
-<h3>7.1.2.6. Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.6. </span>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
 <p>We can use Nsh for running list of commands from a file, working as a kind of a primitive test case.
 There are two commands which can be especially helpful in such situation:</p>
-<dl class="docutils">
-<dt>expect <code class="docutils literal notranslate"><span class="pre">MSG_CODE</span></code></dt>
-<dd><p class="first">Makes the shell compare next received packet against the one configured
+<dl>
+<dt>expect <code class="docutils literal notranslate"><span class="pre">MSG_CODE</span></code></dt><dd><p>Makes the shell compare next received packet against the one configured
 via this command and print a message if a mismatch is detected.</p>
 <p><code class="docutils literal notranslate"><span class="pre">MSG_CODE</span></code> can be:</p>
 <ul class="simple">
-<li>a string with Python code that evalutes to a correct message,</li>
-<li>None, if no messages are expected,</li>
-<li>ANY to disable checking (default).</li>
+<li><p>a string with Python code that evalutes to a correct message,</p></li>
+<li><p>None, if no messages are expected,</p></li>
+<li><p>ANY to disable checking (default).</p></li>
 </ul>
-<p class="last">Note: after receiving each message the “expected” value is set to ANY.</p>
+<p>Note: after receiving each message the “expected” value is set to ANY.</p>
 </dd>
-<dt>sleep <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code></dt>
-<dd>Blocks for <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code> seconds. Might be helpful when we want to be sure that the client have enough
-time to make some action.</dd>
+<dt>sleep <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code></dt><dd><p>Blocks for <code class="docutils literal notranslate"><span class="pre">TIMEOUT_S</span></code> seconds. Might be helpful when we want to be sure that the client have enough
+time to make some action.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="different-kinds-of-servers">
-<h3>7.1.2.7. Different kinds of servers<a class="headerlink" href="#different-kinds-of-servers" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.7. </span>Different kinds of servers<a class="headerlink" href="#different-kinds-of-servers" title="Permalink to this headline">¶</a></h3>
 <p>Besides a casual LwM2M server, Nsh can also serve in two different ways:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>as a bootstrap LwM2M server,</li>
-<li>for serving files over CoAP.</li>
+<li><p>as a bootstrap LwM2M server,</p></li>
+<li><p>for serving files over CoAP.</p></li>
 </ol>
 </div></blockquote>
 <p>They are implemented with the following commands (respectively):</p>
-<dl class="docutils">
-<dt>bootstrap <code class="docutils literal notranslate"><span class="pre">URI</span></code> <code class="docutils literal notranslate"><span class="pre">SECURITY_MODE</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code> <code class="docutils literal notranslate"><span class="pre">CLIENT_CERT_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CLIENT_PRIVATE_KEY_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">SERVER_CERT_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">SSID</span></code> <code class="docutils literal notranslate"><span class="pre">IS_BOOTSTRAP</span></code> <code class="docutils literal notranslate"><span class="pre">LIFETIME</span></code> <code class="docutils literal notranslate"><span class="pre">NOTIFICATION_STORING</span></code> <code class="docutils literal notranslate"><span class="pre">BINDING</span></code> <code class="docutils literal notranslate"><span class="pre">IID</span></code> <code class="docutils literal notranslate"><span class="pre">FINISH</span></code> <code class="docutils literal notranslate"><span class="pre">TLS_CIPHERSUITES</span></code></dt>
-<dd><p class="first">Sets up a Security and Server instances for an LwM2M server.</p>
+<dl>
+<dt>bootstrap <code class="docutils literal notranslate"><span class="pre">URI</span></code> <code class="docutils literal notranslate"><span class="pre">SECURITY_MODE</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code> <code class="docutils literal notranslate"><span class="pre">CLIENT_CERT_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CLIENT_PRIVATE_KEY_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">SERVER_CERT_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">SSID</span></code> <code class="docutils literal notranslate"><span class="pre">IS_BOOTSTRAP</span></code> <code class="docutils literal notranslate"><span class="pre">LIFETIME</span></code> <code class="docutils literal notranslate"><span class="pre">NOTIFICATION_STORING</span></code> <code class="docutils literal notranslate"><span class="pre">BINDING</span></code> <code class="docutils literal notranslate"><span class="pre">IID</span></code> <code class="docutils literal notranslate"><span class="pre">FINISH</span></code> <code class="docutils literal notranslate"><span class="pre">TLS_CIPHERSUITES</span></code></dt><dd><p>Sets up a Security and Server instances for an LwM2M server.</p>
 <p>In case of PreSharedKey security mode, <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code> and <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code>
 are literal plain text sequences to be used as DTLS identity and secret key.</p>
 <p>In case of Certificate security mode, <code class="docutils literal notranslate"><span class="pre">CLIENT_CERT_PATH</span></code> and
@@ -705,15 +670,15 @@ PKCS#8 file, which MUST NOT be password-protected.</p>
 configured. <code class="docutils literal notranslate"><span class="pre">LIFETIME</span></code>, <code class="docutils literal notranslate"><span class="pre">NOTIFICATION_STORING</span></code> and <code class="docutils literal notranslate"><span class="pre">BINDING</span></code> are ignored
 in such case. <code class="docutils literal notranslate"><span class="pre">SSID</span></code> is still set for the Security instance.</p>
 <p>Both Security and Server object instances are created with given <code class="docutils literal notranslate"><span class="pre">IID</span></code>.</p>
-<p class="last">If <code class="docutils literal notranslate"><span class="pre">FINISH</span></code> is set to True, a <em>Bootstap Finish</em> message will be sent
+<p>If <code class="docutils literal notranslate"><span class="pre">FINISH</span></code> is set to True, a <em>Bootstap Finish</em> message will be sent
 after setting up Security/Server instances.</p>
 </dd>
-<dt>file_server <code class="docutils literal notranslate"><span class="pre">ROOT_DIRECTORY</span></code> <code class="docutils literal notranslate"><span class="pre">PORT</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code> <code class="docutils literal notranslate"><span class="pre">CA_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CA_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">CRT_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">KEY_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">IPV6</span></code> <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></dt>
-<dd>Serves files from <code class="docutils literal notranslate"><span class="pre">ROOT_DIRECTORY</span></code> over CoAP(s).</dd>
+<dt>file_server <code class="docutils literal notranslate"><span class="pre">ROOT_DIRECTORY</span></code> <code class="docutils literal notranslate"><span class="pre">PORT</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_IDENTITY</span></code> <code class="docutils literal notranslate"><span class="pre">PSK_KEY</span></code> <code class="docutils literal notranslate"><span class="pre">CA_PATH</span></code> <code class="docutils literal notranslate"><span class="pre">CA_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">CRT_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">KEY_FILE</span></code> <code class="docutils literal notranslate"><span class="pre">IPV6</span></code> <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></dt><dd><p>Serves files from <code class="docutils literal notranslate"><span class="pre">ROOT_DIRECTORY</span></code> over CoAP(s).</p>
+</dd>
 </dl>
 <p>As they are the most complex commands, we provide examples for both of them:</p>
 <div class="section" id="bootstrapping">
-<h4>7.1.2.7.1. Bootstrapping<a class="headerlink" href="#bootstrapping" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.7.1. </span>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Permalink to this headline">¶</a></h4>
 <p>To show how we can use Nsh for bootstrapping, we set up the bootstrap server:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./bootstrap/framework/nsh-lwm2m/nsh_lwm2m.py -l 9000
 </pre></div>
@@ -744,7 +709,7 @@ ode=PreSharedKey psk_identity=user psk_key=password
 two Writes to set the Server and Security objects and Bootstrap Finish in the end.</p>
 </div>
 <div class="section" id="serving-files-over-coap">
-<h4>7.1.2.7.2. Serving files over CoAP<a class="headerlink" href="#serving-files-over-coap" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">7.1.2.7.2. </span>Serving files over CoAP<a class="headerlink" href="#serving-files-over-coap" title="Permalink to this headline">¶</a></h4>
 <p>To see how we can use Nsh for serving files, first start it without arguments:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./bootstrap/framework/nsh-lwm2m/nsh_lwm2m.py
 </pre></div>
@@ -769,21 +734,20 @@ directory, it will just copy one of the files (in this case, we download Makefil
 </div>
 </div>
 <div class="section" id="miscellaneous">
-<h3>7.1.2.8. Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2.8. </span>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
 <p>There are a few commands, rather simple, which does not fit in any previous category:</p>
-<dl class="docutils">
-<dt>exit</dt>
-<dd>Terminates the command loop. Equivalent to <code class="docutils literal notranslate"><span class="pre">Ctrl+D</span></code>.</dd>
-<dt>help</dt>
-<dd>Displays a description of given command or lists all available commands.</dd>
-<dt>set <code class="docutils literal notranslate"><span class="pre">AUTO_UPDATE</span></code> <code class="docutils literal notranslate"><span class="pre">AUTO_REREGISTER</span></code> <code class="docutils literal notranslate"><span class="pre">AUTO_ACK</span></code></dt>
-<dd><p class="first">Sets in which situation server sends a message to a client automatically:</p>
+<dl>
+<dt>exit</dt><dd><p>Terminates the command loop. Equivalent to <code class="docutils literal notranslate"><span class="pre">Ctrl+D</span></code>.</p>
+</dd>
+<dt>help</dt><dd><p>Displays a description of given command or lists all available commands.</p>
+</dd>
+<dt>set <code class="docutils literal notranslate"><span class="pre">AUTO_UPDATE</span></code> <code class="docutils literal notranslate"><span class="pre">AUTO_REREGISTER</span></code> <code class="docutils literal notranslate"><span class="pre">AUTO_ACK</span></code></dt><dd><p>Sets in which situation server sends a message to a client automatically:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">AUTO_UPDATE</span></code> - when LwM2M Update is received from the client,</li>
-<li><code class="docutils literal notranslate"><span class="pre">AUTO_REREGISTER</span></code> - when LwM2M Register is received from the client,</li>
-<li><code class="docutils literal notranslate"><span class="pre">AUTO_ACK</span></code> - after any confirmable message from the client.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTO_UPDATE</span></code> - when LwM2M Update is received from the client,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTO_REREGISTER</span></code> - when LwM2M Register is received from the client,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTO_ACK</span></code> - after any confirmable message from the client.</p></li>
 </ul>
-<p class="last">If some of the options are absent, their state remains unchanged.</p>
+<p>If some of the options are absent, their state remains unchanged.</p>
 </dd>
 </dl>
 </div>
@@ -810,11 +774,11 @@ directory, it will just copy one of the files (in this case, we download Makefil
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -825,7 +789,6 @@ directory, it will just copy one of the files (in this case, we download Makefil
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

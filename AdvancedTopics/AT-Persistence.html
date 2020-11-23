@@ -1,39 +1,37 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5.7. Persistence support &mdash; Anjay 2.7.0 documentation</title>
+  <title>5.7. Persistence support &mdash; Anjay 2.8.0 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5.8. Retransmissions, timeouts &amp; response caching" href="AT-RetransmissionsTimeoutsCaching.html" />
@@ -47,13 +45,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.7.0
+                2.8.0
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -111,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -149,18 +152,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../AdvancedTopics.html">5. Advanced topics</a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
         
-      <li>5.7. Persistence support</li>
+      <li><span class="section-number">5.7. </span>Persistence support</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/AdvancedTopics/AT-Persistence.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -173,16 +174,16 @@
            <div itemprop="articleBody">
             
   <div class="section" id="persistence-support">
-<h1>5.7. Persistence support<a class="headerlink" href="#persistence-support" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.7. </span>Persistence support<a class="headerlink" href="#persistence-support" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="anjay-s-persistence-in-general">
-<h2>5.7.1. Anjay’s persistence in general<a class="headerlink" href="#anjay-s-persistence-in-general" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.7.1. </span>Anjay’s persistence in general<a class="headerlink" href="#anjay-s-persistence-in-general" title="Permalink to this headline">¶</a></h2>
 <p>Anjay supports persistence of data to <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> generic <cite>stream</cite>
 (<code class="docutils literal notranslate"><span class="pre">avs_stream_t</span></code>). Underlying implementation of a stream may
 abstract any kind of storage access. <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> itself provides:</p>
 <ul class="simple">
-<li>file streams,</li>
-<li>network streams,</li>
-<li>memory buffered streams.</li>
+<li><p>file streams,</p></li>
+<li><p>network streams,</p></li>
+<li><p>memory buffered streams.</p></li>
 </ul>
 <p>Any of them can be used with Anjay’s persistence API. Additionally, one
 can easily adapt other types of storages to be used by persistence API,
@@ -192,53 +193,53 @@ which makes persisted chunk of information on arbitrary architecture
 (having arbitrary endianness) easily restorable on any other architecture.</p>
 </div>
 <div class="section" id="persistence-of-preimplemented-objects-modules">
-<h2>5.7.2. Persistence of preimplemented objects/modules<a class="headerlink" href="#persistence-of-preimplemented-objects-modules" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.7.2. </span>Persistence of preimplemented objects/modules<a class="headerlink" href="#persistence-of-preimplemented-objects-modules" title="Permalink to this headline">¶</a></h2>
 <p>Anjay’s preimplemented objects (Security, Server, Access Control) and Attribute
 storage module all support persistence, for which the following functions can be
 used:</p>
 <ul>
-<li><p class="first">Security Object:</p>
+<li><p>Security Object:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">anjay_security_object_persist()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">anjay_security_object_restore()</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_security_object_persist()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_security_object_restore()</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Server Object:</p>
+<li><p>Server Object:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">anjay_server_object_persist()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">anjay_server_object_restore()</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_server_object_persist()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_server_object_restore()</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Access Control Object:</p>
+<li><p>Access Control Object:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">anjay_access_control_persist()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">anjay_access_control_restore()</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_access_control_persist()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_access_control_restore()</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Attribute storage:</p>
+<li><p>Attribute storage:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_persist()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_restore()</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_persist()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_restore()</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">All of the mentioned objects have complicated semantics, which is why you
+<p class="admonition-title">Note</p>
+<p>All of the mentioned objects have complicated semantics, which is why you
 should refer to their <a class="reference external" href="../api/index.html">documentation</a> for more details
 on how persistence functions behave under different conditions.</p>
 </div>
 </div>
 <div class="section" id="example">
-<h2>5.7.3. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.7.3. </span>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>As an example we’ll modify the code from the <a class="reference internal" href="../BasicClient/BC3.html"><span class="doc">Event loop</span></a> tutorial.
 We would like to persist Object data when the LwM2M Client finishes its work and
 restore it on startup (if a valid persistence file exists).</p>
@@ -331,13 +332,13 @@ restore it on startup (if a valid persistence file exists).</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Persisting as well as restoring functions MUST be both called in the same
+<p class="admonition-title">Note</p>
+<p>Persisting as well as restoring functions MUST be both called in the same
 order because objects’ data is being stored sequentially.</p>
 </div>
 </div>
 <div class="section" id="persistence-api">
-<h2>5.7.4. Persistence API<a class="headerlink" href="#persistence-api" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.7.4. </span>Persistence API<a class="headerlink" href="#persistence-api" title="Permalink to this headline">¶</a></h2>
 <p>Please refer to the <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_persistence.h">documentation of the `avs_persistence component</a>.</p>
 </div>
 </div>
@@ -362,11 +363,11 @@ order because objects’ data is being stored sequentially.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -377,7 +378,6 @@ order because objects’ data is being stored sequentially.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

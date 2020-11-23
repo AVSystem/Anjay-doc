@@ -1,39 +1,37 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.2. Migrating from Anjay 2.2.5 &mdash; Anjay 2.7.0 documentation</title>
+  <title>9.2. Migrating from Anjay 2.2.5 &mdash; Anjay 2.8.0 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="9.3. Migrating mbed TLS custom entropy initializers" href="MigratingCustomEntropy.html" />
@@ -47,13 +45,16 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
           
 
           
-            <a href="../index.html" class="icon icon-home"> Anjay
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -61,7 +62,7 @@
             
             
               <div class="version">
-                2.7.0
+                2.8.0
               </div>
             
           
@@ -78,6 +79,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,6 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="MigratingCustomEntropy.html">9.3. Migrating mbed TLS custom entropy initializers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay24.html">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay26.html">9.5. Migrating from Anjay 2.5.x or 2.6.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay27.html">9.6. Migrating from Anjay 2.7.x</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
@@ -108,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -146,18 +150,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../Migrating.html">9. Migrating from older versions</a> &raquo;</li>
+          <li><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
         
-      <li>9.2. Migrating from Anjay 2.2.5</li>
+      <li><span class="section-number">9.2. </span>Migrating from Anjay 2.2.5</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/Migrating/MigratingFromAnjay225.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -170,54 +172,57 @@
            <div itemprop="articleBody">
             
   <div class="section" id="migrating-from-anjay-2-2-5">
-<h1>9.2. Migrating from Anjay 2.2.5<a class="headerlink" href="#migrating-from-anjay-2-2-5" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">9.2. </span>Migrating from Anjay 2.2.5<a class="headerlink" href="#migrating-from-anjay-2-2-5" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
-<li><a class="reference internal" href="#changes-in-anjay-proper" id="id4">Changes in Anjay proper</a><ul>
-<li><a class="reference internal" href="#removal-of-ssize-t-usages-from-anjay-apis" id="id5">Removal of ssize_t usages from Anjay APIs</a></li>
-<li><a class="reference internal" href="#other-changes" id="id6">Other changes</a></li>
+<li><p><a class="reference internal" href="#introduction" id="id3">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-anjay-proper" id="id4">Changes in Anjay proper</a></p>
+<ul>
+<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-anjay-apis" id="id5">Removal of ssize_t usages from Anjay APIs</a></p></li>
+<li><p><a class="reference internal" href="#other-changes" id="id6">Other changes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#changes-in-avs-coap" id="id7">Changes in avs_coap</a></li>
-<li><a class="reference internal" href="#changes-in-avs-commons" id="id8">Changes in avs_commons</a><ul>
-<li><a class="reference internal" href="#avs-commons-header-rename" id="id9">avs_commons header rename</a></li>
-<li><a class="reference internal" href="#changes-to-avs-net-socket-api" id="id10">Changes to avs_net socket API</a></li>
-<li><a class="reference internal" href="#removal-of-ssize-t-usages-from-avs-commons-apis" id="id11">Removal of ssize_t usages from avs_commons APIs</a></li>
-<li><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id12">Move of public-key cryptography APIs from avs_net to avs_crypto</a></li>
-<li><a class="reference internal" href="#changes-to-public-configuration-macros" id="id13">Changes to public configuration macros</a></li>
-<li><a class="reference internal" href="#changes-in-component-dependencies" id="id14">Changes in component dependencies</a></li>
-<li><a class="reference internal" href="#removal-of-the-legacy-coap-component" id="id15">Removal of the legacy CoAP component</a></li>
+<li><p><a class="reference internal" href="#changes-in-avs-coap" id="id7">Changes in avs_coap</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id8">Changes in avs_commons</a></p>
+<ul>
+<li><p><a class="reference internal" href="#avs-commons-header-rename" id="id9">avs_commons header rename</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-avs-net-socket-api" id="id10">Changes to avs_net socket API</a></p></li>
+<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-avs-commons-apis" id="id11">Removal of ssize_t usages from avs_commons APIs</a></p></li>
+<li><p><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id12">Move of public-key cryptography APIs from avs_net to avs_crypto</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-public-configuration-macros" id="id13">Changes to public configuration macros</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-avs-net-validate-ip-address" id="id14">Refactor of avs_net_validate_ip_address()</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-component-dependencies" id="id15">Changes in component dependencies</a></p></li>
+<li><p><a class="reference internal" href="#removal-of-the-legacy-coap-component" id="id16">Removal of the legacy CoAP component</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id3">9.2.1. Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3"><span class="section-number">9.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Anjay 2.3 is a minor upgrade in terms of feature set, so no major changes in
 code flow are required when porting from Anjay 2.2. However, there has been a
 significant refactor in project structure, so some changes may be breaking for
 some users.</p>
 </div>
 <div class="section" id="changes-in-anjay-proper">
-<h2><a class="toc-backref" href="#id4">9.2.2. Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4"><span class="section-number">9.2.2. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="removal-of-ssize-t-usages-from-anjay-apis">
-<h3><a class="toc-backref" href="#id5">9.2.2.1. Removal of ssize_t usages from Anjay APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-anjay-apis" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5"><span class="section-number">9.2.2.1. </span>Removal of ssize_t usages from Anjay APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-anjay-apis" title="Permalink to this headline">¶</a></h3>
 <p>Most changes in Anjay proper relate to the removal of usages of the
 POSIX-specific <code class="docutils literal notranslate"><span class="pre">size_t</span></code> type in Anjay and all related projects. See also
 <a class="reference internal" href="#ssize-t-removal-in-commons-225"><span class="std std-ref">Removal of ssize_t usages from avs_commons APIs</span></a>.</p>
 <p>Here is a summary of the relevant API changes:</p>
 <ul>
-<li><p class="first"><strong>Execute argument value getter</strong></p>
+<li><p><strong>Execute argument value getter</strong></p>
 <ul>
-<li><p class="first"><strong>Old API:</strong></p>
+<li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">anjay_execute_get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
                                     <span class="kt">char</span> <span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
                                     <span class="kt">size_t</span> <span class="n">buf_size</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New API:</strong></p>
+<li><p><strong>New API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="kt">int</span> <span class="nf">anjay_execute_get_arg_value</span><span class="p">(</span><span class="n">anjay_execute_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
 </span><span class="hll">                                 <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_read</span><span class="p">,</span>
 </span>                                 <span class="kt">char</span> <span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
@@ -225,7 +230,7 @@ POSIX-specific <code class="docutils literal notranslate"><span class="pre">size
 </pre></div>
 </div>
 </li>
-<li><p class="first">Return value semantics have been aligned with those of
+<li><p>Return value semantics have been aligned with those of
 <code class="docutils literal notranslate"><span class="pre">anjay_get_string()</span></code> - 0 is returned for success, negative value for
 error, or <code class="docutils literal notranslate"><span class="pre">ANJAY_BUFFER_TOO_SHORT</span></code> (1) if the buffer was too small.</p>
 <p>Length of the extracted data, which is equivalent to the old return value
@@ -237,35 +242,34 @@ it can also be <code class="docutils literal notranslate"><span class="pre">NULL
 </ul>
 </div>
 <div class="section" id="other-changes">
-<h3><a class="toc-backref" href="#id6">9.2.2.2. Other changes</a><a class="headerlink" href="#other-changes" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6"><span class="section-number">9.2.2.2. </span>Other changes</a><a class="headerlink" href="#other-changes" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">Declaration of <code class="docutils literal notranslate"><span class="pre">anjay_smsdrv_cleanup()</span></code> (only relevant for the commercial
-version) has been moved from <code class="docutils literal notranslate"><span class="pre">anjay/core.h</span></code> to <code class="docutils literal notranslate"><span class="pre">anjay/sms.h</span></code>.</p>
-</li>
-<li><p class="first">The following compile-time constants have been removed. None of them have been
+<li><p>Declaration of <code class="docutils literal notranslate"><span class="pre">anjay_smsdrv_cleanup()</span></code> (only relevant for the commercial
+version) has been moved from <code class="docutils literal notranslate"><span class="pre">anjay/core.h</span></code> to <code class="docutils literal notranslate"><span class="pre">anjay/sms.h</span></code>.</p></li>
+<li><p>The following compile-time constants have been removed. None of them have been
 actually used in Anjay 2.x:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">MAX_FLOAT_STRING_SIZE</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">MAX_OBSERVABLE_RESOURCE_SIZE</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">WITH_ATTR_STORAGE</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MAX_FLOAT_STRING_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MAX_OBSERVABLE_RESOURCE_SIZE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WITH_ATTR_STORAGE</span></code></p></li>
 </ul>
 </li>
-<li><p class="first"><strong>Getter function for retrieving security information from data model</strong></p>
+<li><p><strong>Getter function for retrieving security information from data model</strong></p>
 <ul>
-<li><p class="first"><strong>Old API:</strong></p>
+<li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                                        <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">uri</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New API:</strong></p>
+<li><p><strong>New API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                   <span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="n">out_config</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">raw_url</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">The security configuration is now returned through an output argument with
+<li><p>The security configuration is now returned through an output argument with
 any necessary internal buffers cached inside the Anjay object instead of
 using heap allocation. Please refer to the Doxygen-based documenation of
 this function for details.</p>
@@ -278,21 +282,20 @@ provided.</p>
 </div>
 </div>
 <div class="section" id="changes-in-avs-coap">
-<h2><a class="toc-backref" href="#id7">9.2.3. Changes in avs_coap</a><a class="headerlink" href="#changes-in-avs-coap" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7"><span class="section-number">9.2.3. </span>Changes in avs_coap</a><a class="headerlink" href="#changes-in-avs-coap" title="Permalink to this headline">¶</a></h2>
 <p>If you are using <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> APIs directly (e.g. when communicating over raw
 CoAP protocol), please note that following breaking changes in the <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code>
 component:</p>
 <ul>
-<li><p class="first">In line with Anjay and <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>, to improve file name uniqueness, the
+<li><p>In line with Anjay and <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>, to improve file name uniqueness, the
 <code class="docutils literal notranslate"><span class="pre">avsystem/coap/config.h</span></code> file has been renamed to
-<code class="docutils literal notranslate"><span class="pre">avsystem/coap/avs_coap_config.h</span></code>.</p>
-</li>
-<li><p class="first">Moreover, context creation functions now take an explicit PRNG context
+<code class="docutils literal notranslate"><span class="pre">avsystem/coap/avs_coap_config.h</span></code>.</p></li>
+<li><p>Moreover, context creation functions now take an explicit PRNG context
 argument:</p>
 <ul>
-<li><p class="first"><strong>UDP context creation</strong></p>
+<li><p><strong>UDP context creation</strong></p>
 <ul>
-<li><p class="first"><strong>Old API:</strong></p>
+<li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_coap_ctx_t</span> <span class="o">*</span>
 <span class="nf">avs_coap_udp_ctx_create</span><span class="p">(</span><span class="n">avs_sched_t</span> <span class="o">*</span><span class="n">sched</span><span class="p">,</span>
                         <span class="k">const</span> <span class="n">avs_coap_udp_tx_params_t</span> <span class="o">*</span><span class="n">udp_tx_params</span><span class="p">,</span>
@@ -302,7 +305,7 @@ argument:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New API:</strong></p>
+<li><p><strong>New API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span>  <span class="n">avs_coap_ctx_t</span> <span class="o">*</span>
   <span class="nf">avs_coap_udp_ctx_create</span><span class="p">(</span><span class="n">avs_sched_t</span> <span class="o">*</span><span class="n">sched</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">avs_coap_udp_tx_params_t</span> <span class="o">*</span><span class="n">udp_tx_params</span><span class="p">,</span>
@@ -319,242 +322,241 @@ argument:</p>
 </li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It is now <strong>mandatory</strong> to pass a non-NULL value as the <code class="docutils literal notranslate"><span class="pre">prng_ctx</span></code>
+<p class="admonition-title">Note</p>
+<p>It is now <strong>mandatory</strong> to pass a non-NULL value as the <code class="docutils literal notranslate"><span class="pre">prng_ctx</span></code>
 argument to the functions above.</p>
 </div>
 </div>
 <div class="section" id="changes-in-avs-commons">
-<h2><a class="toc-backref" href="#id8">9.2.4. Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8"><span class="section-number">9.2.4. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 contains a number of breaking changes compared to version
 4.0 used by Anjay 2.2. If you are using any of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> APIs directly
 (which is especially likely for e.g. the logging API and querying sockets in the
 event loop), you will need to adjust your code.</p>
 <div class="section" id="avs-commons-header-rename">
-<h3><a class="toc-backref" href="#id9">9.2.4.1. avs_commons header rename</a><a class="headerlink" href="#avs-commons-header-rename" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9"><span class="section-number">9.2.4.1. </span>avs_commons header rename</a><a class="headerlink" href="#avs-commons-header-rename" title="Permalink to this headline">¶</a></h3>
 <p>All headers of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> component have been renamed to make their
 names more unique. Please adjust your <code class="docutils literal notranslate"><span class="pre">#include</span></code> directives accordingly.</p>
 <p>The general rename patterns are:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">avsystem/commons/*.h</span></code> → <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_*.h</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/*.h</span></code>, <code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_*.h</span></code> →
-<code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_*.h</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/*.h</span></code> → <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_*.h</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/*.h</span></code> → <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_*.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/*.h</span></code>, <code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_*.h</span></code> →
+<code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_*.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/*.h</span></code> → <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_*.h</span></code></p></li>
 </ul>
 <p>Below is a detailed list of all renamed files:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="48%" />
-<col width="52%" />
+<col style="width: 48%" />
+<col style="width: 52%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Old header file</th>
-<th class="head">New header file</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Old header file</p></th>
+<th class="head"><p>New header file</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/addrinfo.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_addrinfo.h</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/addrinfo.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_addrinfo.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/aead.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_aead.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/aead.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_aead.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/base64.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_base64.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/base64.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_base64.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/buffer.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_buffer.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/buffer.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_buffer.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/cleanup.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_cleanup.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/cleanup.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_cleanup.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/condvar.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_condvar.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/condvar.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_condvar.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/defs.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_defs.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/defs.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_defs.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/errno.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_errno.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/errno.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_errno.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/errno_map.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_errno_map.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/errno_map.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_errno_map.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/hkdf.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_hkdf.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/hkdf.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_hkdf.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/http.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_http.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/http.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_http.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/init_once.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_init_once.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/init_once.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_init_once.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/list.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_list.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/list.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_list.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/log.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_log.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/log.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_log.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/memory.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_memory.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/memory.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_memory.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/mutex.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_mutex.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/mutex.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_mutex.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/net.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/net.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/persistence.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_persistence.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/persistence.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_persistence.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/rbtree.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_rbtree.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/rbtree.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_rbtree.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/sched.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_sched.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/sched.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_sched.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/shared_buffer.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_shared_buffer.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/shared_buffer.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_shared_buffer.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code></td>
-<td><div class="first last line-block">
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code></p></td>
+<td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code></div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code> <a class="footnote-reference" href="#pki" id="id1">[1]</a></div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code> <a class="footnote-reference" href="#pki" id="id2">[1]</a></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code> <a class="footnote-reference brackets" href="#pki" id="id1">1</a></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code> <a class="footnote-reference brackets" href="#pki" id="id2">1</a></div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket_v_table.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket_v_table.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket_v_table.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket_v_table.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_buffered.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_buffered.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_buffered.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_buffered.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_file.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_file.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_file.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_file.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_inbuf.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_inbuf.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_inbuf.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_inbuf.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/md5.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_md5.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/md5.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_md5.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_membuf.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_membuf.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_membuf.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_membuf.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_net.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_net.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_net.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_net.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/netbuf.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_netbuf.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/netbuf.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_netbuf.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_outbuf.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_outbuf.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_outbuf.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_outbuf.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_simple_io.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_simple_io.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream/stream_simple_io.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_simple_io.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream_v_table.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_v_table.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/stream_v_table.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_stream_v_table.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/time.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_time.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/time.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_time.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/memstream.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_memstream.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/memstream.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_memstream.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/mock_helpers.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_mock_helpers.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/mock_helpers.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_mock_helpers.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/mocksock.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_mocksock.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/mocksock.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_mocksock.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/test.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_test.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/unit/test.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_unit_test.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/url.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_url.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/url.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_url.h</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/utils.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_utils.h</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/utils.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_utils.h</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/vector.h</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_vector.h</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/vector.h</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_vector.h</span></code></p></td>
 </tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="pki" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Some symbols related to public-key cryptography have been refactored
+<dl class="footnote brackets">
+<dt class="label" id="pki"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Some symbols related to public-key cryptography have been refactored
 by moving from <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code> to
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>, with additional renames. Old
 names are available for compatibility via
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_net_pki_compat.h</span></code>. For details, see
-<a class="reference internal" href="#avs-commons-pki-move-225"><span class="std std-ref">Move of public-key cryptography APIs from avs_net to avs_crypto</span></a>.</td></tr>
-</tbody>
-</table>
+<a class="reference internal" href="#avs-commons-pki-move-225"><span class="std std-ref">Move of public-key cryptography APIs from avs_net to avs_crypto</span></a>.</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="changes-to-avs-net-socket-api">
-<h3><a class="toc-backref" href="#id10">9.2.4.2. Changes to avs_net socket API</a><a class="headerlink" href="#changes-to-avs-net-socket-api" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10"><span class="section-number">9.2.4.2. </span>Changes to avs_net socket API</a><a class="headerlink" href="#changes-to-avs-net-socket-api" title="Permalink to this headline">¶</a></h3>
 <p>Below is a reference of changes made to the <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> socket API:</p>
-<table border="1" class="colwidths-given docutils">
+<table class="colwidths-given docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="25%" />
-<col width="50%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Old identifiers</th>
-<th class="head">New identifiers</th>
-<th class="head">Notes</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Old identifiers</p></th>
+<th class="head"><p>New identifiers</p></th>
+<th class="head"><p>Notes</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><div class="first last line-block">
+<tbody>
+<tr class="row-even"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_socket_create()</span></code></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_udp_socket_create()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_tcp_socket_create()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_dtls_socket_create()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_ssl_socket_create()</span></code></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line">The <code class="docutils literal notranslate"><span class="pre">avs_net_socket_type_t</span></code> enum is no longer used for socket
 creation. Separate functions are used instead, allowing for type-safe
 passing of the configuration structures.</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_socket_decorate_in_place()</span></code></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_dtls_socket_decorate_in_place()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_ssl_socket_decorate_in_place()</span></code></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line">This change is analogous to the one above.</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="line-block">
 <div class="line"><em>implicit</em></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">prng_ctx</span></code> field in <code class="docutils literal notranslate"><span class="pre">avs_net_ssl_configuration_t</span></code></div>
 </div>
 </td>
-<td><div class="first last line-block">
+<td><div class="line-block">
 <div class="line"><strong>Note:</strong> It is now <strong>mandatory</strong> to fill this field when instantiating
 a (D)TLS socket.</div>
 </div>
@@ -563,8 +565,8 @@ a (D)TLS socket.</div>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">With the introduction of the <code class="docutils literal notranslate"><span class="pre">prng_ctx</span></code> field in
+<p class="admonition-title">Note</p>
+<p>With the introduction of the <code class="docutils literal notranslate"><span class="pre">prng_ctx</span></code> field in
 <code class="docutils literal notranslate"><span class="pre">avs_net_ssl_configuration_t</span></code>, the
 <code class="docutils literal notranslate"><span class="pre">WITH_MBEDTLS_CUSTOM_ENTROPY_INITIALIZER</span></code> compile-time option and the
 option to use a user-provided <code class="docutils literal notranslate"><span class="pre">avs_net_mbedtls_entropy_init()</span></code> function
@@ -574,15 +576,15 @@ See <a class="reference internal" href="MigratingCustomEntropy.html"><span class
 </div>
 </div>
 <div class="section" id="removal-of-ssize-t-usages-from-avs-commons-apis">
-<span id="ssize-t-removal-in-commons-225"></span><h3><a class="toc-backref" href="#id11">9.2.4.3. Removal of ssize_t usages from avs_commons APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-avs-commons-apis" title="Permalink to this headline">¶</a></h3>
+<span id="ssize-t-removal-in-commons-225"></span><h3><a class="toc-backref" href="#id11"><span class="section-number">9.2.4.3. </span>Removal of ssize_t usages from avs_commons APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-avs-commons-apis" title="Permalink to this headline">¶</a></h3>
 <p>All usages of the POSIX-specific <code class="docutils literal notranslate"><span class="pre">ssize_t</span></code> type in public APIs have been
 removed. Instead of replacing it with some other signed integer type, additional
 out-arguments have been introduced to functions that used it.</p>
 <p>Below is a reference of related changes:</p>
 <ul>
-<li><p class="first"><strong>Base64 decode</strong></p>
+<li><p><strong>Base64 decode</strong></p>
 <ul>
-<li><p class="first"><strong>Old APIs:</strong></p>
+<li><p><strong>Old APIs:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">avs_base64_decode_custom</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span>
                                  <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span>
@@ -600,7 +602,7 @@ out-arguments have been introduced to functions that used it.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New APIs:</strong></p>
+<li><p><strong>New APIs:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="kt">int</span> <span class="nf">avs_base64_decode_custom</span><span class="p">(</span><span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_decoded</span><span class="p">,</span>
 </span>                              <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span>
                               <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span>
@@ -625,9 +627,9 @@ out-arguments have been introduced to functions that used it.</p>
 </li>
 </ul>
 </li>
-<li><p class="first"><strong>Hexlify</strong></p>
+<li><p><strong>Hexlify</strong></p>
 <ul>
-<li><p class="first"><strong>Old API:</strong></p>
+<li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">avs_hexlify</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">out_hex</span><span class="p">,</span>
                     <span class="kt">size_t</span> <span class="n">out_size</span><span class="p">,</span>
                     <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span>
@@ -635,7 +637,7 @@ out-arguments have been introduced to functions that used it.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New API:</strong></p>
+<li><p><strong>New API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="kt">int</span> <span class="nf">avs_hexlify</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">out_hex</span><span class="p">,</span>
 </span>                 <span class="kt">size_t</span> <span class="n">out_size</span><span class="p">,</span>
 <span class="hll">                 <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_hexlified</span><span class="p">,</span>
@@ -646,9 +648,9 @@ out-arguments have been introduced to functions that used it.</p>
 </li>
 </ul>
 </li>
-<li><p class="first"><strong>Unhexlify</strong></p>
+<li><p><strong>Unhexlify</strong></p>
 <ul>
-<li><p class="first"><strong>Old API:</strong></p>
+<li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">avs_unhexlify</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="n">output</span><span class="p">,</span>
                       <span class="kt">size_t</span> <span class="n">out_size</span><span class="p">,</span>
                       <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span>
@@ -656,7 +658,7 @@ out-arguments have been introduced to functions that used it.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>New API:</strong></p>
+<li><p><strong>New API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"> <span class="kt">int</span> <span class="nf">avs_unhexlify</span><span class="p">(</span><span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_written</span><span class="p">,</span>
 </span>                   <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">output</span><span class="p">,</span>
                    <span class="kt">size_t</span> <span class="n">out_size</span><span class="p">,</span>
@@ -669,78 +671,78 @@ out-arguments have been introduced to functions that used it.</p>
 </li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>The new functions return 0 in all cases in which the old versions returned
 non-negative values. The value previously returned through the non-negative
 return value can be retrieved using the additional out-arguments, which have
 the same semantics. <code class="docutils literal notranslate"><span class="pre">NULL</span></code> can be passed to those out-arguments as well if
 that value is not needed.</p>
-<p class="last">The seemingly irregular placement of the new out-argument in
+<p>The seemingly irregular placement of the new out-argument in
 <code class="docutils literal notranslate"><span class="pre">avs_hexlify()</span></code> is due to the fact that the semantics of that value is
 related to the <code class="docutils literal notranslate"><span class="pre">input</span></code> argument (hence it directly precedes it), not to
 the output buffer as is the case with the rest of these functions.</p>
 </div>
 </div>
 <div class="section" id="move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto">
-<span id="avs-commons-pki-move-225"></span><h3><a class="toc-backref" href="#id12">9.2.4.4. Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h3>
+<span id="avs-commons-pki-move-225"></span><h3><a class="toc-backref" href="#id12"><span class="section-number">9.2.4.4. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h3>
 <p>Public key cryptography APIs, previously defined in
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code>, have been moved into a new header called
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>.</p>
 <p>Additionally, client-side and server-side certificate info structures are no
 longer separate, and both have been merged into a single type.</p>
 <p>Here is a summary of renames:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="47%" />
-<col width="53%" />
+<col style="width: 47%" />
+<col style="width: 53%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Old symbol name</th>
-<th class="head">New symbol name</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Old symbol name</p></th>
+<th class="head"><p>New symbol name</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><div class="first last line-block">
+<tbody>
+<tr class="row-even"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_t</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_t</span></code></div>
 </div>
 </td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_t</span></code></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_t</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_t</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_t</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_t</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_union_t</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_union_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_buffer()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_buffer()</span></code></div>
 </div>
 </td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_buffer()</span></code></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_buffer()</span></code></p></td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_file()</span></code></div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">avs_net_client_cert_info_from_file()</span></code></div>
 </div>
 </td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_file()</span></code></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_file()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_buffer()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_buffer()</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_buffer()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_buffer()</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_file()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_file()</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_client_key_info_from_file()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_private_key_info_from_file()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_path()</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_path()</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">avs_net_trusted_cert_info_from_path()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avs_crypto_certificate_chain_info_from_path()</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="changes-to-public-configuration-macros">
-<h3><a class="toc-backref" href="#id13">9.2.4.5. Changes to public configuration macros</a><a class="headerlink" href="#changes-to-public-configuration-macros" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13"><span class="section-number">9.2.4.5. </span>Changes to public configuration macros</a><a class="headerlink" href="#changes-to-public-configuration-macros" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 introduces a new header file,
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_commons_config.h</span></code>, that encapsulates all its
 compile-time configuration, allowing compiling the library without the use of
@@ -751,73 +753,90 @@ previously <code class="docutils literal notranslate"><span class="pre">#define<
 better namespace separation.</p>
 <p>If your code checks for these macros using <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code> etc., it will need
 adjustments.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="61%" />
-<col width="39%" />
+<col style="width: 61%" />
+<col style="width: 39%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Old macro name</th>
-<th class="head">New macro name</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Old macro name</p></th>
+<th class="head"><p>New macro name</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">WITH_IPV4</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_IPV4</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_IPV4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_IPV4</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">WITH_IPV6</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_IPV6</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_IPV6</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_IPV6</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PKI</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PKI</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">WITH_AVS_MICRO_LOGS</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_MICRO_LOGS</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WITH_AVS_MICRO_LOGS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_MICRO_LOGS</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">HAVE_NET_IF_H</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_HAVE_NET_IF_H</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HAVE_NET_IF_H</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_HAVE_NET_IF_H</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">AVS_SSIZE_T_DEFINED</span></code></td>
-<td><em>removed completely</em></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_SSIZE_T_DEFINED</span></code></p></td>
+<td><p><em>removed completely</em></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">HAVE_SYS_TYPES_H</span></code></td>
-<td><em>removed completely</em></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HAVE_SYS_TYPES_H</span></code></p></td>
+<td><p><em>removed completely</em></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_MBEDTLS_CUSTOM_ENTROPY_INITIALIZER</span></code></td>
-<td><em>removed completely</em></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_MBEDTLS_CUSTOM_ENTROPY_INITIALIZER</span></code></p></td>
+<td><p><em>removed completely</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">In the case of <code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code>, the corresponding CMake variable has also been
+<p class="admonition-title">Important</p>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code>, the corresponding CMake variable has also been
 renamed to <code class="docutils literal notranslate"><span class="pre">WITH_PKI</span></code>. The old name is still recognized, but deprecated.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Aside from the one variable mentioned above, and those removed completely,
+<p class="admonition-title">Note</p>
+<p>Aside from the one variable mentioned above, and those removed completely,
 the CMake variable names have not changed - the renames affect <strong>only</strong> the
 C preprocessor.</p>
 </div>
 </div>
+<div class="section" id="refactor-of-avs-net-validate-ip-address">
+<h3><a class="toc-backref" href="#id14"><span class="section-number">9.2.4.6. </span>Refactor of avs_net_validate_ip_address()</a><a class="headerlink" href="#refactor-of-avs-net-validate-ip-address" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">avs_net_validate_ip_address()</span></code> is now no longer used by Anjay or
+<code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. It was previously necessary to implement it as part of the
+socket implementation. This is no longer required, and in fact, keeping that
+implementation might lead to problems - for compatibility, the function has been
+reimplemented as a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
+<code class="docutils literal notranslate"><span class="pre">avs_net_addrinfo_*()</span></code> APIs.</p>
+</div>
 <div class="section" id="changes-in-component-dependencies">
-<h3><a class="toc-backref" href="#id14">9.2.4.6. Changes in component dependencies</a><a class="headerlink" href="#changes-in-component-dependencies" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15"><span class="section-number">9.2.4.7. </span>Changes in component dependencies</a><a class="headerlink" href="#changes-in-component-dependencies" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">avs_net</span></code> now depends on <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code><ul>
-<li><code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> itself was previously only used for advanced features, only
-used by the OSCORE component in the commercial version of Anjay.</li>
-<li>In the new version, <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> also contains an abstraction over
-cryptographically-safe PRNGs.</li>
-<li>The functionality that comprised the “old” <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> is now controlled
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_net</span></code> now depends on <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> itself was previously only used for advanced features, only
+used by the OSCORE component in the commercial version of Anjay.</p></li>
+<li><p>In the new version, <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> also contains an abstraction over
+cryptographically-safe PRNGs.</p></li>
+<li><p>The functionality that comprised the “old” <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> is now controlled
 by the <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_ADVANCED_FEATURES</span></code> compile-time
-option.</li>
+option.</p></li>
 </ul>
 </li>
-<li><code class="docutils literal notranslate"><span class="pre">avs_vector</span></code> is no longer compiled by default when building Anjay</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_vector</span></code> is no longer compiled by default when building Anjay</p></li>
+<li><p>URL handling routines, previously a part of <code class="docutils literal notranslate"><span class="pre">avs_net</span></code>, are now a separate
+component called <code class="docutils literal notranslate"><span class="pre">avs_url</span></code></p>
+<ul>
+<li><p>You may need to add <code class="docutils literal notranslate"><span class="pre">-lavs_url</span></code> to your link command if you’re not using
+CMake to handle dependencies between your project and Anjay</p></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section" id="removal-of-the-legacy-coap-component">
-<h3><a class="toc-backref" href="#id15">9.2.4.7. Removal of the legacy CoAP component</a><a class="headerlink" href="#removal-of-the-legacy-coap-component" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16"><span class="section-number">9.2.4.8. </span>Removal of the legacy CoAP component</a><a class="headerlink" href="#removal-of-the-legacy-coap-component" title="Permalink to this headline">¶</a></h3>
 <p>While the new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> has been used as the CoAP implementation in all
 versions of Anjay 2.x, the old CoAP component of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> remained in the
 repository in the 4.0 branch of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>.</p>
@@ -825,8 +844,8 @@ repository in the 4.0 branch of <code class="docutils literal notranslate"><span
 raw CoAP APIs of that component, you will need to migrate to either the new
 <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> library or an entirely different CoAP implementation.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> library has a higher-level API, designed to abstract
+<p class="admonition-title">Note</p>
+<p>The new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> library has a higher-level API, designed to abstract
 away the differences between e.g. UDP and TCP transports. Some of the
 functionality of the legacy library, especially that related to parsing,
 serializing, sending and receiving raw, isolated messages (as opposed to
@@ -857,11 +876,11 @@ this reason.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2017-2020, AVSystem
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
@@ -872,7 +891,6 @@ this reason.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
