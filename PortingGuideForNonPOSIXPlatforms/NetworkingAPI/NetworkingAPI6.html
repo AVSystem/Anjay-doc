@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>8.3.1.6. IP address stickiness support &mdash; Anjay 2.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8.3.1.7. Other features" href="NetworkingAPI7.html" />
+    <link rel="prev" title="8.3.1.5. Statistics support" href="NetworkingAPI5.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../TimeAPI.html">8.1. Time API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThreadingAPI.html">8.2. Threading API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../NetworkingAPI.html">8.3. Networking API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI1.html">8.3.1.1. Minimal socket implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI2.html">8.3.1.2. Get remote host/port operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI3.html">8.3.1.3. Bind operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI4.html">8.3.1.4. Remote hostname and shutdown operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI5.html">8.3.1.5. Statistics support</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">8.3.1.6. IP address stickiness support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI7.html">8.3.1.7. Other features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+        
+          <li><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a> &raquo;</li>
+        
+      <li><span class="section-number">8.3.1.6. </span>IP address stickiness support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ip-address-stickiness-support">
+<h1><span class="section-number">8.3.1.6. </span>IP address stickiness support<a class="headerlink" href="#ip-address-stickiness-support" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id2">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#theory-of-operation" id="id3">Theory of operation</a></p></li>
+<li><p><a class="reference internal" href="#initialization" id="id4">Initialization</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-the-connect-function" id="id5">Changes to the connect function</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id6">avs_net_resolved_endpoint_get_host_port()</a></p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Code related to this tutorial can be found under
+<a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-network/ip-stickiness">examples/custom-network/ip-stickiness</a>
+in the Anjay source directory.</p>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.6.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI5.html"><span class="doc">the previous one</span></a> and adds
+support for IP address stickiness, i.e. makes it possible for Anjay to guarantee
+that the same IP address will be used for connecting to a server configured
+using a DNS hostname each time, regardless of the order of entries in DNS
+response.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This tutorial expects Anjay to be configured differently than the previous
+ones. <code class="docutils literal notranslate"><span class="pre">WITHOUT_IP_STICKINESS</span></code> should be set to <code class="docutils literal notranslate"><span class="pre">OFF</span></code> (default) this
+time. Otherwise the added code will not be used.</p>
+</div>
+<p>For the IP stickiness feature to work, the <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_socket.h#L157">preferred_endpoint</a>
+field of <code class="docutils literal notranslate"><span class="pre">avs_net_socket_configuration_t</span></code> must be supported. Additionally,
+<a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_addrinfo.h#L172">avs_net_resolved_endpoint_get_host_port()</a>
+also has to be implemented.</p>
+</div>
+<div class="section" id="theory-of-operation">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.6.2. </span>Theory of operation</a><a class="headerlink" href="#theory-of-operation" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_socket.h#L56">avs_net_resolved_endpoint_t</a>
+type has been introduced so that resolved addresses (e.g. the
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">sockaddr</span></code> family can be shared outside of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> without the
+need to depend on platform-specific types in public API.</p>
+<p>Any data up to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_RAW_RESOLVED_ENDPOINT_MAX_SIZE</span></code> (128 bytes) in
+size can be stored in that structure. There is also the <code class="docutils literal notranslate"><span class="pre">size</span></code> field that can
+be used to preserve the size information.</p>
+<p>In our example, we will always store an instance of the <a class="reference internal" href="NetworkingAPI2.html#non-posix-networking-api-get-remote-host"><span class="std std-ref">sockaddr_union_t</span></a>, and we will always store
+<code class="docutils literal notranslate"><span class="pre">sizeof(sockaddr_union_t)</span></code> in the <code class="docutils literal notranslate"><span class="pre">size</span></code> field. However, your implementation
+is free to use these fields in whatever way you feel is appropriate.</p>
+<p>This type is primarily used in the <code class="docutils literal notranslate"><span class="pre">avs_net_addrinfo_resolve()</span></code> family of
+functions, which is basically a portable version of the <code class="docutils literal notranslate"><span class="pre">getaddrinfo()</span></code> API.
+However, this API is not used by Anjay. However, the type may also be used for
+storage of the preferred endpoint by the <a class="reference internal" href="NetworkingAPI1.html#non-posix-networking-api-connect"><span class="std std-ref">Connect</span></a>
+function.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">avs_net_resolved_endpoint_get_host_port()</span></code> function is used to convert a
+resolved address into stringified form that is the primary form of passing host
+addresses in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. In Anjay, it is actually used only to determine
+the family (IPv4 vs. IPv6) of the stored address.</p>
+</div>
+<div class="section" id="initialization">
+<h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.6.3. </span>Initialization</a><a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">avs_net_socket_v_table_t</span> <span class="o">*</span><span class="n">operations</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">socktype</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+    <span class="n">avs_time_duration_t</span> <span class="n">recv_timeout</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">remote_hostname</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+    <span class="kt">bool</span> <span class="n">shut_down</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">bytes_sent</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">bytes_received</span><span class="p">;</span>
+<span class="hll">    <span class="n">avs_net_resolved_endpoint_t</span> <span class="o">*</span><span class="n">preferred_endpoint</span><span class="p">;</span>
+</span><span class="p">}</span> <span class="n">net_socket_impl_t</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">static</span> <span class="n">avs_error_t</span>
+<span class="nf">net_create_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">**</span><span class="n">socket_ptr</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">avs_net_socket_configuration_t</span> <span class="o">*</span><span class="n">configuration</span><span class="p">,</span>
+                  <span class="kt">int</span> <span class="n">socktype</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="o">!*</span><span class="n">socket_ptr</span><span class="p">);</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">configuration</span><span class="p">;</span>
+    <span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="n">socket</span> <span class="o">=</span>
+            <span class="p">(</span><span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">net_socket_impl_t</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">socket</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">operations</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">NET_SOCKET_VTABLE</span><span class="p">;</span>
+    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">socktype</span> <span class="o">=</span> <span class="n">socktype</span><span class="p">;</span>
+    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">recv_timeout</span> <span class="o">=</span> <span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">);</span>
+<span class="hll">    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span><span class="p">;</span>
+</span>    <span class="o">*</span><span class="n">socket_ptr</span> <span class="o">=</span> <span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">socket</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">preferred_endpoint</span></code> field is intended as a pointer into user-allocated
+storage, so we just store that pointer at creation time.</p>
+</div>
+<div class="section" id="changes-to-the-connect-function">
+<h2><a class="toc-backref" href="#id5"><span class="section-number">8.3.1.6.4. </span>Changes to the connect function</a><a class="headerlink" href="#changes-to-the-connect-function" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In addition to the highlighted changes, the original <code class="docutils literal notranslate"><span class="pre">addr</span></code> variable has
+been renamed to <code class="docutils literal notranslate"><span class="pre">addrs</span></code>. This change has not been highlighted for clarity.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">avs_error_t</span>
+<span class="nf">net_connect</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="n">sock_</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">host</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">port</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="n">sock</span> <span class="o">=</span> <span class="p">(</span><span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">sock_</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">addrinfo</span> <span class="n">hints</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">ai_socktype</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">socktype</span>
+    <span class="p">};</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">getsockopt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DOMAIN</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="p">,</span>
+                   <span class="o">&amp;</span><span class="p">(</span><span class="kt">socklen_t</span><span class="p">)</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="p">)</span> <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">struct</span> <span class="n">addrinfo</span> <span class="o">*</span><span class="n">addrs</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">avs_error_t</span> <span class="n">err</span> <span class="o">=</span> <span class="n">AVS_OK</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addrs</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">addrs</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EADDRNOTAVAIL</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span>
+               <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">addrs</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span> <span class="n">addrs</span><span class="o">-&gt;</span><span class="n">ai_socktype</span><span class="p">,</span>
+                                     <span class="n">addrs</span><span class="o">-&gt;</span><span class="n">ai_protocol</span><span class="p">))</span>
+                          <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_UNKNOWN_ERROR</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="hll">        <span class="k">const</span> <span class="k">struct</span> <span class="n">addrinfo</span> <span class="o">*</span><span class="n">addr</span> <span class="o">=</span> <span class="n">addrs</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span>
+</span><span class="hll">                <span class="o">&amp;&amp;</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sockaddr_union_t</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">            <span class="k">while</span> <span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">                <span class="k">if</span> <span class="p">(</span><span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span> <span class="o">&lt;=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sockaddr_union_t</span><span class="p">)</span>
+</span><span class="hll">                        <span class="o">&amp;&amp;</span> <span class="n">memcmp</span><span class="p">(</span><span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span>
+</span><span class="hll">                                  <span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">.</span><span class="n">buf</span><span class="p">,</span>
+</span><span class="hll">                                  <span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">)</span>
+</span><span class="hll">                                       <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">                    <span class="k">break</span><span class="p">;</span>
+</span><span class="hll">                <span class="p">}</span>
+</span><span class="hll">                <span class="n">addr</span> <span class="o">=</span> <span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_next</span><span class="p">;</span>
+</span><span class="hll">            <span class="p">}</span>
+</span><span class="hll">        <span class="p">}</span>
+</span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">addr</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">            <span class="c1">// Preferred endpoint not found, use the first one</span>
+</span><span class="hll">            <span class="n">addr</span> <span class="o">=</span> <span class="n">addrs</span><span class="p">;</span>
+</span><span class="hll">        <span class="p">}</span>
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">connect</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span> <span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">err</span> <span class="o">=</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ECONNREFUSED</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span> <span class="o">&amp;&amp;</span> <span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">            <span class="n">assert</span><span class="p">(</span><span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span> <span class="o">&lt;=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sockaddr_union_t</span><span class="p">));</span>
+</span><span class="hll">            <span class="n">memcpy</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">.</span><span class="n">buf</span><span class="p">,</span> <span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span>
+</span><span class="hll">                   <span class="n">addr</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">);</span>
+</span><span class="hll">            <span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sockaddr_union_t</span><span class="p">);</span>
+</span><span class="hll">        <span class="p">}</span>
+</span>    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">sock</span><span class="o">-&gt;</span><span class="n">shut_down</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">snprintf</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">remote_hostname</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">remote_hostname</span><span class="p">),</span> <span class="s">&quot;%s&quot;</span><span class="p">,</span>
+                 <span class="n">host</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">freeaddrinfo</span><span class="p">(</span><span class="n">addrs</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">err</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the code before the <code class="docutils literal notranslate"><span class="pre">connect()</span></code> call, if the <code class="docutils literal notranslate"><span class="pre">preferred_endpoint</span></code> pointer
+is set and filled with valid data, we iterate over all the entries in the list
+returned by <code class="docutils literal notranslate"><span class="pre">getaddrinfo()</span></code>, and check if any of them matches. If so, that
+entry will be passed to the <code class="docutils literal notranslate"><span class="pre">connect()</span></code> function. If not, the first entry will
+be used.</p>
+<p>After a successful <code class="docutils literal notranslate"><span class="pre">connect()</span></code> call, the selected address is stored into the
+<code class="docutils literal notranslate"><span class="pre">preferred_endpoint</span></code> structure.</p>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id6"><span class="section-number">8.3.1.6.5. </span>avs_net_resolved_endpoint_get_host_port()</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span>
+<span class="nf">avs_net_resolved_endpoint_get_host_port</span><span class="p">(</span><span class="k">const</span> <span class="n">avs_net_resolved_endpoint_t</span> <span class="o">*</span><span class="n">endp</span><span class="p">,</span>
+                                        <span class="kt">char</span> <span class="o">*</span><span class="n">host</span><span class="p">,</span>
+                                        <span class="kt">size_t</span> <span class="n">hostlen</span><span class="p">,</span>
+                                        <span class="kt">char</span> <span class="o">*</span><span class="n">serv</span><span class="p">,</span>
+                                        <span class="kt">size_t</span> <span class="n">servlen</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">AVS_STATIC_ASSERT</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">endp</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">.</span><span class="n">buf</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sockaddr_union_t</span><span class="p">),</span>
+                      <span class="n">data_buffer_big_enough</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">endp</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">!=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sockaddr_union_t</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EINVAL</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">const</span> <span class="n">sockaddr_union_t</span> <span class="o">*</span><span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">sockaddr_union_t</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">endp</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">.</span><span class="n">buf</span><span class="p">;</span>
+    <span class="n">avs_error_t</span> <span class="n">err</span> <span class="o">=</span> <span class="n">AVS_OK</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">((</span><span class="n">host</span>
+             <span class="o">&amp;&amp;</span> <span class="n">avs_is_err</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">err</span> <span class="o">=</span> <span class="n">stringify_sockaddr_host</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">hostlen</span><span class="p">))))</span>
+            <span class="o">||</span> <span class="p">(</span><span class="n">serv</span>
+                <span class="o">&amp;&amp;</span> <span class="n">avs_is_err</span><span class="p">((</span><span class="n">err</span> <span class="o">=</span> <span class="n">stringify_sockaddr_port</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">serv</span><span class="p">,</span>
+                                                             <span class="n">servlen</span><span class="p">)))));</span>
+    <span class="k">return</span> <span class="n">err</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since in our implementation <code class="docutils literal notranslate"><span class="pre">avs_net_resolved_endpoint_t</span></code> is just a wrapper
+around <code class="docutils literal notranslate"><span class="pre">sockaddr_union_t</span></code>, we can use the <a class="reference internal" href="NetworkingAPI2.html"><span class="doc">previously introduced</span></a> <code class="docutils literal notranslate"><span class="pre">stringify_sockaddr_host()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">stringify_sockaddr_port()</span></code> functions.</p>
+<p>Please note however, that either of the <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">serv</span></code> arguments may be
+<code class="docutils literal notranslate"><span class="pre">NULL</span></code>, in which case this function shall only fill the non-NULL arguments.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="NetworkingAPI7.html" class="btn btn-neutral float-right" title="8.3.1.7. Other features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="NetworkingAPI5.html" class="btn btn-neutral float-left" title="8.3.1.5. Statistics support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2017-2021, AVSystem
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

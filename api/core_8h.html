@@ -1294,7 +1294,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <p>Puts all the transports specified by <code>transport_set</code> into offline mode. This should be done when the connectivity for these transports is deemed unavailable or lost.</p>
 <p>During subsequent calls to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>, Anjay will close all of the sockets corresponding to the specified transport and stop attempting to make any contact with remote hosts over it, until a call to <a class="el" href="core_8h.html#a729710b680f3d11a569b1a0a9617ff83">anjay_transport_exit_offline</a> for any of the corresponding transports.</p>
 <p>Note that offline mode also affects downloads. E.g., putting the TCP transport into offline mode will pause all ongoing downloads over TCP and prevent new such download requests from being performed.</p>
-<p>User code shall still interface normally with the library, even if all the transports are in the offline state. This include regular calls to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>. Notifications (as reported using <a class="el" href="dm_8h.html#a0d3faf342184356ea20b9028cf45051a">anjay_notify_changed</a> and anjay_notify_instance_changed) continue to be tracked, and may be sent after reconnecting, depending on values of the "Notification Storing When Disabled or Offline" resource.</p>
+<p>User code shall still interface normally with the library, even if all the transports are in the offline state. This include regular calls to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>. Notifications (as reported using <a class="el" href="dm_8h.html#a0d3faf342184356ea20b9028cf45051a">anjay_notify_changed</a> and <a class="el" href="dm_8h.html#a0487d4ec4a386915557f3a03a5c0cfbd">anjay_notify_instances_changed</a>) continue to be tracked, and may be sent after reconnecting, depending on values of the "Notification Storing When Disabled or Offline" resource.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
@@ -1530,7 +1530,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Mon Nov 23 2020 14:42:52 for anjay by
+    <li class="footer">Generated on Mon Jan 18 2021 14:59:24 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>
   </ul>

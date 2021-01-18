@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>7.1. LwM2M testing shell &mdash; Anjay 2.8.0 documentation</title>
+  <title>7.1. LwM2M testing shell &mdash; Anjay 2.9.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.8.0
+                2.9.0
               </div>
             
           
@@ -170,12 +170,12 @@
   <div class="section" id="lwm2m-testing-shell">
 <h1><span class="section-number">7.1. </span>LwM2M testing shell<a class="headerlink" href="#lwm2m-testing-shell" title="Permalink to this headline">¶</a></h1>
 <p>For the purpose of early testing of Anjay-based clients, we provide a simple CLI implementation of
-LwM2M that supports the UDP and TCP (although the TCP support is in a very early stage, and it may
-not be as stable as UDP) protocols. It is written in Python using <cite>powercmd</cite> library.
-You can find it in commercial version of Anjay in <cite>bootstrap/framework/nsh_lwm2m/</cite> directory.</p>
+LwM2M. It is written in Python using <cite>powercmd</cite> library. You can find it in
+<a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/tests/integration/framework/nsh-lwm2m">tests/integration/framework/nsh-lwm2m</a>
+directory in the Anjay repository.</p>
 <div class="section" id="running-the-server">
 <h2><span class="section-number">7.1.1. </span>Running the server<a class="headerlink" href="#running-the-server" title="Permalink to this headline">¶</a></h2>
-<p>You can start the server (from the main Anjay directory) by running <cite>./bootstrap/framework/nsh-lwm2m/nsh_lwm2m.py</cite>
+<p>You can start the server (from the main Anjay directory) by running <cite>./tests/integration/framework/nsh-lwm2m/nsh_lwm2m.py</cite>
 with the following optional arguments:</p>
 <dl class="option-list">
 <dt><kbd><span class="option">--help</span>, <span class="option">-h</span></kbd></dt>
@@ -188,7 +188,7 @@ with the following optional arguments:</p>
 <dd><p>Immediately starts listening on specified CoAP port. Default UDP, can be TCP if –tcp is passed. If <cite>PORT</cite> is not specified, default one is used (5683 for CoAP, 5684 for CoAP/(D)TLS)</p>
 </dd>
 <dt><kbd><span class="option">--tcp</span>, <span class="option">-t</span></kbd></dt>
-<dd><p>Listen on TCP port</p>
+<dd><p>Listen on TCP port <em>(only available in the commercial version)</em></p>
 </dd>
 <dt><kbd><span class="option">--psk-identity <var>IDENTITY</var></span>, <span class="option">-i <var>IDENTITY</var></span></kbd></dt>
 <dd><p>PSK identity to use for DTLS connection (literal string).</p>
@@ -303,8 +303,8 @@ Other commands common for the subshells are:</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="cbor-subshell">
-<h4><span class="section-number">7.1.2.2.2. </span>CBOR subshell<a class="headerlink" href="#cbor-subshell" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="cbor-subshell-commercial-version-only">
+<h4><span class="section-number">7.1.2.2.2. </span>CBOR subshell (commercial version only)<a class="headerlink" href="#cbor-subshell-commercial-version-only" title="Permalink to this headline">¶</a></h4>
 <p>This subshell is entered by <strong>cbor</strong> command. The only extra command supported is:</p>
 <dl class="simple">
 <dt>add_resource <code class="docutils literal notranslate"><span class="pre">BASENAME</span></code> <code class="docutils literal notranslate"><span class="pre">NAME</span></code> <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> <code class="docutils literal notranslate"><span class="pre">VALUE</span></code></dt><dd><p>Adds the next entry to the existing CBOR data. <code class="docutils literal notranslate"><span class="pre">BASENAME</span></code> argument is optional and it can contain the parent path. In <code class="docutils literal notranslate"><span class="pre">NAME</span></code>
@@ -775,7 +775,7 @@ directory, it will just copy one of the files (in this case, we download Makefil
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2017-2020, AVSystem
+        &copy; Copyright 2017-2021, AVSystem
 
     </p>
   </div> 

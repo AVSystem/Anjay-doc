@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.4. Migrating from Anjay 2.3.x or 2.4.x &mdash; Anjay 2.8.0 documentation</title>
+  <title>9.4. Migrating from Anjay 2.3.x or 2.4.x &mdash; Anjay 2.9.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.8.0
+                2.9.0
               </div>
             
           
@@ -103,6 +103,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay26.html">9.5. Migrating from Anjay 2.5.x or 2.6.x</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay27.html">9.6. Migrating from Anjay 2.7.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay28.html">9.7. Migrating from Anjay 2.8.x</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
@@ -176,42 +177,60 @@
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-anjay-proper" id="id2">Changes in Anjay proper</a></p>
+<li><p><a class="reference internal" href="#change-to-minimum-cmake-version" id="id2">Change to minimum CMake version</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-anjay-proper" id="id3">Changes in Anjay proper</a></p>
 <ul>
-<li><p><a class="reference internal" href="#change-of-security-configuration-lifetime" id="id3">Change of security configuration lifetime</a></p></li>
+<li><p><a class="reference internal" href="#change-of-security-configuration-lifetime" id="id4">Change of security configuration lifetime</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id4">Changes in avs_commons</a></p>
+<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id5">Changes in avs_commons</a></p>
 <ul>
-<li><p><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id5">Move of public-key cryptography APIs from avs_net to avs_crypto</a></p>
+<li><p><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id6">Move of public-key cryptography APIs from avs_net to avs_crypto</a></p>
 <ul>
-<li><p><a class="reference internal" href="#renamed-cmake-configuration-options" id="id6">Renamed CMake configuration options</a></p></li>
-<li><p><a class="reference internal" href="#renamed-configuration-macros-in-avs-commons-config-h" id="id7">Renamed configuration macros in avs_commons_config.h</a></p></li>
-<li><p><a class="reference internal" href="#compatibility-features" id="id8">Compatibility features</a></p></li>
+<li><p><a class="reference internal" href="#renamed-cmake-configuration-options" id="id7">Renamed CMake configuration options</a></p></li>
+<li><p><a class="reference internal" href="#renamed-configuration-macros-in-avs-commons-config-h" id="id8">Renamed configuration macros in avs_commons_config.h</a></p></li>
+<li><p><a class="reference internal" href="#compatibility-features" id="id9">Compatibility features</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#separation-of-avs-url-module" id="id9">Separation of avs_url module</a></p></li>
-<li><p><a class="reference internal" href="#refactor-of-avs-net-validate-ip-address" id="id10">Refactor of avs_net_validate_ip_address()</a></p></li>
+<li><p><a class="reference internal" href="#separation-of-avs-url-module" id="id10">Separation of avs_url module</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host" id="id11">Refactor of avs_net_validate_ip_address() and avs_net_local_address_for_target_host()</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id1"><span class="section-number">9.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Anjay 2.5 through 2.8 are minor upgrades, but EST support in commercial version
-of Anjay 2.5 and changes in certificate-based security support in Anjay 2.7 and
-2.8 required significant redesign in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> cryptography support
-libraries. While backwards compatibility should be maintained in most practical
-usages, there are some changes which might prove to be breaking if public-key
-cryptography APIs of <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> have been used directly.</p>
+<p>While most changes since Anjay 2.4 are minor, things like EST support in
+commercial version of Anjay 2.5 and changes in certificate-based security
+support in Anjay 2.7 and 2.8 required significant redesign in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>
+cryptography support libraries. While backwards compatibility should be
+maintained in most practical usages, there are some changes which might prove to
+be breaking if public-key cryptography APIs of <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> have been used
+directly.</p>
 <p>Additional slight updates might be necessary if you are using any alternative
 build system instead of CMake to compile your project, of if you maintain your
 own implementation of the socket layer.</p>
 </div>
+<div class="section" id="change-to-minimum-cmake-version">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">9.4.2. </span>Change to minimum CMake version</a><a class="headerlink" href="#change-to-minimum-cmake-version" title="Permalink to this headline">¶</a></h2>
+<p>Declared minimum CMake version necessary for CMake-based compilation, as well as
+for importing the installed library through <code class="docutils literal notranslate"><span class="pre">find_package()</span></code>, is now 3.6. If
+you’re using some Linux distribution that only has an older version in its
+repositories (notably, Ubuntu 16.04), we recommend using one of the following
+install methods instead:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://apt.kitware.com/">Kitware APT Repository for Debian and Ubuntu</a></p></li>
+<li><p><a class="reference external" href="https://snapcraft.io/cmake">Snap Store</a> (<code class="docutils literal notranslate"><span class="pre">snap</span> <span class="pre">install</span> <span class="pre">cmake</span></code>)</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/cmake/">Python Package Index</a>
+(<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cmake</span></code>)</p></li>
+</ul>
+<p>This change does not affect users who compile the library using some alternative
+approach, without using the provided CMake scripts.</p>
+</div>
 <div class="section" id="changes-in-anjay-proper">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">9.4.2. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3"><span class="section-number">9.4.3. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="change-of-security-configuration-lifetime">
-<h3><a class="toc-backref" href="#id3"><span class="section-number">9.4.2.1. </span>Change of security configuration lifetime</a><a class="headerlink" href="#change-of-security-configuration-lifetime" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id4"><span class="section-number">9.4.3.1. </span>Change of security configuration lifetime</a><a class="headerlink" href="#change-of-security-configuration-lifetime" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><strong>Getter function for retrieving security information from data model</strong></p>
 <ul>
@@ -241,9 +260,9 @@ provided.</p>
 </div>
 </div>
 <div class="section" id="changes-in-avs-commons">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">9.4.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5"><span class="section-number">9.4.4. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto">
-<h3><a class="toc-backref" href="#id5"><span class="section-number">9.4.3.1. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6"><span class="section-number">9.4.4.1. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h3>
 <p>Public key cryptography APIs, previously defined in
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_socket.h</span></code>, have been moved into a new header called
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>.</p>
@@ -300,13 +319,13 @@ longer separate, and both have been merged into a single type.</p>
 </tbody>
 </table>
 <div class="section" id="renamed-cmake-configuration-options">
-<h4><a class="toc-backref" href="#id6"><span class="section-number">9.4.3.1.1. </span>Renamed CMake configuration options</a><a class="headerlink" href="#renamed-cmake-configuration-options" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id7"><span class="section-number">9.4.4.1.1. </span>Renamed CMake configuration options</a><a class="headerlink" href="#renamed-cmake-configuration-options" title="Permalink to this headline">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">WITH_X509</span></code> CMake configuration option is now deprecated; the new
 equivalent option is <code class="docutils literal notranslate"><span class="pre">WITH_PKI</span></code>. Please update CMake invocations in your
 configuration scripts.</p>
 </div>
 <div class="section" id="renamed-configuration-macros-in-avs-commons-config-h">
-<h4><a class="toc-backref" href="#id7"><span class="section-number">9.4.3.1.2. </span>Renamed configuration macros in avs_commons_config.h</a><a class="headerlink" href="#renamed-configuration-macros-in-avs-commons-config-h" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id8"><span class="section-number">9.4.4.1.2. </span>Renamed configuration macros in avs_commons_config.h</a><a class="headerlink" href="#renamed-configuration-macros-in-avs-commons-config-h" title="Permalink to this headline">¶</a></h4>
 <p>The following configuration macros in <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code> has been renamed.
 You may need to update your configuration files if you are not using CMake, or
 your preprocessor directives if you check these macros in your code:</p>
@@ -331,7 +350,7 @@ your preprocessor directives if you check these macros in your code:</p>
 </table>
 </div>
 <div class="section" id="compatibility-features">
-<h4><a class="toc-backref" href="#id8"><span class="section-number">9.4.3.1.3. </span>Compatibility features</a><a class="headerlink" href="#compatibility-features" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id9"><span class="section-number">9.4.4.1.3. </span>Compatibility features</a><a class="headerlink" href="#compatibility-features" title="Permalink to this headline">¶</a></h4>
 <p>Because the changes are minor, attempts to improve backwards compatibility have
 been taken, specifically:</p>
 <ul class="simple">
@@ -350,7 +369,7 @@ case.</p></li>
 </div>
 </div>
 <div class="section" id="separation-of-avs-url-module">
-<h3><a class="toc-backref" href="#id9"><span class="section-number">9.4.3.2. </span>Separation of avs_url module</a><a class="headerlink" href="#separation-of-avs-url-module" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10"><span class="section-number">9.4.4.2. </span>Separation of avs_url module</a><a class="headerlink" href="#separation-of-avs-url-module" title="Permalink to this headline">¶</a></h3>
 <p>URL handling routines, previously a part of <code class="docutils literal notranslate"><span class="pre">avs_net</span></code>, are now a separate
 component of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. The specific consequences of that may vary
 depending on your build process, e.g.:</p>
@@ -361,14 +380,22 @@ depending on your build process, e.g.:</p>
 <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> that has been manually compiled separately using CMake</p></li>
 </ul>
 </div>
-<div class="section" id="refactor-of-avs-net-validate-ip-address">
-<h3><a class="toc-backref" href="#id10"><span class="section-number">9.4.3.3. </span>Refactor of avs_net_validate_ip_address()</a><a class="headerlink" href="#refactor-of-avs-net-validate-ip-address" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host">
+<h3><a class="toc-backref" href="#id11"><span class="section-number">9.4.4.3. </span>Refactor of avs_net_validate_ip_address() and avs_net_local_address_for_target_host()</a><a class="headerlink" href="#refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_net_validate_ip_address()</span></code> is now no longer used by Anjay or
 <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. It was previously necessary to implement it as part of the
-socket implementation. This is no longer required, and in fact, keeping that
-implementation might lead to problems - for compatibility, the function has been
-reimplemented as a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
-<code class="docutils literal notranslate"><span class="pre">avs_net_addrinfo_*()</span></code> APIs.</p>
+socket implementation. This is no longer required. For compatibility, the
+function has been reimplemented as a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
+<code class="docutils literal notranslate"><span class="pre">avs_net_addrinfo_*()</span></code> APIs. Please remove your version of
+<code class="docutils literal notranslate"><span class="pre">avs_net_validate_ip_address()</span></code> from your socket implementation if you have
+one, as having two alternative variants may lead to conflicts.</p>
+<p>Since Anjay 2.9 and <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.6,
+<code class="docutils literal notranslate"><span class="pre">avs_net_local_address_for_target_host()</span></code> underwent a similar refactor. It was
+previously a function to be optionally implemented as part of the socket
+implementation, but now it is a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
+<code class="docutils literal notranslate"><span class="pre">avs_net_socket_*()</span></code> APIs. Please remove your version of
+<code class="docutils literal notranslate"><span class="pre">avs_net_local_address_for_target_host()</span></code> from your socket implementation if
+you have one, as having two alternative variants may lead to conflicts.</p>
 </div>
 </div>
 </div>
@@ -394,7 +421,7 @@ reimplemented as a <code class="docutils literal notranslate"><span class="pre">
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2017-2020, AVSystem
+        &copy; Copyright 2017-2021, AVSystem
 
     </p>
   </div> 

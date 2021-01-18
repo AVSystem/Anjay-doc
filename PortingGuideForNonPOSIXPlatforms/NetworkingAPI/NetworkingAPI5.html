@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>8.3.1.5. Statistics support &mdash; Anjay 2.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8.3.1.6. IP address stickiness support" href="NetworkingAPI6.html" />
+    <link rel="prev" title="8.3.1.4. Remote hostname and shutdown operations" href="NetworkingAPI4.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../TimeAPI.html">8.1. Time API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThreadingAPI.html">8.2. Threading API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../NetworkingAPI.html">8.3. Networking API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI1.html">8.3.1.1. Minimal socket implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI2.html">8.3.1.2. Get remote host/port operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI3.html">8.3.1.3. Bind operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI4.html">8.3.1.4. Remote hostname and shutdown operations</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">8.3.1.5. Statistics support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI6.html">8.3.1.6. IP address stickiness support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI7.html">8.3.1.7. Other features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+        
+          <li><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a> &raquo;</li>
+        
+      <li><span class="section-number">8.3.1.5. </span>Statistics support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="statistics-support">
+<h1><span class="section-number">8.3.1.5. </span>Statistics support<a class="headerlink" href="#statistics-support" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#additional-socket-state" id="id2">Additional socket state</a></p></li>
+<li><p><a class="reference internal" href="#updating-the-socket-state" id="id3">Updating the socket state</a></p></li>
+<li><p><a class="reference internal" href="#update-to-get-opt-implementation" id="id4">Update to get_opt implementation</a></p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Code related to this tutorial can be found under
+<a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-network/stats">examples/custom-network/stats</a>
+in the Anjay source directory.</p>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.5.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI4.html"><span class="doc">the previous one</span></a> and adds
+support for statistics in the “get options” operations.</p>
+<p>This will allow the <code class="docutils literal notranslate"><span class="pre">anjay_get_tx_bytes()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_get_rx_bytes()</span></code> APIs
+to work properly.</p>
+</div>
+<div class="section" id="additional-socket-state">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.5.2. </span>Additional socket state</a><a class="headerlink" href="#additional-socket-state" title="Permalink to this headline">¶</a></h2>
+<p>We need to store the number of bytes sent and received via the socket, so we add
+appropriate fields to the socket object:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">avs_net_socket_v_table_t</span> <span class="o">*</span><span class="n">operations</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">socktype</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+    <span class="n">avs_time_duration_t</span> <span class="n">recv_timeout</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">remote_hostname</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+    <span class="kt">bool</span> <span class="n">shut_down</span><span class="p">;</span>
+<span class="hll">    <span class="kt">size_t</span> <span class="n">bytes_sent</span><span class="p">;</span>
+</span><span class="hll">    <span class="kt">size_t</span> <span class="n">bytes_received</span><span class="p">;</span>
+</span><span class="p">}</span> <span class="n">net_socket_impl_t</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-the-socket-state">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.5.3. </span>Updating the socket state</a><a class="headerlink" href="#updating-the-socket-state" title="Permalink to this headline">¶</a></h2>
+<p>We can now update these counters in the send and receive operations:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">avs_error_t</span>
+<span class="nf">net_send</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="n">sock_</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">buffer_length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="n">sock</span> <span class="o">=</span> <span class="p">(</span><span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">sock_</span><span class="p">;</span>
+    <span class="kt">ssize_t</span> <span class="n">written</span> <span class="o">=</span> <span class="n">send</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">buffer_length</span><span class="p">,</span> <span class="n">MSG_NOSIGNAL</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">written</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="hll">        <span class="n">sock</span><span class="o">-&gt;</span><span class="n">bytes_sent</span> <span class="o">+=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">written</span><span class="p">;</span>
+</span>        <span class="k">if</span> <span class="p">((</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">written</span> <span class="o">==</span> <span class="n">buffer_length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EIO</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">avs_error_t</span> <span class="nf">net_receive</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="n">sock_</span><span class="p">,</span>
+                               <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_received</span><span class="p">,</span>
+                               <span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+                               <span class="kt">size_t</span> <span class="n">buffer_length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="n">sock</span> <span class="o">=</span> <span class="p">(</span><span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">sock_</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">pollfd</span> <span class="n">pfd</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">fd</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">POLLIN</span>
+    <span class="p">};</span>
+    <span class="kt">int64_t</span> <span class="n">timeout_ms</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">avs_time_duration_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timeout_ms</span><span class="p">,</span> <span class="n">AVS_TIME_MS</span><span class="p">,</span>
+                                    <span class="n">sock</span><span class="o">-&gt;</span><span class="n">recv_timeout</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">timeout_ms</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">timeout_ms</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">timeout_ms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">poll</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pfd</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">timeout_ms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ETIMEDOUT</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kt">ssize_t</span> <span class="n">bytes_received</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">buffer_length</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bytes_received</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EIO</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">out_bytes_received</span> <span class="o">=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">bytes_received</span><span class="p">;</span>
+<span class="hll">    <span class="n">sock</span><span class="o">-&gt;</span><span class="n">bytes_received</span> <span class="o">+=</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">bytes_received</span><span class="p">;</span>
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">buffer_length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">socktype</span> <span class="o">==</span> <span class="n">SOCK_DGRAM</span>
+            <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">bytes_received</span> <span class="o">==</span> <span class="n">buffer_length</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EMSGSIZE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-to-get-opt-implementation">
+<h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.5.4. </span>Update to get_opt implementation</a><a class="headerlink" href="#update-to-get-opt-implementation" title="Permalink to this headline">¶</a></h2>
+<p>We need to add implementations of the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_BYTES_SENT</span></code> and
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_BYTES_RECEIVED</span></code> options to <code class="docutils literal notranslate"><span class="pre">net_get_opt()</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">avs_error_t</span> <span class="nf">net_get_opt</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="n">sock_</span><span class="p">,</span>
+                               <span class="n">avs_net_socket_opt_key_t</span> <span class="n">option_key</span><span class="p">,</span>
+                               <span class="n">avs_net_socket_opt_value_t</span> <span class="o">*</span><span class="n">out_option_value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="n">sock</span> <span class="o">=</span> <span class="p">(</span><span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">sock_</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">option_key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span><span class="p">:</span>
+        <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">recv_timeout</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">recv_timeout</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">AVS_NET_SOCKET_OPT_STATE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">state</span> <span class="o">=</span> <span class="n">AVS_NET_SOCKET_STATE_CLOSED</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">shut_down</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">state</span> <span class="o">=</span> <span class="n">AVS_NET_SOCKET_STATE_SHUTDOWN</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">sockaddr_union_t</span> <span class="n">addr</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">getpeername</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addr</span><span class="p">.</span><span class="n">addr</span><span class="p">,</span>
+                             <span class="o">&amp;</span><span class="p">(</span><span class="kt">socklen_t</span><span class="p">)</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="p">})</span>
+                    <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="n">addr</span><span class="p">.</span><span class="n">in</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">==</span> <span class="n">AF_INET</span> <span class="o">&amp;&amp;</span> <span class="n">addr</span><span class="p">.</span><span class="n">in</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="o">||</span> <span class="p">(</span><span class="n">addr</span><span class="p">.</span><span class="n">in6</span><span class="p">.</span><span class="n">sin6_family</span> <span class="o">==</span> <span class="n">AF_INET6</span>
+                            <span class="o">&amp;&amp;</span> <span class="n">addr</span><span class="p">.</span><span class="n">in6</span><span class="p">.</span><span class="n">sin6_port</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)))</span> <span class="p">{</span>
+                <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">state</span> <span class="o">=</span> <span class="n">AVS_NET_SOCKET_STATE_CONNECTED</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">state</span> <span class="o">=</span> <span class="n">AVS_NET_SOCKET_STATE_BOUND</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span>
+        <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">mtu</span> <span class="o">=</span> <span class="mi">1464</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+<span class="hll">    <span class="k">case</span> <span class="nl">AVS_NET_SOCKET_OPT_BYTES_SENT</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">bytes_sent</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">bytes_sent</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">case</span> <span class="nl">AVS_NET_SOCKET_OPT_BYTES_RECEIVED</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">bytes_received</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">bytes_received</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
+</span>    <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="NetworkingAPI6.html" class="btn btn-neutral float-right" title="8.3.1.6. IP address stickiness support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="NetworkingAPI4.html" class="btn btn-neutral float-left" title="8.3.1.4. Remote hostname and shutdown operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2017-2021, AVSystem
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

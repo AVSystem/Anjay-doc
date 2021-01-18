@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>8. Porting guide for non-POSIX platforms &mdash; Anjay 2.8.0 documentation</title>
+  <title>8. Porting guide for non-POSIX platforms &mdash; Anjay 2.9.0 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="9. Migrating from older versions" href="Migrating.html" />
+    <link rel="next" title="8.1. Time API" href="PortingGuideForNonPOSIXPlatforms/TimeAPI.html" />
     <link rel="prev" title="7.2. Anjay Object stub generator" href="Tools/StubGenerator.html" /> 
 </head>
 
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.8.0
+                2.9.0
               </div>
             
           
@@ -95,7 +95,12 @@
 <li class="toctree-l1"><a class="reference internal" href="AdvancedTopics.html">5. Advanced topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tools.html">7. Tools</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Porting guide for non-POSIX platforms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/TimeAPI.html">8.1. Time API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/ThreadingAPI.html">8.2. Threading API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI.html">8.3. Networking API</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Migrating.html">9. Migrating from older versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Commercial_support.html">10. Commercial support</a></li>
 </ul>
@@ -166,196 +171,23 @@
 <p>By default, Anjay makes use of POSIX-specific interfaces for retrieving time
 and handling network traffic. If no such interfaces are provided by the
 toolchain, the user needs to provide custom implementations.</p>
-<div class="section" id="time-api">
-<h2><span class="section-number">8.1. </span>Time API<a class="headerlink" href="#time-api" title="Permalink to this headline">¶</a></h2>
-<p>If POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime</span></code> function is not available:</p>
-<ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_TIME=OFF</span></code> when running CMake on Anjay,</p></li>
-<li><p>Provide an implementation for:</p>
+<p>The articles below show additional information about the specific functions that
+need to be implemented.</p>
+<div class="toctree-wrapper compound">
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_time_real_now</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now</span></code></p></li>
+<li class="toctree-l1"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/TimeAPI.html">8.1. Time API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/ThreadingAPI.html">8.2. Threading API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI.html">8.3. Networking API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI/NetworkingAPI1.html">8.3.1.1. Minimal socket implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI/NetworkingAPI2.html">8.3.1.2. Get remote host/port operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI/NetworkingAPI3.html">8.3.1.3. Bind operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI/NetworkingAPI4.html">8.3.1.4. Remote hostname and shutdown operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI/NetworkingAPI5.html">8.3.1.5. Statistics support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI/NetworkingAPI6.html">8.3.1.6. IP address stickiness support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms/NetworkingAPI/NetworkingAPI7.html">8.3.1.7. Other features</a></li>
 </ul>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For signatures and detailed description of listed functions, see
-<a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_time.h">avs_time.h</a></p>
-</div>
-</div>
-<div class="section" id="networking-api">
-<h2><span class="section-number">8.2. </span>Networking API<a class="headerlink" href="#networking-api" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If LwIP 2.0 is used as a network stack, you may set:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-DWITH_POSIX_AVS_SOCKET=ON</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-DWITH_IPV6=OFF</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-DPOSIX_COMPAT_HEADER=deps/avs_commons/compat/lwip-posix-compat.h</span></code></p></li>
-</ul>
-</div></blockquote>
-<p>CMake options for an out-of-the-box socket compatibility layer implementation.</p>
-</div>
-<p>If POSIX socket API is not available:</p>
-<ul>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_SOCKET=OFF</span></code> when running CMake on Anjay,</p></li>
-<li><p>Provide an implementation for:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_create_udp_socket</span></code> - a function with following signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span> <span class="nf">_avs_net_create_udp_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">**</span><span class="n">socket</span><span class="p">,</span>
-                                       <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
-<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
-<p>The function should return <code class="docutils literal notranslate"><span class="pre">AVS_OK</span></code> on success and an error code on error.
-It should create a socket object, and return its pointer cast to
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument. The socket object
-should be a struct, whose first field is <code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code>
-filled with pointers to method handlers.</p>
-<p>Minimal set of socket methods that have to be implemented:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">bind</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">close</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">connect</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">create</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">get_local_port</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">get_opt</span></code> able to read following options:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_STATE</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_MTU</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_INNER_MTU</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code></p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">get_remote_host</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">get_remote_hostname</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">get_remote_port</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">get_system</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">receive</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">send</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">set_opt</span></code> able to set the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code> option</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_create_tcp_socket</span></code> - only required if the <code class="docutils literal notranslate"><span class="pre">fw_update</span></code> module
-should support HTTP/HTTPS transfers. Otherwise, can be safely implemented as
-<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">avs_errno(AVS_ENOTSUP);</span></code>.</p>
-<p>Function signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span> <span class="nf">_avs_net_create_tcp_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">**</span><span class="n">socket</span><span class="p">,</span>
-                                       <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
-<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">avs_net_socket_configuration_t</span></code> struct cast to <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">*</span></code>.</p>
-<p>The function should return <code class="docutils literal notranslate"><span class="pre">AVS_OK</span></code> on success and an error code on error.
-It should create a socket object, and return its pointer cast to
-<code class="docutils literal notranslate"><span class="pre">avs_net_socket_t</span> <span class="pre">*</span></code> through the <code class="docutils literal notranslate"><span class="pre">*socket</span></code> argument. The socket object
-should be a struct, whose first field is <code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span> <span class="pre">*</span></code>
-filled with pointers to method handlers.</p>
-<p>Minimal set of socket methods that have to be implemented:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">close</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">connect</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">create</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">receive</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">send</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">set_opt</span></code> able to set the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span></code> option</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_initialize_global_compat_state</span></code> - a function with following
-signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span> <span class="nf">_avs_net_initialize_global_compat_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>The function should return <code class="docutils literal notranslate"><span class="pre">AVS_OK</span></code> on success and an error code on error.
-It should initialize any global state that needs to be kept by the network
-stack. If there is no such global state or it is initialized elsewhere, it
-is safe to implement this function as a no-op (<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">AVS_OK;</span></code>).</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_cleanup_global_compat_state</span></code> - a function with following
-signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">_avs_net_cleanup_global_compat_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>The function should clean up any global state that is kept by the network
-stack. If there is no such global state or it is managed elsewhere, it is
-safe to implement this function as a no-op.</p>
-</li>
-</ul>
-</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Anjay may attempt to call socket methods other than listed above, even
-though they are not essential for correct operation of the application.
-Make sure that all members of <code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span></code> are not NULL
-- if required, provide a stub that always fails.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For signatures and detailed description of listed methods, see
-<a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_net.h">avs_net.h</a></p>
-</div>
-</div>
-<div class="section" id="threading-api">
-<h2><span class="section-number">8.3. </span>Threading API<a class="headerlink" href="#threading-api" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> and <code class="docutils literal notranslate"><span class="pre">avs_log</span></code> modules require threading primitives
-to operate reliably in multi-threaded environments, specifically:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_net</span></code> requires <code class="docutils literal notranslate"><span class="pre">avs_init_once()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_log</span></code> requires <code class="docutils literal notranslate"><span class="pre">avs_mutex_create()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_mutex_cleanup()</span></code>,
-<code class="docutils literal notranslate"><span class="pre">avs_mutex_lock()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_mutex_unlock()</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">avs_init_once()</span></code>.</p></li>
-</ul>
-<p>In addition, <code class="docutils literal notranslate"><span class="pre">avs_sched</span></code> optionally depends on <code class="docutils literal notranslate"><span class="pre">avs_condvar_create()</span></code>,
-<code class="docutils literal notranslate"><span class="pre">avs_condvar_cleanup()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_condvar_notify_all()</span></code> as well as
-<code class="docutils literal notranslate"><span class="pre">avs_mutex_*</span></code> APIs. The dependency can be controlled with
-<code class="docutils literal notranslate"><span class="pre">WITH_SCHEDULER_THREAD_SAFE</span></code> CMake option.</p>
-<p>There are two independent implementations of the threading API for compatibility
-with most platforms:</p>
-<ul class="simple">
-<li><p>based on <a class="reference external" href="https://en.wikipedia.org/wiki/POSIX_Threads">pthreads</a>,</p></li>
-<li><p>based on C11 atomic operations.</p></li>
-</ul>
-<p>If, for some reason none of the defaults is suitable:</p>
-<ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">WITH_CUSTOM_AVS_THREADING=ON</span></code> when running CMake on Anjay,</p></li>
-<li><p>Provide an implementation of:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_mutex_create()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_mutex_cleanup()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_init_once()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_mutex_lock()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_mutex_unlock()</span></code>.</p></li>
-</ul>
-</li>
-<li><p>And if you use thread-safe scheduler, also provide implementation for:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_condvar_create()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_condvar_cleanup()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_condvar_notify_all()</span></code>.</p></li>
-</ul>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For signatures and detailed description of listed functions, see</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_mutex.h">avs_mutex.h</a></p></li>
-<li><p><a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_init_once.h">avs_init_once.h</a></p></li>
-<li><p><a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_condvar.h">avs_condvar.h</a></p></li>
-</ul>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you intend to operate the library in a single-threaded fashion, you may
-provide no-op stubs (returning success) of all mentioned primitives.</p>
-</div>
 </div>
 </div>
 
@@ -367,7 +199,7 @@ provide no-op stubs (returning success) of all mentioned primitives.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Migrating.html" class="btn btn-neutral float-right" title="9. Migrating from older versions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="PortingGuideForNonPOSIXPlatforms/TimeAPI.html" class="btn btn-neutral float-right" title="8.1. Time API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Tools/StubGenerator.html" class="btn btn-neutral float-left" title="7.2. Anjay Object stub generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -380,7 +212,7 @@ provide no-op stubs (returning success) of all mentioned primitives.</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2017-2020, AVSystem
+        &copy; Copyright 2017-2021, AVSystem
 
     </p>
   </div> 

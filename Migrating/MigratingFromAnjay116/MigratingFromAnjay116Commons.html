@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9.1.3. Changes in avs_commons &mdash; Anjay 2.8.0 documentation</title>
+  <title>9.1.3. Changes in avs_commons &mdash; Anjay 2.9.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.8.0
+                2.9.0
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay24.html">9.4. Migrating from Anjay 2.3.x or 2.4.x</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay26.html">9.5. Migrating from Anjay 2.5.x or 2.6.x</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay27.html">9.6. Migrating from Anjay 2.7.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MigratingFromAnjay28.html">9.7. Migrating from Anjay 2.8.x</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
@@ -183,39 +184,56 @@
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id8">Introduction</a></p></li>
-<li><p><a class="reference internal" href="#avs-commons-header-rename" id="id9">avs_commons header rename</a></p></li>
-<li><p><a class="reference internal" href="#abstract-type-renames" id="id10">Abstract type renames</a></p></li>
-<li><p><a class="reference internal" href="#new-error-handling-scheme" id="id11">New error handling scheme</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-public-avs-stream-apis" id="id12">Changes in public avs_stream APIs</a></p>
+<li><p><a class="reference internal" href="#change-to-minimum-cmake-version" id="id9">Change to minimum CMake version</a></p></li>
+<li><p><a class="reference internal" href="#avs-commons-header-rename" id="id10">avs_commons header rename</a></p></li>
+<li><p><a class="reference internal" href="#abstract-type-renames" id="id11">Abstract type renames</a></p></li>
+<li><p><a class="reference internal" href="#new-error-handling-scheme" id="id12">New error handling scheme</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-public-avs-stream-apis" id="id13">Changes in public avs_stream APIs</a></p>
 <ul>
-<li><p><a class="reference internal" href="#changes-to-global-caller-functions" id="id13">Changes to global caller functions</a></p></li>
-<li><p><a class="reference internal" href="#changes-to-vtable-method-signatures" id="id14">Changes to vtable method signatures</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-global-caller-functions" id="id14">Changes to global caller functions</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-vtable-method-signatures" id="id15">Changes to vtable method signatures</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#changes-in-public-avs-net-apis" id="id15">Changes in public avs_net APIs</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-avs-net-non-posix-porting-apis" id="id16">Changes in avs_net non-POSIX porting APIs</a></p>
+<li><p><a class="reference internal" href="#changes-in-public-avs-net-apis" id="id16">Changes in public avs_net APIs</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-avs-net-non-posix-porting-apis" id="id17">Changes in avs_net non-POSIX porting APIs</a></p>
 <ul>
-<li><p><a class="reference internal" href="#avs-net-socket-vtable-method-signatures" id="id17">avs_net socket vtable method signatures</a></p></li>
-<li><p><a class="reference internal" href="#global-function-signatures" id="id18">Global function signatures</a></p></li>
-<li><p><a class="reference internal" href="#refactor-of-avs-net-validate-ip-address" id="id19">Refactor of avs_net_validate_ip_address()</a></p></li>
+<li><p><a class="reference internal" href="#avs-net-socket-vtable-method-signatures" id="id18">avs_net socket vtable method signatures</a></p></li>
+<li><p><a class="reference internal" href="#global-function-signatures" id="id19">Global function signatures</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host" id="id20">Refactor of avs_net_validate_ip_address() and avs_net_local_address_for_target_host()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id20">Move of public-key cryptography APIs from avs_net to avs_crypto</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-public-avs-persistence-apis" id="id21">Changes in public avs_persistence APIs</a></p></li>
-<li><p><a class="reference internal" href="#changes-in-public-avs-http-apis" id="id22">Changes in public avs_http APIs</a></p></li>
-<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-avs-commons-apis" id="id23">Removal of ssize_t usages from avs_commons APIs</a></p></li>
-<li><p><a class="reference internal" href="#changes-to-public-configuration-macros" id="id24">Changes to public configuration macros</a></p></li>
+<li><p><a class="reference internal" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" id="id21">Move of public-key cryptography APIs from avs_net to avs_crypto</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-public-avs-persistence-apis" id="id22">Changes in public avs_persistence APIs</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-public-avs-http-apis" id="id23">Changes in public avs_http APIs</a></p></li>
+<li><p><a class="reference internal" href="#removal-of-ssize-t-usages-from-avs-commons-apis" id="id24">Removal of ssize_t usages from avs_commons APIs</a></p></li>
+<li><p><a class="reference internal" href="#changes-to-public-configuration-macros" id="id25">Changes to public configuration macros</a></p></li>
 </ul>
 </div>
 <div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id8"><span class="section-number">9.1.3.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 contains a number of breaking changes compared to version
-3.11 used by Anjay 1.16. If you are using any of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> APIs
-directly (which is especially likely for e.g. the logging API and querying
-sockets in the event loop), you will need to adjust your code.</p>
+<p>Current versions of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> contain a number of breaking changes
+compared to version 3.11 used by Anjay 1.16. If you are using any of the
+<code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> APIs directly (which is especially likely for e.g. the logging
+API and querying sockets in the event loop), you will need to adjust your code.</p>
+</div>
+<div class="section" id="change-to-minimum-cmake-version">
+<h2><a class="toc-backref" href="#id9"><span class="section-number">9.1.3.2. </span>Change to minimum CMake version</a><a class="headerlink" href="#change-to-minimum-cmake-version" title="Permalink to this headline">¶</a></h2>
+<p>Declared minimum CMake version necessary for CMake-based compilation, as well as
+for importing the installed library through <code class="docutils literal notranslate"><span class="pre">find_package()</span></code>, is now 3.6. If
+you’re using some Linux distribution that only has an older version in its
+repositories (notably, Ubuntu 16.04), we recommend using one of the following
+install methods instead:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://apt.kitware.com/">Kitware APT Repository for Debian and Ubuntu</a></p></li>
+<li><p><a class="reference external" href="https://snapcraft.io/cmake">Snap Store</a> (<code class="docutils literal notranslate"><span class="pre">snap</span> <span class="pre">install</span> <span class="pre">cmake</span></code>)</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/cmake/">Python Package Index</a>
+(<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cmake</span></code>)</p></li>
+</ul>
+<p>This change does not affect users who compile the library using some alternative
+approach, without using the provided CMake scripts.</p>
 </div>
 <div class="section" id="avs-commons-header-rename">
-<h2><a class="toc-backref" href="#id9"><span class="section-number">9.1.3.2. </span>avs_commons header rename</a><a class="headerlink" href="#avs-commons-header-rename" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10"><span class="section-number">9.1.3.3. </span>avs_commons header rename</a><a class="headerlink" href="#avs-commons-header-rename" title="Permalink to this headline">¶</a></h2>
 <p>All headers of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> component have been renamed to make their
 names more unique. Please adjust your <code class="docutils literal notranslate"><span class="pre">#include</span></code> directives accordingly.</p>
 <p>The general rename patterns are:</p>
@@ -382,7 +400,7 @@ names are available for compatibility via
 </dl>
 </div>
 <div class="section" id="abstract-type-renames">
-<span id="avs-commons-type-renames"></span><h2><a class="toc-backref" href="#id10"><span class="section-number">9.1.3.3. </span>Abstract type renames</a><a class="headerlink" href="#abstract-type-renames" title="Permalink to this headline">¶</a></h2>
+<span id="avs-commons-type-renames"></span><h2><a class="toc-backref" href="#id11"><span class="section-number">9.1.3.4. </span>Abstract type renames</a><a class="headerlink" href="#abstract-type-renames" title="Permalink to this headline">¶</a></h2>
 <p>Some of the abstract object types have been renamed for simplicity and
 consistency:</p>
 <table class="docutils align-default">
@@ -421,7 +439,7 @@ consistency:</p>
 </table>
 </div>
 <div class="section" id="new-error-handling-scheme">
-<span id="avs-commons-new-error-handling"></span><h2><a class="toc-backref" href="#id11"><span class="section-number">9.1.3.4. </span>New error handling scheme</a><a class="headerlink" href="#new-error-handling-scheme" title="Permalink to this headline">¶</a></h2>
+<span id="avs-commons-new-error-handling"></span><h2><a class="toc-backref" href="#id12"><span class="section-number">9.1.3.5. </span>New error handling scheme</a><a class="headerlink" href="#new-error-handling-scheme" title="Permalink to this headline">¶</a></h2>
 <p>A common pattern in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 3.x and older was for methods of certain
 types of objects (most notably, streams and sockets) to return <code class="docutils literal notranslate"><span class="pre">-1</span></code> on error,
 and provide the ability to get a more specific error code using a separate “get
@@ -532,9 +550,9 @@ future.</strong></p>
 below.</p>
 </div>
 <div class="section" id="changes-in-public-avs-stream-apis">
-<h2><a class="toc-backref" href="#id12"><span class="section-number">9.1.3.5. </span>Changes in public avs_stream APIs</a><a class="headerlink" href="#changes-in-public-avs-stream-apis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13"><span class="section-number">9.1.3.6. </span>Changes in public avs_stream APIs</a><a class="headerlink" href="#changes-in-public-avs-stream-apis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="changes-to-global-caller-functions">
-<h3><a class="toc-backref" href="#id13"><span class="section-number">9.1.3.5.1. </span>Changes to global caller functions</a><a class="headerlink" href="#changes-to-global-caller-functions" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14"><span class="section-number">9.1.3.6.1. </span>Changes to global caller functions</a><a class="headerlink" href="#changes-to-global-caller-functions" title="Permalink to this headline">¶</a></h3>
 <p>List of functions that changed return value from <code class="docutils literal notranslate"><span class="pre">int</span></code> to <code class="docutils literal notranslate"><span class="pre">avs_error_t</span></code>,
 without any other signature changes (aside from type renames mentioned in
 <a class="reference internal" href="#avs-commons-type-renames"><span class="std std-ref">Abstract type renames</span></a>):</p>
@@ -637,7 +655,7 @@ operation).</p></li>
 </ul>
 </div>
 <div class="section" id="changes-to-vtable-method-signatures">
-<h3><a class="toc-backref" href="#id14"><span class="section-number">9.1.3.5.2. </span>Changes to vtable method signatures</a><a class="headerlink" href="#changes-to-vtable-method-signatures" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15"><span class="section-number">9.1.3.6.2. </span>Changes to vtable method signatures</a><a class="headerlink" href="#changes-to-vtable-method-signatures" title="Permalink to this headline">¶</a></h3>
 <p>These changes will be relevant if you implement your own implementations of the
 <code class="docutils literal notranslate"><span class="pre">avs_stream</span></code> interface.</p>
 <p>List of methods in various <code class="docutils literal notranslate"><span class="pre">avs_stream</span></code>-related vtables that changed return
@@ -829,7 +847,7 @@ necessary.</p></li>
 </div>
 </div>
 <div class="section" id="changes-in-public-avs-net-apis">
-<h2><a class="toc-backref" href="#id15"><span class="section-number">9.1.3.6. </span>Changes in public avs_net APIs</a><a class="headerlink" href="#changes-in-public-avs-net-apis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16"><span class="section-number">9.1.3.7. </span>Changes in public avs_net APIs</a><a class="headerlink" href="#changes-in-public-avs-net-apis" title="Permalink to this headline">¶</a></h2>
 <p>List of functions that changed return value from <code class="docutils literal notranslate"><span class="pre">int</span></code> to <code class="docutils literal notranslate"><span class="pre">avs_error_t</span></code>,
 without any other signature changes (aside from type renames mentioned in
 <a class="reference internal" href="#avs-commons-type-renames"><span class="std std-ref">Abstract type renames</span></a>):</p>
@@ -944,9 +962,9 @@ See <a class="reference internal" href="../MigratingCustomEntropy.html"><span cl
 </ul>
 </div>
 <div class="section" id="changes-in-avs-net-non-posix-porting-apis">
-<span id="non-posix-socket-api-changes"></span><h2><a class="toc-backref" href="#id16"><span class="section-number">9.1.3.7. </span>Changes in avs_net non-POSIX porting APIs</a><a class="headerlink" href="#changes-in-avs-net-non-posix-porting-apis" title="Permalink to this headline">¶</a></h2>
+<span id="non-posix-socket-api-changes"></span><h2><a class="toc-backref" href="#id17"><span class="section-number">9.1.3.8. </span>Changes in avs_net non-POSIX porting APIs</a><a class="headerlink" href="#changes-in-avs-net-non-posix-porting-apis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="avs-net-socket-vtable-method-signatures">
-<h3><a class="toc-backref" href="#id17"><span class="section-number">9.1.3.7.1. </span>avs_net socket vtable method signatures</a><a class="headerlink" href="#avs-net-socket-vtable-method-signatures" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18"><span class="section-number">9.1.3.8.1. </span>avs_net socket vtable method signatures</a><a class="headerlink" href="#avs-net-socket-vtable-method-signatures" title="Permalink to this headline">¶</a></h3>
 <p>List of <code class="docutils literal notranslate"><span class="pre">avs_net_socket_v_table_t</span></code> methods that changed return value from
 <code class="docutils literal notranslate"><span class="pre">int</span></code> to <code class="docutils literal notranslate"><span class="pre">avs_error_t</span></code>, without any other signature changes (aside from type
 renames mentioned in <a class="reference internal" href="#avs-commons-type-renames"><span class="std std-ref">Abstract type renames</span></a>):</p>
@@ -1049,7 +1067,7 @@ information is not supported for this method.</p></li>
 </ul>
 </div>
 <div class="section" id="global-function-signatures">
-<h3><a class="toc-backref" href="#id18"><span class="section-number">9.1.3.7.2. </span>Global function signatures</a><a class="headerlink" href="#global-function-signatures" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19"><span class="section-number">9.1.3.8.2. </span>Global function signatures</a><a class="headerlink" href="#global-function-signatures" title="Permalink to this headline">¶</a></h3>
 <p>The following global functions that the user may need to implement as part of
 porting for a non-POSIX platform, have changed return value from <code class="docutils literal notranslate"><span class="pre">int</span></code> to
 <code class="docutils literal notranslate"><span class="pre">avs_error_t</span></code> without any other signature changes (aside from type renames
@@ -1061,18 +1079,26 @@ mentioned in <a class="reference internal" href="#avs-commons-type-renames"><spa
 <li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_initialize_global_compat_state()</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="refactor-of-avs-net-validate-ip-address">
-<h3><a class="toc-backref" href="#id19"><span class="section-number">9.1.3.7.3. </span>Refactor of avs_net_validate_ip_address()</a><a class="headerlink" href="#refactor-of-avs-net-validate-ip-address" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host">
+<h3><a class="toc-backref" href="#id20"><span class="section-number">9.1.3.8.3. </span>Refactor of avs_net_validate_ip_address() and avs_net_local_address_for_target_host()</a><a class="headerlink" href="#refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_net_validate_ip_address()</span></code> is now no longer used by Anjay or
 <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. It was previously necessary to implement it as part of the
-socket implementation. This is no longer required, and in fact, keeping that
-implementation might lead to problems - for compatibility, the function has been
-reimplemented as a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
-<code class="docutils literal notranslate"><span class="pre">avs_net_addrinfo_*()</span></code> APIs.</p>
+socket implementation. This is no longer required. For compatibility, the
+function has been reimplemented as a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
+<code class="docutils literal notranslate"><span class="pre">avs_net_addrinfo_*()</span></code> APIs. Please remove your version of
+<code class="docutils literal notranslate"><span class="pre">avs_net_validate_ip_address()</span></code> from your socket implementation if you have
+one, as having two alternative variants may lead to conflicts.</p>
+<p>Since Anjay 2.9 and <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.6,
+<code class="docutils literal notranslate"><span class="pre">avs_net_local_address_for_target_host()</span></code> underwent a similar refactor. It was
+previously a function to be optionally implemented as part of the socket
+implementation, but now it is a <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> function that wraps
+<code class="docutils literal notranslate"><span class="pre">avs_net_socket_*()</span></code> APIs. Please remove your version of
+<code class="docutils literal notranslate"><span class="pre">avs_net_local_address_for_target_host()</span></code> from your socket implementation if
+you have one, as having two alternative variants may lead to conflicts.</p>
 </div>
 </div>
 <div class="section" id="move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto">
-<span id="avs-commons-pki-move-116"></span><h2><a class="toc-backref" href="#id20"><span class="section-number">9.1.3.8. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h2>
+<span id="avs-commons-pki-move-116"></span><h2><a class="toc-backref" href="#id21"><span class="section-number">9.1.3.9. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline">¶</a></h2>
 <p>Public key cryptography APIs, previously defined in
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code>, have been moved into a new header called
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_crypto_pki.h</span></code>.</p>
@@ -1130,7 +1156,7 @@ longer separate, and both have been merged into a single type.</p>
 </table>
 </div>
 <div class="section" id="changes-in-public-avs-persistence-apis">
-<span id="avs-commons-persistence-changes"></span><h2><a class="toc-backref" href="#id21"><span class="section-number">9.1.3.9. </span>Changes in public avs_persistence APIs</a><a class="headerlink" href="#changes-in-public-avs-persistence-apis" title="Permalink to this headline">¶</a></h2>
+<span id="avs-commons-persistence-changes"></span><h2><a class="toc-backref" href="#id22"><span class="section-number">9.1.3.10. </span>Changes in public avs_persistence APIs</a><a class="headerlink" href="#changes-in-public-avs-persistence-apis" title="Permalink to this headline">¶</a></h2>
 <p>List of functions that changed return value from <code class="docutils literal notranslate"><span class="pre">int</span></code> to <code class="docutils literal notranslate"><span class="pre">avs_error_t</span></code>,
 without any other signature changes:</p>
 <ul class="simple">
@@ -1224,7 +1250,7 @@ bugginess and limited usability.</div>
 </ul>
 </div>
 <div class="section" id="changes-in-public-avs-http-apis">
-<h2><a class="toc-backref" href="#id22"><span class="section-number">9.1.3.10. </span>Changes in public avs_http APIs</a><a class="headerlink" href="#changes-in-public-avs-http-apis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23"><span class="section-number">9.1.3.11. </span>Changes in public avs_http APIs</a><a class="headerlink" href="#changes-in-public-avs-http-apis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">avs_http_open_stream()</span></code> now returns <code class="docutils literal notranslate"><span class="pre">avs_error_t</span></code>. The rest of the
 signature remains equivalent.</p></li>
@@ -1244,7 +1270,7 @@ instead.</p></li>
 </ul>
 </div>
 <div class="section" id="removal-of-ssize-t-usages-from-avs-commons-apis">
-<span id="ssize-t-removal-in-commons-116"></span><h2><a class="toc-backref" href="#id23"><span class="section-number">9.1.3.11. </span>Removal of ssize_t usages from avs_commons APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-avs-commons-apis" title="Permalink to this headline">¶</a></h2>
+<span id="ssize-t-removal-in-commons-116"></span><h2><a class="toc-backref" href="#id24"><span class="section-number">9.1.3.12. </span>Removal of ssize_t usages from avs_commons APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-avs-commons-apis" title="Permalink to this headline">¶</a></h2>
 <p>All usages of the POSIX-specific <code class="docutils literal notranslate"><span class="pre">ssize_t</span></code> type in public APIs have been
 removed. Instead of replacing it with some other signed integer type, additional
 out-arguments have been introduced to functions that used it.</p>
@@ -1338,8 +1364,8 @@ that value is not needed.</p>
 </div>
 </div>
 <div class="section" id="changes-to-public-configuration-macros">
-<h2><a class="toc-backref" href="#id24"><span class="section-number">9.1.3.12. </span>Changes to public configuration macros</a><a class="headerlink" href="#changes-to-public-configuration-macros" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 introduces a new header file,
+<h2><a class="toc-backref" href="#id25"><span class="section-number">9.1.3.13. </span>Changes to public configuration macros</a><a class="headerlink" href="#changes-to-public-configuration-macros" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 introduced a new header file,
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_commons_config.h</span></code>, that encapsulates all its
 compile-time configuration, allowing compiling the library without the use of
 CMake, among other improvements.</p>
@@ -1418,7 +1444,7 @@ C preprocessor.</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2017-2020, AVSystem
+        &copy; Copyright 2017-2021, AVSystem
 
     </p>
   </div> 

@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>8.1. Time API &mdash; Anjay 2.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8.2. Threading API" href="ThreadingAPI.html" />
+    <link rel="prev" title="8. Porting guide for non-POSIX platforms" href="../PortingGuideForNonPOSIXPlatforms.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.9.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.1. Time API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThreadingAPI.html">8.2. Threading API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkingAPI.html">8.3. Networking API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+        
+      <li><span class="section-number">8.1. </span>Time API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="time-api">
+<h1><span class="section-number">8.1. </span>Time API<a class="headerlink" href="#time-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="list-of-functions-to-implement">
+<h2><span class="section-number">8.1.1. </span>List of functions to implement<a class="headerlink" href="#list-of-functions-to-implement" title="Permalink to this headline">¶</a></h2>
+<p>If POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime</span></code> function is not available:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_TIME=OFF</span></code> when running CMake on Anjay,</p></li>
+<li><p>Provide an implementation for:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_time_real_now</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For signatures and detailed description of listed functions, see
+<a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_time.h">avs_time.h</a></p>
+</div>
+</div>
+<div class="section" id="reference-implementation">
+<h2><span class="section-number">8.1.2. </span>Reference implementation<a class="headerlink" href="#reference-implementation" title="Permalink to this headline">¶</a></h2>
+<p>The default
+<a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/utils/compat/posix/avs_compat_time.c">avs_compat_time.c</a>
+implementation that uses POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime()</span></code> API can be used as a
+reference for writing your own integration layer.</p>
+<div class="section" id="avs-time-real-now">
+<h3><span class="section-number">8.1.2.1. </span>avs_time_real_now()<a class="headerlink" href="#avs-time-real-now" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">avs_time_real_now()</span></code> function should return the current <em>real</em> time,
+i.e. the amount of time that passed since January 1st, 1970, midnight UTC (the
+Unix epoch).</p>
+<p>In the reference POSIX-based implementation, it is a simple wrapper for the
+<code class="docutils literal notranslate"><span class="pre">CLOCK_REALITME</span></code> clock.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_real_t</span> <span class="nf">avs_time_real_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">system_value</span><span class="p">;</span>
+    <span class="n">avs_time_real_t</span> <span class="n">result</span><span class="p">;</span>
+    <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">system_value</span><span class="p">);</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span> <span class="o">=</span> <span class="n">system_value</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">nanoseconds</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span> <span class="n">system_value</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="avs-time-monotonic-now">
+<h3><span class="section-number">8.1.2.2. </span>avs_time_monotonic_now()<a class="headerlink" href="#avs-time-monotonic-now" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now()</span></code> function should return the current <em>monotonic</em>
+time, i.e. the amount of time that passed since <em>some epoch</em> - it might be
+any point in time, but needs to be stable at least throughout the lifetime of
+the process - different epochs might be used for different launches of the
+application.</p>
+<p>System boot time is often used as an epoch for the monotonic clock.</p>
+<p>If the real-time clock is considered stable, and not reset while the application
+is running, it may be also used as the monotonic clock.</p>
+<p>This is used in the reference implementation - it is generally a wrapper for the
+<code class="docutils literal notranslate"><span class="pre">CLOCK_MONOTONIC</span></code> clock, but on some platforms it is not available -
+<code class="docutils literal notranslate"><span class="pre">CLOCK_REALTIME</span></code> is used in these cases.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_monotonic_t</span> <span class="nf">avs_time_monotonic_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">system_value</span><span class="p">;</span>
+    <span class="n">avs_time_monotonic_t</span> <span class="n">result</span><span class="p">;</span>
+<span class="cp">#    ifdef CLOCK_MONOTONIC</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">system_value</span><span class="p">))</span>
+<span class="cp">#    endif</span>
+    <span class="p">{</span>
+        <span class="c1">// CLOCK_MONOTONIC is not mandatory in POSIX;</span>
+        <span class="c1">// fallback to REALTIME if we don&#39;t have it</span>
+        <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">system_value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">since_monotonic_epoch</span><span class="p">.</span><span class="n">seconds</span> <span class="o">=</span> <span class="n">system_value</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">since_monotonic_epoch</span><span class="p">.</span><span class="n">nanoseconds</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span> <span class="n">system_value</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ThreadingAPI.html" class="btn btn-neutral float-right" title="8.2. Threading API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-left" title="8. Porting guide for non-POSIX platforms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2017-2021, AVSystem
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
