@@ -30,6 +30,7 @@ var core_8h =
     [ "anjay_ssid_t", "core_8h.html#a7702b524bb4425a3174b6a09615c0d2e", null ],
     [ "anjay_t", "core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb", null ],
     [ "anjay_socket_transport_t", "core_8h.html#a38b3213870f87f8d125ee1793b36138f", [
+      [ "ANJAY_SOCKET_TRANSPORT_INVALID", "core_8h.html#a38b3213870f87f8d125ee1793b36138fa28e4cfc8905459138e08f14e73459802", null ],
       [ "ANJAY_SOCKET_TRANSPORT_UDP", "core_8h.html#a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7", null ],
       [ "ANJAY_SOCKET_TRANSPORT_TCP", "core_8h.html#a38b3213870f87f8d125ee1793b36138fa8fc9952fcf9eb81a66af504e235efffa", null ]
     ] ],
@@ -49,7 +50,7 @@ var core_8h =
     [ "anjay_sched_time_to_next", "core_8h.html#ad83be53577741a9f3f94c39c464def09", null ],
     [ "anjay_sched_time_to_next_ms", "core_8h.html#a3998f24f83f30c17d96077ad673345ce", null ],
     [ "anjay_schedule_registration_update", "core_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b", null ],
-    [ "anjay_security_config_from_dm", "core_8h.html#a81ad4e5b9168d53fbbd965bfbdea4a47", null ],
+    [ "anjay_security_config_from_dm", "core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7", null ],
     [ "anjay_serve", "core_8h.html#aa743e53b432d4a7b82001c5cdad163fe", null ],
     [ "anjay_transport_enter_offline", "core_8h.html#a4bba7333f0d433ebf05a7f7d5bf41ae7", null ],
     [ "anjay_transport_exit_offline", "core_8h.html#a729710b680f3d11a569b1a0a9617ff83", null ],

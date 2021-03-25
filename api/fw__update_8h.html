@@ -297,7 +297,7 @@ Functions</h2></td></tr>
 <p>Queries security information that shall be used for an encrypted connection with a PULL-mode download server.</p>
 <p>May be called before <a class="el" href="fw__update_8h.html#a024b15279a6415219f67ba9e2dadaa61">anjay_fw_update_stream_open_t</a> if the download is to be performed in PULL mode and the connection needs to use TLS or DTLS encryption.</p>
 <p>Note that the <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> contains references to file paths, binary security keys, and/or ciphersuite lists. It is the user's responsibility to appropriately allocate them and ensure proper lifetime of the returned pointers. The returned security information may only be invalidated in a call to <a class="el" href="fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a">anjay_fw_update_reset_t</a> or after a call to <a class="el" href="core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete</a> .</p>
-<p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <a class="el" href="core_8h.html#a81ad4e5b9168d53fbbd965bfbdea4a47">anjay_security_config_from_dm</a> will be used as a default way to get security information.</p>
+<p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm</a> will be used as a default way to get security information.</p>
 <p>In that (no user-defined handler) case, in the commercial version, <code>anjay_security_config_pkix()</code> will be used as an additional fallback if <code>ANJAY_WITH_LWM2M11</code> is enabled and a valid trust store is available (either specified through <code>use_system_trust_store</code>, <code>trust_store_certs</code> or <code>trust_store_crls</code> fields in <code>anjay_configuration_t</code>, or obtained via <code>/est/crts</code> request if <code>est_cacerts_policy</code> is set to <code>ANJAY_EST_CACERTS_IF_EST_CONFIGURED</code> or <code>ANJAY_EST_CACERTS_ALWAYS</code>).</p>
 <p>You may also use these functions yourself, for example as a fallback mechanism.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -629,7 +629,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
-    <li class="footer">Generated on Mon Jan 18 2021 14:59:24 for anjay by
+    <li class="footer">Generated on Thu Mar 25 2021 18:00:15 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>
   </ul>

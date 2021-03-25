@@ -1,5 +1,6 @@
 var structanjay__configuration =
 [
+    [ "additional_tls_config_clb", "structanjay__configuration.html#af4beab316b41955825df88a1dba26dcd", null ],
     [ "confirmable_notifications", "structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05", null ],
     [ "default_tls_ciphersuites", "structanjay__configuration.html#ab5c0d3b6618cce9452d224a361e7479f", null ],
     [ "disable_legacy_server_initiated_bootstrap", "structanjay__configuration.html#aa5f75a1b0546352b00b4bddb3edab1eb", null ],

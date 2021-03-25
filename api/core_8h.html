@@ -93,7 +93,6 @@ $(document).ready(function(){initNavTree('core_8h.html',''); initResizable(); })
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;time.h&gt;</code><br />
 <code>#include &lt;avsystem/coap/udp.h&gt;</code><br />
 <code>#include &lt;avsystem/commons/avs_list.h&gt;</code><br />
 <code>#include &lt;avsystem/commons/avs_net.h&gt;</code><br />
@@ -175,7 +174,8 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a38b3213870f87f8d125ee1793b36138f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138f">anjay_socket_transport_t</a> { <a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7">ANJAY_SOCKET_TRANSPORT_UDP</a>, 
+<tr class="memitem:a38b3213870f87f8d125ee1793b36138f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138f">anjay_socket_transport_t</a> { <a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138fa28e4cfc8905459138e08f14e73459802">ANJAY_SOCKET_TRANSPORT_INVALID</a> = -1, 
+<a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7">ANJAY_SOCKET_TRANSPORT_UDP</a> = 0, 
 <a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138fa8fc9952fcf9eb81a66af504e235efffa">ANJAY_SOCKET_TRANSPORT_TCP</a>
  }</td></tr>
 <tr class="separator:a38b3213870f87f8d125ee1793b36138f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,8 +224,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad895be5694083d015ffcd8d0b87d0b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4329b620520c565fd61b526ba760e59f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a4329b620520c565fd61b526ba760e59f">anjay_all_connections_failed</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:a4329b620520c565fd61b526ba760e59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81ad4e5b9168d53fbbd965bfbdea4a47"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a81ad4e5b9168d53fbbd965bfbdea4a47">anjay_security_config_from_dm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> *out_config, const char *raw_url)</td></tr>
-<tr class="separator:a81ad4e5b9168d53fbbd965bfbdea4a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac53bd86289a4bcaa70237f8ba7450cd7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> *out_config, const char *uri)</td></tr>
+<tr class="separator:ac53bd86289a4bcaa70237f8ba7450cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497b359f5c1660fc3e02a56362a819ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a497b359f5c1660fc3e02a56362a819ea">anjay_ongoing_registration_exists</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:a497b359f5c1660fc3e02a56362a819ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -652,7 +652,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7"></a>ANJAY_SOCKET_TRANSPORT_UDP&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a38b3213870f87f8d125ee1793b36138fa28e4cfc8905459138e08f14e73459802"></a>ANJAY_SOCKET_TRANSPORT_INVALID&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7"></a>ANJAY_SOCKET_TRANSPORT_UDP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a38b3213870f87f8d125ee1793b36138fa8fc9952fcf9eb81a66af504e235efffa"></a>ANJAY_SOCKET_TRANSPORT_TCP&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -1177,8 +1178,8 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 
 </div>
 </div>
-<a id="a81ad4e5b9168d53fbbd965bfbdea4a47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81ad4e5b9168d53fbbd965bfbdea4a47">&#9670;&nbsp;</a></span>anjay_security_config_from_dm()</h2>
+<a id="ac53bd86289a4bcaa70237f8ba7450cd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac53bd86289a4bcaa70237f8ba7450cd7">&#9670;&nbsp;</a></span>anjay_security_config_from_dm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1199,7 +1200,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>raw_url</em>&#160;</td>
+          <td class="paramname"><em>uri</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1223,7 +1224,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 for success, or a negative value in case of error, including if no suitable LwM2M Security Object instance could be found.</dd></dl>
-<p><b>NOTE:</b> The returned structure will contain pointers to buffers allocated within the <code>anjay</code> object. They will only be valid until next call to <code><a class="el" href="core_8h.html#a81ad4e5b9168d53fbbd965bfbdea4a47">anjay_security_config_from_dm()</a></code> or <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>. Note that this is enough for direct use in <a class="el" href="fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397">anjay_fw_update_get_security_config_t</a> implementations. If you need this information for a longer period, you will need to manually create a deep copy. </p>
+<p><b>NOTE:</b> The returned structure will contain pointers to buffers allocated within the <code>anjay</code> object. They will only be valid until next call to <code><a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm()</a></code> or <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>. Note that this is enough for direct use in <a class="el" href="fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397">anjay_fw_update_get_security_config_t</a> implementations. If you need this information for a longer period, you will need to manually create a deep copy. </p>
 
 </div>
 </div>
@@ -1530,7 +1531,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Mon Jan 18 2021 14:59:24 for anjay by
+    <li class="footer">Generated on Thu Mar 25 2021 18:00:15 for anjay by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>
   </ul>
