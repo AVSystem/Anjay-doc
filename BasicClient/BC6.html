@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.6. Notifications support &mdash; Anjay 2.10.0 documentation</title>
+  <title>4.6. Notifications support &mdash; Anjay 2.11.0 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.7. A few notes on general usage" href="BC7.html" />
+    <link rel="next" title="4.7. Send method" href="BC7.html" />
     <link rel="prev" title="4.5. Implementing standard Object" href="BC5.html" /> 
 </head>
 
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.10.0
+                2.11.0
               </div>
             
           
@@ -98,7 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="BC4.html">4.4. Enabling secure communication</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BC5.html">4.5. Implementing standard Object</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.6. Notifications support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC7.html">4.7. A few notes on general usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC7.html">4.7. Send method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC8.html">4.8. A few notes on general usage</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
@@ -232,7 +233,7 @@ perform some unnecessary actions (like calling read handler for example).</p>
     <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
     <span class="kt">char</span> <span class="n">application_type</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
     <span class="kt">char</span> <span class="n">application_type_backup</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
-<span class="hll">    <span class="kt">uint64_t</span> <span class="n">last_notify_timestamp</span><span class="p">;</span>
+<span class="hll">    <span class="kt">int64_t</span> <span class="n">last_notify_timestamp</span><span class="p">;</span>
 </span><span class="p">}</span> <span class="n">time_instance_t</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -242,7 +243,7 @@ perform some unnecessary actions (like calling read handler for example).</p>
     <span class="p">}</span>
     <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span>
 
-    <span class="kt">uint64_t</span> <span class="n">current_timestamp</span><span class="p">;</span>
+    <span class="kt">int64_t</span> <span class="n">current_timestamp</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">avs_time_real_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">current_timestamp</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">,</span>
                                 <span class="n">avs_time_real_now</span><span class="p">()))</span> <span class="p">{</span>
         <span class="k">return</span><span class="p">;</span>
@@ -465,7 +466,7 @@ subdirectory of main Anjay project repository.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BC7.html" class="btn btn-neutral float-right" title="4.7. A few notes on general usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BC7.html" class="btn btn-neutral float-right" title="4.7. Send method" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="BC5.html" class="btn btn-neutral float-left" title="4.5. Implementing standard Object" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

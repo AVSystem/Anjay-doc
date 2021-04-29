@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.5. Implementing standard Object &mdash; Anjay 2.10.0 documentation</title>
+  <title>4.5. Implementing standard Object &mdash; Anjay 2.11.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.10.0
+                2.11.0
               </div>
             
           
@@ -98,7 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="BC4.html">4.4. Enabling secure communication</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.5. Implementing standard Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BC6.html">4.6. Notifications support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC7.html">4.7. A few notes on general usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC7.html">4.7. Send method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC8.html">4.8. A few notes on general usage</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
@@ -515,13 +516,15 @@ it in Anjay and update <code class="docutils literal notranslate"><span class="p
  <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD</span> <span class="s">99</span><span class="p">)</span>
  <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_EXTENSIONS</span> <span class="s">OFF</span><span class="p">)</span>
 
+ <span class="nb">add_compile_options</span><span class="p">(</span><span class="s">-Wall</span> <span class="s">-Wextra</span><span class="p">)</span>
+
  <span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span> <span class="s">REQUIRED</span><span class="p">)</span>
 
- <span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
-                <span class="s">src/main.c</span>
-<span class="hll">                <span class="s">src/time_object.h</span>
-</span><span class="hll">                <span class="s">src/time_object.c</span><span class="p">)</span>
-</span> <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PRIVATE</span> <span class="s">anjay</span><span class="p">)</span>
+<span class="hll"> <span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
+</span><span class="hll">                <span class="s">src/main.c</span>
+</span>                <span class="s">src/time_object.h</span>
+                <span class="s">src/time_object.c</span><span class="p">)</span>
+ <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PRIVATE</span> <span class="s">anjay</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -556,6 +559,7 @@ This is why we need <code class="docutils literal notranslate"><span class="pre"
 </span><span class="hll">    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">,</span> <span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span>
 </span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class="hll"><span class="p">}</span>
 </span><span class="hll">
 </span><span class="hll"><span class="kt">int</span> <span class="nf">transaction_rollback</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -568,6 +572,7 @@ This is why we need <code class="docutils literal notranslate"><span class="pre"
 </span><span class="hll">    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span> <span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">);</span>
 </span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class="hll"><span class="p">}</span>
 </span>
 <span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJ_DEF</span> <span class="o">=</span> <span class="p">{</span>
