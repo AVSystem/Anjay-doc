@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>5.1. Access Control in multi-server environment &mdash; Anjay 2.11.0 documentation</title>
+  <title>5.1. Access Control in multi-server environment &mdash; Anjay 2.12.0 documentation</title>
   
 
   
@@ -17,17 +17,22 @@
 
   
   
+
   
   
 
   
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -62,7 +67,7 @@
             
             
               <div class="version">
-                2.11.0
+                2.12.0
               </div>
             
           
@@ -148,6 +153,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -161,7 +168,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -307,7 +314,7 @@ Object and Server Object modules:</p>
 <span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span> <span class="o">||</span> <span class="n">anjay_access_control_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
         <span class="o">||</span> <span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -322,9 +329,9 @@ Object and Server Object modules:</p>
 <span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance1</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s">&quot;U&quot;</span>
 <span class="p">};</span>
 
@@ -338,9 +345,9 @@ Object and Server Object modules:</p>
 <span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance2</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
     <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
     <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s">&quot;U&quot;</span>
 <span class="p">};</span>
 
@@ -401,29 +408,21 @@ data and premature object deletion could be disastrous in effects.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="AT-AttributeStorage.html" class="btn btn-neutral float-right" title="5.2. Attribute storage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../AdvancedTopics.html" class="btn btn-neutral float-left" title="5. Advanced topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="AT-AttributeStorage.html" class="btn btn-neutral float-right" title="5.2. Attribute storage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../AdvancedTopics.html" class="btn btn-neutral float-left" title="5. Advanced topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2017-2021, AVSystem
+        &#169; Copyright 2017-2021, AVSystem.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 

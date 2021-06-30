@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9.1.3. Changes in avs_commons &mdash; Anjay 2.11.0 documentation</title>
+  <title>9.1.3. Changes in avs_commons &mdash; Anjay 2.12.0 documentation</title>
   
 
   
@@ -17,17 +17,22 @@
 
   
   
+
   
   
 
   
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -62,7 +67,7 @@
             
             
               <div class="version">
-                2.11.0
+                2.12.0
               </div>
             
           
@@ -152,6 +157,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -167,7 +174,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -752,7 +759,7 @@ stream methods as <code class="docutils literal notranslate"><span class="pre">a
 <li><p><code class="docutils literal notranslate"><span class="pre">read</span></code> <strong>method of</strong> <code class="docutils literal notranslate"><span class="pre">avs_stream_v_table_t</span></code></p>
 <ul>
 <li><p><strong>Old API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_read_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_read_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
                                  <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_read</span><span class="p">,</span>
                                  <span class="kt">char</span> <span class="o">*</span><span class="n">out_message_finished</span><span class="p">,</span>
                                  <span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
@@ -761,7 +768,7 @@ stream methods as <code class="docutils literal notranslate"><span class="pre">a
 </div>
 </li>
 <li><p><strong>New API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">avs_error_t</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_read_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="n">avs_error_t</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_read_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
                                          <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_read</span><span class="p">,</span>
                                          <span class="kt">bool</span> <span class="o">*</span><span class="n">out_message_finished</span><span class="p">,</span>
                                          <span class="kt">void</span> <span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
@@ -777,12 +784,12 @@ stream methods as <code class="docutils literal notranslate"><span class="pre">a
 <li><p><code class="docutils literal notranslate"><span class="pre">peek</span></code> <strong>method of</strong> <code class="docutils literal notranslate"><span class="pre">avs_stream_v_table_t</span></code></p>
 <ul>
 <li><p><strong>Old API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_peek_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_peek_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">offset</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>New API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">avs_error_t</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_peek_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="n">avs_error_t</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_peek_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
                                          <span class="kt">size_t</span> <span class="n">offset</span><span class="p">,</span>
                                          <span class="kt">char</span> <span class="o">*</span><span class="n">out_value</span><span class="p">);</span>
 </pre></div>
@@ -800,18 +807,18 @@ value different than <code class="docutils literal notranslate"><span class="pre
 <code class="docutils literal notranslate"><span class="pre">avs_stream_v_table_extension_nonblock_t</span></code></p>
 <ul>
 <li><p><strong>Old APIs:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_read_ready_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_read_ready_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 <span class="c1">// ...</span>
-<span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_write_ready_t</span><span class="p">)(</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_write_ready_t</span><span class="p">)(</span>
         <span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
         <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_ready_capacity_bytes</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>New APIs:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">bool</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_read_ready_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_read_ready_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 <span class="c1">// ...</span>
-<span class="k">typedef</span> <span class="nf">size_t</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_write_ready_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="kt">size_t</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_nonblock_write_ready_t</span><span class="p">)(</span><span class="n">avs_stream_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -826,7 +833,7 @@ operation).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">getsock</span></code> <strong>method of</strong> <code class="docutils literal notranslate"><span class="pre">avs_stream_v_table_extension_net_t</span></code></p>
 <ul>
 <li><p><strong>Old API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_net_getsock_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_stream_net_getsock_t</span><span class="p">)(</span><span class="n">avs_stream_abstract_t</span> <span class="o">*</span><span class="n">stream</span><span class="p">,</span>
                                         <span class="n">avs_net_abstract_socket_t</span> <span class="o">**</span><span class="n">out_socket</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -1050,7 +1057,7 @@ socket methods as <code class="docutils literal notranslate"><span class="pre">a
 <li><p><strong>Changed signature for the</strong> <code class="docutils literal notranslate"><span class="pre">get_system_socket</span></code> <strong>method</strong></p>
 <ul>
 <li><p><strong>Old API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_net_socket_get_system_t</span><span class="p">)(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="n">socket</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">avs_net_socket_get_system_t</span><span class="p">)(</span><span class="n">avs_net_abstract_socket_t</span> <span class="o">*</span><span class="n">socket</span><span class="p">,</span>
                                            <span class="k">const</span> <span class="kt">void</span> <span class="o">**</span><span class="n">out</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -1428,29 +1435,21 @@ C preprocessor.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../MigratingFromAnjay225.html" class="btn btn-neutral float-right" title="9.2. Migrating from Anjay 2.2.5" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="MigratingFromAnjay116Coap.html" class="btn btn-neutral float-left" title="9.1.2. Replacement of CoAP implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../MigratingFromAnjay225.html" class="btn btn-neutral float-right" title="9.2. Migrating from Anjay 2.2.5" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="MigratingFromAnjay116Coap.html" class="btn btn-neutral float-left" title="9.1.2. Replacement of CoAP implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2017-2021, AVSystem
+        &#169; Copyright 2017-2021, AVSystem.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 

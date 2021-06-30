@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>5.4.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 2.11.0 documentation</title>
+  <title>5.4.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 2.12.0 documentation</title>
   
 
   
@@ -17,17 +17,22 @@
 
   
   
+
   
   
 
   
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -62,7 +67,7 @@
             
             
               <div class="version">
-                2.11.0
+                2.12.0
               </div>
             
           
@@ -157,6 +162,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -172,7 +179,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -271,7 +278,7 @@ that comes with unnecessary distraction, and as a matter of fact is a bit
 error-prone.  Therefore, in this tutorial, we are going to use <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code>,
 which is an abstraction over singly linked list, and has been used in Anjay
 with success since the beginning of the project.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_object</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">test_object</span> <span class="p">{</span>
     <span class="c1">// handlers</span>
     <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">obj_def</span><span class="p">;</span>
 
@@ -294,7 +301,7 @@ complicated than that. We recommend you to refer to the <a class="reference exte
 longer have such comfort, and have to be able to uniquely identify Object
 Instances. As a consequence, we will add <code class="docutils literal notranslate"><span class="pre">anjay_iid_t</span> <span class="pre">iid</span></code> field to
 <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">test_instance</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">test_instance</span> <span class="p">{</span>
     <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
 
     <span class="kt">bool</span> <span class="n">has_label</span><span class="p">;</span>
@@ -384,7 +391,7 @@ the fact they MUST be unique.</p></li>
 <p>OK, now that we made our assumptions, we are ready to implement utility function
 <code class="docutils literal notranslate"><span class="pre">get_instance</span></code> which retrieves Test object instance with specified Instance ID.
 It will happen to be very useful in the next couple of subsections:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="nf">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span> <span class="n">get_instance</span><span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span> <span class="n">get_instance</span><span class="p">(</span><span class="n">test_object_t</span> <span class="o">*</span><span class="n">repr</span><span class="p">,</span>
                                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
     <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
@@ -519,29 +526,21 @@ of main Anjay project repository.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="AT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-right" title="5.4.6. Objects with Multiple Instance Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="AT_CO4_FixedInstanceWritable.html" class="btn btn-neutral float-left" title="5.4.4. Multi-instance writable object with fixed number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="AT_CO6_MultipleResourceInstances.html" class="btn btn-neutral float-right" title="5.4.6. Objects with Multiple Instance Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AT_CO4_FixedInstanceWritable.html" class="btn btn-neutral float-left" title="5.4.4. Multi-instance writable object with fixed number of instances" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2017-2021, AVSystem
+        &#169; Copyright 2017-2021, AVSystem.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 

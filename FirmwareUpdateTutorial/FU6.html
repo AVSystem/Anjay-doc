@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>6.6. Download resumption &mdash; Anjay 2.11.0 documentation</title>
+  <title>6.6. Download resumption &mdash; Anjay 2.12.0 documentation</title>
   
 
   
@@ -17,17 +17,22 @@
 
   
   
+
   
   
 
   
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -62,7 +67,7 @@
             
             
               <div class="version">
-                2.11.0
+                2.12.0
               </div>
             
           
@@ -146,6 +151,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -159,7 +166,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -237,7 +244,7 @@ be able to resume a partially finished download.</p>
 </span><span class="hll"><span class="cm">     * @ref anjay_fw_update_install to reset the Firmware Update object into the</span>
 </span><span class="hll"><span class="cm">     * Idle state.</span>
 </span><span class="hll"><span class="cm">     */</span>
-</span><span class="hll">    <span class="k">const</span> <span class="k">struct</span> <span class="n">anjay_etag</span> <span class="o">*</span><span class="n">resume_etag</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">const</span> <span class="k">struct</span> <span class="nc">anjay_etag</span> <span class="o">*</span><span class="n">resume_etag</span><span class="p">;</span>
 </span><span class="p">}</span> <span class="n">anjay_fw_update_initial_state_t</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -286,7 +293,7 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="n">assert</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
 </span><span class="hll">            <span class="o">||</span> <span class="n">fwrite</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class="hll"><span class="p">}</span>
@@ -296,7 +303,7 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not open %s for writing</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
 </span><span class="hll">                <span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
-</span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">uri_length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">persisted_uri</span><span class="p">);</span>
 </span><span class="hll">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -306,7 +313,7 @@ the state from persistent storage:</p>
 </span><span class="hll">                      <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
 </span><span class="hll">            <span class="o">||</span> <span class="n">store_etag</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">state</span><span class="o">-&gt;</span><span class="n">resume_etag</span><span class="p">))</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not write firmware download state</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
@@ -319,16 +326,16 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="n">assert</span><span class="p">(</span><span class="n">out_etag</span> <span class="o">&amp;&amp;</span> <span class="o">!*</span><span class="n">out_etag</span><span class="p">);</span> <span class="c1">// make sure out_etag is zero-initialized</span>
 </span><span class="hll">    <span class="kt">uint8_t</span> <span class="n">size</span><span class="p">;</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">size</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">size</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag</span> <span class="o">=</span> <span class="n">anjay_etag_new</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">etag</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">avs_free</span><span class="p">(</span><span class="n">etag</span><span class="p">);</span>
-</span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="o">*</span><span class="n">out_etag</span> <span class="o">=</span> <span class="n">etag</span><span class="p">;</span>
 </span><span class="hll">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -342,18 +349,18 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not open %s for reading</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
 </span><span class="hll">                <span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
-</span><span class="hll">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">
 </span><span class="hll">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span><span class="hll">    <span class="kt">uint16_t</span> <span class="n">uri_length</span><span class="p">;</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">uri_length</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">uri_length</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">uri_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">data</span><span class="p">.</span><span class="n">persisted_uri</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">uri_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
 </span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">            <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">            <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">        <span class="p">}</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span>
@@ -361,7 +368,7 @@ the state from persistent storage:</p>
 </span><span class="hll">                <span class="o">||</span> <span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">.</span><span class="n">resume_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">resume_offset</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
 </span><span class="hll">                           <span class="o">!=</span> <span class="mi">1</span>
 </span><span class="hll">                <span class="o">||</span> <span class="n">restore_etag</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">.</span><span class="n">resume_etag</span><span class="p">)))</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 </span><span class="hll">    <span class="p">}</span>
 </span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not restore download state from %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
@@ -381,7 +388,7 @@ the state from persistent storage:</p>
 </span><span class="hll">    <span class="n">unlink</span><span class="p">(</span><span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
 </span><span class="hll"><span class="p">}</span>
 </span>
-<span class="k">static</span> <span class="k">struct</span> <span class="n">fw_state_t</span> <span class="p">{</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="nc">fw_state_t</span> <span class="p">{</span>
     <span class="kt">FILE</span> <span class="o">*</span><span class="n">firmware_file</span><span class="p">;</span>
     <span class="c1">// anjay instance this firmware update singleton is associated with</span>
     <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">;</span>
@@ -462,13 +469,13 @@ accordingly:</p>
     <span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not open %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">);</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">fseek</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">,</span> <span class="n">seek_offset</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">))</span> <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not seek to %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">seek_offset</span><span class="p">);</span>
         <span class="n">fclose</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">);</span>
         <span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="c1">// We&#39;ve succeeded</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -476,7 +483,7 @@ accordingly:</p>
 
 <span class="k">static</span> <span class="kt">int</span> <span class="nf">fw_stream_open</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span>
                           <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">package_uri</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="k">struct</span> <span class="n">anjay_etag</span> <span class="o">*</span><span class="n">package_etag</span><span class="p">)</span> <span class="p">{</span>
+                          <span class="k">const</span> <span class="k">struct</span> <span class="nc">anjay_etag</span> <span class="o">*</span><span class="n">package_etag</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// We don&#39;t use user_ptr.</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">user_ptr</span><span class="p">;</span>
 
@@ -487,14 +494,14 @@ accordingly:</p>
         <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not duplicate package URI</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag_copy</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">package_etag</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">etag_copy</span> <span class="o">=</span> <span class="n">anjay_etag_clone</span><span class="p">(</span><span class="n">package_etag</span><span class="p">);</span>
             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">etag_copy</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not duplicate package ETag</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
@@ -521,7 +528,7 @@ accordingly:</p>
 <span class="hll">            <span class="o">||</span> <span class="n">fflush</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)</span>
 </span><span class="hll">            <span class="o">||</span> <span class="n">fsync</span><span class="p">(</span><span class="n">fileno</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)))</span> <span class="p">{</span>
 </span>        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Writing to firmware image failed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">)</span> <span class="p">{</span>
 </span><span class="hll">        <span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">resume_offset</span> <span class="o">+=</span> <span class="n">length</span><span class="p">;</span>
@@ -558,7 +565,7 @@ at initialization stage, and before installing the firmware update module in Anj
     <span class="n">anjay_fw_update_initial_state_t</span> <span class="n">state</span><span class="p">;</span>
     <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">state</span><span class="p">));</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">FW_UPDATED_MARKER</span><span class="p">,</span> <span class="n">F_OK</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">FW_UPDATED_MARKER</span><span class="p">,</span> <span class="n">F_OK</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">-1</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// marker file exists, it means firmware update succeded!</span>
         <span class="n">state</span><span class="p">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_FW_UPDATE_INITIAL_SUCCESS</span><span class="p">;</span>
         <span class="n">unlink</span><span class="p">(</span><span class="n">FW_UPDATED_MARKER</span><span class="p">);</span>
@@ -594,29 +601,21 @@ at initialization stage, and before installing the firmware update module in Anj
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../Tools.html" class="btn btn-neutral float-right" title="7. Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="FU5.html" class="btn btn-neutral float-left" title="6.5. Poor network connectivity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../Tools.html" class="btn btn-neutral float-right" title="7. Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="FU5.html" class="btn btn-neutral float-left" title="6.5. Poor network connectivity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2017-2021, AVSystem
+        &#169; Copyright 2017-2021, AVSystem.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 

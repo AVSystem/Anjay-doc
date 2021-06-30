@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>5.7. Persistence support &mdash; Anjay 2.11.0 documentation</title>
+  <title>5.7. Persistence support &mdash; Anjay 2.12.0 documentation</title>
   
 
   
@@ -17,17 +17,22 @@
 
   
   
+
   
   
 
   
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -62,7 +67,7 @@
             
             
               <div class="version">
-                2.11.0
+                2.12.0
               </div>
             
           
@@ -148,6 +153,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -161,7 +168,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -253,10 +260,10 @@ restore it on startup (if a valid persistence file exists).</p>
 
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">file_stream</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not open file for writing&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">anjay_security_object_persist</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
         <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not persist Security Object&quot;</span><span class="p">);</span>
@@ -304,10 +311,10 @@ restore it on startup (if a valid persistence file exists).</p>
             <span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">PERSISTENCE_FILENAME</span><span class="p">,</span> <span class="n">AVS_STREAM_FILE_READ</span><span class="p">);</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">file_stream</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">anjay_security_object_restore</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">file_stream</span><span class="p">)))</span> <span class="p">{</span>
         <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not restore Security Object&quot;</span><span class="p">);</span>
@@ -348,29 +355,21 @@ order because objects’ data is being stored sequentially.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="AT-RetransmissionsTimeoutsCaching.html" class="btn btn-neutral float-right" title="5.8. Retransmissions, timeouts &amp; response caching" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="AT-OtherFeatures.html" class="btn btn-neutral float-left" title="5.6. Other library features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="AT-RetransmissionsTimeoutsCaching.html" class="btn btn-neutral float-right" title="5.8. Retransmissions, timeouts &amp; response caching" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AT-OtherFeatures.html" class="btn btn-neutral float-left" title="5.6. Other library features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2017-2021, AVSystem
+        &#169; Copyright 2017-2021, AVSystem.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 

@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>8.3.1.6. IP address stickiness support &mdash; Anjay 2.11.0 documentation</title>
+  <title>8.3.1.6. IP address stickiness support &mdash; Anjay 2.12.0 documentation</title>
   
 
   
@@ -17,17 +17,22 @@
 
   
   
+
   
   
 
   
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -62,7 +67,7 @@
             
             
               <div class="version">
-                2.11.0
+                2.12.0
               </div>
             
           
@@ -152,6 +157,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -167,7 +174,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -266,7 +273,7 @@ the family (IPv4 vs. IPv6) of the stored address.</p>
     <span class="p">}</span>
     <span class="n">socket</span><span class="o">-&gt;</span><span class="n">operations</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">NET_SOCKET_VTABLE</span><span class="p">;</span>
     <span class="n">socket</span><span class="o">-&gt;</span><span class="n">socktype</span> <span class="o">=</span> <span class="n">socktype</span><span class="p">;</span>
-    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="n">socket</span><span class="o">-&gt;</span><span class="n">recv_timeout</span> <span class="o">=</span> <span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">);</span>
 <span class="hll">    <span class="n">socket</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span><span class="p">;</span>
 </span>    <span class="o">*</span><span class="n">socket_ptr</span> <span class="o">=</span> <span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">socket</span><span class="p">;</span>
@@ -287,14 +294,14 @@ been renamed to <code class="docutils literal notranslate"><span class="pre">add
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">avs_error_t</span>
 <span class="nf">net_connect</span><span class="p">(</span><span class="n">avs_net_socket_t</span> <span class="o">*</span><span class="n">sock_</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">host</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">port</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="n">sock</span> <span class="o">=</span> <span class="p">(</span><span class="n">net_socket_impl_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">sock_</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">addrinfo</span> <span class="n">hints</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="nc">addrinfo</span> <span class="n">hints</span> <span class="o">=</span> <span class="p">{</span>
         <span class="p">.</span><span class="n">ai_socktype</span> <span class="o">=</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">socktype</span>
     <span class="p">};</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">getsockopt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_DOMAIN</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="p">,</span>
                    <span class="o">&amp;</span><span class="p">(</span><span class="kt">socklen_t</span><span class="p">)</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="p">)</span> <span class="p">});</span>
     <span class="p">}</span>
-    <span class="k">struct</span> <span class="n">addrinfo</span> <span class="o">*</span><span class="n">addrs</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="nc">addrinfo</span> <span class="o">*</span><span class="n">addrs</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="n">avs_error_t</span> <span class="n">err</span> <span class="o">=</span> <span class="n">AVS_OK</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addrs</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">addrs</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">err</span> <span class="o">=</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EADDRNOTAVAIL</span><span class="p">);</span>
@@ -304,7 +311,7 @@ been renamed to <code class="docutils literal notranslate"><span class="pre">add
                           <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">err</span> <span class="o">=</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_UNKNOWN_ERROR</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-<span class="hll">        <span class="k">const</span> <span class="k">struct</span> <span class="n">addrinfo</span> <span class="o">*</span><span class="n">addr</span> <span class="o">=</span> <span class="n">addrs</span><span class="p">;</span>
+<span class="hll">        <span class="k">const</span> <span class="k">struct</span> <span class="nc">addrinfo</span> <span class="o">*</span><span class="n">addr</span> <span class="o">=</span> <span class="n">addrs</span><span class="p">;</span>
 </span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span>
 </span><span class="hll">                <span class="o">&amp;&amp;</span> <span class="n">sock</span><span class="o">-&gt;</span><span class="n">preferred_endpoint</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">==</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">sockaddr_union_t</span><span class="p">))</span> <span class="p">{</span>
 </span><span class="hll">            <span class="k">while</span> <span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="p">{</span>
@@ -388,29 +395,21 @@ around <code class="docutils literal notranslate"><span class="pre">sockaddr_uni
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="NetworkingAPI7.html" class="btn btn-neutral float-right" title="8.3.1.7. Other features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="NetworkingAPI5.html" class="btn btn-neutral float-left" title="8.3.1.5. Statistics support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="NetworkingAPI7.html" class="btn btn-neutral float-right" title="8.3.1.7. Other features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="NetworkingAPI5.html" class="btn btn-neutral float-left" title="8.3.1.5. Statistics support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2017-2021, AVSystem
+        &#169; Copyright 2017-2021, AVSystem.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 

@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>8.1. Time API &mdash; Anjay 2.11.0 documentation</title>
+  <title>8.1. Time API &mdash; Anjay 2.12.0 documentation</title>
   
 
   
@@ -17,17 +17,22 @@
 
   
   
+
   
   
 
   
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -62,7 +67,7 @@
             
             
               <div class="version">
-                2.11.0
+                2.12.0
               </div>
             
           
@@ -143,6 +148,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -156,7 +163,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
     
@@ -202,7 +209,7 @@ Unix epoch).</p>
 <p>In the reference POSIX-based implementation, it is a simple wrapper for the
 <code class="docutils literal notranslate"><span class="pre">CLOCK_REALITME</span></code> clock.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_real_t</span> <span class="nf">avs_time_real_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">system_value</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="nc">timespec</span> <span class="n">system_value</span><span class="p">;</span>
     <span class="n">avs_time_real_t</span> <span class="n">result</span><span class="p">;</span>
     <span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">system_value</span><span class="p">);</span>
     <span class="n">result</span><span class="p">.</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span> <span class="o">=</span> <span class="n">system_value</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span>
@@ -226,7 +233,7 @@ is running, it may be also used as the monotonic clock.</p>
 <code class="docutils literal notranslate"><span class="pre">CLOCK_MONOTONIC</span></code> clock, but on some platforms it is not available -
 <code class="docutils literal notranslate"><span class="pre">CLOCK_REALTIME</span></code> is used in these cases.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_monotonic_t</span> <span class="nf">avs_time_monotonic_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">struct</span> <span class="n">timespec</span> <span class="n">system_value</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="nc">timespec</span> <span class="n">system_value</span><span class="p">;</span>
     <span class="n">avs_time_monotonic_t</span> <span class="n">result</span><span class="p">;</span>
 <span class="cp">#    ifdef CLOCK_MONOTONIC</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">system_value</span><span class="p">))</span>
@@ -251,29 +258,21 @@ is running, it may be also used as the monotonic clock.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="ThreadingAPI.html" class="btn btn-neutral float-right" title="8.2. Threading API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-left" title="8. Porting guide for non-POSIX platforms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="ThreadingAPI.html" class="btn btn-neutral float-right" title="8.2. Threading API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-left" title="8. Porting guide for non-POSIX platforms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2017-2021, AVSystem
+        &#169; Copyright 2017-2021, AVSystem.
 
     </p>
   </div> 
 
 </footer>
-
         </div>
       </div>
 
