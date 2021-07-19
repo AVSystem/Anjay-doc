@@ -273,6 +273,7 @@ var searchData=
   ['anjay_5fwith_5fnet_5fstats_270',['ANJAY_WITH_NET_STATS',['../anjay__config_8h.html#a16f03e937cee569e516ff4616c3b97fc',1,'anjay_config.h']]],
   ['anjay_5fwith_5fobservation_5fstatus_271',['ANJAY_WITH_OBSERVATION_STATUS',['../anjay__config_8h.html#a94b3894de8e54ba40684218883475ac2',1,'anjay_config.h']]],
   ['anjay_5fwith_5fobserve_272',['ANJAY_WITH_OBSERVE',['../anjay__config_8h.html#add6266e9abb910f6d276143fbe185837',1,'anjay_config.h']]],
-  ['anjay_5fwith_5ftrace_5flogs_273',['ANJAY_WITH_TRACE_LOGS',['../anjay__config_8h.html#a0bf7c70c2e84aed245739dbfb9c09a79',1,'anjay_config.h']]],
-  ['attr_5fstorage_2eh_274',['attr_storage.h',['../attr__storage_8h.html',1,'']]]
+  ['anjay_5fwith_5fthread_5fsafety_273',['ANJAY_WITH_THREAD_SAFETY',['../anjay__config_8h.html#a5bf6af2b96b0c63902efd9678e09917f',1,'anjay_config.h']]],
+  ['anjay_5fwith_5ftrace_5flogs_274',['ANJAY_WITH_TRACE_LOGS',['../anjay__config_8h.html#a0bf7c70c2e84aed245739dbfb9c09a79',1,'anjay_config.h']]],
+  ['attr_5fstorage_2eh_275',['attr_storage.h',['../attr__storage_8h.html',1,'']]]
 ];

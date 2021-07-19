@@ -23,5 +23,6 @@ var anjay__config_8h =
     [ "ANJAY_WITH_NET_STATS", "anjay__config_8h.html#a16f03e937cee569e516ff4616c3b97fc", null ],
     [ "ANJAY_WITH_OBSERVATION_STATUS", "anjay__config_8h.html#a94b3894de8e54ba40684218883475ac2", null ],
     [ "ANJAY_WITH_OBSERVE", "anjay__config_8h.html#add6266e9abb910f6d276143fbe185837", null ],
+    [ "ANJAY_WITH_THREAD_SAFETY", "anjay__config_8h.html#a5bf6af2b96b0c63902efd9678e09917f", null ],
     [ "ANJAY_WITH_TRACE_LOGS", "anjay__config_8h.html#a0bf7c70c2e84aed245739dbfb9c09a79", null ]
 ];
