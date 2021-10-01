@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5.4.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 2.14.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.4.4. Multi-instance writable object with fixed number of instances" href="AT_CO_FixedInstanceWritable.html" />
+    <link rel="prev" title="5.4.2. Single-instance read-only object with an executable resource" href="AT_CO_SingleInstanceExecutableAndReadOnly.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-AttributeStorage.html">5.2. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../AT-CustomObjects.html">5.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_SingleInstanceReadOnly.html">5.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_SingleInstanceExecutableAndReadOnly.html">5.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_FixedInstanceWritable.html">5.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_MultiInstanceDynamic.html">5.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_MultipleResourceInstances.html">5.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_BootstrapAwareness.html">5.4.7. Bootstrap awareness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-OtherFeatures.html">5.6. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-Persistence.html">5.7. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-CustomEventLoop.html">5.9. Custom event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-IpsoObjects.html">5.11. Anjay IPSO Objects implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+        
+          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
+        
+      <li><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="multi-instance-read-only-object-with-fixed-number-of-instances">
+<h1><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances<a class="headerlink" href="#multi-instance-read-only-object-with-fixed-number-of-instances" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section describes in details the implementation of custom Objects in
+Anjay, either defined in <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>
+or designed by user.</p>
+<p>Although most of the Object’s code can be generated using
+<a class="reference internal" href="../../Tools/StubGenerator.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a> if you have Object’s definition in XML,
+it is recommended to read this section to have a clear understanding on what
+various parts of the LwM2M Object code are for.</p>
+</div>
+<p>In this example you will learn how to implement <code class="docutils literal notranslate"><span class="pre">list_instances</span></code> handler for a
+multi-instance LwM2M Object.</p>
+<p>The implemented Object will look as in <a class="reference internal" href="AT_CO_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>,
+but will now support multiple Object Instances:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Multiple</p></td>
+</tr>
+</tbody>
+</table>
+<p>Each Object Instance has two Resources:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Label</p></td>
+<td><p>0</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-odd"><td><p>Value</p></td>
+<td><p>1</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code is based on <a class="reference internal" href="AT_CO_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>.</p>
+</div>
+<p>First of all, let us define a structure that will hold both handlers and object
+state, initialize and register it:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">test_instance</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">label</span><span class="p">;</span>
+    <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">test_instance_t</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">test_object</span> <span class="p">{</span>
+    <span class="c1">// handlers</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">obj_def</span><span class="p">;</span>
+
+    <span class="c1">// object state</span>
+    <span class="n">test_instance_t</span> <span class="n">instances</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">test_object_t</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+
+<span class="c1">// initialize and register the test object</span>
+<span class="k">const</span> <span class="n">test_object_t</span> <span class="n">test_object</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">obj_def</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span> <span class="s">&quot;First&quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">},</span> <span class="p">{</span> <span class="s">&quot;Second&quot;</span><span class="p">,</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">test_object</span><span class="p">.</span><span class="n">obj_def</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now, to inform the library the Object contains two Instances with IDs 0 and 1,
+one additional handler is required:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">list_instances</span></code> - used by the library to enumerate all existing Object
+Instance IDs:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">test_list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+
+    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">anjay_iid_t</span> <span class="n">iid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+         <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">iid</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+         <span class="o">++</span><span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that the instances MUST be returned in a strictly ascending, sorted
+order.</p>
+</li>
+</ul>
+<div class="topic">
+<p class="topic-title">Why is enumerating Object Instances necessary?</p>
+<p>LwM2M does not require existing Object Instances to have consecutive IDs.
+It is perfectly fine to implement an Object that only contains Instances
+3 and 40235. Without <code class="docutils literal notranslate"><span class="pre">list_instances</span></code> handler the library would need
+to iterate over all possible Instance IDs to be able to prepare a list
+of available Object Instances whenever the LwM2M Server requests one.</p>
+</div>
+<p>Having done that, <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler needs to be slightly modified
+to correctly handle requests to different Object Instance IDs.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                              <span class="n">anjay_riid_t</span> <span class="n">riid</span><span class="p">,</span>
+                              <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span> <span class="c1">// unused</span>
+
+    <span class="n">test_object_t</span> <span class="o">*</span><span class="n">test</span> <span class="o">=</span> <span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+    <span class="c1">// IID validity was checked by the `anjay_dm_list_instances_t` handler.</span>
+    <span class="c1">// If the Object Instance set does not change, or can only be modifed</span>
+    <span class="c1">// via LwM2M Create/Delete requests, it is safe to assume IID is correct.</span>
+    <span class="n">assert</span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span> <span class="n">iid</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+    <span class="k">const</span> <span class="k">struct</span> <span class="nc">test_instance</span> <span class="o">*</span><span class="n">current_instance</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">test</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
+
+    <span class="c1">// We have no Multiple-Instance Resources, so it is safe to assume</span>
+    <span class="c1">// that RIID is never set.</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">label</span><span class="p">);</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// control will never reach this part due to test_list_resources</span>
+        <span class="k">return</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The only thing left to do is plugging created handler into the Object Definition
+struct:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// Object ID</span>
+    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
+
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">list_instances</span> <span class="o">=</span> <span class="n">test_list_instances</span><span class="p">,</span>
+
+        <span class="c1">// ... other handlers</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
+<cite>examples/tutorial/AT-CustomObjects/read-only-multiple-fixed</cite> subdirectory of
+main Anjay project repository.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="AT_CO_FixedInstanceWritable.html" class="btn btn-neutral float-right" title="5.4.4. Multi-instance writable object with fixed number of instances" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AT_CO_SingleInstanceExecutableAndReadOnly.html" class="btn btn-neutral float-left" title="5.4.2. Single-instance read-only object with an executable resource" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2021, AVSystem.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

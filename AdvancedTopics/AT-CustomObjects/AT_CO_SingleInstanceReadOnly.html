@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5.4.1. Single-instance read-only object &mdash; Anjay 2.14.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.4.2. Single-instance read-only object with an executable resource" href="AT_CO_SingleInstanceExecutableAndReadOnly.html" />
+    <link rel="prev" title="5.4. Custom LwM2M objects" href="../AT-CustomObjects.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-AttributeStorage.html">5.2. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../AT-CustomObjects.html">5.4. Custom LwM2M objects</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_SingleInstanceExecutableAndReadOnly.html">5.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_MultiInstanceReadOnlyFixed.html">5.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_FixedInstanceWritable.html">5.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_MultiInstanceDynamic.html">5.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_MultipleResourceInstances.html">5.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT_CO_BootstrapAwareness.html">5.4.7. Bootstrap awareness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-OtherFeatures.html">5.6. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-Persistence.html">5.7. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-CustomEventLoop.html">5.9. Custom event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-IpsoObjects.html">5.11. Anjay IPSO Objects implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+        
+          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
+        
+      <li><span class="section-number">5.4.1. </span>Single-instance read-only object</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="single-instance-read-only-object">
+<h1><span class="section-number">5.4.1. </span>Single-instance read-only object<a class="headerlink" href="#single-instance-read-only-object" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section describes in details the implementation of custom Objects in
+Anjay, either defined in <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>
+or designed by user.</p>
+<p>Although most of the Object’s code can be generated using
+<a class="reference internal" href="../../Tools/StubGenerator.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a> if you have Object’s definition in XML,
+it is recommended to read this section to have a clear understanding on what
+various parts of the LwM2M Object code are for.</p>
+</div>
+<p>This is the simplest possible case. Let us implement following custom Object:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Object ID</p></th>
+<th class="head"><p>Instances</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Test object</p></td>
+<td><p>1234</p></td>
+<td><p>Single</p></td>
+</tr>
+</tbody>
+</table>
+<p>With two simple Resources:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Operations</p></th>
+<th class="head"><p>Instances</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Object name</p></td>
+<td><p>0</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>String</p></td>
+</tr>
+<tr class="row-odd"><td><p>Timestamp</p></td>
+<td><p>1</p></td>
+<td><p>Read</p></td>
+<td><p>Single</p></td>
+<td><p>Mandatory</p></td>
+<td><p>Integer</p></td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the most interesting handler type is <code class="docutils literal notranslate"><span class="pre">anjay_dm_resource_read_t</span></code>,
+called whenever the library needs to get a value of a Resource. This might
+happen if:</p>
+<ul class="simple">
+<li><p>a LwM2M Server sends a Read request,</p></li>
+<li><p>the Resource is being observed and the library needs to send a Notify message,</p></li>
+<li><p>value of the Resource is required for the library to function correctly
+(mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</p></li>
+</ul>
+<p>The Read handler for our test object might be implemented as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                              <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                              <span class="n">anjay_riid_t</span> <span class="n">riid</span><span class="p">,</span>
+                              <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// These arguments may seem superfluous now, but they will come in handy</span>
+    <span class="c1">// while defining more complex objects</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="c1">// unused: the object holds no state</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>     <span class="c1">// unused: will always be 0 for single-instance Objects</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">riid</span><span class="p">;</span>    <span class="c1">// unused: will always be ANJAY_ID_INVALID</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;Test object&quot;</span><span class="p">);</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">avs_time_real_now</span><span class="p">().</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="p">);</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// control will never reach this part due to test_list_resources</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>What happens here?</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rid</span></code> value is compared against all known Resource IDs to determine what
+value should be returned to the library.</p></li>
+<li><p>Resource value is passed to the library via one of <code class="docutils literal notranslate"><span class="pre">anjay_ret_*</span></code> functions,
+depending on the actual data type of a Resource. The value returned
+by an appropriate call is then forwarded up - this ensures correct error
+handling in case anything goes wrong.</p></li>
+</ul>
+<p>The code above makes reference to a <code class="docutils literal notranslate"><span class="pre">test_list_resources</span></code> function - this is
+another handler, used by the library to determine which resources are supported
+and present in a given Object Instance. A LwM2M Client may be able to handle a
+Resource that has no default value - in that case, the Resource is always
+<em>supported</em>, but becomes <em>present</em> only after a LwM2M Server sets its value
+first. Before that, it can be treated as non-existent - it will not be reported
+via the Discover RPC, for example. Examples include Default Minimum Period and
+Default Maximum Period Resources of the LwM2M Server object.</p>
+<p>In our case, Resources 0 and 1 are always present in the only Instance we have,
+so we can implement the <code class="docutils literal notranslate"><span class="pre">test_resource_preset</span></code> handler simply as:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                               <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                               <span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>   <span class="c1">// unused</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span> <span class="c1">// unused</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>     <span class="c1">// unused</span>
+
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_R</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_R</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit_res()</span></code> function, used in the above snippet, is declared as:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">anjay_dm_emit_res</span><span class="p">(</span><span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
+                       <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                       <span class="n">anjay_dm_resource_kind_t</span> <span class="n">kind</span><span class="p">,</span>
+                       <span class="n">anjay_dm_resource_presence_t</span> <span class="n">presence</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>It shall be called for all <em>supported</em> resources. The <code class="docutils literal notranslate"><span class="pre">presence</span></code> argument
+informs the library whether a given resource is <em>present</em> at the moment.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument informs the library what kind of operations are legal to
+perform on the resource. Valid values are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_R</span></code> - read-only single instance resource</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_W</span></code> - write-only single instance resource</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_RW</span></code> - read/write single instance resource</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_RM</span></code> - read-only multiple instance resource</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_WM</span></code> - write-only multiple instance resource</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_RWM</span></code> - read/write multiple instance resource</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_E</span></code> - executable resource</p></li>
+</ul>
+</div></blockquote>
+<p>Note that when communicating with a Bootstrap Server may be able to ignore this
+information, see <a class="reference internal" href="AT_CO_BootstrapAwareness.html"><span class="doc">Bootstrap awareness</span></a> for more information.</p>
+<p>Note that the resources MUST be returned in a strictly ascending, sorted order.</p>
+<p>Having the Read and List Resources handlers implemented, one can initialize the
+<code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJECT_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// Object ID</span>
+    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">,</span>
+
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// single-instance Objects can use this pre-implemented handler:</span>
+        <span class="p">.</span><span class="n">list_instances</span> <span class="o">=</span> <span class="n">anjay_dm_list_instances_SINGLE</span><span class="p">,</span>
+
+        <span class="p">.</span><span class="n">list_resources</span> <span class="o">=</span> <span class="n">test_list_resources</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">test_resource_read</span>
+
+        <span class="c1">// all other handlers can be left NULL if only Read operation is</span>
+        <span class="c1">// required</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title">Why are all these handlers required?</p>
+<p>When the library attempts to perform an operation (e.g. Read) on a Resource
+it first performs a number of checks to ensure the target path is correct
+and the operation itself is allowed. Assuming a LwM2M Server requests
+some operation on the path /1/2/3:</p>
+<ol class="arabic">
+<li><p>First, the library checks whether an Object with ID = 1 is registered.
+If not, a Not Found response is issued.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list_instances</span></code> handler of Object 1 is called to determine whether
+Instance 2 exists. If not, a Not Found response is issued.</p></li>
+<li><p>If multiple LwM2M Servers are configured, the library inspects Access
+Control Object to check whether the server requesting an operation should
+be allowed to perform it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More info: <a class="reference internal" href="../AT-AccessControl.html"><span class="doc">Access Control in multi-server environment</span></a></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list_resources</span></code> handler is called to ensure that Resource 3
+is supported and present for Object Instance 2. If the handler returns 0,
+a Not Found response is issued.</p></li>
+<li><p>Finally, if all other checks succeeded, a specific handler (e.g.
+<code class="docutils literal notranslate"><span class="pre">resource_read</span></code> for Read operation) is called.</p></li>
+</ol>
+<p>Any of the handlers above may also fail with a specific CoAP error code
+(see <a class="reference external" href="../../api/core_8h.html">ANJAY_ERR_* constants</a>), aborting the
+sequence early and - if the Read was triggered by a server request - causing
+the library to respond with returned error code.</p>
+</div>
+<p>When the Object Definition is ready, the only thing left to do is registering
+it in the library:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="c1">// ... Anjay initialization</span>
+
+    <span class="c1">// note: in this simple case the object does not have any state,</span>
+    <span class="c1">// so it&#39;s fine to use a plain double pointer to its definition struct</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">test_object_def_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
+
+    <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">test_object_def_ptr</span><span class="p">);</span>
+
+    <span class="c1">// ... event loop</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>After registering the object, whenever a LwM2M Server issues a Read request
+on Object 1234 or any of its Resources, Anjay will take care of preparing
+a response containing the value of requested Resource.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
+<cite>examples/tutorial/AT-CustomObjects/read-only</cite> subdirectory of main Anjay
+project repository.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="AT_CO_SingleInstanceExecutableAndReadOnly.html" class="btn btn-neutral float-right" title="5.4.2. Single-instance read-only object with an executable resource" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../AT-CustomObjects.html" class="btn btn-neutral float-left" title="5.4. Custom LwM2M objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2021, AVSystem.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

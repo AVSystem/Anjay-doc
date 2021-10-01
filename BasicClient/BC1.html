@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta content="1; url=BC-Initialization.html" http-equiv="Refresh" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>4.1. Anjay initialization &mdash; Anjay 2.13.0 documentation</title>
+  <title>Redirection &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +25,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -38,9 +36,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.2. Installing mandatory Objects" href="BC2.html" />
-    <link rel="prev" title="4. Basic client" href="../BasicClient.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -67,7 +63,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -92,21 +88,11 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../BasicClient.html">4. Basic client</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.1. Anjay initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC2.html">4.2. Installing mandatory Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC3.html">4.3. Event loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC4.html">4.4. Enabling secure communication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC5.html">4.5. Implementing standard Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC6.html">4.6. Notifications support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC7.html">4.7. Send method</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC8.html">4.8. A few notes on general usage</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
@@ -161,9 +147,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
-        
-      <li><span class="section-number">4.1. </span>Anjay initialization</li>
+      <li>Redirection</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -180,99 +164,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="anjay-initialization">
-<h1><span class="section-number">4.1. </span>Anjay initialization<a class="headerlink" href="#anjay-initialization" title="Permalink to this headline">¶</a></h1>
-<p>First, let’s create a minimum build environment for our example client. We
-will be using a following directory structure:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>example/
-  ├── CMakeLists.txt
-  └── src/
-      └── main.c
-</pre></div>
-</div>
-<p>Note that all code found in this tutorial is available under
-<code class="docutils literal notranslate"><span class="pre">examples/tutorial/BCx</span></code> in Anjay source directory, where <code class="docutils literal notranslate"><span class="pre">x</span></code> stands for
-the index of tutorial chapter. Each tutorial project follows the same project
-directory layout.</p>
-<div class="section" id="build-system">
-<h2><span class="section-number">4.1.1. </span>Build system<a class="headerlink" href="#build-system" title="Permalink to this headline">¶</a></h2>
-<p>We are going to use CMake as a build system. Let’s create an initial minimal
-<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.1</span><span class="p">)</span>
-<span class="nb">project</span><span class="p">(</span><span class="s">anjay-bc1</span> <span class="s">C</span><span class="p">)</span>
-
-<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD</span> <span class="s">99</span><span class="p">)</span>
-<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_EXTENSIONS</span> <span class="s">OFF</span><span class="p">)</span>
-
-<span class="nb">add_compile_options</span><span class="p">(</span><span class="s">-Wall</span> <span class="s">-Wextra</span><span class="p">)</span>
-
-<span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span> <span class="s">REQUIRED</span><span class="p">)</span>
-
-<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">src/main.c</span><span class="p">)</span>
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PRIVATE</span> <span class="s">anjay</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="hello-world-client">
-<span id="anjay-hello-world"></span><h2><span class="section-number">4.1.2. </span>Hello World client<a class="headerlink" href="#hello-world-client" title="Permalink to this headline">¶</a></h2>
-<p>Now, we can begin the actual client implementation. Simple program with
-instantiation of Anjay object is presented below:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
-    <span class="p">};</span>
-
-    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>We recommend you to look at the doxygen generated
-<a class="reference external" href="../api/">API documentation</a> if something isn’t immediately
-clear to you.</p>
-</div>
-<p>Let’s build our minimal client:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ cmake . <span class="o">&amp;&amp;</span> make
-</pre></div>
-</div>
-<p>If that succeeds, we can now run it. We need to pass an endpoint name as the
-program’s argument - this is not important now, but when we get to the point of
-being able to communicate with a server, this will be a name that the client
-uses to identify itself to the server. Please look ino the <a class="reference internal" href="../LwM2M.html#clients-and-servers"><span class="std std-ref">brief
-description of LwM2M</span></a> for details on recommended formats
-of the endpoint name.</p>
-<p>A simple idea for generating an endpoint name is to use the local hostname:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ./anjay-bc1 urn:dev:os:<span class="k">$(</span>hostname<span class="k">)</span>
-</pre></div>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Project will not be configured successfully until you install Anjay library,
-see <a class="reference internal" href="../Compiling_client_applications.html"><span class="doc">Compiling client applications</span></a> for details how to do it.</p>
-</div>
-<p>You will see only some logs and application will immediately close, but if you
-do not see “Could not create Anjay object” there, then Anjay was properly
-initialized. We will connect to LwM2M Server in the next steps.</p>
-</div>
+  <div class="section" id="bc-initialization">
+<h1>↳ <a class="reference internal" href="BC-Initialization.html"><span class="doc">Anjay initialization</span></a><a class="headerlink" href="#bc-initialization" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -280,10 +173,6 @@ initialized. We will connect to LwM2M Server in the next steps.</p>
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="BC2.html" class="btn btn-neutral float-right" title="4.2. Installing mandatory Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../BasicClient.html" class="btn btn-neutral float-left" title="4. Basic client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

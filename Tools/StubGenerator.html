@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>7.2. Anjay Object stub generator &mdash; Anjay 2.13.0 documentation</title>
+  <title>7.2. Anjay Object stub generator &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -67,7 +64,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -181,7 +178,7 @@
 and generates a skeleton of the LwM2M object code, requiring the user to only
 fill in actual object logic.</p>
 <p>You can use <cite>./tools/lwm2m_object_registry.py</cite> script to download the
-Object Definition XML from <a class="reference external" href="https://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>.</p>
+Object Definition XML from <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>.</p>
 <div class="section" id="usage-examples">
 <h2><span class="section-number">7.2.1. </span>Usage examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># list registered LwM2M objects</span>
@@ -300,12 +297,12 @@ Object Definition XML from <a class="reference external" href="https://www.openm
 <span class="p">}</span> <span class="n">some_object_name_object_t</span><span class="p">;</span>
 
 <span class="k">static</span> <span class="kr">inline</span> <span class="n">some_object_name_object_t</span> <span class="o">*</span>
-<span class="nf">get_obj</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">get_obj</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">assert</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">AVS_CONTAINER_OF</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">,</span> <span class="n">some_object_name_object_t</span><span class="p">,</span> <span class="n">def</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">AVS_CONTAINER_OF</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">,</span> <span class="n">some_object_name_object_t</span><span class="p">,</span> <span class="n">def</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="nf">find_instance</span><span class="p">(</span><span class="k">const</span> <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span>
+<span class="k">static</span> <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">find_instance</span><span class="p">(</span><span class="k">const</span> <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span>
                                                   <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
     <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
@@ -319,7 +316,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
@@ -332,7 +329,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">init_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">init_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">assert</span><span class="p">(</span><span class="n">iid</span> <span class="o">!=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
 
     <span class="n">inst</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">=</span> <span class="n">iid</span><span class="p">;</span>
@@ -342,13 +339,13 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">release_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">release_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// TODO: instance cleanup</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">inst</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">static</span> <span class="n">some_object_name_instance_t</span> <span class="o">*</span>
-<span class="nf">add_instance</span><span class="p">(</span><span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">add_instance</span><span class="p">(</span><span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">assert</span><span class="p">(</span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">)</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
 
     <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="n">created</span> <span class="o">=</span>
@@ -374,17 +371,17 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="n">created</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">instance_create</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_create</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                            <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                            <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
     <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
     <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 
-    <span class="k">return</span> <span class="n">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nf">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">instance_remove</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_remove</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                            <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                            <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
@@ -406,7 +403,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="n">ANJAY_ERR_NOT_FOUND</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
@@ -420,7 +417,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                           <span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
@@ -437,7 +434,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                          <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -453,11 +450,11 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">case</span> <span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span>
         <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> <span class="c1">// TODO</span>
+        <span class="k">return</span> <span class="nf">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> <span class="c1">// TODO</span>
 
     <span class="k">case</span> <span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span>
         <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// TODO</span>
+        <span class="k">return</span> <span class="nf">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// TODO</span>
 
     <span class="k">case</span> <span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span>
         <span class="c1">// TODO: extract Resource Instance</span>
@@ -468,7 +465,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                           <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -485,19 +482,19 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">case</span> <span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
         <span class="kt">char</span> <span class="n">value</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span> <span class="c1">// TODO</span>
-        <span class="k">return</span> <span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">));</span> <span class="c1">// TODO</span>
+        <span class="k">return</span> <span class="nf">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">));</span> <span class="c1">// TODO</span>
     <span class="p">}</span>
 
     <span class="k">case</span> <span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
         <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span> <span class="c1">// TODO</span>
-        <span class="k">return</span> <span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span> <span class="c1">// TODO</span>
+        <span class="k">return</span> <span class="nf">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span> <span class="c1">// TODO</span>
     <span class="p">}</span>
 
     <span class="k">case</span> <span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span> <span class="p">{</span>
         <span class="c1">// TODO: extract Resource Instance</span>
         <span class="kt">bool</span> <span class="n">value</span><span class="p">;</span> <span class="c1">// TODO</span>
-        <span class="k">return</span> <span class="n">anjay_get_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span> <span class="c1">// TODO</span>
+        <span class="k">return</span> <span class="nf">anjay_get_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span> <span class="c1">// TODO</span>
     <span class="p">}</span>
 
     <span class="k">default</span><span class="o">:</span>
@@ -505,7 +502,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                           <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
@@ -525,7 +522,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                    <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                                    <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -569,7 +566,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="nf">some_object_name_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">some_object_name_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span>
             <span class="p">(</span><span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">some_object_name_object_t</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
@@ -582,7 +579,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
     <span class="k">return</span> <span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">some_object_name_object_release</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="n">some_object_name_object_release</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span>
         <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
@@ -598,7 +595,7 @@ Object Definition XML from <a class="reference external" href="https://www.openm
 </div>
 <p>Now that the basic object structure is created, one can start thinking about filling in
 missing parts marked in the code by the <cite>TODO</cite> comments. Then, to make the object present
-in the LwM2M Data Model, one shall instantiate it, and finally <a class="reference internal" href="../BasicClient/BC5.html#registering-objects"><span class="std std-ref">register</span></a>
+in the LwM2M Data Model, one shall instantiate it, and finally <a class="reference internal" href="../BasicClient/BC-ObjectImplementation.html#registering-objects"><span class="std std-ref">register</span></a>
 it within Anjay.</p>
 </div>
 </div>

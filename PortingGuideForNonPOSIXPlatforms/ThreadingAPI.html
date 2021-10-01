@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>8.2. Threading API &mdash; Anjay 2.13.0 documentation</title>
+  <title>8.2. Threading API &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -67,7 +64,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -179,18 +176,23 @@
 <h1><span class="section-number">8.2. </span>Threading API<a class="headerlink" href="#threading-api" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2><span class="section-number">8.2.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> and <code class="docutils literal notranslate"><span class="pre">avs_log</span></code> modules require threading primitives
-to operate reliably in multi-threaded environments, specifically:</p>
+<p>If Anjay is compiled with thread safety enabled (<code class="docutils literal notranslate"><span class="pre">WITH_THREAD_SAFETY</span></code> CMake
+option), it requires some basic threading primitives to be implemented for the
+thread safety features to work properly.</p>
+<p>The same threading primitives are additionally used by the <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> and
+<code class="docutils literal notranslate"><span class="pre">avs_log</span></code> modules regardless of whether thread safety is enabled or not.</p>
+<p>The specific requirements are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">avs_net</span></code> requires <code class="docutils literal notranslate"><span class="pre">avs_init_once()</span></code>,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">avs_log</span></code> requires <code class="docutils literal notranslate"><span class="pre">avs_mutex_create()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_mutex_cleanup()</span></code>,
-<code class="docutils literal notranslate"><span class="pre">avs_mutex_lock()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_mutex_unlock()</span></code>, and
+<li><p><code class="docutils literal notranslate"><span class="pre">avs_log</span></code> and Anjay thread safety require <code class="docutils literal notranslate"><span class="pre">avs_mutex_create()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">avs_mutex_cleanup()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_mutex_lock()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_mutex_unlock()</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">avs_init_once()</span></code>.</p></li>
 </ul>
 <p>In addition, <code class="docutils literal notranslate"><span class="pre">avs_sched</span></code> optionally depends on <code class="docutils literal notranslate"><span class="pre">avs_condvar_create()</span></code>,
 <code class="docutils literal notranslate"><span class="pre">avs_condvar_cleanup()</span></code>, <code class="docutils literal notranslate"><span class="pre">avs_condvar_notify_all()</span></code> as well as
 <code class="docutils literal notranslate"><span class="pre">avs_mutex_*</span></code> APIs. The dependency can be controlled with
-<code class="docutils literal notranslate"><span class="pre">WITH_SCHEDULER_THREAD_SAFE</span></code> CMake option.</p>
+<code class="docutils literal notranslate"><span class="pre">WITH_SCHEDULER_THREAD_SAFE</span></code> CMake option. This option normally has the same
+setting as <code class="docutils literal notranslate"><span class="pre">WITH_THREAD_SAFETY</span></code>.</p>
 <p>There are two independent implementations of the threading API for compatibility
 with most platforms:</p>
 <ul class="simple">

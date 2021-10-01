@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9.1.1. Changes in Anjay proper &mdash; Anjay 2.13.0 documentation</title>
+  <title>9.1.1. Changes in Anjay proper &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -67,7 +64,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -371,14 +368,14 @@ in the Object at the time of calling.</p>
 application:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// NOTE: Code compatible with Anjay 1.16</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">instance_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                             <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                             <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">),</span> <span class="n">iid</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nf">find_instance</span><span class="p">(</span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">),</span> <span class="n">iid</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">instance_it</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_it</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                        <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                        <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span>
                        <span class="kt">void</span> <span class="o">**</span><span class="n">cookie</span><span class="p">)</span> <span class="p">{</span>
@@ -410,7 +407,7 @@ application:</p>
 </pre></div>
 </div>
 <p>Equivalent new code:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
@@ -471,7 +468,7 @@ Resources.</p>
 <p>Example of old code, taken from the Access Control Object implementation:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// NOTE: Code compatible with Anjay 1.16</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">ac_resource_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">ac_resource_present</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                <span class="n">obj_ptr_t</span> <span class="n">obj_ptr</span><span class="p">,</span>
                                <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                                <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
@@ -495,7 +492,7 @@ Resources.</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">ac_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">ac_resource_operations</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                   <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
                                   <span class="n">anjay_dm_resource_op_mask_t</span> <span class="o">*</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span>
@@ -536,7 +533,7 @@ Resources.</p>
 </pre></div>
 </div>
 <p>Equivalent new code:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">ac_list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">ac_list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                              <span class="n">obj_ptr_t</span> <span class="n">obj_ptr</span><span class="p">,</span>
                              <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                              <span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
@@ -705,7 +702,7 @@ Resource Instances from a multiple-instance Resource.</p></li>
 application:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// NOTE: Code compatible with Anjay 1.16</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                          <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -745,7 +742,7 @@ application:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                           <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -789,7 +786,7 @@ application:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_dim</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_dim</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                         <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                         <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                         <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
@@ -828,7 +825,7 @@ application:</p>
 </pre></div>
 </div>
 <p>Equivalent new code:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                          <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -845,14 +842,14 @@ application:</p>
     <span class="k">case</span> <span class="nl">RID_IDENTITY</span><span class="p">:</span>
         <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">&lt;</span> <span class="n">_MAX_IDENTITY_TYPE</span><span class="p">);</span>
         <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">has_identity</span><span class="p">[</span><span class="n">riid</span><span class="p">]);</span>
-        <span class="k">return</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inst</span><span class="o">-&gt;</span><span class="n">identity_value</span><span class="p">[</span><span class="n">riid</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="nf">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inst</span><span class="o">-&gt;</span><span class="n">identity_value</span><span class="p">[</span><span class="n">riid</span><span class="p">]);</span>
     <span class="k">default</span><span class="o">:</span>
         <span class="n">AVS_UNREACHABLE</span><span class="p">(</span><span class="s">&quot;Read called on unknown resource&quot;</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                           <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -885,7 +882,7 @@ application:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">resource_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                           <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
@@ -902,7 +899,7 @@ application:</p>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                                    <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
                                    <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
@@ -968,7 +965,7 @@ are used for both single- and multiple-instance Resources.</p>
 <p>The function type associated with the <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> handler has previously
 been declared as:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span>
-<span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="n">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                            <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                            <span class="n">anjay_iid_t</span> <span class="o">*</span><span class="n">inout_iid</span><span class="p">,</span>
                            <span class="n">anjay_ssid_t</span> <span class="n">ssid</span><span class="p">);</span>
@@ -976,7 +973,7 @@ been declared as:</p>
 </div>
 <p>This has been simplified into:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span>
-<span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="n">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                            <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
                            <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">);</span>
 </pre></div>
@@ -1092,7 +1089,7 @@ return value contains a detailed error code.</p></li>
 <ul>
 <li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">void</span>
-<span class="nf">anjay_download_finished_handler_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="kt">int</span> <span class="n">result</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">user_data</span><span class="p">);</span>
+<span class="n">anjay_download_finished_handler_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="kt">int</span> <span class="n">result</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">user_data</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -1137,7 +1134,7 @@ return value contains a detailed error code.</p></li>
     <span class="p">}</span> <span class="n">details</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">anjay_download_status_t</span><span class="p">;</span>
 <span class="c1">// ...</span>
-<span class="k">typedef</span> <span class="kt">void</span> <span class="nf">anjay_download_finished_handler_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="k">typedef</span> <span class="kt">void</span> <span class="n">anjay_download_finished_handler_t</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
                                                <span class="n">anjay_download_status_t</span> <span class="n">status</span><span class="p">,</span>
                                                <span class="kt">void</span> <span class="o">*</span><span class="n">user_data</span><span class="p">);</span>
 </pre></div>
@@ -1224,7 +1221,7 @@ the values previously available.</p>
 <ul>
 <li><p><strong>Old API:</strong></p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span>
-<span class="nf">anjay_fw_update_get_security_info_t</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span>
+<span class="n">anjay_fw_update_get_security_info_t</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span>
                                     <span class="n">avs_net_security_info_t</span> <span class="o">*</span><span class="n">out_security_info</span><span class="p">,</span>
                                     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">download_uri</span><span class="p">);</span>
 
@@ -1240,7 +1237,7 @@ the values previously available.</p>
 </div>
 </li>
 <li><p><strong>New API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="nf">anjay_fw_update_get_security_config_t</span><span class="p">(</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">int</span> <span class="n">anjay_fw_update_get_security_config_t</span><span class="p">(</span>
         <span class="kt">void</span> <span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span>
         <span class="n">anjay_security_config_t</span> <span class="o">*</span><span class="n">out_security_info</span><span class="p">,</span>
         <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">download_uri</span><span class="p">);</span>

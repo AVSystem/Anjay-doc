@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>4.7. Thread safety in Anjay &mdash; Anjay 2.14.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Advanced topics" href="../AdvancedTopics.html" />
+    <link rel="prev" title="4.6. Send method" href="BC-Send.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../BasicClient.html">4. Basic client</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BC-Initialization.html">4.1. Anjay initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-MandatoryObjects.html">4.2. Installing mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-Security.html">4.3. Enabling secure communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-ObjectImplementation.html">4.4. Implementing standard Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-Notifications.html">4.5. Notifications support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-Send.html">4.6. Send method</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.7. Thread safety in Anjay</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
+        
+      <li><span class="section-number">4.7. </span>Thread safety in Anjay</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="thread-safety-in-anjay">
+<h1><span class="section-number">4.7. </span>Thread safety in Anjay<a class="headerlink" href="#thread-safety-in-anjay" title="Permalink to this headline">¶</a></h1>
+<p>All the examples in this tutorial so far have been single-threaded applications.
+Some degree of asynchronicity has been provided through use of the internal
+scheduler. However, in some cases, this approach might not be flexible enough.</p>
+<p>Starting with Anjay 2.13, the library includes internal provisions for thread
+safety. This means that Anjay APIs can be safely called from concurrent threads
+and the library will take care of necessary synchronization.</p>
+<p>In this tutorial, we will modify the application written in the
+<a class="reference internal" href="BC-Notifications.html"><span class="doc">Notifications support</span></a> chapter so that the notifications are controlled from a
+separate thread instead of a scheduler job.</p>
+<div class="section" id="making-sure-that-thread-safety-is-enabled">
+<h2><span class="section-number">4.7.1. </span>Making sure that thread safety is enabled<a class="headerlink" href="#making-sure-that-thread-safety-is-enabled" title="Permalink to this headline">¶</a></h2>
+<p>Locking and unlocking mutexes in every public API function takes a sizable
+amount of code - this can take even up to 20 KiB of the executable binary when
+the library is in a full-featured configuration. For this reason, all the thread
+safety features are optional, controlled by a compile-time setting.</p>
+<p>This setting is on by default on full-featured operating systems such as Linux
+or Windows, and off by default on other platforms.</p>
+<p>To control whether Anjay is compiled with thread safety enabled or disabled,
+please add the <code class="docutils literal notranslate"><span class="pre">-DWITH_THREAD_SAFETY=&lt;ON|OFF&gt;</span></code> to the CMake invocation
+command. By default, it will control the thread safety features both in Anjay
+API itself, and in the <code class="docutils literal notranslate"><span class="pre">avs_sched</span></code> component. The latter can be overridden
+using the <code class="docutils literal notranslate"><span class="pre">-DWITH_SCHEDULER_THREAD_SAFE=&lt;ON|OFF&gt;</span></code> flag.</p>
+<p>If you are compiling Anjay without using CMake, these features are controlled
+independently by the <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_THREAD_SAFETY</span></code> flag in <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>,
+and the <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_SCHED_THREAD_SAFE</span></code> flag in <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code>,
+respectively.</p>
+<p>Relying on thread safety of an API while it is not actually assured may result
+in critical bugs that could be very hard to debug. If you are writing an
+application that depends on the thread safety features of Anjay, you can add a
+check like the following to make sure that it is enabled.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if !defined(ANJAY_WITH_THREAD_SAFETY) \</span>
+<span class="cp">        || !defined(AVS_COMMONS_SCHED_THREAD_SAFE)</span>
+<span class="cp">#    error &quot;This example requires Anjay compiled with thread safety enabled&quot;</span>
+<span class="cp">#endif </span><span class="c1">// !defined(ANJAY_WITH_THREAD_SAFETY) ||</span>
+       <span class="c1">// !defined(AVS_COMMONS_SCHED_THREAD_SAFE)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-your-own-code-to-be-thread-safe">
+<h2><span class="section-number">4.7.2. </span>Updating your own code to be thread-safe<a class="headerlink" href="#updating-your-own-code-to-be-thread-safe" title="Permalink to this headline">¶</a></h2>
+<p>Even if Anjay APIs have thread safety guarantees, you still need to ensure
+thread safety for your own code.</p>
+<p>For the purpose of this example, we will use the POSIX Threads API that is
+widely available on modern Unix-like systems such as Linux and macOS, as well as
+through compatibility layers on other systems, including Windows (e.g. MinGW’s
+winpthreads), Zephyr and ESP-IDF. Anjay itself is agnostic with regards to the
+underlying threading API (see also:
+<a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms/ThreadingAPI.html"><span class="doc">Threading API</span></a>), so the same concepts
+shall apply on other platforms.</p>
+<p>Using the POSIX Threads API requires minor adjustments in the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>
+file so that the application is properly linked with the appropriate threading
+library:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">CMakeLists.txt</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.1</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">anjay-bc-thread-safety</span> <span class="s">C</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_STANDARD</span> <span class="s">99</span><span class="p">)</span>
+<span class="hll"><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_EXTENSIONS</span> <span class="s">ON</span><span class="p">)</span>
+</span>
+<span class="nb">add_compile_options</span><span class="p">(</span><span class="s">-Wall</span> <span class="s">-Wextra</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="hll"><span class="nb">find_package</span><span class="p">(</span><span class="s">Threads</span> <span class="s">REQUIRED</span><span class="p">)</span>
+</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
+               <span class="s">src/main.c</span>
+               <span class="s">src/time_object.h</span>
+               <span class="s">src/time_object.c</span><span class="p">)</span>
+<span class="hll"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PRIVATE</span> <span class="s">anjay</span> <span class="o">${</span><span class="nv">CMAKE_THREAD_LIBS_INIT</span><span class="o">}</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>We will update the previous example so that <code class="docutils literal notranslate"><span class="pre">time_object_notify()</span></code> will be
+called from a different thread than the one running Anjay event loop. This means
+that the Time object data structure will be accessed concurrently by both
+threads - which means that the Time object implementation itself needs to be
+properly guarded by a mutex:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">time_object.c</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="cp"></span>
+
+<span class="hll"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_defs.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_list.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_memory.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;time_object.h&quot;</span><span class="cp"></span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Current Time: RW, Single, Mandatory</span>
+<span class="cm"> * type: time, range: N/A, unit: N/A</span>
+<span class="cm"> * Unix Time. A signed integer representing the number of seconds since</span>
+<span class="cm"> * Jan 1st, 1970 in the UTC time zone.</span>
+<span class="cm"> */</span>
+<span class="cp">#define RID_CURRENT_TIME 5506</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Fractional Time: RW, Single, Optional</span>
+<span class="cm"> * type: float, range: 0..1, unit: s</span>
+<span class="cm"> * Fractional part of the time when sub-second precision is used (e.g.,</span>
+<span class="cm"> * 0.23 for 230 ms).</span>
+<span class="cm"> */</span>
+<span class="cp">#define RID_FRACTIONAL_TIME 5507</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Application Type: RW, Single, Optional</span>
+<span class="cm"> * type: string, range: N/A, unit: N/A</span>
+<span class="cm"> * The application type of the sensor or actuator as a string depending</span>
+<span class="cm"> * on the use case.</span>
+<span class="cm"> */</span>
+<span class="cp">#define RID_APPLICATION_TYPE 5750</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">time_instance_struct</span> <span class="p">{</span>
+    <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">application_type</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="n">application_type_backup</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+    <span class="kt">int64_t</span> <span class="n">last_notify_timestamp</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">time_instance_t</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">time_object_struct</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">def</span><span class="p">;</span>
+<span class="hll">    <span class="n">pthread_mutex_t</span> <span class="n">mutex</span><span class="p">;</span>
+</span>    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="n">instances</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">time_object_t</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kr">inline</span> <span class="n">time_object_t</span> <span class="o">*</span>
+<span class="n">get_obj</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">AVS_CONTAINER_OF</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">,</span> <span class="n">time_object_t</span><span class="p">,</span> <span class="n">def</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">find_instance</span><span class="p">(</span><span class="k">const</span> <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span>
+                                      <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">==</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">&gt;</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                          <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">init_instance</span><span class="p">(</span><span class="n">time_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">iid</span> <span class="o">!=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+
+    <span class="n">inst</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">=</span> <span class="n">iid</span><span class="p">;</span>
+    <span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">release_instance</span><span class="p">(</span><span class="n">time_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">inst</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">add_instance</span><span class="p">(</span><span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">)</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="n">created</span> <span class="o">=</span> <span class="n">AVS_LIST_NEW_ELEMENT</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">created</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">init_instance</span><span class="p">(</span><span class="n">created</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">created</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">&gt;</span> <span class="n">created</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">AVS_LIST_INSERT</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">created</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">created</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_create</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span class="hll">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span class="hll">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_remove</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_NOT_FOUND</span><span class="p">;</span>
+    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">it</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">==</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">release_instance</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span>
+            <span class="n">AVS_LIST_DELETE</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">&gt;</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">);</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+    <span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                          <span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>
+
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RID_CURRENT_TIME</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span>
+                      <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RID_FRACTIONAL_TIME</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span>
+                      <span class="n">ANJAY_DM_RES_ABSENT</span><span class="p">);</span>
+    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RID_APPLICATION_TYPE</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span>
+                      <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                         <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                         <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                         <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                         <span class="n">anjay_riid_t</span> <span class="n">riid</span><span class="p">,</span>
+                         <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">RID_CURRENT_TIME</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+        <span class="kt">int64_t</span> <span class="n">timestamp</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">avs_time_real_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">,</span>
+                                    <span class="n">avs_time_real_now</span><span class="p">()))</span> <span class="p">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">case</span> <span class="nl">RID_APPLICATION_TYPE</span><span class="p">:</span>
+        <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
+                          <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
+                          <span class="n">anjay_riid_t</span> <span class="n">riid</span><span class="p">,</span>
+                          <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">RID_APPLICATION_TYPE</span><span class="p">:</span>
+        <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span>
+                                  <span class="k">sizeof</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">));</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">transaction_begin</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                      <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">element</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">,</span> <span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">transaction_rollback</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                         <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">element</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span> <span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJ_DEF</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">3333</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">list_instances</span> <span class="o">=</span> <span class="n">list_instances</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">instance_create</span> <span class="o">=</span> <span class="n">instance_create</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">instance_remove</span> <span class="o">=</span> <span class="n">instance_remove</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">instance_reset</span> <span class="o">=</span> <span class="n">instance_reset</span><span class="p">,</span>
+
+        <span class="p">.</span><span class="n">list_resources</span> <span class="o">=</span> <span class="n">list_resources</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">resource_read</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">resource_write</span> <span class="o">=</span> <span class="n">resource_write</span><span class="p">,</span>
+
+        <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">transaction_begin</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">transaction_rollback</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">time_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+<span class="hll">    <span class="n">pthread_mutexattr_t</span> <span class="n">attr</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">pthread_mutexattr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">    <span class="c1">// anjay_dm_emit() and anjay_dm_emit_res() may call other handlers,</span>
+</span><span class="hll">    <span class="c1">// so we need a recursive mutex</span>
+</span><span class="hll">    <span class="n">pthread_mutexattr_settype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span> <span class="n">PTHREAD_MUTEX_RECURSIVE</span><span class="p">);</span>
+</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="p">(</span><span class="n">time_object_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">time_object_t</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJ_DEF</span><span class="p">;</span>
+
+<span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">attr</span><span class="p">))</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">pthread_mutexattr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+</span><span class="hll">        <span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</span><span class="hll">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="n">pthread_mutexattr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+</span><span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="n">time_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">inst</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">strcpy</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span> <span class="s">&quot;Clock 0&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">inst</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span class="hll">        <span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</span><span class="hll">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span><span class="hll">    <span class="p">}</span>
+</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">time_object_release</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span>
+<span class="hll">        <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>        <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">release_instance</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="hll">        <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span class="hll">        <span class="n">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>        <span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">time_object_notify</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span> <span class="o">||</span> <span class="o">!</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span>
+<span class="hll">    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span>    <span class="kt">int64_t</span> <span class="n">current_timestamp</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">avs_time_real_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">current_timestamp</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">,</span>
+                                 <span class="n">avs_time_real_now</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
+        <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">last_notify_timestamp</span> <span class="o">!=</span> <span class="n">current_timestamp</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay_notify_changed</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="mi">3333</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">,</span>
+                                          <span class="n">RID_CURRENT_TIME</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="n">it</span><span class="o">-&gt;</span><span class="n">last_notify_timestamp</span> <span class="o">=</span> <span class="n">current_timestamp</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="hll">    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Most of the relevant changes are highlighted. Please note that some additional
+refactoring has been made, mostly to move <code class="docutils literal notranslate"><span class="pre">return</span></code> calls out of the blocks
+marked by <code class="docutils literal notranslate"><span class="pre">pthread_mutex_lock()</span></code>/<code class="docutils literal notranslate"><span class="pre">pthread_mutex_unlock()</span></code> call pairs.</p>
+<p>Note that a recursive mutex is used here. This is because data model handlers
+may be called recursively from <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit_res()</span></code>
+functions that are used to return data from the <code class="docutils literal notranslate"><span class="pre">list_instances</span></code> and
+<code class="docutils literal notranslate"><span class="pre">list_resources</span></code> callbacks. Using a simple mutex instead would result in
+deadlocks in those scenarios.</p>
+<p>Similar extra caution should be taken when using APIs such as
+<code class="docutils literal notranslate"><span class="pre">anjay_send_batch_data_add_current()</span></code> - that also invokes the relevant data
+model callbacks.</p>
+</div>
+<div class="section" id="running-the-event-loop-in-a-separate-thread">
+<h2><span class="section-number">4.7.3. </span>Running the event loop in a separate thread<a class="headerlink" href="#running-the-event-loop-in-a-separate-thread" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now refactor the <code class="docutils literal notranslate"><span class="pre">main.c</span></code> file so that it runs the event loop in a
+separate thread - the main one will then be free to call
+<code class="docutils literal notranslate"><span class="pre">time_object_notify()</span></code> periodically:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">main.c</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
+</span><span class="hll"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;time_object.h&quot;</span><span class="cp"></span>
+
+<span class="hll"><span class="cp">#if !defined(ANJAY_WITH_THREAD_SAFETY) \</span>
+</span><span class="hll"><span class="cp">        || !defined(AVS_COMMONS_SCHED_THREAD_SAFE)</span>
+</span><span class="hll"><span class="cp">#    error &quot;This example requires Anjay compiled with thread safety enabled&quot;</span>
+</span><span class="hll"><span class="cp">#endif </span><span class="c1">// !defined(ANJAY_WITH_THREAD_SAFETY) ||</span>
+</span><span class="hll">       <span class="c1">// !defined(AVS_COMMONS_SCHED_THREAD_SAFE)</span>
+</span>
+<span class="c1">// Installs Security Object and adds and instance of it.</span>
+<span class="c1">// An instance of Security Object provides information needed to connect to</span>
+<span class="c1">// LwM2M server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_KEY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
+
+    <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://try-anjay.avsystem.com:5684&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
+        <span class="p">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_KEY</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">private_cert_or_psk_key_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Anjay will assign Instance ID automatically</span>
+    <span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+                                           <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Installs Server Object and adds and instance of it.</span>
+<span class="c1">// An instance of Server Object provides the data related to a LwM2M Server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// Server Short ID</span>
+        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Client will send Update message often than every 60 seconds</span>
+        <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="c1">// Disable Default Minimum Period resource</span>
+        <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="c1">// Disable Default Maximum Period resource</span>
+        <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="c1">// Disable Disable Timeout resource</span>
+        <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="c1">// Sets preferred transport to UDP</span>
+        <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s">&quot;U&quot;</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Anjay will assign Instance ID automatically</span>
+    <span class="n">anjay_iid_t</span> <span class="n">server_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
+                                         <span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="k">static</span> <span class="kt">void</span> <span class="o">*</span><span class="n">event_loop_func</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">    <span class="kt">intptr_t</span> <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_event_loop_run</span><span class="p">(</span>
+</span><span class="hll">            <span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">anjay</span><span class="p">,</span> <span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">AVS_TIME_MS</span><span class="p">));</span>
+</span><span class="hll">    <span class="k">return</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span> <span class="n">result</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
+    <span class="p">};</span>
+
+    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// Install Attribute storage and setup necessary objects</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span> <span class="o">||</span> <span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+            <span class="o">||</span> <span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">time_object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">time_object</span> <span class="o">=</span> <span class="n">time_object_create</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">time_object</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">time_object</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="hll">    <span class="n">pthread_t</span> <span class="n">event_loop_thread</span><span class="p">;</span>
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">event_loop_thread</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">event_loop_func</span><span class="p">,</span>
+</span><span class="hll">                                <span class="n">anjay</span><span class="p">);</span>
+</span><span class="hll">    <span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">        <span class="c1">// Periodically notify the library about Resource value changes</span>
+</span><span class="hll">        <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">            <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class="hll">            <span class="n">time_object_notify</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">time_object</span><span class="p">);</span>
+</span><span class="hll">        <span class="p">}</span>
+</span><span class="hll">    <span class="p">}</span>
+</span>
+    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="n">time_object_release</span><span class="p">(</span><span class="n">time_object</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> and <code class="docutils literal notranslate"><span class="pre">time_object_notify()</span></code> (which calls
+<code class="docutils literal notranslate"><span class="pre">anjay_notify_changed()</span></code>) are called in concurrent threads without explicit
+synchronization. This is entirely permitted as long as thread safety is enabled
+in Anjay at compile time.</p>
+<p>Please also note that the wait period passed to <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> has
+been reduced from 1 second in all previous examples to 100 milliseconds here.
+This is to make the application more responsive - <code class="docutils literal notranslate"><span class="pre">anjay_notify_changed()</span></code>
+creates a scheduler job for sending the notification if appropriate; because of
+Anjay’s limitations, this might not wake up the event loop thread immediately.
+Reducing the wait period reduces the time after which the job will actually be
+executed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
+<cite>examples/tutorial/BC-ThreadSafety</cite> subdirectory of main Anjay project
+repository.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../AdvancedTopics.html" class="btn btn-neutral float-right" title="5. Advanced topics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="BC-Send.html" class="btn btn-neutral float-left" title="4.6. Send method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2021, AVSystem.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

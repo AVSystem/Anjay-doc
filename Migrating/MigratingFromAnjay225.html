@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9.2. Migrating from Anjay 2.2.5 &mdash; Anjay 2.13.0 documentation</title>
+  <title>9.2. Migrating from Anjay 2.2.5 &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -67,7 +64,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -615,12 +612,12 @@ out-arguments have been introduced to functions that used it.</p>
                                  <span class="n">avs_base64_config_t</span> <span class="n">config</span><span class="p">);</span>
 <span class="c1">// ...</span>
 <span class="k">static</span> <span class="kr">inline</span> <span class="kt">ssize_t</span>
-<span class="nf">avs_base64_decode_strict</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">avs_base64_decode_strict</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// ...</span>
 <span class="p">}</span>
 <span class="c1">// ...</span>
 <span class="k">static</span> <span class="kr">inline</span> <span class="kt">ssize_t</span>
-<span class="nf">avs_base64_decode</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">avs_base64_decode</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
@@ -633,14 +630,14 @@ out-arguments have been introduced to functions that used it.</p>
                               <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span>
                               <span class="n">avs_base64_config_t</span> <span class="n">config</span><span class="p">);</span>
  <span class="c1">// ...</span>
-<span class="hll"> <span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">avs_base64_decode_strict</span><span class="p">(</span><span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_decoded</span><span class="p">,</span>
+<span class="hll"> <span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="n">avs_base64_decode_strict</span><span class="p">(</span><span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_decoded</span><span class="p">,</span>
 </span>                                            <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span>
                                             <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span>
                                             <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span>
      <span class="c1">// ...</span>
  <span class="p">}</span>
  <span class="c1">// ...</span>
-<span class="hll"> <span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">avs_base64_decode</span><span class="p">(</span><span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_decoded</span><span class="p">,</span>
+<span class="hll"> <span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="n">avs_base64_decode</span><span class="p">(</span><span class="kt">size_t</span> <span class="o">*</span><span class="n">out_bytes_decoded</span><span class="p">,</span>
 </span>                                     <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">out</span><span class="p">,</span>
                                      <span class="kt">size_t</span> <span class="n">out_length</span><span class="p">,</span>
                                      <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span>

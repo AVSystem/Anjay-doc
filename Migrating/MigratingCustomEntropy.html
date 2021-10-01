@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9.3. Migrating mbed TLS custom entropy initializers &mdash; Anjay 2.13.0 documentation</title>
+  <title>9.3. Migrating mbed TLS custom entropy initializers &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -67,7 +64,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -190,7 +187,7 @@ adding a custom entropy source at the time of mbed TLS initialization:</p>
 <span class="cp">#include</span> <span class="cpf">&lt;mbedtls/entropy.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;mbedtls/entropy_poll.h&gt;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">entropy_poll</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_arg</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">entropy_poll</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_arg</span><span class="p">,</span>
                         <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">output</span><span class="p">,</span>
                         <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span>
                         <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_len</span><span class="p">)</span> <span class="p">{</span>
@@ -198,11 +195,11 @@ adding a custom entropy source at the time of mbed TLS initialization:</p>
 <span class="p">}</span>
 
 <span class="c1">// NOTE: For Anjay 1.x / avs_commons 3.x, return type was &quot;int&quot;</span>
-<span class="n">avs_error_t</span> <span class="nf">avs_net_mbedtls_entropy_init</span><span class="p">(</span><span class="n">mbedtls_entropy_context</span> <span class="o">*</span><span class="n">entropy</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">avs_error_t</span> <span class="n">avs_net_mbedtls_entropy_init</span><span class="p">(</span><span class="n">mbedtls_entropy_context</span> <span class="o">*</span><span class="n">entropy</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">mbedtls_entropy_add_source</span><span class="p">(</span><span class="n">entropy</span><span class="p">,</span> <span class="n">entropy_poll</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span>
                                    <span class="n">MBEDTLS_ENTROPY_MIN_PLATFORM</span><span class="p">,</span>
                                    <span class="n">MBEDTLS_ENTROPY_SOURCE_STRONG</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_UNKNOWN_ERROR</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">avs_errno</span><span class="p">(</span><span class="n">AVS_UNKNOWN_ERROR</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
 <span class="p">}</span>
@@ -221,21 +218,21 @@ PRNG context, for example as follows:</p>
 
 <span class="k">static</span> <span class="n">mbedtls_entropy_context</span> <span class="n">g_entropy_context</span><span class="p">;</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">entropy_poll</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_arg</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">entropy_poll</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_arg</span><span class="p">,</span>
                         <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">output</span><span class="p">,</span>
                         <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span>
                         <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_len</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// TODO: Platform-specific entropy collection code</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">entropy_callback</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">entropy_callback</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
                             <span class="kt">size_t</span> <span class="n">out_buf_len</span><span class="p">,</span>
                             <span class="kt">void</span> <span class="o">*</span><span class="n">dummy_user_arg</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">dummy_user_arg</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">mbedtls_entropy_func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">,</span> <span class="n">out_buf</span><span class="p">,</span> <span class="n">out_buf_len</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">mbedtls_entropy_func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">,</span> <span class="n">out_buf</span><span class="p">,</span> <span class="n">out_buf_len</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// ... before initializing Anjay ...</span>
     <span class="n">avs_crypto_prng_ctx_t</span> <span class="o">*</span><span class="n">prng_ctx</span><span class="p">;</span>
     <span class="n">mbedtls_entropy_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">);</span>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>6. Firmware Update Tutorial &mdash; Anjay 2.13.0 documentation</title>
+  <title>6. Firmware Update Tutorial &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -39,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6.1. Firmware Update" href="FirmwareUpdateTutorial/FU1.html" />
-    <link rel="prev" title="5.8. Retransmissions, timeouts &amp; response caching" href="AdvancedTopics/AT-RetransmissionsTimeoutsCaching.html" /> 
+    <link rel="next" title="6.1. Firmware Update" href="FirmwareUpdateTutorial/FU-Introduction.html" />
+    <link rel="prev" title="5.11. Anjay IPSO Objects implementation" href="AdvancedTopics/AT-IpsoObjects.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -67,7 +64,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -99,12 +96,12 @@
 <li class="toctree-l1"><a class="reference internal" href="BasicClient.html">4. Basic client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AdvancedTopics.html">5. Advanced topics</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">6. Firmware Update Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU1.html">6.1. Firmware Update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU2.html">6.2. Basic implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU3.html">6.3. Download modes and protocols</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU4.html">6.4. Secure downloads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU5.html">6.5. Poor network connectivity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU6.html">6.6. Download resumption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU-Introduction.html">6.1. Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU-BasicImplementation.html">6.2. Basic implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU-ModesAndProtocols.html">6.3. Download modes and protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU-SecureDownloads.html">6.4. Secure downloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU-PoorConnectivity.html">6.5. Poor network connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareUpdateTutorial/FU-DownloadResumption.html">6.6. Download resumption</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Tools.html">7. Tools</a></li>
@@ -180,12 +177,12 @@
 <h1><span class="section-number">6. </span>Firmware Update Tutorial<a class="headerlink" href="#firmware-update-tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU1.html">6.1. Firmware Update</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU2.html">6.2. Basic implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU3.html">6.3. Download modes and protocols</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU4.html">6.4. Secure downloads</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU5.html">6.5. Poor network connectivity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU6.html">6.6. Download resumption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU-Introduction.html">6.1. Firmware Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU-BasicImplementation.html">6.2. Basic implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU-ModesAndProtocols.html">6.3. Download modes and protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU-SecureDownloads.html">6.4. Secure downloads</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU-PoorConnectivity.html">6.5. Poor network connectivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial/FU-DownloadResumption.html">6.6. Download resumption</a></li>
 </ul>
 </div>
 </div>
@@ -196,8 +193,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="FirmwareUpdateTutorial/FU1.html" class="btn btn-neutral float-right" title="6.1. Firmware Update" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="AdvancedTopics/AT-RetransmissionsTimeoutsCaching.html" class="btn btn-neutral float-left" title="5.8. Retransmissions, timeouts &amp; response caching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="FirmwareUpdateTutorial/FU-Introduction.html" class="btn btn-neutral float-right" title="6.1. Firmware Update" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AdvancedTopics/AT-IpsoObjects.html" class="btn btn-neutral float-left" title="5.11. Anjay IPSO Objects implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>4.6. Send method &mdash; Anjay 2.14.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.7. Thread safety in Anjay" href="BC-ThreadSafety.html" />
+    <link rel="prev" title="4.5. Notifications support" href="BC-Notifications.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../BasicClient.html">4. Basic client</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BC-Initialization.html">4.1. Anjay initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-MandatoryObjects.html">4.2. Installing mandatory Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-Security.html">4.3. Enabling secure communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-ObjectImplementation.html">4.4. Implementing standard Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-Notifications.html">4.5. Notifications support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.6. Send method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-ThreadSafety.html">4.7. Thread safety in Anjay</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
+        
+      <li><span class="section-number">4.6. </span>Send method</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="send-method">
+<h1><span class="section-number">4.6. </span>Send method<a class="headerlink" href="#send-method" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A version that includes support for Send method as well as version 1.1 of the
+specification, including Composite operations, SenML JSON and CBOR data
+formats, TCP, SMS and NIDD bindings, is <a class="reference internal" href="../Commercial_support.html"><span class="doc">available commercially</span></a>.</p>
+</div>
+<p>The “Send” operation is used by the LwM2M Client to send data to the LwM2M
+Server without explicit request by that LwM2M Server. Messages are created using
+<code class="docutils literal notranslate"><span class="pre">anjay_send_batch_builder</span></code> which allows to build a payload with the data to be
+sent to the LwM2M Server. Payload can consist of multiple values from different
+resources. Calling <code class="docutils literal notranslate"><span class="pre">anjay_send()</span></code> does not send batch immediately, but
+schedules a task to be run on next iteration of the event loop.</p>
+<div class="section" id="example">
+<h2><span class="section-number">4.6.1. </span>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>As an example we’ll add send method support for the Time Object implemented
+previously in <a class="reference internal" href="BC-Notifications.html"><span class="doc">Notifications support</span></a> section. It contains Application Type and
+Current Time resources, which we will send to the server for demonstration
+purposes. We create <code class="docutils literal notranslate"><span class="pre">send_finished_handler()</span></code> and <code class="docutils literal notranslate"><span class="pre">time_object_send()</span></code>
+functions in the <code class="docutils literal notranslate"><span class="pre">time_object.c</span></code> file.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">time_object.c</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="n">send_finished_handler</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+                                <span class="n">anjay_ssid_t</span> <span class="n">ssid</span><span class="p">,</span>
+                                <span class="k">const</span> <span class="n">anjay_send_batch_t</span> <span class="o">*</span><span class="n">batch</span><span class="p">,</span>
+                                <span class="kt">int</span> <span class="n">result</span><span class="p">,</span>
+                                <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">ssid</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">batch</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">data</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">ANJAY_SEND_SUCCESS</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">time_object</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Send failed, result: %d&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">time_object</span><span class="p">,</span> <span class="n">TRACE</span><span class="p">,</span> <span class="s">&quot;Send successful&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">time_object_send</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span> <span class="o">||</span> <span class="o">!</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">time_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span>
+    <span class="k">const</span> <span class="n">anjay_ssid_t</span> <span class="n">server_ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">// Allocate new batch builder.</span>
+    <span class="n">anjay_send_batch_builder_t</span> <span class="o">*</span><span class="n">builder</span> <span class="o">=</span> <span class="n">anjay_send_batch_builder_new</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">builder</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">time_object</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Failed to allocate batch builder&quot;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Add current values of resources from Time Object.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">anjay_send_batch_data_add_current</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">anjay</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="o">-&gt;</span><span class="n">oid</span><span class="p">,</span>
+                                            <span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">,</span> <span class="n">RID_CURRENT_TIME</span><span class="p">)</span>
+                <span class="o">||</span> <span class="n">anjay_send_batch_data_add_current</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">anjay</span><span class="p">,</span>
+                                                    <span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="o">-&gt;</span><span class="n">oid</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">,</span>
+                                                    <span class="n">RID_APPLICATION_TYPE</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">anjay_send_batch_builder_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">builder</span><span class="p">);</span>
+            <span class="n">avs_log</span><span class="p">(</span><span class="n">time_object</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Failed to add batch data, result: %d&quot;</span><span class="p">,</span>
+                    <span class="n">res</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// After adding all values, compile our batch for sending.</span>
+    <span class="n">anjay_send_batch_t</span> <span class="o">*</span><span class="n">batch</span> <span class="o">=</span> <span class="n">anjay_send_batch_builder_compile</span><span class="p">(</span><span class="o">&amp;</span><span class="n">builder</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">batch</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">anjay_send_batch_builder_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">builder</span><span class="p">);</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">time_object</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Batch compile failed&quot;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Schedule our send to be run on next `anjay_sched_run()` call.</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">anjay_send</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">server_ssid</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">send_finished_handler</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">time_object</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Failed to send, result: %d&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// After scheduling, we can release our batch.</span>
+    <span class="n">anjay_send_batch_release</span><span class="p">(</span><span class="o">&amp;</span><span class="n">batch</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>And include <code class="docutils literal notranslate"><span class="pre">anjay/lwm2m_send.h</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;avsystem/commons/avs_log.h&gt;</span></code> in
+<code class="docutils literal notranslate"><span class="pre">time_object.c</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">time_object.c</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="hll"><span class="cp">#include</span> <span class="cpf">&lt;anjay/lwm2m_send.h&gt;</span><span class="cp"></span>
+</span><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_defs.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_list.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
+<span class="hll"><span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_memory.h&gt;</span><span class="cp"></span>
+</span></pre></div>
+</div>
+</div>
+<p>At last, we need to declare the function in the object’s header file.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">time_object.h</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef TIME_OBJECT_H</span>
+<span class="cp">#define TIME_OBJECT_H</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/dm.h&gt;</span><span class="cp"></span>
+
+<span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">time_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">time_object_release</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">time_object_notify</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">);</span>
+<span class="hll"><span class="kt">void</span> <span class="nf">time_object_send</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">);</span>
+</span>
+<span class="cp">#endif </span><span class="c1">// TIME_OBJECT_H</span>
+</pre></div>
+</div>
+</div>
+<p>Now we can add another scheduler job that will call this function. In the
+example, for test purposes, we create a <code class="docutils literal notranslate"><span class="pre">send_job()</span></code> function that will be set
+up the same way as <code class="docutils literal notranslate"><span class="pre">notify_job()</span></code>, but run every 10 seconds.</p>
+<p>Please note that the <code class="docutils literal notranslate"><span class="pre">notify_job_args_t</span></code> has additionally been renamed to
+<code class="docutils literal notranslate"><span class="pre">time_object_job_args_t</span></code> because it is now shared between <code class="docutils literal notranslate"><span class="pre">notify_job()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">send_job()</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">main.c</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/security.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;anjay/server.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;time_object.h&quot;</span><span class="cp"></span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">time_object</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">time_object_job_args_t</span><span class="p">;</span>
+
+<span class="c1">// Periodically notifies the library about Resource value changes</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">notify_job</span><span class="p">(</span><span class="n">avs_sched_t</span> <span class="o">*</span><span class="n">sched</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">args_ptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">time_object_job_args_t</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span>
+            <span class="p">(</span><span class="k">const</span> <span class="n">time_object_job_args_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">args_ptr</span><span class="p">;</span>
+
+    <span class="n">time_object_notify</span><span class="p">(</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span> <span class="n">args</span><span class="o">-&gt;</span><span class="n">time_object</span><span class="p">);</span>
+
+    <span class="c1">// Schedule run of the same function after 1 second</span>
+    <span class="n">AVS_SCHED_DELAYED</span><span class="p">(</span><span class="n">sched</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">),</span>
+                      <span class="n">notify_job</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="c1">// Periodically issues a Send message with application type and current time</span>
+</span><span class="hll"><span class="k">static</span> <span class="kt">void</span> <span class="n">send_job</span><span class="p">(</span><span class="n">avs_sched_t</span> <span class="o">*</span><span class="n">sched</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">args_ptr</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">    <span class="k">const</span> <span class="n">time_object_job_args_t</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span>
+</span><span class="hll">            <span class="p">(</span><span class="k">const</span> <span class="n">time_object_job_args_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">args_ptr</span><span class="p">;</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="n">time_object_send</span><span class="p">(</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span> <span class="n">args</span><span class="o">-&gt;</span><span class="n">time_object</span><span class="p">);</span>
+</span><span class="hll">
+</span><span class="hll">    <span class="c1">// Schedule run of the same function after 10 seconds</span>
+</span><span class="hll">    <span class="n">AVS_SCHED_DELAYED</span><span class="p">(</span><span class="n">sched</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span>
+</span><span class="hll">                      <span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">),</span> <span class="n">send_job</span><span class="p">,</span>
+</span><span class="hll">                      <span class="n">args</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">));</span>
+</span><span class="hll"><span class="p">}</span>
+</span>
+<span class="c1">// Installs Security Object and adds and instance of it.</span>
+<span class="c1">// An instance of Security Object provides information needed to connect to</span>
+<span class="c1">// LwM2M server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_IDENTITY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;identity&quot;</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">PSK_KEY</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
+
+    <span class="n">anjay_security_instance_t</span> <span class="n">security_instance</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">server_uri</span> <span class="o">=</span> <span class="s">&quot;coaps://try-anjay.avsystem.com:5684&quot;</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">security_mode</span> <span class="o">=</span> <span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">public_cert_or_psk_identity</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_IDENTITY</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
+        <span class="p">.</span><span class="n">private_cert_or_psk_key</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">PSK_KEY</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">private_cert_or_psk_key_size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Anjay will assign Instance ID automatically</span>
+    <span class="n">anjay_iid_t</span> <span class="n">security_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+                                           <span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Installs Server Object and adds and instance of it.</span>
+<span class="c1">// An instance of Server Object provides the data related to a LwM2M Server.</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_server_instance_t</span> <span class="n">server_instance</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">// Server Short ID</span>
+        <span class="p">.</span><span class="n">ssid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="c1">// Client will send Update message often than every 60 seconds</span>
+        <span class="p">.</span><span class="n">lifetime</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="c1">// Disable Default Minimum Period resource</span>
+        <span class="p">.</span><span class="n">default_min_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="c1">// Disable Default Maximum Period resource</span>
+        <span class="p">.</span><span class="n">default_max_period</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="c1">// Disable Disable Timeout resource</span>
+        <span class="p">.</span><span class="n">disable_timeout</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="c1">// Sets preferred transport to UDP</span>
+        <span class="p">.</span><span class="n">binding</span> <span class="o">=</span> <span class="s">&quot;U&quot;</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Anjay will assign Instance ID automatically</span>
+    <span class="n">anjay_iid_t</span> <span class="n">server_instance_id</span> <span class="o">=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
+                                         <span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">.</span><span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">.</span><span class="n">in_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">out_buffer_size</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">,</span>
+        <span class="p">.</span><span class="n">msg_cache_size</span> <span class="o">=</span> <span class="mi">4000</span>
+    <span class="p">};</span>
+
+    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// Install Attribute storage and setup necessary objects</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">anjay_attr_storage_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span> <span class="o">||</span> <span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+            <span class="o">||</span> <span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">time_object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">time_object</span> <span class="o">=</span> <span class="n">time_object_create</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">time_object</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="n">time_object</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Run notify_job and send_job the first time;</span>
+        <span class="c1">// this will schedule periodic calls to themselves via the scheduler</span>
+        <span class="n">notify_job</span><span class="p">(</span><span class="n">anjay_get_scheduler</span><span class="p">(</span><span class="n">anjay</span><span class="p">),</span> <span class="o">&amp;</span><span class="p">(</span><span class="k">const</span> <span class="n">time_object_job_args_t</span><span class="p">)</span> <span class="p">{</span>
+                                                   <span class="p">.</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay</span><span class="p">,</span>
+                                                   <span class="p">.</span><span class="n">time_object</span> <span class="o">=</span> <span class="n">time_object</span>
+                                               <span class="p">});</span>
+<span class="hll">        <span class="n">send_job</span><span class="p">(</span><span class="n">anjay_get_scheduler</span><span class="p">(</span><span class="n">anjay</span><span class="p">),</span> <span class="o">&amp;</span><span class="p">(</span><span class="k">const</span> <span class="n">time_object_job_args_t</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="hll">                                                 <span class="p">.</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay</span><span class="p">,</span>
+</span><span class="hll">                                                 <span class="p">.</span><span class="n">time_object</span> <span class="o">=</span> <span class="n">time_object</span>
+</span><span class="hll">                                             <span class="p">});</span>
+</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">anjay_event_loop_run</span><span class="p">(</span>
+                <span class="n">anjay</span><span class="p">,</span> <span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">AVS_TIME_S</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+    <span class="n">time_object_release</span><span class="p">(</span><span class="n">time_object</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>That’s all you need to make your client support LwM2M Send operation!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in <cite>examples/tutorial/BC-Send</cite>
+subdirectory of the commercial Anjay release.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="BC-ThreadSafety.html" class="btn btn-neutral float-right" title="4.7. Thread safety in Anjay" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="BC-Notifications.html" class="btn btn-neutral float-left" title="4.5. Notifications support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2021, AVSystem.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

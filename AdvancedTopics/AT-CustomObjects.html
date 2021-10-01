@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>5.4. Custom LwM2M objects &mdash; Anjay 2.13.0 documentation</title>
+  <title>5.4. Custom LwM2M objects &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +24,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -39,7 +36,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.4.1. Single-instance read-only object" href="AT-CustomObjects/AT_CO1_SingleInstanceReadOnly.html" />
+    <link rel="next" title="5.4.1. Single-instance read-only object" href="AT-CustomObjects/AT_CO_SingleInstanceReadOnly.html" />
     <link rel="prev" title="5.3. DTLS connection using certificates" href="AT-Certificates.html" /> 
 </head>
 
@@ -67,7 +64,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -102,19 +99,22 @@
 <li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.2. Attribute storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">5.4. Custom LwM2M objects</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO1_SingleInstanceReadOnly.html">5.4.1. Single-instance read-only object</a></li>
-<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO2_SingleInstanceExecutableAndReadOnly.html">5.4.2. Single-instance read-only object with an executable resource</a></li>
-<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO3_MultiInstanceReadOnlyFixed.html">5.4.3. Multi-instance read-only object with fixed number of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO4_FixedInstanceWritable.html">5.4.4. Multi-instance writable object with fixed number of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO5_MultiInstanceDynamic.html">5.4.5. Multi-instance writable object with dynamic number of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO6_MultipleResourceInstances.html">5.4.6. Objects with Multiple Instance Resources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO7_BootstrapAwareness.html">5.4.7. Bootstrap awareness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO_SingleInstanceReadOnly.html">5.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO_SingleInstanceExecutableAndReadOnly.html">5.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO_MultiInstanceReadOnlyFixed.html">5.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO_FixedInstanceWritable.html">5.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO_MultiInstanceDynamic.html">5.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO_MultipleResourceInstances.html">5.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AT-CustomObjects/AT_CO_BootstrapAwareness.html">5.4.7. Bootstrap awareness</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.6. Other library features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.7. Persistence support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.9. Custom event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.11. Anjay IPSO Objects implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -194,7 +194,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
-Anjay, either defined in <a class="reference external" href="https://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>
+Anjay, either defined in <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>
 or designed by user.</p>
 <p>Although most of the Object’s code can be generated using
 <a class="reference internal" href="../Tools/StubGenerator.html#anjay-object-stub-generator"><span class="std std-ref">Anjay Object stub generator</span></a> if you have Object’s definition in XML,
@@ -443,13 +443,13 @@ tutorial will show multiple possible implementations, from the simplest cases to
 the most complex ones.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO1_SingleInstanceReadOnly.html">5.4.1. Single-instance read-only object</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO2_SingleInstanceExecutableAndReadOnly.html">5.4.2. Single-instance read-only object with an executable resource</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO3_MultiInstanceReadOnlyFixed.html">5.4.3. Multi-instance read-only object with fixed number of instances</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO4_FixedInstanceWritable.html">5.4.4. Multi-instance writable object with fixed number of instances</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO5_MultiInstanceDynamic.html">5.4.5. Multi-instance writable object with dynamic number of instances</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO6_MultipleResourceInstances.html">5.4.6. Objects with Multiple Instance Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO7_BootstrapAwareness.html">5.4.7. Bootstrap awareness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO_SingleInstanceReadOnly.html">5.4.1. Single-instance read-only object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO_SingleInstanceExecutableAndReadOnly.html">5.4.2. Single-instance read-only object with an executable resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO_MultiInstanceReadOnlyFixed.html">5.4.3. Multi-instance read-only object with fixed number of instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO_FixedInstanceWritable.html">5.4.4. Multi-instance writable object with fixed number of instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO_MultiInstanceDynamic.html">5.4.5. Multi-instance writable object with dynamic number of instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO_MultipleResourceInstances.html">5.4.6. Objects with Multiple Instance Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AT-CustomObjects/AT_CO_BootstrapAwareness.html">5.4.7. Bootstrap awareness</a></li>
 </ul>
 </div>
 </div>
@@ -460,7 +460,7 @@ the most complex ones.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="AT-CustomObjects/AT_CO1_SingleInstanceReadOnly.html" class="btn btn-neutral float-right" title="5.4.1. Single-instance read-only object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AT-CustomObjects/AT_CO_SingleInstanceReadOnly.html" class="btn btn-neutral float-right" title="5.4.1. Single-instance read-only object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="AT-Certificates.html" class="btn btn-neutral float-left" title="5.3. DTLS connection using certificates" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6.3. Download modes and protocols &mdash; Anjay 2.14.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.4. Secure downloads" href="FU-SecureDownloads.html" />
+    <link rel="prev" title="6.2. Basic implementation" href="FU-BasicImplementation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="FU-Introduction.html">6.1. Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-BasicImplementation.html">6.2. Basic implementation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Download modes and protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-SecureDownloads.html">6.4. Secure downloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-PoorConnectivity.html">6.5. Poor network connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-DownloadResumption.html">6.6. Download resumption</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
+        
+      <li><span class="section-number">6.3. </span>Download modes and protocols</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="download-modes-and-protocols">
+<h1><span class="section-number">6.3. </span>Download modes and protocols<a class="headerlink" href="#download-modes-and-protocols" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="firmware-transfer">
+<span id="id1"></span><h2><span class="section-number">6.3.1. </span>Firmware transfer<a class="headerlink" href="#firmware-transfer" title="Permalink to this headline">¶</a></h2>
+<p>The LwM2M protocol defines two modes of firmware download:</p>
+<ul class="simple">
+<li><p><strong>PUSH</strong> - the download is initiated by the Server, performing a Write
+operation on the /5/0/0 (Package) Resource. This usually means a block-wise
+transfer, which for Anjay based clients will prevent handling other
+LwM2M requests until the Write completes, as described in
+<a class="reference internal" href="../AdvancedTopics/AT-EventLoopNotes.html#single-request-single-function-call"><span class="std std-ref">Single request - single function call</span></a>.</p></li>
+<li><p><strong>PULL</strong> - the LwM2M Server indicates where should the client download
+firmware package from with Write on /5/0/1 (Package URI) Resource. The client
+then performs the download asynchronously, while still being able to handle
+LwM2M requests.</p></li>
+</ul>
+<div class="figure align-default" id="id2">
+<a class="reference internal image-reference" href="../_images/anjay-firmware-download-coap-pull.svg"><img alt="../_images/anjay-firmware-download-coap-pull.svg" src="../_images/anjay-firmware-download-coap-pull.svg" width="100%" /></a>
+<p class="caption"><span class="caption-text">Anjay generally handles asynchronous CoAP downloads within
+<code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> calls. The <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> may initiate the
+download or retransmit requests in case of packet loss. Downloaded firmware
+is passed to the application through callbacks configured using
+<code class="docutils literal notranslate"><span class="pre">fw_update</span></code> field of the <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> struct passed to
+<code class="docutils literal notranslate"><span class="pre">anjay_new()</span></code>. For more details, see API reference.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<div class="legend">
+<p>Please note that when using <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code>, all these calls are
+performed internally and hidden from the user.</p>
+</div>
+</div>
+<p>The download protocols officially defined in the LwM2M Specification are:</p>
+<ul class="simple">
+<li><p>CoAP(s)/UDP,</p></li>
+<li><p>CoAP(s)/TCP,</p></li>
+<li><p>HTTP(s).</p></li>
+</ul>
+<p>Anjay supports all of them out of the box in a default
+configuration. Configuring the specific set of features relevant for the
+user is a matter of setting a few CMake options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WITH_DOWNLOADER</span></code> - enables/disables <strong>PULL</strong> downloads in general (<cite>ON</cite>
+by default),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WITH_COAP_DOWNLOAD</span></code> - enables/disables <strong>PULL</strong> downloads over CoAP(s)
+(<cite>ON</cite> by default),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WITH_HTTP_DOWNLOAD</span></code> - enables/disables <strong>PULL</strong> downloads over HTTP(s)
+(<cite>ON</cite> by default),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WITH_AVS_COAP_UDP</span></code> - enables/disables CoAP/UDP (<cite>ON</cite> by default),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WITH_AVS_COAP_TCP</span></code> - enables/disables CoAP/TCP (<cite>ON</cite> by default, in
+<strong>commercial version</strong> only).</p></li>
+</ul>
+</div>
+<div class="section" id="which-download-mode-should-you-choose">
+<h2><span class="section-number">6.3.2. </span>Which download mode should you choose<a class="headerlink" href="#which-download-mode-should-you-choose" title="Permalink to this headline">¶</a></h2>
+<p>Although in the end, it is the Server that selects download method,
+we advise persuading your Server provider to use <strong>PULL</strong> transfers
+exclusively.</p>
+<p>The unfortunate limitation of a <strong>PUSH</strong> download mode in Anjay is that
+it completely blocks the client. In other words, while conducting <strong>PUSH</strong>
+download, Anjay is pretty much unable to do anything else. Because of that
+it is <strong>strongly recommended</strong> to use <strong>PULL</strong> mode, which is implemented
+asynchronously in the library.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>We recommend using <strong>PULL</strong> download mode due to limitations imposed on
+other download modes.</p>
+</div>
+</div>
+<div class="section" id="which-download-protocol-should-you-choose">
+<h2><span class="section-number">6.3.3. </span>Which download protocol should you choose<a class="headerlink" href="#which-download-protocol-should-you-choose" title="Permalink to this headline">¶</a></h2>
+<p>Again, it’s the Server decision which protocol shall be utilized for the
+download (of course out of the list of supported protocols, which you MAY
+control, at least partially, through the list of CMake options mentioned
+in former sections), but downloads using CoAP(s)/UDP tend to be slow due
+to limitation of the maximum CoAP BLOCK size of 1024 bytes. The fact that
+each Block-Wise packet needs an acknowledgement from the other side does
+not help either.</p>
+<p>If the download speed is important you should stand with either CoAP(s)/TCP or
+HTTP(s) as the download protocol.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="FU-SecureDownloads.html" class="btn btn-neutral float-right" title="6.4. Secure downloads" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="FU-BasicImplementation.html" class="btn btn-neutral float-left" title="6.2. Basic implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2021, AVSystem.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

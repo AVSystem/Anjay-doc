@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta content="1; url=../AdvancedTopics/AT-EventLoopNotes.html" http-equiv="Refresh" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>4.8. A few notes on general usage &mdash; Anjay 2.13.0 documentation</title>
+  <title>Redirection &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +25,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -38,9 +36,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5. Advanced topics" href="../AdvancedTopics.html" />
-    <link rel="prev" title="4.7. Send method" href="BC7.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -67,7 +63,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -92,21 +88,11 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../BasicClient.html">4. Basic client</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="BC1.html">4.1. Anjay initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC2.html">4.2. Installing mandatory Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC3.html">4.3. Event loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC4.html">4.4. Enabling secure communication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC5.html">4.5. Implementing standard Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC6.html">4.6. Notifications support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="BC7.html">4.7. Send method</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.8. A few notes on general usage</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
@@ -161,9 +147,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
-        
-      <li><span class="section-number">4.8. </span>A few notes on general usage</li>
+      <li>Redirection</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -180,116 +164,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="a-few-notes-on-general-usage">
-<h1><span class="section-number">4.8. </span>A few notes on general usage<a class="headerlink" href="#a-few-notes-on-general-usage" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="single-request-single-function-call">
-<span id="id1"></span><h2><span class="section-number">4.8.1. </span>Single request - single function call<a class="headerlink" href="#single-request-single-function-call" title="Permalink to this headline">¶</a></h2>
-<p>To start, we first need to establish that Anjay LwM2M Client API assumes a
-single-threaded mode of operation. It relies on the user calling
-<code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> whenever some packet is received and <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code>
-regularly, as described in the <a class="reference internal" href="BC3.html"><span class="doc">another chapter</span></a>. Both of the
-methods block until the incoming message or (respectively) a job is processed.</p>
-<p>An incoming message may either be fully contained in a single packet, or split
-between multiple packets, however <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> is called just for the
-first one. Other parts (if any) are fetched internally by the library. In other
-words: <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks until the message gets handled completely.</p>
-<div class="figure align-default" id="id2">
-<a class="reference internal image-reference" href="../_images/anjay-server-request.svg"><img alt="../_images/anjay-server-request.svg" src="../_images/anjay-server-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Handling a single LwM2M request. The application gets notified a packet
-was received on a socket using <code class="docutils literal notranslate"><span class="pre">poll()</span></code>/<code class="docutils literal notranslate"><span class="pre">select()</span></code> and calls
-<code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on that socket, allowing the library to interpret the
-request and create a response.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-<p>When considering a request from the LwM2M Server, the block-wise transfer may
-be initiated either by server (e.g. a big Write request) or by the client
-(e.g. a large response to a Read request).</p>
-<div class="figure align-default" id="id3">
-<a class="reference internal image-reference" href="../_images/anjay-server-block-request.svg"><img alt="../_images/anjay-server-block-request.svg" src="../_images/anjay-server-block-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Handling a block-wise request from the LwM2M Server. The server realizes
-its request is too big to fit in a single packet and explicitly initiates
-block-wise transfer by adding CoAP BLOCK option to the request. A single
-call to <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks the client until the request is completely
-handled.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="id4">
-<a class="reference internal image-reference" href="../_images/anjay-block-response-to-server-request.svg"><img alt="../_images/anjay-block-response-to-server-request.svg" src="../_images/anjay-block-response-to-server-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">A block-wise response to a non-block request from the LwM2M Server. In
-this case, the server performs a simple Read request. The client realizes
-that returned data is too big, and adds a BLOCK option to the response.
-The server then requests further blocks of a response. The call to
-<code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> only returns after the last block of a response is sent.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
-<p>Similar situation arises when the client attempts to send a Register or Update
-LwM2M request to the server with a large list of available Object Instances,
-or a big Notify message. The difference is that the client sends its own
-requests from within <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> call instead of <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code>.</p>
-<div class="figure align-default" id="id5">
-<a class="reference internal image-reference" href="../_images/anjay-client-request.svg"><img alt="../_images/anjay-client-request.svg" src="../_images/anjay-client-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">A simple request from the LwM2M Client.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="id6">
-<a class="reference internal image-reference" href="../_images/anjay-block-client-request.svg"><img alt="../_images/anjay-block-client-request.svg" src="../_images/anjay-block-client-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">A block-wise request from the LwM2M Client. <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> call
-blocks until the full transfer is complete.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</div>
-<p>Because <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks after a packet arrives, the library can
-handle at most one LwM2M Server at time, which makes its usage convenient,
-as one does not have to worry about data model being accessed or modified
-by multiple LwM2M Servers at the same time. Unfortunately it may happen to
-be a problem, as during blockwise transfers the library is unable to respond
-to other LwM2M Servers with anything else than 5.03 Service Unavailable.</p>
-<p>Before getting worried about it too much, one shall realize that the above
-behavior happens only when a blockwise transfer is issued on some part of
-the data model - i.e. for that to become a problem one would have to store
-and transfer big amounts of data regularly through LwM2M which, in context of
-resource constrained environments targeted by the LwM2M protocol might not
-be the best fit.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The blocking behavior does not apply to firmware downloaded using the PULL
-method. See <a class="reference internal" href="../FirmwareUpdateTutorial/FU3.html#firmware-transfer"><span class="std std-ref">Firmware transfer</span></a> for details.</p>
-</div>
-</div>
-<div class="section" id="transactions-and-anjay-serve">
-<h2><span class="section-number">4.8.2. </span>Transactions and <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code><a class="headerlink" href="#transactions-and-anjay-serve" title="Permalink to this headline">¶</a></h2>
-<p>Our data model supports transactional operations. They are here to ensure that
-whenever something goes wrong during a transaction, all changes applied since
-its beginning can be reverted - keeping the LwM2M Client in a consistent state.</p>
-<p>As we already know, calling <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> corresponds to processing a
-single LwM2M request. This, along with properly implemented transaction
-handlers guarantees that if the LwM2M Client was in a consistent state
-before request had been received, then it will remain in a consistent state
-after the request is processed. Moreover, because of single-threaded mode of
-operation no other LwM2M Server can see the LwM2M Client being in partially
-consistent state.</p>
-<p>Things work a bit different during the Bootstrap Sequence though. When the
-Client/Server initiated Bootstrap begins, the library fires transaction
-handlers for all data model entities. At the same time, it enters the state
-where requests originated from Bootstrap Server only are handled - there may be
-more than one such request, and so <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> could get called multiple
-times. This again does not hurt consistency in any way, because according to
-the LwM2M Specification, the LwM2M Client may ignore other servers during that
-special time, and the library is doing just that - meaning
-that they won’t be able to observe intermediate initialization state.</p>
-<p>After the Bootstrap Sequence finishes the library checks that the data model is
-valid, and if it isn’t the previous correct state will be restored, which
-proves the point.</p>
-</div>
-<div class="section" id="notifications">
-<h2><span class="section-number">4.8.3. </span>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h2>
-<p>Anjay uses its scheduler to track pending notifications. Whenever
-a notification has to be sent, it is done from within <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code>
-function.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Calling <code class="docutils literal notranslate"><span class="pre">anjay_notify_changed()</span></code> or <code class="docutils literal notranslate"><span class="pre">anjay_notify_instances_changed()</span></code>
-does not send notifications immediately - they use the scheduler instead.</p>
-</div>
-<div class="figure align-default" id="id7">
-<a class="reference internal image-reference" href="../_images/anjay-notification.svg"><img alt="../_images/anjay-notification.svg" src="../_images/anjay-notification.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Sending a LwM2M Notify message.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</div>
-</div>
+  <div class="section" id="advancedtopics-at-eventloopnotes">
+<h1>↳ <a class="reference internal" href="../AdvancedTopics/AT-EventLoopNotes.html"><span class="doc">Notes on event loop APIs</span></a><a class="headerlink" href="#advancedtopics-at-eventloopnotes" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -297,10 +173,6 @@ does not send notifications immediately - they use the scheduler instead.</p>
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../AdvancedTopics.html" class="btn btn-neutral float-right" title="5. Advanced topics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="BC7.html" class="btn btn-neutral float-left" title="4.7. Send method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

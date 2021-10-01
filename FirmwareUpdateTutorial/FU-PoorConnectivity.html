@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6.5. Poor network connectivity &mdash; Anjay 2.14.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.6. Download resumption" href="FU-DownloadResumption.html" />
+    <link rel="prev" title="6.4. Secure downloads" href="FU-SecureDownloads.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="FU-Introduction.html">6.1. Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-BasicImplementation.html">6.2. Basic implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-ModesAndProtocols.html">6.3. Download modes and protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-SecureDownloads.html">6.4. Secure downloads</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.5. Poor network connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FU-DownloadResumption.html">6.6. Download resumption</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
+        
+      <li><span class="section-number">6.5. </span>Poor network connectivity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="poor-network-connectivity">
+<h1><span class="section-number">6.5. </span>Poor network connectivity<a class="headerlink" href="#poor-network-connectivity" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2><span class="section-number">6.5.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>It is sometimes the case that the network connectivity is unstable,
+and during the download some packets get lost. Depending on the underlying
+download protocol different failures are handled differently.</p>
+</div>
+<div class="section" id="the-definition-of-download-failure">
+<h2><span class="section-number">6.5.2. </span>The definition of “download failure”<a class="headerlink" href="#the-definition-of-download-failure" title="Permalink to this headline">¶</a></h2>
+<p>Since the variety of protocols may be used to perform the transfer, we
+need to understand better what conditions cause the download to fail. Let’s
+consider this case by case:</p>
+<div class="section" id="coap-s-udp">
+<h3><span class="section-number">6.5.2.1. </span>CoAP(s)/UDP<a class="headerlink" href="#coap-s-udp" title="Permalink to this headline">¶</a></h3>
+<p>The download fails if either the connection could not be established (e.g.
+DTLS handshake failure) or when all request retransmissions were performed
+and no response have been received.</p>
+</div>
+<div class="section" id="coap-s-tcp">
+<h3><span class="section-number">6.5.2.2. </span>CoAP(s)/TCP<a class="headerlink" href="#coap-s-tcp" title="Permalink to this headline">¶</a></h3>
+<p>The download fails if either the connection could not be established (e.g.
+TLS handshake failure, remote host is down) or the TCP stack declares
+the connection as broken, or when there is no response to the request for
+<strong>5 minutes</strong>.</p>
+</div>
+<div class="section" id="http-s">
+<h3><span class="section-number">6.5.2.3. </span>HTTP(s)<a class="headerlink" href="#http-s" title="Permalink to this headline">¶</a></h3>
+<p>The download fails due to similar reasons as above. Since HTTP(s) operates
+over TCP and the TCP stack maintains retransmissions and other things in a
+way outside of our control. The difference is that here the response timeout
+is fixed to <strong>30 seconds</strong>.</p>
+</div>
+</div>
+<div class="section" id="so-what-happens-when-the-download-fails">
+<h2><span class="section-number">6.5.3. </span>So what happens when the download fails?<a class="headerlink" href="#so-what-happens-when-the-download-fails" title="Permalink to this headline">¶</a></h2>
+<p>When the download fails, the firmware update module calls <code class="docutils literal notranslate"><span class="pre">reset</span></code>
+handler. Its implementation is required to cleanup any outstanding resources,
+and prepare the Client for a potential new download request.</p>
+<p>Unfortunately it also means that the firmware image downloaded so far
+needs to be deleted. In the current implementation there is no support for
+continuation of firmware download which failed due to network connectivity
+problems as it doesn’t seem to be supported by the LwM2M protocol.</p>
+</div>
+<div class="section" id="how-can-we-ensure-higher-success-rate">
+<h2><span class="section-number">6.5.4. </span>How can we ensure higher success rate?<a class="headerlink" href="#how-can-we-ensure-higher-success-rate" title="Permalink to this headline">¶</a></h2>
+<p>As described in previous sections, for any TCP based transport you can’t do
+much in terms of when the firmware download is considered as failed. The
+timeouts are, at the time of writing this tutorial, fixed and cannot be
+changed during runtime.</p>
+<p>However, CoAP/UDP provides much more control. <a class="reference internal" href="../AdvancedTopics/AT-RetransmissionsTimeoutsCaching.html#coap-retransmission-parameters"><span class="std std-ref">CoAP transmission
+parameters</span></a> can be provided by
+the user, who implements <code class="docutils literal notranslate"><span class="pre">get_coap_tx_params</span></code>, which is a part of
+<code class="docutils literal notranslate"><span class="pre">anjay_fw_update_handlers_t</span></code>. If not provided, default CoAP transmission
+parameters (or passed as part of <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code>) will be used.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="FU-DownloadResumption.html" class="btn btn-neutral float-right" title="6.6. Download resumption" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="FU-SecureDownloads.html" class="btn btn-neutral float-left" title="6.4. Secure downloads" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2021, AVSystem.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

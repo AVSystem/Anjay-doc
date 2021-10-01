@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>8.3.1.7. Event loop support &mdash; Anjay 2.14.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8.3.1.8. Other features" href="NetworkingAPI-OtherFeatures.html" />
+    <link rel="prev" title="8.3.1.6. IP address stickiness support" href="NetworkingAPI-IpStickiness.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../TimeAPI.html">8.1. Time API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThreadingAPI.html">8.2. Threading API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../NetworkingAPI.html">8.3. Networking API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI-Minimal.html">8.3.1.1. Minimal socket implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI-RemoteHostPort.html">8.3.1.2. Get remote host/port operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI-Bind.html">8.3.1.3. Bind operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI-ShutdownRemoteHostname.html">8.3.1.4. Remote hostname and shutdown operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI-Stats.html">8.3.1.5. Statistics support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI-IpStickiness.html">8.3.1.6. IP address stickiness support</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">8.3.1.7. Event loop support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NetworkingAPI-OtherFeatures.html">8.3.1.8. Other features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+        
+          <li><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a> &raquo;</li>
+        
+      <li><span class="section-number">8.3.1.7. </span>Event loop support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="event-loop-support">
+<h1><span class="section-number">8.3.1.7. </span>Event loop support<a class="headerlink" href="#event-loop-support" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#deciding-between-select-and-poll" id="id2">Deciding between select() and poll()</a></p></li>
+<li><p><a class="reference internal" href="#writing-the-posix-compatibility-header" id="id3">Writing the POSIX compatibility header</a></p></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.7.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>When <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_SOCKET</span></code> option is disabled when compiling Anjay,
+<code class="docutils literal notranslate"><span class="pre">WITH_EVENT_LOOP</span></code> will normally be disabled as well. That means that the
+<code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_serve_any()</span></code> functions will not be
+available, and applications will generally need to implement a
+<a class="reference internal" href="../../AdvancedTopics/AT-CustomEventLoop.html"><span class="doc">Custom event loop</span></a> instead.</p>
+<p>However, as long as the underlying API provides a function reasonably similar
+to either <code class="docutils literal notranslate"><span class="pre">select()</span></code> or <code class="docutils literal notranslate"><span class="pre">poll()</span></code>, it is possible to enable the event loop
+functionality by providing a POSIX compatibility header and manually enabling
+<code class="docutils literal notranslate"><span class="pre">WITH_EVENT_LOOP</span></code>.</p>
+</div>
+<div class="section" id="deciding-between-select-and-poll">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.7.2. </span>Deciding between select() and poll()</a><a class="headerlink" href="#deciding-between-select-and-poll" title="Permalink to this headline">¶</a></h2>
+<p>Two equivalent implementations of the event loop are provided in Anjay - one
+uses the <code class="docutils literal notranslate"><span class="pre">select()</span></code> call, the other uses <code class="docutils literal notranslate"><span class="pre">poll()</span></code>. <code class="docutils literal notranslate"><span class="pre">poll()</span></code> is generally
+preferred due to known limitations of <code class="docutils literal notranslate"><span class="pre">select()</span></code>. On Unix-like systems, when
+using CMake to compile the library, one or the other implementation is chosen
+automatically based on whether <code class="docutils literal notranslate"><span class="pre">poll()</span></code> is available in the system.</p>
+<p>The event loop uses these APIs directly because the <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> layer does not
+provide abstraction over the concept of polling multiple sockets. It has been
+decided that this is a solution simpler than significantly extending the
+<code class="docutils literal notranslate"><span class="pre">avs_net</span></code> API.</p>
+<p>The implementation based on <code class="docutils literal notranslate"><span class="pre">select()</span></code> requires the following APIs, reasonably
+similar to the ones defined in Unix-like systems, to be available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sockfd_t</span></code> type to represent the socket descriptor - normally a <code class="docutils literal notranslate"><span class="pre">typedef</span></code>
+to <code class="docutils literal notranslate"><span class="pre">int</span></code></p></li>
+<li><p>optional <code class="docutils literal notranslate"><span class="pre">INVALID_SOCKET</span></code> macro - automatically defined to <code class="docutils literal notranslate"><span class="pre">-1</span></code> if not
+explicitly provided</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fd_set</span></code> type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FD_ZERO()</span></code>, <code class="docutils literal notranslate"><span class="pre">FD_SET()</span></code> and <code class="docutils literal notranslate"><span class="pre">FD_ISSET()</span></code> operations, implemented as
+functions or macros</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FD_SETSIZE</span></code> constant</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">timeval</span></code> with <code class="docutils literal notranslate"><span class="pre">tv_sec</span></code> and <code class="docutils literal notranslate"><span class="pre">tv_usec</span></code> fields</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">select(nfds_t</span> <span class="pre">nfds,</span> <span class="pre">fd_set</span> <span class="pre">*readfds,</span> <span class="pre">fd_set</span> <span class="pre">*writefds,</span> <span class="pre">fd_set</span> <span class="pre">*exceptfds,</span> <span class="pre">struct</span> <span class="pre">timeval</span> <span class="pre">*timeout)</span></code>
+function, or a macro that can be called as if it had this signature</p></li>
+</ul>
+<p>Conversely, the implementation based on <code class="docutils literal notranslate"><span class="pre">poll()</span></code> requires the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sockfd_t</span></code> type to represent the socket descriptor - normally a <code class="docutils literal notranslate"><span class="pre">typedef</span></code>
+to <code class="docutils literal notranslate"><span class="pre">int</span></code></p></li>
+<li><p>optional <code class="docutils literal notranslate"><span class="pre">INVALID_SOCKET</span></code> macro - automatically defined to <code class="docutils literal notranslate"><span class="pre">-1</span></code> if not
+explicitly provided</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">pollfd</span></code> with <code class="docutils literal notranslate"><span class="pre">fd</span></code> field of type <code class="docutils literal notranslate"><span class="pre">sockfd_t</span></code>, as well as
+<code class="docutils literal notranslate"><span class="pre">events</span></code> and <code class="docutils literal notranslate"><span class="pre">revents</span></code> fields of scalar types</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POLLIN</span></code> constant, compatible with the <code class="docutils literal notranslate"><span class="pre">events</span></code> field mentioned above</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">poll(struct</span> <span class="pre">pollfds</span> <span class="pre">*fds,</span> <span class="pre">size_t</span> <span class="pre">nfds,</span> <span class="pre">int</span> <span class="pre">timeout_ms)</span></code> function, or a
+macro that can be called as if it had this signature</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sockfd_t</span></code> type is not standard on Unix-like systems. It has been
+introduced to allow for socket descriptor types other than <code class="docutils literal notranslate"><span class="pre">int</span></code>, found
+on some systems - e.g. <code class="docutils literal notranslate"><span class="pre">SOCKET</span></code> in Win32 is equivalent to <code class="docutils literal notranslate"><span class="pre">uintptr_t</span></code>.</p>
+</div>
+<p>One or the other implementation is chosen based on state of the
+<code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_POLL</span></code> compile-time definition. When
+using CMake for compiling, its value is detected; when manually populating the
+configuration headers, it can be configured in <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code>.</p>
+<p>You can also add <code class="docutils literal notranslate"><span class="pre">#define</span></code> or <code class="docutils literal notranslate"><span class="pre">#undef</span></code> for this macro in the POSIX
+compatibility header, explained below.</p>
+</div>
+<div class="section" id="writing-the-posix-compatibility-header">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.7.3. </span>Writing the POSIX compatibility header</a><a class="headerlink" href="#writing-the-posix-compatibility-header" title="Permalink to this headline">¶</a></h2>
+<p>The POSIX compatibility header mechanism has originally been conceived as a way
+of allowing the use of the default implementations of the networking API (as
+well as time API) on platforms that have APIs that are close to the Unix
+standard but have minor incompatible differences - examples include lwIP and
+Windows.</p>
+<p>However, when the default networking layer is not in use, a variant of this
+header limited in scope can be used to provide the minimal API subset required
+for the event loop.</p>
+<p>The POSIX compatibility header can be any custom header file, specified using
+the <code class="docutils literal notranslate"><span class="pre">-DPOSIX_COMPAT_HEADER</span></code> option on CMake command line, or via the
+<code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_POSIX_COMPAT_HEADER</span></code> macro in <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code>. It is
+utilized as <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">AVS_COMMONS_POSIX_COMPAT_HEADER</span></code> (when using CMake,
+quotes are added around the value provided on the command line), so please keep
+the include path configuration in mind or use absolute paths if feasible.</p>
+<p>The header shall contain the necessary <code class="docutils literal notranslate"><span class="pre">#include</span></code> directives and declarations
+so that the requirements described above are met.</p>
+<p>For example, a POSIX compatibility header for <a class="reference external" href="https://zephyrproject.org/">Zephyr</a> may look like:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;net/socket.h&gt;</span><span class="cp"></span>
+
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">sockfd_t</span><span class="p">;</span>
+
+<span class="cp">#ifndef pollfd</span>
+<span class="cp">#    define pollfd zsock_pollfd</span>
+<span class="cp">#endif </span><span class="c1">// pollfd</span>
+
+<span class="cp">#ifndef poll</span>
+<span class="cp">#    define poll zsock_poll</span>
+<span class="cp">#endif </span><span class="c1">// poll</span>
+
+<span class="cp">#ifndef POLLIN</span>
+<span class="cp">#    define POLLIN ZSOCK_POLLIN</span>
+<span class="cp">#endif </span><span class="c1">// POLLIN</span>
+</pre></div>
+</div>
+<p>Note that neither include guards nor <code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">once</span></code> is required in this file,
+although it is permitted to include such guards.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The POSIX compatibility header is also included in the file that implements
+<code class="docutils literal notranslate"><span class="pre">avs_time_real_now()</span></code> and <code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now()</span></code> if
+<code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_TIME</span></code> is enabled, so you may need to also add lines such
+as <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;sys/time.h&gt;</span></code> or consider implementing the <a class="reference internal" href="../TimeAPI.html"><span class="doc">Time API</span></a>
+yourself.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="NetworkingAPI-OtherFeatures.html" class="btn btn-neutral float-right" title="8.3.1.8. Other features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="NetworkingAPI-IpStickiness.html" class="btn btn-neutral float-left" title="8.3.1.6. IP address stickiness support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2021, AVSystem.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

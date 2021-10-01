@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta content="1; url=FU-DownloadResumption.html" http-equiv="Refresh" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>6.6. Download resumption &mdash; Anjay 2.13.0 documentation</title>
+  <title>Redirection &mdash; Anjay 2.14.0 documentation</title>
   
 
   
@@ -24,9 +25,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -38,9 +36,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. Tools" href="../Tools.html" />
-    <link rel="prev" title="6.5. Poor network connectivity" href="FU5.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -67,7 +63,7 @@
             
             
               <div class="version">
-                2.13.0
+                2.14.0
               </div>
             
           
@@ -92,21 +88,13 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="FU1.html">6.1. Firmware Update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FU2.html">6.2. Basic implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FU3.html">6.3. Download modes and protocols</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FU4.html">6.4. Secure downloads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FU5.html">6.5. Poor network connectivity</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6.6. Download resumption</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
@@ -159,9 +147,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
-        
-      <li><span class="section-number">6.6. </span>Download resumption</li>
+      <li>Redirection</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -178,422 +164,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="download-resumption">
-<h1><span class="section-number">6.6. </span>Download resumption<a class="headerlink" href="#download-resumption" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction">
-<h2><span class="section-number">6.6.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Imagine that due to some bug or, for example, a power loss, the device
-unexpectedly reboots during firmware download. Some portion of the firmware
-could already have been written to a persistent memory, and it could be
-a waste if that data was to be downloaded for the second time.</p>
-<p>This is where the download resumption mechanism comes into play. If
-this is a <strong>PULL</strong> mode download, the Server supports and uses <a class="reference external" href="https://en.wikipedia.org/wiki/HTTP_ETag">ETags</a> and the firmware resource did
-not expire (i.e. has the same ETag) there is a good chance the Client will
-be able to resume a partially finished download.</p>
-</div>
-<div class="section" id="anjay-and-firmware-update-initial-state">
-<h2><span class="section-number">6.6.2. </span>Anjay and Firmware Update initial state<a class="headerlink" href="#anjay-and-firmware-update-initial-state" title="Permalink to this headline">¶</a></h2>
-<p>Let’s have a look at the <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_initial_state_t</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Controls initialization of the State and Update Result resources. It is</span>
-<span class="cm">     * intended to be used after a reboot caused by a firmware update attempt,</span>
-<span class="cm">     * to report the update result.</span>
-<span class="cm">     */</span>
-    <span class="n">anjay_fw_update_initial_result_t</span> <span class="n">result</span><span class="p">;</span>
-
-<span class="hll">    <span class="cm">/**</span>
-</span><span class="hll"><span class="cm">     * Value to initialize the Package URI resource with. The passed string is</span>
-</span><span class="hll"><span class="cm">     * copied, so the pointer is allowed to become invalid after return from</span>
-</span><span class="hll"><span class="cm">     * @ref anjay_fw_update_install .</span>
-</span><span class="hll"><span class="cm">     *</span>
-</span><span class="hll"><span class="cm">     * Required when &lt;c&gt;result == ANJAY_FW_UPDATE_INITIAL_DOWNLOADING&lt;/c&gt;; if it</span>
-</span><span class="hll"><span class="cm">     * is not provided (&lt;c&gt;NULL&lt;/c&gt;) in such case, @ref anjay_fw_update_reset_t</span>
-</span><span class="hll"><span class="cm">     * handler will be called from @ref anjay_fw_update_install to reset the</span>
-</span><span class="hll"><span class="cm">     * Firmware Update object into the Idle state.</span>
-</span><span class="hll"><span class="cm">     *</span>
-</span><span class="hll"><span class="cm">     * Optional when &lt;c&gt;result == ANJAY_FW_UPDATE_INITIAL_DOWNLOADED&lt;/c&gt;; in</span>
-</span><span class="hll"><span class="cm">     * this case it signals that the firmware was downloaded using the Pull</span>
-</span><span class="hll"><span class="cm">     * mechanism.</span>
-</span><span class="hll"><span class="cm">     *</span>
-</span><span class="hll"><span class="cm">     * In all other cases it is ignored.</span>
-</span><span class="hll"><span class="cm">     */</span>
-</span><span class="hll">    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">persisted_uri</span><span class="p">;</span>
-</span><span class="hll">
-</span><span class="hll">    <span class="cm">/**</span>
-</span><span class="hll"><span class="cm">     * Number of bytes that has been already successfully downloaded and are</span>
-</span><span class="hll"><span class="cm">     * available at the time of calling @ref anjay_fw_update_install .</span>
-</span><span class="hll"><span class="cm">     *</span>
-</span><span class="hll"><span class="cm">     * It is ignored unless</span>
-</span><span class="hll"><span class="cm">     * &lt;c&gt;result == ANJAY_FW_UPDATE_INITIAL_DOWNLOADING&lt;/c&gt;, in which case the</span>
-</span><span class="hll"><span class="cm">     * following call to @ref anjay_fw_update_stream_write_t shall append the</span>
-</span><span class="hll"><span class="cm">     * passed chunk of data at the offset set here. If resumption from the set</span>
-</span><span class="hll"><span class="cm">     * offset is impossible, the library will call @ref anjay_fw_update_reset_t</span>
-</span><span class="hll"><span class="cm">     * and @ref anjay_fw_update_stream_open_t to restart the download process.</span>
-</span><span class="hll"><span class="cm">     */</span>
-</span><span class="hll">    <span class="kt">size_t</span> <span class="n">resume_offset</span><span class="p">;</span>
-</span><span class="hll">
-</span><span class="hll">    <span class="cm">/**</span>
-</span><span class="hll"><span class="cm">     * ETag of the download process to resume. The passed value is copied, so</span>
-</span><span class="hll"><span class="cm">     * the pointer is allowed to become invalid after return from</span>
-</span><span class="hll"><span class="cm">     * @ref anjay_fw_update_install .</span>
-</span><span class="hll"><span class="cm">     *</span>
-</span><span class="hll"><span class="cm">     * Required when &lt;c&gt;result == ANJAY_FW_UPDATE_INITIAL_DOWNLOADING&lt;/c&gt; and</span>
-</span><span class="hll"><span class="cm">     * &lt;c&gt;resume_offset &gt; 0&lt;/c&gt;; if it is not provided (&lt;c&gt;NULL&lt;/c&gt;) in such</span>
-</span><span class="hll"><span class="cm">     * case, @ref anjay_fw_update_reset_t handler will be called from</span>
-</span><span class="hll"><span class="cm">     * @ref anjay_fw_update_install to reset the Firmware Update object into the</span>
-</span><span class="hll"><span class="cm">     * Idle state.</span>
-</span><span class="hll"><span class="cm">     */</span>
-</span><span class="hll">    <span class="k">const</span> <span class="k">struct</span> <span class="nc">anjay_etag</span> <span class="o">*</span><span class="n">resume_etag</span><span class="p">;</span>
-</span><span class="p">}</span> <span class="n">anjay_fw_update_initial_state_t</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>The highlighted fields can be used to arrange a download resumption. Recall
-that we already passed this structure to <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_install</span></code> in
-previous chapters, but we’ve always made it zero-initialized before doing so.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>Quick remainder:</strong> download resumption is supported for <strong>PULL</strong>
-mode downloads only.</p>
-</div>
-<p>Anyway, as you can see from the structure above, we’re going to need three
-pieces of information:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">persisted_uri</span></code> - that is, the URI from which the download was
-originally started,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">resume_offset</span></code> - which is just the number of bytes successfully
-stored before the device crashed / unexpectedly rebooted / whatever,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">resume_tag</span></code> - tag, allowing to validate that the Server still has
-the same firmware file available under given URI.</p></li>
-</ul>
-</div></blockquote>
-<p>Implementation-wise, we’ll start with introducing a structure that’d hold
-the download state as well as utility functions that’d store and restore
-the state from persistent storage:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="cp">#define _DEFAULT_SOURCE </span><span class="c1">// for fileno()</span>
-</span><span class="cp">#include</span> <span class="cpf">&quot;./firmware_update.h&quot;</span><span class="cp"></span>
-
-<span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
-
-<span class="hll"><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-</span><span class="hll">    <span class="kt">char</span> <span class="o">*</span><span class="n">persisted_uri</span><span class="p">;</span>
-</span><span class="hll">    <span class="kt">uint32_t</span> <span class="n">resume_offset</span><span class="p">;</span>
-</span><span class="hll">    <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">resume_etag</span><span class="p">;</span>
-</span><span class="hll"><span class="p">}</span> <span class="n">download_state_t</span><span class="p">;</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">FW_DOWNLOAD_STATE_NAME</span> <span class="o">=</span> <span class="s">&quot;firmware_dl_state.bin&quot;</span><span class="p">;</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="kt">int</span> <span class="nf">store_etag</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="k">const</span> <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">    <span class="n">assert</span><span class="p">(</span><span class="n">etag</span><span class="p">);</span>
-</span><span class="hll">    <span class="n">assert</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
-</span><span class="hll">            <span class="o">||</span> <span class="n">fwrite</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="n">etag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class="hll"><span class="p">}</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="kt">int</span> <span class="nf">store_download_state</span><span class="p">(</span><span class="k">const</span> <span class="n">download_state_t</span> <span class="o">*</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">);</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not open %s for writing</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
-</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">uri_length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">persisted_uri</span><span class="p">);</span>
-</span><span class="hll">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">uri_length</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">uri_length</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
-</span><span class="hll">            <span class="o">||</span> <span class="n">fwrite</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">persisted_uri</span><span class="p">,</span> <span class="n">uri_length</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
-</span><span class="hll">            <span class="o">||</span> <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">resume_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">resume_offset</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span>
-</span><span class="hll">                      <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
-</span><span class="hll">            <span class="o">||</span> <span class="n">store_etag</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">state</span><span class="o">-&gt;</span><span class="n">resume_etag</span><span class="p">))</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not write firmware download state</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">unlink</span><span class="p">(</span><span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span><span class="hll"><span class="p">}</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="kt">int</span> <span class="nf">restore_etag</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="n">anjay_etag_t</span> <span class="o">**</span><span class="n">out_etag</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">    <span class="n">assert</span><span class="p">(</span><span class="n">out_etag</span> <span class="o">&amp;&amp;</span> <span class="o">!*</span><span class="n">out_etag</span><span class="p">);</span> <span class="c1">// make sure out_etag is zero-initialized</span>
-</span><span class="hll">    <span class="kt">uint8_t</span> <span class="n">size</span><span class="p">;</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">size</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">size</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag</span> <span class="o">=</span> <span class="n">anjay_etag_new</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">etag</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="n">etag</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">avs_free</span><span class="p">(</span><span class="n">etag</span><span class="p">);</span>
-</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="o">*</span><span class="n">out_etag</span> <span class="o">=</span> <span class="n">etag</span><span class="p">;</span>
-</span><span class="hll">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class="hll"><span class="p">}</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="kt">int</span> <span class="nf">restore_download_state</span><span class="p">(</span><span class="n">download_state_t</span> <span class="o">*</span><span class="n">out_state</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">    <span class="n">download_state_t</span> <span class="n">data</span><span class="p">;</span>
-</span><span class="hll">    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
-</span><span class="hll">
-</span><span class="hll">    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">);</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not open %s for reading</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
-</span><span class="hll">        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">
-</span><span class="hll">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class="hll">    <span class="kt">uint16_t</span> <span class="n">uri_length</span><span class="p">;</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">uri_length</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">uri_length</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">uri_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">data</span><span class="p">.</span><span class="n">persisted_uri</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">uri_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">            <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">        <span class="p">}</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span>
-</span><span class="hll">            <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">,</span> <span class="n">uri_length</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
-</span><span class="hll">                <span class="o">||</span> <span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">.</span><span class="n">resume_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">resume_offset</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
-</span><span class="hll">                           <span class="o">!=</span> <span class="mi">1</span>
-</span><span class="hll">                <span class="o">||</span> <span class="n">restore_etag</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">.</span><span class="n">resume_etag</span><span class="p">)))</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;could not restore download state from %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
-</span><span class="hll">        <span class="n">avs_free</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">);</span>
-</span><span class="hll">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class="hll">        <span class="o">*</span><span class="n">out_state</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
-</span><span class="hll">    <span class="p">}</span>
-</span><span class="hll">    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-</span><span class="hll">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span><span class="hll"><span class="p">}</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="kt">void</span> <span class="nf">reset_download_state</span><span class="p">(</span><span class="n">download_state_t</span> <span class="o">*</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">    <span class="n">avs_free</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">persisted_uri</span><span class="p">);</span>
-</span><span class="hll">    <span class="n">avs_free</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">resume_etag</span><span class="p">);</span>
-</span><span class="hll">    <span class="n">memset</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">state</span><span class="p">));</span>
-</span><span class="hll">    <span class="n">unlink</span><span class="p">(</span><span class="n">FW_DOWNLOAD_STATE_NAME</span><span class="p">);</span>
-</span><span class="hll"><span class="p">}</span>
-</span>
-<span class="k">static</span> <span class="k">struct</span> <span class="nc">fw_state_t</span> <span class="p">{</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">firmware_file</span><span class="p">;</span>
-    <span class="c1">// anjay instance this firmware update singleton is associated with</span>
-    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">;</span>
-<span class="hll">    <span class="c1">// Current state of the download. It is updated and persited on each</span>
-</span><span class="hll">    <span class="c1">// fw_stream_write() call.</span>
-</span><span class="hll">    <span class="n">download_state_t</span> <span class="n">download_state</span><span class="p">;</span>
-</span><span class="hll"><span class="p">}</span> <span class="n">FW_STATE</span><span class="p">;</span>
-</span><span class="hll">
-</span><span class="hll"><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span> <span class="o">=</span> <span class="s">&quot;/tmp/firmware_image.bin&quot;</span><span class="p">;</span>
-</span></pre></div>
-</div>
-<p>In the next section, we’ll discuss when state storing and restoring should
-be done.</p>
-</div>
-<div class="section" id="persisting-firmware-state">
-<h2><span class="section-number">6.6.3. </span>Persisting firmware state<a class="headerlink" href="#persisting-firmware-state" title="Permalink to this headline">¶</a></h2>
-<p>When <a class="reference internal" href="FU2.html#fw-download-io"><span class="std std-ref">we implemented</span></a> the <code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code> callback,
-we ignored <code class="docutils literal notranslate"><span class="pre">package_uri</span></code> and <code class="docutils literal notranslate"><span class="pre">package_etag</span></code>, because we didn’t need it
-at that time.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Persisting firmware state makes sense only if both <code class="docutils literal notranslate"><span class="pre">package_uri</span></code>
-and <code class="docutils literal notranslate"><span class="pre">package_etag</span></code> are non-<cite>NULL</cite>. <code class="docutils literal notranslate"><span class="pre">package_uri</span></code> indicates it is
-a <strong>PULL</strong> mode transfer (the only mode supporting resumption), while
-<code class="docutils literal notranslate"><span class="pre">package_etag</span></code> allows the Client to verify that the downloaded file
-is the exactly the same as before the resumption happened – without it
-there will be no resumption.</p>
-</div>
-<p>This time, however, we will save both of them in <code class="docutils literal notranslate"><span class="pre">FW_STATE</span></code>. The only
-missing piece is then the <code class="docutils literal notranslate"><span class="pre">resume_offset</span></code>, which naturally can be updated
-in <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> implementation after writing a chunk of data to the
-storage. Of course, we also have to remember to reset the download state when
-<code class="docutils literal notranslate"><span class="pre">fw_reset</span></code> is called, as then the download is either failed or the Server
-explicitly wants the Client to discard the firmware downloaded so far. These
-ideas can be summarized as follows:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>on a call to <code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code> we’ll store <code class="docutils literal notranslate"><span class="pre">package_uri</span></code> and
-<code class="docutils literal notranslate"><span class="pre">package_etag</span></code> in <code class="docutils literal notranslate"><span class="pre">FW_STATE</span></code>,</p></li>
-<li><p>on a call to <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> we’ll update the <code class="docutils literal notranslate"><span class="pre">resume_offset</span></code>
-state and write the whole state information to persistent storage,</p></li>
-<li><p>on a call to <code class="docutils literal notranslate"><span class="pre">fw_reset</span></code> we’ll erase the download state.</p></li>
-</ul>
-</div></blockquote>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The implementation of <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> as described above will be
-awkward on a UNIX-like systems. Complicated operating systems tend to
-have multiple layers of IO buffering, and it may take some time before
-the actual writes are made to the physical storage device. What it
-means for us is that we can’t just call <code class="docutils literal notranslate"><span class="pre">fwrite()</span></code> and blindly update
-<code class="docutils literal notranslate"><span class="pre">resume_offset</span></code> with the number of bytes we ordered it to write even
-if it returned a success (because the data may still reside in some cache,
-maintained e.g. by the kernel).</p>
-<p>Because of that, rather than updating the download state file on
-each call to <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code>, it would be wiser to do it once in
-<code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code>, and deduce the <code class="docutils literal notranslate"><span class="pre">resume_offset</span></code> from the size of
-the file.</p>
-<p>In an embedded application though, with no buffering (or without a concept
-of file), it’s more appropriate to update <code class="docutils literal notranslate"><span class="pre">resume_offset</span></code> from within
-<code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code> instead, remembering to do so ONLY after having a
-high degree of certainty that the chunk of firmware was successfully
-written to the flash memory.</p>
-<p>Since we want to show the correct way of handling download resumption on
-embedded hardware while being relatively correct on non-embedded platforms,
-we’ll use inefficient the <code class="docutils literal notranslate"><span class="pre">fflush()</span></code> and <code class="docutils literal notranslate"><span class="pre">fsync()</span></code> calls after each
-<code class="docutils literal notranslate"><span class="pre">fwrite()</span></code> which should flush the caches and trigger physical writes
-just to illustrate the point.</p>
-</div>
-<p>Keeping all these things in mind, let’s start by refactoring <code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code>
-accordingly:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">fw_open_download_file</span><span class="p">(</span><span class="kt">long</span> <span class="n">seek_offset</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// It&#39;s worth ensuring we start with a NULL firmware_file. In the end</span>
-    <span class="c1">// it would be our responsibility to manage this pointer, and we want</span>
-    <span class="c1">// to make sure we never leak any memory.</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-    <span class="c1">// We&#39;re about to create a firmware file for writing</span>
-    <span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not open %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fseek</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">,</span> <span class="n">seek_offset</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not seek to %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">seek_offset</span><span class="p">);</span>
-        <span class="n">fclose</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">);</span>
-        <span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">// We&#39;ve succeeded</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">static</span> <span class="kt">int</span> <span class="nf">fw_stream_open</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">package_uri</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="k">struct</span> <span class="nc">anjay_etag</span> <span class="o">*</span><span class="n">package_etag</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// We don&#39;t use user_ptr.</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">user_ptr</span><span class="p">;</span>
-
-    <span class="c1">// We only persist firmware download state if we have both package_uri</span>
-    <span class="c1">// and package_etag. Otherwise the download could not be resumed.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">package_uri</span> <span class="o">&amp;&amp;</span> <span class="n">package_etag</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">persisted_uri</span> <span class="o">=</span> <span class="n">avs_strdup</span><span class="p">(</span><span class="n">package_uri</span><span class="p">);</span>
-        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not duplicate package URI</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">anjay_etag_t</span> <span class="o">*</span><span class="n">etag_copy</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span> <span class="o">&amp;&amp;</span> <span class="n">package_etag</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">etag_copy</span> <span class="o">=</span> <span class="n">anjay_etag_clone</span><span class="p">(</span><span class="n">package_etag</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">etag_copy</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Could not duplicate package ETag</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">resume_etag</span> <span class="o">=</span> <span class="n">etag_copy</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">reset_download_state</span><span class="p">(</span><span class="o">&amp;</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">);</span>
-            <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">fw_open_download_file</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Then, we can implement storing the download state logic in <code class="docutils literal notranslate"><span class="pre">fw_stream_write</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">fw_stream_write</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">user_ptr</span><span class="p">;</span>
-<span class="hll">    <span class="c1">// NOTE: fflush() and fsync() are done to be relatively sure that</span>
-</span><span class="hll">    <span class="c1">// the data is passed to the hardware and so that we can update</span>
-</span><span class="hll">    <span class="c1">// resume_offset in the download state. They are suboptimal on UNIX-like</span>
-</span><span class="hll">    <span class="c1">// platforms, and are used just to illustrate when is the right time to</span>
-</span><span class="hll">    <span class="c1">// update resume_offset on embedded platforms.</span>
-</span>    <span class="k">if</span> <span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span>
-<span class="hll">            <span class="o">||</span> <span class="n">fflush</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)</span>
-</span><span class="hll">            <span class="o">||</span> <span class="n">fsync</span><span class="p">(</span><span class="n">fileno</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)))</span> <span class="p">{</span>
-</span>        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Writing to firmware image failed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="hll">    <span class="k">if</span> <span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">)</span> <span class="p">{</span>
-</span><span class="hll">        <span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">resume_offset</span> <span class="o">+=</span> <span class="n">length</span><span class="p">;</span>
-</span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="n">store_download_state</span><span class="p">(</span><span class="o">&amp;</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">))</span> <span class="p">{</span>
-</span><span class="hll">            <span class="c1">// If we returned -1 here, the download would be aborted, so it</span>
-</span><span class="hll">            <span class="c1">// is probably better to continue instead.</span>
-</span><span class="hll">            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
-</span><span class="hll">                    <span class="s">&quot;Could not store firmware download state - ignoring</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-</span><span class="hll">        <span class="p">}</span>
-</span><span class="hll">    <span class="p">}</span>
-</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The next step is to make sure that <code class="docutils literal notranslate"><span class="pre">fw_reset</span></code> resets the download state as well:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">fw_reset</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Reset can be issued even if the download never started.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// We ignore the result code of fclose(), as fw_reset() can&#39;t fail.</span>
-        <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">fclose</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span><span class="p">);</span>
-        <span class="c1">// and reset our global state to initial value.</span>
-        <span class="n">FW_STATE</span><span class="p">.</span><span class="n">firmware_file</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">// Finally, let&#39;s remove any downloaded payload</span>
-    <span class="n">unlink</span><span class="p">(</span><span class="n">FW_IMAGE_DOWNLOAD_NAME</span><span class="p">);</span>
-<span class="hll">    <span class="c1">// And reset any download state.</span>
-</span><span class="hll">    <span class="n">reset_download_state</span><span class="p">(</span><span class="o">&amp;</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">);</span>
-</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>And the last piece of the implementation would be to read the download state (if any)
-at initialization stage, and before installing the firmware update module in Anjay:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">fw_update_install</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">anjay_fw_update_initial_state_t</span> <span class="n">state</span><span class="p">;</span>
-    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">state</span><span class="p">));</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">FW_UPDATED_MARKER</span><span class="p">,</span> <span class="n">F_OK</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">-1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// marker file exists, it means firmware update succeded!</span>
-        <span class="n">state</span><span class="p">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_FW_UPDATE_INITIAL_SUCCESS</span><span class="p">;</span>
-        <span class="n">unlink</span><span class="p">(</span><span class="n">FW_UPDATED_MARKER</span><span class="p">);</span>
-<span class="hll">        <span class="c1">// we can get rid of any download state if the update succeeded</span>
-</span><span class="hll">        <span class="n">reset_download_state</span><span class="p">(</span><span class="o">&amp;</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">);</span>
-</span><span class="hll">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">restore_download_state</span><span class="p">(</span><span class="o">&amp;</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">))</span> <span class="p">{</span>
-</span><span class="hll">        <span class="c1">// download state restored, it means we can try using download</span>
-</span><span class="hll">        <span class="c1">// resumption</span>
-</span><span class="hll">        <span class="k">if</span> <span class="p">(</span><span class="n">fw_open_download_file</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="n">resume_offset</span><span class="p">))</span> <span class="p">{</span>
-</span><span class="hll">            <span class="c1">// the file cannot be opened or seeking failed</span>
-</span><span class="hll">            <span class="n">reset_download_state</span><span class="p">(</span><span class="o">&amp;</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">);</span>
-</span><span class="hll">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class="hll">            <span class="n">state</span><span class="p">.</span><span class="n">persisted_uri</span> <span class="o">=</span> <span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">persisted_uri</span><span class="p">;</span>
-</span><span class="hll">            <span class="n">state</span><span class="p">.</span><span class="n">resume_offset</span> <span class="o">=</span> <span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">resume_offset</span><span class="p">;</span>
-</span><span class="hll">            <span class="n">state</span><span class="p">.</span><span class="n">resume_etag</span> <span class="o">=</span> <span class="n">FW_STATE</span><span class="p">.</span><span class="n">download_state</span><span class="p">.</span><span class="n">resume_etag</span><span class="p">;</span>
-</span><span class="hll">            <span class="n">state</span><span class="p">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">ANJAY_FW_UPDATE_INITIAL_DOWNLOADING</span><span class="p">;</span>
-</span><span class="hll">        <span class="p">}</span>
-</span><span class="hll">    <span class="p">}</span>
-</span>    <span class="c1">// make sure this module is installed for single Anjay instance only</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">FW_STATE</span><span class="p">.</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay</span><span class="p">;</span>
-    <span class="c1">// install the module, pass handlers that we implemented and initial state</span>
-    <span class="c1">// that we discovered upon startup</span>
-    <span class="k">return</span> <span class="n">anjay_fw_update_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">HANDLERS</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">state</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
+  <div class="section" id="fu-downloadresumption">
+<h1>↳ <a class="reference internal" href="FU-DownloadResumption.html"><span class="doc">Download resumption</span></a><a class="headerlink" href="#fu-downloadresumption" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -601,10 +173,6 @@ at initialization stage, and before installing the firmware update module in Anj
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Tools.html" class="btn btn-neutral float-right" title="7. Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="FU5.html" class="btn btn-neutral float-left" title="6.5. Poor network connectivity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

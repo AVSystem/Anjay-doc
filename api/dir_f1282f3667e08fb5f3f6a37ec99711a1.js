@@ -9,6 +9,7 @@ var dir_f1282f3667e08fb5f3f6a37ec99711a1 =
     [ "download.h", "download_8h.html", "download_8h" ],
     [ "fw_update.h", "fw__update_8h.html", "fw__update_8h" ],
     [ "io.h", "io_8h.html", "io_8h" ],
+    [ "ipso_objects.h", "ipso__objects_8h.html", "ipso__objects_8h" ],
     [ "security.h", "security_8h.html", "security_8h" ],
     [ "server.h", "server_8h.html", "server_8h" ],
     [ "stats.h", "stats_8h.html", "stats_8h" ]
