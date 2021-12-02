@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8.4.1.3. Session resumption support &mdash; Anjay 2.14.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8.4.1.4. Advanced configuration features" href="CustomTLS-ConfigFeatures.html" />
+    <link rel="prev" title="8.4.1.2. Minimal DTLS implementation" href="CustomTLS-Minimal.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.14.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../TimeAPI.html">8.1. Time API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ThreadingAPI.html">8.2. Threading API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NetworkingAPI.html">8.3. Networking API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../CustomTLS.html">8.4. Custom (D)TLS layers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="CustomTLS-Stub.html">8.4.1.1. Introductory stub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CustomTLS-Minimal.html">8.4.1.2. Minimal DTLS implementation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">8.4.1.3. Session resumption support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CustomTLS-ConfigFeatures.html">8.4.1.4. Advanced configuration features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CustomTLS-CertificatesBasic.html">8.4.1.5. Basic certificate support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CustomTLS-CertificatesAdvanced.html">8.4.1.6. Advanced certificate support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CustomTLS-TCPSupport.html">8.4.1.7. Support for TLS over TCP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Commercial_support.html">10. Commercial support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+          <li><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a> &raquo;</li>
+      <li><span class="section-number">8.4.1.3. </span>Session resumption support</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="session-resumption-support">
+<h1><span class="section-number">8.4.1.3. </span>Session resumption support<a class="headerlink" href="#session-resumption-support" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id3">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#simple-session-persistence" id="id4">Simple session persistence</a></p>
+<ul>
+<li><p><a class="reference internal" href="#saving-the-session" id="id5">Saving the session</a></p></li>
+<li><p><a class="reference internal" href="#restoring-the-session" id="id6">Restoring the session</a></p></li>
+<li><p><a class="reference internal" href="#the-avs-net-socket-opt-session-resumed-option" id="id7">The <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span></code> option</a></p></li>
+<li><p><a class="reference internal" href="#limitations" id="id8">Limitations</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#buffer-based-session-persistence" id="id9">Buffer-based session persistence</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id10">Saving the session</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id11">Restoring the session</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.3.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial builds up on <a class="reference internal" href="CustomTLS-Minimal.html"><span class="doc">the previous one</span></a> and adds
+support for DTLS session resumption mechanism.</p>
+<p>DTLS session resumption support is essential for LwM2M device operation,
+especially if relatively frequent connectivity drops are anticipated and/or if
+network traffic is considered expensive. Each full DTLS handshake creates a new
+CoAP endpoint association, which forces the device to send a new Register
+message, in turn forcing the server to re-establish any Observe requests
+required.</p>
+<p>Session resumption solves this problem - a resumed session is considered a
+continuation of the previous CoAP endpoint association, so as long as the
+registration lifetime has not expired, communication can continue as if nothing
+happened, even if the device’s IP address changed.</p>
+<p>Two approaches to handling session resumption will be considered, one based on
+the TLS library’s native session handling capabilities, and one involving a raw
+buffer provided by the Anjay library.</p>
+</div>
+<div class="section" id="simple-session-persistence">
+<h2><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.3.2. </span>Simple session persistence</a><a class="headerlink" href="#simple-session-persistence" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Code related to this tutorial can be found under
+<a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-tls/resumption-simple">examples/custom-tls/resumption-simple</a>
+in the Anjay source directory.</p>
+</div>
+<p>OpenSSL provides an object type that represents a (D)TLS session,
+<code class="docutils literal notranslate"><span class="pre">SSL_SESSION</span></code>, and a “session cache” mechanism that allows storing the
+sessions and resuming them on demand as needed.</p>
+<p>Unfortunately, while the session cache is completely automatic for server-side
+connections, on the client side the session objects need to be stored and
+restored manually.</p>
+<p>So we will start by adding a field to the <code class="docutils literal notranslate"><span class="pre">tls_socket_impl_t</span></code> structure that
+will hold the session information even while the socket is disconnected:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="o">*</span><span class="n">operations</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">backend_socket</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">psk</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">identity</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span><span class="w"></span>
+
+<span class="hll"><span class="w">    </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">last_session</span><span class="p">;</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"> </span><span class="n">tls_socket_impl_t</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Of course, we need to make sure that this object is cleaned up in
+<code class="docutils literal notranslate"><span class="pre">tls_cleanup</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">tls_cleanup</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">sock_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock_ptr</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">*</span><span class="n">sock_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">sock_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">tls_close</span><span class="p">(</span><span class="o">*</span><span class="n">sock_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_net_socket_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">SSL_CTX_free</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">last_session</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="n">SSL_SESSION_free</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">last_session</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</span><span class="w">        </span><span class="n">avs_free</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="o">*</span><span class="n">sock_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some TLS implementations, session persistence and resumption may be
+implemented within the library itself. For example, in the nrfxlib Modem
+library, session persistence happens automatically if the
+<a class="reference external" href="https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrfxlib/nrf_modem/doc/api.html#c.NRF_SO_SEC_SESSION_CACHE">NRF_SO_SEC_SESSION_CACHE</a>
+option is enabled.</p>
+<p>With such implementations, it is not necessary to add dedicated fields or
+save/restore logic, and it is OK to just enable the built-in mechanisms.</p>
+</div>
+<div class="section" id="saving-the-session">
+<h3><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.3.2.1. </span>Saving the session</a><a class="headerlink" href="#saving-the-session" title="Permalink to this headline">¶</a></h3>
+<p>Now that there is a field to store this information, we may proceed with
+configuring the session cache so that each new session is written there:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">new_session_cb</span><span class="p">(</span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">sess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">SSL_get_app_data</span><span class="p">(</span><span class="n">ssl</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">sess_dup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_SESSION_dup</span><span class="p">(</span><span class="n">sess</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sess_dup</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">last_session</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="n">SSL_SESSION_free</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">last_session</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">last_session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sess_dup</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span>
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">configuration_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="o">!*</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">configuration_</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">configuration</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">configuration_</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">socket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="n">socket_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">socket</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">TLS_SOCKET_VTABLE</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_udp_socket_create</span><span class="p">(</span><span class="w"></span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">backend_configuration</span><span class="p">)))</span><span class="w"></span>
+<span class="w">            </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CTX_new</span><span class="p">(</span><span class="n">DTLS_method</span><span class="p">())))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_net_socket_cleanup</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_CTX_set_mode</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">SSL_MODE_AUTO_RETRY</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="n">SSL_CTX_set_session_cache_mode</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">                                   </span><span class="n">SSL_SESS_CACHE_CLIENT</span><span class="w"></span>
+</span><span class="hll"><span class="w">                                           </span><span class="o">|</span><span class="w"> </span><span class="n">SSL_SESS_CACHE_NO_INTERNAL_STORE</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">SSL_CTX_sess_set_new_cb</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">new_session_cb</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Note how <code class="docutils literal notranslate"><span class="pre">SSL_SESSION_dup()</span></code> is used in the <code class="docutils literal notranslate"><span class="pre">new_session_cb</span></code> function - this
+is because the <code class="docutils literal notranslate"><span class="pre">SSL_SESSION</span></code> object also contains the transient state of the
+session that might change later and make it impossible to restore it later, e.g.
+when the connection is closed. This is why we want an exact clone of the session
+state as it was just after the handshake.</p>
+</div>
+<div class="section" id="restoring-the-session">
+<h3><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.3.2.2. </span>Restoring the session</a><a class="headerlink" href="#restoring-the-session" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">perform_handshake</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">union</span> <span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="w"> </span><span class="n">addr</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span> <span class="nc">sockaddr_storage</span><span class="w"> </span><span class="n">storage</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">peername</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">fd_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fd_ptr</span><span class="w"></span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">getpeername</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="p">(</span><span class="kt">socklen_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">peername</span><span class="p">)</span><span class="w"> </span><span class="p">}))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EBADF</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_new</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">SSL_set_app_data</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">sock</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_set_tlsext_host_name</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">BIO</span><span class="w"> </span><span class="o">*</span><span class="n">bio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BIO_new_dgram</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bio</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">BIO_ctrl</span><span class="p">(</span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">BIO_CTRL_DGRAM_SET_CONNECTED</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_set_bio</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">);</span><span class="w"></span>
+
+<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">last_session</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">session_dup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_SESSION_dup</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">last_session</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">session_dup</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="n">SSL_set_session</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">session_dup</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="n">SSL_SESSION_free</span><span class="p">(</span><span class="n">session_dup</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
+</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SSL_connect</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EPROTO</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>If there is a stored session, restoring it just requires calling
+<code class="docutils literal notranslate"><span class="pre">SSL_set_session()</span></code> right before <code class="docutils literal notranslate"><span class="pre">SSL_connect()</span></code>. We also use
+<code class="docutils literal notranslate"><span class="pre">SSL_SESSSION_dup()</span></code> here to avoid modifying the object already stored in
+the <code class="docutils literal notranslate"><span class="pre">last_session</span></code> field.</p>
+</div>
+<div class="section" id="the-avs-net-socket-opt-session-resumed-option">
+<h3><a class="toc-backref" href="#id7"><span class="section-number">8.4.1.3.2.3. </span>The <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span></code> option</a><a class="headerlink" href="#the-avs-net-socket-opt-session-resumed-option" title="Permalink to this headline">¶</a></h3>
+<p>The Anjay library needs to know whether the “connect” operation resulted in an
+establishment of a completely new session, or a resumption of an existing one.
+This information is used to determine whether sending the Register message is
+necessary.</p>
+<p>The interface to get this information from the socket is the
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span></code> option, used through the “get_opt”
+operation.</p>
+<p>For OpenSSL, this can be forwarded to the call to <code class="docutils literal notranslate"><span class="pre">SSL_session_reused()</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">tls_get_opt</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">avs_net_socket_opt_key_t</span><span class="w"> </span><span class="n">option_key</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">avs_net_socket_opt_value_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_option_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">option_key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_opt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                 </span><span class="n">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                 </span><span class="n">out_option_value</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">mtu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_MAX</span><span class="p">(</span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">mtu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span><span class="p">:</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SSL_session_reused</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">));</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_net_socket_get_opt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"> </span><span class="n">option_key</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="n">out_option_value</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In many TLS implementations, this information may be very hard or impossible
+to query. If that is the case, the TLS integration layer may assume one of
+two possible strategies:</p>
+<ul>
+<li><p><strong>Always assume that a new session has been established</strong>, or indeed <strong>do
+not support session resumption</strong> at all. This is the safe option, as it
+ensures proper interoperability and behavior at all times.</p>
+<p>However, this might lead to a lot of network traffic being wasted for the
+Register and Observe messages after each handshake.</p>
+</li>
+<li><p><strong>Always assume that a previous session has been resumed.</strong> Note that the
+session state is not the only factor in deciding whether to send the
+Register message, so it will still be sent e.g. if lifetime of the
+previous registration expired, or if it is the first registration with a
+given server.</p>
+<p>However, this assumption <strong>might be dangerous</strong> in case of false positives
+- if a full handshake has been performed, but a session resumption is
+reported by the code, the connection, depending on the specific LwM2M
+server implementation, may be unusable until the registration lifetime
+expires, which is expected to eventually trigger the Register message.
+In such circumstances, non-confirmable Notify messages will be lost,
+delivery of confirmable Notify messages will fail, but not trigger any
+additional actions (see
+<a class="reference internal" href="../../AdvancedTopics/AT-NetworkErrorHandling.html"><span class="doc">Network error handling</span></a>), and delivery of Send
+messages will also fail (with failures reported to the user code) during
+this time.</p>
+<p>You might nevertheless consider this strategy if you are confident that
+the session resumption will succeed most of the time in your environment,
+or if the trade-off of temporary connectivity loss for up to one
+connection lifetime period is acceptable for your application.</p>
+</li>
+</ul>
+<p>If the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span></code> option is unimplemented or
+querying it fails, the library will behave the same way as if <code class="docutils literal notranslate"><span class="pre">false</span></code> was
+returned, i.e. a fresh session will be assumed, prioritizing safety over
+network traffic usage.</p>
+</div>
+</div>
+<div class="section" id="limitations">
+<h3><a class="toc-backref" href="#id8"><span class="section-number">8.4.1.3.2.4. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h3>
+<p>As implemented above, the session is only persisted for as long as the socket
+object exists. This is fine for most of the cases. However, the commercial
+version of Anjay offers the <code class="docutils literal notranslate"><span class="pre">anjay_new_from_core_persistence()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">anjay_delete_with_core_persistence()</span></code> APIs that allow persisting the
+transient connection state to non-volatile memory. This transient state includes
+the (D)TLS session information.</p>
+<p>For this reason, the <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> socket API includes configuration options that
+allow specifying a dedicated buffer for storing the session information. The
+next section of this article will showcase an alternate implementation of the
+session resumption mechanism that implements it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even if you implement session resumption without the use of the
+<code class="docutils literal notranslate"><span class="pre">session_resumption_buffer</span></code> APIs, Anjay will allocate memory for such
+buffers, one for each server connection. You can control the size of those
+buffers via the <code class="docutils literal notranslate"><span class="pre">DTLS_SESSION_BUFFER_SIZE</span></code> CMake option or the
+<code class="docutils literal notranslate"><span class="pre">ANJAY_DTLS_SESSION_BUFFER_SIZE</span></code> macro in <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>.</p>
+<p>This value will be used in array size declarations, so the value of 0 may
+not be acceptable for some compilers.</p>
+</div>
+</div>
+</div>
+<div class="section" id="buffer-based-session-persistence">
+<h2><a class="toc-backref" href="#id9"><span class="section-number">8.4.1.3.3. </span>Buffer-based session persistence</a><a class="headerlink" href="#buffer-based-session-persistence" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Code related to this tutorial can be found under
+<a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-tls/resumption-buffer">examples/custom-tls/resumption-buffer</a>
+in the Anjay source directory.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some implementations, such as the <a class="reference external" href="https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrfxlib/nrf_modem/README.html">nrfxlib Modem library</a>,
+session information may be persisted in non-volatile memory across reboots
+directly by the underlying implementation. In that case, it is fine to rely
+on that mechanism and ignore the <code class="docutils literal notranslate"><span class="pre">session_resumption_buffer</span></code> field, even
+if the <code class="docutils literal notranslate"><span class="pre">anjay_new_from_core_persistence()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">anjay_delete_with_core_persistence()</span></code> APIs will be utilized.</p>
+</div>
+<p>This variant is very similar to the previous one, but to address the limitation
+mentioned above, we will serialize the session information into the buffer
+supplied via socket configuration.</p>
+<p>That means that instead of keeping an <code class="docutils literal notranslate"><span class="pre">SSL_SESSION</span></code> object in the socket
+state, we need to store the information about the buffer:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="o">*</span><span class="n">operations</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">backend_socket</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">psk</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">identity</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span><span class="w"></span>
+
+<span class="hll"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">session_resumption_buffer_size</span><span class="p">;</span><span class="w"></span>
+</span><span class="p">}</span><span class="w"> </span><span class="n">tls_socket_impl_t</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This buffer is allocated outside the socket object, and not owned by it, so we
+are not putting any deallocation in <code class="docutils literal notranslate"><span class="pre">tls_cleanup</span></code> this time.</p>
+<p>However, we need to copy this pointer and size information from the
+configuration structure when initializing the socket:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">configuration_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="o">!*</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">configuration_</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">configuration</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">configuration_</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">socket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="n">socket_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">socket</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">TLS_SOCKET_VTABLE</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_udp_socket_create</span><span class="p">(</span><span class="w"></span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">backend_configuration</span><span class="p">)))</span><span class="w"></span>
+<span class="w">            </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CTX_new</span><span class="p">(</span><span class="n">DTLS_method</span><span class="p">())))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_net_socket_cleanup</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_CTX_set_mode</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">SSL_MODE_AUTO_RETRY</span><span class="p">);</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">SSL_CTX_set_session_cache_mode</span><span class="p">(</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="n">SSL_SESS_CACHE_CLIENT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SSL_SESS_CACHE_NO_INTERNAL_STORE</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">SSL_CTX_sess_set_new_cb</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">new_session_cb</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id10"><span class="section-number">8.4.1.3.3.1. </span>Saving the session</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The snippet above already includes the <code class="docutils literal notranslate"><span class="pre">SSL_CTX_set_session_cache_mode()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">SSL_CTX_sess_set_new_cb()</span></code> calls introduced in the previous version. However
+this time, the <code class="docutils literal notranslate"><span class="pre">new_session_cb</span></code> callback looks very different:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">new_session_cb</span><span class="p">(</span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">sess</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">SSL_get_app_data</span><span class="p">(</span><span class="n">ssl</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">serialized_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2d_SSL_SESSION</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">serialized_size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">            </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="w"> </span><span class="n">serialized_size</span><span class="w"></span>
+<span class="w">                           </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">i2d_SSL_SESSION</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>OpenSSL provides APIs for serializing and deserializing the <code class="docutils literal notranslate"><span class="pre">SSL_SESSION</span></code>
+objects, and that is naturally what we use for this purpose.</p>
+<p>When implementing session serialization in your code, you don’t need to adhere
+to any particular data format. However, please bear the following things in
+mind:</p>
+<ul class="simple">
+<li><p>The data is expected to be stored relatively short-term, either within a
+single execution of the application, or across a single restart (using
+<code class="docutils literal notranslate"><span class="pre">anjay_new_from_core_persistence()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">anjay_delete_with_core_persistence()</span></code>).</p></li>
+<li><p>A firmware update <strong>MAY</strong> happen during that aforementioned single restart.</p></li>
+<li><p>While it is preferred to retain compatibility of the format across firmware
+versions, it is also acceptable to reject old incompatible data.</p>
+<ul>
+<li><p>Full handshake shall be performed in such circumstance, and this fact shall
+be appropriately reported via the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span></code>
+option.</p></li>
+<li><p>The restoring code shall be prepared to handle invalid input. In case of
+invalid input, it should gracefully fail and revert to performing full
+handshake.</p></li>
+</ul>
+</li>
+<li><p>The serialized session data is not intended to be moved across hardware units.
+It is not a problem if the session data is only restorable on the same machine
+that generated it.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id11"><span class="section-number">8.4.1.3.3.2. </span>Restoring the session</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Much like in the previous version, we need to call <code class="docutils literal notranslate"><span class="pre">SSL_set_session()</span></code> with
+the restored session before calling <code class="docutils literal notranslate"><span class="pre">SSL_connect()</span></code>.</p>
+<p>However, in this version, we need to deserialize the session using
+<code class="docutils literal notranslate"><span class="pre">d2i_SSL_SESSION()</span></code> first:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">perform_handshake</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">union</span> <span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="w"> </span><span class="n">addr</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span> <span class="nc">sockaddr_storage</span><span class="w"> </span><span class="n">storage</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">peername</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">fd_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fd_ptr</span><span class="w"></span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">getpeername</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="p">(</span><span class="kt">socklen_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">peername</span><span class="p">)</span><span class="w"> </span><span class="p">}))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EBADF</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_new</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">SSL_set_app_data</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">sock</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_set_tlsext_host_name</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">BIO</span><span class="w"> </span><span class="o">*</span><span class="n">bio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BIO_new_dgram</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bio</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">BIO_ctrl</span><span class="p">(</span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">BIO_CTRL_DGRAM_SET_CONNECTED</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_set_bio</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">);</span><span class="w"></span>
+
+<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">session</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+</span><span class="hll"><span class="w">                </span><span class="n">d2i_SSL_SESSION</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">                                </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">session</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="n">SSL_set_session</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">session</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="n">SSL_SESSION_free</span><span class="p">(</span><span class="n">session</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
+</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SSL_connect</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EPROTO</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Of course, we also need to support the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span></code>
+option, which in this case looks identical:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">tls_get_opt</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">avs_net_socket_opt_key_t</span><span class="w"> </span><span class="n">option_key</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">avs_net_socket_opt_value_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_option_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">option_key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_opt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                 </span><span class="n">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                 </span><span class="n">out_option_value</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">mtu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_MAX</span><span class="p">(</span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">mtu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span><span class="p">:</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SSL_session_reused</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">));</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_net_socket_get_opt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"> </span><span class="n">option_key</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="n">out_option_value</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CustomTLS-Minimal.html" class="btn btn-neutral float-left" title="8.4.1.2. Minimal DTLS implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CustomTLS-ConfigFeatures.html" class="btn btn-neutral float-right" title="8.4.1.4. Advanced configuration features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2021, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

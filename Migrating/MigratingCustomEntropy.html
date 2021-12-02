@@ -1,75 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9.3. Migrating mbed TLS custom entropy initializers &mdash; Anjay 2.14.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  <title>9.3. Migrating mbed TLS custom entropy initializers &mdash; Anjay 2.14.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="9.4. Migrating from Anjay 2.3.x or 2.4.x" href="MigratingFromAnjay24.html" />
     <link rel="prev" title="9.2. Migrating from Anjay 2.2.5" href="MigratingFromAnjay225.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-          
-
-          
             <a href="../index.html">
-          
-
-          
-            
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                2.14.0
+                2.14.1
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -77,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
@@ -111,71 +61,30 @@
 <li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Anjay</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
-        
       <li><span class="section-number">9.3. </span>Migrating mbed TLS custom entropy initializers</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <div class="section" id="migrating-mbed-tls-custom-entropy-initializers">
 <h1><span class="section-number">9.3. </span>Migrating mbed TLS custom entropy initializers<a class="headerlink" href="#migrating-mbed-tls-custom-entropy-initializers" title="Permalink to this headline">¶</a></h1>
 <p>Previous versions of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> provided the following mechanism to allow
@@ -183,26 +92,26 @@ adding a custom entropy source at the time of mbed TLS initialization:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// NOTE: Code compatible with Anjay &lt;=2.2, avs_commons &lt;=4.0</span>
 <span class="c1">// WITH_MBEDTLS_CUSTOM_ENTROPY_INITIALIZER needs to be enabled at compile time</span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/defs.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;mbedtls/entropy.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;mbedtls/entropy_poll.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/defs.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mbedtls/entropy.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mbedtls/entropy_poll.h&gt;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">entropy_poll</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_arg</span><span class="p">,</span>
-                        <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">output</span><span class="p">,</span>
-                        <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span>
-                        <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_len</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// TODO: Platform-specific entropy collection code</span>
-<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">entropy_poll</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_arg</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// TODO: Platform-specific entropy collection code</span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// NOTE: For Anjay 1.x / avs_commons 3.x, return type was &quot;int&quot;</span>
-<span class="n">avs_error_t</span> <span class="n">avs_net_mbedtls_entropy_init</span><span class="p">(</span><span class="n">mbedtls_entropy_context</span> <span class="o">*</span><span class="n">entropy</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">mbedtls_entropy_add_source</span><span class="p">(</span><span class="n">entropy</span><span class="p">,</span> <span class="n">entropy_poll</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span>
-                                   <span class="n">MBEDTLS_ENTROPY_MIN_PLATFORM</span><span class="p">,</span>
-                                   <span class="n">MBEDTLS_ENTROPY_SOURCE_STRONG</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nf">avs_errno</span><span class="p">(</span><span class="n">AVS_UNKNOWN_ERROR</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">AVS_OK</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">avs_net_mbedtls_entropy_init</span><span class="p">(</span><span class="n">mbedtls_entropy_context</span><span class="w"> </span><span class="o">*</span><span class="n">entropy</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mbedtls_entropy_add_source</span><span class="p">(</span><span class="n">entropy</span><span class="p">,</span><span class="w"> </span><span class="n">entropy_poll</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">MBEDTLS_ENTROPY_MIN_PLATFORM</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">MBEDTLS_ENTROPY_SOURCE_STRONG</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_UNKNOWN_ERROR</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This mechanism has been removed in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1, and as such is not
@@ -211,53 +120,53 @@ available when using Anjay 2.3 or newer.</p>
 PRNG context, for example as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Code compatible with Anjay &gt;=2.3, avs_commons &gt;=4.1</span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;anjay/core.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_prng.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;mbedtls/entropy.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;mbedtls/entropy_poll.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/core.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_prng.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mbedtls/entropy.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mbedtls/entropy_poll.h&gt;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="n">mbedtls_entropy_context</span> <span class="n">g_entropy_context</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="n">mbedtls_entropy_context</span><span class="w"> </span><span class="n">g_entropy_context</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">entropy_poll</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">user_arg</span><span class="p">,</span>
-                        <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">output</span><span class="p">,</span>
-                        <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span>
-                        <span class="kt">size_t</span> <span class="o">*</span><span class="n">out_len</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// TODO: Platform-specific entropy collection code</span>
-<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">entropy_poll</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_arg</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// TODO: Platform-specific entropy collection code</span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">entropy_callback</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
-                            <span class="kt">size_t</span> <span class="n">out_buf_len</span><span class="p">,</span>
-                            <span class="kt">void</span> <span class="o">*</span><span class="n">dummy_user_arg</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">dummy_user_arg</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nf">mbedtls_entropy_func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">,</span> <span class="n">out_buf</span><span class="p">,</span> <span class="n">out_buf_len</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">entropy_callback</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">out_buf</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="kt">size_t</span><span class="w"> </span><span class="n">out_buf_len</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dummy_user_arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">dummy_user_arg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mbedtls_entropy_func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">,</span><span class="w"> </span><span class="n">out_buf</span><span class="p">,</span><span class="w"> </span><span class="n">out_buf_len</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// ... before initializing Anjay ...</span>
-    <span class="n">avs_crypto_prng_ctx_t</span> <span class="o">*</span><span class="n">prng_ctx</span><span class="p">;</span>
-    <span class="n">mbedtls_entropy_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">mbedtls_entropy_add_source</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">,</span> <span class="n">entropy_poll</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span>
-                                   <span class="n">MBEDTLS_ENTROPY_MIN_PLATFORM</span><span class="p">,</span>
-                                   <span class="n">MBEDTLS_ENTROPY_SOURCE_STRONG</span><span class="p">)</span>
-             <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="n">prng_ctx</span> <span class="o">=</span> <span class="n">avs_crypto_prng_new</span><span class="p">(</span><span class="n">entropy_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)))</span> <span class="p">{</span>
-        <span class="c1">// TODO: Better error handling</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ... before initializing Anjay ...</span>
+<span class="w">    </span><span class="n">avs_crypto_prng_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">prng_ctx</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">mbedtls_entropy_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mbedtls_entropy_add_source</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g_entropy_context</span><span class="p">,</span><span class="w"> </span><span class="n">entropy_poll</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">MBEDTLS_ENTROPY_MIN_PLATFORM</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">MBEDTLS_ENTROPY_SOURCE_STRONG</span><span class="p">)</span><span class="w"></span>
+<span class="w">             </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">prng_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_crypto_prng_new</span><span class="p">(</span><span class="n">entropy_callback</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// TODO: Better error handling</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// ... when initializing Anjay ...</span>
-    <span class="k">const</span> <span class="n">anjay_configuration_t</span> <span class="n">anjay_config</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1">// TODO: Other configuration options</span>
-        <span class="p">.</span><span class="n">prng_ctx</span> <span class="o">=</span> <span class="n">prng_ctx</span>
-    <span class="p">};</span>
-    <span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span> <span class="o">=</span> <span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">anjay_config</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ... when initializing Anjay ...</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">anjay_config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// TODO: Other configuration options</span>
+<span class="w">        </span><span class="p">.</span><span class="n">prng_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prng_ctx</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">anjay_config</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// ... when cleaning up Anjay ...</span>
-    <span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
-    <span class="n">avs_crypto_prng_free</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prng_ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ... when cleaning up Anjay ...</span>
+<span class="w">    </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_crypto_prng_free</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prng_ctx</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// ...</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you’re using <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> contexts and/or raw <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> sockets in addition
@@ -277,42 +186,30 @@ non-default entropy source is required.</p>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="MigratingFromAnjay24.html" class="btn btn-neutral float-right" title="9.4. Migrating from Anjay 2.3.x or 2.4.x" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="MigratingFromAnjay225.html" class="btn btn-neutral float-left" title="9.2. Migrating from Anjay 2.2.5" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="MigratingFromAnjay24.html" class="btn btn-neutral float-right" title="9.4. Migrating from Anjay 2.3.x or 2.4.x" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2021, AVSystem.
+    <p>&#169; Copyright 2017-2021, AVSystem.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

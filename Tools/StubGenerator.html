@@ -1,75 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.2. Anjay Object stub generator &mdash; Anjay 2.14.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  <title>7.2. Anjay Object stub generator &mdash; Anjay 2.14.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="8. Porting guide for non-POSIX platforms" href="../PortingGuideForNonPOSIXPlatforms.html" />
     <link rel="prev" title="7.1. LwM2M testing shell" href="CliLwM2MServer.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-          
-
-          
             <a href="../index.html">
-          
-
-          
-            
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                2.14.0
+                2.14.1
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -77,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
@@ -106,99 +56,69 @@
 <li class="toctree-l1"><a class="reference internal" href="../Commercial_support.html">10. Commercial support</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Anjay</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../Tools.html"><span class="section-number">7. </span>Tools</a> &raquo;</li>
-        
       <li><span class="section-number">7.2. </span>Anjay Object stub generator</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <div class="section" id="anjay-object-stub-generator">
 <span id="id1"></span><h1><span class="section-number">7.2. </span>Anjay Object stub generator<a class="headerlink" href="#anjay-object-stub-generator" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#code-generation" id="id6">Code generation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example-object-definition" id="id7">Example object definition</a></p></li>
+<li><p><a class="reference internal" href="#object-with-dynamically-allocated-instances" id="id8">Object with dynamically-allocated instances</a></p></li>
+<li><p><a class="reference internal" href="#object-with-statically-allocated-instances" id="id9">Object with statically-allocated instances</a></p></li>
+<li><p><a class="reference internal" href="#c-object-templates" id="id10">C++ object templates</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#after-generating-the-object-template" id="id11">After generating the object template</a></p></li>
+<li><p><a class="reference internal" href="#additional-examples" id="id12">Additional examples</a></p></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id5"><span class="section-number">7.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>For easy implementation of custom objects, you can use the
 <cite>./tools/anjay_codegen.py</cite> script. It parses a LwM2M Object Definition XML
 and generates a skeleton of the LwM2M object code, requiring the user to only
 fill in actual object logic.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>You can use <cite>./tools/lwm2m_object_registry.py</cite> script to download the
 Object Definition XML from <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Object and Resource Registry</a>.</p>
-<div class="section" id="usage-examples">
-<h2><span class="section-number">7.2.1. </span>Usage examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># list registered LwM2M objects</span>
-./tools/lwm2m_object_registry.py --list
-
-<span class="c1"># download Object Definition XML for object 3 (Device) to device.xml</span>
-./tools/lwm2m_object_registry.py --get-xml <span class="m">3</span> &gt; device.xml
-
-<span class="c1"># generate object code stub from device.xml</span>
-./tools/anjay_codegen.py -i device.xml -o device.c
-
-<span class="c1"># download Object Definition XML for object 3 and generate code stub</span>
-<span class="c1"># without creating an intermediate file</span>
-./tools/lwm2m_object_registry.py --get-xml <span class="m">3</span> <span class="p">|</span> ./tools/anjay_codegen.py -i - -o device.c
-</pre></div>
 </div>
 </div>
-<div class="section" id="output-example">
-<h2><span class="section-number">7.2.2. </span>Output example<a class="headerlink" href="#output-example" title="Permalink to this headline">¶</a></h2>
-<p>Consider the following xml Object definition:</p>
+<div class="section" id="code-generation">
+<h2><a class="toc-backref" href="#id6"><span class="section-number">7.2.2. </span>Code generation</a><a class="headerlink" href="#code-generation" title="Permalink to this headline">¶</a></h2>
+<p>This section shows how to generate code for an example object defined in an XML
+file and covers object templates with both static and dynamic instances.</p>
+<div class="section" id="example-object-definition">
+<h3><a class="toc-backref" href="#id7"><span class="section-number">7.2.2.1. </span>Example object definition</a><a class="headerlink" href="#example-object-definition" title="Permalink to this headline">¶</a></h3>
+<p>The example object definition is stored in <cite>some_object.xml</cite> file with the
+following contents:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">some_object.xml</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="nt">&lt;LWM2M</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">&quot;http://openmobilealliance.org/tech/profiles/LWM2M.xsd&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;Object</span> <span class="na">ObjectType=</span><span class="s">&quot;MODefinition&quot;</span><span class="nt">&gt;</span>
@@ -245,399 +165,739 @@ Object Definition XML from <a class="reference external" href="https://technical
 <span class="nt">&lt;/LWM2M&gt;</span>
 </pre></div>
 </div>
-<p>for which, the generator outputs the following source:</p>
+</div>
+<p>We can see that it is a multiple-instance object. Instances of such object can
+be allocated dynamically on the heap - this solution provides better flexibility
+but requires additional code related to memory management. Another way is to use
+a container whose size is fixed and known at compilation time. Both of these
+approaches are described in the next subsections.</p>
+</div>
+<div class="section" id="object-with-dynamically-allocated-instances">
+<h3><a class="toc-backref" href="#id8"><span class="section-number">7.2.2.2. </span>Object with dynamically-allocated instances</a><a class="headerlink" href="#object-with-dynamically-allocated-instances" title="Permalink to this headline">¶</a></h3>
+<p>To create a C language object template with dynamically-allocated instances we
+execute the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py -i some_object.xml -o some_object.c
+</pre></div>
+</div>
+<p>The source of the example object looks like this:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">some_object.c</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
-<span class="cm"> * Generated by anjay_codegen.py on 2020-03-27 17:02:53</span>
+<span class="cm"> * Generated by anjay_codegen.py on 2021-10-05 16:05:11</span>
 <span class="cm"> *</span>
 <span class="cm"> * LwM2M Object: Some Object Name</span>
 <span class="cm"> * ID: 9999, URN: , Optional, Multiple</span>
 <span class="cm"> *</span>
 <span class="cm"> * LwM2M Object description.</span>
-<span class="cm"> */</span>
-<span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="cp"></span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_defs.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_list.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;avsystem/commons/avs_memory.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_defs.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_list.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_memory.h&gt;</span><span class="cp"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Some String Resource: RW, Single, Mandatory</span>
 <span class="cm"> * type: string, range: N/A, unit: N/A</span>
 <span class="cm"> * Some description.</span>
-<span class="cm"> */</span>
+<span class="cm"> */</span><span class="w"></span>
 <span class="cp">#define RID_SOME_STRING_RESOURCE 0</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Some Integer Resource: RW, Single, Mandatory</span>
 <span class="cm"> * type: integer, range: N/A, unit: N/A</span>
 <span class="cm"> * Some description.</span>
-<span class="cm"> */</span>
+<span class="cm"> */</span><span class="w"></span>
 <span class="cp">#define RID_SOME_INTEGER_RESOURCE 1</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Some Boolean Multiple Resource: RW, Multiple, Mandatory</span>
 <span class="cm"> * type: boolean, range: N/A, unit: N/A</span>
 <span class="cm"> * Some description.</span>
-<span class="cm"> */</span>
+<span class="cm"> */</span><span class="w"></span>
 <span class="cp">#define RID_SOME_BOOLEAN_MULTIPLE_RESOURCE 2</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">some_object_name_instance_struct</span> <span class="p">{</span>
-    <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">some_object_name_instance_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
 
-    <span class="c1">// TODO: instance state</span>
-<span class="p">}</span> <span class="n">some_object_name_instance_t</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// TODO: instance state</span>
+<span class="p">}</span><span class="w"> </span><span class="n">some_object_name_instance_t</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">some_object_name_object_struct</span> <span class="p">{</span>
-    <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="n">def</span><span class="p">;</span>
-    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="n">instances</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">some_object_name_object_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">def</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">instances</span><span class="p">;</span><span class="w"></span>
 
-    <span class="c1">// TODO: object state</span>
-<span class="p">}</span> <span class="n">some_object_name_object_t</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// TODO: object state</span>
+<span class="p">}</span><span class="w"> </span><span class="n">some_object_name_object_t</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kr">inline</span> <span class="n">some_object_name_object_t</span> <span class="o">*</span>
-<span class="n">get_obj</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nf">AVS_CONTAINER_OF</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">,</span> <span class="n">some_object_name_object_t</span><span class="p">,</span> <span class="n">def</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="nf">get_obj</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_CONTAINER_OF</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"> </span><span class="n">some_object_name_object_t</span><span class="p">,</span><span class="w"> </span><span class="n">def</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">find_instance</span><span class="p">(</span><span class="k">const</span> <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span>
-                                                  <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
-    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">==</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">&gt;</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="nf">find_instance</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                  </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">it</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">list_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                          <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_instances</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="n">it</span><span class="p">;</span>
-    <span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">it</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">init_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">iid</span> <span class="o">!=</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">init_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
 
-    <span class="n">inst</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">=</span> <span class="n">iid</span><span class="p">;</span>
-    <span class="c1">// TODO: instance init</span>
+<span class="w">    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// TODO: instance init</span>
 
-    <span class="c1">// TODO: return 0 on success, negative value on failure</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// TODO: return 0 on success, negative value on failure</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">release_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// TODO: instance cleanup</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">inst</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">release_instance</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// TODO: instance cleanup</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">inst</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="n">some_object_name_instance_t</span> <span class="o">*</span>
-<span class="n">add_instance</span><span class="p">(</span><span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span> <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">)</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="nf">add_instance</span><span class="p">(</span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
 
-    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="n">created</span> <span class="o">=</span>
-            <span class="n">AVS_LIST_NEW_ELEMENT</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">created</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">created</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="n">AVS_LIST_NEW_ELEMENT</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">created</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">init_instance</span><span class="p">(</span><span class="n">created</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">created</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_instance</span><span class="p">(</span><span class="n">created</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">created</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
-    <span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">&gt;</span> <span class="n">created</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">*</span><span class="n">ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">created</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="n">AVS_LIST_INSERT</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">created</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">created</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">AVS_LIST_INSERT</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="n">created</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">created</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_create</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">instance_create</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="nf">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_remove</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                           <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                           <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">instance_remove</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
 
-    <span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span> <span class="o">*</span><span class="n">it</span><span class="p">;</span>
-    <span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">==</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">release_instance</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span>
-            <span class="n">AVS_LIST_DELETE</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
-            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span> <span class="o">&gt;</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">release_instance</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">AVS_LIST_DELETE</span><span class="p">(</span><span class="n">it</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="n">assert</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">ANJAY_ERR_NOT_FOUND</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_NOT_FOUND</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// TODO: instance reset</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// TODO: instance reset</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">list_resources</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                          <span class="n">anjay_dm_resource_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">obj_ptr</span><span class="p">;</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">iid</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">obj_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RID_SOME_STRING_RESOURCE</span><span class="p">,</span>
-                      <span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
-    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RID_SOME_INTEGER_RESOURCE</span><span class="p">,</span>
-                      <span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
-    <span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">,</span>
-                      <span class="n">ANJAY_DM_RES_RWM</span><span class="p">,</span> <span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_SOME_STRING_RESOURCE</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_SOME_INTEGER_RESOURCE</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_RWM</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_read</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                         <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                         <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                         <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                         <span class="n">anjay_riid_t</span> <span class="n">riid</span><span class="p">,</span>
-                         <span class="n">anjay_output_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_read</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_output_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span>
-        <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nf">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> <span class="c1">// TODO</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
 
-    <span class="k">case</span> <span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span>
-        <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nf">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// TODO</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
 
-    <span class="k">case</span> <span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span>
-        <span class="c1">// TODO: extract Resource Instance</span>
-        <span class="k">return</span> <span class="n">anjay_ret_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// TODO</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// TODO: extract Resource Instance</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
 
-    <span class="k">default</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_write</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                          <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                          <span class="n">anjay_riid_t</span> <span class="n">riid</span><span class="p">,</span>
-                          <span class="n">anjay_input_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_write</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_input_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
-        <span class="kt">char</span> <span class="n">value</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span> <span class="c1">// TODO</span>
-        <span class="k">return</span> <span class="nf">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">));</span> <span class="c1">// TODO</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">value</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">));</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">case</span> <span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">assert</span><span class="p">(</span><span class="n">riid</span> <span class="o">==</span> <span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
-        <span class="kt">int32_t</span> <span class="n">value</span><span class="p">;</span> <span class="c1">// TODO</span>
-        <span class="k">return</span> <span class="nf">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span> <span class="c1">// TODO</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">case</span> <span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span> <span class="p">{</span>
-        <span class="c1">// TODO: extract Resource Instance</span>
-        <span class="kt">bool</span> <span class="n">value</span><span class="p">;</span> <span class="c1">// TODO</span>
-        <span class="k">return</span> <span class="nf">anjay_get_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span> <span class="c1">// TODO</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// TODO: extract Resource Instance</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">default</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">resource_reset</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                          <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                          <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                          <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_reset</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_NOT_IMPLEMENTED</span><span class="p">;</span> <span class="c1">// TODO: remove all Resource Instances</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_NOT_IMPLEMENTED</span><span class="p">;</span><span class="w"> </span><span class="c1">// TODO: remove all Resource Instances</span>
 
-    <span class="k">default</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="kt">int</span> <span class="n">list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span> <span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-                                   <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">*</span><span class="k">const</span> <span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-                                   <span class="n">anjay_iid_t</span> <span class="n">iid</span><span class="p">,</span>
-                                   <span class="n">anjay_rid_t</span> <span class="n">rid</span><span class="p">,</span>
-                                   <span class="n">anjay_dm_list_ctx_t</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">anjay</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
 
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">some_object_name_instance_t</span> <span class="o">*</span><span class="n">inst</span> <span class="o">=</span> <span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">iid</span><span class="p">);</span>
-    <span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">switch</span> <span class="p">(</span><span class="n">rid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span>
-        <span class="c1">// anjay_dm_emit(ctx, ...); // TODO</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// anjay_dm_emit(ctx, ...); // TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">default</span><span class="o">:</span>
-        <span class="k">return</span> <span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">static</span> <span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="n">OBJ_DEF</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="mi">9999</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="p">.</span><span class="n">list_instances</span> <span class="o">=</span> <span class="n">list_instances</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">instance_create</span> <span class="o">=</span> <span class="n">instance_create</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">instance_remove</span> <span class="o">=</span> <span class="n">instance_remove</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">instance_reset</span> <span class="o">=</span> <span class="n">instance_reset</span><span class="p">,</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="n">OBJ_DEF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9999</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_instances</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">instance_create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_create</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">instance_remove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_remove</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">instance_reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_reset</span><span class="p">,</span><span class="w"></span>
 
-        <span class="p">.</span><span class="n">list_resources</span> <span class="o">=</span> <span class="n">list_resources</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">resource_read</span> <span class="o">=</span> <span class="n">resource_read</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">resource_write</span> <span class="o">=</span> <span class="n">resource_write</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">resource_reset</span> <span class="o">=</span> <span class="n">resource_reset</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">list_resource_instances</span> <span class="o">=</span> <span class="n">list_resource_instances</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_resources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_resources</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_read</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_write</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_reset</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_resource_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_resource_instances</span><span class="p">,</span><span class="w"></span>
 
-        <span class="c1">// TODO: implement these if transactional write/create is required</span>
-        <span class="p">.</span><span class="n">transaction_begin</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">transaction_validate</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">transaction_commit</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
-        <span class="p">.</span><span class="n">transaction_rollback</span> <span class="o">=</span> <span class="n">anjay_dm_transaction_NOOP</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="w">        </span><span class="c1">// TODO: implement these if transactional write/create is required</span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_begin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_validate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_rollback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">some_object_name_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span>
-            <span class="p">(</span><span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="p">)</span> <span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">some_object_name_object_t</span><span class="p">));</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">OBJ_DEF</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">some_object_name_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">some_object_name_object_t</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJ_DEF</span><span class="p">;</span><span class="w"></span>
 
-    <span class="c1">// TODO: object init</span>
+<span class="w">    </span><span class="c1">// TODO: object init</span>
 
-    <span class="k">return</span> <span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">some_object_name_object_release</span><span class="p">(</span><span class="k">const</span> <span class="n">anjay_dm_object_def_t</span> <span class="o">**</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">def</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">some_object_name_object_t</span> <span class="o">*</span><span class="n">obj</span> <span class="o">=</span> <span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span>
-        <span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">release_instance</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">);</span>
-        <span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">some_object_name_object_release</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">def</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">def</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">release_instance</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
 
-        <span class="c1">// TODO: object cleanup</span>
+<span class="w">        </span><span class="c1">// TODO: object cleanup</span>
 
-        <span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">some_object_name_object_t</span></code> object definition contains a member called
+<code class="docutils literal notranslate"><span class="pre">instances</span></code> which represents a list of instances
+<code class="docutils literal notranslate"><span class="pre">AVS_LIST(some_object_instance_t)</span></code>.</p></li>
+<li><p>Instances are identified by their ID set in <code class="docutils literal notranslate"><span class="pre">iid</span></code> field of
+<code class="docutils literal notranslate"><span class="pre">some_object_name_instance_t</span></code> structure.</p></li>
+<li><p>To access an instance we have to iterate over all instances and find the one
+with correct ID.</p></li>
+<li><p>Instances can be created dynamically by the server using <code class="docutils literal notranslate"><span class="pre">instance_create</span></code>
+handler. <code class="docutils literal notranslate"><span class="pre">add_instance</span></code> function allocates memory for a new instance,
+initializes the instance and appends it to the <code class="docutils literal notranslate"><span class="pre">instances</span></code> list.</p></li>
+<li><p>Previously allocated instance can be removed by the server by means of
+<code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler. <code class="docutils literal notranslate"><span class="pre">release_instance</span></code> function cleans up the
+instance and then the memory is deallocated.</p></li>
+<li><p>Each handler (apart from <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> and <code class="docutils literal notranslate"><span class="pre">instance_remove</span></code>) taking
+<code class="docutils literal notranslate"><span class="pre">anjay_iid_t</span> <span class="pre">iid</span></code> as an argument utilizes auxiliary <code class="docutils literal notranslate"><span class="pre">find_instance</span></code>
+function to get the pointer to the instance.</p></li>
+<li><p>All allocated instances are deallocated in <code class="docutils literal notranslate"><span class="pre">some_object_name_object_release</span></code>
+function.</p></li>
+</ul>
+</div>
+<div class="section" id="object-with-statically-allocated-instances">
+<h3><a class="toc-backref" href="#id9"><span class="section-number">7.2.2.3. </span>Object with statically-allocated instances</a><a class="headerlink" href="#object-with-statically-allocated-instances" title="Permalink to this headline">¶</a></h3>
+<p>To create a C language object template with fixed 10 instances we use the <cite>-n</cite>
+switch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py -i some_object.xml -o some_object.c -n <span class="m">10</span>
+</pre></div>
+</div>
+<p>The resulting code is following:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">some_object.c</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * Generated by anjay_codegen.py on 2021-10-05 16:11:08</span>
+<span class="cm"> *</span>
+<span class="cm"> * LwM2M Object: Some Object Name</span>
+<span class="cm"> * ID: 9999, URN: , Optional, Multiple</span>
+<span class="cm"> *</span>
+<span class="cm"> * LwM2M Object description.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_defs.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_memory.h&gt;</span><span class="cp"></span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Some String Resource: RW, Single, Mandatory</span>
+<span class="cm"> * type: string, range: N/A, unit: N/A</span>
+<span class="cm"> * Some description.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cp">#define RID_SOME_STRING_RESOURCE 0</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Some Integer Resource: RW, Single, Mandatory</span>
+<span class="cm"> * type: integer, range: N/A, unit: N/A</span>
+<span class="cm"> * Some description.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cp">#define RID_SOME_INTEGER_RESOURCE 1</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Some Boolean Multiple Resource: RW, Multiple, Mandatory</span>
+<span class="cm"> * type: boolean, range: N/A, unit: N/A</span>
+<span class="cm"> * Some description.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cp">#define RID_SOME_BOOLEAN_MULTIPLE_RESOURCE 2</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">some_object_name_instance_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// TODO: instance state</span>
+<span class="p">}</span><span class="w"> </span><span class="n">some_object_name_instance_t</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">some_object_name_object_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">def</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="n">instances</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// TODO: object state</span>
+<span class="p">}</span><span class="w"> </span><span class="n">some_object_name_object_t</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="nf">get_obj</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_CONTAINER_OF</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"> </span><span class="n">some_object_name_object_t</span><span class="p">,</span><span class="w"> </span><span class="n">def</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_instances</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">);</span><span class="w"> </span><span class="n">iid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// TODO: instance reset</span>
+
+<span class="w">    </span><span class="c1">// TODO: return 0 on success, negative value on failure</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">obj_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_SOME_STRING_RESOURCE</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_SOME_INTEGER_RESOURCE</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">,</span><span class="w"></span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_RWM</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_read</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">anjay_output_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// TODO: extract Resource Instance</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
+
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_write</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_input_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_STRING_RESOURCE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">value</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">));</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_INTEGER_RESOURCE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// TODO: extract Resource Instance</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_bool</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="c1">// TODO</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_reset</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_NOT_IMPLEMENTED</span><span class="p">;</span><span class="w"> </span><span class="c1">// TODO: remove all Resource Instances</span>
+
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_SOME_BOOLEAN_MULTIPLE_RESOURCE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// anjay_dm_emit(ctx, ...); // TODO</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="n">OBJ_DEF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9999</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_instances</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">instance_reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_reset</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">.</span><span class="n">list_resources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_resources</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_read</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_write</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_reset</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_resource_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_resource_instances</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// TODO: implement these if transactional write/create is required</span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_begin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_validate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_rollback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">some_object_name_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="p">(</span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">some_object_name_object_t</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJ_DEF</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// TODO: object init</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">some_object_name_object_release</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">def</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">def</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">def</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// TODO: object cleanup</span>
+
+<span class="w">        </span><span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">some_object_name_object_t</span></code> object definition contains a member called
+<code class="docutils literal notranslate"><span class="pre">instances</span></code> which is an array of 10 <code class="docutils literal notranslate"><span class="pre">some_object_instance_t</span></code> elements.</p></li>
+<li><p>Instances are identified by <code class="docutils literal notranslate"><span class="pre">iid</span></code> used as their index in the <code class="docutils literal notranslate"><span class="pre">instances</span></code>
+array, meaning that <code class="docutils literal notranslate"><span class="pre">find_instance</span></code>-like function is not needed.</p></li>
+<li><p>The server cannot create and remove instances, so <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> and
+<code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handlers are not implemented.</p></li>
+</ul>
+</div>
+<div class="section" id="c-object-templates">
+<h3><a class="toc-backref" href="#id10"><span class="section-number">7.2.2.4. </span>C++ object templates</a><a class="headerlink" href="#c-object-templates" title="Permalink to this headline">¶</a></h3>
+<p>The script is capable of generating C++ object templates as well - the <cite>-x</cite>
+switch is intended to be used in this case. So, in order to create a C++ object
+with dynamic instances one has to execute the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py -i some_object.xml -o some_object.cpp -x
+</pre></div>
+</div>
+<p>To create a C++ template of the same object with 10 static instances run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py -i some_object.xml -o some_object.cpp -n <span class="m">10</span> -x
+</pre></div>
+</div>
+<p>The main difference between the two is that the former approach uses the <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_list_cxx.hpp">C++
+wrapper of AVS_LIST</a>,
+and the latter one takes advantage of
+<a class="reference external" href="https://en.cppreference.com/w/cpp/container/array">std::array</a> container.</p>
+</div>
+</div>
+<div class="section" id="after-generating-the-object-template">
+<h2><a class="toc-backref" href="#id11"><span class="section-number">7.2.3. </span>After generating the object template</a><a class="headerlink" href="#after-generating-the-object-template" title="Permalink to this headline">¶</a></h2>
 <p>Now that the basic object structure is created, one can start thinking about filling in
 missing parts marked in the code by the <cite>TODO</cite> comments. Then, to make the object present
 in the LwM2M Data Model, one shall instantiate it, and finally <a class="reference internal" href="../BasicClient/BC-ObjectImplementation.html#registering-objects"><span class="std std-ref">register</span></a>
 it within Anjay.</p>
 </div>
+<div class="section" id="additional-examples">
+<h2><a class="toc-backref" href="#id12"><span class="section-number">7.2.4. </span>Additional examples</a><a class="headerlink" href="#additional-examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># list registered LwM2M objects</span>
+./tools/lwm2m_object_registry.py --list
+
+<span class="c1"># download Object Definition XML for object 3 (Device) to device.xml</span>
+./tools/lwm2m_object_registry.py --get-xml <span class="m">3</span> &gt; device.xml
+
+<span class="c1"># generate object code stub from device.xml</span>
+./tools/anjay_codegen.py -i device.xml -o device.c
+
+<span class="c1"># download Object Definition XML for object 3 and generate code stub</span>
+<span class="c1"># without creating an intermediate file</span>
+./tools/lwm2m_object_registry.py --get-xml <span class="m">3</span> <span class="p">|</span> ./tools/anjay_codegen.py -i - -o device.c
+
+<span class="c1"># download Object Definition XML for object 3303 and generate code stub with</span>
+<span class="c1"># five statically allocated instances without creating an intermediate file</span>
+./tools/lwm2m_object_registry.py --get-xml <span class="m">3303</span> <span class="p">|</span> ./tools/anjay_codegen.py -i - -o temperature.c -n <span class="m">5</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-right" title="8. Porting guide for non-POSIX platforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="CliLwM2MServer.html" class="btn btn-neutral float-left" title="7.1. LwM2M testing shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-right" title="8. Porting guide for non-POSIX platforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2021, AVSystem.
+    <p>&#169; Copyright 2017-2021, AVSystem.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
