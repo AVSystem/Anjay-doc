@@ -13,6 +13,8 @@ var dm_8h =
     [ "ANJAY_ACCESS_MASK_NONE", "dm_8h.html#ab03648691edc1f22fc2c68a8033e519a", null ],
     [ "ANJAY_ACCESS_MASK_READ", "dm_8h.html#af6b639e299674cb1d9ea87b96a5f2235", null ],
     [ "ANJAY_ACCESS_MASK_WRITE", "dm_8h.html#aa24c129b7c06fab33f356ccffeeb2043", null ],
+    [ "ANJAY_ATTRIB_DOUBLE_NONE", "dm_8h.html#a2a7475abc61f62d8e283544b390c7882", null ],
+    [ "ANJAY_ATTRIB_INTEGER_NONE", "dm_8h.html#a6160290a282c9135a1bf1b47d89eb394", null ],
     [ "ANJAY_ATTRIB_PERIOD_NONE", "dm_8h.html#afcacd9da4d8b43667f9f9b97aa73706b", null ],
     [ "ANJAY_ATTRIB_VALUE_NONE", "dm_8h.html#ab5ebe3e4a8e369aa0365096047c78804", null ],
     [ "anjay_access_mask_t", "dm_8h.html#aa01fd66453c951315378ff5854f41249", null ],
@@ -28,6 +30,8 @@ var dm_8h =
     [ "anjay_dm_object_read_default_attrs_t", "dm_8h.html#aa16f8b6c72169a756f06619f33fbe4c5", null ],
     [ "anjay_dm_object_write_default_attrs_t", "dm_8h.html#a2367df16032435ea8b98f2471b8138b6", null ],
     [ "anjay_dm_resource_execute_t", "dm_8h.html#afe743b92ad59a910e521a3f6388e067e", null ],
+    [ "anjay_dm_resource_instance_read_attrs_t", "dm_8h.html#a9f96d19604527aab77c4d41148c576a9", null ],
+    [ "anjay_dm_resource_instance_write_attrs_t", "dm_8h.html#a4d6feab281a83c6eda78fd4bb830f1d6", null ],
     [ "anjay_dm_resource_read_attrs_t", "dm_8h.html#a4aae18dd2e0baa962c11e92afee80434", null ],
     [ "anjay_dm_resource_read_t", "dm_8h.html#aa2d7e8eb745e007ece93d33bbfd1ec6d", null ],
     [ "anjay_dm_resource_reset_t", "dm_8h.html#a6abe3f484a773a4e723f62d1bf46309e", null ],
@@ -37,6 +41,11 @@ var dm_8h =
     [ "anjay_dm_transaction_commit_t", "dm_8h.html#af5b8c307fbac5433da5ec781f40f4445", null ],
     [ "anjay_dm_transaction_rollback_t", "dm_8h.html#af9db8740d54818da8013320441bbe828", null ],
     [ "anjay_dm_transaction_validate_t", "dm_8h.html#a796fcf51d7d4478b2331685d94c7c57b", null ],
+    [ "anjay_dm_con_attr_t", "dm_8h.html#a85e1392e4c10d0c174d8890da38fb140", [
+      [ "ANJAY_DM_CON_ATTR_NONE", "dm_8h.html#a85e1392e4c10d0c174d8890da38fb140ac9576ce72e0bc23d594047554669d17f", null ],
+      [ "ANJAY_DM_CON_ATTR_NON", "dm_8h.html#a85e1392e4c10d0c174d8890da38fb140a53d4280b68c9fa5dbace537f30de2e6e", null ],
+      [ "ANJAY_DM_CON_ATTR_CON", "dm_8h.html#a85e1392e4c10d0c174d8890da38fb140afba6c451ae8fecb2c6e83c3fb5d22209", null ]
+    ] ],
     [ "anjay_security_mode_t", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8", [
       [ "ANJAY_SECURITY_PSK", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8ada16e34abfd18871b391e303c4ad881d", null ],
       [ "ANJAY_SECURITY_RPK", "dm_8h.html#afea54e76ab69d5adcb9abfabe1c747e8a60cb897b819aa4015dd0037de3597676", null ],

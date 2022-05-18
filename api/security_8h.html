@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('security_8h.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">security.h File Reference</div>  </div>
@@ -97,6 +98,13 @@ $(document).ready(function(){initNavTree('security_8h.html',''); initResizable()
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__security__instance__t.html">anjay_security_instance_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__security__hsm__configuration__t.html">anjay_security_hsm_configuration_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ada0dbff2a045a3cd7bbaff797bd7f28a"><td class="memItemLeft" align="right" valign="top">typedef const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="security_8h.html#ada0dbff2a045a3cd7bbaff797bd7f28a">anjay_security_hsm_query_cb_t</a>(<a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a> iid, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, const void *data, size_t data_size, void *arg)</td></tr>
+<tr class="separator:ada0dbff2a045a3cd7bbaff797bd7f28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -112,8 +120,78 @@ Functions</h2></td></tr>
 <tr class="separator:a25a9fbd4f84f05a8a2ce50f526c7bc77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fffaeedfc5c2933e58ac1446fd0401d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="security_8h.html#a5fffaeedfc5c2933e58ac1446fd0401d">anjay_security_object_install</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:a5fffaeedfc5c2933e58ac1446fd0401d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7cf8eb206cabb407aad57777dc0a144"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="security_8h.html#ad7cf8eb206cabb407aad57777dc0a144">anjay_security_object_install_with_hsm</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, const <a class="el" href="structanjay__security__hsm__configuration__t.html">anjay_security_hsm_configuration_t</a> *hsm_config)</td></tr>
+<tr class="separator:ad7cf8eb206cabb407aad57777dc0a144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76147593ffc5841362a38589178fbaf1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="security_8h.html#a76147593ffc5841362a38589178fbaf1">anjay_security_mark_hsm_permanent</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid)</td></tr>
+<tr class="separator:a76147593ffc5841362a38589178fbaf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ada0dbff2a045a3cd7bbaff797bd7f28a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada0dbff2a045a3cd7bbaff797bd7f28a">&#9670;&nbsp;</a></span>anjay_security_hsm_query_cb_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef const char* anjay_security_hsm_query_cb_t(<a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a> iid, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, const void *data, size_t data_size, void *arg)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Type for a callback function that will be called by the Security object implementation whenever a query string for storing a new security credential (provisioned by means other than EST) in external security engine is necessary. See also the fields of the <a class="el" href="structanjay__security__hsm__configuration__t.html">anjay_security_hsm_configuration_t</a> structure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iid</td><td>ID of the Security object Instance for which the credential is to be stored.</td></tr>
+    <tr><td class="paramname">ssid</td><td>Short Server ID of the server account for which the credential is to be stored (<a class="el" href="core_8h.html#a857486d85f02514fc3f69ae7b2566f4c">ANJAY_SSID_BOOTSTRAP</a> in case of the Bootstrap Server).</td></tr>
+    <tr><td class="paramname">data</td><td>Pointer to a buffer containing the credential that will be stored.</td></tr>
+    <tr><td class="paramname">data_size</td><td>Size in bytes of the data located at <code>data</code>.</td></tr>
+    <tr><td class="paramname">arg</td><td>Opaque argument configured through a corresponding <code>*_arg</code> field of <a class="el" href="structanjay__security__hsm__configuration__t.html">anjay_security_hsm_configuration_t</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>String that will be used as a query string for the provisioned security credential. The string will be copied shortly after this function returns, so it is safe to deallocate or overwrite it when control is returned to user code, or during the next call to this function, whichever happens first. Anjay will never attempt to modify or deallocate the returned value.</dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>The <code>data</code> and <code>data_size</code> are provided <b>only as a hint</b> for users who want the query strings to depend on the credential contents in any way. This callback <b>shall not attempt to store the certificate</b> itself. This will be performed by Anjay afterwards. </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a76147593ffc5841362a38589178fbaf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76147593ffc5841362a38589178fbaf1">&#9670;&nbsp;</a></span>anjay_security_mark_hsm_permanent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void anjay_security_mark_hsm_permanent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a>&#160;</td>
+          <td class="paramname"><em>ssid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Marks security credential for a given Server Account as "permanent", preventing them from being removed from the hardware security module.</p>
+<p>The credentials that are moved into hardware security module according to the logic described for <a class="el" href="security_8h.html#ad7cf8eb206cabb407aad57777dc0a144">anjay_security_object_install_with_hsm</a> are, by default, automatically removed whenever they are deleted from the data model (e.g. by the Bootstrap Server or using <a class="el" href="security_8h.html#abef1771169fa2e7d5680c619ae5b2d06">anjay_security_object_purge</a>).</p>
+<p>This function causes such credentials to be marked as "permanent", equivalent to credentials provisioned using the <code>avs_crypto_*_from_engine</code> APIs passed into the fields of the <a class="el" href="structanjay__security__instance__t.html">anjay_security_instance_t</a> structure. This will prevent them from being automatically erased from the hardware even if they are removed from the data model, or if the object is cleaned up without up-to-date persistence status.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay instance with Security Object installed to operate on.</td></tr>
+    <tr><td class="paramname">ssid</td><td>Short Server ID of the Server Account whose credentials to mark as permanent. <a class="el" href="core_8h.html#a857486d85f02514fc3f69ae7b2566f4c">ANJAY_SSID_BOOTSTRAP</a> may be used to refer to the Bootstrap Server (if present), and <a class="el" href="core_8h.html#a75735105ebc11358f8f707568a8b11fa">ANJAY_SSID_ANY</a> may be used to mark <b>all</b> the Server Account credentials as permanent. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae0bb9e4afad60fe21f2614d998c28b14"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0bb9e4afad60fe21f2614d998c28b14">&#9670;&nbsp;</a></span>anjay_security_object_add_instance()</h2>
 
@@ -188,6 +266,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad7cf8eb206cabb407aad57777dc0a144"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7cf8eb206cabb407aad57777dc0a144">&#9670;&nbsp;</a></span>anjay_security_object_install_with_hsm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anjay_security_object_install_with_hsm </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structanjay__security__hsm__configuration__t.html">anjay_security_hsm_configuration_t</a> *&#160;</td>
+          <td class="paramname"><em>hsm_config</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Installs the Security Object in an Anjay instance, with support for moving security credentials to a hardware security module.</p>
+<p>For each of the security credential type for which the query string generation callback is provided, any credentials provisioned either using <a class="el" href="security_8h.html#ae0bb9e4afad60fe21f2614d998c28b14">anjay_security_object_add_instance</a> or by the Bootstrap Server, will be stored in the hardware security module and wiped from the main system memory. These credentials will be managed by Anjay and automatically deleted when removed from the data model (either by the Bootstrap Server or <a class="el" href="security_8h.html#abef1771169fa2e7d5680c619ae5b2d06">anjay_security_object_purge</a>) or when the object is cleaned up without having been properly persisted (see the next paragraph for details).</p>
+<p>The Security module does not require explicit cleanup; all resources will be automatically freed up during the call to <a class="el" href="core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete</a> - in this case this will also cause the removal of all the keys moved into the hardware security module, unless unchanged since the last call to <a class="el" href="security_8h.html#ab363a65e8e2a998cfdebc2d7b48f8fbc">anjay_security_object_persist</a> or <a class="el" href="security_8h.html#a9b05345d1f93b260e7bca6dae8472b59">anjay_security_object_restore</a>, or marked permanent using <a class="el" href="security_8h.html#a76147593ffc5841362a38589178fbaf1">anjay_security_mark_hsm_permanent</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay instance for which the Security Object is installed.</td></tr>
+    <tr><td class="paramname">hsm_config</td><td>Configuration of the mechanism that moves security credentials to the hardware security module. When the pointer is <code>NULL</code> or all of the callback fields are <code>NULL</code>, this functions is equivalent to <a class="el" href="security_8h.html#a5fffaeedfc5c2933e58ac1446fd0401d">anjay_security_object_install</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, or a negative value in case of error. </dd></dl>
+
+</div>
+</div>
 <a id="a25a9fbd4f84f05a8a2ce50f526c7bc77"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a25a9fbd4f84f05a8a2ce50f526c7bc77">&#9670;&nbsp;</a></span>anjay_security_object_is_modified()</h2>
 
@@ -240,7 +357,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 in case of success, negative value in case of an error. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>AVS_OK in case of success, or an error code. </dd></dl>
 
 </div>
 </div>
@@ -303,7 +420,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 in case of success, negative value in case of an error. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>AVS_OK in case of success, or an error code. </dd></dl>
 
 </div>
 </div>
@@ -313,7 +430,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="security_8h.html">security.h</a></li>
-    <li class="footer">Generated on Fri Apr 8 2022 18:36:37 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 18 2022 17:17:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

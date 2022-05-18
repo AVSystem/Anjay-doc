@@ -11,6 +11,8 @@ var structanjay__dm__handlers__t =
     [ "object_read_default_attrs", "structanjay__dm__handlers__t.html#a87945af7c2bc8b5dc9eabcd25025fcdb", null ],
     [ "object_write_default_attrs", "structanjay__dm__handlers__t.html#a67f62ac9b8cc31357f5b8c00348e47c2", null ],
     [ "resource_execute", "structanjay__dm__handlers__t.html#a1fd9948c86db64024730df9e54a6ccf5", null ],
+    [ "resource_instance_read_attrs", "structanjay__dm__handlers__t.html#a52a4eaffc8ce60e8acbe8ebf63b24edd", null ],
+    [ "resource_instance_write_attrs", "structanjay__dm__handlers__t.html#afefbba7a724acc56f5edf68c7bb6f33f", null ],
     [ "resource_read", "structanjay__dm__handlers__t.html#a29a72c55a03de854bfbad8bfcf5e7fed", null ],
     [ "resource_read_attrs", "structanjay__dm__handlers__t.html#ad448c9239045ce05ce7ba52861727d71", null ],
     [ "resource_reset", "structanjay__dm__handlers__t.html#a5f5974443d6a0fd835706c6fedc410d8", null ],

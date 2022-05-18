@@ -298,7 +298,7 @@ Functions</h2></td></tr>
 <p>May be called before <a class="el" href="fw__update_8h.html#a024b15279a6415219f67ba9e2dadaa61">anjay_fw_update_stream_open_t</a> if the download is to be performed in PULL mode and the connection needs to use TLS or DTLS encryption.</p>
 <p>Note that the <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> contains references to file paths, binary security keys, and/or ciphersuite lists. It is the user's responsibility to appropriately allocate them and ensure proper lifetime of the returned pointers. The returned security information may only be invalidated in a call to <a class="el" href="fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a">anjay_fw_update_reset_t</a> or after a call to <a class="el" href="core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete</a> .</p>
 <p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm</a> will be used as a default way to get security information.</p>
-<p>In that (no user-defined handler) case, in the commercial version, <code>anjay_security_config_pkix()</code> will be used as an additional fallback if <code>ANJAY_WITH_LWM2M11</code> is enabled and a valid trust store is available (either specified through <code>use_system_trust_store</code>, <code>trust_store_certs</code> or <code>trust_store_crls</code> fields in <code>anjay_configuration_t</code>, or obtained via <code>/est/crts</code> request if <code>est_cacerts_policy</code> is set to <code>ANJAY_EST_CACERTS_IF_EST_CONFIGURED</code> or <code>ANJAY_EST_CACERTS_ALWAYS</code>).</p>
+<p>In that (no user-defined handler) case, <code><a class="el" href="core_8h.html#a4ccd37c26433e3dc1e146b3c3f5b29ee">anjay_security_config_pkix()</a></code> will be used as an additional fallback if <code>ANJAY_WITH_LWM2M11</code> is enabled and a valid trust store is available (either specified through <code>use_system_trust_store</code>, <code>trust_store_certs</code> or <code>trust_store_crls</code> fields in <code>anjay_configuration_t</code>, or obtained via <code>/est/crts</code> request if <code>est_cacerts_policy</code> is set to <code>ANJAY_EST_CACERTS_IF_EST_CONFIGURED</code> or <code>ANJAY_EST_CACERTS_ALWAYS</code>).</p>
 <p>You may also use these functions yourself, for example as a fallback mechanism.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -608,7 +608,7 @@ Functions</h2></td></tr>
 <p>A successful call to this function always sets Update State to Idle (0). If the function fails, neither Update State nor Update Result are changed.</p>
 <p>Some state transitions are disallowed and cause this function to fail:</p>
 <ul>
-<li><a class="el" href="fw__update_8h.html#a7f9a69c33597a29d9f37ca42a3560139a7aa041906b132060563374e5e5ea06bf">ANJAY_FW_UPDATE_RESULT_INITIAL</a> is never allowed and causes this function to fail.</li>
+<li><a class="el" href="fw__update_8h.html#a7f9a69c33597a29d9f37ca42a3560139a7aa041906b132060563374e5e5ea06bf">ANJAY_FW_UPDATE_RESULT_INITIAL</a> and ANJAY_FW_UPDATE_RESULT_UPDATE_CANCELLED are never allowed and cause this function to fail.</li>
 <li><a class="el" href="fw__update_8h.html#a7f9a69c33597a29d9f37ca42a3560139a6189707e32caa0a0cf8a96de852eda6d">ANJAY_FW_UPDATE_RESULT_SUCCESS</a> is only allowed if the firmware application process was started by the server (an Execute operation was already performed on the Update resource of the Firmware Update object or <a class="el" href="fw__update_8h.html#a528128908ddd63124b2722950f8f4791a8d25df71f8f79704c18e5fc20d5b4281">ANJAY_FW_UPDATE_INITIAL_UPDATING</a> was used in a call to <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a>). Otherwise, the function fails.</li>
 <li>Other values of <code>result</code> (various error codes) are only allowed if Firmware Update State is not Idle (0), i.e. firmware is being downloaded, was already downloaded or is being applied.</li>
 </ul>
@@ -629,7 +629,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
-    <li class="footer">Generated on Fri Apr 8 2022 18:36:37 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 18 2022 17:17:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

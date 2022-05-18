@@ -1,5 +1,6 @@
 var annotated_dup =
 [
+    [ "anjay_bg96_nidd_config_t", "structanjay__bg96__nidd__config__t.html", "structanjay__bg96__nidd__config__t" ],
     [ "anjay_configuration", "structanjay__configuration.html", "structanjay__configuration" ],
     [ "anjay_dm_handlers_t", "structanjay__dm__handlers__t.html", "structanjay__dm__handlers__t" ],
     [ "anjay_dm_object_def_struct", "structanjay__dm__object__def__struct.html", "structanjay__dm__object__def__struct" ],
@@ -7,15 +8,22 @@ var annotated_dup =
     [ "anjay_dm_r_attributes_t", "structanjay__dm__r__attributes__t.html", "structanjay__dm__r__attributes__t" ],
     [ "anjay_download_config", "structanjay__download__config.html", "structanjay__download__config" ],
     [ "anjay_download_status_t", "structanjay__download__status__t.html", "structanjay__download__status__t" ],
+    [ "anjay_est_reenroll_config_t", "structanjay__est__reenroll__config__t.html", "structanjay__est__reenroll__config__t" ],
     [ "anjay_etag", "structanjay__etag.html", "structanjay__etag" ],
     [ "anjay_fw_update_handlers_t", "structanjay__fw__update__handlers__t.html", "structanjay__fw__update__handlers__t" ],
     [ "anjay_fw_update_initial_state_t", "structanjay__fw__update__initial__state__t.html", "structanjay__fw__update__initial__state__t" ],
     [ "anjay_ipso_3d_sensor_impl_struct", "structanjay__ipso__3d__sensor__impl__struct.html", "structanjay__ipso__3d__sensor__impl__struct" ],
     [ "anjay_ipso_basic_sensor_impl_struct", "structanjay__ipso__basic__sensor__impl__struct.html", "structanjay__ipso__basic__sensor__impl__struct" ],
+    [ "anjay_lwm2m_version_config_t", "structanjay__lwm2m__version__config__t.html", "structanjay__lwm2m__version__config__t" ],
+    [ "anjay_nidd_driver_struct", "structanjay__nidd__driver__struct.html", "structanjay__nidd__driver__struct" ],
     [ "anjay_resource_observation_status_t", "structanjay__resource__observation__status__t.html", "structanjay__resource__observation__status__t" ],
     [ "anjay_security_config_t", "structanjay__security__config__t.html", "structanjay__security__config__t" ],
+    [ "anjay_security_hsm_configuration_t", "structanjay__security__hsm__configuration__t.html", "structanjay__security__hsm__configuration__t" ],
     [ "anjay_security_instance_t", "structanjay__security__instance__t.html", "structanjay__security__instance__t" ],
+    [ "anjay_send_resource_path_t", "structanjay__send__resource__path__t.html", "structanjay__send__resource__path__t" ],
     [ "anjay_server_instance_t", "structanjay__server__instance__t.html", "structanjay__server__instance__t" ],
+    [ "anjay_smsdrv_multipart_info_t", "structanjay__smsdrv__multipart__info__t.html", "structanjay__smsdrv__multipart__info__t" ],
+    [ "anjay_smsdrv_struct", "structanjay__smsdrv__struct.html", "structanjay__smsdrv__struct" ],
     [ "anjay_socket_entry_t", "structanjay__socket__entry__t.html", "structanjay__socket__entry__t" ],
     [ "anjay_transport_set_t", "structanjay__transport__set__t.html", "structanjay__transport__set__t" ]
 ];

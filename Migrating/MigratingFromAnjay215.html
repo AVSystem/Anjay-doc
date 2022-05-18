@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9.8. Migrating from Anjay 2.15.x &mdash; Anjay 3.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10. Commercial features" href="../CommercialFeatures.html" />
+    <link rel="prev" title="9.7. Migrating from Anjay 2.9.x-2.14.x" href="MigratingFromAnjay214.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay225.html">9.1. Migrating from Anjay 2.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingCustomEntropy.html">9.2. Migrating mbed TLS custom entropy initializers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay24.html">9.3. Migrating from Anjay 2.3.x or 2.4.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay26.html">9.4. Migrating from Anjay 2.5.x or 2.6.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay27.html">9.5. Migrating from Anjay 2.7.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay28.html">9.6. Migrating from Anjay 2.8.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay214.html">9.7. Migrating from Anjay 2.9.x-2.14.x</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.8. Migrating from Anjay 2.15.x</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
+      <li><span class="section-number">9.8. </span>Migrating from Anjay 2.15.x</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="migrating-from-anjay-2-15-x">
+<h1><span class="section-number">9.8. </span>Migrating from Anjay 2.15.x<a class="headerlink" href="#migrating-from-anjay-2-15-x" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#changes-in-anjay-proper" id="id2">Changes in Anjay proper</a></p>
+<ul>
+<li><p><a class="reference internal" href="#refactor-of-the-attribute-storage-module" id="id3">Refactor of the Attribute Storage module</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-offline-mode-control-api" id="id4">Refactor of offline mode control API</a></p></li>
+<li><p><a class="reference internal" href="#addition-of-the-con-attribute-to-public-api" id="id5">Addition of the con attribute to public API</a></p></li>
+<li><p><a class="reference internal" href="#conditional-compilation-for-structured-security-credential-support" id="id6">Conditional compilation for structured security credential support</a></p></li>
+<li><p><a class="reference internal" href="#conditional-compilation-for-hsm-support-with-est" id="id7">Conditional compilation for HSM support with EST</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id8">Changes in avs_commons</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction-of-new-socket-option" id="id9">Introduction of new socket option</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-psk-credential-handling" id="id10">Refactor of PSK credential handling</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">9.8.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>While most changes since Anjay 2.15 are minor, some of them (changes to commonly
+used APIs such as Attribute Storage and offline mode control) are breaking.
+There is a change to the way the <code class="docutils literal notranslate"><span class="pre">con</span></code> attribute is handled in the API.
+Additionally, the upgrade to <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 5.0 includes refactoring of the
+APIs related to (D)TLS PSK credentials.</p>
+</section>
+<section id="changes-in-anjay-proper">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">9.8.2. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline"></a></h2>
+<section id="refactor-of-the-attribute-storage-module">
+<h3><a class="toc-backref" href="#id3"><span class="section-number">9.8.2.1. </span>Refactor of the Attribute Storage module</a><a class="headerlink" href="#refactor-of-the-attribute-storage-module" title="Permalink to this headline"></a></h3>
+<p>The Attribute Storage feature is no longer a standalone module and has been
+moved to the library core. From the user perspective, this has the following
+consequences:</p>
+<ul class="simple">
+<li><p>Explicit installation of this module in runtime is no longer necessary. The
+<code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_install()</span></code> method has been removed.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_MODULE_ATTR_STORAGE</span></code> configuration macro in
+<code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> has been renamed to <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_ATTR_STORAGE</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">WITH_MODULE_attr_storage</span></code> CMake option (equivalent to the macro
+mentioned above) has been renamed to <code class="docutils literal notranslate"><span class="pre">WITH_ATTR_STORAGE</span></code>.</p></li>
+</ul>
+<p>Additionally, the behavior of <code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_restore()</span></code> has been
+changed - from now on, this function fails if supplied source stream is
+empty. This change makes the function consistent with other
+<code class="docutils literal notranslate"><span class="pre">anjay_*_restore()</span></code> APIs.</p>
+</section>
+<section id="refactor-of-offline-mode-control-api">
+<h3><a class="toc-backref" href="#id4"><span class="section-number">9.8.2.2. </span>Refactor of offline mode control API</a><a class="headerlink" href="#refactor-of-offline-mode-control-api" title="Permalink to this headline"></a></h3>
+<p>Since Anjay 2.4, offline mode is configurable independently per every
+transport. Below is a list of removed functions and counterparts that should
+be used:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 57%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Removed function</p></td>
+<td><p>Counterpart</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_is_offline()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_transport_is_offline()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_enter_offline()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_transport_enter_offline()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_exit_offline()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_transport_exit_offline()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_schedule_reconnect()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_transport_schedule_reconnect()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>New functions should be called with <code class="docutils literal notranslate"><span class="pre">transport_set</span></code> argument set to
+<code class="docutils literal notranslate"><span class="pre">ANJAY_TRANSPORT_SET_ALL</span></code> to achieve the same behavior.</p>
+</section>
+<section id="addition-of-the-con-attribute-to-public-api">
+<h3><a class="toc-backref" href="#id5"><span class="section-number">9.8.2.3. </span>Addition of the con attribute to public API</a><a class="headerlink" href="#addition-of-the-con-attribute-to-public-api" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">con</span></code> attribute, enabled via the <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_CON_ATTR</span></code> compile-time
+option, has been previously supported as a custom extension. Since an identical
+flag has been standardized as part of LwM2M TS 1.2, it has been included in the
+public API as part of preparations to support the new protocol version.</p>
+<p>If you initialize <code class="docutils literal notranslate"><span class="pre">anjay_dm_oi_attributes_t</span></code> or <code class="docutils literal notranslate"><span class="pre">anjay_dm_r_attributes_t</span></code>
+objects manually, you may need to initialize the new <code class="docutils literal notranslate"><span class="pre">con</span></code> field as well,
+since the empty <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_CON_ATTR_NONE</span></code> value is <strong>NOT</strong> the default
+zero-initialized value.</p>
+<p>As more new attributes may be added in future versions of Anjay, it is
+recommended to initialize such structures with <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_OI_ATTRIBUTES_EMPTY</span></code>
+or <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_R_ATTRIBUTES_EMPTY</span></code> constants, and then fill in the attributes
+you actually intend to set.</p>
+</section>
+<section id="conditional-compilation-for-structured-security-credential-support">
+<h3><a class="toc-backref" href="#id6"><span class="section-number">9.8.2.4. </span>Conditional compilation for structured security credential support</a><a class="headerlink" href="#conditional-compilation-for-structured-security-credential-support" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">anjay_ret_certificate_chain_info()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_ret_private_key_info()</span></code>
+APIs, as well as avs_crypto-based fields in <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code>, have
+been put under a new conditional compilation flag,
+<code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_SECURITY_STRUCTURED</span></code>.</p>
+<p>When using CMake, this flag is enabled by default if available. Otherwise, it
+might need to be enabled by defining <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_SECURITY_STRUCTURED</span></code> in
+<code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>.</p>
+</section>
+<section id="conditional-compilation-for-hsm-support-with-est">
+<h3><a class="toc-backref" href="#id7"><span class="section-number">9.8.2.5. </span>Conditional compilation for HSM support with EST</a><a class="headerlink" href="#conditional-compilation-for-hsm-support-with-est" title="Permalink to this headline"></a></h3>
+<p>Support for hardware security engine in the EST subsystem has been put under
+a new conditional compilation flag, <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_EST_ENGINE_SUPPORT</span></code>. <strong>NOTE:</strong>
+This flag is only available in commercial releases of Anjay that include the HSM
+engine feature. The APIs have been removed from versions that do not include
+this feature.</p>
+<p>When using CMake, this flag is controlled with the <code class="docutils literal notranslate"><span class="pre">WITH_EST_ENGINE_SUPPORT</span></code>
+option and enabled by default if available and both EST and HSM features are
+enabled. Otherwise, it might need to be enabled by defining
+<code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_EST_ENGINE_SUPPORT</span></code> in <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>.</p>
+</section>
+</section>
+<section id="changes-in-avs-commons">
+<h2><a class="toc-backref" href="#id8"><span class="section-number">9.8.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline"></a></h2>
+<section id="introduction-of-new-socket-option">
+<h3><a class="toc-backref" href="#id9"><span class="section-number">9.8.3.1. </span>Introduction of new socket option</a><a class="headerlink" href="#introduction-of-new-socket-option" title="Permalink to this headline"></a></h3>
+<p>avs_commons 4.10.1 bundled with Anjay 2.15.1 adds a new socket option key:
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span></code>. This is used to make sure that when
+control is returned to the event loop, the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> call will not stall
+waiting for new data that in reality has been already buffered and could be
+retrieved using the avs_commons APIs.</p>
+<p>This is usually meaningful for (D)TLS connections, but for almost all simple
+unencrypted socket implementations, this should always return <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<p>This was previously achieved by always trying to receive more packets with
+timeout set to zero. However, it has been determined that such logic could lead
+to heavy blocking of the event loop in case communication with the network stack
+is relatively slow, e.g. on devices which implement TCP/IP sockets through modem
+AT commands.</p>
+<p>If you maintain your own socket integration layer or (D)TLS integration layer,
+it is recommended that you add support for this option. This is not, however, a
+breaking change - if the option is not supported, the library will continue to
+use the old behavior.</p>
+</section>
+<section id="refactor-of-psk-credential-handling">
+<h3><a class="toc-backref" href="#id10"><span class="section-number">9.8.3.2. </span>Refactor of PSK credential handling</a><a class="headerlink" href="#refactor-of-psk-credential-handling" title="Permalink to this headline"></a></h3>
+<p>Deprecated <code class="docutils literal notranslate"><span class="pre">avs_net_psk_info_t</span></code> structure has been removed. Its successor,
+<code class="docutils literal notranslate"><span class="pre">avs_net_generic_psk_info_t</span></code>, has been renamed to <code class="docutils literal notranslate"><span class="pre">avs_net_psk_info_t</span></code>.
+This change also affects <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> structure which contains
+the latter. Implementation of accompanying <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_psk()</span></code>
+function has also been replaced with function previously known as
+<code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_generic_psk()</span></code>.</p>
+<p>These changes are breaking for code that accesses the <code class="docutils literal notranslate"><span class="pre">data.psk</span></code> field of
+<code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> directly and for usages of the two changed types.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="MigratingFromAnjay214.html" class="btn btn-neutral float-left" title="9.7. Migrating from Anjay 2.9.x-2.14.x" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../CommercialFeatures.html" class="btn btn-neutral float-right" title="10. Commercial features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

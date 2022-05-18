@@ -132,6 +132,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:a8cb64731cda5bdc1f920ff559f21e412"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6913b4787b5ebe267b504a0ed8c43c40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dm_8h.html#af9db8740d54818da8013320441bbe828">anjay_dm_transaction_rollback_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__dm__handlers__t.html#a6913b4787b5ebe267b504a0ed8c43c40">transaction_rollback</a></td></tr>
 <tr class="separator:a6913b4787b5ebe267b504a0ed8c43c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52a4eaffc8ce60e8acbe8ebf63b24edd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dm_8h.html#a9f96d19604527aab77c4d41148c576a9">anjay_dm_resource_instance_read_attrs_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__dm__handlers__t.html#a52a4eaffc8ce60e8acbe8ebf63b24edd">resource_instance_read_attrs</a></td></tr>
+<tr class="separator:a52a4eaffc8ce60e8acbe8ebf63b24edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afefbba7a724acc56f5edf68c7bb6f33f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dm_8h.html#a4d6feab281a83c6eda78fd4bb830f1d6">anjay_dm_resource_instance_write_attrs_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__dm__handlers__t.html#afefbba7a724acc56f5edf68c7bb6f33f">resource_instance_write_attrs</a></td></tr>
+<tr class="separator:afefbba7a724acc56f5edf68c7bb6f33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A struct containing pointers to Object handlers. </p>
@@ -166,7 +170,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>Get default Object Instance attributes, <a class="el" href="dm_8h.html#a3d07435b39f30242395a2e0e5ef5e06c">anjay_dm_instance_read_default_attrs_t</a></p>
 <p>Required for handling <em>LwM2M Discover</em> and <em>LwM2M Observe</em> operations.</p>
-<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
+<p>Can be NULL when <em>Attribute Storage</em> feature is enabled. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -182,7 +186,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Delete an Object Instance, <a class="el" href="dm_8h.html#a12f234fb77ef6995eff912111555777e">anjay_dm_instance_remove_t</a></p>
-<p>Required for handling <em>LwM2M Delete</em> operation.</p>
+<p>Required for handling <em>LwM2M Delete</em> operation performed on Object Instances.</p>
 <p>Can be NULL for single instance objects. </p>
 
 </div>
@@ -217,7 +221,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>Set default Object Instance attributes, <a class="el" href="dm_8h.html#ac205836b3a8bd08a1f5f57f88ec49b15">anjay_dm_instance_write_default_attrs_t</a></p>
 <p>Required for handling <em>LwM2M Write-Attributes</em> operation.</p>
-<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
+<p>Can be NULL when <em>Attribute Storage</em> feature is enabled. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -285,7 +289,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>Get default Object attributes, <a class="el" href="dm_8h.html#aa16f8b6c72169a756f06619f33fbe4c5">anjay_dm_object_read_default_attrs_t</a></p>
 <p>Required for handling <em>LwM2M Discover</em> and <em>LwM2M Observe</em> operations.</p>
-<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
+<p>Can be NULL if the <em>Attribute Storage</em> feature is enabled. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -302,7 +306,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>Set default Object attributes, <a class="el" href="dm_8h.html#a2367df16032435ea8b98f2471b8138b6">anjay_dm_object_write_default_attrs_t</a></p>
 <p>Required for handling <em>LwM2M Write-Attributes</em> operation.</p>
-<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
+<p>Can be NULL when <em>Attribute Storage</em> feature is enabled. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -320,6 +324,40 @@ Data Fields</h2></td></tr>
 <p>Perform Execute action on a Resource, <a class="el" href="dm_8h.html#afe743b92ad59a910e521a3f6388e067e">anjay_dm_resource_execute_t</a></p>
 <p>Required for <em>LwM2M Execute</em> operation.</p>
 <p>Can be NULL if the object does not contain executable resources. </p>
+
+</div>
+</div>
+<a id="a52a4eaffc8ce60e8acbe8ebf63b24edd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52a4eaffc8ce60e8acbe8ebf63b24edd">&#9670;&nbsp;</a></span>resource_instance_read_attrs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="dm_8h.html#a9f96d19604527aab77c4d41148c576a9">anjay_dm_resource_instance_read_attrs_t</a>* resource_instance_read_attrs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get Resource Instance attributes, <a class="el" href="dm_8h.html#a9f96d19604527aab77c4d41148c576a9">anjay_dm_resource_instance_read_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Discover</em> and <em>LwM2M Observe</em> operations.</p>
+<p>Can be NULL if the object does not contain multiple resources, when <em>Attribute Storage</em> feature is enabled, or when the application only targets compliance with LwM2M TS 1.0. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
+
+</div>
+</div>
+<a id="afefbba7a724acc56f5edf68c7bb6f33f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afefbba7a724acc56f5edf68c7bb6f33f">&#9670;&nbsp;</a></span>resource_instance_write_attrs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="dm_8h.html#a4d6feab281a83c6eda78fd4bb830f1d6">anjay_dm_resource_instance_write_attrs_t</a>* resource_instance_write_attrs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set Resource Instance attributes, <a class="el" href="dm_8h.html#a4d6feab281a83c6eda78fd4bb830f1d6">anjay_dm_resource_instance_write_attrs_t</a></p>
+<p>Required for handling <em>LwM2M Write-Attributes</em> operation.</p>
+<p>Can be NULL if the object does not contain multiple resources, when <em>Attribute Storage</em> feature is enabled, or when the application only targets compliance with LwM2M TS 1.0. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -353,7 +391,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>Get Resource attributes, <a class="el" href="dm_8h.html#a4aae18dd2e0baa962c11e92afee80434">anjay_dm_resource_read_attrs_t</a></p>
 <p>Required for handling <em>LwM2M Discover</em> and <em>LwM2M Observe</em> operations.</p>
-<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
+<p>Can be NULL when <em>Attribute Storage</em> feature is enabled. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -404,7 +442,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>Set Resource attributes, <a class="el" href="dm_8h.html#a24a7e144564028de3c638b597f39c91e">anjay_dm_resource_write_attrs_t</a></p>
 <p>Required for handling <em>LwM2M Write-Attributes</em> operation.</p>
-<p>Can be NULL when <em>Attribute Storage</em> module is installed. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
+<p>Can be NULL when <em>Attribute Storage</em> feature is enabled. Non-NULL handler overrides <em>Attribute Storage</em> logic. </p>
 
 </div>
 </div>
@@ -485,7 +523,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__dm__handlers__t.html">anjay_dm_handlers_t</a></li>
-    <li class="footer">Generated on Fri Apr 8 2022 18:36:37 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 18 2022 17:17:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

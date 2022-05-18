@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10.8. SMS Binding &mdash; Anjay 3.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.9. Bootstrapper (smart card bootstrap)" href="CF-SmartCardBootstrap.html" />
+    <link rel="prev" title="10.7. Non-IP Data Delivery" href="CF-NIDD.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CF-CorePersistence.html">10.1. Core Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-CustomHardwareSupport.html">10.2. Custom Hardware Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-EST.html">10.3. Enrollment over Secure Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-FSDM.html">10.4. File System Data Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-HSM.html">10.5. Hardware Security Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-IoTSAFE.html">10.6. IoT SAFE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-NIDD.html">10.7. Non-IP Data Delivery</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.8. SMS Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-SmartCardBootstrap.html">10.9. Bootstrapper (smart card bootstrap)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a> &raquo;</li>
+      <li><span class="section-number">10.8. </span>SMS Binding</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sms-binding">
+<h1><span class="section-number">10.8. </span>SMS Binding<a class="headerlink" href="#sms-binding" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#general-description" id="id1">General description</a></p></li>
+<li><p><a class="reference internal" href="#technical-documentation" id="id2">Technical documentation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#enabling-sms-binding-support" id="id3">Enabling SMS binding support</a></p></li>
+<li><p><a class="reference internal" href="#usage-example" id="id4">Usage example</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simple-unsecured-connection" id="id5">Simple, unsecured connection</a></p></li>
+<li><p><a class="reference internal" href="#dtls-over-sms" id="id6">DTLS over SMS</a></p></li>
+<li><p><a class="reference internal" href="#sms-trigger-mode" id="id7">SMS Trigger Mode</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="general-description">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">10.8.1. </span>General description</a><a class="headerlink" href="#general-description" title="Permalink to this headline"></a></h2>
+<p>One of LwM2M’s advantages is the possibility to choose from numerous underlying
+protocol stacks. Although most applications use CoAP over UDP,
+<cite>LwM2M TS: Transport Bindings</cite> document specifies how LwM2M messages can be
+conveyed over other protocols, like HTTP, MQTT, TCP, NIDD, or SMS. Such a wide
+choice increases flexibility of LwM2M, making it the right choice in a number of
+different applications.</p>
+<p>Anjay’s <strong>SMS Binding</strong> feature incorporates a feature-complete implementation
+of SMS binding as specified in the LwM2M specification. Thanks to that, you can:</p>
+<ul class="simple">
+<li><p>use SMS as a sole transportation method to be able to deploy LwM2M devices in
+areas where connectivity over IP is unavailable or economically unjustified,</p></li>
+<li><p>integrate Anjay with already existing devices which are not capable of
+internet communication,</p></li>
+<li><p>use SMS together with UDP, either as an alternative binding to increase the
+reliability of the connection, or save costs and battery usage by using SMS
+triggers to wake up the device and then bring on the connection over UDP.</p></li>
+</ul>
+<p>The implementation is also <strong>interoperable with DTLS</strong> and supports
+<strong>Concatenated SMS (CSMS)</strong>, both for the inbound and outbound messages, in case
+the modem used doesn’t have support for that. With CSMS enabled it’s possible to
+send payloads up to 34170 bytes, without any fragmentation on CoAP level.</p>
+<p><strong>SMS Binding</strong> feature also provides a couple of utilities for developers:</p>
+<ul class="simple">
+<li><p>sample implementation of an SMS driver, which uses the standard AT command set
+to send, receive and manage SMS messages and communicates over a serial port
+with <strong>any standards-compliant cellular modem</strong>,</p></li>
+<li><p>utility Python script, which <strong>simulates an AT modem</strong> and acts as a proxy -
+all messages are conveyed further over UDP to the target server.</p></li>
+</ul>
+</section>
+<section id="technical-documentation">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">10.8.2. </span>Technical documentation</a><a class="headerlink" href="#technical-documentation" title="Permalink to this headline"></a></h2>
+<section id="enabling-sms-binding-support">
+<h3><a class="toc-backref" href="#id3"><span class="section-number">10.8.2.1. </span>Enabling SMS binding support</a><a class="headerlink" href="#enabling-sms-binding-support" title="Permalink to this headline"></a></h3>
+<p>If <strong>SMS Binding</strong> feature is available in your version of Anjay, the support
+for SMS transport can be enabled by either defining <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_SMS</span></code> in
+<code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> or, if using CMake, enabling <code class="docutils literal notranslate"><span class="pre">WITH_SMS</span></code> option.</p>
+<p>You may also want to enable the <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_SMS_MULTIPART</span></code> macro, which
+enables support for Concatenated SMS, both for incoming and outgoing traffic
+(for outbound traffic it can also be configured in runtime). Using Concatenated
+SMS raises the MTU reported to upper layers, which may solve issues with some
+types of CoAP or DTLS messages that can be larger than 140 bytes. This setting
+should be also disabled for modems, which are capable of handling CSMS on their
+own.</p>
+<p>Anjay, similarly to how network sockets are implemented, uses an abstraction
+layer for SMS connections to remain hardware agnostic. It’s the developers’
+responsibility to implement a driver which handles specific hardware, although
+the library comes with a basic reference implementation for AT modems, which
+communicates with them over a serial port. To compile it in, please define
+<code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_MODULE_AT_SMS</span></code> or enable <code class="docutils literal notranslate"><span class="pre">WITH_MODULE_at_sms</span></code> CMake option.</p>
+</section>
+<section id="usage-example">
+<h3><a class="toc-backref" href="#id4"><span class="section-number">10.8.2.2. </span>Usage example</a><a class="headerlink" href="#usage-example" title="Permalink to this headline"></a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For simplicity, we’ll also use the example SMS driver implementation for AT
+modems through the whole tutorial. You can find more information about
+features and limitations of that implementation in
+<a class="reference external" href="../api/at__sms_8h.html">driver’s documentation</a>.</p>
+<p>To make those examples work out-of-the-box with the virtual modem/SMS proxy
+script, client’s and server’s phone numbers will be set to the default values
+included in the script.</p>
+</div>
+<section id="simple-unsecured-connection">
+<h4><a class="toc-backref" href="#id5"><span class="section-number">10.8.2.2.1. </span>Simple, unsecured connection</a><a class="headerlink" href="#simple-unsecured-connection" title="Permalink to this headline"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full code for the following example can be found in the
+<code class="docutils literal notranslate"><span class="pre">examples/commercial-features/CF-SMS</span></code> directory in Anjay sources. Note that
+to compile and run it, you need to have access to a commercial version of
+Anjay that includes the SMS binding feature.</p>
+</div>
+<p>As an example, we’ll modify the code from the
+<a class="reference internal" href="../BasicClient/BC-MandatoryObjects.html"><span class="doc">Installing mandatory Objects</span></a> tutorial.</p>
+<p>To connect to the server over SMS, we have to make a couple of little changes
+to the original application.</p>
+<p>Since the server is reachable by phone number, not by an internet address, we
+have to reconfigure the LwM2M Security object - server URI should be changed
+and the security mode for the SMS binding should be specified.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tel:+12125550178&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span><span class="w"></span>
+</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">     </span><span class="c1">// Anjay will assign Instance ID automatically</span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                            </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Next up, we should update the preferred binding information in the configuration
+of LwM2M Server object.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="c1">// Server Short ID</span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="c1">// Client will send Update message often than every 60 seconds</span>
+<span class="w">         </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="c1">// Disable Default Minimum Period resource</span>
+<span class="w">         </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="c1">// Disable Default Maximum Period resource</span>
+<span class="w">         </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="c1">// Disable Disable Timeout resource</span>
+<span class="w">         </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="c1">// Sets preferred transport to SMS</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;S&quot;</span><span class="w"></span>
+</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">     </span><span class="c1">// Anjay will assign Instance ID automatically</span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                          </span><span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>As the example SMS driver expects a path to a file representing an AT terminal,
+we’ll accept the path as an application’s argument and instantiate the driver.
+Client’s phone number is a part of the registration message, thus it must be
+included in the config structure.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Technically speaking, the library expects a MSISDN, which is a country
+code-prefixed phone number without the ‘+’ sign or other prefixes specific
+to your location.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME MODEM_DEVICE&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">                 </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
+</span><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_at_sms_create</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">local_msisdn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;14155550125&quot;</span><span class="w"></span>
+</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">     </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// Setup necessary objects</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="w"></span>
+<span class="w">                 </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>If you have access to an AT modem with SMS functionality and a LwM2M server
+with SMS gateway configured, you need to think about a couple of matters:</p>
+<ul class="simple">
+<li><p>the example AT driver expects the device to not echo the commands sent, that
+is <code class="docutils literal notranslate"><span class="pre">ATE0</span></code> should be either sent to the modem first, or configured earlier,</p></li>
+<li><p>the driver communicates with the modem using plain <code class="docutils literal notranslate"><span class="pre">read()</span></code> / <code class="docutils literal notranslate"><span class="pre">write()</span></code>
+routines and is not aware of the characteristics of the terminal, so it should
+be configured first. For example, to make this application work with Quectel
+UG96 modem, on Linux, over 115200-8-N-1 serial connection, following command
+had to be issued:
+<code class="docutils literal notranslate"><span class="pre">stty</span> <span class="pre">-F</span> <span class="pre">/dev/ttyACM0</span> <span class="pre">115200</span> <span class="pre">-cs8</span> <span class="pre">-cstopb</span> <span class="pre">-parenb</span> <span class="pre">-icrnl</span></code>.</p></li>
+</ul>
+<p>Otherwise, to run the example, you can use the <code class="docutils literal notranslate"><span class="pre">vmodem.py</span></code> script instead,
+which acts as a virtual AT modem, translating SMS messages to UDP packets and
+vice-versa. You can find it in <code class="docutils literal notranslate"><span class="pre">tests/integration/framework/sms</span></code> directory.</p>
+<p>Example run follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tests/integration/framework/sms/vmodem.py --host try-anjay.avsystem.com --port 5683
+2022-03-03 12:41:49 user root[19173] INFO Modem PTY: /dev/pts/5
+</pre></div>
+</div>
+<p>The scripts informs us that it has opened a virtual terminal at <code class="docutils literal notranslate"><span class="pre">/dev/pts/5</span></code>.
+Now you can build the application by executing
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">commercial_feature_examples</span></code> and run it with
+<code class="docutils literal notranslate"><span class="pre">output/bin/examples/anjay-sms</span> <span class="pre">endpoint_name</span> <span class="pre">/dev/pts/5</span></code>.</p>
+</section>
+<section id="dtls-over-sms">
+<h4><a class="toc-backref" href="#id6"><span class="section-number">10.8.2.2.2. </span>DTLS over SMS</a><a class="headerlink" href="#dtls-over-sms" title="Permalink to this headline"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full code for the following example can be found in the
+<code class="docutils literal notranslate"><span class="pre">examples/commercial-features/CF-SMS-PSK</span></code> directory in Anjay sources. Note
+that to compile and run it, you need to have access to a commercial version
+of Anjay that includes the SMS binding feature.</p>
+</div>
+<p>To secure the connection using DTLS over SMS, we’ll introduce similar changes
+to those described in <a class="reference internal" href="../BasicClient/BC-Security.html"><span class="doc">Enabling secure communication</span></a> tutorial, but targeting
+fields explicitly related to the SMS binding.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>LwM2M allows only for PSK mode to be used with DTLS over SMS.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;identity&quot;</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span><span class="w"></span>
+</span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tel:+12125550178&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_DTLS_PSK</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_key_parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_key_parameters_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">),</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_name_indication</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;try-anjay.avsystem.com&quot;</span><span class="w"></span>
+</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">     </span><span class="c1">// Anjay will assign Instance ID automatically</span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                            </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">security_mode</span></code> setting must remain untouched as it’s
+unused by the application, but LwM2M Security object specification requires
+its presence.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When using DTLS, Anjay by default sets the Server Name Indication (SNI)
+extension field to the address extracted from <code class="docutils literal notranslate"><span class="pre">server_uri</span></code> field, which
+in our case is the server’s gateway phone number. As in this example we’re
+using the virtual modem script to make the example more accessible, which
+also means that in fact UDP is used to connect to the server, we have to
+override the SNI by assigning <code class="docutils literal notranslate"><span class="pre">server_name_indication</span></code> field to our target
+server’s address. Otherwise, the server will attempt to recognize the phone
+number as correct server name.</p>
+</div>
+<p>To make DTLS over SMS work correctly, we have to ensure that appropriate
+ciphersuite is used. The MTU of SMS is just 140 bytes, so some ciphersuites
+have too much overhead to be conveyed over SMS messages.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">sms_driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_at_sms_create</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">local_msisdn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;14155550125&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">default_tls_ciphersuites</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="c1">// TLS_PSK_WITH_AES_128_CCM_8</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">[]){</span><span class="w"> </span><span class="mh">0xC0A8</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">num_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="p">}</span><span class="w"></span>
+</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">TLS_PSK_WITH_AES_128_CCM_8</span></code> is one of LwM2M’s recommended ciphersuites to
+be used with SMS bindings. The ID assignments of ciphersuites are maintained
+by IANA and can be found in <a class="reference external" href="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4">this document</a>.</p>
+</div>
+<p>Alternatively, one can use Concatenated SMS messages instead, which have
+logical MTU large enough to work with all types of ciphersuites, but it means
+that most of the messages sent to the server, even small ones, will be
+fragmented. To enable multipart SMS messages, set <code class="docutils literal notranslate"><span class="pre">prefer_multipart_sms</span></code>
+in the <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code> structure above to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+</section>
+<section id="sms-trigger-mode">
+<span id="anjay-sms-trigger-mode"></span><h4><a class="toc-backref" href="#id7"><span class="section-number">10.8.2.2.3. </span>SMS Trigger Mode</a><a class="headerlink" href="#sms-trigger-mode" title="Permalink to this headline"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full code for the following example can be found in the
+<code class="docutils literal notranslate"><span class="pre">examples/commercial-features/CF-SMS-UDP</span></code> directory in Anjay sources. Note
+that to compile and run it, you need to have access to a commercial version
+of Anjay that includes the SMS binding feature.</p>
+</div>
+<p>LwM2M 1.1 introduces Trigger Mode, which provides the possibility to request a
+LwM2M Update via SMS (by executing Registration Update Trigger resource) and
+receive the response by currently used transport binding. Similar behavior can
+be achieved using <em>US</em> or <em>UQS</em> binding modes available in LwM2M 1.0.</p>
+<p>Following example will build upon the code from <cite>Simple, unsecured connection</cite>
+section, use LwM2M 1.1 and UDP as transport binding.</p>
+<p>Firstly, let’s change the Server URI to use UDP again. Server’s phone number
+will be passed through another field, <code class="docutils literal notranslate"><span class="pre">server_sms_number</span></code>, in MSISDN form.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://try-anjay.avsystem.com:5683&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="w">     </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_sms_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;12125550178&quot;</span><span class="w"></span>
+</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To change the binding back to UDP and enable the Trigger resource in Server
+object which controls Trigger Mode, apply following changes:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// Server Short ID</span>
+<span class="w">     </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// Client will send Update message often than every 60 seconds</span>
+<span class="w">     </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// Disable Default Minimum Period resource</span>
+<span class="w">     </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// Disable Default Maximum Period resource</span>
+<span class="w">     </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="c1">// Disable Disable Timeout resource</span>
+<span class="w">     </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="c1">// Sets preferred transport to UDP</span>
+</span><span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="c1">// Enables optional Trigger resource and sets it to true</span>
+</span><span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CF-NIDD.html" class="btn btn-neutral float-left" title="10.7. Non-IP Data Delivery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CF-SmartCardBootstrap.html" class="btn btn-neutral float-right" title="10.9. Bootstrapper (smart card bootstrap)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

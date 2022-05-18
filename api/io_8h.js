@@ -34,12 +34,19 @@ var io_8h =
     [ "anjay_get_i64", "io_8h.html#a5520bdce2c738ba022637acdb9b26a0a", null ],
     [ "anjay_get_objlnk", "io_8h.html#acfc765ddbf002335af4b9028ca2b7d2b", null ],
     [ "anjay_get_string", "io_8h.html#a9b2b4670b7b04d43f23cb6e9919e83ca", null ],
+    [ "anjay_get_u32", "io_8h.html#ab928e342119acd5844a647fb14ec460c", null ],
+    [ "anjay_get_u64", "io_8h.html#a5ca5b245fb5a6b65274a401b1eff48a6", null ],
     [ "anjay_ret_bool", "io_8h.html#a442fdb39da64698a5262b0920f9a3a23", null ],
     [ "anjay_ret_bytes", "io_8h.html#a720e89af778281f09c86ceb43ab2db09", null ],
     [ "anjay_ret_bytes_append", "io_8h.html#ac03b5aec5d596605f6ebe200df9f3ca1", null ],
     [ "anjay_ret_bytes_begin", "io_8h.html#a92a77e4ee5397106e691d57f3aef8ce6", null ],
+    [ "anjay_ret_certificate_chain_info", "io_8h.html#ae5624bcb7511cd623fd22aa3f3fd7bd7", null ],
     [ "anjay_ret_double", "io_8h.html#af56c16f57c7e8d6fb1b562593d4a5875", null ],
     [ "anjay_ret_i64", "io_8h.html#a33df65ef6274931495d80adad68164d2", null ],
     [ "anjay_ret_objlnk", "io_8h.html#adb7abb02c3476cc66fe88895b510a7e3", null ],
-    [ "anjay_ret_string", "io_8h.html#aea8eff5a602bf8a71f26f8b546c64f1a", null ]
+    [ "anjay_ret_private_key_info", "io_8h.html#a82049df74b852b440faada69b3c95805", null ],
+    [ "anjay_ret_psk_identity_info", "io_8h.html#a175b4f491de571a3624e1dec729bfd42", null ],
+    [ "anjay_ret_psk_key_info", "io_8h.html#aff2be08404c9d4f107f7b572968ba778", null ],
+    [ "anjay_ret_string", "io_8h.html#aea8eff5a602bf8a71f26f8b546c64f1a", null ],
+    [ "anjay_ret_u64", "io_8h.html#a262dce125ebf087e6ef1dfa0ae2a6018", null ]
 ];

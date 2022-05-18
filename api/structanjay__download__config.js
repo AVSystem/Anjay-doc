@@ -4,6 +4,7 @@ var structanjay__download__config =
     [ "etag", "structanjay__download__config.html#a4187551c581dcfd5b42e84940b2ce4f1", null ],
     [ "on_download_finished", "structanjay__download__config.html#aafd235d5c763f9b44f7f33e846053026", null ],
     [ "on_next_block", "structanjay__download__config.html#aab4096703745a47675b4558db02de277", null ],
+    [ "prefer_same_socket_downloads", "structanjay__download__config.html#a98c7bd5f331c4b7755de9b9488ccf1bd", null ],
     [ "security_config", "structanjay__download__config.html#acb2b2bee6b320b8f6dcdbdc2cbea02d4", null ],
     [ "start_offset", "structanjay__download__config.html#a3abb6fc45eddaf98e0a68595534f0abb", null ],
     [ "url", "structanjay__download__config.html#aec657bef26e5ff27b9442563a591d9ec", null ],

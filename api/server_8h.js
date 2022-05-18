@@ -7,5 +7,6 @@ var server_8h =
     [ "anjay_server_object_is_modified", "server_8h.html#a6dcbf3360218dbdba852a4c5d2a81f53", null ],
     [ "anjay_server_object_persist", "server_8h.html#a768a40ef019f12baf72437ade02b50ff", null ],
     [ "anjay_server_object_purge", "server_8h.html#a06462631da239d037bc218e37406926e", null ],
-    [ "anjay_server_object_restore", "server_8h.html#ae010e57b86a3f63418c2b9e79615d292", null ]
+    [ "anjay_server_object_restore", "server_8h.html#ae010e57b86a3f63418c2b9e79615d292", null ],
+    [ "anjay_server_object_set_lifetime", "server_8h.html#a4ee496b0b8a66a11c0e3f8a28f2e4f83", null ]
 ];

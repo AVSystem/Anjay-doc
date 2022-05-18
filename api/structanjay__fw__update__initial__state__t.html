@@ -100,6 +100,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:afcd7f92b45f6dc7f069bb0418fe344a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae20ae990f31a9f048924023be6f7ccfd"><td class="memItemLeft" align="right" valign="top">const struct <a class="el" href="structanjay__etag.html">anjay_etag</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__fw__update__initial__state__t.html#ae20ae990f31a9f048924023be6f7ccfd">resume_etag</a></td></tr>
 <tr class="separator:ae20ae990f31a9f048924023be6f7ccfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c7bd5f331c4b7755de9b9488ccf1bd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__fw__update__initial__state__t.html#a98c7bd5f331c4b7755de9b9488ccf1bd">prefer_same_socket_downloads</a></td></tr>
+<tr class="separator:a98c7bd5f331c4b7755de9b9488ccf1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e3f90c68f971da03780fed9f63e4573"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__fw__update__initial__state__t.html#a7e3f90c68f971da03780fed9f63e4573">use_lwm2m_send</a></td></tr>
+<tr class="separator:a7e3f90c68f971da03780fed9f63e4573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Information about the state to initialize the Firmware Update object in. </p>
@@ -119,6 +123,21 @@ Data Fields</h2></td></tr>
 <p>Required when <code>result == ANJAY_FW_UPDATE_INITIAL_DOWNLOADING</code>; if it is not provided (<code>NULL</code>) in such case, <a class="el" href="fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a">anjay_fw_update_reset_t</a> handler will be called from <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a> to reset the Firmware Update object into the Idle state.</p>
 <p>Optional when <code>result == ANJAY_FW_UPDATE_INITIAL_DOWNLOADED</code>; in this case it signals that the firmware was downloaded using the Pull mechanism.</p>
 <p>In all other cases it is ignored. </p>
+
+</div>
+</div>
+<a id="a98c7bd5f331c4b7755de9b9488ccf1bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c7bd5f331c4b7755de9b9488ccf1bd">&#9670;&nbsp;</a></span>prefer_same_socket_downloads</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool prefer_same_socket_downloads</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Informs the module to try reusing sockets of existing LwM2M Servers to download the firmware image if the download URI matches any of the LwM2M Servers. </p>
 
 </div>
 </div>
@@ -169,6 +188,21 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a7e3f90c68f971da03780fed9f63e4573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e3f90c68f971da03780fed9f63e4573">&#9670;&nbsp;</a></span>use_lwm2m_send</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool use_lwm2m_send</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Enables using LwM2M Send to report State, Update Result and Firmware Version to the LwM2M Server (if LwM2M Send is enabled) during firmware update. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include_public/anjay/<a class="el" href="fw__update_8h_source.html">fw_update.h</a></li>
 </ul>
@@ -178,7 +212,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__fw__update__initial__state__t.html">anjay_fw_update_initial_state_t</a></li>
-    <li class="footer">Generated on Fri Apr 8 2022 18:36:37 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 18 2022 17:17:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

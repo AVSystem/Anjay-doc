@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10.1. Core Persistence &mdash; Anjay 3.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.2. Custom Hardware Support" href="CF-CustomHardwareSupport.html" />
+    <link rel="prev" title="10. Commercial features" href="../CommercialFeatures.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.1. Core Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-CustomHardwareSupport.html">10.2. Custom Hardware Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-EST.html">10.3. Enrollment over Secure Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-FSDM.html">10.4. File System Data Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-HSM.html">10.5. Hardware Security Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-IoTSAFE.html">10.6. IoT SAFE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-NIDD.html">10.7. Non-IP Data Delivery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-SMSBinding.html">10.8. SMS Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-SmartCardBootstrap.html">10.9. Bootstrapper (smart card bootstrap)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a> &raquo;</li>
+      <li><span class="section-number">10.1. </span>Core Persistence</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="core-persistence">
+<h1><span class="section-number">10.1. </span>Core Persistence<a class="headerlink" href="#core-persistence" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#general-description" id="id1">General description</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example-savings-summary" id="id2">Example savings summary</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#technical-documentation" id="id3">Technical documentation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduced-apis" id="id4">Introduced APIs</a></p></li>
+<li><p><a class="reference internal" href="#usage-example" id="id5">Usage example</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="general-description">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">10.1.1. </span>General description</a><a class="headerlink" href="#general-description" title="Permalink to this headline"></a></h2>
+<p>LwM2M protocol, although designed to be as effective as possible in terms of
+bandwidth and energy consumption, features mechanisms which might require
+sending larger amounts of data during connection initialization and client
+registration processes.</p>
+<p>Such mechanisms include:</p>
+<ul class="simple">
+<li><p><strong>(D)TLS session handshake</strong> - both parties have to agree upon which
+ciphersuite will be used, and potentially verify each other’s certificates and
+exchange encryption keys,</p></li>
+<li><p><strong>LwM2M Register</strong> operation, which contains parameters of the registration
+such as endpoint name, used LwM2M version, list of present objects, etc.,</p></li>
+<li><p><strong>LwM2M Observe</strong> operation, which must be issued for every previously
+configured observation, since the server assumes that the client is not aware
+of them,</p></li>
+<li><p><strong>LwM2M Discover</strong> operation, which some servers send immediately for every
+object manifested in Register operation. It’s used to discover present object
+instances and resources.</p></li>
+</ul>
+<p>In applications where the device is deactivated most of the time and
+communicates with the server infrequently, going through the registration
+process before every update is a large communication overhead. One can avoid
+that by attempting to resume a session, but that requires keeping the library
+alive, which means it is not allowed to disable the device completely, as
+application memory (RAM) vanishes when it’s powered down.</p>
+<p>By using <strong>Core Persistence</strong> feature it is possible to persist core library
+state to non-volatile storage, allowing a device to shut down completely and
+once it’s up and running again resume the session using state loaded from the
+memory.</p>
+<section id="example-savings-summary">
+<h3><a class="toc-backref" href="#id2"><span class="section-number">10.1.1.1. </span>Example savings summary</a><a class="headerlink" href="#example-savings-summary" title="Permalink to this headline"></a></h3>
+<p>To demonstrate how Core Persistence feature might save bandwidth in cases
+described above, a benchmark of the example application implemented further in
+this article was done. Table below summarizes how much data was exchanged with
+AVSystem’s Coiote DM LwM2M server during initial registration, and later, during
+reconnection with successful resumption. The application was configured using
+default settings, with 5 resources observed, all with a single attribute.</p>
+<p>Initial connection, no resumption:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 44%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Packets sent (inbound + outbound)</p></th>
+<th class="head"><p>Sum of UDP packet lengths</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DTLS handshake</p></td>
+<td><p>6</p></td>
+<td><p>1058</p></td>
+</tr>
+<tr class="row-odd"><td><p>LwM2M operations
+(Observe, Read,
+Discover)</p></td>
+<td><p>36</p></td>
+<td><p>4104</p></td>
+</tr>
+</tbody>
+</table>
+<p>Reconnection, successful resumption:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 44%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Packets sent (inbound + outbound)</p></th>
+<th class="head"><p>Sum of UDP packet lengths</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DTLS handshake</p></td>
+<td><p>3</p></td>
+<td><p>639</p></td>
+</tr>
+<tr class="row-odd"><td><p>LwM2M operations
+(Observe, Read,
+Discover)</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>The difference is <strong>4523 bytes (87.6 % reduction)</strong>.</p>
+</section>
+</section>
+<section id="technical-documentation">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">10.1.2. </span>Technical documentation</a><a class="headerlink" href="#technical-documentation" title="Permalink to this headline"></a></h2>
+<section id="introduced-apis">
+<h3><a class="toc-backref" href="#id4"><span class="section-number">10.1.2.1. </span>Introduced APIs</a><a class="headerlink" href="#introduced-apis" title="Permalink to this headline"></a></h3>
+<p>If Core Persistence feature is available in your version of Anjay, relevant APIs
+can be enabled either by defining <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_CORE_PERSISTENCE</span></code> in
+<code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> or, if using CMake, enabling <code class="docutils literal notranslate"><span class="pre">WITH_CORE_PERSISTENCE</span></code>
+option.</p>
+<p>Core Persistence feature introduces two functions:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../api/core_8h.html#a6fc17768db5909343831fc04a1dbd8c3">anjay_new_from_core_persistence()</a>, which instantiates
+Anjay using previously saved client state,</p></li>
+<li><p><a class="reference external" href="../api/core_8h.html#a1ad2e0995f6ba822c300ccab819e4526">anjay_delete_with_core_persistence()</a>, which deinitializes
+Anjay and attempts to save its state to given stream.</p></li>
+</ul>
+</section>
+<section id="usage-example">
+<h3><a class="toc-backref" href="#id5"><span class="section-number">10.1.2.2. </span>Usage example</a><a class="headerlink" href="#usage-example" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full code for the following example can be found in the
+<code class="docutils literal notranslate"><span class="pre">examples/commercial-features/CF-CorePersistence</span></code> directory in Anjay
+sources. Note that to compile and run it, you need to have access to a
+commercial version of Anjay that includes the Core Persistence feature.</p>
+</div>
+<p>As an example, we’ll modify the code from the
+<a class="reference internal" href="../AdvancedTopics/AT-Persistence.html"><span class="doc">Persistence support</span></a> tutorial by adding core state
+persistence capability to the application.</p>
+<p>As core library’s state will be saved and loaded in different order than
+Anjay’s pre-implemented objects (which are persisted with <code class="docutils literal notranslate"><span class="pre">anjay_*_persist()</span></code>
+functions), it is not possible to use a single stream for all purposes. Two
+separate files will be used now.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Anjay, as described in <a class="reference internal" href="../AdvancedTopics/AT-Persistence.html"><span class="doc">Persistence support</span></a> tutorial,
+uses generic <cite>stream</cite> (<code class="docutils literal notranslate"><span class="pre">avs_stream_t</span></code>) interface for storage operations.
+If this feature is used on a platform which doesn’t support file operations
+with standard file API, one must implement that interface on their own, e.g.
+make use of microcontroller’s flash memory. This interface may be either
+implemented from ground up, or in simple use cases, <code class="docutils literal notranslate"><span class="pre">avs_stream_simple_*</span></code>
+methods can be used.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define OBJECT_PERSISTENCE_FILENAME &quot;cf-object-persistence.dat&quot;</span>
+<span class="cp">#define CORE_PERSISTENCE_FILENAME &quot;cf-core-persistence.dat&quot;</span>
+</pre></div>
+</div>
+<p>Next, we’ll introduce two helper functions for initialization and
+deinitialization of Anjay.</p>
+<p>In case any core persistence data is available, we’ll try to use that to
+instantiate Anjay and possibly resume our connection to the server. If the
+persistence file is not accessible or an attempt to use it is unsuccessful, we
+should fall back to normal <a class="reference external" href="../api/core_8h.html#a077b9b3db59c5b4539271e190508c520">anjay_new()</a> call.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="nf">anjay_new_try_from_core_persistence</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s">&quot;Attempting to initialize Anjay from core persistence&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">file_stream</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">AVS_STREAM_FILE_READ</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">file_stream</span><span class="w"></span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new_from_core_persistence</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                          </span><span class="n">file_stream</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="n">config</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// remove persistence file to prevent client from reading</span>
+<span class="w">    </span><span class="c1">// outdated state in case it doesn&#39;t shut down gracefully</span>
+<span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Similarly, if core persistence file is not accessible due to some error, we
+want to resort to default <a class="reference external" href="../api/core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete()</a> call.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_delete_try_with_core_persistence</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s">&quot;Attempting to shut down Anjay and persist its state&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">file_stream</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">AVS_STREAM_FILE_WRITE</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">file_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_delete_with_core_persistence</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">file_stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">unlink</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It’s worth noting that Core Persistence feature doesn’t maintain all of the
+information about observations - observation parameters are plain LwM2M
+attributes managed by attribute storage subsystem, thus its state should be
+persisted too. The relevant code was already implemented in
+<a class="reference internal" href="../AdvancedTopics/AT-Persistence.html"><span class="doc">Persistence support</span></a> tutorial.</p>
+</div>
+<p>Since registration resumption is allowed in Anjay only in case when security
+context is reused, we’ll convert our example to use PSK security mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Technically speaking, <cite>LwM2M TS: Transport Bindings</cite> allows for registration
+resumption also for NoSec mode, in case the IP address of a client doesn’t
+change. Anjay always assumes that the IP address has changed, as it’s
+generally not possible to reliably determine whether the address visible to
+the server is still the same; it might be affected by e.g. how routing and
+Network Address Translation is configured between the parties.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">initialize_objects_with_default_settings</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;identity&quot;</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span><span class="w"></span>
+</span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coaps://try-anjay.avsystem.com:5684&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">private_cert_or_psk_key_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span><span class="w"></span>
+</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"></span>
+</span><span class="w">         </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">);</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Please note that the example application uses IPv4 and UDP protocol, thus
+the <cite>lifetime</cite> parameter is set to a relatively low value to prevent NAT
+entries in routers between the parties from expiring. After shutting the
+client down, the registration will expire quickly - practical implementations
+should update their <cite>lifetime</cite> parameter to some larger value before
+disconnecting, or use other Layer 3/Layer 4 protocol combination which
+doesn’t require frequent communication with the server.</p>
+</div>
+<p>Let’s use all the functions we have implemented above.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">signal_handler</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="w"></span>
+<span class="w">     </span><span class="p">};</span><span class="w"></span>
+
+<span class="hll"><span class="w">     </span><span class="n">g_anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new_try_from_core_persistence</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">g_anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">     </span><span class="c1">// Setup necessary objects</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">)</span><span class="w"></span>
+<span class="w">             </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">restore_retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">restore_objects_if_possible</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">restore_retval</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">restore_retval</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="n">initialize_objects_with_default_settings</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">     </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">persist_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persist_objects</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persist_result</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+
+<span class="w"> </span><span class="nl">cleanup</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_delete_try_with_core_persistence</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To see how this feature affects data sent during the connection, we encourage to
+not only analyze application’s log output, but use some packet analyzer software
+like Wireshark.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../CommercialFeatures.html" class="btn btn-neutral float-left" title="10. Commercial features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CF-CustomHardwareSupport.html" class="btn btn-neutral float-right" title="10.2. Custom Hardware Support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

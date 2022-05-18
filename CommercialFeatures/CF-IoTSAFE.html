@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10.6. IoT SAFE &mdash; Anjay 3.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.7. Non-IP Data Delivery" href="CF-NIDD.html" />
+    <link rel="prev" title="10.5. Hardware Security Module" href="CF-HSM.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CF-CorePersistence.html">10.1. Core Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-CustomHardwareSupport.html">10.2. Custom Hardware Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-EST.html">10.3. Enrollment over Secure Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-FSDM.html">10.4. File System Data Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-HSM.html">10.5. Hardware Security Module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.6. IoT SAFE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-NIDD.html">10.7. Non-IP Data Delivery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-SMSBinding.html">10.8. SMS Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-SmartCardBootstrap.html">10.9. Bootstrapper (smart card bootstrap)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a> &raquo;</li>
+      <li><span class="section-number">10.6. </span>IoT SAFE</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="iot-safe">
+<h1><span class="section-number">10.6. </span>IoT SAFE<a class="headerlink" href="#iot-safe" title="Permalink to this headline"></a></h1>
+<p>SIM cards can be considered a great way to deliver the data needed for the
+device provisioning. They may provide the bootstrap data (used, for example, by
+the <a class="reference internal" href="CF-SmartCardBootstrap.html"><span class="doc">Bootstrapper (smart card bootstrap)</span></a> Anjay commercial feature), but also they are a
+decent component for generating, storing and using security credentials such as
+keys and certificates.</p>
+<p><strong>IoT SAFE</strong> (<a class="reference external" href="https://www.gsma.com/iot/iot-safe/">IoT SIM Applet For Secure End-2-End</a>) was designed as a general
+approach to use SIM card as a root of trust. In particular, it allows the user
+to use a SIM card for:</p>
+<ul class="simple">
+<li><p>providing credentials for (D)TLS authentication using symmetric or asymmetric
+cryptography,</p></li>
+<li><p>generating keys and other security data, being good source of the
+pseudo-randomness,</p></li>
+<li><p>using the stored credentials for the security operations, like singing,
+verification, encryption and decryption.</p></li>
+</ul>
+<p>IoT SAFE commercial feature of Anjay is one of the “on demand” commercial
+features, which means that it will be developed for a particular IoT solution.
+Its scope may differ, depending on IoT SAFE middleware used (if any), the
+hardware used and particular customer needs.</p>
+<p>The basic case of using IoT SAFE for credential provisioning is when the
+management server, to which the device will be connected, is known during
+the SIM card creation process - in such case the provisioned credentials are
+just used to connect to it. If it isn’t known the credentials stored
+initially on the SIM card might be used only to connect to some bootstrap
+server which provides the proper credentials to the management server - the
+safest solution, in such case, is to use EST (see <a class="reference internal" href="CF-EST.html"><span class="doc">Enrollment over Secure Transport</span></a>) together with
+on-SIM keypair generation, to create a new certificate for the device, signed
+by the SIM provider’s bootstrap server.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the IoT SAFE integration is included in the project, it is controlled
+using the same APIs as the <a class="reference internal" href="CF-HSM.html"><span class="doc">Hardware Security Module</span></a> feature, simply with a different
+format of the query strings. In fact, some IoT SAFE middlewares may provide
+access to the card’s capabilities using the PSA or PKCS#11 API, in which
+case it might be possible to use the HSM feature directly.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CF-HSM.html" class="btn btn-neutral float-left" title="10.5. Hardware Security Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CF-NIDD.html" class="btn btn-neutral float-right" title="10.7. Non-IP Data Delivery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

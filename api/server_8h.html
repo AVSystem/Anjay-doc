@@ -115,6 +115,8 @@ Functions</h2></td></tr>
 <tr class="separator:a6dcbf3360218dbdba852a4c5d2a81f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36a369c0d7d1b2ad42c898ac47b75765"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a36a369c0d7d1b2ad42c898ac47b75765">anjay_server_object_install</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay)</td></tr>
 <tr class="separator:a36a369c0d7d1b2ad42c898ac47b75765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee496b0b8a66a11c0e3f8a28f2e4f83"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a4ee496b0b8a66a11c0e3f8a28f2e4f83">anjay_server_object_set_lifetime</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a> iid, int32_t lifetime)</td></tr>
+<tr class="separator:a4ee496b0b8a66a11c0e3f8a28f2e4f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a53ef85b0f96e14aa1d875b31265e6e5d"></a>
@@ -339,13 +341,58 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4ee496b0b8a66a11c0e3f8a28f2e4f83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee496b0b8a66a11c0e3f8a28f2e4f83">&#9670;&nbsp;</a></span>anjay_server_object_set_lifetime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anjay_server_object_set_lifetime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a>&#160;</td>
+          <td class="paramname"><em>iid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>lifetime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the Lifetime value for the specified Server Instance ID.</p>
+<p>NOTE: Calling this function MAY trigger sending LwM2M Update message to an associated LwM2M Server.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay instance for which the Server Object is installed. </td></tr>
+    <tr><td class="paramname">iid</td><td>Server Object Instance for which the Lifetime shall be altered. </td></tr>
+    <tr><td class="paramname">lifetime</td><td>New value of the Lifetime Resource. MUST BE strictly positive.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, negative value in case of an error. If an error is returned, the Lifetime value remains unchanged. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="server_8h.html">server.h</a></li>
-    <li class="footer">Generated on Fri Apr 8 2022 18:36:37 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 18 2022 17:17:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
