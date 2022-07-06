@@ -106,6 +106,8 @@ Functions</h2></td></tr>
 <tr class="separator:ae47f02cb086e32957a5188c2c34544b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f2624a4b8c0fa88079133ed4370e305"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="access__control_8h.html#a6f2624a4b8c0fa88079133ed4370e305">anjay_access_control_set_acl</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32">anjay_oid_t</a> oid, <a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a> iid, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, <a class="el" href="dm_8h.html#aa01fd66453c951315378ff5854f41249">anjay_access_mask_t</a> access_mask)</td></tr>
 <tr class="separator:a6f2624a4b8c0fa88079133ed4370e305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b0499ce98510c5035341ed9377b15c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="access__control_8h.html#a47b0499ce98510c5035341ed9377b15c">anjay_access_control_set_owner</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32">anjay_oid_t</a> target_oid, <a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a> target_iid, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> owner_ssid, <a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a> *inout_acl_iid)</td></tr>
+<tr class="separator:a47b0499ce98510c5035341ed9377b15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="acc1763bd9c94cecd02e1484fd271ea12"></a>
@@ -312,13 +314,76 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a47b0499ce98510c5035341ed9377b15c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47b0499ce98510c5035341ed9377b15c">&#9670;&nbsp;</a></span>anjay_access_control_set_owner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anjay_access_control_set_owner </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32">anjay_oid_t</a>&#160;</td>
+          <td class="paramname"><em>target_oid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a>&#160;</td>
+          <td class="paramname"><em>target_iid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a>&#160;</td>
+          <td class="paramname"><em>owner_ssid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a4738d24ad04e0e49991008e29cb054a4">anjay_iid_t</a> *&#160;</td>
+          <td class="paramname"><em>inout_acl_iid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the Access Control Owner for a given Object Instance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>ANJAY object with the Access Control module installed</td></tr>
+    <tr><td class="paramname">target_oid</td><td>Object ID of the target Instance.</td></tr>
+    <tr><td class="paramname">target_iid</td><td>Target Object Instance ID, or <code>ANJAY_ID_INVALID</code> (i.e., MAX_ID==65535) to set an ACL referring to new instance creation.</td></tr>
+    <tr><td class="paramname">owner_ssid</td><td>SSID of the server which should become the Access Control Owner for the given Object Instance. <code>ANJAY_SSID_BOOTSTRAP</code> can be specified to signify that the ACL shall not be editable by any regular LwM2M Server.</td></tr>
+    <tr><td class="paramname">inout_acl_iid</td><td>Setting related to the Instance ID of the Access Control Object Instance that governs the given target. <ul>
+<li>If <code>NULL</code>, any existing instance governing the given target will be used if present, or a new instance with a first free Instance ID will be created. </li>
+<li>If non-<code>NULL</code> and <code>*inout_acl_iid == ANJAY_ID_INVALID</code>, any existing instance governing the given target will be used if present, or a new instance with a first free Instance ID will be created, and <code>*inout_acl_iid</code> will be set to the Instance ID of the affected Access Control Object Instance upon a successful return from this function. </li>
+<li>If non-NULL and <code>*inout_acl_iid != ANJAY_ID_INVALID</code>, a new instance with that ID will be created; an existing instance may also be used, but only if the instance governing the given target has the ID specified. If an instance governing the given target already exists and has a different Instance ID, or if an instance with the given ID, but governs a different target, <code>*inout_acl_iid</code> will be set to the ID of the conflicting instance and this function will return an error.</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 in case of success, negative value in case of an error (including the case where target Object Instance does not exist). </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="access__control_8h.html">access_control.h</a></li>
-    <li class="footer">Generated on Wed May 18 2022 17:17:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jul 6 2022 17:48:10 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

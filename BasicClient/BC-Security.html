@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.3. Enabling secure communication &mdash; Anjay 3.0.0 documentation</title>
+  <title>4.3. Enabling secure communication &mdash; Anjay 3.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -29,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.0.0
+                3.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -106,14 +106,8 @@ for the security modes defined in the LwM2M specification.</p>
 versions, but some REQUIRED cipher suites won’t be supported and
 serious interoperability problems may arise.</p>
 </div>
-<div class="contents local topic" id="contents">
-<ul class="simple">
-<li><p><a class="reference internal" href="#supported-security-modes" id="id1">Supported security modes</a></p></li>
-<li><p><a class="reference internal" href="#provisioning-security-configuration" id="id2">Provisioning security configuration</a></p></li>
-</ul>
-</div>
 <section id="supported-security-modes">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">4.3.1. </span>Supported security modes</a><a class="headerlink" href="#supported-security-modes" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">4.3.1. </span>Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this headline"></a></h2>
 <p>The security mode is determined based on the <em>Security Mode</em> Resource in a
 given instance of the Security Object (<code class="docutils literal notranslate"><span class="pre">/0/*/2</span></code>). Supported values are:</p>
 <ul>
@@ -134,15 +128,15 @@ cipher suite used by the server.</p></li>
 cryptographic algorithm is used to authenticate the connection endpoints and
 initialize payload encryption.</p>
 <p>Appropriate certificates need to be generated for both the LwM2M Client and
-the LwM2M Server. Public certificates of both parties mutually available,
+the LwM2M Server. Public certificates of both parties are mutually available,
 and each party also has access to its own corresponding private key.</p>
 <ul class="simple">
 <li><p>In this mode, the <em>Public Key or Identity</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/3</span></code>) Resource shall
-contain the Client’s own public certificate in binary, DER-encoded X.509
+contain the Client’s public certificate in binary, DER-encoded X.509
 format.</p></li>
 <li><p>The <em>Server Public Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/4</span></code>) Resource shall contain the Server’s
 public certificate, also in binary, DER-encoded X.509 format.</p></li>
-<li><p>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s own
+<li><p>The <em>Secret Key</em> (<code class="docutils literal notranslate"><span class="pre">/0/*/5</span></code>) Resource shall contain the Client’s
 private key, corresponding to the public key contained in the <em>Public Key or
 Identity</em> Resource. It needs to be in a format defined in
 <a class="reference external" href="https://tools.ietf.org/html/rfc5958">RFC 5958</a> (also known as PKCS#8, the
@@ -154,20 +148,25 @@ certificate <em>just matches</em> the one stored in the <em>Server Public Key</e
 It is also verified that the certificate is issued for the same domain name
 that the Server URI points to and that it is signed by a trusted CA.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption and authentication is
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> - <strong>NoSec mode</strong> - In this mode, encryption and authentication are
 disabled completely and the CoAP messages are passed in plain text over the
 network. It shall not be used in production environments, unless end-to-end
 security is provided on a lower layer (e.g. IPsec). It is also useful for
 development, testing and debugging purposes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4</span></code> - <strong>Certificate mode with EST</strong> - In this mode, a certificate-based
+methods of encryption and authentication are used along with <em>Enrollment
+over Secure Transport</em> certificate management protocol. Support for this
+security mode is available as a commercial feature in Anjay. For more information,
+see the description in its <a class="reference internal" href="../CommercialFeatures/CF-EST.html"><span class="doc">dedicated article</span></a>.</p></li>
 </ul>
-<p>The <em>Raw Public Key</em> and <em>Certificate with EST</em> modes described in the LwM2M
-specification are not currently supported.</p>
-<p>In this tutorial we will focus on enabling security using the PSK mode. If you
+<p>The <em>Raw Public Key</em> mode described in the LwM2M specification is not currently
+supported.</p>
+<p>In this tutorial, we will focus on enabling security using the PSK mode. If you
 are interested in using certificates, please refer to
 <a class="reference internal" href="../AdvancedTopics/AT-Certificates.html"><span class="doc">DTLS connection using certificates</span></a>.</p>
 </section>
 <section id="provisioning-security-configuration">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">4.3.2. </span>Provisioning security configuration</a><a class="headerlink" href="#provisioning-security-configuration" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">4.3.2. </span>Provisioning security configuration<a class="headerlink" href="#provisioning-security-configuration" title="Permalink to this headline"></a></h2>
 <p>According to the LwM2M specification, the aforementioned Resources shall be
 provisioned during the Bootstrap Phase. However, if Bootstrap from Smartcard is
 not used, the Client will need to contain some factory defaults for connecting
@@ -295,7 +294,7 @@ repository.</p>
 </div>
 <p>Please note, that <code class="docutils literal notranslate"><span class="pre">server_uri</span></code> field changed too. Now there is <code class="docutils literal notranslate"><span class="pre">coaps</span></code>
 URI scheme and port <code class="docutils literal notranslate"><span class="pre">5684</span></code> (default for secure CoAP).</p>
-<p>All remaining activities related to establishing secure communication channel
+<p>All remaining activities related to establishing a secure communication channel
 with the LwM2M Server are performed automatically by Anjay.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

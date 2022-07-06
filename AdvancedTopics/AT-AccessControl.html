@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.1. Access Control in multi-server environment &mdash; Anjay 3.0.0 documentation</title>
+  <title>5.1. Access Control in multi-server environment &mdash; Anjay 3.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -29,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.0.0
+                3.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -219,7 +219,7 @@ permissions on its own in a multiple-server environment.</p>
 </div>
 <p>We start with installation of the Access Control, Security Object and Server
 Object modules:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_access_control_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
 <span class="w">        </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
 <span class="w">        </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -276,9 +276,13 @@ Object modules:</p>
 </pre></div>
 </div>
 <p>And finally, we are ready to set access lists:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Set LwM2M Create permission rights for SSID = 1, this will make SSID=1</span>
-<span class="c1">// an exclusive owner of the Test Object</span>
-<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Make SSID = 1 the owner of the Test object</span>
+<span class="n">anjay_access_control_set_owner</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// Set LwM2M Create permission rights for it as well</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">,</span><span class="w"></span>
+<span class="w">                             </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"></span>
 <span class="w">                             </span><span class="n">ANJAY_ACCESS_MASK_CREATE</span><span class="p">);</span><span class="w"></span>
 
 <span class="c1">// Allow both LwM2M Servers to read their Server Instances</span>

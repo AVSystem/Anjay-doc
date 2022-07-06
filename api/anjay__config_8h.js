@@ -26,6 +26,7 @@ var anjay__config_8h =
     [ "ANJAY_WITH_MODULE_AT_SMS", "anjay__config_8h.html#a5fd5d48f37b29b23694a0ded05f952b3", null ],
     [ "ANJAY_WITH_MODULE_BG96_NIDD", "anjay__config_8h.html#ac424b635b078ce4aa6da00d35652b703", null ],
     [ "ANJAY_WITH_MODULE_BOOTSTRAPPER", "anjay__config_8h.html#a0c94b83078cb3f9bb63fb02fffe04732", null ],
+    [ "ANJAY_WITH_MODULE_FACTORY_PROVISIONING", "anjay__config_8h.html#a5e1a4967a8fc19a9165de610000cc163", null ],
     [ "ANJAY_WITH_MODULE_FW_UPDATE", "anjay__config_8h.html#a2a1fefa3a82d7d3defdcb13597733e06", null ],
     [ "ANJAY_WITH_MODULE_IPSO_OBJECTS", "anjay__config_8h.html#a00544175958e46660b9e7cfe16c8578b", null ],
     [ "ANJAY_WITH_MODULE_SECURITY", "anjay__config_8h.html#af3826c0f2b7e58651d8237f2d8f71394", null ],

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.2. Factory Provisioning Tool &mdash; Anjay 3.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7.3. Anjay Object stub generator" href="StubGenerator.html" />
+    <link rel="prev" title="7.1. LwM2M testing shell" href="CliLwM2MServer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Tools.html">7. Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CliLwM2MServer.html">7.1. LwM2M testing shell</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.2. Factory Provisioning Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StubGenerator.html">7.3. Anjay Object stub generator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../Tools.html"><span class="section-number">7. </span>Tools</a> &raquo;</li>
+      <li><span class="section-number">7.2. </span>Factory Provisioning Tool</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="factory-provisioning-tool">
+<h1><span class="section-number">7.2. </span>Factory Provisioning Tool<a class="headerlink" href="#factory-provisioning-tool" title="Permalink to this headline"></a></h1>
+<section id="general-overview">
+<h2><span class="section-number">7.2.1. </span>General overview<a class="headerlink" href="#general-overview" title="Permalink to this headline"></a></h2>
+<p>Anjay comes with a simple Python script that makes factory device
+provisioning easier. The script supports:</p>
+<ul class="simple">
+<li><p>Generation of SenML CBOR encoded packet with basic object information read by Anjay.</p></li>
+<li><p>Creation of self-signed certificates.</p></li>
+<li><p>Loading configuration to device (currently supports Nordic boards).</p></li>
+<li><p>Automatic device onboarding in the Coiote server.</p></li>
+</ul>
+</section>
+<section id="provisioning-tool">
+<h2><span class="section-number">7.2.2. </span>Provisioning tool<a class="headerlink" href="#provisioning-tool" title="Permalink to this headline"></a></h2>
+<p>The provisioning tool is a small script that the user will interact with
+during the factory provisioning process. It uses the Factory Provisioning library
+that we will talk about in the next section.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The script can be found in <code class="docutils literal notranslate"><span class="pre">tools/provisioning-tool/ptool.py</span></code>.</p>
+</div>
+<p>The script takes many different parameters as arguments to allow some customisation.
+Let’s take a closer look:</p>
+<ul>
+<li><p><cite>-c</cite>, <cite>–endpoint_cfg</cite> - path to the configuration file with the object information
+to be loaded to the device. The file is in the format of a Python dictionary that
+is evaluated by the library and represents LwM2M objects to be loaded to the
+device. In addition to the standard Python data types (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>,
+<code class="docutils literal notranslate"><span class="pre">bytes</span></code>) to represent values of resources in the object, the user can use <code class="docutils literal notranslate"><span class="pre">Objlink</span></code>
+class to represent objlnk resource type. The constructor for this class is as
+following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Objlink</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ObjID</span><span class="p">,</span> <span class="n">ObjInstID</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ObjID</span> <span class="o">=</span> <span class="n">ObjID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ObjInstID</span> <span class="o">=</span> <span class="n">ObjInstID</span>
+</pre></div>
+</div>
+<p>So for instance <code class="docutils literal notranslate"><span class="pre">Objlink(66,</span> <span class="pre">0)</span></code> would represent a object link <code class="docutils literal notranslate"><span class="pre">66:0</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sample configuration can be found in <code class="docutils literal notranslate"><span class="pre">tools/provisioning-tool/configs/endpoint_cfg</span></code></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The provisioning tool is <strong>NOT</strong> intended to be safe to use with
+arbitrary input data. It is only intended for convenience when working with
+files created locally by trusted parties.</p>
+<p><strong>The input text file (“endpoint_cfg”) is evaluated as Python code</strong>, and as
+such, running the code from provisioning tool with untrusted input may lead
+to arbitrary operations being performed on the computer.</p>
+</div>
+</li>
+<li><p><cite>-e</cite>, <cite>–URN</cite> - This is the name of the device that will be used during registration
+to the Coiote Server. The name should be unique for the instance of Coiote Server
+we will register the device to.</p></li>
+<li><p><cite>-s</cite>, <cite>–server</cite> - This is a JSON file with server information needed for
+registration process. Those include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>url</cite> - url of the Coiote Server, if missing a default value <code class="docutils literal notranslate"><span class="pre">https://try-anjay.avsystem.com</span></code>
+is used.</p></li>
+<li><p><cite>port</cite> - port number communication with the REST API, if missing a default value
+<code class="docutils literal notranslate"><span class="pre">8087</span></code> is used. Please note that this is not the port number used by the endpoint
+device for communication with the Coiote server and rather a port number used by the
+REST API.</p></li>
+<li><p><cite>domain</cite> - name of the domain under which to register the device. There is no
+default value and this needs to be provided by the user if a registration process
+is performed.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sample configuration can be found in <code class="docutils literal notranslate"><span class="pre">tools/provisioning-tool/configs/lwm2m_server.json</span></code></p>
+</div>
+</li>
+<li><p><cite>-t</cite>, <cite>–token</cite> - Access token for REST authorization to the Coiote server.
+The generation of this token is explained in the Coiote documentation. In Coiote click
+on the question mark in the top right corner, then <strong>Documentation -&gt; User</strong>. The
+description can be found in <strong>Rest API -&gt; REST API authentication</strong> section.</p></li>
+<li><p><cite>-C</cite>, <cite>–cert</cite> - Path to the JSON file containing information for the generation of
+a self signed certificate. The provisioning tool supports those JSON entries:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>countryName</p></td>
+<td><p>String</p></td>
+<td><p>N/A</p></td>
+<td><p>Holds a 2-character ISO format country
+code. Represents attribute C in
+certificate subject.</p></td>
+</tr>
+<tr class="row-odd"><td><p>stateOrProvinceName</p></td>
+<td><p>String</p></td>
+<td><p>N/A</p></td>
+<td><p>Represents attribute ST in certificate
+subject.</p></td>
+</tr>
+<tr class="row-even"><td><p>localityName</p></td>
+<td><p>String</p></td>
+<td><p>N/A</p></td>
+<td><p>Represents attribute L in certificate
+subject.</p></td>
+</tr>
+<tr class="row-odd"><td><p>organizationName</p></td>
+<td><p>String</p></td>
+<td><p>N/A</p></td>
+<td><p>Represents attribute O in certificate
+subject.</p></td>
+</tr>
+<tr class="row-even"><td><p>organizationUnitName</p></td>
+<td><p>String</p></td>
+<td><p>N/A</p></td>
+<td><p>Represents attribute OU in certificate
+subject.</p></td>
+</tr>
+<tr class="row-odd"><td><p>emailAddress</p></td>
+<td><p>String</p></td>
+<td><p>N/A</p></td>
+<td><p>Holds email address.</p></td>
+</tr>
+<tr class="row-even"><td><p>commonName</p></td>
+<td><p>String</p></td>
+<td><p>N/A</p></td>
+<td><p>Represents attribute CN in certificate
+subject.</p></td>
+</tr>
+<tr class="row-odd"><td><p>serialNumber</p></td>
+<td><p>Integer</p></td>
+<td><p>N/A</p></td>
+<td><p>Holds serial number attribute in the
+certificate subject.</p></td>
+</tr>
+<tr class="row-even"><td><p>validityOffsetInSeconds</p></td>
+<td><p>Integer</p></td>
+<td><p>220752000</p></td>
+<td><p>Represents validity of certificate in
+seconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSAKeyLen</p></td>
+<td><p>Integer</p></td>
+<td><p>4096</p></td>
+<td><p>Represents length of the RSA key used
+during certificate creation.</p></td>
+</tr>
+<tr class="row-even"><td><p>digest</p></td>
+<td><p>String</p></td>
+<td><p>“sha512”</p></td>
+<td><p>Represents a digest algorithm used
+during certificate signing.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sample configuration can be found in <code class="docutils literal notranslate"><span class="pre">tools/provisioning-tool/configs/cert_info.json</span></code></p>
+</div>
+</li>
+<li><p><cite>-k</cite>, <cite>–pkey</cite> - Path to the endpoint private key in DER format, ignored if CERT
+parameter is set.</p></li>
+<li><p><cite>-r</cite>, <cite>–pcert</cite> - Path to the endpoint private cert in DER format, ignored if CERT
+parameter is set.</p></li>
+<li><p><cite>-p</cite>, <cite>–scert</cite> - Path to the server public cert in DER format.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The server public certificate in DER format can be acquired using openssl client:
+<code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">-n</span> <span class="pre">|</span> <span class="pre">openssl</span> <span class="pre">s_client</span> <span class="pre">-connect</span> <span class="pre">SERVER:PORT</span> <span class="pre">|</span> <span class="pre">openssl</span> <span class="pre">x509</span> <span class="pre">-outform</span> <span class="pre">der</span> <span class="pre">&gt;</span> <span class="pre">CERTIFICATE.der</span></code>
+or converted from PEM format using:
+<code class="docutils literal notranslate"><span class="pre">openssl</span> <span class="pre">x509</span> <span class="pre">-outform</span> <span class="pre">der</span> <span class="pre">-in</span> <span class="pre">CERTIFICATE.pem</span> <span class="pre">-out</span> <span class="pre">CERTIFICATE.der</span></code>.</p>
+</div>
+</section>
+<section id="factory-provisioning-library">
+<h2><span class="section-number">7.2.3. </span>Factory Provisioning library<a class="headerlink" href="#factory-provisioning-library" title="Permalink to this headline"></a></h2>
+<p>To better understand the provisioning process we will look into the implementation
+of the Factory Provisioning library.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Python library for factory provisioning can be found in
+<code class="docutils literal notranslate"><span class="pre">tools/provisioning-tool/factory_prov</span></code>.</p>
+</div>
+<p>The main class of the library that the user will interact with is the <code class="docutils literal notranslate"><span class="pre">FactoryProvisioning</span></code>
+class. The constructor for this class takes a few different arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FactoryProvisioning</span><span class="p">:</span>
+   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">endpoint_cfg</span><span class="p">,</span>
+                <span class="n">endpoint_name</span><span class="p">,</span>
+                <span class="n">server_info</span><span class="p">,</span>
+                <span class="n">token</span><span class="p">,</span>
+                <span class="n">cert_info</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">endpoint_cfg</span></code> is the path to the file with the device configuration. Corresponds
+to the argument of the same name from the provisioning tool.</p>
+<p>The next parameter is <code class="docutils literal notranslate"><span class="pre">endpoint_name</span></code>. This is the unique name of the device used
+during registration. Corresponds to the <cite>URN</cite> argument from the provisioning tool.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">server_info</span></code> is the path to the file with Coiote server information. Corresponds
+to <cite>server</cite> argument from the provisioning tool.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">token</span></code> parameter is a token used to authenticate to the REST API. Corresponds
+to the argument fo the same name from the provisioning tool.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cert_info</span></code> parameter can be used to pass the path to a file containing information
+used during generation of a self signed certificate. This parameter corresponds to
+<cite>cert</cite> argument from the provisioning tool.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Parameters <code class="docutils literal notranslate"><span class="pre">server_info</span></code>, <code class="docutils literal notranslate"><span class="pre">token</span></code> and <code class="docutils literal notranslate"><span class="pre">endpoint_name</span></code>  can be set to <code class="docutils literal notranslate"><span class="pre">None</span></code> if
+automatic registration to the Coiote server won’t be done. Also <cite>cert_info</cite>
+parameter can be <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user won’t create a self signed certificate using
+the factory provisioning library or security mode used will be different then
+Certificate.</p>
+</div>
+<p>The user can extract the information about used Security Mode set in <code class="docutils literal notranslate"><span class="pre">endpoint_cfg</span></code>
+using a class method <code class="docutils literal notranslate"><span class="pre">get_sec_mode()</span></code>. This returns a string containing one
+of three values: “psk”, “cert”, “nosec”.</p>
+<p>If Certificate is used as a Security Mode in the Security object definition,
+then before calling <code class="docutils literal notranslate"><span class="pre">provision_device()</span></code>:</p>
+<ul class="simple">
+<li><p>user should call <code class="docutils literal notranslate"><span class="pre">set_server_cert()</span></code> function to pass a path to a DER
+formatted file containing server’s certificate,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generate_self_signed_cert()</span></code> should be called or pre-generated
+certificates should be supplied by calling <code class="docutils literal notranslate"><span class="pre">set_endpoint_cert_and_key()</span></code>
+with a path to device’s private key and public certificate.</p></li>
+</ul>
+<p>To perform the factory provisioning of the device the user should call <code class="docutils literal notranslate"><span class="pre">provision_device()</span></code>
+from the <code class="docutils literal notranslate"><span class="pre">FactoryProvisioning</span></code> class. This function will generate a configuration
+file in the format os SenML CBOR (the file will be called “SenMLCBOR” and writen to disk). This
+configuration will be uploaded to the device together with the certificates (either
+self signed client certificates or the cerificate pointed by <code class="docutils literal notranslate"><span class="pre">set_endpoint_cert_and_key()</span></code>
+and also the server certificate set using <code class="docutils literal notranslate"><span class="pre">set_server_cert()</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">register()</span></code> function can be used to automatically register the device
+to the Coiote Server. Please note that if Certificate was used as a Security Mode
+then the device public certificate should uploaded by hand in to the Coiote Server.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The self-signed certificates are generated to the <code class="docutils literal notranslate"><span class="pre">cert</span></code> folder.</p>
+</div>
+<p>We can now take a look at the provisioning tool implementation to see how this API can
+be used:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">fcty</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">FactoryProvisioning</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">endpoint_cfg</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">URN</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">server</span><span class="p">,</span>
+                                  <span class="n">args</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fcty</span><span class="o">.</span><span class="n">get_sec_mode</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;cert&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">scert</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fcty</span><span class="o">.</span><span class="n">set_server_cert</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">scert</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cert</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fcty</span><span class="o">.</span><span class="n">generate_self_signed_cert</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">pkey</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">pcert</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fcty</span><span class="o">.</span><span class="n">set_endpoint_cert_and_key</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">pkey</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pcert</span><span class="p">)</span>
+
+    <span class="n">fcty</span><span class="o">.</span><span class="n">provision_device</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">URN</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fcty</span><span class="o">.</span><span class="n">register</span><span class="p">()</span>
+
+    <span class="n">ret_val</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Incorrect configuration:&#39;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ConnectionError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Coiote server error:&#39;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unexpected error, abort script execution&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">ret_val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>First we create a object of the <code class="docutils literal notranslate"><span class="pre">FactoryProvisioning</span></code> class passing the arguments
+provided to the script. Depending on the Security Mode set in the <cite>endpoint_cfg</cite>
+we can generate a self signed certificate or pass the paths to the certificate for
+both the client and server. Next we call <code class="docutils literal notranslate"><span class="pre">provision_device()</span></code> that will load the
+configuration to the device. Finally we can call <code class="docutils literal notranslate"><span class="pre">register()</span></code> to automatically
+register the device to the Coiote server. At the end of the script we will try
+to catch all exceptions that could show up during script execution. The error
+messages should give the user a hint what went wrong in case of any trouble.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CliLwM2MServer.html" class="btn btn-neutral float-left" title="7.1. LwM2M testing shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="StubGenerator.html" class="btn btn-neutral float-right" title="7.3. Anjay Object stub generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

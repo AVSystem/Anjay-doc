@@ -309,6 +309,12 @@ Functions</h2></td></tr>
 <tr class="separator:a4f886c790e57da7bd43154a1ea27f432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a1700dfa0dac3e31aebd9e95667c08e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a4a1700dfa0dac3e31aebd9e95667c08e">anjay_transport_has_unsent_notifications</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="structanjay__transport__set__t.html">anjay_transport_set_t</a> transport_set)</td></tr>
 <tr class="separator:a4a1700dfa0dac3e31aebd9e95667c08e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95cc6a38248ad8f1b0e68aff00c798d4"><td class="memItemLeft" align="right" valign="top">avs_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a95cc6a38248ad8f1b0e68aff00c798d4">anjay_update_transport_tx_params</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="structanjay__transport__set__t.html">anjay_transport_set_t</a> transport_set, const avs_coap_udp_tx_params_t *tx_params)</td></tr>
+<tr class="separator:a95cc6a38248ad8f1b0e68aff00c798d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a118bd3e0713fb9a59564ffdbaa9bf69b"><td class="memItemLeft" align="right" valign="top">avs_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a118bd3e0713fb9a59564ffdbaa9bf69b">anjay_update_coap_exchange_timeout</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="structanjay__transport__set__t.html">anjay_transport_set_t</a> transport_set, avs_time_duration_t exchange_timeout)</td></tr>
+<tr class="separator:a118bd3e0713fb9a59564ffdbaa9bf69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de226f701ee44ad174a46efd34c6c36"><td class="memItemLeft" align="right" valign="top">avs_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a4de226f701ee44ad174a46efd34c6c36">anjay_update_dtls_handshake_timeouts</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, avs_net_dtls_handshake_timeouts_t dtls_handshake_timeouts)</td></tr>
+<tr class="separator:a4de226f701ee44ad174a46efd34c6c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -2524,6 +2530,131 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 
 </div>
 </div>
+<a id="a118bd3e0713fb9a59564ffdbaa9bf69b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a118bd3e0713fb9a59564ffdbaa9bf69b">&#9670;&nbsp;</a></span>anjay_update_coap_exchange_timeout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_error_t anjay_update_coap_exchange_timeout </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structanjay__transport__set__t.html">anjay_transport_set_t</a>&#160;</td>
+          <td class="paramname"><em>transport_set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">avs_time_duration_t&#160;</td>
+          <td class="paramname"><em>exchange_timeout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Changes the CoAP exchange update timeout for given transports.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on.</td></tr>
+    <tr><td class="paramname">transport_set</td><td>Set of transport for which the exchange update timeout should be changed.</td></tr>
+    <tr><td class="paramname">exchange_update_timeout</td><td>New exchange update timeout.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AVS_OK in case of success (update timeout has been changed for at least one transport), or an error code. </dd></dl>
+
+</div>
+</div>
+<a id="a4de226f701ee44ad174a46efd34c6c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de226f701ee44ad174a46efd34c6c36">&#9670;&nbsp;</a></span>anjay_update_dtls_handshake_timeouts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_error_t anjay_update_dtls_handshake_timeouts </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">avs_net_dtls_handshake_timeouts_t&#160;</td>
+          <td class="paramname"><em>dtls_handshake_timeouts</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Changes handshake timeouts for sockets that communicate using DTLS over UDP.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on.</td></tr>
+    <tr><td class="paramname">dtls_handshake_timeouts</td><td>New DTLS handshake timeouts.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AVS_OK in case of success, or an error code. </dd></dl>
+
+</div>
+</div>
+<a id="a95cc6a38248ad8f1b0e68aff00c798d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95cc6a38248ad8f1b0e68aff00c798d4">&#9670;&nbsp;</a></span>anjay_update_transport_tx_params()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_error_t anjay_update_transport_tx_params </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structanjay__transport__set__t.html">anjay_transport_set_t</a>&#160;</td>
+          <td class="paramname"><em>transport_set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const avs_coap_udp_tx_params_t *&#160;</td>
+          <td class="paramname"><em>tx_params</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Changes transmission parameters for given transports.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on.</td></tr>
+    <tr><td class="paramname">transport_set</td><td>Set of transports for which parameters should be changed.</td></tr>
+    <tr><td class="paramname">tx_params</td><td>New transmission parameters.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AVS_OK in case of success (parameters have been changed for at least one transport), or an error code. </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="af6faffba2761255f4c813fa76038cf4d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6faffba2761255f4c813fa76038cf4d">&#9670;&nbsp;</a></span>ANJAY_TRANSPORT_SET_ALL</h2>
@@ -2670,7 +2801,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Wed May 18 2022 17:17:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jul 6 2022 17:48:10 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

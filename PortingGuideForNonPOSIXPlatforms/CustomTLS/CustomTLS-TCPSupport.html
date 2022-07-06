@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.7. Support for TLS over TCP &mdash; Anjay 3.0.0 documentation</title>
+  <title>8.4.1.7. Support for TLS over TCP &mdash; Anjay 3.1.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -29,7 +29,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.0.0
+                3.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -403,11 +403,28 @@ for the protocol versions:</p></li>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">TLS1_2_VERSION</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_TLSv1_3</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">TLS1_3_VERSION</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This implementation provides basic support for TLS 1.3. However, please note
+that proper TLS 1.3 support may require additional adjustments, such as
+<a class="reference internal" href="CustomTLS-ConfigFeatures.html#custom-tls-tls13-ciphersuites"><span class="std std-ref">configuring ciphersuites differently</span></a>.
+Depending on the underlying (D)TLS library, session resumption support may
+also need to be implemented in a different way.</p>
+<p>(D)TLS 1.3 support is not addressed thoroughly in this tutorial due to low
+level of support for TLS 1.3 and especially DTLS 1.3 in mainstream
+implementations at the time of writing. Please refer to the reference
+implementations (<a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/mbedtls/avs_mbedtls_socket.c">avs_mbedtls_socket.c</a>
+and <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/openssl/avs_openssl.c">avs_openssl.c</a>)
+for examples.</p>
 </div>
 </section>
 <section id="updates-to-the-handshake-process">
@@ -608,7 +625,7 @@ these alerts codes to the user, either, so it is also infeasible to cover this
 topic in this tutorial.</p>
 <p>It is expected that if an alert code is received during the handshake
 procedure, the alert code shall be wrapped into an <code class="docutils literal notranslate"><span class="pre">avs_error_t</span></code> object
-using <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_socket.h#L368">avs_net_ssl_alert()</a>
+using <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_socket.h#L358">avs_net_ssl_alert()</a>
 and returned as a result from the <code class="docutils literal notranslate"><span class="pre">connect</span></code> operation. Alert handling may
 also be added to the <code class="docutils literal notranslate"><span class="pre">receive</span></code> operation as well.</p>
 <p>Please see the implementation and usages of the <code class="docutils literal notranslate"><span class="pre">return_alert_if_any()</span></code>
@@ -623,8 +640,8 @@ mode will thus not work in versions that include the SMS commercial feature.</p>
 have been discussed in more detail in the
 <a class="reference internal" href="CustomTLS-CertificatesBasic.html#custom-tls-api-certificates-basic-limitations"><span class="std std-ref">Limitations</span></a> sections of the
 <a class="reference internal" href="CustomTLS-CertificatesBasic.html"><span class="doc">Basic certificate support</span></a> tutorial. Please take a look at the
-<code class="docutils literal notranslate"><span class="pre">rebuild_client_cert_chain()</span></code> functions in the <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/mbedtls/avs_mbedtls_socket.c#L1367">avs_mbedtls_socket.c</a>
-and <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/openssl/avs_openssl.c#L1039">avs_openssl.c</a>
+<code class="docutils literal notranslate"><span class="pre">rebuild_client_cert_chain()</span></code> functions in the <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/mbedtls/avs_mbedtls_socket.c#L1380">avs_mbedtls_socket.c</a>
+and <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/openssl/avs_openssl.c#L1148">avs_openssl.c</a>
 files in avs_commons for examples on how to implement this feature if needed.</p></li>
 </ul>
 </section>
