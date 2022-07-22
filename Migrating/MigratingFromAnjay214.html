@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.7. Migrating from Anjay 2.9.x-2.14.x &mdash; Anjay 3.1.0 documentation</title>
+  <title>9.7. Migrating from Anjay 2.9.x-2.14.x &mdash; Anjay 3.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -29,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.0
+                3.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -97,16 +97,17 @@
 <li><p><a class="reference internal" href="#refactor-of-the-attribute-storage-module" id="id3">Refactor of the Attribute Storage module</a></p></li>
 <li><p><a class="reference internal" href="#refactor-of-offline-mode-control-api" id="id4">Refactor of offline mode control API</a></p></li>
 <li><p><a class="reference internal" href="#addition-of-the-con-attribute-to-public-api" id="id5">Addition of the con attribute to public API</a></p></li>
-<li><p><a class="reference internal" href="#conditional-compilation-for-structured-security-credential-support" id="id6">Conditional compilation for structured security credential support</a></p></li>
-<li><p><a class="reference internal" href="#conditional-compilation-for-hsm-support-with-est" id="id7">Conditional compilation for HSM support with EST</a></p></li>
+<li><p><a class="reference internal" href="#default-d-tls-version" id="id6">Default (D)TLS version</a></p></li>
+<li><p><a class="reference internal" href="#conditional-compilation-for-structured-security-credential-support" id="id7">Conditional compilation for structured security credential support</a></p></li>
+<li><p><a class="reference internal" href="#conditional-compilation-for-hsm-support-with-est" id="id8">Conditional compilation for HSM support with EST</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id8">Changes in avs_commons</a></p>
+<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id9">Changes in avs_commons</a></p>
 <ul>
-<li><p><a class="reference internal" href="#renamed-configuration-macro-in-avs-commons-config-h" id="id9">Renamed configuration macro in avs_commons_config.h</a></p></li>
-<li><p><a class="reference internal" href="#introduction-of-new-socket-option" id="id10">Introduction of new socket option</a></p></li>
-<li><p><a class="reference internal" href="#refactor-of-psk-credential-handling" id="id11">Refactor of PSK credential handling</a></p></li>
-<li><p><a class="reference internal" href="#additional-function-in-the-hardware-security-engine-api" id="id12">Additional function in the hardware security engine API</a></p></li>
+<li><p><a class="reference internal" href="#renamed-configuration-macro-in-avs-commons-config-h" id="id10">Renamed configuration macro in avs_commons_config.h</a></p></li>
+<li><p><a class="reference internal" href="#introduction-of-new-socket-option" id="id11">Introduction of new socket option</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-psk-credential-handling" id="id12">Refactor of PSK credential handling</a></p></li>
+<li><p><a class="reference internal" href="#additional-function-in-the-hardware-security-engine-api" id="id13">Additional function in the hardware security engine API</a></p></li>
 </ul>
 </li>
 </ul>
@@ -189,8 +190,26 @@ recommended to initialize such structures with <code class="docutils literal not
 or <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_R_ATTRIBUTES_EMPTY</span></code> constants, and then fill in the attributes
 you actually intend to set.</p>
 </section>
+<section id="default-d-tls-version">
+<h3><a class="toc-backref" href="#id6"><span class="section-number">9.7.2.4. </span>Default (D)TLS version</a><a class="headerlink" href="#default-d-tls-version" title="Permalink to this headline"></a></h3>
+<p>When the <a class="reference external" href="../api/structanjay__configuration.html#ab32477e7370a36e02db5b7e7ccbdd89d">anjay_configuration_t::dtls_version</a>
+field is set to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_DEFAULT</span></code> (which includes the case of
+zero-initialization), Anjay 3.0 and earlier automatically mapped this setting to
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> to ensure that (D)TLS 1.2 is used as mandated by
+the LwM2M specification.</p>
+<p>This mapping has been removed in Anjay 3.1, which means that the default version
+configuration of the underlying (D)TLS library will be used. This has been done
+to automatically allow the use of newer protocols and deprecate old versions
+when the backend library is updated, without the need to update Anjay code.
+However, depending on the (D)TLS backend library used, this may lead to (D)TLS
+1.1 or earlier being used if the server does not properly negotiate a higher
+version. Please explicitly set <code class="docutils literal notranslate"><span class="pre">dtls_version</span></code> to
+<code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> if you want to disallow this.</p>
+<p>Please note that Mbed TLS 3.0 has dropped support for TLS 1.1 and earlier, so
+this change will not affect behavior with that library.</p>
+</section>
 <section id="conditional-compilation-for-structured-security-credential-support">
-<h3><a class="toc-backref" href="#id6"><span class="section-number">9.7.2.4. </span>Conditional compilation for structured security credential support</a><a class="headerlink" href="#conditional-compilation-for-structured-security-credential-support" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id7"><span class="section-number">9.7.2.5. </span>Conditional compilation for structured security credential support</a><a class="headerlink" href="#conditional-compilation-for-structured-security-credential-support" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">anjay_ret_certificate_chain_info()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_ret_private_key_info()</span></code>
 APIs, as well as avs_crypto-based fields in <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code>, have
 been put under a new conditional compilation flag,
@@ -200,7 +219,7 @@ might need to be enabled by defining <code class="docutils literal notranslate">
 <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>.</p>
 </section>
 <section id="conditional-compilation-for-hsm-support-with-est">
-<h3><a class="toc-backref" href="#id7"><span class="section-number">9.7.2.5. </span>Conditional compilation for HSM support with EST</a><a class="headerlink" href="#conditional-compilation-for-hsm-support-with-est" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id8"><span class="section-number">9.7.2.6. </span>Conditional compilation for HSM support with EST</a><a class="headerlink" href="#conditional-compilation-for-hsm-support-with-est" title="Permalink to this headline"></a></h3>
 <p>Support for hardware security engine in the EST subsystem has been put under
 a new conditional compilation flag, <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_EST_ENGINE_SUPPORT</span></code>. <strong>NOTE:</strong>
 This flag is only available in commercial releases of Anjay that include the HSM
@@ -213,16 +232,16 @@ enabled. Otherwise, it might need to be enabled by defining
 </section>
 </section>
 <section id="changes-in-avs-commons">
-<h2><a class="toc-backref" href="#id8"><span class="section-number">9.7.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id9"><span class="section-number">9.7.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline"></a></h2>
 <section id="renamed-configuration-macro-in-avs-commons-config-h">
-<h3><a class="toc-backref" href="#id9"><span class="section-number">9.7.3.1. </span>Renamed configuration macro in avs_commons_config.h</a><a class="headerlink" href="#renamed-configuration-macro-in-avs-commons-config-h" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id10"><span class="section-number">9.7.3.1. </span>Renamed configuration macro in avs_commons_config.h</a><a class="headerlink" href="#renamed-configuration-macro-in-avs-commons-config-h" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_PSK</span></code> configuration macro in <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code>
 has been renamed to <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PSK</span></code>.</p>
 <p>You may need to update your configuration files if you are not using CMake, or
 your preprocessor directives if you check this macro in your code.</p>
 </section>
 <section id="introduction-of-new-socket-option">
-<h3><a class="toc-backref" href="#id10"><span class="section-number">9.7.3.2. </span>Introduction of new socket option</a><a class="headerlink" href="#introduction-of-new-socket-option" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id11"><span class="section-number">9.7.3.2. </span>Introduction of new socket option</a><a class="headerlink" href="#introduction-of-new-socket-option" title="Permalink to this headline"></a></h3>
 <p>avs_commons 4.10.1 bundled with Anjay 2.15.1 adds a new socket option key:
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span></code>. This is used to make sure that when
 control is returned to the event loop, the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> call will not stall
@@ -241,7 +260,7 @@ breaking change - if the option is not supported, the library will continue to
 use the old behavior.</p>
 </section>
 <section id="refactor-of-psk-credential-handling">
-<h3><a class="toc-backref" href="#id11"><span class="section-number">9.7.3.3. </span>Refactor of PSK credential handling</a><a class="headerlink" href="#refactor-of-psk-credential-handling" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id12"><span class="section-number">9.7.3.3. </span>Refactor of PSK credential handling</a><a class="headerlink" href="#refactor-of-psk-credential-handling" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_net_psk_info_t</span></code> structure has been changed to use new types based on
 <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> instead of raw buffers. This change also
 affects <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> structure which contains the former.</p>
@@ -323,7 +342,7 @@ affects <code class="docutils literal notranslate"><span class="pre">avs_net_sec
 of <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> directly.</p>
 </section>
 <section id="additional-function-in-the-hardware-security-engine-api">
-<h3><a class="toc-backref" href="#id12"><span class="section-number">9.7.3.4. </span>Additional function in the hardware security engine API</a><a class="headerlink" href="#additional-function-in-the-hardware-security-engine-api" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id13"><span class="section-number">9.7.3.4. </span>Additional function in the hardware security engine API</a><a class="headerlink" href="#additional-function-in-the-hardware-security-engine-api" title="Permalink to this headline"></a></h3>
 <p>A new API has been added to the hardware security engine API in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"></span>
 <span class="nf">avs_crypto_pki_engine_key_store</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">query</span><span class="p">,</span><span class="w"></span>
