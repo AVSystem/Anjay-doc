@@ -4,10 +4,13 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10.9. SMS Binding &mdash; Anjay 3.1.1 documentation</title>
+  <title>10.9. SMS Binding &mdash; Anjay 3.1.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -29,7 +32,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.1
+                3.1.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -308,7 +311,7 @@ had to be issued:
 which acts as a virtual AT modem, translating SMS messages to UDP packets and
 vice-versa. You can find it in <code class="docutils literal notranslate"><span class="pre">tests/integration/framework/sms</span></code> directory.</p>
 <p>Example run follows:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tests/integration/framework/sms/vmodem.py --host try-anjay.avsystem.com --port 5683
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tests/integration/framework/sms/vmodem.py --host eu.iot.avsystem.cloud --port 5683
 2022-03-03 12:41:49 user root[19173] INFO Modem PTY: /dev/pts/5
 </pre></div>
 </div>
@@ -350,7 +353,7 @@ fields explicitly related to the SMS binding.</p>
 </span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_key_parameters_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span><span class="w"></span>
 </span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">),</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_name_indication</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;try-anjay.avsystem.com&quot;</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_name_indication</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;eu.iot.avsystem.cloud&quot;</span><span class="w"></span>
 </span><span class="w">     </span><span class="p">};</span><span class="w"></span>
 
 <span class="w">     </span><span class="c1">// Anjay will assign Instance ID automatically</span>
@@ -427,7 +430,7 @@ section, use LwM2M 1.1 and UDP as transport binding.</p>
 will be passed through another field, <code class="docutils literal notranslate"><span class="pre">server_sms_number</span></code>, in MSISDN form.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">     </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://try-anjay.avsystem.com:5683&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://eu.iot.avsystem.cloud:5683&quot;</span><span class="p">,</span><span class="w"></span>
 </span><span class="w">     </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
 <span class="w">     </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
 <span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_sms_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;12125550178&quot;</span><span class="w"></span>
