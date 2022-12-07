@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7.2. Factory Provisioning Tool &mdash; Anjay 3.1.2 documentation</title>
+  <title>7.2. Factory Provisioning Tool &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -84,9 +83,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="factory-provisioning-tool">
+  <div class="section" id="factory-provisioning-tool">
 <h1><span class="section-number">7.2. </span>Factory Provisioning Tool<a class="headerlink" href="#factory-provisioning-tool" title="Permalink to this headline"></a></h1>
-<section id="general-overview">
+<div class="section" id="general-overview">
 <h2><span class="section-number">7.2.1. </span>General overview<a class="headerlink" href="#general-overview" title="Permalink to this headline"></a></h2>
 <p>Anjay comes with a simple Python script that makes factory device
 provisioning easier. The script supports:</p>
@@ -96,8 +95,8 @@ provisioning easier. The script supports:</p>
 <li><p>Loading configuration to device (currently supports Nordic boards).</p></li>
 <li><p>Automatic device onboarding in the Coiote server.</p></li>
 </ul>
-</section>
-<section id="provisioning-tool">
+</div>
+<div class="section" id="provisioning-tool">
 <h2><span class="section-number">7.2.2. </span>Provisioning tool<a class="headerlink" href="#provisioning-tool" title="Permalink to this headline"></a></h2>
 <p>The provisioning tool is a small script that the user will interact with
 during the factory provisioning process. It uses the Factory Provisioning library
@@ -219,7 +218,8 @@ subject.</p></td>
 </tr>
 <tr class="row-even"><td><p>commonName</p></td>
 <td><p>String</p></td>
-<td><p>N/A</p></td>
+<td><p>&lt;endpoint
+name&gt;</p></td>
 <td><p>Represents attribute CN in certificate
 subject.</p></td>
 </tr>
@@ -235,15 +235,26 @@ certificate subject.</p></td>
 <td><p>Represents validity of certificate in
 seconds.</p></td>
 </tr>
-<tr class="row-odd"><td><p>RSAKeyLen</p></td>
-<td><p>Integer</p></td>
-<td><p>4096</p></td>
-<td><p>Represents length of the RSA key used
-during certificate creation.</p></td>
-</tr>
-<tr class="row-even"><td><p>digest</p></td>
+<tr class="row-odd"><td><p>ellipticCurve</p></td>
 <td><p>String</p></td>
-<td><p>“sha512”</p></td>
+<td><p>“secp256r1”</p></td>
+<td><p>Elliptic curve on which to base the
+key generated during certificate
+creation.</p></td>
+</tr>
+<tr class="row-even"><td><p>RSAKeyLen</p></td>
+<td><p>Integer</p></td>
+<td><p>N/A</p></td>
+<td><p>Represents length of the RSA key used
+during certificate creation.</p>
+<p>Cannot be specified together with
+<code class="docutils literal notranslate"><span class="pre">ellipticCurve</span></code>. EC-based keys are
+used by default.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>digest</p></td>
+<td><p>String</p></td>
+<td><p>“sha256”</p></td>
 <td><p>Represents a digest algorithm used
 during certificate signing.</p></td>
 </tr>
@@ -267,8 +278,8 @@ parameter is set.</p></li>
 or converted from PEM format using:
 <code class="docutils literal notranslate"><span class="pre">openssl</span> <span class="pre">x509</span> <span class="pre">-outform</span> <span class="pre">der</span> <span class="pre">-in</span> <span class="pre">CERTIFICATE.pem</span> <span class="pre">-out</span> <span class="pre">CERTIFICATE.der</span></code>.</p>
 </div>
-</section>
-<section id="factory-provisioning-library">
+</div>
+<div class="section" id="factory-provisioning-library">
 <h2><span class="section-number">7.2.3. </span>Factory Provisioning library<a class="headerlink" href="#factory-provisioning-library" title="Permalink to this headline"></a></h2>
 <p>To better understand the provisioning process we will look into the implementation
 of the Factory Provisioning library.</p>
@@ -344,7 +355,7 @@ be used:</p>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cert</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">fcty</span><span class="o">.</span><span class="n">generate_self_signed_cert</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">pkey</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">pcert</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">fcty</span><span class="o">.</span><span class="n">set_endpoint_cert_and_key</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">pkey</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pcert</span><span class="p">)</span>
+            <span class="n">fcty</span><span class="o">.</span><span class="n">set_endpoint_cert_and_key</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">pcert</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">pkey</span><span class="p">)</span>
 
     <span class="n">fcty</span><span class="o">.</span><span class="n">provision_device</span><span class="p">()</span>
 
@@ -376,8 +387,8 @@ configuration to the device. Finally we can call <code class="docutils literal n
 register the device to the Coiote server. At the end of the script we will try
 to catch all exceptions that could show up during script execution. The error
 messages should give the user a hint what went wrong in case of any trouble.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

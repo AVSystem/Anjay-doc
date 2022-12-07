@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.2. Get remote host/port operations &mdash; Anjay 3.1.2 documentation</title>
+  <title>8.3.1.2. Get remote host/port operations &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -96,7 +95,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="get-remote-host-port-operations">
+  <div class="section" id="get-remote-host-port-operations">
 <h1><span class="section-number">8.3.1.2. </span>Get remote host/port operations<a class="headerlink" href="#get-remote-host-port-operations" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -112,7 +111,7 @@
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-network/remote-host-port">examples/custom-network/remote-host-port</a>
 in the Anjay source directory.</p>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI-Minimal.html"><span class="doc">the previous one</span></a> and
 adds support for the “get remote host” and “get remote port” operations.</p>
@@ -123,8 +122,8 @@ configuration option to be properly respected.</p>
 connections, and remote host/port pairs are used to distinguish between them in
 the cache storage - and these functions are used to retrieve this information
 from sockets.</p>
-</section>
-<section id="get-remote-host-operation">
+</div>
+<div class="section" id="get-remote-host-operation">
 <span id="non-posix-networking-api-get-remote-host"></span><h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.2.2. </span>Get remote host operation</a><a class="headerlink" href="#get-remote-host-operation" title="Permalink to this headline"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp"></span>
 
@@ -181,8 +180,8 @@ calling POSIX <code class="docutils literal notranslate"><span class="pre">inet_
 using <code class="docutils literal notranslate"><span class="pre">getnameinfo()</span></code> with <code class="docutils literal notranslate"><span class="pre">NI_NUMERICSERV</span></code> and <code class="docutils literal notranslate"><span class="pre">NI_NUMERICHOST</span></code> flags
 enabled. <code class="docutils literal notranslate"><span class="pre">inet_ntop()</span></code> is used here because of broader compatibility.</p>
 </div>
-</section>
-<section id="get-remote-port-operation">
+</div>
+<div class="section" id="get-remote-port-operation">
 <span id="non-posix-networking-api-get-remote-port"></span><h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.2.3. </span>Get remote port operation</a><a class="headerlink" href="#get-remote-port-operation" title="Permalink to this headline"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;inttypes.h&gt;</span><span class="cp"></span>
 <span class="c1">// ...</span>
@@ -224,8 +223,8 @@ enabled. <code class="docutils literal notranslate"><span class="pre">inet_ntop(
 but its companion <code class="docutils literal notranslate"><span class="pre">stringify_sockaddr_port()</span></code>, instead of examining the IP
 address stored in the <code class="docutils literal notranslate"><span class="pre">sockaddr</span></code> structure, retrieves the port number, and
 stringifies it using <code class="docutils literal notranslate"><span class="pre">avs_simple_snprintf()</span></code>.</p>
-</section>
-<section id="update-to-vtable">
+</div>
+<div class="section" id="update-to-vtable">
 <h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.2.4. </span>Update to vtable</a><a class="headerlink" href="#update-to-vtable" title="Permalink to this headline"></a></h2>
 <p>Of course the newly implemented function need to be referenced in the virtual
 method table:</p>
@@ -243,8 +242,8 @@ method table:</p>
 <span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

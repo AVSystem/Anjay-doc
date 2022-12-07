@@ -1,5 +1,12 @@
 var NAVTREEINDEX2 =
 {
+"server_8h.html#a4ee496b0b8a66a11c0e3f8a28f2e4f83":[1,0,0,0,17,8],
+"server_8h.html#a53ef85b0f96e14aa1d875b31265e6e5d":[1,0,0,0,17,1],
+"server_8h.html#a6dcbf3360218dbdba852a4c5d2a81f53":[1,0,0,0,17,4],
+"server_8h.html#a768a40ef019f12baf72437ade02b50ff":[1,0,0,0,17,5],
+"server_8h.html#aa1535d6a9c19b9375f4e8065ac888afa":[1,0,0,0,17,2],
+"server_8h.html#ae010e57b86a3f63418c2b9e79615d292":[1,0,0,0,17,7],
+"server_8h_source.html":[1,0,0,0,17],
 "sms_8h.html":[1,0,0,0,18],
 "sms_8h.html#a52adbff67611747fe6b89d693d7ee0b7":[1,0,0,0,18,5],
 "sms_8h.html#a78124d585e4513a147c9b27fd163c85f":[1,0,0,0,18,9],
@@ -242,12 +249,5 @@ var NAVTREEINDEX2 =
 "structanjay__smsdrv__multipart__info__t.html#a3df9b56d6a63a7aebdc5b7099a475b10":[0,0,22,0],
 "structanjay__smsdrv__multipart__info__t.html#a580e6bb917b3e274498e5ab8d5c02501":[0,0,22,3],
 "structanjay__smsdrv__struct.html":[0,0,23],
-"structanjay__smsdrv__struct.html#a2fb8d97866b92d4a10039a4eeabdd2e9":[0,0,23,1],
-"structanjay__smsdrv__struct.html#a473c41cdce99aa01b73c73eb16f8618b":[0,0,23,2],
-"structanjay__smsdrv__struct.html#a52ee38c6b63ab98068d06648f9de1692":[0,0,23,3],
-"structanjay__smsdrv__struct.html#a8c41a4dd302c1b21bdea3c1d0122419a":[0,0,23,5],
-"structanjay__smsdrv__struct.html#a9e8b574aaaad0dcdbc721c2f802e5672":[0,0,23,0],
-"structanjay__smsdrv__struct.html#aa1b6407d9347635f277880fe23957b79":[0,0,23,4],
-"structanjay__socket__entry__t.html":[0,0,24],
-"structanjay__socket__entry__t.html#a4d58c28c450d30bb248f2e9d90132207":[0,0,24,0]
+"structanjay__smsdrv__struct.html#a2fb8d97866b92d4a10039a4eeabdd2e9":[0,0,23,1]
 };

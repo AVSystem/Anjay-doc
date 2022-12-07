@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.3. Session resumption support &mdash; Anjay 3.1.2 documentation</title>
+  <title>8.4.1.3. Session resumption support &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,7 +94,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="session-resumption-support">
+  <div class="section" id="session-resumption-support">
 <h1><span class="section-number">8.4.1.3. </span>Session resumption support<a class="headerlink" href="#session-resumption-support" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -116,7 +115,7 @@
 </li>
 </ul>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.3.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="CustomTLS-Minimal.html"><span class="doc">the previous one</span></a> and adds
 support for DTLS session resumption mechanism.</p>
@@ -133,8 +132,8 @@ happened, even if the device’s IP address changed.</p>
 <p>Two approaches to handling session resumption will be considered, one based on
 the TLS library’s native session handling capabilities, and one involving a raw
 buffer provided by the Anjay library.</p>
-</section>
-<section id="simple-session-persistence">
+</div>
+<div class="section" id="simple-session-persistence">
 <h2><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.3.2. </span>Simple session persistence</a><a class="headerlink" href="#simple-session-persistence" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -196,7 +195,7 @@ option is enabled.</p>
 <p>With such implementations, it is not necessary to add dedicated fields or
 save/restore logic, and it is OK to just enable the built-in mechanisms.</p>
 </div>
-<section id="saving-the-session">
+<div class="section" id="saving-the-session">
 <h3><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.3.2.1. </span>Saving the session</a><a class="headerlink" href="#saving-the-session" title="Permalink to this headline"></a></h3>
 <p>Now that there is a field to store this information, we may proceed with
 configuring the session cache so that each new session is written there:</p>
@@ -236,7 +235,7 @@ configuring the session cache so that each new session is written there:</p>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
 <span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -261,8 +260,8 @@ is because the <code class="docutils literal notranslate"><span class="pre">SSL_
 session that might change later and make it impossible to restore it later, e.g.
 when the connection is closed. This is why we want an exact clone of the session
 state as it was just after the handshake.</p>
-</section>
-<section id="restoring-the-session">
+</div>
+<div class="section" id="restoring-the-session">
 <h3><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.3.2.2. </span>Restoring the session</a><a class="headerlink" href="#restoring-the-session" title="Permalink to this headline"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">perform_handshake</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                     </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -311,8 +310,8 @@ state as it was just after the handshake.</p>
 <code class="docutils literal notranslate"><span class="pre">SSL_set_session()</span></code> right before <code class="docutils literal notranslate"><span class="pre">SSL_connect()</span></code>. We also use
 <code class="docutils literal notranslate"><span class="pre">SSL_SESSSION_dup()</span></code> here to avoid modifying the object already stored in
 the <code class="docutils literal notranslate"><span class="pre">last_session</span></code> field.</p>
-</section>
-<section id="the-avs-net-socket-opt-session-resumed-option">
+</div>
+<div class="section" id="the-avs-net-socket-opt-session-resumed-option">
 <h3><a class="toc-backref" href="#id7"><span class="section-number">8.4.1.3.2.3. </span>The <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span></code> option</a><a class="headerlink" href="#the-avs-net-socket-opt-session-resumed-option" title="Permalink to this headline"></a></h3>
 <p>The Anjay library needs to know whether the “connect” operation resulted in an
 establishment of a completely new session, or a resumption of an existing one.
@@ -327,7 +326,7 @@ operation.</p>
 <span class="w">                               </span><span class="n">avs_net_socket_opt_value_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_option_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">option_key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_opt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                                 </span><span class="n">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                                 </span><span class="n">out_option_value</span><span class="p">);</span><span class="w"></span>
@@ -336,10 +335,10 @@ operation.</p>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SSL_pending</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span><span class="p">:</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SSL_session_reused</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">));</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 </span><span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -388,8 +387,8 @@ querying it fails, the library will behave the same way as if <code class="docut
 returned, i.e. a fresh session will be assumed, prioritizing safety over
 network traffic usage.</p>
 </div>
-</section>
-<section id="limitations">
+</div>
+<div class="section" id="limitations">
 <h3><a class="toc-backref" href="#id8"><span class="section-number">8.4.1.3.2.4. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h3>
 <p>As implemented above, the session is only persisted for as long as the socket
 object exists. This is fine for most of the cases. However, the persistence
@@ -411,9 +410,9 @@ buffers via the <code class="docutils literal notranslate"><span class="pre">DTL
 <p>This value will be used in array size declarations, so the value of 0 may
 not be acceptable for some compilers.</p>
 </div>
-</section>
-</section>
-<section id="buffer-based-session-persistence">
+</div>
+</div>
+<div class="section" id="buffer-based-session-persistence">
 <h2><a class="toc-backref" href="#id9"><span class="section-number">8.4.1.3.3. </span>Buffer-based session persistence</a><a class="headerlink" href="#buffer-based-session-persistence" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -479,7 +478,7 @@ configuration structure when initializing the socket:</p>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
 <span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -506,7 +505,7 @@ configuration structure when initializing the socket:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<section id="id1">
+<div class="section" id="id1">
 <h3><a class="toc-backref" href="#id10"><span class="section-number">8.4.1.3.3.1. </span>Saving the session</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>The snippet above already includes the <code class="docutils literal notranslate"><span class="pre">SSL_CTX_set_session_cache_mode()</span></code> and
 <code class="docutils literal notranslate"><span class="pre">SSL_CTX_sess_set_new_cb()</span></code> calls introduced in the previous version. However
@@ -550,8 +549,8 @@ handshake.</p></li>
 It is not a problem if the session data is only restorable on the same machine
 that generated it.</p></li>
 </ul>
-</section>
-<section id="id2">
+</div>
+<div class="section" id="id2">
 <h3><a class="toc-backref" href="#id11"><span class="section-number">8.4.1.3.3.2. </span>Restoring the session</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
 <p>Much like in the previous version, we need to call <code class="docutils literal notranslate"><span class="pre">SSL_set_session()</span></code> with
 the restored session before calling <code class="docutils literal notranslate"><span class="pre">SSL_connect()</span></code>.</p>
@@ -611,7 +610,7 @@ option, which in this case looks identical:</p>
 <span class="w">                               </span><span class="n">avs_net_socket_opt_value_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_option_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">option_key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_opt</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                                 </span><span class="n">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                                 </span><span class="n">out_option_value</span><span class="p">);</span><span class="w"></span>
@@ -620,10 +619,10 @@ option, which in this case looks identical:</p>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SSL_pending</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_OPT_SESSION_RESUMED</span><span class="p">:</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SSL_session_reused</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">));</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 </span><span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -633,9 +632,9 @@ option, which in this case looks identical:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>

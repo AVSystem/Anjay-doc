@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.3. Download modes and protocols &mdash; Anjay 3.1.2 documentation</title>
+  <title>6.3. Download modes and protocols &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -87,9 +86,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="download-modes-and-protocols">
+  <div class="section" id="download-modes-and-protocols">
 <h1><span class="section-number">6.3. </span>Download modes and protocols<a class="headerlink" href="#download-modes-and-protocols" title="Permalink to this headline"></a></h1>
-<section id="firmware-transfer">
+<div class="section" id="firmware-transfer">
 <span id="id1"></span><h2><span class="section-number">6.3.1. </span>Firmware transfer<a class="headerlink" href="#firmware-transfer" title="Permalink to this headline"></a></h2>
 <p>The LwM2M protocol defines two modes of firmware download:</p>
 <ul class="simple">
@@ -103,10 +102,9 @@ firmware package from with Write on /5/0/1 (Package URI) Resource. The client
 then performs the download asynchronously, while still being able to handle
 LwM2M requests.</p></li>
 </ul>
-<figure class="align-default" id="id2">
+<div class="figure align-default" id="id2">
 <a class="reference internal image-reference" href="../_images/anjay-firmware-download-coap-pull.svg"><img alt="../_images/anjay-firmware-download-coap-pull.svg" src="../_images/anjay-firmware-download-coap-pull.svg" width="100%" /></a>
-<figcaption>
-<p><span class="caption-text">Anjay generally handles asynchronous CoAP downloads within
+<p class="caption"><span class="caption-text">Anjay generally handles asynchronous CoAP downloads within
 <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> calls. The <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> may initiate the
 download or retransmit requests in case of packet loss. Downloaded firmware
 is passed to the application through callbacks configured using
@@ -116,8 +114,7 @@ is passed to the application through callbacks configured using
 <p>Please note that when using <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code>, all these calls are
 performed internally and hidden from the user.</p>
 </div>
-</figcaption>
-</figure>
+</div>
 <p>The download protocols officially defined in the LwM2M Specification are:</p>
 <ul class="simple">
 <li><p>CoAP(s)/UDP,</p></li>
@@ -137,8 +134,8 @@ by default),</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">WITH_AVS_COAP_UDP</span></code> - enables/disables CoAP/UDP (<cite>ON</cite> by default),</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">WITH_AVS_COAP_TCP</span></code> - enables/disables CoAP/TCP (<cite>ON</cite> by default).</p></li>
 </ul>
-</section>
-<section id="which-download-mode-should-you-choose">
+</div>
+<div class="section" id="which-download-mode-should-you-choose">
 <h2><span class="section-number">6.3.2. </span>Which download mode should you choose<a class="headerlink" href="#which-download-mode-should-you-choose" title="Permalink to this headline"></a></h2>
 <p>Although in the end, it is the Server that selects download method,
 we advise persuading your Server provider to use <strong>PULL</strong> transfers
@@ -153,8 +150,8 @@ asynchronously in the library.</p>
 <p>We recommend using <strong>PULL</strong> download mode due to limitations imposed on
 other download modes.</p>
 </div>
-</section>
-<section id="which-download-protocol-should-you-choose">
+</div>
+<div class="section" id="which-download-protocol-should-you-choose">
 <h2><span class="section-number">6.3.3. </span>Which download protocol should you choose<a class="headerlink" href="#which-download-protocol-should-you-choose" title="Permalink to this headline"></a></h2>
 <p>Again, it’s the Server decision which protocol shall be utilized for the
 download (of course out of the list of supported protocols, which you MAY
@@ -165,8 +162,8 @@ each Block-Wise packet needs an acknowledgment from the other side does
 not help either.</p>
 <p>If the download speed is important you should stand with either CoAP(s)/TCP or
 HTTP(s) as the download protocol.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

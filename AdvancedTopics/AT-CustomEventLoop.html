@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.9. Custom event loop &mdash; Anjay 3.1.2 documentation</title>
+  <title>5.9. Custom event loop &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -92,7 +91,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="custom-event-loop">
+  <div class="section" id="custom-event-loop">
 <h1><span class="section-number">5.9. </span>Custom event loop<a class="headerlink" href="#custom-event-loop" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> function that is used in other examples carries
 out all the tasks necessary to handle events related to LwM2M. However, there
@@ -116,7 +115,7 @@ sources:</p>
 </ul>
 <p>On POSIX compliant systems, a simple and portable way to handle all these events
 is to use the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> system call.</p>
-<section id="incoming-network-packets">
+<div class="section" id="incoming-network-packets">
 <h2><span class="section-number">5.9.1. </span>Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Permalink to this headline"></a></h2>
 <p>UDP sockets that Anjay uses to communicate with LwM2M Servers are accessible
 via the <code class="docutils literal notranslate"><span class="pre">anjay_get_sockets()</span></code> call. All the used sockets are returned as an
@@ -137,8 +136,8 @@ library.</p></li>
 </ol>
 <p>Before doing that though, you should also understand a very important concept
 Anjay is using, the task scheduler.</p>
-</section>
-<section id="task-scheduler">
+</div>
+<div class="section" id="task-scheduler">
 <span id="id1"></span><h2><span class="section-number">5.9.2. </span>Task scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this headline"></a></h2>
 <p>Anjay uses an internal scheduler for executing a number of tasks, including
 automated sending of Registration Updates and notifications, among others.</p>
@@ -157,8 +156,8 @@ is addressed by <code class="docutils literal notranslate"><span class="pre">anj
 number of milliseconds before the next scheduled job - so, unless there is a
 communication going on, it would be the amount of time the CPU can sleep. In the
 next example we will use this value as a <code class="docutils literal notranslate"><span class="pre">poll()</span></code> timeout.</p>
-</section>
-<section id="event-loop-implementation">
+</div>
+<div class="section" id="event-loop-implementation">
 <span id="basic-event-loop"></span><h2><span class="section-number">5.9.3. </span>Event loop implementation<a class="headerlink" href="#event-loop-implementation" title="Permalink to this headline"></a></h2>
 <p>Taking into account previous subsections we could modify the event loop
 presented <a class="reference internal" href="#incomplete-event-loop-idea"><span class="std std-ref">before</span></a> as follows:</p>
@@ -341,8 +340,8 @@ repository.</p>
 may happen within the Anjay library itself. Of course, the application usually
 needs to handle its own functionality, this is however outside of the scope of
 this tutorial, but the presented code may be used as a good starting point.</p>
-</section>
-<section id="anjay-serve-any">
+</div>
+<div class="section" id="anjay-serve-any">
 <h2><span class="section-number">5.9.4. </span>anjay_serve_any()<a class="headerlink" href="#anjay-serve-any" title="Permalink to this headline"></a></h2>
 <p><a class="reference external" href="../api/core_8h.html#ac436ac24095cb10ef008c8fd91126b31">anjay_serve_any()</a> is
 a simplified API that allows writing a simple event loop that the user retains
@@ -361,8 +360,8 @@ user is fully responsible for introducing exit mechanisms if needed.</p>
 <p>Please note that <code class="docutils literal notranslate"><span class="pre">anjay_serve_any()</span></code> depends on at least one of the <code class="docutils literal notranslate"><span class="pre">poll()</span></code>
 or <code class="docutils literal notranslate"><span class="pre">select()</span></code> functions being available, so this is not a feasible solution
 for non-standard network socket layers.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

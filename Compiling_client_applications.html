@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. Compiling client applications &mdash; Anjay 3.1.2 documentation</title>
+  <title>3. Compiling client applications &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -78,9 +77,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="compiling-client-applications">
+  <div class="section" id="compiling-client-applications">
 <h1><span class="section-number">3. </span>Compiling client applications<a class="headerlink" href="#compiling-client-applications" title="Permalink to this headline"></a></h1>
-<section id="compiling-the-library">
+<div class="section" id="compiling-the-library">
 <h2><span class="section-number">3.1. </span>Compiling the library<a class="headerlink" href="#compiling-the-library" title="Permalink to this headline"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -92,8 +91,8 @@ settings, call the following command in Anjay root directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake . <span class="o">&amp;&amp;</span> make
 </pre></div>
 </div>
-</section>
-<section id="cross-compiling">
+</div>
+<div class="section" id="cross-compiling">
 <h2><span class="section-number">3.2. </span>Cross-compiling<a class="headerlink" href="#cross-compiling" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -103,7 +102,7 @@ example, want to use Anjay on Raspberry Pi, then you can perform
 compilation on Raspberry Pi as described above or cross-compilation on your
 PC.</p>
 </div>
-<section id="arm-cortex-m3-powered-stm3220">
+<div class="section" id="arm-cortex-m3-powered-stm3220">
 <h3><span class="section-number">3.2.1. </span>ARM Cortex-M3-powered STM3220<a class="headerlink" href="#arm-cortex-m3-powered-stm3220" title="Permalink to this headline"></a></h3>
 <p>First, prepare a CMake toolchain file (see <a class="reference external" href="https://cmake.org/cmake/help/v3.0/manual/cmake-toolchains.7.html#cross-compiling">CMake documentation</a>), then pass <code class="code docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> when configuring Anjay:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$YOUR_TOOLCHAIN_FILE</span> . <span class="o">&amp;&amp;</span> make
@@ -124,8 +123,8 @@ PC.</p>
 <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXE_LINKER_FLAGS</span><span class="w"> </span><span class="s2">&quot;-Wl,-gc-sections&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="android">
+</div>
+<div class="section" id="android">
 <h3><span class="section-number">3.2.2. </span>Android<a class="headerlink" href="#android" title="Permalink to this headline"></a></h3>
 <p>Compilation on Android platform is rather straightforward. First you have to get <a class="reference external" href="https://developer.android.com/ndk/index.html">Android NDK</a>. To configure Anjay you
 have to pass <code class="docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> from the NDK (we assume that
@@ -190,11 +189,11 @@ before proceeding, as it may not work otherwise):</p>
 </div>
 <p>And finally, we run <cite>make</cite>, finishing the whole procedure.</p>
 </div>
-</section>
-</section>
-<section id="installing-the-library">
+</div>
+</div>
+<div class="section" id="installing-the-library">
 <h2><span class="section-number">3.3. </span>Installing the library<a class="headerlink" href="#installing-the-library" title="Permalink to this headline"></a></h2>
-<section id="building-with-cmake">
+<div class="section" id="building-with-cmake">
 <h3><span class="section-number">3.3.1. </span>Building with CMake<a class="headerlink" href="#building-with-cmake" title="Permalink to this headline"></a></h3>
 <p>The preferred way of building Anjay is to use CMake.</p>
 <p>To install Anjay headers and libraries in <code class="code docutils literal notranslate"><span class="pre">/usr/local</span></code>:</p>
@@ -205,8 +204,8 @@ before proceeding, as it may not work otherwise):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/custom/path . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
 </pre></div>
 </div>
-</section>
-<section id="alternative-build-systems">
+</div>
+<div class="section" id="alternative-build-systems">
 <span id="no-cmake"></span><h3><span class="section-number">3.3.2. </span>Alternative build systems<a class="headerlink" href="#alternative-build-systems" title="Permalink to this headline"></a></h3>
 <p>Alternatively, you may use any other build system. You will need to:</p>
 <ul class="simple">
@@ -267,11 +266,11 @@ cp -r deps/avs_commons/include_public/avsystem /usr/local/include/
 cp -r config/* /usr/local/include/
 </pre></div>
 </div>
-</section>
-</section>
-<section id="including-the-library-in-an-application">
+</div>
+</div>
+<div class="section" id="including-the-library-in-an-application">
 <h2><span class="section-number">3.4. </span>Including the library in an application<a class="headerlink" href="#including-the-library-in-an-application" title="Permalink to this headline"></a></h2>
-<section id="cmake-projects">
+<div class="section" id="cmake-projects">
 <h3><span class="section-number">3.4.1. </span>CMake projects<a class="headerlink" href="#cmake-projects" title="Permalink to this headline"></a></h3>
 <p>The preferred method of using Anjay in custom projects is to use CMake <code class="code docutils literal notranslate"><span class="pre">find_package</span></code> command after installing the library:</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">find_package</span><span class="p">(</span><span class="s">anjay</span><span class="p">)</span>
@@ -283,8 +282,8 @@ cp -r config/* /usr/local/include/
 <p class="admonition-title">Note</p>
 <p>If a custom installation path is used, you need to set <code class="code docutils literal notranslate"><span class="pre">anjay_DIR</span></code> CMake variable to <code class="code docutils literal notranslate"><span class="pre">$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
 </div>
-</section>
-<section id="id1">
+</div>
+<div class="section" id="id1">
 <h3><span class="section-number">3.4.2. </span>Alternative build systems<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>If Anjay itself has been compiled using CMake, flags necessary for other build systems can be
 retrieved using <code class="code docutils literal notranslate"><span class="pre">cmake</span></code> command:</p>
@@ -301,8 +300,8 @@ retrieved using <code class="code docutils literal notranslate"><span class="pre
 <p class="admonition-title">Note</p>
 <p>If a custom installation prefix is used, you need to also pass <code class="code docutils literal notranslate"><span class="pre">-Danjay_DIR=$YOUR_INSTALL_PREFIX/lib/anjay</span></code>.</p>
 </div>
-</section>
-<section id="anjay-compiled-without-cmake">
+</div>
+<div class="section" id="anjay-compiled-without-cmake">
 <h3><span class="section-number">3.4.3. </span>Anjay compiled without CMake<a class="headerlink" href="#anjay-compiled-without-cmake" title="Permalink to this headline"></a></h3>
 <p>If Anjay has been compiled without using CMake, you will need to provide necessary flags manually.</p>
 <p>Specific dependencies will vary according to:</p>
@@ -336,9 +335,9 @@ retrieved using <code class="code docutils literal notranslate"><span class="pre
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-lanjay -lz -lmbedtls -lmbedcrypto -lmbedx509 -lm -pthread
 </pre></div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>

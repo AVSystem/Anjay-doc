@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7.1. LwM2M testing shell &mdash; Anjay 3.1.2 documentation</title>
+  <title>7.1. LwM2M testing shell &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -84,13 +83,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="lwm2m-testing-shell">
+  <div class="section" id="lwm2m-testing-shell">
 <h1><span class="section-number">7.1. </span>LwM2M testing shell<a class="headerlink" href="#lwm2m-testing-shell" title="Permalink to this headline"></a></h1>
 <p>For the purpose of early testing of Anjay-based clients, we provide a simple CLI implementation of
 LwM2M. It is written in Python using <cite>powercmd</cite> library. You can find it in
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/tests/integration/framework/nsh-lwm2m">tests/integration/framework/nsh-lwm2m</a>
 directory in the Anjay repository.</p>
-<section id="running-the-server">
+<div class="section" id="running-the-server">
 <h2><span class="section-number">7.1.1. </span>Running the server<a class="headerlink" href="#running-the-server" title="Permalink to this headline"></a></h2>
 <p>You can start the server (from the main Anjay directory) by running <cite>./tests/integration/framework/nsh-lwm2m/nsh_lwm2m.py</cite>
 with the following optional arguments:</p>
@@ -117,8 +116,8 @@ with the following optional arguments:</p>
 <dd><p>Enable mbed TLS debug output.</p>
 </dd>
 </dl>
-</section>
-<section id="supported-commands">
+</div>
+<div class="section" id="supported-commands">
 <h2><span class="section-number">7.1.2. </span>Supported commands<a class="headerlink" href="#supported-commands" title="Permalink to this headline"></a></h2>
 <p>In this section we present the commands supported by the shell, with a bunch of examples.
 The initial setup for most of the provided examples can be obtained by two commands, both runned from the main Anjay directory,
@@ -130,7 +129,7 @@ first for setting up the server:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./output/bin/demo -e my_endpoint -u coap://127.0.0.1:9000
 </pre></div>
 </div>
-<section id="handling-messages">
+<div class="section" id="handling-messages">
 <h3><span class="section-number">7.1.2.1. </span>Handling messages<a class="headerlink" href="#handling-messages" title="Permalink to this headline"></a></h3>
 <p>The most important group of commands are those for sending messages. Most of them just send the corresponding LwM2M message:</p>
 <dl class="simple">
@@ -198,10 +197,10 @@ the result of entering an empty line on Nsh side should be:</p>
 <p>Usually there is no need for passing all of the command arguments. To see which are optional
 you can use <strong>help</strong> for the considered command. In the output they are printed with <code class="docutils literal notranslate"><span class="pre">?</span></code> signs.</p>
 </div>
-</section>
-<section id="working-with-payloads">
+</div>
+<div class="section" id="working-with-payloads">
 <h3><span class="section-number">7.1.2.2. </span>Working with payloads<a class="headerlink" href="#working-with-payloads" title="Permalink to this headline"></a></h3>
-<section id="introduction">
+<div class="section" id="introduction">
 <h4><span class="section-number">7.1.2.2.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h4>
 <p>When a binary payload contains a non-printable character, it is
 impossible to encode it as a plain text. To overcome this inconvenience the shell introduces a special
@@ -219,8 +218,8 @@ Other commands common for the subshells are:</p>
 <dt>show</dt><dd><p>Displays current element structure in a human-readable form.</p>
 </dd>
 </dl>
-</section>
-<section id="cbor-subshell">
+</div>
+<div class="section" id="cbor-subshell">
 <h4><span class="section-number">7.1.2.2.2. </span>CBOR subshell<a class="headerlink" href="#cbor-subshell" title="Permalink to this headline"></a></h4>
 <p>This subshell is entered by <strong>cbor</strong> command. The only extra command supported is:</p>
 <dl class="simple">
@@ -228,8 +227,8 @@ Other commands common for the subshells are:</p>
 a path to some value-containing Resource/Resource Instance is kept.</p>
 </dd>
 </dl>
-</section>
-<section id="tlv-subshell">
+</div>
+<div class="section" id="tlv-subshell">
 <h4><span class="section-number">7.1.2.2.3. </span>TLV subshell<a class="headerlink" href="#tlv-subshell" title="Permalink to this headline"></a></h4>
 <p>TLV subshell is entered by <strong>tlv</strong> command. It supports a few commands more:</p>
 <dl>
@@ -252,8 +251,8 @@ The pairs need to be comma separated and no spaces are allowed.</p>
 <dt>select <code class="docutils literal notranslate"><span class="pre">PATH</span></code></dt><dd><p>Selects an Object Instance or Multiple Resource that further add_* calls will add elements into.</p>
 </dd>
 </dl>
-</section>
-<section id="using-subshells-example">
+</div>
+<div class="section" id="using-subshells-example">
 <h4><span class="section-number">7.1.2.2.4. </span>Using subshells example<a class="headerlink" href="#using-subshells-example" title="Permalink to this headline"></a></h4>
 <p>Let’s suppose that we would like to encode some simple data as both CBOR ans TLV, let its structure be:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/0 (Instance)
@@ -322,9 +321,9 @@ exiting
 \x84\xa2\x00\x65\x30\x2f\x30\x2f\x30\x02\x02\xa2\x00\x65\x30\x2f\x30\x2f\x31\x02\x05\xa2\x00\x63\x31\x2f\x31\x02\x0b\xa2\x00\x63\x31\x2f\x33\x02\x01
 </pre></div>
 </div>
-</section>
-</section>
-<section id="decoding-messages">
+</div>
+</div>
+<div class="section" id="decoding-messages">
 <h3><span class="section-number">7.1.2.3. </span>Decoding messages<a class="headerlink" href="#decoding-messages" title="Permalink to this headline"></a></h3>
 <p>Nsh supports two commands which are connected to both previously discussed topics - tools for decoding CoAP/LwM2M messages:</p>
 <dl class="simple">
@@ -346,11 +345,11 @@ options:
 content: 0 bytes
 </pre></div>
 </div>
-</section>
-<section id="inspecting-previous-messages">
+</div>
+<div class="section" id="inspecting-previous-messages">
 <h3><span class="section-number">7.1.2.4. </span>Inspecting previous messages<a class="headerlink" href="#inspecting-previous-messages" title="Permalink to this headline"></a></h3>
 <p>Nsh supports also a bunch of tools for inspecting the results of the previous commands.</p>
-<section id="message-history">
+<div class="section" id="message-history">
 <h4><span class="section-number">7.1.2.4.1. </span>Message history<a class="headerlink" href="#message-history" title="Permalink to this headline"></a></h4>
 <p>The first such tool is the <em>message history</em> which can be handled using two commands:</p>
 <dl class="simple">
@@ -409,8 +408,8 @@ ascii-ish:
 </div>
 <p>After running the <strong>reset_history</strong> command, the history will be cleared and
 <strong>details</strong> (with any parameter) runned after that, returns only a warning <code class="docutils literal notranslate"><span class="pre">message</span> <span class="pre">not</span> <span class="pre">found</span></code>.</p>
-</section>
-<section id="payload-buffer">
+</div>
+<div class="section" id="payload-buffer">
 <h4><span class="section-number">7.1.2.4.2. </span>Payload buffer<a class="headerlink" href="#payload-buffer" title="Permalink to this headline"></a></h4>
 <p>Another important tool is <strong>payload buffer</strong>.
 It stores the contents of the messages received by the server and
@@ -482,8 +481,8 @@ TLV (9 elements):
   resource 23 = b&#39;\x00&#39; (int: 0)
 </pre></div>
 </div>
-</section>
-<section id="checking-errors">
+</div>
+<div class="section" id="checking-errors">
 <h4><span class="section-number">7.1.2.4.3. </span>Checking errors<a class="headerlink" href="#checking-errors" title="Permalink to this headline"></a></h4>
 <p>When something was wrong with your last command Nsh will return an error.
 It might be helpful to get some more details and for this purpose you can
@@ -529,9 +528,9 @@ ValueError: could not send Lwm2mRead (not a valid CoAP path: 0/3)
 </pre></div>
 </div>
 <p>Now the issue with the path is clear - it is not started with <code class="docutils literal notranslate"><span class="pre">/</span></code> character.</p>
-</section>
-</section>
-<section id="dealing-with-connections">
+</div>
+</div>
+<div class="section" id="dealing-with-connections">
 <h3><span class="section-number">7.1.2.5. </span>Dealing with connections<a class="headerlink" href="#dealing-with-connections" title="Permalink to this headline"></a></h3>
 <p>To this point we always used the same setting of the client and the server, with the server port
 given as a command line parameter. This approach is sufficient for most of cases, but Nsh supports
@@ -544,8 +543,8 @@ three commands for modifying the connection in runtime:</p>
 <dt>unconnect</dt><dd><p>“Unconnects” the socket from an already accepted client. The idea is that then the server will be able to receive packets from different (host, port), which may be useful for testing purposes.</p>
 </dd>
 </dl>
-</section>
-<section id="testing">
+</div>
+<div class="section" id="testing">
 <h3><span class="section-number">7.1.2.6. </span>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h3>
 <p>We can use Nsh for running list of commands from a file, working as a kind of a primitive test case.
 There are two commands which can be especially helpful in such situation:</p>
@@ -564,8 +563,8 @@ via this command and print a message if a mismatch is detected.</p>
 time to make some action.</p>
 </dd>
 </dl>
-</section>
-<section id="different-kinds-of-servers">
+</div>
+<div class="section" id="different-kinds-of-servers">
 <h3><span class="section-number">7.1.2.7. </span>Different kinds of servers<a class="headerlink" href="#different-kinds-of-servers" title="Permalink to this headline"></a></h3>
 <p>Besides a casual LwM2M server, Nsh can also serve in two different ways:</p>
 <blockquote>
@@ -594,7 +593,7 @@ after setting up Security/Server instances.</p>
 </dd>
 </dl>
 <p>As they are the most complex commands, we provide examples for both of them:</p>
-<section id="bootstrapping">
+<div class="section" id="bootstrapping">
 <h4><span class="section-number">7.1.2.7.1. </span>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Permalink to this headline"></a></h4>
 <p>To show how we can use Nsh for bootstrapping, we set up the bootstrap server:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./bootstrap/framework/nsh-lwm2m/nsh_lwm2m.py -l 9000
@@ -624,8 +623,8 @@ ode=PreSharedKey psk_identity=user psk_key=password
 </div>
 <p>Now the client is connected to the second server. As we can see in the bootstrap server log, it sent 3 messages to the client,
 two Writes to set the Server and Security objects and Bootstrap Finish in the end.</p>
-</section>
-<section id="serving-files-over-coap">
+</div>
+<div class="section" id="serving-files-over-coap">
 <h4><span class="section-number">7.1.2.7.2. </span>Serving files over CoAP<a class="headerlink" href="#serving-files-over-coap" title="Permalink to this headline"></a></h4>
 <p>To see how we can use Nsh for serving files, first start it without arguments:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>./bootstrap/framework/nsh-lwm2m/nsh_lwm2m.py
@@ -648,9 +647,9 @@ directory, it will just copy one of the files (in this case, we download Makefil
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>download coap://127.0.0.1:9000/Makefile Makefile_copy
 </pre></div>
 </div>
-</section>
-</section>
-<section id="miscellaneous">
+</div>
+</div>
+<div class="section" id="miscellaneous">
 <h3><span class="section-number">7.1.2.8. </span>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline"></a></h3>
 <p>There are a few commands, rather simple, which does not fit in any previous category:</p>
 <dl>
@@ -669,9 +668,9 @@ automatically responds with <code class="docutils literal notranslate"><span cla
 <p>If some of the options are absent, their state remains unchanged.</p>
 </dd>
 </dl>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>

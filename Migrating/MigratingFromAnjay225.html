@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.1. Migrating from Anjay 2.2.5 &mdash; Anjay 3.1.2 documentation</title>
+  <title>9.1. Migrating from Anjay 2.2.5 &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -90,7 +89,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="migrating-from-anjay-2-2-5">
+  <div class="section" id="migrating-from-anjay-2-2-5">
 <h1><span class="section-number">9.1. </span>Migrating from Anjay 2.2.5<a class="headerlink" href="#migrating-from-anjay-2-2-5" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -126,13 +125,13 @@
 </li>
 </ul>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id2"><span class="section-number">9.1.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>Most changes since Anjay 2.2.5 are minor, so no major changes in code flow are
 required when porting from Anjay 2.2. However, there has been a significant
 refactor in project structure, so some changes may be breaking for some users.</p>
-</section>
-<section id="change-to-minimum-cmake-version">
+</div>
+<div class="section" id="change-to-minimum-cmake-version">
 <h2><a class="toc-backref" href="#id3"><span class="section-number">9.1.2. </span>Change to minimum CMake version</a><a class="headerlink" href="#change-to-minimum-cmake-version" title="Permalink to this headline"></a></h2>
 <p>Declared minimum CMake version necessary for CMake-based compilation, as well as
 for importing the installed library through <code class="docutils literal notranslate"><span class="pre">find_package()</span></code>, is now 3.6. If
@@ -147,10 +146,10 @@ install methods instead:</p>
 </ul>
 <p>This change does not affect users who compile the library using some alternative
 approach, without using the provided CMake scripts.</p>
-</section>
-<section id="changes-in-anjay-proper">
+</div>
+<div class="section" id="changes-in-anjay-proper">
 <h2><a class="toc-backref" href="#id4"><span class="section-number">9.1.3. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline"></a></h2>
-<section id="removal-of-ssize-t-usages-from-anjay-apis">
+<div class="section" id="removal-of-ssize-t-usages-from-anjay-apis">
 <h3><a class="toc-backref" href="#id5"><span class="section-number">9.1.3.1. </span>Removal of ssize_t usages from Anjay APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-anjay-apis" title="Permalink to this headline"></a></h3>
 <p>Most changes in Anjay proper relate to the removal of usages of the
 POSIX-specific <code class="docutils literal notranslate"><span class="pre">size_t</span></code> type in Anjay and all related projects. See also
@@ -236,8 +235,8 @@ null-termination.</p>
 </ul>
 </li>
 </ul>
-</section>
-<section id="refactor-of-the-attribute-storage-module">
+</div>
+<div class="section" id="refactor-of-the-attribute-storage-module">
 <h3><a class="toc-backref" href="#id6"><span class="section-number">9.1.3.2. </span>Refactor of the Attribute Storage module</a><a class="headerlink" href="#refactor-of-the-attribute-storage-module" title="Permalink to this headline"></a></h3>
 <p>The Attribute Storage feature is no longer a standalone module and has been
 moved to the library core. From the user perspective, this has the following
@@ -254,8 +253,8 @@ mentioned above) has been renamed to <code class="docutils literal notranslate">
 changed - from now on, this function fails if supplied source stream is
 invalid and the Attribute Storage remains untouched. This change makes the
 function consistent with other <code class="docutils literal notranslate"><span class="pre">anjay_*_restore()</span></code> APIs.</p>
-</section>
-<section id="refactor-of-offline-mode-control-api">
+</div>
+<div class="section" id="refactor-of-offline-mode-control-api">
 <h3><a class="toc-backref" href="#id7"><span class="section-number">9.1.3.3. </span>Refactor of offline mode control API</a><a class="headerlink" href="#refactor-of-offline-mode-control-api" title="Permalink to this headline"></a></h3>
 <p>Since Anjay 2.4, offline mode is configurable independently per every
 transport. Below is a list of removed functions and counterparts that should
@@ -285,8 +284,8 @@ be used:</p>
 </table>
 <p>New functions should be called with <code class="docutils literal notranslate"><span class="pre">transport_set</span></code> argument set to
 <code class="docutils literal notranslate"><span class="pre">ANJAY_TRANSPORT_SET_ALL</span></code> to achieve the same behavior.</p>
-</section>
-<section id="addition-of-the-con-attribute-to-public-api">
+</div>
+<div class="section" id="addition-of-the-con-attribute-to-public-api">
 <h3><a class="toc-backref" href="#id8"><span class="section-number">9.1.3.4. </span>Addition of the con attribute to public API</a><a class="headerlink" href="#addition-of-the-con-attribute-to-public-api" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">con</span></code> attribute, enabled via the <code class="docutils literal notranslate"><span class="pre">WITH_CON_ATTR</span></code> CMake option, has been
 previously supported as a custom extension. Since an identical flag has been
@@ -300,8 +299,8 @@ zero-initialized value.</p>
 recommended to initialize such structures with <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_OI_ATTRIBUTES_EMPTY</span></code>
 or <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_R_ATTRIBUTES_EMPTY</span></code> constants, and then fill in the attributes
 you actually intend to set.</p>
-</section>
-<section id="default-d-tls-version">
+</div>
+<div class="section" id="default-d-tls-version">
 <h3><a class="toc-backref" href="#id9"><span class="section-number">9.1.3.5. </span>Default (D)TLS version</a><a class="headerlink" href="#default-d-tls-version" title="Permalink to this headline"></a></h3>
 <p>When the <a class="reference external" href="../api/structanjay__configuration.html#ab32477e7370a36e02db5b7e7ccbdd89d">anjay_configuration_t::dtls_version</a>
 field is set to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_DEFAULT</span></code> (which includes the case of
@@ -318,8 +317,8 @@ version. Please explicitly set <code class="docutils literal notranslate"><span 
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> if you want to disallow this.</p>
 <p>Please note that Mbed TLS 3.0 has dropped support for TLS 1.1 and earlier, so
 this change will not affect behavior with that library.</p>
-</section>
-<section id="other-changes">
+</div>
+<div class="section" id="other-changes">
 <h3><a class="toc-backref" href="#id10"><span class="section-number">9.1.3.6. </span>Other changes</a><a class="headerlink" href="#other-changes" title="Permalink to this headline"></a></h3>
 <ul>
 <li><p>Declaration of <code class="docutils literal notranslate"><span class="pre">anjay_smsdrv_cleanup()</span></code> has been moved from <code class="docutils literal notranslate"><span class="pre">anjay/core.h</span></code>
@@ -383,9 +382,9 @@ will be used as both outgoing and incoming MTU.</p>
 </ul>
 </li>
 </ul>
-</section>
-</section>
-<section id="changes-in-avs-coap">
+</div>
+</div>
+<div class="section" id="changes-in-avs-coap">
 <h2><a class="toc-backref" href="#id11"><span class="section-number">9.1.4. </span>Changes in avs_coap</a><a class="headerlink" href="#changes-in-avs-coap" title="Permalink to this headline"></a></h2>
 <p>If you are using <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> APIs directly (e.g. when communicating over raw
 CoAP protocol), please note that following breaking changes in the <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code>
@@ -453,14 +452,14 @@ argument:</p>
 <p>It is now <strong>mandatory</strong> to pass a non-NULL value as the <code class="docutils literal notranslate"><span class="pre">prng_ctx</span></code>
 argument to the functions above.</p>
 </div>
-</section>
-<section id="changes-in-avs-commons">
+</div>
+<div class="section" id="changes-in-avs-commons">
 <h2><a class="toc-backref" href="#id12"><span class="section-number">9.1.5. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 and later contain a number of breaking changes compared to
 version 4.0 used by Anjay 2.2. If you are using any of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> APIs
 directly (which is especially likely for e.g. the logging API and querying
 sockets in the event loop), you will need to adjust your code.</p>
-<section id="avs-commons-header-rename">
+<div class="section" id="avs-commons-header-rename">
 <h3><a class="toc-backref" href="#id13"><span class="section-number">9.1.5.1. </span>avs_commons header rename</a><a class="headerlink" href="#avs-commons-header-rename" title="Permalink to this headline"></a></h3>
 <p>All headers of the <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> component have been renamed to make their
 names more unique. Please adjust your <code class="docutils literal notranslate"><span class="pre">#include</span></code> directives accordingly.</p>
@@ -623,8 +622,8 @@ by moving from <code class="docutils literal notranslate"><span class="pre">avsy
 details, see <a class="reference internal" href="#avs-commons-pki-move-225"><span class="std std-ref">Move of public-key cryptography APIs from avs_net to avs_crypto</span></a>.</p>
 </dd>
 </dl>
-</section>
-<section id="changes-to-avs-net-socket-api">
+</div>
+<div class="section" id="changes-to-avs-net-socket-api">
 <h3><a class="toc-backref" href="#id14"><span class="section-number">9.1.5.2. </span>Changes to avs_net socket API</a><a class="headerlink" href="#changes-to-avs-net-socket-api" title="Permalink to this headline"></a></h3>
 <p>Below is a reference of changes made to the <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> socket API:</p>
 <table class="colwidths-given docutils align-default">
@@ -698,7 +697,7 @@ have been <strong>removed</strong>. If you relied on those features in your non-
 environment, please replace them with the new PRNG context mechanism.
 See <a class="reference internal" href="MigratingCustomEntropy.html"><span class="doc">Migrating mbed TLS custom entropy initializers</span></a> for details.</p>
 </div>
-<section id="introduction-of-new-socket-option">
+<div class="section" id="introduction-of-new-socket-option">
 <h4><a class="toc-backref" href="#id15"><span class="section-number">9.1.5.2.1. </span>Introduction of new socket option</a><a class="headerlink" href="#introduction-of-new-socket-option" title="Permalink to this headline"></a></h4>
 <p>avs_commons 4.10.1 bundled with Anjay 2.15.1 adds a new socket option key:
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span></code>. This is used to make sure that when
@@ -714,9 +713,9 @@ is relatively slow, e.g. on devices which implement TCP/IP sockets through modem
 AT commands.</p>
 <p>If you maintain your own socket integration layer or (D)TLS integration layer,
 it is recommended that you add support for this option.</p>
-</section>
-</section>
-<section id="removal-of-ssize-t-usages-from-avs-commons-apis">
+</div>
+</div>
+<div class="section" id="removal-of-ssize-t-usages-from-avs-commons-apis">
 <span id="ssize-t-removal-in-commons-225"></span><h3><a class="toc-backref" href="#id16"><span class="section-number">9.1.5.3. </span>Removal of ssize_t usages from avs_commons APIs</a><a class="headerlink" href="#removal-of-ssize-t-usages-from-avs-commons-apis" title="Permalink to this headline"></a></h3>
 <p>All usages of the POSIX-specific <code class="docutils literal notranslate"><span class="pre">ssize_t</span></code> type in public APIs have been
 removed. Instead of replacing it with some other signed integer type, additional
@@ -823,8 +822,8 @@ that value is not needed.</p>
 related to the <code class="docutils literal notranslate"><span class="pre">input</span></code> argument (hence it directly precedes it), not to
 the output buffer as is the case with the rest of these functions.</p>
 </div>
-</section>
-<section id="move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto">
+</div>
+<div class="section" id="move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto">
 <span id="avs-commons-pki-move-225"></span><h3><a class="toc-backref" href="#id17"><span class="section-number">9.1.5.4. </span>Move of public-key cryptography APIs from avs_net to avs_crypto</a><a class="headerlink" href="#move-of-public-key-cryptography-apis-from-avs-net-to-avs-crypto" title="Permalink to this headline"></a></h3>
 <p>Public key cryptography APIs, previously defined in
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/socket.h</span></code>, have been moved into a new header called
@@ -881,8 +880,8 @@ longer separate, and both have been merged into a single type.</p>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="refactor-of-psk-credential-handling">
+</div>
+<div class="section" id="refactor-of-psk-credential-handling">
 <h3><a class="toc-backref" href="#id18"><span class="section-number">9.1.5.5. </span>Refactor of PSK credential handling</a><a class="headerlink" href="#refactor-of-psk-credential-handling" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_net_psk_info_t</span></code> structure has been changed to use new types based on
 <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> instead of raw buffers. This change also
@@ -963,8 +962,8 @@ affects <code class="docutils literal notranslate"><span class="pre">avs_net_sec
 </ul>
 <p>This change is breaking for code that accesses the <code class="docutils literal notranslate"><span class="pre">data.psk</span></code> field
 of <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> directly.</p>
-</section>
-<section id="changes-to-public-configuration-macros">
+</div>
+<div class="section" id="changes-to-public-configuration-macros">
 <h3><a class="toc-backref" href="#id19"><span class="section-number">9.1.5.6. </span>Changes to public configuration macros</a><a class="headerlink" href="#changes-to-public-configuration-macros" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> 4.1 introduced a new header file,
 <code class="docutils literal notranslate"><span class="pre">avsystem/commons/avs_commons_config.h</span></code>, that encapsulates all its
@@ -1025,8 +1024,8 @@ error.</p>
 the CMake variable names have not changed - the renames affect <strong>only</strong> the
 C preprocessor.</p>
 </div>
-</section>
-<section id="refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host">
+</div>
+<div class="section" id="refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host">
 <h3><a class="toc-backref" href="#id20"><span class="section-number">9.1.5.7. </span>Refactor of avs_net_validate_ip_address() and avs_net_local_address_for_target_host()</a><a class="headerlink" href="#refactor-of-avs-net-validate-ip-address-and-avs-net-local-address-for-target-host" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_net_validate_ip_address()</span></code> is now no longer used by Anjay or
 <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. It was previously necessary to implement it as part of the
@@ -1042,8 +1041,8 @@ implementation, but now it is a <code class="docutils literal notranslate"><span
 <code class="docutils literal notranslate"><span class="pre">avs_net_socket_*()</span></code> APIs. Please remove your version of
 <code class="docutils literal notranslate"><span class="pre">avs_net_local_address_for_target_host()</span></code> from your socket implementation if
 you have one, as having two alternative variants may lead to conflicts.</p>
-</section>
-<section id="changes-in-component-dependencies">
+</div>
+<div class="section" id="changes-in-component-dependencies">
 <h3><a class="toc-backref" href="#id21"><span class="section-number">9.1.5.8. </span>Changes in component dependencies</a><a class="headerlink" href="#changes-in-component-dependencies" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">avs_net</span></code> now depends on <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code></p>
@@ -1066,8 +1065,8 @@ CMake to handle dependencies between your project and Anjay</p></li>
 </ul>
 </li>
 </ul>
-</section>
-<section id="removal-of-the-legacy-coap-component">
+</div>
+<div class="section" id="removal-of-the-legacy-coap-component">
 <h3><a class="toc-backref" href="#id22"><span class="section-number">9.1.5.9. </span>Removal of the legacy CoAP component</a><a class="headerlink" href="#removal-of-the-legacy-coap-component" title="Permalink to this headline"></a></h3>
 <p>While the new <code class="docutils literal notranslate"><span class="pre">avs_coap</span></code> has been used as the CoAP implementation in all
 versions of Anjay 2.x, the old CoAP component of <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> remained in the
@@ -1084,9 +1083,9 @@ serializing, sending and receiving raw, isolated messages (as opposed to
 proper, conformant CoAP exchanges), is not provided in the public API for
 this reason.</p>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>

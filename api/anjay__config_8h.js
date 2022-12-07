@@ -1,7 +1,9 @@
 var anjay__config_8h =
 [
+    [ "ANJAY_DEFAULT_SEND_FORMAT", "anjay__config_8h.html#a1a84b5d902c054161b5c8416f708ff47", null ],
     [ "ANJAY_DTLS_SESSION_BUFFER_SIZE", "anjay__config_8h.html#a5a2af7df20d4af954b059285bf9d8082", null ],
     [ "ANJAY_MAX_DOUBLE_STRING_SIZE", "anjay__config_8h.html#a5c4af7225e70339a9a8bf6f7ea3691dd", null ],
+    [ "ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER", "anjay__config_8h.html#a91bf1e1a9dbc892318b1236baef759a6", null ],
     [ "ANJAY_MAX_PK_OR_IDENTITY_SIZE", "anjay__config_8h.html#ab0f0c7d580b87f00e7a3e0ba7863439a", null ],
     [ "ANJAY_MAX_SECRET_KEY_SIZE", "anjay__config_8h.html#a07617d932867cb801411f90bd0b45fdf", null ],
     [ "ANJAY_MAX_URI_QUERY_SEGMENT_SIZE", "anjay__config_8h.html#a8b8bf42dd67ac3d09514513db1ada414", null ],
@@ -11,6 +13,7 @@ var anjay__config_8h =
     [ "ANJAY_WITH_BOOTSTRAP", "anjay__config_8h.html#a8a70f38b1f092c1eff76496512d0695f", null ],
     [ "ANJAY_WITH_CBOR", "anjay__config_8h.html#ac0e52744ae930db0f298d2d6f76bb483", null ],
     [ "ANJAY_WITH_COAP_DOWNLOAD", "anjay__config_8h.html#ac0c49e6eb1f1bf4233d4100f75e02ef3", null ],
+    [ "ANJAY_WITH_COMMUNICATION_TIMESTAMP_API", "anjay__config_8h.html#a6c4776aab1ad2d74677adec7b939660e", null ],
     [ "ANJAY_WITH_CON_ATTR", "anjay__config_8h.html#a748f705c32b8e352089e7e233bb7782e", null ],
     [ "ANJAY_WITH_CORE_PERSISTENCE", "anjay__config_8h.html#ad83f5d3a0ede5bb617cfae1ed67e89ce", null ],
     [ "ANJAY_WITH_DISCOVER", "anjay__config_8h.html#a55fa5826aba0829bd86563a976b4bd88", null ],

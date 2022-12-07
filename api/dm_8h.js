@@ -17,6 +17,7 @@ var dm_8h =
     [ "ANJAY_ATTRIB_INTEGER_NONE", "dm_8h.html#a6160290a282c9135a1bf1b47d89eb394", null ],
     [ "ANJAY_ATTRIB_PERIOD_NONE", "dm_8h.html#afcacd9da4d8b43667f9f9b97aa73706b", null ],
     [ "ANJAY_ATTRIB_VALUE_NONE", "dm_8h.html#ab5ebe3e4a8e369aa0365096047c78804", null ],
+    [ "ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER", "dm_8h.html#a91bf1e1a9dbc892318b1236baef759a6", null ],
     [ "anjay_access_mask_t", "dm_8h.html#aa01fd66453c951315378ff5854f41249", null ],
     [ "anjay_dm_instance_create_t", "dm_8h.html#a4608a3d78255362e3770f132f5d7e81c", null ],
     [ "anjay_dm_instance_read_default_attrs_t", "dm_8h.html#a3d07435b39f30242395a2e0e5ef5e06c", null ],

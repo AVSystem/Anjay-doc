@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.7. Support for TLS over TCP &mdash; Anjay 3.1.2 documentation</title>
+  <title>8.4.1.7. Support for TLS over TCP &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,7 +94,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="support-for-tls-over-tcp">
+  <div class="section" id="support-for-tls-over-tcp">
 <h1><span class="section-number">8.4.1.7. </span>Support for TLS over TCP<a class="headerlink" href="#support-for-tls-over-tcp" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -114,7 +113,7 @@
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-tls/tcp-support">examples/custom-tls/tcp-support</a>
 in the Anjay source directory.</p>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id1"><span class="section-number">8.4.1.7.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>All the previous tutorials in this chapter were implementing support for DTLS, a
 variant of TLS adapted to work over unreliable datagram-based transports such as
@@ -150,8 +149,8 @@ tutorials in this chapter.</p></li>
 These changes are the main topic of this article.</p></li>
 </ul>
 </div>
-</section>
-<section id="adapting-the-application-code">
+</div>
+<div class="section" id="adapting-the-application-code">
 <h2><a class="toc-backref" href="#id2"><span class="section-number">8.4.1.7.2. </span>Adapting the application code</a><a class="headerlink" href="#adapting-the-application-code" title="Permalink to this headline"></a></h2>
 <p>The application code for this tutorial is based on the application made in the
 <a class="reference internal" href="../../FirmwareUpdateTutorial.html"><span class="doc">Firmware Update Tutorial</span></a>. The security configuration used there is
@@ -244,8 +243,8 @@ logger calls). The code from that chapter has also already been used in the
 <a class="reference internal" href="CustomTLS-CertificatesBasic.html"><span class="doc">Basic certificate support</span></a> and <a class="reference internal" href="CustomTLS-CertificatesAdvanced.html"><span class="doc">Advanced certificate support</span></a>
 tutorials.</p>
 </div>
-</section>
-<section id="prerequisites">
+</div>
+<div class="section" id="prerequisites">
 <h2><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.7.3. </span>Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
 <p>Most of the implementation of secure sockets is reused between stream-based TLS
 and datagram DTLS sockets. However, the subtle differences are present across
@@ -278,8 +277,8 @@ structure:</p>
 <span class="p">}</span><span class="w"> </span><span class="n">tls_socket_impl_t</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="updates-to-the-socket-creation">
+</div>
+<div class="section" id="updates-to-the-socket-creation">
 <h2><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.7.4. </span>Updates to the socket creation</a><a class="headerlink" href="#updates-to-the-socket-creation" title="Permalink to this headline"></a></h2>
 <p>In all previous tutorials, all the socket creation code was directly implemented
 in <code class="docutils literal notranslate"><span class="pre">_avs_net_create_dtls_socket()</span></code>. To support both TLS and DTLS, the logic is
@@ -325,10 +324,10 @@ extracted to a new function called <code class="docutils literal notranslate"><s
 </span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
 </span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
 <span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_CERTIFICATE</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_CERTIFICATE</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_certs</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">cert</span><span class="p">);</span><span class="w"></span>
 <span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -391,22 +390,22 @@ for the protocol versions:</p></li>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_tls_version</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                         </span><span class="n">avs_net_ssl_version_t</span><span class="w"> </span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_DEFAULT</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_SSLv2_OR_3</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_DEFAULT</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_SSLv2_OR_3</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_SSLv3</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_SSLv3</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">SSL3_VERSION</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_TLSv1</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">TLS1_VERSION</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_TLSv1_1</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1_1</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">TLS1_1_VERSION</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">TLS1_2_VERSION</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SSL_VERSION_TLSv1_3</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1_3</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">TLS1_3_VERSION</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -429,8 +428,8 @@ implementations (<a class="reference external" href="https://github.com/AVSystem
 and <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/openssl/avs_openssl.c">avs_openssl.c</a>)
 for examples.</p>
 </div>
-</section>
-<section id="updates-to-the-handshake-process">
+</div>
+<div class="section" id="updates-to-the-handshake-process">
 <h2><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.7.5. </span>Updates to the handshake process</a><a class="headerlink" href="#updates-to-the-handshake-process" title="Permalink to this headline"></a></h2>
 <p>In OpenSSL, a different type of BIO object is used for TLS and DTLS protocols.
 <code class="docutils literal notranslate"><span class="pre">perform_handshake()</span></code> function must thus be updated accordingly, so that
@@ -519,8 +518,8 @@ for examples.</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="updates-to-the-data-receiving-procedure">
+</div>
+<div class="section" id="updates-to-the-data-receiving-procedure">
 <h2><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.7.6. </span>Updates to the data receiving procedure</a><a class="headerlink" href="#updates-to-the-data-receiving-procedure" title="Permalink to this headline"></a></h2>
 <p>Stream-oriented and datagram-oriented transport protocols are fundamentally
 different.</p>
@@ -599,8 +598,8 @@ differences appropriately:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="conclusion">
+</div>
+<div class="section" id="conclusion">
 <h2><a class="toc-backref" href="#id7"><span class="section-number">8.4.1.7.7. </span>Conclusion</a><a class="headerlink" href="#conclusion" title="Permalink to this headline"></a></h2>
 <p>The above changes are enough to make communication using TLS over TCP to work.
 The example application corresponding to this tutorial is able to both connect
@@ -647,8 +646,8 @@ have been discussed in more detail in the
 and <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/net/openssl/avs_openssl.c#L1148">avs_openssl.c</a>
 files in avs_commons for examples on how to implement this feature if needed.</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.6. IP address stickiness support &mdash; Anjay 3.1.2 documentation</title>
+  <title>8.3.1.6. IP address stickiness support &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -96,7 +95,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ip-address-stickiness-support">
+  <div class="section" id="ip-address-stickiness-support">
 <h1><span class="section-number">8.3.1.6. </span>IP address stickiness support<a class="headerlink" href="#ip-address-stickiness-support" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -113,7 +112,7 @@
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-network/ip-stickiness">examples/custom-network/ip-stickiness</a>
 in the Anjay source directory.</p>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.6.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI-Stats.html"><span class="doc">the previous one</span></a> and
 adds support for IP address stickiness, i.e. makes it possible for Anjay to
@@ -130,8 +129,8 @@ time. Otherwise the added code will not be used.</p>
 field of <code class="docutils literal notranslate"><span class="pre">avs_net_socket_configuration_t</span></code> must be supported. Additionally,
 <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_addrinfo.h#L172">avs_net_resolved_endpoint_get_host_port()</a>
 also has to be implemented.</p>
-</section>
-<section id="theory-of-operation">
+</div>
+<div class="section" id="theory-of-operation">
 <h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.6.2. </span>Theory of operation</a><a class="headerlink" href="#theory-of-operation" title="Permalink to this headline"></a></h2>
 <p>The <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_socket.h#L56">avs_net_resolved_endpoint_t</a>
 type has been introduced so that resolved addresses (e.g. the
@@ -152,8 +151,8 @@ function.</p>
 resolved address into stringified form that is the primary form of passing host
 addresses in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>. In Anjay, it is actually used only to determine
 the family (IPv4 vs. IPv6) of the stored address.</p>
-</section>
-<section id="initialization">
+</div>
+<div class="section" id="initialization">
 <h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.6.3. </span>Initialization</a><a class="headerlink" href="#initialization" title="Permalink to this headline"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="o">*</span><span class="n">operations</span><span class="p">;</span><span class="w"></span>
@@ -193,8 +192,8 @@ the family (IPv4 vs. IPv6) of the stored address.</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">preferred_endpoint</span></code> field is intended as a pointer into user-allocated
 storage, so we just store that pointer at creation time.</p>
-</section>
-<section id="changes-to-the-connect-function">
+</div>
+<div class="section" id="changes-to-the-connect-function">
 <h2><a class="toc-backref" href="#id5"><span class="section-number">8.3.1.6.4. </span>Changes to the connect function</a><a class="headerlink" href="#changes-to-the-connect-function" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -266,8 +265,8 @@ entry will be passed to the <code class="docutils literal notranslate"><span cla
 be used.</p>
 <p>After a successful <code class="docutils literal notranslate"><span class="pre">connect()</span></code> call, the selected address is stored into the
 <code class="docutils literal notranslate"><span class="pre">preferred_endpoint</span></code> structure.</p>
-</section>
-<section id="id1">
+</div>
+<div class="section" id="id1">
 <h2><a class="toc-backref" href="#id6"><span class="section-number">8.3.1.6.5. </span>avs_net_resolved_endpoint_get_host_port()</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"></span>
 <span class="nf">avs_net_resolved_endpoint_get_host_port</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_resolved_endpoint_t</span><span class="w"> </span><span class="o">*</span><span class="n">endp</span><span class="p">,</span><span class="w"></span>
@@ -297,8 +296,8 @@ around <code class="docutils literal notranslate"><span class="pre">sockaddr_uni
 <code class="docutils literal notranslate"><span class="pre">stringify_sockaddr_port()</span></code> functions.</p>
 <p>Please note however, that either of the <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">serv</span></code> arguments may be
 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, in which case this function shall only fill the non-NULL arguments.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

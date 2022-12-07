@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.5. Basic certificate support &mdash; Anjay 3.1.2 documentation</title>
+  <title>8.4.1.5. Basic certificate support &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,7 +94,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="basic-certificate-support">
+  <div class="section" id="basic-certificate-support">
 <h1><span class="section-number">8.4.1.5. </span>Basic certificate support<a class="headerlink" href="#basic-certificate-support" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -119,7 +118,7 @@
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-tls/certificates-basic">examples/custom-tls/certificates-basic</a>
 in the Anjay source directory.</p>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id1"><span class="section-number">8.4.1.5.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>This tutorials builds up on <a class="reference internal" href="CustomTLS-ConfigFeatures.html"><span class="doc">the previous one</span></a>
 and adds basic support for the security mode based on certificates and public
@@ -158,8 +157,8 @@ the set of features implemented in this article. See the
 <a class="reference internal" href="#custom-tls-api-certificates-basic-limitations"><span class="std std-ref">Limitations</span></a> section and the next
 article for details.</p>
 </div>
-</section>
-<section id="adding-support-for-the-certificate-mode">
+</div>
+<div class="section" id="adding-support-for-the-certificate-mode">
 <h2><a class="toc-backref" href="#id2"><span class="section-number">8.4.1.5.2. </span>Adding support for the certificate mode</a><a class="headerlink" href="#adding-support-for-the-certificate-mode" title="Permalink to this headline"></a></h2>
 <p>In <code class="docutils literal notranslate"><span class="pre">avs_net</span></code>, the security mode of the socket - either PSK or certificates -
 is configured by the <code class="docutils literal notranslate"><span class="pre">mode</span></code> field in the <code class="docutils literal notranslate"><span class="pre">avs_net_security_mode_t</span></code> structure
@@ -197,10 +196,10 @@ case for the certificate mode:</p>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
 <span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="hll"><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SECURITY_CERTIFICATE</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_CERTIFICATE</span><span class="p">:</span><span class="w"></span>
 </span><span class="hll"><span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_certs</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">cert</span><span class="p">);</span><span class="w"></span>
 </span><span class="hll"><span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
 </span><span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -284,8 +283,8 @@ trust store, it is safe to ignore this setting altogether.</p>
 <p>The rest of the code in this function calls auxiliary functions that load all
 the security credential types: trusted certificates, certificate revocation
 lists, the client certificate and the client private key.</p>
-</section>
-<section id="loading-security-credentials">
+</div>
+<div class="section" id="loading-security-credentials">
 <h2><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.5.3. </span>Loading security credentials</a><a class="headerlink" href="#loading-security-credentials" title="Permalink to this headline"></a></h2>
 <p>The security credentials related to the public key infrastructure utilize the
 <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> that has been previously described in
@@ -299,7 +298,7 @@ For this reason, the credential data needs to be actually copied.</p>
 <p>Please carefully check whether credentials are passed by value or by
 reference in the TLS backend you are integrating with.</p>
 </div>
-<section id="loading-client-certificates">
+<div class="section" id="loading-client-certificates">
 <h3><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.5.3.1. </span>Loading client certificates</a><a class="headerlink" href="#loading-client-certificates" title="Permalink to this headline"></a></h3>
 <p>Client certificates is the simplest case, as we only need to load a single
 certificate, handling the <code class="docutils literal notranslate"><span class="pre">AVS_CRYPTO_DATA_SOURCE_BUFFER</span></code> case:</p>
@@ -307,7 +306,7 @@ certificate, handling the <code class="docutils literal notranslate"><span class
 <span class="nf">configure_client_cert</span><span class="p">(</span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">,</span><span class="w"></span>
 <span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">avs_crypto_certificate_chain_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">client_cert</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">client_cert</span><span class="o">-&gt;</span><span class="n">desc</span><span class="p">.</span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
 <span class="w">                </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">client_cert</span><span class="o">-&gt;</span><span class="n">desc</span><span class="p">.</span><span class="n">info</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="n">X509</span><span class="w"> </span><span class="o">*</span><span class="n">cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d2i_X509</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
@@ -336,8 +335,8 @@ important and enough for compatibility with LwM2M. However, you may want to
 also support the PEM format. If both formats are supported, they shall be
 autodetected based on the contents of the file or buffer.</p>
 </div>
-</section>
-<section id="loading-client-private-keys">
+</div>
+<div class="section" id="loading-client-private-keys">
 <h3><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.5.3.2. </span>Loading client private keys</a><a class="headerlink" href="#loading-client-private-keys" title="Permalink to this headline"></a></h3>
 <p>The code for loading client private keys is very similar, although we want to
 make sure that the <code class="docutils literal notranslate"><span class="pre">password</span></code> field is not used.</p>
@@ -345,7 +344,7 @@ make sure that the <code class="docutils literal notranslate"><span class="pre">
 <span class="nf">configure_client_key</span><span class="p">(</span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">,</span><span class="w"></span>
 <span class="w">                     </span><span class="k">const</span><span class="w"> </span><span class="n">avs_crypto_private_key_info_t</span><span class="w"> </span><span class="o">*</span><span class="n">client_key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">client_key</span><span class="o">-&gt;</span><span class="n">desc</span><span class="p">.</span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">client_key</span><span class="o">-&gt;</span><span class="n">desc</span><span class="p">.</span><span class="n">info</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
@@ -370,8 +369,8 @@ make sure that the <code class="docutils literal notranslate"><span class="pre">
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="loading-trusted-certificates">
+</div>
+<div class="section" id="loading-trusted-certificates">
 <h3><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.5.3.3. </span>Loading trusted certificates</a><a class="headerlink" href="#loading-trusted-certificates" title="Permalink to this headline"></a></h3>
 <p>For the trusted certificates, we need to support the empty and compound sources
 in addition to loading a simple single buffer:</p>
@@ -386,9 +385,9 @@ in addition to loading a simple single buffer:</p>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EINVAL</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">trusted_certs</span><span class="o">-&gt;</span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_EMPTY</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_EMPTY</span><span class="p">:</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-</span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
 <span class="w">                </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">trusted_certs</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="n">X509</span><span class="w"> </span><span class="o">*</span><span class="n">cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d2i_X509</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
@@ -407,7 +406,7 @@ in addition to loading a simple single buffer:</p>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_ARRAY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_ARRAY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 </span><span class="hll"><span class="w">             </span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">trusted_certs</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">.</span><span class="n">array</span><span class="p">.</span><span class="n">element_count</span><span class="p">;</span><span class="w"></span>
@@ -417,7 +416,7 @@ in addition to loading a simple single buffer:</p>
 </span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_LIST</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_LIST</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_crypto_security_info_union_t</span><span class="p">)</span><span class="w"> </span><span class="n">entry</span><span class="p">;</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span><span class="w"> </span><span class="n">trusted_certs</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">list_head</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -443,8 +442,8 @@ Loading the same certificate multiple times shall be permitted, in case e.g.
 an explicitly specified certificate is already present in the system trust
 store.</p></li>
 </ul>
-</section>
-<section id="loading-certificate-revocation-lists">
+</div>
+<div class="section" id="loading-certificate-revocation-lists">
 <h3><a class="toc-backref" href="#id7"><span class="section-number">8.4.1.5.3.4. </span>Loading certificate revocation lists</a><a class="headerlink" href="#loading-certificate-revocation-lists" title="Permalink to this headline"></a></h3>
 <p>The CRL loading function is actually almost identical to the certificate chain
 loading one:</p>
@@ -455,9 +454,9 @@ loading one:</p>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EINVAL</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">cert_revocation_lists</span><span class="o">-&gt;</span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_EMPTY</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_EMPTY</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_BUFFER</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
 <span class="w">                </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"></span>
 <span class="w">                        </span><span class="n">cert_revocation_lists</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">.</span><span class="n">buffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">;</span><span class="w"></span>
@@ -476,7 +475,7 @@ loading one:</p>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_ARRAY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_ARRAY</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="w">             </span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"></span>
@@ -487,7 +486,7 @@ loading one:</p>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_CRYPTO_DATA_SOURCE_LIST</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_CRYPTO_DATA_SOURCE_LIST</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_crypto_security_info_union_t</span><span class="p">)</span><span class="w"> </span><span class="n">entry</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span><span class="w"> </span><span class="n">cert_revocation_lists</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">list_head</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -504,9 +503,9 @@ loading one:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="enabling-hostname-verification">
+</div>
+</div>
+<div class="section" id="enabling-hostname-verification">
 <h2><a class="toc-backref" href="#id8"><span class="section-number">8.4.1.5.4. </span>Enabling hostname verification</a><a class="headerlink" href="#enabling-hostname-verification" title="Permalink to this headline"></a></h2>
 <p>Now that all the credentials are properly loaded, the only thing left is to
 inform the TLS library of the hostname, so that the CN or SAN fields of the
@@ -561,8 +560,8 @@ server certificate can be properly verified. This can be done by calling
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="limitations">
+</div>
+<div class="section" id="limitations">
 <span id="custom-tls-api-certificates-basic-limitations"></span><h2><a class="toc-backref" href="#id9"><span class="section-number">8.4.1.5.5. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
 <p>The implementation above is a complete basic integration with the private key
 infrastructure, however it lacks a number of features that are supported by the
@@ -596,8 +595,8 @@ of the TLS library. For this reason it will not be discussed further in the
 tutorial.</p>
 </li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

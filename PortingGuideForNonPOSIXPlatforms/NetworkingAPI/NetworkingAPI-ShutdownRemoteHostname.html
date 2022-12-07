@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.4. Remote hostname and shutdown operations &mdash; Anjay 3.1.2 documentation</title>
+  <title>8.3.1.4. Remote hostname and shutdown operations &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -96,7 +95,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="remote-hostname-and-shutdown-operations">
+  <div class="section" id="remote-hostname-and-shutdown-operations">
 <h1><span class="section-number">8.3.1.4. </span>Remote hostname and shutdown operations<a class="headerlink" href="#remote-hostname-and-shutdown-operations" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -118,13 +117,13 @@
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-network/shutdown-remote-hostname">examples/custom-network/shutdown-remote-hostname</a>
 in the Anjay source directory.</p>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI-Bind.html"><span class="doc">the previous one</span></a> and adds
 support for the “get remote hostname” and “shutdown” operations.</p>
 <p>These operations will allow suspending and resuming CoAP downloads when using
 the “offline mode” functionality.</p>
-<section id="get-remote-hostname-operation">
+<div class="section" id="get-remote-hostname-operation">
 <h3><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.4.1.1. </span>Get remote hostname operation</a><a class="headerlink" href="#get-remote-hostname-operation" title="Permalink to this headline"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">avs_net_socket_get_remote_hostname_t</span><span class="p">)(</span><span class="w"></span>
 <span class="w">        </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">out_buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">out_buffer_size</span><span class="p">);</span><span class="w"></span>
@@ -135,8 +134,8 @@ the “offline mode” functionality.</p>
 intended to always return a stringified IP address, while “get remote hostname”
 shall return the hostname originally passed to the
 <a class="reference internal" href="NetworkingAPI-Minimal.html#non-posix-networking-api-connect"><span class="std std-ref">Connect</span></a> function.</p>
-</section>
-<section id="shutdown-operation">
+</div>
+<div class="section" id="shutdown-operation">
 <h3><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.4.1.2. </span>Shutdown operation</a><a class="headerlink" href="#shutdown-operation" title="Permalink to this headline"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">avs_net_socket_shutdown_t</span><span class="p">)(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">socket</span><span class="p">);</span><span class="w"></span>
 </pre></div>
@@ -152,9 +151,9 @@ connection is unavailable from the network.</p>
 the underlying raw socket without gracefully closing the connection on the
 (D)TLS layer. This is however implemented within the (D)TLS backend integration
 and is outside the scope of this implementation.</p>
-</section>
-</section>
-<section id="additional-socket-state">
+</div>
+</div>
+<div class="section" id="additional-socket-state">
 <h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.4.2. </span>Additional socket state</a><a class="headerlink" href="#additional-socket-state" title="Permalink to this headline"></a></h2>
 <p>The string passed to the <a class="reference internal" href="NetworkingAPI-Minimal.html#non-posix-networking-api-connect"><span class="std std-ref">Connect</span></a> function is not
 stored anywhere in our current logic; there is also no standard POSIX API to
@@ -175,8 +174,8 @@ connection was successful.</p>
 <p>In our implementation, the <code class="docutils literal notranslate"><span class="pre">shut_down</span></code> flag is intended to only be <code class="docutils literal notranslate"><span class="pre">true</span></code> if
 the socket is specifically in the “shut down” state - if the socket is either
 bound, connected or closed, it shall be <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
-</section>
-<section id="updating-the-socket-state">
+</div>
+<div class="section" id="updating-the-socket-state">
 <h2><a class="toc-backref" href="#id5"><span class="section-number">8.3.1.4.3. </span>Updating the socket state</a><a class="headerlink" href="#updating-the-socket-state" title="Permalink to this headline"></a></h2>
 <p>The only place where there is direct access to the hostname, is the
 <a class="reference internal" href="NetworkingAPI-Minimal.html#non-posix-networking-api-connect"><span class="std std-ref">Connect</span></a> function, so we need to update it
@@ -268,8 +267,8 @@ operations:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="update-to-get-opt-implementation">
+</div>
+<div class="section" id="update-to-get-opt-implementation">
 <h2><a class="toc-backref" href="#id6"><span class="section-number">8.3.1.4.4. </span>Update to get_opt implementation</a><a class="headerlink" href="#update-to-get-opt-implementation" title="Permalink to this headline"></a></h2>
 <p>We need to fix implementation of getting the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_STATE</span></code> option
 so that the “shut down” state is properly reported:</p>
@@ -278,10 +277,10 @@ so that the “shut down” state is properly reported:</p>
 <span class="w">                               </span><span class="n">avs_net_socket_opt_value_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_option_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">option_key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_OPT_RECV_TIMEOUT</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">recv_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">recv_timeout</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_STATE</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_OPT_STATE</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_NET_SOCKET_STATE_CLOSED</span><span class="p">;</span><span class="w"></span>
 <span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">shut_down</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -299,10 +298,10 @@ so that the “shut down” state is properly reported:</p>
 <span class="w">            </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_OPT_INNER_MTU</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">mtu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1464</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="n">out_option_value</span><span class="o">-&gt;</span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
@@ -311,8 +310,8 @@ so that the “shut down” state is properly reported:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="new-method-implementations">
+</div>
+<div class="section" id="new-method-implementations">
 <h2><a class="toc-backref" href="#id7"><span class="section-number">8.3.1.4.5. </span>New method implementations</a><a class="headerlink" href="#new-method-implementations" title="Permalink to this headline"></a></h2>
 <p>Implementation of the shutdown operation method is simple and self-explanatory:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">net_shutdown</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -366,8 +365,8 @@ downloads using this code, it might happen that the resumed download will
 connect to a different node than the original one.</p>
 <p>This limitation will be addressed in a subsequent tutorial.</p>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

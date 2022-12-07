@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.4. Secure downloads &mdash; Anjay 3.1.2 documentation</title>
+  <title>6.4. Secure downloads &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -87,9 +86,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="secure-downloads">
+  <div class="section" id="secure-downloads">
 <h1><span class="section-number">6.4. </span>Secure downloads<a class="headerlink" href="#secure-downloads" title="Permalink to this headline"></a></h1>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><span class="section-number">6.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>Up until now, we developed a basic client application that’s capable of
 downloading firmware in <strong>PUSH</strong> and <strong>PULL</strong> modes. If the Server connection
@@ -98,8 +97,8 @@ case of <strong>PULL</strong> mode, however, there remains a question about the 
 of credentials required to establishing the secure connection.</p>
 <p>In this chapter, we will focus on methods of credentials configuration for
 <strong>PULL</strong> mode transfers.</p>
-</section>
-<section id="two-ways-of-security-configuration">
+</div>
+<div class="section" id="two-ways-of-security-configuration">
 <h2><span class="section-number">6.4.2. </span>Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Permalink to this headline"></a></h2>
 <p>When a secure firmware transfer is initiated, firmware update module implemented
 in Anjay gets security configuration in one of two following ways.</p>
@@ -119,8 +118,8 @@ exclusive. However, in <code class="docutils literal notranslate"><span class="p
 <code class="docutils literal notranslate"><span class="pre">anjay_security_config_from_dm()</span></code> to attempt URI matching with entities
 already configured in Security Object Instances.</p>
 </div>
-</section>
-<section id="supported-security-modes">
+</div>
+<div class="section" id="supported-security-modes">
 <h2><span class="section-number">6.4.3. </span>Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this headline"></a></h2>
 <p>The download can be secured by either <a class="reference external" href="https://en.wikipedia.org/wiki/Pre-shared_key">PSK</a>, or by <a class="reference external" href="https://en.wikipedia.org/wiki/Public_key_certificate">Public key
 certificates</a>.</p>
@@ -155,7 +154,7 @@ us. <code class="docutils literal notranslate"><span class="pre">avs_net_securit
 <li><p><code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_certificates()</span></code>.</p></li>
 </ul>
 <p>We will now have a closer look at both of these methods.</p>
-<section id="configuration-of-psk">
+<div class="section" id="configuration-of-psk">
 <h3><span class="section-number">6.4.3.1. </span>Configuration of PSK<a class="headerlink" href="#configuration-of-psk" title="Permalink to this headline"></a></h3>
 <p>This is the most straightforward. The structure representing the PSK
 configuration is:</p>
@@ -191,8 +190,8 @@ security module.</p>
 <span class="w">        </span><span class="n">avs_net_security_info_from_psk</span><span class="p">(</span><span class="n">psk_info</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-<section id="configuration-of-certificates">
+</div>
+<div class="section" id="configuration-of-certificates">
 <h3><span class="section-number">6.4.3.2. </span>Configuration of Certificates<a class="headerlink" href="#configuration-of-certificates" title="Permalink to this headline"></a></h3>
 <p>That’s a bit more involving. The structure representing Certificate configuration
 is:</p>
@@ -293,9 +292,9 @@ from files, we could do something like this:</p>
 <span class="w">        </span><span class="n">avs_net_security_info_from_certificates</span><span class="p">(</span><span class="n">cert_info</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
-<section id="security-configuration-with-get-security-config-callback">
+</div>
+</div>
+<div class="section" id="security-configuration-with-get-security-config-callback">
 <h2><span class="section-number">6.4.4. </span>Security configuration with <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback<a class="headerlink" href="#security-configuration-with-get-security-config-callback" title="Permalink to this headline"></a></h2>
 <p>Firmware update module provided with Anjay, lets the user implement security
 configuration per download URI. The relevant API is:</p>
@@ -371,8 +370,8 @@ by the user:</p>
 <p>We’ve already seen in previous sections how to configure
 <code class="docutils literal notranslate"><span class="pre">security_info</span></code>. Also, for now there is no need to worry about
 <code class="docutils literal notranslate"><span class="pre">dane_tlsa_record</span></code> or <code class="docutils literal notranslate"><span class="pre">tls_ciphersuites</span></code> - they can be reset to zero.</p>
-</section>
-<section id="implementation">
+</div>
+<div class="section" id="implementation">
 <h2><span class="section-number">6.4.5. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline"></a></h2>
 <p>Our implementation will use the following strategy:</p>
 <ol class="arabic simple">
@@ -562,8 +561,8 @@ security configuration in both cases is just right.</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

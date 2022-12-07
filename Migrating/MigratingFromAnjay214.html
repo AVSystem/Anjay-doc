@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.7. Migrating from Anjay 2.9.x-2.14.x &mdash; Anjay 3.1.2 documentation</title>
+  <title>9.7. Migrating from Anjay 2.9.x-2.14.x &mdash; Anjay 3.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -32,7 +31,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.1.2
+                3.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -90,7 +89,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="migrating-from-anjay-2-9-x-2-14-x">
+  <div class="section" id="migrating-from-anjay-2-9-x-2-14-x">
 <h1><span class="section-number">9.7. </span>Migrating from Anjay 2.9.x-2.14.x<a class="headerlink" href="#migrating-from-anjay-2-9-x-2-14-x" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -115,7 +114,7 @@
 </li>
 </ul>
 </div>
-<section id="introduction">
+<div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id1"><span class="section-number">9.7.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>While most changes since Anjay 2.14 are minor, some of them (changes to commonly
 used APIs such as Attribute Storage and offline mode control) are breaking.
@@ -126,10 +125,10 @@ APIs related to (D)TLS PSK credentials.</p>
 integration, or if it accesses the <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> structure
 directly. The latter is especially likely if you maintain your own
 implementation of the TLS layer.</p>
-</section>
-<section id="changes-in-anjay-proper">
+</div>
+<div class="section" id="changes-in-anjay-proper">
 <h2><a class="toc-backref" href="#id2"><span class="section-number">9.7.2. </span>Changes in Anjay proper</a><a class="headerlink" href="#changes-in-anjay-proper" title="Permalink to this headline"></a></h2>
-<section id="refactor-of-the-attribute-storage-module">
+<div class="section" id="refactor-of-the-attribute-storage-module">
 <h3><a class="toc-backref" href="#id3"><span class="section-number">9.7.2.1. </span>Refactor of the Attribute Storage module</a><a class="headerlink" href="#refactor-of-the-attribute-storage-module" title="Permalink to this headline"></a></h3>
 <p>The Attribute Storage feature is no longer a standalone module and has been
 moved to the library core. From the user perspective, this has the following
@@ -146,8 +145,8 @@ mentioned above) has been renamed to <code class="docutils literal notranslate">
 changed - from now on, this function fails if supplied source stream is
 invalid and the Attribute Storage remains untouched. This change makes the
 function consistent with other <code class="docutils literal notranslate"><span class="pre">anjay_*_restore()</span></code> APIs.</p>
-</section>
-<section id="refactor-of-offline-mode-control-api">
+</div>
+<div class="section" id="refactor-of-offline-mode-control-api">
 <h3><a class="toc-backref" href="#id4"><span class="section-number">9.7.2.2. </span>Refactor of offline mode control API</a><a class="headerlink" href="#refactor-of-offline-mode-control-api" title="Permalink to this headline"></a></h3>
 <p>Since Anjay 2.4, offline mode is configurable independently per every
 transport. Below is a list of removed functions and counterparts that should
@@ -177,8 +176,8 @@ be used:</p>
 </table>
 <p>New functions should be called with <code class="docutils literal notranslate"><span class="pre">transport_set</span></code> argument set to
 <code class="docutils literal notranslate"><span class="pre">ANJAY_TRANSPORT_SET_ALL</span></code> to achieve the same behavior.</p>
-</section>
-<section id="addition-of-the-con-attribute-to-public-api">
+</div>
+<div class="section" id="addition-of-the-con-attribute-to-public-api">
 <h3><a class="toc-backref" href="#id5"><span class="section-number">9.7.2.3. </span>Addition of the con attribute to public API</a><a class="headerlink" href="#addition-of-the-con-attribute-to-public-api" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">con</span></code> attribute, enabled via the <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_CON_ATTR</span></code> compile-time
 option, has been previously supported as a custom extension. Since an identical
@@ -192,8 +191,8 @@ zero-initialized value.</p>
 recommended to initialize such structures with <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_OI_ATTRIBUTES_EMPTY</span></code>
 or <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_R_ATTRIBUTES_EMPTY</span></code> constants, and then fill in the attributes
 you actually intend to set.</p>
-</section>
-<section id="default-d-tls-version">
+</div>
+<div class="section" id="default-d-tls-version">
 <h3><a class="toc-backref" href="#id6"><span class="section-number">9.7.2.4. </span>Default (D)TLS version</a><a class="headerlink" href="#default-d-tls-version" title="Permalink to this headline"></a></h3>
 <p>When the <a class="reference external" href="../api/structanjay__configuration.html#ab32477e7370a36e02db5b7e7ccbdd89d">anjay_configuration_t::dtls_version</a>
 field is set to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_DEFAULT</span></code> (which includes the case of
@@ -210,8 +209,8 @@ version. Please explicitly set <code class="docutils literal notranslate"><span 
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_TLSv1_2</span></code> if you want to disallow this.</p>
 <p>Please note that Mbed TLS 3.0 has dropped support for TLS 1.1 and earlier, so
 this change will not affect behavior with that library.</p>
-</section>
-<section id="conditional-compilation-for-structured-security-credential-support">
+</div>
+<div class="section" id="conditional-compilation-for-structured-security-credential-support">
 <h3><a class="toc-backref" href="#id7"><span class="section-number">9.7.2.5. </span>Conditional compilation for structured security credential support</a><a class="headerlink" href="#conditional-compilation-for-structured-security-credential-support" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">anjay_ret_certificate_chain_info()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_ret_private_key_info()</span></code>
 APIs, as well as avs_crypto-based fields in <code class="docutils literal notranslate"><span class="pre">anjay_security_instance_t</span></code>, have
@@ -220,8 +219,8 @@ been put under a new conditional compilation flag,
 <p>When using CMake, this flag is enabled by default if available. Otherwise, it
 might need to be enabled by defining <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_SECURITY_STRUCTURED</span></code> in
 <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>.</p>
-</section>
-<section id="conditional-compilation-for-hsm-support-with-est">
+</div>
+<div class="section" id="conditional-compilation-for-hsm-support-with-est">
 <h3><a class="toc-backref" href="#id8"><span class="section-number">9.7.2.6. </span>Conditional compilation for HSM support with EST</a><a class="headerlink" href="#conditional-compilation-for-hsm-support-with-est" title="Permalink to this headline"></a></h3>
 <p>Support for hardware security engine in the EST subsystem has been put under
 a new conditional compilation flag, <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_EST_ENGINE_SUPPORT</span></code>. <strong>NOTE:</strong>
@@ -232,18 +231,18 @@ this feature.</p>
 option and enabled by default if available and both EST and HSM features are
 enabled. Otherwise, it might need to be enabled by defining
 <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_EST_ENGINE_SUPPORT</span></code> in <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>.</p>
-</section>
-</section>
-<section id="changes-in-avs-commons">
+</div>
+</div>
+<div class="section" id="changes-in-avs-commons">
 <h2><a class="toc-backref" href="#id9"><span class="section-number">9.7.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline"></a></h2>
-<section id="renamed-configuration-macro-in-avs-commons-config-h">
+<div class="section" id="renamed-configuration-macro-in-avs-commons-config-h">
 <h3><a class="toc-backref" href="#id10"><span class="section-number">9.7.3.1. </span>Renamed configuration macro in avs_commons_config.h</a><a class="headerlink" href="#renamed-configuration-macro-in-avs-commons-config-h" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_NET_WITH_PSK</span></code> configuration macro in <code class="docutils literal notranslate"><span class="pre">avs_commons_config.h</span></code>
 has been renamed to <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_CRYPTO_PSK</span></code>.</p>
 <p>You may need to update your configuration files if you are not using CMake, or
 your preprocessor directives if you check this macro in your code.</p>
-</section>
-<section id="introduction-of-new-socket-option">
+</div>
+<div class="section" id="introduction-of-new-socket-option">
 <h3><a class="toc-backref" href="#id11"><span class="section-number">9.7.3.2. </span>Introduction of new socket option</a><a class="headerlink" href="#introduction-of-new-socket-option" title="Permalink to this headline"></a></h3>
 <p>avs_commons 4.10.1 bundled with Anjay 2.15.1 adds a new socket option key:
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span></code>. This is used to make sure that when
@@ -261,8 +260,8 @@ AT commands.</p>
 it is recommended that you add support for this option. This is not, however, a
 breaking change - if the option is not supported, the library will continue to
 use the old behavior.</p>
-</section>
-<section id="refactor-of-psk-credential-handling">
+</div>
+<div class="section" id="refactor-of-psk-credential-handling">
 <h3><a class="toc-backref" href="#id12"><span class="section-number">9.7.3.3. </span>Refactor of PSK credential handling</a><a class="headerlink" href="#refactor-of-psk-credential-handling" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">avs_net_psk_info_t</span></code> structure has been changed to use new types based on
 <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> instead of raw buffers. This change also
@@ -343,8 +342,8 @@ affects <code class="docutils literal notranslate"><span class="pre">avs_net_sec
 </ul>
 <p>This change is breaking for code that accesses the <code class="docutils literal notranslate"><span class="pre">data.psk</span></code> field
 of <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> directly.</p>
-</section>
-<section id="additional-function-in-the-hardware-security-engine-api">
+</div>
+<div class="section" id="additional-function-in-the-hardware-security-engine-api">
 <h3><a class="toc-backref" href="#id13"><span class="section-number">9.7.3.4. </span>Additional function in the hardware security engine API</a><a class="headerlink" href="#additional-function-in-the-hardware-security-engine-api" title="Permalink to this headline"></a></h3>
 <p>A new API has been added to the hardware security engine API in <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"></span>
@@ -359,9 +358,9 @@ need to provide an implementation of this function.</p>
 to the <code class="docutils literal notranslate"><span class="pre">anjay_security_object_install_with_hsm()</span></code>. If you don’t use these
 features to store private keys in the hardware security engine, it is OK to
 provide a dummy implementation such as <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">avs_errno(AVS_ENOTSUP);</span></code>.</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>
