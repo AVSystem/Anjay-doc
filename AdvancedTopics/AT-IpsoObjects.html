@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.11. Anjay IPSO Objects implementation &mdash; Anjay 3.2.1 documentation</title>
+  <title>5.11. Anjay IPSO Objects implementation &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +34,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -91,8 +94,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="anjay-ipso-objects-implementation">
-<h1><span class="section-number">5.11. </span>Anjay IPSO Objects implementation<a class="headerlink" href="#anjay-ipso-objects-implementation" title="Permalink to this headline"></a></h1>
+  <section id="anjay-ipso-objects-implementation">
+<h1><span class="section-number">5.11. </span>Anjay IPSO Objects implementation<a class="headerlink" href="#anjay-ipso-objects-implementation" title="Permalink to this heading"></a></h1>
 <p>Among many Objects defined in
 <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LightweightM2M (LwM2M) Object and Resource Registry</a>
 there are some which are used quite frequently.
@@ -106,8 +109,8 @@ kinds of IPSO objects:</p>
 </ul>
 </div></blockquote>
 <p>The API is declared in <a class="reference external" href="../api/ipso__objects_8h.html">anjay/ipso_objects.h</a> header.</p>
-<div class="section" id="object-installation">
-<h2><span class="section-number">5.11.1. </span>Object installation<a class="headerlink" href="#object-installation" title="Permalink to this headline"></a></h2>
+<section id="object-installation">
+<h2><span class="section-number">5.11.1. </span>Object installation<a class="headerlink" href="#object-installation" title="Permalink to this heading"></a></h2>
 <p>To install an Anjay IPSO Object we can use one of the following functions, each
 of them corresponding to a specific class of objects:</p>
 <blockquote>
@@ -133,9 +136,9 @@ and equals 3347).</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="instance-addition">
-<h2><span class="section-number">5.11.2. </span>Instance addition<a class="headerlink" href="#instance-addition" title="Permalink to this headline"></a></h2>
+</section>
+<section id="instance-addition">
+<h2><span class="section-number">5.11.2. </span>Instance addition<a class="headerlink" href="#instance-addition" title="Permalink to this heading"></a></h2>
 <p>To add an instance of an existing Anjay IPSO Object we can use one of the following functions,
 each of them corresponding to a specific class of objects:</p>
 <blockquote>
@@ -280,9 +283,9 @@ Instead, we need to provide the initial string for the “Application Type” fi
 <p>In both cases it is allowed to overwrite an existing instance of an object
 (but in the case of the Push Button Object it can change only “Application Type”
 field).</p>
-</div>
-<div class="section" id="instance-update">
-<h2><span class="section-number">5.11.3. </span>Instance update<a class="headerlink" href="#instance-update" title="Permalink to this headline"></a></h2>
+</section>
+<section id="instance-update">
+<h2><span class="section-number">5.11.3. </span>Instance update<a class="headerlink" href="#instance-update" title="Permalink to this heading"></a></h2>
 <p>To update an instance of an existing Anjay IPSO Object we can use one of the following functions,
 each of them corresponding to a specific class of objects:</p>
 <blockquote>
@@ -307,9 +310,9 @@ of the fake button in our demo is pressed, we call:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">demo</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="instance-removal">
-<h2><span class="section-number">5.11.4. </span>Instance removal<a class="headerlink" href="#instance-removal" title="Permalink to this headline"></a></h2>
+</section>
+<section id="instance-removal">
+<h2><span class="section-number">5.11.4. </span>Instance removal<a class="headerlink" href="#instance-removal" title="Permalink to this heading"></a></h2>
 <p>To remove an instance of an existing Anjay IPSO Object we can use one of the following functions,
 each of them corresponding to a specific class of objects:</p>
 <blockquote>
@@ -325,15 +328,15 @@ our demo:</p>
 <span class="w">        </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="further-reading">
-<h2><span class="section-number">5.11.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline"></a></h2>
+</section>
+<section id="further-reading">
+<h2><span class="section-number">5.11.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading"></a></h2>
 <p>To learn more about Anjay IPSO Objects API you can look how they are used in
 our demo <a class="reference external" href="../../../../../demo/objects/ipso_objects.c">demo/objects/ipso_objects.c</a>
 and our integrations: <a class="reference external" href="https://github.com/AVSystem/Anjay-zephyr-client">Anjay Zephyr Client</a>
 and <a class="reference external" href="https://github.com/AVSystem/Anjay-freertos-client">Anjay FreeRTOS Client</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -346,7 +349,7 @@ and <a class="reference external" href="https://github.com/AVSystem/Anjay-freert
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

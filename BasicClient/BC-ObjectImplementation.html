@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.4. Implementing standard Object &mdash; Anjay 3.2.1 documentation</title>
+  <title>4.4. Implementing standard Object &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +34,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -87,8 +90,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="implementing-standard-object">
-<h1><span class="section-number">4.4. </span>Implementing standard Object<a class="headerlink" href="#implementing-standard-object" title="Permalink to this headline"></a></h1>
+  <section id="implementing-standard-object">
+<h1><span class="section-number">4.4. </span>Implementing standard Object<a class="headerlink" href="#implementing-standard-object" title="Permalink to this heading"></a></h1>
 <p>This section describes implementation of a standard Object defined in
 <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Registry</a>.
 If you are interested in implementing your own Objects, please jump to
@@ -160,8 +163,8 @@ resource is mandatory.</p></li>
 <p>Although Current Time and Fractional Time resources are writable, we will not
 focus on setting system time and not implement this operation for these two
 resources.</p>
-<div class="section" id="implementing-the-object">
-<h2><span class="section-number">4.4.1. </span>Implementing the Object<a class="headerlink" href="#implementing-the-object" title="Permalink to this headline"></a></h2>
+<section id="implementing-the-object">
+<h2><span class="section-number">4.4.1. </span>Implementing the Object<a class="headerlink" href="#implementing-the-object" title="Permalink to this heading"></a></h2>
 <p><strong>Generating base source code</strong></p>
 <p>To generate layout of Object’s implementation, we will use the <code class="docutils literal notranslate"><span class="pre">anjay_codegen.py</span></code>
 script, which is bundled with Anjay library. Without going into details, which
@@ -449,9 +452,9 @@ to read the Time object.</p>
 <p>Custom objects are not automatically managed by Anjay. Remember to release
 created object <strong>after</strong> deleting the Anjay object.</p>
 </div>
-</div>
-<div class="section" id="supporting-transactional-writes">
-<h2><span class="section-number">4.4.2. </span>Supporting transactional writes<a class="headerlink" href="#supporting-transactional-writes" title="Permalink to this headline"></a></h2>
+</section>
+<section id="supporting-transactional-writes">
+<h2><span class="section-number">4.4.2. </span>Supporting transactional writes<a class="headerlink" href="#supporting-transactional-writes" title="Permalink to this heading"></a></h2>
 <p>Consider the following scenario: LwM2M Server tries to write to two or more
 resources at once. The write on Application Type will probably succeed, but we
 are sure, that in this case write on the Current Time will fail. Without
@@ -515,8 +518,8 @@ This is why we need <code class="docutils literal notranslate"><span class="pre"
 <cite>examples/tutorial/BC-ObjectImplementation</cite> subdirectory of main Anjay
 project repository.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -529,7 +532,7 @@ project repository.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

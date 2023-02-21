@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 3.2.1 documentation</title>
+  <title>5.4.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -31,7 +34,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -101,8 +104,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="multi-instance-writable-object-with-fixed-number-of-instances">
-<h1><span class="section-number">5.4.4. </span>Multi-instance writable object with fixed number of instances<a class="headerlink" href="#multi-instance-writable-object-with-fixed-number-of-instances" title="Permalink to this headline"></a></h1>
+  <section id="multi-instance-writable-object-with-fixed-number-of-instances">
+<h1><span class="section-number">5.4.4. </span>Multi-instance writable object with fixed number of instances<a class="headerlink" href="#multi-instance-writable-object-with-fixed-number-of-instances" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
@@ -177,8 +180,8 @@ but this time accepts Write requests.</p>
 </tr>
 </tbody>
 </table>
-<div class="section" id="simple-variant">
-<h2><span class="section-number">5.4.4.1. </span>Simple variant<a class="headerlink" href="#simple-variant" title="Permalink to this headline"></a></h2>
+<section id="simple-variant">
+<h2><span class="section-number">5.4.4.1. </span>Simple variant<a class="headerlink" href="#simple-variant" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> needs to be able to store arbitrary data. Let us set
 an arbitrary limit of 32 characters in length (including terminating nullbyte):</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_instance</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -279,8 +282,8 @@ these.</p>
 <cite>examples/tutorial/AT-CustomObjects/writable-multiple-fixed</cite> subdirectory of
 main Anjay project repository.</p>
 </div>
-<div class="section" id="lwm2m-write-operation-modes">
-<h3><span class="section-number">5.4.4.1.1. </span>LwM2M Write operation modes<a class="headerlink" href="#lwm2m-write-operation-modes" title="Permalink to this headline"></a></h3>
+<section id="lwm2m-write-operation-modes">
+<h3><span class="section-number">5.4.4.1.1. </span>LwM2M Write operation modes<a class="headerlink" href="#lwm2m-write-operation-modes" title="Permalink to this heading"></a></h3>
 <p>A LwM2M Server may perform a Write on the <em>entire Object Instance</em>. Two
 variants of such requests are available - both replace values of Instance
 Resources with received values, but they differ in what happens to Resources
@@ -304,9 +307,9 @@ particular example.</p>
 Replace one as <code class="docutils literal notranslate"><span class="pre">instance_reset</span></code> + series of <code class="docutils literal notranslate"><span class="pre">resource_write</span></code> calls.
 To properly support both Write variants, <code class="docutils literal notranslate"><span class="pre">instance_reset</span></code> needs to be
 implemented too.</p>
-</div>
-<div class="section" id="anjay-transaction-handlers">
-<h3><span class="section-number">5.4.4.1.2. </span>Anjay transaction handlers<a class="headerlink" href="#anjay-transaction-handlers" title="Permalink to this headline"></a></h3>
+</section>
+<section id="anjay-transaction-handlers">
+<h3><span class="section-number">5.4.4.1.2. </span>Anjay transaction handlers<a class="headerlink" href="#anjay-transaction-handlers" title="Permalink to this heading"></a></h3>
 <p>In some cases, like LwM2M Write requests targeting an Object Instance, Anjay
 calls multiple handlers modifying the data model to perform a single atomic
 operation. In such case, transactions ensure that data model is not left
@@ -358,10 +361,10 @@ a snapshot of the entire state of a LwM2M Object.</p>
 <p>Such implementation, while simple, effectively doubles amount of RAM used
 by the Object.</p>
 </div>
-</div>
-</div>
-<div class="section" id="transactional-variant">
-<span id="fixedinstancewritable-transactional"></span><h2><span class="section-number">5.4.4.2. </span>Transactional variant<a class="headerlink" href="#transactional-variant" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="transactional-variant">
+<span id="fixedinstancewritable-transactional"></span><h2><span class="section-number">5.4.4.2. </span>Transactional variant<a class="headerlink" href="#transactional-variant" title="Permalink to this heading"></a></h2>
 <p>Knowing all about different LwM2M Write variants and Anjay transaction handlers,
 we can start implementing a transaction-aware client capable of handling
 all LwM2M Write requests.</p>
@@ -514,8 +517,8 @@ Resource.</p>
 <cite>examples/tutorial/AT-CustomObjects/writable-multiple-fixed-transactional</cite>
 subdirectory of main Anjay project repository.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -528,7 +531,7 @@ subdirectory of main Anjay project repository.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

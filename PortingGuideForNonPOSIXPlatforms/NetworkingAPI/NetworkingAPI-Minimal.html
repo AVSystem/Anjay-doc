@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.1. Minimal socket implementation &mdash; Anjay 3.2.1 documentation</title>
+  <title>8.3.1.1. Minimal socket implementation &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -31,7 +34,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,8 +98,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="minimal-socket-implementation">
-<h1><span class="section-number">8.3.1.1. </span>Minimal socket implementation<a class="headerlink" href="#minimal-socket-implementation" title="Permalink to this headline"></a></h1>
+  <section id="minimal-socket-implementation">
+<h1><span class="section-number">8.3.1.1. </span>Minimal socket implementation<a class="headerlink" href="#minimal-socket-implementation" title="Permalink to this heading"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
@@ -123,8 +126,8 @@
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-network/minimal">examples/custom-network/minimal</a>
 in the Anjay source directory.</p>
 </div>
-<div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.1.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.1.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p>This tutorial builds up on the <a class="reference internal" href="../../BasicClient/BC-Security.html"><span class="doc">Enabling secure communication</span></a> tutorial
 which contains an implementation of a minimal, but complete LwM2M client.</p>
 <p>However, this tutorial is intended to be used with a version of Anjay that has
@@ -142,9 +145,9 @@ implementation works fine in such environment. However, this tutorial is
 provided as a reference implementation simpler than the actual default one,
 to make it easier to base your code on it.</p>
 </div>
-</div>
-<div class="section" id="adjustments-to-the-build-system">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.1.2. </span>Adjustments to the build system</a><a class="headerlink" href="#adjustments-to-the-build-system" title="Permalink to this headline"></a></h2>
+</section>
+<section id="adjustments-to-the-build-system">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.1.2. </span>Adjustments to the build system</a><a class="headerlink" href="#adjustments-to-the-build-system" title="Permalink to this heading"></a></h2>
 <p>The <a class="reference external" href="https://github.com/AVSystem/Anjay/blob/master/examples/custom-network/minimal/CMakeLists.txt">CMakeLists.txt</a>
 file has been modified to accommodate for this custom network layer:</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.1</span><span class="p">)</span>
@@ -178,9 +181,9 @@ well.</p></li>
 <a class="reference internal" href="../../BasicClient/BC-Security.html"><span class="doc">Enabling secure communication</span></a> version. In fact, in the repository,
 it is a symbolic link to the file from that tutorial.</p>
 </div>
-</div>
-<div class="section" id="global-initialization">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.1.3. </span>Global initialization</a><a class="headerlink" href="#global-initialization" title="Permalink to this headline"></a></h2>
+</section>
+<section id="global-initialization">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.1.3. </span>Global initialization</a><a class="headerlink" href="#global-initialization" title="Permalink to this heading"></a></h2>
 <p>The APIs that need to be implemented are private, so there is no public header
 that can be included to provide forward declarations of them. Hence, we start
 with manually including the forward declarations, as quoted in the
@@ -210,9 +213,9 @@ call <code class="docutils literal notranslate"><span class="pre">WSAStartup()</
 although typically this is done in the main function, before calling any of the
 Anjay APIs and the network layer implementation assumes that the interface has
 already been initialized.</p>
-</div>
-<div class="section" id="socket-creation">
-<span id="non-posix-networking-api-create"></span><h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.1.4. </span>Socket creation</a><a class="headerlink" href="#socket-creation" title="Permalink to this headline"></a></h2>
+</section>
+<section id="socket-creation">
+<span id="non-posix-networking-api-create"></span><h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.1.4. </span>Socket creation</a><a class="headerlink" href="#socket-creation" title="Permalink to this heading"></a></h2>
 <p>Some platforms that handle TCP and UDP communication with completely different
 APIs (<a class="reference external" href="https://www.mbed.com/en/platform/mbed-os/">Mbed OS</a> being one such
 example), will require completely separate code to implement TCP and UDP
@@ -303,11 +306,11 @@ functions are implemented as thin wrappers to the static <code class="docutils l
 function, which allocates the socket object, initializes <code class="docutils literal notranslate"><span class="pre">vtable</span></code> and
 <code class="docutils literal notranslate"><span class="pre">socktype</span></code> fields, as well as sets <code class="docutils literal notranslate"><span class="pre">fd</span></code> to <code class="docutils literal notranslate"><span class="pre">-1</span></code> (signifying no OS-level
 socket descriptor initialized yet) and initial <code class="docutils literal notranslate"><span class="pre">recv_timeout</span></code> to 30 seconds.</p>
-</div>
-<div class="section" id="implementing-socket-methods">
-<h2><a class="toc-backref" href="#id5"><span class="section-number">8.3.1.1.5. </span>Implementing socket methods</a><a class="headerlink" href="#implementing-socket-methods" title="Permalink to this headline"></a></h2>
-<div class="section" id="connect">
-<span id="non-posix-networking-api-connect"></span><h3><a class="toc-backref" href="#id6"><span class="section-number">8.3.1.1.5.1. </span>Connect</a><a class="headerlink" href="#connect" title="Permalink to this headline"></a></h3>
+</section>
+<section id="implementing-socket-methods">
+<h2><a class="toc-backref" href="#id5"><span class="section-number">8.3.1.1.5. </span>Implementing socket methods</a><a class="headerlink" href="#implementing-socket-methods" title="Permalink to this heading"></a></h2>
+<section id="connect">
+<span id="non-posix-networking-api-connect"></span><h3><a class="toc-backref" href="#id6"><span class="section-number">8.3.1.1.5.1. </span>Connect</a><a class="headerlink" href="#connect" title="Permalink to this heading"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"></span>
 <span class="nf">net_connect</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
@@ -372,9 +375,9 @@ e.g. by putting the socket in non-blocking mode and using <code class="docutils 
 connecting - especially for TCP.</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="send">
-<h3><a class="toc-backref" href="#id7"><span class="section-number">8.3.1.1.5.2. </span>Send</a><a class="headerlink" href="#send" title="Permalink to this headline"></a></h3>
+</section>
+<section id="send">
+<h3><a class="toc-backref" href="#id7"><span class="section-number">8.3.1.1.5.2. </span>Send</a><a class="headerlink" href="#send" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">send()</span></code> implementation is self-explanatory:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"></span>
 <span class="nf">net_send</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">buffer_length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -402,9 +405,9 @@ data is sent, or an error occurs.</p>
 <code class="docutils literal notranslate"><span class="pre">POLLOUT</span></code> event, to implement better-defined timeout handling when
 sending.</p>
 </div>
-</div>
-<div class="section" id="receive">
-<span id="non-posix-networking-api-receive"></span><h3><a class="toc-backref" href="#id8"><span class="section-number">8.3.1.1.5.3. </span>Receive</a><a class="headerlink" href="#receive" title="Permalink to this headline"></a></h3>
+</section>
+<section id="receive">
+<span id="non-posix-networking-api-receive"></span><h3><a class="toc-backref" href="#id8"><span class="section-number">8.3.1.1.5.3. </span>Receive</a><a class="headerlink" href="#receive" title="Permalink to this heading"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">net_receive</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"></span>
 <span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_bytes_received</span><span class="p">,</span><span class="w"></span>
 <span class="w">                               </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"></span>
@@ -467,9 +470,9 @@ follow.</p>
 <p><code class="docutils literal notranslate"><span class="pre">*out_bytes_received</span></code> shall be set for both success and
 <code class="docutils literal notranslate"><span class="pre">avs_errno(AVS_EMSGSIZE)</span></code> cases.</p>
 </div>
-</div>
-<div class="section" id="close">
-<h3><a class="toc-backref" href="#id9"><span class="section-number">8.3.1.1.5.4. </span>Close</a><a class="headerlink" href="#close" title="Permalink to this headline"></a></h3>
+</section>
+<section id="close">
+<h3><a class="toc-backref" href="#id9"><span class="section-number">8.3.1.1.5.4. </span>Close</a><a class="headerlink" href="#close" title="Permalink to this heading"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">net_close</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
@@ -486,9 +489,9 @@ follow.</p>
 <p>This function is pretty self-explanatory - but please note that unlike the POSIX
 <code class="docutils literal notranslate"><span class="pre">close()</span></code> function, the close operation on <code class="docutils literal notranslate"><span class="pre">avs_commons</span></code> sockets does
 <strong>not</strong> remove the socket object. This is why the cleanup operation exists.</p>
-</div>
-<div class="section" id="cleanup">
-<h3><a class="toc-backref" href="#id10"><span class="section-number">8.3.1.1.5.5. </span>Cleanup</a><a class="headerlink" href="#cleanup" title="Permalink to this headline"></a></h3>
+</section>
+<section id="cleanup">
+<h3><a class="toc-backref" href="#id10"><span class="section-number">8.3.1.1.5.5. </span>Cleanup</a><a class="headerlink" href="#cleanup" title="Permalink to this heading"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">net_cleanup</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">sock_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock_ptr</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">*</span><span class="n">sock_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -503,9 +506,9 @@ follow.</p>
 <p>The cleanup operation is also self-explanatory, although please note that there
 is no requirement to call the close operation before it - that’s why it is
 called from inside this function here.</p>
-</div>
-<div class="section" id="get-system-socket">
-<h3><a class="toc-backref" href="#id11"><span class="section-number">8.3.1.1.5.6. </span>Get system socket</a><a class="headerlink" href="#get-system-socket" title="Permalink to this headline"></a></h3>
+</section>
+<section id="get-system-socket">
+<h3><a class="toc-backref" href="#id11"><span class="section-number">8.3.1.1.5.6. </span>Get system socket</a><a class="headerlink" href="#get-system-socket" title="Permalink to this heading"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">net_system_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">net_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">;</span><span class="w"></span>
@@ -522,9 +525,9 @@ is to return a pointer to such file descriptor variable. However, the only
 actual requirement is that the usage matches the implementation - so you can
 return a pointer to any kind of object that you will be able to use to poll for
 incoming events in the event loop.</p>
-</div>
-<div class="section" id="get-set-socket-options">
-<h3><a class="toc-backref" href="#id12"><span class="section-number">8.3.1.1.5.7. </span>Get/set socket options</a><a class="headerlink" href="#get-set-socket-options" title="Permalink to this headline"></a></h3>
+</section>
+<section id="get-set-socket-options">
+<h3><a class="toc-backref" href="#id12"><span class="section-number">8.3.1.1.5.7. </span>Get/set socket options</a><a class="headerlink" href="#get-set-socket-options" title="Permalink to this heading"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">net_get_opt</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"></span>
 <span class="w">                               </span><span class="n">avs_net_socket_opt_key_t</span><span class="w"> </span><span class="n">option_key</span><span class="p">,</span><span class="w"></span>
 <span class="w">                               </span><span class="n">avs_net_socket_opt_value_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_option_value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -602,10 +605,10 @@ CoAP transfers. This is why it is essential to provide this value. If
 querying this information from the actual connection or network interface is
 not possible, a hardcoded estimate like the one above should be OK.</p>
 </div>
-</div>
-</div>
-<div class="section" id="limitations">
-<h2><a class="toc-backref" href="#id13"><span class="section-number">8.3.1.1.6. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="limitations">
+<h2><a class="toc-backref" href="#id13"><span class="section-number">8.3.1.1.6. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this heading"></a></h2>
 <p>This minimal implementation is enough to make Anjay run, but a number of
 functionalities will not work:</p>
 <ul class="simple">
@@ -625,8 +628,8 @@ that subsequent connections will use the same IP address.</p></li>
 </ul>
 <p>We will discuss implementing additional methods to address these limitations in
 subsequent chapters.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -639,7 +642,7 @@ subsequent chapters.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

@@ -30,7 +30,7 @@ var searchData=
   ['sms_5ftx_5fparams_629',['sms_tx_params',['../structanjay__configuration.html#ab656e5dad737416e5b66272f917df108',1,'anjay_configuration']]],
   ['socket_630',['socket',['../structanjay__socket__entry__t.html#aa05391f76b578a92592b35fe088dd4c3',1,'anjay_socket_entry_t']]],
   ['socket_5fconfig_631',['socket_config',['../structanjay__configuration.html#a14968e097106889daad258f9e3a066d9',1,'anjay_configuration']]],
-  ['ssid_632',['ssid',['../structanjay__socket__entry__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_socket_entry_t::ssid()'],['../structanjay__security__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_security_instance_t::ssid()'],['../structanjay__server__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_server_instance_t::ssid()']]],
+  ['ssid_632',['ssid',['../structanjay__security__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_security_instance_t::ssid()'],['../structanjay__server__instance__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_server_instance_t::ssid()'],['../structanjay__socket__entry__t.html#a661af3675ddfb29608e7b48a44de557e',1,'anjay_socket_entry_t::ssid()']]],
   ['start_5foffset_633',['start_offset',['../structanjay__download__config.html#a3abb6fc45eddaf98e0a68595534f0abb',1,'anjay_download_config']]],
   ['stats_2eh_634',['stats.h',['../stats_8h.html',1,'']]],
   ['status_5fcode_635',['status_code',['../structanjay__download__status__t.html#ac275fb0ffa19246e789b4c3c9febcf00',1,'anjay_download_status_t']]],

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.5. Notifications support &mdash; Anjay 3.2.1 documentation</title>
+  <title>4.5. Notifications support &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +34,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -87,8 +90,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="notifications-support">
-<h1><span class="section-number">4.5. </span>Notifications support<a class="headerlink" href="#notifications-support" title="Permalink to this headline"></a></h1>
+  <section id="notifications-support">
+<h1><span class="section-number">4.5. </span>Notifications support<a class="headerlink" href="#notifications-support" title="Permalink to this heading"></a></h1>
 <p>Some Resources may represent values that change over time, like sensor readings.
 A LwM2M Server may be interested in variance of such values and use the Observe
 operation to request notifications when they change, or when their value meets
@@ -122,16 +125,16 @@ request). Anjay handles these cases internally.</p>
 send notifications immediately, but schedules a task to be run on next event
 loop iteration. That way, notifications for multiple values can be handled as a
 batch, for example in case where the server observes an entire Object Instance.</p>
-<div class="section" id="lwm2m-attributes">
-<h2><span class="section-number">4.5.1. </span>LwM2M attributes<a class="headerlink" href="#lwm2m-attributes" title="Permalink to this headline"></a></h2>
+<section id="lwm2m-attributes">
+<h2><span class="section-number">4.5.1. </span>LwM2M attributes<a class="headerlink" href="#lwm2m-attributes" title="Permalink to this heading"></a></h2>
 <p>Correct handling of LwM2M Observe requests requires being able to store
 Object/Instance/Resource attributes. For that, one needs to either implement
 a set of attribute handlers, or use the pre-defined
 <a class="reference internal" href="../AdvancedTopics/AT-AttributeStorage.html"><span class="doc">Attribute Storage subsystem</span></a>. In
 this tutorial, we use pre-defined Attribute Storage subsystem here.</p>
-</div>
-<div class="section" id="example">
-<h2><span class="section-number">4.5.2. </span>Example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h2>
+</section>
+<section id="example">
+<h2><span class="section-number">4.5.2. </span>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h2>
 <p>As an example we’ll add notification support for the Time Object implemented
 in previous <a class="reference internal" href="BC-ObjectImplementation.html"><span class="doc">Implementing standard Object</span></a> section. It contains a Current Time
 Resource, whose value changes every second. We need to periodically notify the
@@ -350,8 +353,8 @@ called from the main function to schedule the first run for simplicity.</p>
 <cite>examples/tutorial/BC-Notifications</cite> subdirectory of main Anjay project
 repository.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -364,7 +367,7 @@ repository.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

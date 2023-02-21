@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10.5. Hardware Security Module &mdash; Anjay 3.2.1 documentation</title>
+  <title>10.5. Hardware Security Module &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +34,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -90,8 +93,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="hardware-security-module">
-<h1><span class="section-number">10.5. </span>Hardware Security Module<a class="headerlink" href="#hardware-security-module" title="Permalink to this headline"></a></h1>
+  <section id="hardware-security-module">
+<h1><span class="section-number">10.5. </span>Hardware Security Module<a class="headerlink" href="#hardware-security-module" title="Permalink to this heading"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#supported-features" id="id2">Supported features</a></p></li>
@@ -127,8 +130,8 @@ Transport (EST). To make this easier, when Anjay is used with both HSM and
 <a class="reference internal" href="CF-EST.html"><span class="doc">Enrollment over Secure Transport</span></a> commercial features it includes also an additional integration
 between them, which allows to easily setup such a secure
 client (see CF-EST-PKCS11 example).</p>
-<div class="section" id="supported-features">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">10.5.1. </span>Supported features</a><a class="headerlink" href="#supported-features" title="Permalink to this headline"></a></h2>
+<section id="supported-features">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">10.5.1. </span>Supported features</a><a class="headerlink" href="#supported-features" title="Permalink to this heading"></a></h2>
 <p>The following features are implemented:</p>
 <ul class="simple">
 <li><p>integration with <em>PKCS11</em> API - working with both <em>OpenSSL</em> (using PKI)
@@ -138,11 +141,11 @@ and <em>mbed TLS</em> (using PKI),</p></li>
 <li><p>integration with the <em>EST</em> feature (see <a class="reference internal" href="CF-EST.html"><span class="doc">Enrollment over Secure Transport</span></a>) which allows to
 keep the private keys and certificates used by EST operations.</p></li>
 </ul>
-</div>
-<div class="section" id="technical-documentation">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">10.5.2. </span>Technical documentation</a><a class="headerlink" href="#technical-documentation" title="Permalink to this headline"></a></h2>
-<div class="section" id="enabling-hardware-security-module-support">
-<h3><a class="toc-backref" href="#id4"><span class="section-number">10.5.2.1. </span>Enabling Hardware Security Module support</a><a class="headerlink" href="#enabling-hardware-security-module-support" title="Permalink to this headline"></a></h3>
+</section>
+<section id="technical-documentation">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">10.5.2. </span>Technical documentation</a><a class="headerlink" href="#technical-documentation" title="Permalink to this heading"></a></h2>
+<section id="enabling-hardware-security-module-support">
+<h3><a class="toc-backref" href="#id4"><span class="section-number">10.5.2.1. </span>Enabling Hardware Security Module support</a><a class="headerlink" href="#enabling-hardware-security-module-support" title="Permalink to this heading"></a></h3>
 <p>The integrations with the HSM APIs (i.e. PKCS11 and PSA) are available as
 separate commercial features and the first requirement to make it work is to use
 a version of Anjay containing them.</p>
@@ -182,9 +185,9 @@ during EST operations.</p></li>
 </ul>
 <p>As before, this macros might be defined directly in <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> file,
 or set using CMake.</p>
-</div>
-<div class="section" id="addressing-hardware-security-module-objects">
-<h3><a class="toc-backref" href="#id5"><span class="section-number">10.5.2.2. </span>Addressing Hardware Security Module objects</a><a class="headerlink" href="#addressing-hardware-security-module-objects" title="Permalink to this headline"></a></h3>
+</section>
+<section id="addressing-hardware-security-module-objects">
+<h3><a class="toc-backref" href="#id5"><span class="section-number">10.5.2.2. </span>Addressing Hardware Security Module objects</a><a class="headerlink" href="#addressing-hardware-security-module-objects" title="Permalink to this heading"></a></h3>
 <p>Objects in PSA and PKCS11 are addressed in a slightly different ways - in PSA
 an object is called <em>key</em> and to access it just its identifier is required,
 which is simply an integer. Thus, PSA query used by Anjay consists of a single
@@ -199,9 +202,9 @@ They may contain a lot of various fields, but usually three of them are used in
 Anjay clients: <em>token</em>, <em>pin</em> and <em>label</em> (or <em>id</em> instead of label). In such
 case, the PKCS11 query looks like:
 <code class="docutils literal notranslate"><span class="pre">pkcs11:token=TOKEN;object=LABEL;pin-value=PIN</span></code>.</p>
-</div>
-<div class="section" id="using-security-objects-already-stored-in-hsm">
-<h3><a class="toc-backref" href="#id6"><span class="section-number">10.5.2.3. </span>Using security objects already stored in HSM</a><a class="headerlink" href="#using-security-objects-already-stored-in-hsm" title="Permalink to this headline"></a></h3>
+</section>
+<section id="using-security-objects-already-stored-in-hsm">
+<h3><a class="toc-backref" href="#id6"><span class="section-number">10.5.2.3. </span>Using security objects already stored in HSM</a><a class="headerlink" href="#using-security-objects-already-stored-in-hsm" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full code for the following example can be found in the
@@ -314,9 +317,9 @@ uses PSA API are the queries for the key and the certificate:</p>
 <span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="storing-and-removing-objects-from-hsm">
-<h3><a class="toc-backref" href="#id7"><span class="section-number">10.5.2.4. </span>Storing and removing objects from HSM</a><a class="headerlink" href="#storing-and-removing-objects-from-hsm" title="Permalink to this headline"></a></h3>
+</section>
+<section id="storing-and-removing-objects-from-hsm">
+<h3><a class="toc-backref" href="#id7"><span class="section-number">10.5.2.4. </span>Storing and removing objects from HSM</a><a class="headerlink" href="#storing-and-removing-objects-from-hsm" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full code for the following example can be found in the
@@ -382,9 +385,9 @@ CF-PSA-management example:</p>
 <code class="docutils literal notranslate"><span class="pre">avs_crypto_pki_engine_key_gen</span></code>, but to use the generated key, we need to
 prepare a certificate for it. This is done typically during the EST enrollment.
 Please see the EST feature documentation for more information on this topic.</p>
-</div>
-<div class="section" id="use-the-hsm-in-the-implicit-way">
-<h3><a class="toc-backref" href="#id8"><span class="section-number">10.5.2.5. </span>Use the HSM in the implicit way</a><a class="headerlink" href="#use-the-hsm-in-the-implicit-way" title="Permalink to this headline"></a></h3>
+</section>
+<section id="use-the-hsm-in-the-implicit-way">
+<h3><a class="toc-backref" href="#id8"><span class="section-number">10.5.2.5. </span>Use the HSM in the implicit way</a><a class="headerlink" href="#use-the-hsm-in-the-implicit-way" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full code for the following example can be found in the
@@ -574,9 +577,9 @@ case pseudo-random:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
@@ -589,7 +592,7 @@ case pseudo-random:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.5. Statistics support &mdash; Anjay 3.2.1 documentation</title>
+  <title>8.3.1.5. Statistics support &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -31,7 +34,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,8 +98,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="statistics-support">
-<h1><span class="section-number">8.3.1.5. </span>Statistics support<a class="headerlink" href="#statistics-support" title="Permalink to this headline"></a></h1>
+  <section id="statistics-support">
+<h1><span class="section-number">8.3.1.5. </span>Statistics support<a class="headerlink" href="#statistics-support" title="Permalink to this heading"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
@@ -111,15 +114,15 @@
 <a class="reference external" href="https://github.com/AVSystem/Anjay/tree/master/examples/custom-network/stats">examples/custom-network/stats</a>
 in the Anjay source directory.</p>
 </div>
-<div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.5.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.5.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI-ShutdownRemoteHostname.html"><span class="doc">the previous one</span></a> and adds support for statistics in the
 “get options” operations.</p>
 <p>This will allow the <code class="docutils literal notranslate"><span class="pre">anjay_get_tx_bytes()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_get_rx_bytes()</span></code> APIs
 to work properly.</p>
-</div>
-<div class="section" id="additional-socket-state">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.5.2. </span>Additional socket state</a><a class="headerlink" href="#additional-socket-state" title="Permalink to this headline"></a></h2>
+</section>
+<section id="additional-socket-state">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.5.2. </span>Additional socket state</a><a class="headerlink" href="#additional-socket-state" title="Permalink to this heading"></a></h2>
 <p>We need to store the number of bytes sent and received via the socket, so we add
 appropriate fields to the socket object:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -134,9 +137,9 @@ appropriate fields to the socket object:</p>
 </span><span class="p">}</span><span class="w"> </span><span class="n">net_socket_impl_t</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="updating-the-socket-state">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.5.3. </span>Updating the socket state</a><a class="headerlink" href="#updating-the-socket-state" title="Permalink to this headline"></a></h2>
+</section>
+<section id="updating-the-socket-state">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.5.3. </span>Updating the socket state</a><a class="headerlink" href="#updating-the-socket-state" title="Permalink to this heading"></a></h2>
 <p>We can now update these counters in the send and receive operations:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"></span>
 <span class="nf">net_send</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">buffer_length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -184,9 +187,9 @@ appropriate fields to the socket object:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="update-to-get-opt-implementation">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.5.4. </span>Update to get_opt implementation</a><a class="headerlink" href="#update-to-get-opt-implementation" title="Permalink to this headline"></a></h2>
+</section>
+<section id="update-to-get-opt-implementation">
+<h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.5.4. </span>Update to get_opt implementation</a><a class="headerlink" href="#update-to-get-opt-implementation" title="Permalink to this heading"></a></h2>
 <p>We need to add implementations of the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_BYTES_SENT</span></code> and
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_BYTES_RECEIVED</span></code> options to <code class="docutils literal notranslate"><span class="pre">net_get_opt()</span></code>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">net_get_opt</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"></span>
@@ -233,8 +236,8 @@ appropriate fields to the socket object:</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -247,7 +250,7 @@ appropriate fields to the socket object:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

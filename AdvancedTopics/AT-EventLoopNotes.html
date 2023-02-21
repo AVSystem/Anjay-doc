@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.10. Notes on event loop APIs &mdash; Anjay 3.2.1 documentation</title>
+  <title>5.10. Notes on event loop APIs &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +34,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -91,10 +94,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="notes-on-event-loop-apis">
-<h1><span class="section-number">5.10. </span>Notes on event loop APIs<a class="headerlink" href="#notes-on-event-loop-apis" title="Permalink to this headline"></a></h1>
-<div class="section" id="single-request-single-function-call">
-<span id="id1"></span><h2><span class="section-number">5.10.1. </span>Single request - single function call<a class="headerlink" href="#single-request-single-function-call" title="Permalink to this headline"></a></h2>
+  <section id="notes-on-event-loop-apis">
+<h1><span class="section-number">5.10. </span>Notes on event loop APIs<a class="headerlink" href="#notes-on-event-loop-apis" title="Permalink to this heading"></a></h1>
+<section id="single-request-single-function-call">
+<span id="id1"></span><h2><span class="section-number">5.10.1. </span>Single request - single function call<a class="headerlink" href="#single-request-single-function-call" title="Permalink to this heading"></a></h2>
 <p>To start, we first need to establish that Anjay LwM2M Client API assumes a
 single-threaded mode of operation. It relies on the user calling
 <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> whenever some packet is received and <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code>
@@ -105,45 +108,55 @@ processed.</p>
 between multiple packets, however <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> is called just for the
 first one. Other parts (if any) are fetched internally by the library. In other
 words: <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks until the message gets handled completely.</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <a class="reference internal image-reference" href="../_images/anjay-server-request.svg"><img alt="../_images/anjay-server-request.svg" src="../_images/anjay-server-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Handling a single LwM2M request. The application gets notified a packet
+<figcaption>
+<p><span class="caption-text">Handling a single LwM2M request. The application gets notified a packet
 was received on a socket using <code class="docutils literal notranslate"><span class="pre">poll()</span></code>/<code class="docutils literal notranslate"><span class="pre">select()</span></code> and calls
 <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> on that socket, allowing the library to interpret the
 request and create a response.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
-</div>
+</figcaption>
+</figure>
 <p>When considering a request from the LwM2M Server, the block-wise transfer may
 be initiated either by server (e.g. a big Write request) or by the client
 (e.g. a large response to a Read request).</p>
-<div class="figure align-default" id="id3">
+<figure class="align-default" id="id3">
 <a class="reference internal image-reference" href="../_images/anjay-server-block-request.svg"><img alt="../_images/anjay-server-block-request.svg" src="../_images/anjay-server-block-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Handling a block-wise request from the LwM2M Server. The server realizes
+<figcaption>
+<p><span class="caption-text">Handling a block-wise request from the LwM2M Server. The server realizes
 its request is too big to fit in a single packet and explicitly initiates
 block-wise transfer by adding CoAP BLOCK option to the request. A single
 call to <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks the client until the request is completely
 handled.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
-</div>
-<div class="figure align-default" id="id4">
+</figcaption>
+</figure>
+<figure class="align-default" id="id4">
 <a class="reference internal image-reference" href="../_images/anjay-block-response-to-server-request.svg"><img alt="../_images/anjay-block-response-to-server-request.svg" src="../_images/anjay-block-response-to-server-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">A block-wise response to a non-block request from the LwM2M Server. In
+<figcaption>
+<p><span class="caption-text">A block-wise response to a non-block request from the LwM2M Server. In
 this case, the server performs a simple Read request. The client realizes
 that returned data is too big, and adds a BLOCK option to the response.
 The server then requests further blocks of a response. The call to
 <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> only returns after the last block of a response is sent.</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
-</div>
+</figcaption>
+</figure>
 <p>Similar situation arises when the client attempts to send a Register or Update
 LwM2M request to the server with a large list of available Object Instances,
 or a big Notify message. The difference is that the client sends its own
 requests from within <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> call instead of <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code>.</p>
-<div class="figure align-default" id="id5">
+<figure class="align-default" id="id5">
 <a class="reference internal image-reference" href="../_images/anjay-client-request.svg"><img alt="../_images/anjay-client-request.svg" src="../_images/anjay-client-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">A simple request from the LwM2M Client.</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
-</div>
-<div class="figure align-default" id="id6">
+<figcaption>
+<p><span class="caption-text">A simple request from the LwM2M Client.</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id6">
 <a class="reference internal image-reference" href="../_images/anjay-block-client-request.svg"><img alt="../_images/anjay-block-client-request.svg" src="../_images/anjay-block-client-request.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">A block-wise request from the LwM2M Client. <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> call
+<figcaption>
+<p><span class="caption-text">A block-wise request from the LwM2M Client. <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> call
 blocks until the full transfer is complete.</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
-</div>
+</figcaption>
+</figure>
 <p>Because <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code> blocks after a packet arrives, the library can
 handle at most one LwM2M Server at time, which makes its usage convenient,
 as one does not have to worry about data model being accessed or modified
@@ -161,9 +174,9 @@ be the best fit.</p>
 <p>The blocking behavior does not apply to firmware downloaded using the PULL
 method. See <a class="reference internal" href="../FirmwareUpdateTutorial/FU-ModesAndProtocols.html#firmware-transfer"><span class="std std-ref">Firmware transfer</span></a> for details.</p>
 </div>
-</div>
-<div class="section" id="transactions-and-anjay-serve">
-<h2><span class="section-number">5.10.2. </span>Transactions and <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code><a class="headerlink" href="#transactions-and-anjay-serve" title="Permalink to this headline"></a></h2>
+</section>
+<section id="transactions-and-anjay-serve">
+<h2><span class="section-number">5.10.2. </span>Transactions and <code class="docutils literal notranslate"><span class="pre">anjay_serve()</span></code><a class="headerlink" href="#transactions-and-anjay-serve" title="Permalink to this heading"></a></h2>
 <p>Our data model supports transactional operations. They are here to ensure that
 whenever something goes wrong during a transaction, all changes applied since
 its beginning can be reverted - keeping the LwM2M Client in a consistent state.</p>
@@ -186,9 +199,9 @@ that they won’t be able to observe intermediate initialization state.</p>
 <p>After the Bootstrap Sequence finishes the library checks that the data model is
 valid, and if it isn’t the previous correct state will be restored, which
 proves the point.</p>
-</div>
-<div class="section" id="notifications">
-<h2><span class="section-number">5.10.3. </span>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline"></a></h2>
+</section>
+<section id="notifications">
+<h2><span class="section-number">5.10.3. </span>Notifications<a class="headerlink" href="#notifications" title="Permalink to this heading"></a></h2>
 <p>Anjay uses its scheduler to track pending notifications. Whenever
 a notification has to be sent, it is done from within <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code>
 function.</p>
@@ -197,12 +210,14 @@ function.</p>
 <p>Calling <code class="docutils literal notranslate"><span class="pre">anjay_notify_changed()</span></code> or <code class="docutils literal notranslate"><span class="pre">anjay_notify_instances_changed()</span></code>
 does not send notifications immediately - they use the scheduler instead.</p>
 </div>
-<div class="figure align-default" id="id7">
+<figure class="align-default" id="id7">
 <a class="reference internal image-reference" href="../_images/anjay-notification.svg"><img alt="../_images/anjay-notification.svg" src="../_images/anjay-notification.svg" width="100%" /></a>
-<p class="caption"><span class="caption-text">Sending a LwM2M Notify message.</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
-</div>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-text">Sending a LwM2M Notify message.</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
 
 
            </div>
@@ -215,7 +230,7 @@ does not send notifications immediately - they use the scheduler instead.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    

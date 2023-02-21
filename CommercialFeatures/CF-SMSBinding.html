@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10.9. SMS Binding &mdash; Anjay 3.2.1 documentation</title>
+  <title>10.9. SMS Binding &mdash; Anjay 3.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +34,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.2.1
+                3.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -90,8 +93,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="sms-binding">
-<h1><span class="section-number">10.9. </span>SMS Binding<a class="headerlink" href="#sms-binding" title="Permalink to this headline"></a></h1>
+  <section id="sms-binding">
+<h1><span class="section-number">10.9. </span>SMS Binding<a class="headerlink" href="#sms-binding" title="Permalink to this heading"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#general-description" id="id1">General description</a></p></li>
@@ -109,8 +112,8 @@
 </li>
 </ul>
 </div>
-<div class="section" id="general-description">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">10.9.1. </span>General description</a><a class="headerlink" href="#general-description" title="Permalink to this headline"></a></h2>
+<section id="general-description">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">10.9.1. </span>General description</a><a class="headerlink" href="#general-description" title="Permalink to this heading"></a></h2>
 <p>One of LwM2M’s advantages is the possibility to choose from numerous underlying
 protocol stacks. Although most applications use CoAP over UDP,
 <cite>LwM2M TS: Transport Bindings</cite> document specifies how LwM2M messages can be
@@ -140,11 +143,11 @@ with <strong>any standards-compliant cellular modem</strong>,</p></li>
 <li><p>utility Python script, which <strong>simulates an AT modem</strong> and acts as a proxy -
 all messages are conveyed further over UDP to the target server.</p></li>
 </ul>
-</div>
-<div class="section" id="technical-documentation">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">10.9.2. </span>Technical documentation</a><a class="headerlink" href="#technical-documentation" title="Permalink to this headline"></a></h2>
-<div class="section" id="enabling-sms-binding-support">
-<h3><a class="toc-backref" href="#id3"><span class="section-number">10.9.2.1. </span>Enabling SMS binding support</a><a class="headerlink" href="#enabling-sms-binding-support" title="Permalink to this headline"></a></h3>
+</section>
+<section id="technical-documentation">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">10.9.2. </span>Technical documentation</a><a class="headerlink" href="#technical-documentation" title="Permalink to this heading"></a></h2>
+<section id="enabling-sms-binding-support">
+<h3><a class="toc-backref" href="#id3"><span class="section-number">10.9.2.1. </span>Enabling SMS binding support</a><a class="headerlink" href="#enabling-sms-binding-support" title="Permalink to this heading"></a></h3>
 <p>If <strong>SMS Binding</strong> feature is available in your version of Anjay, the support
 for SMS transport can be enabled by either defining <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_SMS</span></code> in
 <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> or, if using CMake, enabling <code class="docutils literal notranslate"><span class="pre">WITH_SMS</span></code> option.</p>
@@ -161,9 +164,9 @@ responsibility to implement a driver which handles specific hardware, although
 the library comes with a basic reference implementation for AT modems, which
 communicates with them over a serial port. To compile it in, please define
 <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_MODULE_AT_SMS</span></code> or enable <code class="docutils literal notranslate"><span class="pre">WITH_MODULE_at_sms</span></code> CMake option.</p>
-</div>
-<div class="section" id="usage-example">
-<h3><a class="toc-backref" href="#id4"><span class="section-number">10.9.2.2. </span>Usage example</a><a class="headerlink" href="#usage-example" title="Permalink to this headline"></a></h3>
+</section>
+<section id="usage-example">
+<h3><a class="toc-backref" href="#id4"><span class="section-number">10.9.2.2. </span>Usage example</a><a class="headerlink" href="#usage-example" title="Permalink to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>For simplicity, we’ll also use the example SMS driver implementation for AT
@@ -174,8 +177,8 @@ features and limitations of that implementation in
 script, client’s and server’s phone numbers will be set to the default values
 included in the script.</p>
 </div>
-<div class="section" id="simple-unsecured-connection">
-<h4><a class="toc-backref" href="#id5"><span class="section-number">10.9.2.2.1. </span>Simple, unsecured connection</a><a class="headerlink" href="#simple-unsecured-connection" title="Permalink to this headline"></a></h4>
+<section id="simple-unsecured-connection">
+<h4><a class="toc-backref" href="#id5"><span class="section-number">10.9.2.2.1. </span>Simple, unsecured connection</a><a class="headerlink" href="#simple-unsecured-connection" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full code for the following example can be found in the
@@ -318,9 +321,9 @@ vice-versa. You can find it in <code class="docutils literal notranslate"><span 
 Now you can build the application by executing
 <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">commercial_feature_examples</span></code> and run it with
 <code class="docutils literal notranslate"><span class="pre">output/bin/examples/anjay-sms</span> <span class="pre">endpoint_name</span> <span class="pre">/dev/pts/5</span></code>.</p>
-</div>
-<div class="section" id="dtls-over-sms">
-<h4><a class="toc-backref" href="#id6"><span class="section-number">10.9.2.2.2. </span>DTLS over SMS</a><a class="headerlink" href="#dtls-over-sms" title="Permalink to this headline"></a></h4>
+</section>
+<section id="dtls-over-sms">
+<h4><a class="toc-backref" href="#id6"><span class="section-number">10.9.2.2.2. </span>DTLS over SMS</a><a class="headerlink" href="#dtls-over-sms" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full code for the following example can be found in the
@@ -409,9 +412,9 @@ logical MTU large enough to work with all types of ciphersuites, but it means
 that most of the messages sent to the server, even small ones, will be
 fragmented. To enable multipart SMS messages, set <code class="docutils literal notranslate"><span class="pre">prefer_multipart_sms</span></code>
 in the <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code> structure above to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
-</div>
-<div class="section" id="sms-trigger-mode">
-<span id="anjay-sms-trigger-mode"></span><h4><a class="toc-backref" href="#id7"><span class="section-number">10.9.2.2.3. </span>SMS Trigger Mode</a><a class="headerlink" href="#sms-trigger-mode" title="Permalink to this headline"></a></h4>
+</section>
+<section id="sms-trigger-mode">
+<span id="anjay-sms-trigger-mode"></span><h4><a class="toc-backref" href="#id7"><span class="section-number">10.9.2.2.3. </span>SMS Trigger Mode</a><a class="headerlink" href="#sms-trigger-mode" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full code for the following example can be found in the
@@ -456,10 +459,10 @@ object which controls Trigger Mode, apply following changes:</p>
 </span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
            </div>
@@ -472,7 +475,7 @@ object which controls Trigger Mode, apply following changes:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, AVSystem.</p>
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
   </div>
 
    
