@@ -4,20 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.5. Poor network connectivity &mdash; Anjay 3.3.0 documentation</title>
+  <title>6.5. Poor network connectivity &mdash; Anjay 3.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.0
+                3.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -90,33 +85,33 @@
            <div itemprop="articleBody">
              
   <section id="poor-network-connectivity">
-<h1><span class="section-number">6.5. </span>Poor network connectivity<a class="headerlink" href="#poor-network-connectivity" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">6.5. </span>Poor network connectivity<a class="headerlink" href="#poor-network-connectivity" title="Permalink to this headline"></a></h1>
 <section id="introduction">
-<h2><span class="section-number">6.5.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.5.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>It is sometimes the case that the network connectivity is unstable,
 and during the download some packets get lost. Depending on the underlying
 download protocol different failures are handled differently.</p>
 </section>
 <section id="the-definition-of-download-failure">
-<h2><span class="section-number">6.5.2. </span>The definition of “download failure”<a class="headerlink" href="#the-definition-of-download-failure" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.5.2. </span>The definition of “download failure”<a class="headerlink" href="#the-definition-of-download-failure" title="Permalink to this headline"></a></h2>
 <p>Since the variety of protocols may be used to perform the transfer, we
 need to understand better what conditions cause the download to fail. Let’s
 consider this case by case:</p>
 <section id="coap-s-udp">
-<h3><span class="section-number">6.5.2.1. </span>CoAP(s)/UDP<a class="headerlink" href="#coap-s-udp" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">6.5.2.1. </span>CoAP(s)/UDP<a class="headerlink" href="#coap-s-udp" title="Permalink to this headline"></a></h3>
 <p>The download fails if either the connection could not be established (e.g.
 DTLS handshake failure) or when all request retransmissions were performed
 and no response have been received.</p>
 </section>
 <section id="coap-s-tcp">
-<h3><span class="section-number">6.5.2.2. </span>CoAP(s)/TCP<a class="headerlink" href="#coap-s-tcp" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">6.5.2.2. </span>CoAP(s)/TCP<a class="headerlink" href="#coap-s-tcp" title="Permalink to this headline"></a></h3>
 <p>The download fails if either the connection could not be established (e.g.
 TLS handshake failure, remote host is down) or the TCP stack declares
 the connection as broken, or when there is no response to the request for
 <strong>5 minutes</strong>.</p>
 </section>
 <section id="http-s">
-<h3><span class="section-number">6.5.2.3. </span>HTTP(s)<a class="headerlink" href="#http-s" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">6.5.2.3. </span>HTTP(s)<a class="headerlink" href="#http-s" title="Permalink to this headline"></a></h3>
 <p>The download fails due to similar reasons as above. Since HTTP(s) operates
 over TCP and the TCP stack maintains retransmissions and other things in a
 way outside of our control. The difference is that here the response timeout
@@ -124,7 +119,7 @@ is fixed to <strong>30 seconds</strong>.</p>
 </section>
 </section>
 <section id="so-what-happens-when-the-download-fails">
-<h2><span class="section-number">6.5.3. </span>So what happens when the download fails?<a class="headerlink" href="#so-what-happens-when-the-download-fails" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.5.3. </span>So what happens when the download fails?<a class="headerlink" href="#so-what-happens-when-the-download-fails" title="Permalink to this headline"></a></h2>
 <p>When the download fails, the firmware update module calls <code class="docutils literal notranslate"><span class="pre">reset</span></code>
 handler. Its implementation is required to cleanup any outstanding resources,
 and prepare the Client for a potential new download request.</p>
@@ -134,7 +129,7 @@ continuation of firmware download which failed due to network connectivity
 problems as it doesn’t seem to be supported by the LwM2M protocol.</p>
 </section>
 <section id="how-can-we-ensure-higher-success-rate">
-<h2><span class="section-number">6.5.4. </span>How can we ensure higher success rate?<a class="headerlink" href="#how-can-we-ensure-higher-success-rate" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.5.4. </span>How can we ensure higher success rate?<a class="headerlink" href="#how-can-we-ensure-higher-success-rate" title="Permalink to this headline"></a></h2>
 <p>As described in previous sections, for any TCP based transport you can’t do
 much in terms of when the firmware download is considered as failed. The
 timeouts are, at the time of writing this tutorial, fixed and cannot be

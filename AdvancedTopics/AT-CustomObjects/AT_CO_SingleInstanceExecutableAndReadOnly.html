@@ -4,20 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.2. Single-instance read-only object with an executable resource &mdash; Anjay 3.3.0 documentation</title>
+  <title>5.4.2. Single-instance read-only object with an executable resource &mdash; Anjay 3.3.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -34,7 +29,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.0
+                3.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -105,7 +100,7 @@
            <div itemprop="articleBody">
              
   <section id="single-instance-read-only-object-with-an-executable-resource">
-<h1><span class="section-number">5.4.2. </span>Single-instance read-only object with an executable resource<a class="headerlink" href="#single-instance-read-only-object-with-an-executable-resource" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">5.4.2. </span>Single-instance read-only object with an executable resource<a class="headerlink" href="#single-instance-read-only-object-with-an-executable-resource" title="Permalink to this headline"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
@@ -190,7 +185,7 @@ various parts of the LwM2M Object code are for.</p>
 storing the result in the <cite>Value</cite> resource. The integers are to be specified
 as arguments to the LwM2M Execute operation.</p>
 <section id="lwm2m-execute-arguments">
-<h2><span class="section-number">5.4.2.1. </span>LwM2M Execute arguments<a class="headerlink" href="#lwm2m-execute-arguments" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.2.1. </span>LwM2M Execute arguments<a class="headerlink" href="#lwm2m-execute-arguments" title="Permalink to this headline"></a></h2>
 <p>The LwM2M specification defines a syntax of the Execute argument list as
 a formal ABNF grammar.</p>
 <div class="admonition note">
@@ -235,7 +230,7 @@ there are methods designed specifically to solve this problem, namely:</p>
 <p>They will greatly simplify parsing process, as you will see in the next section.</p>
 </section>
 <section id="implementation">
-<h2><span class="section-number">5.4.2.2. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.2.2. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline"></a></h2>
 <p>We start with adding our Resource to the list of supported Resources:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
 <span class="w">                               </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
@@ -262,7 +257,7 @@ simplicity we are going to use a <code class="docutils literal notranslate"><spa
 <span class="w">                                 </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
 <span class="w">                                 </span><span class="n">anjay_execute_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="k">do</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -344,9 +339,9 @@ existence of executable resources that could be read at the same time.</p>
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">addition_result</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="w"></span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// control will never reach this part due to test_list_resources</span>

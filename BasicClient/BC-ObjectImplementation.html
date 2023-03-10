@@ -4,20 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.4. Implementing standard Object &mdash; Anjay 3.3.0 documentation</title>
+  <title>4.4. Implementing standard Object &mdash; Anjay 3.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.0
+                3.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -91,7 +86,7 @@
            <div itemprop="articleBody">
              
   <section id="implementing-standard-object">
-<h1><span class="section-number">4.4. </span>Implementing standard Object<a class="headerlink" href="#implementing-standard-object" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">4.4. </span>Implementing standard Object<a class="headerlink" href="#implementing-standard-object" title="Permalink to this headline"></a></h1>
 <p>This section describes implementation of a standard Object defined in
 <a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LwM2M Registry</a>.
 If you are interested in implementing your own Objects, please jump to
@@ -164,7 +159,7 @@ resource is mandatory.</p></li>
 focus on setting system time and not implement this operation for these two
 resources.</p>
 <section id="implementing-the-object">
-<h2><span class="section-number">4.4.1. </span>Implementing the Object<a class="headerlink" href="#implementing-the-object" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">4.4.1. </span>Implementing the Object<a class="headerlink" href="#implementing-the-object" title="Permalink to this headline"></a></h2>
 <p><strong>Generating base source code</strong></p>
 <p>To generate layout of Object’s implementation, we will use the <code class="docutils literal notranslate"><span class="pre">anjay_codegen.py</span></code>
 script, which is bundled with Anjay library. Without going into details, which
@@ -285,7 +280,7 @@ or Write operation.</p>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">RID_CURRENT_TIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_CURRENT_TIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_time_real_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timestamp</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">,</span><span class="w"></span>
@@ -295,7 +290,7 @@ or Write operation.</p>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">timestamp</span><span class="p">);</span><span class="w"></span>
 </span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">RID_APPLICATION_TYPE</span><span class="p">:</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_APPLICATION_TYPE</span><span class="p">:</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span><span class="w"></span>
 </span>
@@ -321,7 +316,7 @@ allowed only on Application Type resource.</p>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">RID_APPLICATION_TYPE</span><span class="p">:</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_APPLICATION_TYPE</span><span class="p">:</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
 </span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span><span class="w"></span>
 </span><span class="hll"><span class="w">                                </span><span class="k">sizeof</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">));</span><span class="w"></span>
@@ -454,7 +449,7 @@ created object <strong>after</strong> deleting the Anjay object.</p>
 </div>
 </section>
 <section id="supporting-transactional-writes">
-<h2><span class="section-number">4.4.2. </span>Supporting transactional writes<a class="headerlink" href="#supporting-transactional-writes" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">4.4.2. </span>Supporting transactional writes<a class="headerlink" href="#supporting-transactional-writes" title="Permalink to this headline"></a></h2>
 <p>Consider the following scenario: LwM2M Server tries to write to two or more
 resources at once. The write on Application Type will probably succeed, but we
 are sure, that in this case write on the Current Time will fail. Without

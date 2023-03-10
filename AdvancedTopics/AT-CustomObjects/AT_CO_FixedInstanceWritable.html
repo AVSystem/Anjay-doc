@@ -4,20 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 3.3.0 documentation</title>
+  <title>5.4.4. Multi-instance writable object with fixed number of instances &mdash; Anjay 3.3.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -34,7 +29,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.0
+                3.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -105,7 +100,7 @@
            <div itemprop="articleBody">
              
   <section id="multi-instance-writable-object-with-fixed-number-of-instances">
-<h1><span class="section-number">5.4.4. </span>Multi-instance writable object with fixed number of instances<a class="headerlink" href="#multi-instance-writable-object-with-fixed-number-of-instances" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">5.4.4. </span>Multi-instance writable object with fixed number of instances<a class="headerlink" href="#multi-instance-writable-object-with-fixed-number-of-instances" title="Permalink to this headline"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
@@ -181,7 +176,7 @@ but this time accepts Write requests.</p>
 </tbody>
 </table>
 <section id="simple-variant">
-<h2><span class="section-number">5.4.4.1. </span>Simple variant<a class="headerlink" href="#simple-variant" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.4.1. </span>Simple variant<a class="headerlink" href="#simple-variant" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> needs to be able to store arbitrary data. Let us set
 an arbitrary limit of 32 characters in length (including terminating nullbyte):</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_instance</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -212,7 +207,7 @@ an arbitrary limit of 32 characters in length (including terminating nullbyte):<
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// `anjay_get_string` may return a chunk of data instead of the</span>
 <span class="w">        </span><span class="c1">// whole value - we need to make sure the client is able to hold</span>
 <span class="w">        </span><span class="c1">// the entire value</span>
@@ -230,7 +225,7 @@ an arbitrary limit of 32 characters in length (including terminating nullbyte):<
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// reading primitive values can be done directly - the value will only</span>
 <span class="w">        </span><span class="c1">// be written to the output variable if everything went fine</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
@@ -283,7 +278,7 @@ these.</p>
 main Anjay project repository.</p>
 </div>
 <section id="lwm2m-write-operation-modes">
-<h3><span class="section-number">5.4.4.1.1. </span>LwM2M Write operation modes<a class="headerlink" href="#lwm2m-write-operation-modes" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">5.4.4.1.1. </span>LwM2M Write operation modes<a class="headerlink" href="#lwm2m-write-operation-modes" title="Permalink to this headline"></a></h3>
 <p>A LwM2M Server may perform a Write on the <em>entire Object Instance</em>. Two
 variants of such requests are available - both replace values of Instance
 Resources with received values, but they differ in what happens to Resources
@@ -309,7 +304,7 @@ To properly support both Write variants, <code class="docutils literal notransla
 implemented too.</p>
 </section>
 <section id="anjay-transaction-handlers">
-<h3><span class="section-number">5.4.4.1.2. </span>Anjay transaction handlers<a class="headerlink" href="#anjay-transaction-handlers" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">5.4.4.1.2. </span>Anjay transaction handlers<a class="headerlink" href="#anjay-transaction-handlers" title="Permalink to this headline"></a></h3>
 <p>In some cases, like LwM2M Write requests targeting an Object Instance, Anjay
 calls multiple handlers modifying the data model to perform a single atomic
 operation. In such case, transactions ensure that data model is not left
@@ -364,7 +359,7 @@ by the Object.</p>
 </section>
 </section>
 <section id="transactional-variant">
-<span id="fixedinstancewritable-transactional"></span><h2><span class="section-number">5.4.4.2. </span>Transactional variant<a class="headerlink" href="#transactional-variant" title="Permalink to this heading"></a></h2>
+<span id="fixedinstancewritable-transactional"></span><h2><span class="section-number">5.4.4.2. </span>Transactional variant<a class="headerlink" href="#transactional-variant" title="Permalink to this headline"></a></h2>
 <p>Knowing all about different LwM2M Write variants and Anjay transaction handlers,
 we can start implementing a transaction-aware client capable of handling
 all LwM2M Write requests.</p>
@@ -411,7 +406,7 @@ mark Resources as set/unset:</p>
 <span class="w">    </span><span class="c1">// ...</span>
 
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="c1">// ...</span>
 
 <span class="w">            </span><span class="c1">// value OK - save it</span>
@@ -421,7 +416,7 @@ mark Resources as set/unset:</p>
 <span class="w">            </span><span class="c1">// ...</span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// reading primitive values can be done directly - the value will only</span>
 <span class="w">        </span><span class="c1">// be written to the output variable if everything went fine</span>
 <span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_get_i32</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">current_instance</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span><span class="w"></span>

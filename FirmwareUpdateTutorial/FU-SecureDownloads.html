@@ -4,20 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.4. Secure downloads &mdash; Anjay 3.3.0 documentation</title>
+  <title>6.4. Secure downloads &mdash; Anjay 3.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.0
+                3.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -90,9 +85,9 @@
            <div itemprop="articleBody">
              
   <section id="secure-downloads">
-<h1><span class="section-number">6.4. </span>Secure downloads<a class="headerlink" href="#secure-downloads" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">6.4. </span>Secure downloads<a class="headerlink" href="#secure-downloads" title="Permalink to this headline"></a></h1>
 <section id="introduction">
-<h2><span class="section-number">6.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>Up until now, we developed a basic client application that’s capable of
 downloading firmware in <strong>PUSH</strong> and <strong>PULL</strong> modes. If the Server connection
 is secure, then of course any <strong>PUSH</strong> transfer is automatically secured. In
@@ -102,7 +97,7 @@ of credentials required to establishing the secure connection.</p>
 <strong>PULL</strong> mode transfers.</p>
 </section>
 <section id="two-ways-of-security-configuration">
-<h2><span class="section-number">6.4.2. </span>Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.4.2. </span>Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Permalink to this headline"></a></h2>
 <p>When a secure firmware transfer is initiated, firmware update module implemented
 in Anjay gets security configuration in one of two following ways.</p>
 <ol class="arabic simple">
@@ -123,7 +118,7 @@ already configured in Security Object Instances.</p>
 </div>
 </section>
 <section id="supported-security-modes">
-<h2><span class="section-number">6.4.3. </span>Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.4.3. </span>Supported security modes<a class="headerlink" href="#supported-security-modes" title="Permalink to this headline"></a></h2>
 <p>The download can be secured by either <a class="reference external" href="https://en.wikipedia.org/wiki/Pre-shared_key">PSK</a>, or by <a class="reference external" href="https://en.wikipedia.org/wiki/Public_key_certificate">Public key
 certificates</a>.</p>
 <p>Security information is configured in Anjay through a structure:</p>
@@ -158,7 +153,7 @@ us. <code class="docutils literal notranslate"><span class="pre">avs_net_securit
 </ul>
 <p>We will now have a closer look at both of these methods.</p>
 <section id="configuration-of-psk">
-<h3><span class="section-number">6.4.3.1. </span>Configuration of PSK<a class="headerlink" href="#configuration-of-psk" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">6.4.3.1. </span>Configuration of PSK<a class="headerlink" href="#configuration-of-psk" title="Permalink to this headline"></a></h3>
 <p>This is the most straightforward. The structure representing the PSK
 configuration is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
@@ -195,7 +190,7 @@ security module.</p>
 </div>
 </section>
 <section id="configuration-of-certificates">
-<h3><span class="section-number">6.4.3.2. </span>Configuration of Certificates<a class="headerlink" href="#configuration-of-certificates" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">6.4.3.2. </span>Configuration of Certificates<a class="headerlink" href="#configuration-of-certificates" title="Permalink to this headline"></a></h3>
 <p>That’s a bit more involving. The structure representing Certificate configuration
 is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
@@ -298,7 +293,7 @@ from files, we could do something like this:</p>
 </section>
 </section>
 <section id="security-configuration-with-get-security-config-callback">
-<h2><span class="section-number">6.4.4. </span>Security configuration with <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback<a class="headerlink" href="#security-configuration-with-get-security-config-callback" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.4.4. </span>Security configuration with <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> callback<a class="headerlink" href="#security-configuration-with-get-security-config-callback" title="Permalink to this headline"></a></h2>
 <p>Firmware update module provided with Anjay, lets the user implement security
 configuration per download URI. The relevant API is:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_fw_update_get_security_config_t</span><span class="p">(</span><span class="w"></span>
@@ -375,7 +370,7 @@ by the user:</p>
 <code class="docutils literal notranslate"><span class="pre">dane_tlsa_record</span></code> or <code class="docutils literal notranslate"><span class="pre">tls_ciphersuites</span></code> - they can be reset to zero.</p>
 </section>
 <section id="implementation">
-<h2><span class="section-number">6.4.5. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">6.4.5. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline"></a></h2>
 <p>Our implementation will use the following strategy:</p>
 <ol class="arabic simple">
 <li><p>Try loading security info from the data model first (i.e. Security Object).</p></li>

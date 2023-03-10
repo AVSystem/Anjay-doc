@@ -1051,6 +1051,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>This function shall be called when an LwM2M Server Object shall be disabled. The standard case for this is when Execute is performed on the Disable resource (/1/x/4).</p>
 <p>The server will be disabled for the period of time determined by the value of the Disable Timeout resource (/1/x/5). The resource is read soon after the invocation of this function (during next <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>) and is <b>not</b> updated upon any subsequent Writes to that resource.</p>
+<p>If the server is already disabled, its re-enable action will be re-scheduled according to the value of the Disable Timeout resource added to current time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
@@ -1095,6 +1096,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>This function shall be called when an LwM2M Server Object shall be disabled. The standard case for this is when Execute is performed on the Disable resource (/1/x/4). It may also be used to prevent reconnections if the server becomes unreachable.</p>
 <p>The server will become disabled during next <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a> call.</p>
+<p>If the server is already disabled, its re-enable action will be re-scheduled or cancelled, according to the <code>timeout</code> argument.</p>
 <p>NOTE: disabling a server with dual binding (e.g. UDP+SMS trigger) closes both communication channels. Shutting down only one of them requires changing the Binding Resource in Server object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -2910,7 +2912,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Tue Feb 21 2023 10:11:51 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Mar 10 2023 14:11:44 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

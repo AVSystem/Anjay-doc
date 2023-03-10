@@ -4,20 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 3.3.0 documentation</title>
+  <title>5.4.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 3.3.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -34,7 +29,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.0
+                3.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -105,7 +100,7 @@
            <div itemprop="articleBody">
              
   <section id="multi-instance-writable-object-with-dynamic-number-of-instances">
-<h1><span class="section-number">5.4.5. </span>Multi-instance writable object with dynamic number of instances<a class="headerlink" href="#multi-instance-writable-object-with-dynamic-number-of-instances" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">5.4.5. </span>Multi-instance writable object with dynamic number of instances<a class="headerlink" href="#multi-instance-writable-object-with-dynamic-number-of-instances" title="Permalink to this headline"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
@@ -183,7 +178,7 @@ various parts of the LwM2M Object code are for.</p>
 yet in this chapter all Test object related code was moved to separate files to
 keep everything clean.</p>
 <section id="updating-the-object-structure">
-<h2><span class="section-number">5.4.5.1. </span>Updating the object structure<a class="headerlink" href="#updating-the-object-structure" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.5.1. </span>Updating the object structure<a class="headerlink" href="#updating-the-object-structure" title="Permalink to this headline"></a></h2>
 <p>First of all, we have to update our <code class="docutils literal notranslate"><span class="pre">test_object_t</span></code> structure to support
 storing multiple object instances. For that, we need some kind of dynamically
 sized container. We could choose plain-old, manually managed C arrays, but
@@ -227,7 +222,7 @@ Instances. As a consequence, we will add <code class="docutils literal notransla
 </div>
 </section>
 <section id="initialization-and-cleanup">
-<h2><span class="section-number">5.4.5.2. </span>Initialization and cleanup<a class="headerlink" href="#initialization-and-cleanup" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.5.2. </span>Initialization and cleanup<a class="headerlink" href="#initialization-and-cleanup" title="Permalink to this headline"></a></h2>
 <p>We must reconsider the way our Test object is being initialized. Up to this point
 it was allocated on stack and required no cleanup. Again, times have changed, and
 we won’t be able to proceed further without allocating memory on demand.</p>
@@ -294,7 +289,7 @@ of Anjay instance.</p>
 </div>
 </section>
 <section id="updating-old-already-implemented-handlers-to-use-avs-list">
-<h2><span class="section-number">5.4.5.3. </span>Updating old, already implemented handlers to use <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code><a class="headerlink" href="#updating-old-already-implemented-handlers-to-use-avs-list" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.5.3. </span>Updating old, already implemented handlers to use <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code><a class="headerlink" href="#updating-old-already-implemented-handlers-to-use-avs-list" title="Permalink to this headline"></a></h2>
 <p>To simplify matters, we have to agree upon one contract:</p>
 <ol class="arabic simple">
 <li><p>We establish a natural Instance ordering on their Instance IDs, exploiting
@@ -348,7 +343,7 @@ do however strongly recommend you to port the methods to use <code class="docuti
 on your own, especially <strong>remember about updating transaction handlers</strong>.</p>
 </section>
 <section id="instance-create-handler">
-<h2><span class="section-number">5.4.5.4. </span><code class="docutils literal notranslate"><span class="pre">instance_create</span></code> handler<a class="headerlink" href="#instance-create-handler" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.5.4. </span><code class="docutils literal notranslate"><span class="pre">instance_create</span></code> handler<a class="headerlink" href="#instance-create-handler" title="Permalink to this headline"></a></h2>
 <p>Let’s have a look on <code class="docutils literal notranslate"><span class="pre">anjay_dm_instance_create_t</span></code> handler type signature:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
 <span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
@@ -403,7 +398,7 @@ Instance ID already existing.</p>
 </div>
 </section>
 <section id="instance-remove-handler">
-<h2><span class="section-number">5.4.5.5. </span><code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler<a class="headerlink" href="#instance-remove-handler" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.4.5.5. </span><code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler<a class="headerlink" href="#instance-remove-handler" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler does not have to perform anything other than
 removing the instance from our list.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_instance_remove</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>

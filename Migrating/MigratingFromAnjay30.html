@@ -4,20 +4,15 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.9. Migrating from Anjay 3.0 &mdash; Anjay 3.3.0 documentation</title>
+  <title>9.9. Migrating from Anjay 3.0 &mdash; Anjay 3.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.0
+                3.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -93,7 +88,7 @@
            <div itemprop="articleBody">
              
   <section id="migrating-from-anjay-3-0">
-<h1><span class="section-number">9.9. </span>Migrating from Anjay 3.0<a class="headerlink" href="#migrating-from-anjay-3-0" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">9.9. </span>Migrating from Anjay 3.0<a class="headerlink" href="#migrating-from-anjay-3-0" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
@@ -102,13 +97,13 @@
 </ul>
 </div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">9.9.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id1"><span class="section-number">9.9.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>Since Anjay 3.0, some minor changes to the API has been done. These change are
 breaking in the strictest sense, but in practice should not require any changes
 to user code in typical usage.</p>
 </section>
 <section id="behavior-of-anjay-attr-storage-restore-upon-failure">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">9.9.2. </span>Behavior of anjay_attr_storage_restore() upon failure</a><a class="headerlink" href="#behavior-of-anjay-attr-storage-restore-upon-failure" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id2"><span class="section-number">9.9.2. </span>Behavior of anjay_attr_storage_restore() upon failure</a><a class="headerlink" href="#behavior-of-anjay-attr-storage-restore-upon-failure" title="Permalink to this headline"></a></h2>
 <p>Deprecated behavior of <code class="docutils literal notranslate"><span class="pre">anjay_attr_storage_restore()</span></code> which did clear the
 Attribute Storage if supplied source stream was invalid has been changed. From
 now on, if this function fails, the Attribute Storage remains untouched.
@@ -116,7 +111,7 @@ This change is breaking for code which relied on the old behavior, although
 such code is unlikely.</p>
 </section>
 <section id="default-d-tls-version">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">9.9.3. </span>Default (D)TLS version</a><a class="headerlink" href="#default-d-tls-version" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id3"><span class="section-number">9.9.3. </span>Default (D)TLS version</a><a class="headerlink" href="#default-d-tls-version" title="Permalink to this headline"></a></h2>
 <p>When the <a class="reference external" href="../api/structanjay__configuration.html#ab32477e7370a36e02db5b7e7ccbdd89d">anjay_configuration_t::dtls_version</a>
 field is set to <code class="docutils literal notranslate"><span class="pre">AVS_NET_SSL_VERSION_DEFAULT</span></code> (which includes the case of
 zero-initialization), Anjay 3.0 and earlier automatically mapped this setting to
