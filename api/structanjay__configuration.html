@@ -120,6 +120,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:a9f7a28ca709a1e195b202eca9ba82f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0165032f6801d2c79d377f498fdc3970"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a0165032f6801d2c79d377f498fdc3970">use_connection_id</a></td></tr>
 <tr class="separator:a0165032f6801d2c79d377f498fdc3970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa203c2a1b1e606f1f292873170841ca3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#aa203c2a1b1e606f1f292873170841ca3">update_immediately_on_dm_change</a></td></tr>
+<tr class="separator:aa203c2a1b1e606f1f292873170841ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03229ff908f641ebec2ff96f6e20740e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a03229ff908f641ebec2ff96f6e20740e">enable_self_notify</a></td></tr>
+<tr class="separator:a03229ff908f641ebec2ff96f6e20740e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5c0d3b6618cce9452d224a361e7479f"><td class="memItemLeft" align="right" valign="top">avs_net_socket_tls_ciphersuites_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#ab5c0d3b6618cce9452d224a361e7479f">default_tls_ciphersuites</a></td></tr>
 <tr class="separator:ab5c0d3b6618cce9452d224a361e7479f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87caa58c7de566e8c837d996b779f936"><td class="memItemLeft" align="right" valign="top">avs_crypto_prng_ctx_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a87caa58c7de566e8c837d996b779f936">prng_ctx</a></td></tr>
@@ -274,6 +278,22 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>DTLS version to use for communication. </p>
+
+</div>
+</div>
+<a id="a03229ff908f641ebec2ff96f6e20740e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03229ff908f641ebec2ff96f6e20740e">&#9670;&nbsp;</a></span>enable_self_notify</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool enable_self_notify</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Send the Notify messages as a result of a server action (e.g. Write) even to the initiating server.</p>
+<p>By default, notifications resulting from server actions are only sent to the servers other than the one which initiated the action. </p>
 
 </div>
 </div>
@@ -747,6 +767,23 @@ Usage" modes configured in the Security object of the data model. It is also not
 
 </div>
 </div>
+<a id="aa203c2a1b1e606f1f292873170841ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa203c2a1b1e606f1f292873170841ca3">&#9670;&nbsp;</a></span>update_immediately_on_dm_change</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool update_immediately_on_dm_change</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Send the Update message immediately when Object Instances are created or deleted.</p>
+<p>NOTE: In case of Create and Delete operations, the Update message will be immediately sent to <b>all</b> the servers, including the one that initiated the operation.</p>
+<p>By default, such data model changes are reported in the next scheduled update message (or the message can be requested using <a class="el" href="core_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b">anjay_schedule_registration_update</a>), but the Update is not triggered automatically. </p>
+
+</div>
+</div>
 <a id="a0165032f6801d2c79d377f498fdc3970"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0165032f6801d2c79d377f498fdc3970">&#9670;&nbsp;</a></span>use_connection_id</h2>
 
@@ -790,7 +827,7 @@ Usage" modes configured in the Security object of the data model. It is also not
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__configuration.html">anjay_configuration</a></li>
-    <li class="footer">Generated on Fri Mar 10 2023 14:11:44 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jun 14 2023 10:22:57 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

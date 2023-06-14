@@ -1,6 +1,7 @@
 var dir_f1282f3667e08fb5f3f6a37ec99711a1 =
 [
     [ "access_control.h", "access__control_8h.html", "access__control_8h" ],
+    [ "advanced_fw_update.h", "advanced__fw__update_8h.html", "advanced__fw__update_8h" ],
     [ "anjay.h", "anjay_8h.html", null ],
     [ "anjay_config.h", "anjay__config_8h.html", "anjay__config_8h" ],
     [ "at_sms.h", "at__sms_8h.html", "at__sms_8h" ],

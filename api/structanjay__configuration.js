@@ -7,6 +7,7 @@ var structanjay__configuration =
     [ "default_tls_ciphersuites", "structanjay__configuration.html#ab5c0d3b6618cce9452d224a361e7479f", null ],
     [ "disable_legacy_server_initiated_bootstrap", "structanjay__configuration.html#aa5f75a1b0546352b00b4bddb3edab1eb", null ],
     [ "dtls_version", "structanjay__configuration.html#ab32477e7370a36e02db5b7e7ccbdd89d", null ],
+    [ "enable_self_notify", "structanjay__configuration.html#a03229ff908f641ebec2ff96f6e20740e", null ],
     [ "endpoint_name", "structanjay__configuration.html#aafab5578aa377788d6208d5ea6dc2da9", null ],
     [ "est_cacerts_policy", "structanjay__configuration.html#aa77f9d5291f4bee4d92efaebe02f5a4c", null ],
     [ "est_engine_cacerts_address_gen_cb", "structanjay__configuration.html#abc4fdd9feb2cb58a47408a96308dbf6e", null ],
@@ -34,6 +35,7 @@ var structanjay__configuration =
     [ "udp_dtls_hs_tx_params", "structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a", null ],
     [ "udp_listen_port", "structanjay__configuration.html#acf74549a99ca3ad5aedb227c4b0258ca", null ],
     [ "udp_tx_params", "structanjay__configuration.html#a9690621b087639e06dd0c747206d0679", null ],
+    [ "update_immediately_on_dm_change", "structanjay__configuration.html#aa203c2a1b1e606f1f292873170841ca3", null ],
     [ "use_connection_id", "structanjay__configuration.html#a0165032f6801d2c79d377f498fdc3970", null ],
     [ "use_system_trust_store", "structanjay__configuration.html#a84b693c1bb9e83bbf67a0a9b304d5e88", null ]
 ];

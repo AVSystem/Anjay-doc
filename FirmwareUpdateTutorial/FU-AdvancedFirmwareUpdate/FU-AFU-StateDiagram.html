@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.7.2. Firmware Update State Diagram &mdash; Anjay 3.4.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6.7.3. Examples" href="FU-AFU-Examples.html" />
+    <link rel="prev" title="6.7.1. Resource definitions" href="FU-AFU-ResourceDefinitions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.4.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../FU-Introduction.html">6.1. Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-BasicImplementation.html">6.2. Basic implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-ModesAndProtocols.html">6.3. Download modes and protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-SecureDownloads.html">6.4. Secure downloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-PoorConnectivity.html">6.5. Poor network connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-DownloadResumption.html">6.6. Download resumption</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../FU-AdvancedFirmwareUpdate.html">6.7. Advanced Firmware Update</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-ResourceDefinitions.html">6.7.1. Resource definitions</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6.7.2. Firmware Update State Diagram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-Examples.html">6.7.3. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-BasicImplementation.html">6.7.4. Implementation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CommercialFeatures.html">10. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../FU-AdvancedFirmwareUpdate.html"><span class="section-number">6.7. </span>Advanced Firmware Update</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6.7.2. </span>Firmware Update State Diagram</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="firmware-update-state-diagram">
+<h1><span class="section-number">6.7.2. </span>Firmware Update State Diagram<a class="headerlink" href="#firmware-update-state-diagram" title="Permalink to this headline"></a></h1>
+<figure class="align-default">
+<img alt="../../_images/FU-AFU-StateDiagram.svg" src="../../_images/FU-AFU-StateDiagram.svg" /></figure>
+<p>The figure above shows an implementation of the <strong>Advanced Firmware Update</strong>
+mechanism. The state diagram consists of states, drawn as rounded rectangles,
+and transitions, drawn as arrows connecting the states. The syntax of the
+transition is trigger [guard] / behavior. A trigger is an event that may cause
+a transition, a guard is a condition and behavior is an activity that executes
+while the transition takes place. The states additionally contain a compartment
+that includes assertions and variable assignments. For example, the assertion
+in the IDLE state indicates the value of the “Update Result” resource
+(abbreviated as “Res”) must be between 0 and 13. The State resource is set to
+zero (0) when the program is in this IDLE state.</p>
+<p>Any operation to the Firmware Update Object that would result in undefined
+behavior because that specific operation is not identified as a trigger in the
+state machine (e.g. Write to Package URI while in DOWNLOADING state) SHOULD be
+rejected.</p>
+<p>Errors during the Firmware Update process MUST be reported only by the “Update
+Result” resource. For instance, when the LwM2M Server performs a Write
+operation on resource “Package URI”, the LwM2M Client returns a Success or
+Failure for the Write operation. Then if the URI is invalid, it changes its
+“Update Result” resource value to 7.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="FU-AFU-ResourceDefinitions.html" class="btn btn-neutral float-left" title="6.7.1. Resource definitions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="FU-AFU-Examples.html" class="btn btn-neutral float-right" title="6.7.3. Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

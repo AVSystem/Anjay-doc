@@ -279,7 +279,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Type used to retrieve RPC content. </p>
+<p>Type used to retrieve request content. </p>
 
 </div>
 </div>
@@ -294,7 +294,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Type used to return some content in response to a RPC. </p>
+<p>Type used to return some content in response to a request from server. </p>
 
 </div>
 </div>
@@ -309,7 +309,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Type used to return a chunked blob of data in response to a RPC. Useful in cases where the application needs to send more data than it can fit in the memory. </p>
+<p>Type used to return a chunked blob of data in response to a request from server. Useful in cases where the application needs to send more data than it can fit in the memory. </p>
 
 </div>
 </div>
@@ -587,7 +587,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a boolean value from the RPC request content.</p>
+<p>Reads a boolean value from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -642,7 +642,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a chunk of data blob from the RPC request message.</p>
+<p>Reads a chunk of data blob from the request message.</p>
 <p>Consecutive calls to this function will return successive chunks of the data blob. Reaching end of the data is signaled by setting the <code>out_message_finished</code> flag.</p>
 <p>A call to this function will always attempt to read as much data as possible.</p>
 <p>Example: writing a large data blob to file.</p>
@@ -699,7 +699,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a floating-point value as a double from the RPC request content.</p>
+<p>Reads a floating-point value as a double from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -736,7 +736,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a floating-point value as a float from the RPC request content.</p>
+<p>Reads a floating-point value as a float from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -773,7 +773,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads an integer as a 32-bit signed value from the RPC request content.</p>
+<p>Reads an integer as a 32-bit signed value from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -810,7 +810,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads an integer as a 64-bit signed value from the RPC request content.</p>
+<p>Reads an integer as a 64-bit signed value from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -853,7 +853,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads an object link (Object ID/Object Instance ID pair) from the RPC request content.</p>
+<p>Reads an object link (Object ID/Object Instance ID pair) from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -898,7 +898,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads a null-terminated string from the RPC request content. On success or even when <a class="el" href="io_8h.html#a4a012ab598be622109d8ad34cf79c912">ANJAY_BUFFER_TOO_SHORT</a> is returned, the content inside <code>out_buf</code> is always null-terminated. On failure, the contents of <code>out_buf</code> are undefined.</p>
+<p>Reads a null-terminated string from the request content. On success or even when <a class="el" href="io_8h.html#a4a012ab598be622109d8ad34cf79c912">ANJAY_BUFFER_TOO_SHORT</a> is returned, the content inside <code>out_buf</code> is always null-terminated. On failure, the contents of <code>out_buf</code> are undefined.</p>
 <p>When the input buffer is not big enough to contain whole message content + terminating nullbyte, ANJAY_BUFFER_TOO_SHORT is returned, after which further calls can be made, to retrieve more data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -937,7 +937,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads an unsigned integer as a 32-bit unsigned value from the RPC request content.</p>
+<p>Reads an unsigned integer as a 32-bit unsigned value from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -974,7 +974,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads an unsigned integer as a 64-bit unsigned value from the RPC request content.</p>
+<p>Reads an unsigned integer as a 64-bit unsigned value from the request content.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">ctx</td><td>Input context to operate on. </td></tr>
@@ -1139,7 +1139,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Marks the beginning of raw data returned from the data model handler. Used in conjunction with <a class="el" href="io_8h.html#ac03b5aec5d596605f6ebe200df9f3ca1">anjay_ret_bytes_append</a> to return a large blob of data in multiple chunks.</p>
-<p>Example: file content in an RPC response.</p>
+<p>Example: file content in the response.</p>
 <div class="fragment"><div class="line">FILE *file;</div>
 <div class="line"><span class="keywordtype">size_t</span> filesize;</div>
 <div class="line"><span class="comment">// initialize file and filesize</span></div>
@@ -1234,6 +1234,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns a 64-bit floating-point value from the data model handler.</p>
+<p>Note: the <code>value</code> will be sent as a 32-bit floating-point value if it is exactly representable as such.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>Output context to operate on. </td></tr>
+    <tr><td class="paramname">value</td><td>The value to return.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, a negative value in case of error. </dd></dl>
 
 </div>
 </div>
@@ -1514,7 +1524,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="io_8h.html">io.h</a></li>
-    <li class="footer">Generated on Fri Mar 10 2023 14:11:44 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jun 14 2023 10:22:57 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

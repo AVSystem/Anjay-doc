@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.7.4. Implementation &mdash; Anjay 3.4.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7. Tools" href="../../Tools.html" />
+    <link rel="prev" title="6.7.3. Examples" href="FU-AFU-Examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.4.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../FU-Introduction.html">6.1. Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-BasicImplementation.html">6.2. Basic implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-ModesAndProtocols.html">6.3. Download modes and protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-SecureDownloads.html">6.4. Secure downloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-PoorConnectivity.html">6.5. Poor network connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-DownloadResumption.html">6.6. Download resumption</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../FU-AdvancedFirmwareUpdate.html">6.7. Advanced Firmware Update</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-ResourceDefinitions.html">6.7.1. Resource definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-StateDiagram.html">6.7.2. Firmware Update State Diagram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-Examples.html">6.7.3. Examples</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6.7.4. Implementation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CommercialFeatures.html">10. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../FU-AdvancedFirmwareUpdate.html"><span class="section-number">6.7. </span>Advanced Firmware Update</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6.7.4. </span>Implementation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="implementation">
+<h1><span class="section-number">6.7.4. </span>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#project-structure" id="id1">Project structure</a></p></li>
+<li><p><a class="reference internal" href="#advanced-firmware-update-api" id="id2">Advanced Firmware Update API</a></p></li>
+<li><p><a class="reference internal" href="#implementing-handlers-and-installation-routine" id="id3">Implementing handlers and installation routine</a></p></li>
+<li><p><a class="reference internal" href="#installing-the-advanced-firmware-update-module" id="id4">Installing the Advanced Firmware Update module</a></p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before approaching this tutorial, it is recommended to get familiar with the
+<a class="reference internal" href="../FU-BasicImplementation.html"><span class="doc">Basic implementation</span></a> chapter. Both examples are very similar,
+except for the additional elements resulting from the Advanced Firmware Update specification.
+In this document we will not focus on those elements that are also present in basic Firmware Udpates.</p>
+</div>
+<section id="project-structure">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">6.7.4.1. </span>Project structure</a><a class="headerlink" href="#project-structure" title="Permalink to this headline"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>examples/tutorial/firmware-update/advanced-firmware-update/
+├── CMakeLists.txt
+└── src
+    ├── advanced_firmware_update.c
+    ├── advanced_firmware_update.h
+    ├── main.c
+    ├── time_object.c
+    └── time_object.h
+</pre></div>
+</div>
+</section>
+<section id="advanced-firmware-update-api">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">6.7.4.2. </span>Advanced Firmware Update API</a><a class="headerlink" href="#advanced-firmware-update-api" title="Permalink to this headline"></a></h2>
+<p>In order to install the module, we are going to use:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_advanced_fw_update_install</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_advanced_fw_update_global_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>With this call we are passing a <code class="docutils literal notranslate"><span class="pre">config</span></code> that will affect all instances of the Advanced Firmware Update object.</p>
+<p>To add an instance of the Advanced Firmware Update object, we are going to use:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_advanced_fw_update_instance_add</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">component_name</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_advanced_fw_update_handlers_t</span><span class="w"> </span><span class="o">*</span><span class="n">handlers</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_arg</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_advanced_fw_update_initial_state_t</span><span class="w"> </span><span class="o">*</span><span class="n">initial_state</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">anjay</span></code>, <code class="docutils literal notranslate"><span class="pre">handlers</span></code>, <code class="docutils literal notranslate"><span class="pre">user_arg</span></code> and <code class="docutils literal notranslate"><span class="pre">initial_state</span></code> arguments are similar
+to their equivalents in <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_install</span></code> function (see <a class="reference internal" href="../FU-BasicImplementation.html#anjay-fw-update-install"><span class="std std-ref">Installing the Firmware Update module</span></a>).
+There are two major differences between <code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_handlers_t</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_handlers_t</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>each callback has an additional <strong>iid</strong> argument, which corresponds to the object instance number,</p></li>
+<li><p>new callback <code class="docutils literal notranslate"><span class="pre">get_current_version</span></code> that return the version of current firmware package.</p></li>
+</ul>
+</div></blockquote>
+<p>Remember that each instance must have a unique <strong>iid</strong> number. The <strong>component_name</strong> holds value of the /33629/x/14 resource.
+<strong>The string is NOT copied, so it needs to remain valid for the lifetime of the object instance.</strong></p>
+</section>
+<section id="implementing-handlers-and-installation-routine">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">6.7.4.3. </span>Implementing handlers and installation routine</a><a class="headerlink" href="#implementing-handlers-and-installation-routine" title="Permalink to this headline"></a></h2>
+<p>Compared to a regular Firmware Updates, we need to store more information in the global structure.
+For each AFU instance, we define: a file handle, an array storing the firmware version
+(for the /33629/x/15 resource) and an array storing the instance name (<strong>component_name</strong> argument in
+<code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_instance_add</span></code>).</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;advanced_firmware_update.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;errno.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#define AFU_VERSION_STR_MAX_LEN 10</span>
+<span class="cp">#define AFU_INSTANCE_NAME_STR_MAX_LEN 10</span>
+<span class="cp">#define AFU_FILE_NAME_STR_MAX_LEN 50</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">fw_version</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">]</span><span class="w"></span>
+<span class="w">                   </span><span class="p">[</span><span class="n">AFU_VERSION_STR_MAX_LEN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">instance_name</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">]</span><span class="w"></span>
+<span class="w">                      </span><span class="p">[</span><span class="n">AFU_INSTANCE_NAME_STR_MAX_LEN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">advanced_firmware_update_logic_t</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">advanced_firmware_update_logic_t</span><span class="w"> </span><span class="n">afu_logic</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Number of the firmware instances is defined by <code class="docutils literal notranslate"><span class="pre">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span></code>.
+Default instance (<code class="docutils literal notranslate"><span class="pre">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span></code>) is the built image of this software.
+The other instances correspond to the files created by the <code class="docutils literal notranslate"><span class="pre">afu_update_install</span></code> function for
+the purpose of this tutorial (those are equivalent of such software images as bootloader image,
+modem image etc. used in embedded systems).</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef ADVANCED_FIRMWARE_UPDATE_H</span>
+<span class="cp">#define ADVANCED_FIRMWARE_UPDATE_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/advanced_fw_update.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/anjay.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_log.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#define AFU_DEFAULT_FIRMWARE_VERSION &quot;1.0.0&quot;</span>
+<span class="cp">#define AFU_ADD_FILE_DEFAULT_CONTENT &quot;1.1.1&quot;</span>
+
+<span class="cp">#define AFU_DEFAULT_FIRMWARE_INSTANCE_IID 0</span>
+<span class="cp">#define AFU_NUMBER_OF_FIRMWARE_INSTANCES 3</span>
+
+<span class="cm">/**</span>
+<span class="cm">* Buffer for the endpoint name that will be used when re-launching the client</span>
+<span class="cm">* after firmware upgrade.</span>
+<span class="cm">*/</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ENDPOINT_NAME</span><span class="p">;</span><span class="w"></span>
+
+<span class="cm">/**</span>
+<span class="cm">* Installs the advanced firmware update module.</span>
+<span class="cm">*</span>
+<span class="cm">* @returns 0 on success, negative value otherwise.</span>
+<span class="cm">*/</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">afu_update_install</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
+
+<span class="cp">#endif </span><span class="c1">// ADVANCED_FIRMWARE_UPDATE_H</span>
+</pre></div>
+</div>
+<p>The implementation of <code class="docutils literal notranslate"><span class="pre">fw_stream_open</span></code> and <code class="docutils literal notranslate"><span class="pre">fw_update_common_write</span></code> is quite simple.
+For each iid we open and write to a separate file.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">get_firmware_download_name</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buff</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/tmp/firmware_image.bin&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/tmp/add_image_%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fw_stream_open</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">user_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">file_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">get_firmware_download_name</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Already open %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;wb&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not open %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fw_update_common_write</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                 </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                 </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                 </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">user_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Stream not open: object %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">length</span><span class="w"></span>
+<span class="w">            </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">])</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">                </span><span class="o">||</span><span class="w"> </span><span class="n">fflush</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">])</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;fwrite or fflush failed: %s&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_ERR_NOT_ENOUGH_SPACE</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">fw_update_common_finish</span></code> after closing the stream, we check the other instances,
+if any is in DOWNLOADED state then we link them with each other. <strong>This is not a requirement,
+the implementation is free do decide which instances are linked and which are not.</strong>
+With <code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_set_linked_instances</span></code> we set the <strong>Linked Instances</strong> (/33629/x/15)
+resource to inform the server that the upgrade will be performed simultaneously on all linked instances.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">add_linked_instance</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">target_iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">linked_instances</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">linked_target_iids</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// get linked instances</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_get_linked_instances</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">linked_instances</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">linked_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// add target_iid to the list</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">linked_target_iids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linked_instances</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">linked_target_iids</span><span class="p">[</span><span class="n">linked_iids_count</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target_iid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_set_linked_instances</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">linked_target_iids</span><span class="p">,</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">fw_update_common_finish</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">user_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Stream not open: object %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">]))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Closing firmware image failed: object %d&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">    If other firmware instances are in downloaded state set linked instances,</span>
+<span class="cm">    based on them, the upgrade will be performed simultaneously in the</span>
+<span class="cm">    perform_upgrade callback. The reason for setting linked instances may be</span>
+<span class="cm">    different and depends on the user&#39;s implementation, but always mean</span>
+<span class="cm">    that instances will be updated in a batch if the Update resource is executed</span>
+<span class="cm">    with no arguments.</span>
+<span class="cm">    */</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">anjay_advanced_fw_update_state_t</span><span class="w"> </span><span class="n">state</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="n">anjay_advanced_fw_update_get_state</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_STATE_DOWNLOADED</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">add_linked_instance</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="n">add_linked_instance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Three new paramteters are passed with <code class="docutils literal notranslate"><span class="pre">fw_update_common_perform_upgrade</span></code> function:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">iid</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requested_supplemental_iids</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requested_supplemental_iids_count</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">iid</span></code> points to the instance on which <cite>Update</cite> (/33629/x/2) was called. The <code class="docutils literal notranslate"><span class="pre">requested_supplemental_iids</span></code> can
+contain a list of instances for simultaneous upgrade, passed as an argument in the <cite>Update</cite> (/33629/x/2) command sent by
+the server. If <code class="docutils literal notranslate"><span class="pre">requested_supplemental_iids</span></code> is present (different than <cite>NULL</cite>), specification forces us to upgrade
+according to it. If this is not possible then we need to return a corresponding error.</p>
+<p>First, we check which instances are to be updated. To do this, we create <code class="docutils literal notranslate"><span class="pre">update_iid</span></code> array and for each
+instance we set it to <cite>true</cite> if the conditions for upgrade are met. Conditions are checked inside
+<code class="docutils literal notranslate"><span class="pre">is_update_requested</span></code> function. In our example if <code class="docutils literal notranslate"><span class="pre">requested_supplemental_iids</span> <span class="pre">==</span> <span class="pre">NULL</span></code>, we use <code class="docutils literal notranslate"><span class="pre">linked_target_iids</span></code>
+instead. Then we retrieve the state of each instance that is involved in the upgrade, if it is other than <cite>DOWNLOADED</cite>
+then we return a <cite>CONFLICTING_STATE</cite> error. Before leaving the function, we set conflicting instances to tell the server
+which instance is causing the problem (<code class="docutils literal notranslate"><span class="pre">add_conflicting_instance</span></code> function which calls <code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_set_conflicting_instances</span></code>).</p>
+<p>In next step we check version compatibility. For the purposes of this tutorial, we have assumed that the first character
+in each additional file must have the same value. If we are updating only some of the files, their new versions must
+have the same value as the old ones. In the case of replacing all files, each new file must match. If a mismatch is detected,
+an error <cite>CONFLICTING_STATE</cite> is returned and the <code class="docutils literal notranslate"><span class="pre">add_conflicting_instance</span></code> function is called, so that the server gets
+information about the error and the instance that caused it. After that we update the state of each instance from <cite>DOWNLOADED</cite>
+to <cite>UPDATING</cite>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>During upgrade you must remember to change the state of each instance. Anjay will only modify the state of the <code class="docutils literal notranslate"><span class="pre">iid</span></code>
+instance. In a typical scenario, the state of each instance must be changed first from <cite>DOWNLOADED</cite> to <cite>UPDATING</cite>
+and then, if reboot does not occur, to <cite>SUCCESS</cite>.</p>
+</div>
+<p>The last step is to replace the firmware. We start with additional images, if <code class="docutils literal notranslate"><span class="pre">update_iid[i]</span> <span class="pre">==</span> <span class="pre">true</span></code> then we use the
+<code class="docutils literal notranslate"><span class="pre">move_file</span></code> function to swap files, if the main image does not change then we create a “marker” file for each instance
+(logic carried over from <a class="reference internal" href="../FU-BasicImplementation.html"><span class="doc">Basic implementation</span></a>) and change its state from <cite>UPDATING</cite> to <cite>SUCCESS</cite>.
+If the main image is to be replaced then at this point we create the corresponding “marker” file and start a new application.
+Otherwise, we call <code class="docutils literal notranslate"><span class="pre">refresh_fw_version</span></code> to update the instance’s firmware versions and we remove all information about
+all linked and conflicting instances.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">get_add_firmware_file_name</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buff</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ADD_FILE_%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">get_marker_file_name</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buff</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/tmp/fw-updated-marker_%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">move_file</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">dest_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">source_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">source_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not open file: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">dest_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;w&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">dest_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not open file: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dest</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">fclose</span><span class="p">(</span><span class="n">source_stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">feof</span><span class="p">(</span><span class="n">source_stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buff</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes_read_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buff</span><span class="p">),</span><span class="w"> </span><span class="n">source_stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">bytes_read_1</span><span class="p">,</span><span class="w"> </span><span class="n">dest_stream</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">bytes_read_1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error during write to file: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dest</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">ret_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="nl">cleanup</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dest_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">dest_stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not close file: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dest</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">ret_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">source_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">source_stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not close file: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">ret_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="n">source</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret_val</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">add_conflicting_instance</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">target_iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">conflicting_instances</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">conflicting_target_iids</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">conflicting_iids_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// get conflicting instances</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_get_conflicting_instances</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                       </span><span class="o">&amp;</span><span class="n">conflicting_instances</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                       </span><span class="o">&amp;</span><span class="n">conflicting_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// add target_iid to the list</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">conflicting_iids_count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">conflicting_target_iids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conflicting_instances</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">conflicting_target_iids</span><span class="p">[</span><span class="n">conflicting_iids_count</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target_iid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_set_conflicting_instances</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                       </span><span class="n">conflicting_target_iids</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                       </span><span class="n">conflicting_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">is_update_requested</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">target_iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">requested_supplemental_iids</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">requested_supplemental_iids_count</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">linked_target_iids</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">target_iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">requested_supplemental_iids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">requested_supplemental_iids_count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">requested_supplemental_iids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">linked_target_iids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">linked_target_iids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="nf">get_firmware_major_version</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_upgrade</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">file_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_upgrade</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">fw_version</span><span class="p">[</span><span class="n">iid</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">get_firmware_download_name</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// get value from new file</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buff</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not open file: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not read from file file: %s&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">fclose</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not close file: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">buff</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">refresh_fw_version</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">fw_version</span><span class="p">[</span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="n">AFU_DEFAULT_FIRMWARE_VERSION</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">AFU_DEFAULT_FIRMWARE_VERSION</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">buff</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="n">get_add_firmware_file_name</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">buff</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;r&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not open file with iid: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fread</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">fw_version</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AFU_VERSION_STR_MAX_LEN</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not read file with iid: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">fclose</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not close file with iid: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="s">&quot;Firmware version for object with IID %d is: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">fw_version</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="nf">fw_update_common_perform_upgrade</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                 </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                 </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">requested_supplemental_iids</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                 </span><span class="kt">size_t</span><span class="w"> </span><span class="n">requested_supplemental_iids_count</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">user_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">linked_target_iids</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">update_iid</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// get linked instances</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_get_linked_instances</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">linked_target_iids</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">linked_iids_count</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* Prepare list of iid to update. If requested_supplemental_iids is present</span>
+<span class="cm">    * use it otherwise use linked_target_iids.*/</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_update_requested</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">requested_supplemental_iids</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">requested_supplemental_iids_count</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">linked_target_iids</span><span class="p">,</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">update_iid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// check if new file is already downloaded</span>
+<span class="w">            </span><span class="n">anjay_advanced_fw_update_state_t</span><span class="w"> </span><span class="n">state</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="n">anjay_advanced_fw_update_get_state</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"></span>
+<span class="w">                    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_STATE_DOWNLOADED</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="s">&quot;Upgrade can&#39;t be performed, firmware file with iid %d &quot;</span><span class="w"></span>
+<span class="w">                        </span><span class="s">&quot;is not ready&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="c1">// set conflicting instance</span>
+<span class="w">                </span><span class="n">add_conflicting_instance</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_ERR_CONFLICTING_STATE</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">update_iid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">    Check firmware version compatibility.</span>
+<span class="cm">    In this example major version number is compare - first character in every</span>
+<span class="cm">    additional image must have the same value. If new file is given (DOWNLOADED</span>
+<span class="cm">    STATE), get this value from them, otherwise use the old one.</span>
+<span class="cm">    */</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">update_iid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">get_firmware_major_version</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">update_iid</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"></span>
+<span class="w">                        </span><span class="o">!=</span><span class="w"> </span><span class="n">get_firmware_major_version</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">update_iid</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;Upgrade can&#39;t be performed, conflicting firmware &quot;</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;version between instance %d and %d&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="c1">// set conflicting instance due to firmware version</span>
+<span class="w">                    </span><span class="c1">// incompatibility</span>
+<span class="w">                    </span><span class="n">add_conflicting_instance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="n">add_conflicting_instance</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_ERR_CONFLICTING_STATE</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* No errors found, change the status of all requested_supplemental_iids or</span>
+<span class="cm">    * linked_target_iids to UPDATING before the actual update process.*/</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">update_iid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">anjay_advanced_fw_update_set_state_and_result</span><span class="p">(</span><span class="w"></span>
+<span class="w">                        </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_STATE_UPDATING</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_RESULT_INITIAL</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// after firmware versions check, start firmware update, first with</span>
+<span class="w">    </span><span class="c1">// additional images</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">update_iid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Perform update on %d instance&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">            </span><span class="kt">char</span><span class="w"> </span><span class="n">new_firm_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">            </span><span class="kt">char</span><span class="w"> </span><span class="n">current_firm_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">            </span><span class="n">get_firmware_download_name</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">new_firm_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">get_add_firmware_file_name</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">current_firm_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">move_file</span><span class="p">(</span><span class="n">current_firm_name</span><span class="p">,</span><span class="w"> </span><span class="n">new_firm_name</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="s">&quot;Error during the %d additional image swapping&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// if main application is restarted, set update marker</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">update_iid</span><span class="p">[</span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="kt">char</span><span class="w"> </span><span class="n">marker_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">                </span><span class="n">get_marker_file_name</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">marker_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">marker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">marker_name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;w&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">marker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;Marker file could not be created&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">marker</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;Marker file could not be close&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="c1">// if main application is not restarted, update state</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">anjay_advanced_fw_update_set_state_and_result</span><span class="p">(</span><span class="w"></span>
+<span class="w">                        </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_STATE_IDLE</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_RESULT_SUCCESS</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// update application</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">update_iid</span><span class="p">[</span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Perform update on default instance&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">new_firm_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">marker_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">        </span><span class="n">get_firmware_download_name</span><span class="p">(</span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">new_firm_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">get_marker_file_name</span><span class="p">(</span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">,</span><span class="w"> </span><span class="n">marker_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chmod</span><span class="p">(</span><span class="n">new_firm_name</span><span class="p">,</span><span class="w"> </span><span class="mo">0700</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not make firmware executable: %s&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Create a marker file, so that the new process knows it is the</span>
+<span class="w">        </span><span class="c1">// &quot;upgraded&quot; one</span>
+<span class="w">        </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">marker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">marker_name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;w&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">marker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Marker file could not be created&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">marker</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Marker file could not be close&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">ENDPOINT_NAME</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// If the call below succeeds, the firmware is considered as &quot;upgraded&quot;,</span>
+<span class="w">        </span><span class="c1">// and we hope the newly started client registers to the Server.</span>
+<span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">execl</span><span class="p">(</span><span class="n">new_firm_name</span><span class="p">,</span><span class="w"> </span><span class="n">new_firm_name</span><span class="p">,</span><span class="w"> </span><span class="n">ENDPOINT_NAME</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;execl() failed: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// If we are here, it means execl() failed. Marker file MUST now be</span>
+<span class="w">        </span><span class="c1">// removed, as the firmware update failed.</span>
+<span class="w">        </span><span class="n">unlink</span><span class="p">(</span><span class="n">marker_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// update firmware version</span>
+<span class="w">    </span><span class="n">refresh_fw_version</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// clear conflicting and linked instances in the objects</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">update_iid</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">anjay_advanced_fw_update_set_conflicting_instances</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                            </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">anjay_advanced_fw_update_set_linked_instances</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                        </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// clear conflicting and linked instances about this object from</span>
+<span class="w">            </span><span class="c1">// other objects</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">remove_linked_instance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="n">remove_conflicting_instance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>At the very end we will look at the implementation of <code class="docutils literal notranslate"><span class="pre">fw_update_common_reset</span></code>. Note that this function will be called
+not only in case of failure but also after a successful update if there is no reboot. In addition to removing the downloaded
+files, we clean <cite>linked</cite> and <cite>conflicting</cite> resources from the instance and using the <code class="docutils literal notranslate"><span class="pre">remove_conflicting_instance</span></code> and
+<code class="docutils literal notranslate"><span class="pre">remove_linked_instance</span></code> functions, we remove the information about given instance from the other instances.
+Please note that as in the case of <code class="docutils literal notranslate"><span class="pre">fw_update_common_perform_upgrade</span></code> we do not check the state of each instance,
+perhaps in your implementation before clearing the <cite>linked</cite> and <cite>conflicting</cite> lists, you will need to include logic
+to check the status of the update.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">remove_linked_instance</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">target_iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">linked_instances</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">linked_target_iids</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">new_linked_iids_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// get linked instances</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_get_linked_instances</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">linked_instances</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">linked_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// remove target_iid from the list</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">linked_iids_count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">linked_instances</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">target_iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">linked_target_iids</span><span class="p">[</span><span class="n">new_linked_iids_count</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linked_instances</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// update linked list</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_set_linked_instances</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">linked_target_iids</span><span class="p">,</span><span class="w"> </span><span class="n">new_linked_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">remove_conflicting_instance</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">target_iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="o">*</span><span class="n">conflicting_instances</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">conflicting_target_iids</span><span class="p">[</span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">conflicting_iids_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">new_conflicting_iids_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// get conflicting instances</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_get_conflicting_instances</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="o">&amp;</span><span class="n">conflicting_instances</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="o">&amp;</span><span class="n">conflicting_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// remove target_iid from the list</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">conflicting_iids_count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conflicting_instances</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">target_iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">conflicting_target_iids</span><span class="p">[</span><span class="n">new_conflicting_iids_count</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">                    </span><span class="n">conflicting_instances</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// update conflicting list</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_set_conflicting_instances</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">conflicting_target_iids</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="n">new_conflicting_iids_count</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">fw_update_common_reset</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">user_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">new_firm_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">get_firmware_download_name</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">new_firm_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Reset can be issued even if the download never started</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// We ignore the result code of fclose(), as fw_reset() can&#39;t fail</span>
+<span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">fclose</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">]);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// and reset our global state to initial value</span>
+<span class="w">        </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">new_firmware_file</span><span class="p">[</span><span class="n">iid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Finally, let&#39;s remove any downloaded payload</span>
+<span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="n">new_firm_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// clear conflicting and linked instances in the object</span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_set_conflicting_instances</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                    </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_set_linked_instances</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// clear conflicting and linked instances about this object from other</span>
+<span class="w">    </span><span class="c1">// objects</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">remove_linked_instance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">remove_conflicting_instance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="installing-the-advanced-firmware-update-module">
+<h2><a class="toc-backref" href="#id4"><span class="section-number">6.7.4.4. </span>Installing the Advanced Firmware Update module</a><a class="headerlink" href="#installing-the-advanced-firmware-update-module" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">afu_update_install</span></code> function is similar to <code class="docutils literal notranslate"><span class="pre">fw_update_install</span></code> from <a class="reference internal" href="../FU-BasicImplementation.html"><span class="doc">Basic implementation</span></a>.
+First we call <code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_install</span></code> then for each instance we check the existence of a “marker” file,
+based on which we call <code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_instance_add</span></code> with the appropriate arguments. For additional files,
+we create them if they do not exist and fill them with the default content (<cite>AFU_ADD_FILE_DEFAULT_CONTENT</cite>).
+Finally, we call the <code class="docutils literal notranslate"><span class="pre">refresh_fw_version</span></code> function so that the <code class="docutils literal notranslate"><span class="pre">fw_update_common_get_current_version</span></code> callback
+can return the correct value.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="nf">fw_update_common_get_current_version</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">user_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">fw_version</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_advanced_fw_update_handlers_t</span><span class="w"> </span><span class="n">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">stream_open</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fw_stream_open</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">stream_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fw_update_common_write</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">stream_finish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fw_update_common_finish</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fw_update_common_reset</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">get_current_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fw_update_common_get_current_version</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">perform_upgrade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fw_update_common_perform_upgrade</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">afu_update_install</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_initial_state_t</span><span class="w"> </span><span class="n">state</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">marker_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">file_name</span><span class="p">[</span><span class="n">AFU_FILE_NAME_STR_MAX_LEN</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">state</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">anjay_advanced_fw_update_global_config_t</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">prefer_same_socket_downloads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_advanced_fw_update_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="s">&quot;Could not install advanced firmware object: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// check if application was updated</span>
+<span class="w">    </span><span class="n">get_marker_file_name</span><span class="p">(</span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">,</span><span class="w"> </span><span class="n">marker_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">marker_name</span><span class="p">,</span><span class="w"> </span><span class="n">F_OK</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Application update succeded&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">state</span><span class="p">.</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_RESULT_SUCCESS</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">unlink</span><span class="p">(</span><span class="n">marker_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_advanced_fw_update_instance_add</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">AFU_DEFAULT_FIRMWARE_INSTANCE_IID</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handlers</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="s">&quot;Could not add default application instance: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// check if additional files were updated, if not create it with default</span>
+<span class="w">    </span><span class="c1">// value</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AFU_NUMBER_OF_FIRMWARE_INSTANCES</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">memset</span><span class="p">(</span><span class="n">marker_name</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">marker_name</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="n">get_marker_file_name</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">marker_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">marker_name</span><span class="p">,</span><span class="w"> </span><span class="n">F_OK</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="s">&quot;Additional file with idd: %d update succeded&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">state</span><span class="p">.</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_RESULT_SUCCESS</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="n">unlink</span><span class="p">(</span><span class="n">marker_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">state</span><span class="p">.</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ADVANCED_FW_UPDATE_RESULT_INITIAL</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">memset</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">file_name</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="n">get_add_firmware_file_name</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// create file only if not exist</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">access</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="n">F_OK</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kt">FILE</span><span class="w"> </span><span class="o">*</span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;wb&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not open %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="n">AFU_ADD_FILE_DEFAULT_CONTENT</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="n">strlen</span><span class="p">(</span><span class="n">AFU_ADD_FILE_DEFAULT_CONTENT</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">)</span><span class="w"></span>
+<span class="w">                    </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not write to %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="n">fclose</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fclose</span><span class="p">(</span><span class="n">stream</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not close %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">snprintf</span><span class="p">(</span><span class="n">afu_logic</span><span class="p">.</span><span class="n">instance_name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">AFU_INSTANCE_NAME_STR_MAX_LEN</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="s">&quot;add_img_%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_advanced_fw_update_instance_add</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">afu_logic</span><span class="p">.</span><span class="n">instance_name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handlers</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">advance_fu</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="s">&quot;Could not add the additional image instance: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">refresh_fw_version</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="FU-AFU-Examples.html" class="btn btn-neutral float-left" title="6.7.3. Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../Tools.html" class="btn btn-neutral float-right" title="7. Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

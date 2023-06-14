@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.7.3. Examples &mdash; Anjay 3.4.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6.7.4. Implementation" href="FU-AFU-BasicImplementation.html" />
+    <link rel="prev" title="6.7.2. Firmware Update State Diagram" href="FU-AFU-StateDiagram.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.4.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../FU-Introduction.html">6.1. Firmware Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-BasicImplementation.html">6.2. Basic implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-ModesAndProtocols.html">6.3. Download modes and protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-SecureDownloads.html">6.4. Secure downloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-PoorConnectivity.html">6.5. Poor network connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FU-DownloadResumption.html">6.6. Download resumption</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../FU-AdvancedFirmwareUpdate.html">6.7. Advanced Firmware Update</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-ResourceDefinitions.html">6.7.1. Resource definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-StateDiagram.html">6.7.2. Firmware Update State Diagram</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6.7.3. Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FU-AFU-BasicImplementation.html">6.7.4. Implementation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tools.html">7. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Migrating.html">9. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CommercialFeatures.html">10. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../FU-AdvancedFirmwareUpdate.html"><span class="section-number">6.7. </span>Advanced Firmware Update</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6.7.3. </span>Examples</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1><span class="section-number">6.7.3. </span>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#example-client-data-model-initial-state" id="id1">Example client data model - initial state</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lwm2m-firmware-update-object-application-component-33629-0" id="id2">Lwm2M Firmware update Object - Application component [/33629/0]</a></p></li>
+<li><p><a class="reference internal" href="#lwm2m-firmware-update-object-trusted-firmware-component-33629-1" id="id3">Lwm2M Firmware update Object - Trusted firmware component [/33629/1]</a></p></li>
+<li><p><a class="reference internal" href="#lwm2m-firmware-update-object-bootloader-33629-2" id="id4">Lwm2M Firmware update Object - Bootloader [/33629/2]</a></p></li>
+<li><p><a class="reference internal" href="#lwm2m-firmware-update-object-modem-33629-3" id="id5">Lwm2M Firmware update Object - Modem [/33629/3]</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#example-upgrade-scenarios" id="id6">Example upgrade scenarios</a></p>
+<ul>
+<li><p><a class="reference internal" href="#version-conflict" id="id7">Version conflict</a></p></li>
+<li><p><a class="reference internal" href="#multi-component-package" id="id8">Multi-component package</a></p></li>
+<li><p><a class="reference internal" href="#conflicting-downloads" id="id9">Conflicting downloads</a></p></li>
+<li><p><a class="reference internal" href="#implicit-and-explicit-linked-updates" id="id10">Implicit and explicit linked updates</a></p></li>
+<li><p><a class="reference internal" href="#implicit-linked-update" id="id11">Implicit linked update</a></p></li>
+<li><p><a class="reference internal" href="#explicit-linked-update" id="id12">Explicit linked update</a></p></li>
+<li><p><a class="reference internal" href="#explicit-single-component-update" id="id13">Explicit single component update</a></p></li>
+<li><p><a class="reference internal" href="#explicit-single-component-update-unsuccessful" id="id14">Explicit single component update - unsuccessful</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="example-client-data-model-initial-state">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">6.7.3.1. </span>Example client data model - initial state</a><a class="headerlink" href="#example-client-data-model-initial-state" title="Permalink to this headline"></a></h2>
+<section id="lwm2m-firmware-update-object-application-component-33629-0">
+<h3><a class="toc-backref" href="#id2"><span class="section-number">6.7.3.1.1. </span>Lwm2M Firmware update Object - Application component [/33629/0]</a><a class="headerlink" href="#lwm2m-firmware-update-object-application-component-33629-0" title="Permalink to this headline"></a></h3>
+<p>This component governs the package for the main application firmware that
+implements the core device functionality.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Resource Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Resource Instance ID</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Package</p></td>
+<td><p>0</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Package URI</p></td>
+<td><p>1</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>State</p></td>
+<td><p>3</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Idle</p></td>
+</tr>
+<tr class="row-odd"><td><p>Update Result</p></td>
+<td><p>5</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Initial value</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p> Firmware Update Protocol Support</p></td>
+<td rowspan="4"><p> 8</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>CoAP</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>CoAPs</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>HTTP</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>HTTPS</p></td>
+</tr>
+<tr class="row-even"><td><p>Firmware Update Delivery Method</p></td>
+<td><p>9</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>Both push and pull</p></td>
+</tr>
+<tr class="row-odd"><td><p>Component Name</p></td>
+<td><p>14</p></td>
+<td></td>
+<td><p>Application</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Current version</p></td>
+<td><p>15</p></td>
+<td></td>
+<td><p>1.0</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Linked Instances</p></td>
+<td><p>16</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Conflicting Instances</p></td>
+<td><p>17</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lwm2m-firmware-update-object-trusted-firmware-component-33629-1">
+<h3><a class="toc-backref" href="#id3"><span class="section-number">6.7.3.1.2. </span>Lwm2M Firmware update Object - Trusted firmware component [/33629/1]</a><a class="headerlink" href="#lwm2m-firmware-update-object-trusted-firmware-component-33629-1" title="Permalink to this headline"></a></h3>
+<p>This component governs the TEE (Trusted Execution Environment) firmware package.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Resource Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Resource Instance ID</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Package</p></td>
+<td><p>0</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Package URI</p></td>
+<td><p>1</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>State</p></td>
+<td><p>3</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Idle</p></td>
+</tr>
+<tr class="row-odd"><td><p>Update Result</p></td>
+<td><p>5</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Initial value</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p> Firmware Update Protocol Support</p></td>
+<td rowspan="4"><p> 8</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>CoAP</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>CoAPs</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>HTTP</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>HTTPS</p></td>
+</tr>
+<tr class="row-even"><td><p>Firmware Update Delivery Method</p></td>
+<td><p>9</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>Both push and pull</p></td>
+</tr>
+<tr class="row-odd"><td><p>Component Name</p></td>
+<td><p>14</p></td>
+<td></td>
+<td><p>TEE</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Current version</p></td>
+<td><p>15</p></td>
+<td></td>
+<td><p>1.1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Linked Instances</p></td>
+<td><p>16</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Conflicting Instances</p></td>
+<td><p>17</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lwm2m-firmware-update-object-bootloader-33629-2">
+<h3><a class="toc-backref" href="#id4"><span class="section-number">6.7.3.1.3. </span>Lwm2M Firmware update Object - Bootloader [/33629/2]</a><a class="headerlink" href="#lwm2m-firmware-update-object-bootloader-33629-2" title="Permalink to this headline"></a></h3>
+<p>This component governs the package for the device’s bootloader.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Resource Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Resource Instance ID</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Package</p></td>
+<td><p>0</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Package URI</p></td>
+<td><p>1</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>State</p></td>
+<td><p>3</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Idle</p></td>
+</tr>
+<tr class="row-odd"><td><p>Update Result</p></td>
+<td><p>5</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Initial value</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p> Firmware Update Protocol Support</p></td>
+<td rowspan="4"><p> 8</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>CoAP</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>CoAPs</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>HTTP</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>HTTPS</p></td>
+</tr>
+<tr class="row-even"><td><p>Firmware Update Delivery Method</p></td>
+<td><p>9</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>Both push and pull</p></td>
+</tr>
+<tr class="row-odd"><td><p>Component Name</p></td>
+<td><p>14</p></td>
+<td></td>
+<td><p>Bootloader</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Current version</p></td>
+<td><p>15</p></td>
+<td></td>
+<td><p>2.1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Linked Instances</p></td>
+<td><p>16</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Conflicting Instances</p></td>
+<td><p>17</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lwm2m-firmware-update-object-modem-33629-3">
+<h3><a class="toc-backref" href="#id5"><span class="section-number">6.7.3.1.4. </span>Lwm2M Firmware update Object - Modem [/33629/3]</a><a class="headerlink" href="#lwm2m-firmware-update-object-modem-33629-3" title="Permalink to this headline"></a></h3>
+<p>This component governs the firmware for the cellular module that the device
+uses for radio communication. The module may be located on a separate IC
+package from the main processor or microcontroller.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 13%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Resource Name</p></th>
+<th class="head"><p>Resource ID</p></th>
+<th class="head"><p>Resource Instance ID</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Package</p></td>
+<td><p>0</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Package URI</p></td>
+<td><p>1</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>State</p></td>
+<td><p>3</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Idle</p></td>
+</tr>
+<tr class="row-odd"><td><p>Update Result</p></td>
+<td><p>5</p></td>
+<td></td>
+<td><p>0</p></td>
+<td><p>Initial value</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p> Firmware Update Protocol Support</p></td>
+<td rowspan="4"><p> 8</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>CoAP</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>CoAPs</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>HTTP</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>HTTPS</p></td>
+</tr>
+<tr class="row-even"><td><p>Firmware Update Delivery Method</p></td>
+<td><p>9</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>Both push and pull</p></td>
+</tr>
+<tr class="row-odd"><td><p>Component Name</p></td>
+<td><p>14</p></td>
+<td></td>
+<td><p>Modem</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Current version</p></td>
+<td><p>15</p></td>
+<td></td>
+<td><p>22.01</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Linked Instances</p></td>
+<td><p>16</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Conflicting Instances</p></td>
+<td><p>17</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-upgrade-scenarios">
+<h2><a class="toc-backref" href="#id6"><span class="section-number">6.7.3.2. </span>Example upgrade scenarios</a><a class="headerlink" href="#example-upgrade-scenarios" title="Permalink to this headline"></a></h2>
+<section id="version-conflict">
+<h3><a class="toc-backref" href="#id7"><span class="section-number">6.7.3.2.1. </span>Version conflict</a><a class="headerlink" href="#version-conflict" title="Permalink to this headline"></a></h3>
+<p>Let’s assume that the Application firmware version 2.0 requires the TEE
+firmware to also be updated to version 2.0 or later.</p>
+<ol class="arabic simple">
+<li><p>The LwM2M Server writes <code class="docutils literal notranslate"><span class="pre">http://example.com/app_2.0.bin</span></code> to resource
+<code class="docutils literal notranslate"><span class="pre">/33629/0/1</span></code> (Package URI of the Application component)</p></li>
+<li><p>The instance enters the Downloading state, downloads the package, and enters
+the Downloaded state</p></li>
+<li><p>Resource <code class="docutils literal notranslate"><span class="pre">/33629/0/17</span></code> (Conflicting instances) changes the value to: <code class="docutils literal notranslate"><span class="pre">[0]</span>
+<span class="pre">=</span> <span class="pre">33629:1</span></code>; this informs the server that instance <code class="docutils literal notranslate"><span class="pre">/33629/1</span></code> requires
+attention due to dependency conflict</p></li>
+<li><p>If the server nevertheless issues Execute on <code class="docutils literal notranslate"><span class="pre">/33629/0/2</span></code>, the device
+immediately reverts to the Downloaded state, with Update Result set to 13
+(Dependency error)</p></li>
+<li><p>The LwM2M Server then writes <code class="docutils literal notranslate"><span class="pre">http://example.com/tee_2.0.bin</span></code> to resource
+<code class="docutils literal notranslate"><span class="pre">/33629/1/1</span></code> (Package URI of the TEE component)</p></li>
+<li><p>The instance enters the Downloading state, downloads the package, and enters
+the Downloaded state</p></li>
+<li><p>Resource <code class="docutils literal notranslate"><span class="pre">/33629/0/17</span></code> (Conflicting instances) changes value back to empty.</p></li>
+<li><p>Resource <code class="docutils literal notranslate"><span class="pre">/33629/0/16</span></code> (Linked instances) changes the value to: <code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">=</span>
+<span class="pre">33629:1</span></code>; resource <code class="docutils literal notranslate"><span class="pre">/33629/1/16</span></code> (Linked instances) changes the value to:
+<code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">=</span> <span class="pre">33629:0</span></code>; this signifies that by default, the device will upgrade
+both when the Update operation is executed on either of the instances</p></li>
+<li><p>The LwM2M Server issues Execute on <code class="docutils literal notranslate"><span class="pre">/33629/0/2</span></code></p></li>
+<li><p>The device enters Updating state, performs an update of both components,
+reboots, and reconnects to the server</p></li>
+<li><p>The State on both <code class="docutils literal notranslate"><span class="pre">/33629/0</span></code> and <code class="docutils literal notranslate"><span class="pre">/33629/1</span></code> instances read 0 (idle),
+Update Result on both is 1 (success), and the version numbers have been
+updated so that <code class="docutils literal notranslate"><span class="pre">/33629/0/15</span></code> = 2.0 and <code class="docutils literal notranslate"><span class="pre">/33629/0/16</span></code> = 2.0</p></li>
+</ol>
+</section>
+<section id="multi-component-package">
+<h3><a class="toc-backref" href="#id8"><span class="section-number">6.7.3.2.2. </span>Multi-component package</a><a class="headerlink" href="#multi-component-package" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>The LwM2M Server writes <code class="docutils literal notranslate"><span class="pre">http://example.com/app_tee_2.1.zip</span></code> to
+<code class="docutils literal notranslate"><span class="pre">/33629/0/1</span></code> (Package URI of the Application component)</p></li>
+<li><p>Instance 0 enters the Downloading state, downloads the package, and the
+device logic detects that the file contains packages for both the Application
+and TEE components</p></li>
+<li><p>Both instance 0 and instance 1 enter the Downloaded state</p></li>
+</ol>
+</section>
+<section id="conflicting-downloads">
+<h3><a class="toc-backref" href="#id9"><span class="section-number">6.7.3.2.3. </span>Conflicting downloads</a><a class="headerlink" href="#conflicting-downloads" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>The LwM2M Server writes <code class="docutils literal notranslate"><span class="pre">http://example.com/tee_2.0.bin</span></code> to <code class="docutils literal notranslate"><span class="pre">/33629/1/1</span></code>
+(Package URI of the TEE component)</p></li>
+<li><p>Instance 1 enters the Downloading state, downloads the package, and enters
+the Downloaded state</p></li>
+<li><p>The LwM2M Server writes <code class="docutils literal notranslate"><span class="pre">http://example.com/app_tee_2.1.zip</span></code> to
+<code class="docutils literal notranslate"><span class="pre">33629/0/1</span></code> (Package URI of the Application component)</p></li>
+<li><p>Instance 0 enters the Downloading state, downloads at least some part of the
+package, and then the device logic detects that the file contains packages
+for both the Application and TEE components</p></li>
+<li><p>The device aborts the download; instance 0 reverts to the Idle state, with
+Update Result set to 12 (Conflicting state); instance 1 remains in the
+Downloaded state, with the 2.0 package in memory.</p></li>
+<li><p>Resource <code class="docutils literal notranslate"><span class="pre">/33629/0/17</span></code> changes the value to: <code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">=</span> <span class="pre">33629:1</span></code>; this serves
+as the detail for the “Conflicting state” error, informing on which instances
+were conflicting</p></li>
+</ol>
+</section>
+<section id="implicit-and-explicit-linked-updates">
+<h3><a class="toc-backref" href="#id10"><span class="section-number">6.7.3.2.4. </span>Implicit and explicit linked updates</a><a class="headerlink" href="#implicit-and-explicit-linked-updates" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>The LwM2M server writes the following values:</dt><dd><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">http://example.com/app_2.0.bin</span></code> to resource <code class="docutils literal notranslate"><span class="pre">/33629/0/1</span></code> (Package
+URI of the Application component)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http://example.com/tee_2.0.bin</span></code> to resource <code class="docutils literal notranslate"><span class="pre">/33629/1/1</span></code> (Package
+URI of the TEE component)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http://example.com/boot_2.2.bin</span></code> to resource <code class="docutils literal notranslate"><span class="pre">/33629/2/1</span></code> (Package
+URI of the Bootloader component)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http://example.com/modem_22.02.bin</span></code> to resource <code class="docutils literal notranslate"><span class="pre">/33629/3/1</span></code>
+(Package URI of the Modem component)</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>The device downloads the packages, eventually all the instances enter the
+Downloaded state</p></li>
+<li><p>Resource <code class="docutils literal notranslate"><span class="pre">/33629/0/16</span></code> (Linked instances) changes the value to: <code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">=</span>
+<span class="pre">33629:1</span></code>; resource <code class="docutils literal notranslate"><span class="pre">/33629/1/16</span></code> (Linked instances) changes the value to:
+<code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">=</span> <span class="pre">33629:0</span></code>; this signifies that by default, the device will upgrade
+instances 0 and 1 in one go when the Update operation is executed on either
+of them</p></li>
+<li><p>Either of the sub-scenarios described below follows</p></li>
+</ol>
+</section>
+<section id="implicit-linked-update">
+<h3><a class="toc-backref" href="#id11"><span class="section-number">6.7.3.2.5. </span>Implicit linked update</a><a class="headerlink" href="#implicit-linked-update" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>The LwM2M server issues Execute with no arguments on <code class="docutils literal notranslate"><span class="pre">/33629/0/2</span></code> or
+<code class="docutils literal notranslate"><span class="pre">/33629/1/2</span></code></p></li>
+<li><p>The device enters Updating state, performs update of the Application and TEE
+components, reboots, and reconnects to the server</p></li>
+<li><p>The State on both <code class="docutils literal notranslate"><span class="pre">/33629/0</span></code> and <code class="docutils literal notranslate"><span class="pre">/33629/1</span></code> instances read 0 (idle),
+Update Result on both is 1 (success), and the version numbers have been
+updated</p></li>
+<li><p>Instances <code class="docutils literal notranslate"><span class="pre">/33629/2</span></code> and <code class="docutils literal notranslate"><span class="pre">/33629/3</span></code> remain in the Downloaded state if
+possible</p></li>
+</ol>
+</section>
+<section id="explicit-linked-update">
+<h3><a class="toc-backref" href="#id12"><span class="section-number">6.7.3.2.6. </span>Explicit linked update</a><a class="headerlink" href="#explicit-linked-update" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>The LwM2M server issues Execute on <code class="docutils literal notranslate"><span class="pre">/33629/0/2</span></code> with argument payload:
+<code class="docutils literal notranslate"><span class="pre">“0='&lt;/33629/1&gt;,&lt;/33629/2&gt;,&lt;/33629/3&gt;'”</span></code></p></li>
+<li><p>The device enters Updating state, performs an update of all four components,
+reboots, and reconnects to the server</p></li>
+<li><p>The State on all instances read 0 (idle), Update Result on all of them is 1
+(success), and the version numbers have been updated</p></li>
+</ol>
+</section>
+<section id="explicit-single-component-update">
+<h3><a class="toc-backref" href="#id13"><span class="section-number">6.7.3.2.7. </span>Explicit single component update</a><a class="headerlink" href="#explicit-single-component-update" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>The LwM2M server issues Execute on <code class="docutils literal notranslate"><span class="pre">/33629/1/2</span></code> with argument payload:
+<code class="docutils literal notranslate"><span class="pre">“0”</span></code></p></li>
+<li><p>Instance 1 enters Updating state, the device performs update of only the TEE
+component (ignoring the Linked Instances), and reconnects to the server</p></li>
+<li><p>The State on instance <code class="docutils literal notranslate"><span class="pre">/33629/1</span></code> reads 0 (idle), corresponding Update
+Result is 1 (success), and the version number has been updated</p></li>
+<li><p>Instances <code class="docutils literal notranslate"><span class="pre">/33629/0</span></code>, <code class="docutils literal notranslate"><span class="pre">/33629/2</span></code> and <code class="docutils literal notranslate"><span class="pre">/33629/3</span></code> remain in the
+Downloaded state if possible</p></li>
+</ol>
+</section>
+<section id="explicit-single-component-update-unsuccessful">
+<h3><a class="toc-backref" href="#id14"><span class="section-number">6.7.3.2.8. </span>Explicit single component update - unsuccessful</a><a class="headerlink" href="#explicit-single-component-update-unsuccessful" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>The LwM2M server issues Execute on <code class="docutils literal notranslate"><span class="pre">/33629/0/2</span></code> with argument payload:
+<code class="docutils literal notranslate"><span class="pre">“0”</span></code></p></li>
+<li><p>Instance 0 immediately reverts to the Downloaded state, with Update Result
+set to 13 (Dependency error), because application version 2.0 requires the
+TEE component to be updated to version 2.0 first or at the same time</p></li>
+<li><p>Resource <code class="docutils literal notranslate"><span class="pre">/33629/0/17</span></code> changes value to: <code class="docutils literal notranslate"><span class="pre">[0]</span> <span class="pre">=</span> <span class="pre">33629:1</span></code>; this serves as
+the detail for the “Dependency error” result, informing on which instances
+were conflicting</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="FU-AFU-StateDiagram.html" class="btn btn-neutral float-left" title="6.7.2. Firmware Update State Diagram" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="FU-AFU-BasicImplementation.html" class="btn btn-neutral float-right" title="6.7.4. Implementation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2023, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

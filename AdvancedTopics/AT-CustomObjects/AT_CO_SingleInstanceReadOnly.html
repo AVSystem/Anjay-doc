@@ -4,10 +4,13 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.1. Single-instance read-only object &mdash; Anjay 3.3.1 documentation</title>
+  <title>5.4.1. Single-instance read-only object &mdash; Anjay 3.4.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
@@ -29,7 +32,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.1
+                3.4.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -87,10 +90,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
-          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
-      <li><span class="section-number">5.4.1. </span>Single-instance read-only object</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+          <li class="breadcrumb-item"><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.4.1. </span>Single-instance read-only object</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -217,8 +220,8 @@ and present in a given Object Instance. A LwM2M Client may be able to handle a
 Resource that has no default value - in that case, the Resource is always
 <em>supported</em>, but becomes <em>present</em> only after a LwM2M Server sets its value
 first. Before that, it can be treated as non-existent - it will not be reported
-via the Discover RPC, for example. Examples include Default Minimum Period and
-Default Maximum Period Resources of the LwM2M Server object.</p>
+via the Discover operation, for example. Examples include Default Minimum Period
+and Default Maximum Period Resources of the LwM2M Server object.</p>
 <p>In our case, Resources 0 and 1 are always present in the only Instance we have,
 so we can implement the <code class="docutils literal notranslate"><span class="pre">test_resource_preset</span></code> handler simply as:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>

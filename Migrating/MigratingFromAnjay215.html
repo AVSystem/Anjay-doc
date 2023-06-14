@@ -4,10 +4,13 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.8. Migrating from Anjay 2.15.x &mdash; Anjay 3.3.1 documentation</title>
+  <title>9.8. Migrating from Anjay 2.15.x &mdash; Anjay 3.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -29,7 +32,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.1
+                3.4.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -58,6 +61,8 @@
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay214.html">9.7. Migrating from Anjay 2.9.x-2.14.x</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">9.8. Migrating from Anjay 2.15.x</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay30.html">9.9. Migrating from Anjay 3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay32.html">9.10. Migrating from Anjay 3.1 or 3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay33.html">9.11. Migrating from Anjay 3.3</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a></li>
@@ -76,9 +81,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
-      <li><span class="section-number">9.8. </span>Migrating from Anjay 2.15.x</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">9.8. </span>Migrating from Anjay 2.15.x</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -100,12 +105,15 @@
 <li><p><a class="reference internal" href="#default-d-tls-version" id="id6">Default (D)TLS version</a></p></li>
 <li><p><a class="reference internal" href="#conditional-compilation-for-structured-security-credential-support" id="id7">Conditional compilation for structured security credential support</a></p></li>
 <li><p><a class="reference internal" href="#conditional-compilation-for-hsm-support-with-est" id="id8">Conditional compilation for HSM support with EST</a></p></li>
+<li><p><a class="reference internal" href="#persistence-of-disabled-servers" id="id9">Persistence of disabled servers</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id9">Changes in avs_commons</a></p>
+<li><p><a class="reference internal" href="#changes-in-avs-commons" id="id10">Changes in avs_commons</a></p>
 <ul>
-<li><p><a class="reference internal" href="#introduction-of-new-socket-option" id="id10">Introduction of new socket option</a></p></li>
-<li><p><a class="reference internal" href="#refactor-of-psk-credential-handling" id="id11">Refactor of PSK credential handling</a></p></li>
+<li><p><a class="reference internal" href="#introduction-of-new-socket-option" id="id11">Introduction of new socket option</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-psk-credential-handling" id="id12">Refactor of PSK credential handling</a></p></li>
+<li><p><a class="reference internal" href="#refactor-of-time-handling-in-avs-sched-and-avs-coap" id="id13">Refactor of time handling in avs_sched and avs_coap</a></p></li>
+<li><p><a class="reference internal" href="#removal-of-avs-unit-memstream" id="id14">Removal of avs_unit_memstream</a></p></li>
 </ul>
 </li>
 </ul>
@@ -224,11 +232,21 @@ option and enabled by default if available and both EST and HSM features are
 enabled. Otherwise, it might need to be enabled by defining
 <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_EST_ENGINE_SUPPORT</span></code> in <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>.</p>
 </section>
+<section id="persistence-of-disabled-servers">
+<h3><a class="toc-backref" href="#id9"><span class="section-number">9.8.2.7. </span>Persistence of disabled servers</a><a class="headerlink" href="#persistence-of-disabled-servers" title="Permalink to this headline"></a></h3>
+<p>Core Persistence API (<code class="docutils literal notranslate"><span class="pre">anjay_new_from_core_persistence()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">anjay_delete_with_core_persistence()</span></code>) now also persists disabled servers
+(either by execution of /1/x/4 or call to function from
+<code class="docutils literal notranslate"><span class="pre">anjay_disable_server*()</span></code> family) and the time at which the client shall
+reconnect them. Previously those disabled servers weren’t persisted at all and
+freshly initialized client was automatically connecting to them without any
+regard for specified timeout.</p>
+</section>
 </section>
 <section id="changes-in-avs-commons">
-<h2><a class="toc-backref" href="#id9"><span class="section-number">9.8.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id10"><span class="section-number">9.8.3. </span>Changes in avs_commons</a><a class="headerlink" href="#changes-in-avs-commons" title="Permalink to this headline"></a></h2>
 <section id="introduction-of-new-socket-option">
-<h3><a class="toc-backref" href="#id10"><span class="section-number">9.8.3.1. </span>Introduction of new socket option</a><a class="headerlink" href="#introduction-of-new-socket-option" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id11"><span class="section-number">9.8.3.1. </span>Introduction of new socket option</a><a class="headerlink" href="#introduction-of-new-socket-option" title="Permalink to this headline"></a></h3>
 <p>avs_commons 4.10.1 bundled with Anjay 2.15.1 adds a new socket option key:
 <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_HAS_BUFFERED_DATA</span></code>. This is used to make sure that when
 control is returned to the event loop, the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> call will not stall
@@ -247,7 +265,7 @@ breaking change - if the option is not supported, the library will continue to
 use the old behavior.</p>
 </section>
 <section id="refactor-of-psk-credential-handling">
-<h3><a class="toc-backref" href="#id11"><span class="section-number">9.8.3.2. </span>Refactor of PSK credential handling</a><a class="headerlink" href="#refactor-of-psk-credential-handling" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id12"><span class="section-number">9.8.3.2. </span>Refactor of PSK credential handling</a><a class="headerlink" href="#refactor-of-psk-credential-handling" title="Permalink to this headline"></a></h3>
 <p>Deprecated <code class="docutils literal notranslate"><span class="pre">avs_net_psk_info_t</span></code> structure has been removed. Its successor,
 <code class="docutils literal notranslate"><span class="pre">avs_net_generic_psk_info_t</span></code>, has been renamed to <code class="docutils literal notranslate"><span class="pre">avs_net_psk_info_t</span></code>.
 This change also affects <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> structure which contains
@@ -256,6 +274,44 @@ function has also been replaced with function previously known as
 <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_from_generic_psk()</span></code>.</p>
 <p>These changes are breaking for code that accesses the <code class="docutils literal notranslate"><span class="pre">data.psk</span></code> field of
 <code class="docutils literal notranslate"><span class="pre">avs_net_security_info_t</span></code> directly and for usages of the two changed types.</p>
+</section>
+<section id="refactor-of-time-handling-in-avs-sched-and-avs-coap">
+<h3><a class="toc-backref" href="#id13"><span class="section-number">9.8.3.3. </span>Refactor of time handling in avs_sched and avs_coap</a><a class="headerlink" href="#refactor-of-time-handling-in-avs-sched-and-avs-coap" title="Permalink to this headline"></a></h3>
+<p>It is now enforced more strictly that time-based events shall happen when the
+clock reaches <em>at least</em> the expected value. Previously, the tasks scheduled via
+avs_sched were executed only when the clock reached a value <em>later</em> than the
+scheduled job execution time.</p>
+<p>This change will have no impact on your code if your platform has enough clock
+resolution so that two subsequent calls to <code class="docutils literal notranslate"><span class="pre">avs_time_real_now()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now()</span></code> will <em>always</em> return different values. As a rule of
+thumb, this should be the case if your clock has a resolution no worse than
+about 1-2 orders of magnitude smaller than the CPU clock. For example, for a
+100 MHz CPU, a clock resolution of around 100-1000 ns (i.e., 1-10 MHz) should be
+sufficient, depending on the specific architecture.</p>
+<p>If your clock has a lower resolution, you may observe the following changes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> is now properly guaranteed to execute at least one job
+if the time reported by <code class="docutils literal notranslate"><span class="pre">anjay_sched_time_to_next()</span></code> passed. Previously this
+could require waiting for another change of the numerical value of the clock,
+which could cause undesirable active waiting in the event loop. This is the
+motivating factor in introducing these changes.</p></li>
+<li><p>Jobs scheduled using <code class="docutils literal notranslate"><span class="pre">AVS_SCHED_NOW()</span></code> during an execution of
+<code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> before the numerical value of the clock changes, <em>will</em>
+be executed during the same run. The previous behavior more strictly enforced
+the policy to not execute such jobs in the same run.</p></li>
+</ul>
+<p>If you are scheduling custom jobs through the avs_sched module, you may want or
+need to modify their logic accordingly to accommodate for these changes. In most
+typical use cases, no changes are expected to be necessary.</p>
+</section>
+<section id="removal-of-avs-unit-memstream">
+<h3><a class="toc-backref" href="#id14"><span class="section-number">9.8.3.4. </span>Removal of avs_unit_memstream</a><a class="headerlink" href="#removal-of-avs-unit-memstream" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">avs_unit_memstream</span></code> was a specific implementation of <code class="docutils literal notranslate"><span class="pre">avs_stream_t</span></code> within
+the avs_unit module that implemented a simple FIFO stream in a fixed-size memory
+area.</p>
+<p>This feature has been removed. Instead, you can use an
+<code class="docutils literal notranslate"><span class="pre">avs_stream_inbuf</span></code>/<code class="docutils literal notranslate"><span class="pre">avs_stream_outbuf</span></code> pair, or an <code class="docutils literal notranslate"><span class="pre">avs_stream_membuf</span></code>
+object.</p>
 </section>
 </section>
 </section>

@@ -4,10 +4,13 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10.1. Core Persistence &mdash; Anjay 3.3.1 documentation</title>
+  <title>10.1. Core Persistence &mdash; Anjay 3.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -29,7 +32,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.3.1
+                3.4.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -77,9 +80,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a> &raquo;</li>
-      <li><span class="section-number">10.1. </span>Core Persistence</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">10.1. </span>Core Persistence</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -415,6 +418,21 @@ doesn’t require frequent communication with the server.</p>
 <p>To see how this feature affects data sent during the connection, we encourage to
 not only analyze application’s log output, but use some packet analyzer software
 like Wireshark.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Because Core Persistence feature maintains some data that depends on real
+time (time at which disabled servers should be reenabled, registration expiry
+time), this feature requires a properly implemented real clock
+(<code class="docutils literal notranslate"><span class="pre">avs_time_real_now()</span></code>,
+<a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms/TimeAPI.html#timeapi-avs-time-real-now"><span class="std std-ref">see porting article</span></a>) to work correctly.
+Also, make sure to synchronize it first (by using e.g. RTC or NTP protocol)
+before starting the client, otherwise disabled servers will be not reenabled
+as expected and the registration will be incorrectly deemed to be up to date.
+Alternatively, if it’s not possible to synchronize the clock before, make
+sure to manually enable those disabled servers back by using
+<code class="docutils literal notranslate"><span class="pre">anjay_enable_server()</span></code> and schedule a registration update using
+<code class="docutils literal notranslate"><span class="pre">anjay_schedule_registration_update()</span></code>.</p>
+</div>
 </section>
 </section>
 </section>

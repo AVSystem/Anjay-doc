@@ -1,5 +1,8 @@
 var annotated_dup =
 [
+    [ "anjay_advanced_fw_update_global_config_t", "structanjay__advanced__fw__update__global__config__t.html", "structanjay__advanced__fw__update__global__config__t" ],
+    [ "anjay_advanced_fw_update_handlers_t", "structanjay__advanced__fw__update__handlers__t.html", "structanjay__advanced__fw__update__handlers__t" ],
+    [ "anjay_advanced_fw_update_initial_state_t", "structanjay__advanced__fw__update__initial__state__t.html", "structanjay__advanced__fw__update__initial__state__t" ],
     [ "anjay_bg96_nidd_config_t", "structanjay__bg96__nidd__config__t.html", "structanjay__bg96__nidd__config__t" ],
     [ "anjay_configuration", "structanjay__configuration.html", "structanjay__configuration" ],
     [ "anjay_dm_handlers_t", "structanjay__dm__handlers__t.html", "structanjay__dm__handlers__t" ],
