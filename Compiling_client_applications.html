@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. Compiling client applications &mdash; Anjay 3.4.0 documentation</title>
+  <title>3. Compiling client applications &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -68,8 +65,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3. </span>Compiling client applications</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">3. </span>Compiling client applications</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -89,7 +86,7 @@ submodules by calling <code class="docutils literal notranslate"><span class="pr
 </div>
 <p>Anjay uses CMake for project configuration. To compile the library with default
 settings, call the following command in Anjay root directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake . <span class="o">&amp;&amp;</span> make
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
 </pre></div>
 </div>
 </section>
@@ -106,7 +103,7 @@ PC.</p>
 <section id="arm-cortex-m3-powered-stm3220">
 <h3><span class="section-number">3.2.1. </span>ARM Cortex-M3-powered STM3220<a class="headerlink" href="#arm-cortex-m3-powered-stm3220" title="Permalink to this headline"></a></h3>
 <p>First, prepare a CMake toolchain file (see <a class="reference external" href="https://cmake.org/cmake/help/v3.0/manual/cmake-toolchains.7.html#cross-compiling">CMake documentation</a>), then pass <code class="code docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> when configuring Anjay:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$YOUR_TOOLCHAIN_FILE</span> . <span class="o">&amp;&amp;</span> make
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$YOUR_TOOLCHAIN_FILE</span><span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
 </pre></div>
 </div>
 <p>An example CMake toolchain file for an ARM Cortex-M3-powered STM3220 platform may look like so:</p>
@@ -131,11 +128,11 @@ PC.</p>
 have to pass <code class="docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> from the NDK (we assume that
 <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK</span></code> variable contains a path to the folder where Android NDK
 is extracted):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake <span class="se">\</span>
-      -DDTLS_BACKEND<span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="se">\</span>
-      -DANDROID_ALLOW_UNDEFINED_SYMBOLS<span class="o">=</span>ON <span class="se">\</span>
-      -DANDROID_PLATFORM<span class="o">=</span>android-18 <span class="se">\</span>
-      -DANDROID_ABI<span class="o">=</span>armeabi .
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DDTLS_BACKEND<span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DANDROID_ALLOW_UNDEFINED_SYMBOLS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DANDROID_PLATFORM<span class="o">=</span>android-18<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DANDROID_ABI<span class="o">=</span>armeabi<span class="w"> </span>.
 </pre></div>
 </div>
 <p>After that Anjay can be compiled as usual via <cite>make</cite>.</p>
@@ -166,26 +163,26 @@ DTLS libraries are to be found, i.e. one of:</p>
 <div class="topic">
 <p class="topic-title">Example compilation with mbed TLS backend</p>
 <p>First, we compile mbed TLS on Android:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/ARMmbed/mbedtls -b mbedtls-2.5.0
-$ <span class="nb">cd</span> mbedtls
-$ cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake <span class="se">\</span>
-        -DANDROID_PLATFORM<span class="o">=</span>android-18 <span class="se">\</span>
-        -DANDROID_ABI<span class="o">=</span>armeabi <span class="se">\</span>
-        -DENABLE_TESTING<span class="o">=</span>OFF <span class="se">\</span>
-        -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/tmp/mbedtls/install .
-$ make
-$ make install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ARMmbed/mbedtls<span class="w"> </span>-b<span class="w"> </span>mbedtls-2.5.0
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mbedtls
+$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-DANDROID_PLATFORM<span class="o">=</span>android-18<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-DANDROID_ABI<span class="o">=</span>armeabi<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-DENABLE_TESTING<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/tmp/mbedtls/install<span class="w"> </span>.
+$<span class="w"> </span>make
+$<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>We then go back to the Anjay source directory, to reconfigure Anjay to use
 mbed TLS binaries (we strongly suggest to clean all kind of CMake caches
 before proceeding, as it may not work otherwise):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake <span class="se">\</span>
-      -DDTLS_BACKEND<span class="o">=</span><span class="s2">&quot;mbedtls&quot;</span> <span class="se">\</span>
-      -DMBEDTLS_ROOT_DIR<span class="o">=</span>/tmp/mbedtls/install <span class="se">\</span>
-      -DANDROID_ALLOW_UNDEFINED_SYMBOLS<span class="o">=</span>ON <span class="se">\</span>
-      -DANDROID_PLATFORM<span class="o">=</span>android-18 <span class="se">\</span>
-      -DANDROID_ABI<span class="o">=</span>armeabi .
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="nv">$ANDROID_NDK</span>/build/cmake/android.toolchain.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DDTLS_BACKEND<span class="o">=</span><span class="s2">&quot;mbedtls&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DMBEDTLS_ROOT_DIR<span class="o">=</span>/tmp/mbedtls/install<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DANDROID_ALLOW_UNDEFINED_SYMBOLS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DANDROID_PLATFORM<span class="o">=</span>android-18<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DANDROID_ABI<span class="o">=</span>armeabi<span class="w"> </span>.
 </pre></div>
 </div>
 <p>And finally, we run <cite>make</cite>, finishing the whole procedure.</p>
@@ -198,11 +195,11 @@ before proceeding, as it may not work otherwise):</p>
 <h3><span class="section-number">3.3.1. </span>Building with CMake<a class="headerlink" href="#building-with-cmake" title="Permalink to this headline"></a></h3>
 <p>The preferred way of building Anjay is to use CMake.</p>
 <p>To install Anjay headers and libraries in <code class="code docutils literal notranslate"><span class="pre">/usr/local</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> sudo make install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>A custom installation prefix may be set using <code class="code docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>/custom/path . <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/custom/path<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
 </section>
@@ -252,19 +249,19 @@ search path when compiling dependent application code.</p></li>
 <p>Below is an example of a simplistic build process, that builds all of avs_commons, avs_coap and
 Anjay from a Unix-like shell:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># configuration</span>
-cp -r example_configs/linux_lwm2m10 config
+cp<span class="w"> </span>-r<span class="w"> </span>example_configs/linux_lwm2m10<span class="w"> </span>config
 <span class="c1"># you may want to edit the files in the &quot;config&quot; directory before continuing</span>
 
 <span class="c1"># compilation</span>
-cc -Iconfig -Iinclude_public -Ideps/avs_coap/include_public -Ideps/avs_commons/include_public -Isrc -Ideps/avs_coap/src -Ideps/avs_commons/src -c <span class="k">$(</span>find src deps/avs_coap/src deps/avs_commons/src -name <span class="s1">&#39;*.c&#39;</span><span class="k">)</span>
-ar rcs libanjay.a *.o
+cc<span class="w"> </span>-Iconfig<span class="w"> </span>-Iinclude_public<span class="w"> </span>-Ideps/avs_coap/include_public<span class="w"> </span>-Ideps/avs_commons/include_public<span class="w"> </span>-Isrc<span class="w"> </span>-Ideps/avs_coap/src<span class="w"> </span>-Ideps/avs_commons/src<span class="w"> </span>-c<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>src<span class="w"> </span>deps/avs_coap/src<span class="w"> </span>deps/avs_commons/src<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.c&#39;</span><span class="k">)</span>
+ar<span class="w"> </span>rcs<span class="w"> </span>libanjay.a<span class="w"> </span>*.o
 
 <span class="c1"># installation</span>
-cp libanjay.a /usr/local/lib/
-cp -r include_public/avsystem /usr/local/include/
-cp -r deps/avs_coap/include_public/avsystem /usr/local/include/
-cp -r deps/avs_commons/include_public/avsystem /usr/local/include/
-cp -r config/* /usr/local/include/
+cp<span class="w"> </span>libanjay.a<span class="w"> </span>/usr/local/lib/
+cp<span class="w"> </span>-r<span class="w"> </span>include_public/avsystem<span class="w"> </span>/usr/local/include/
+cp<span class="w"> </span>-r<span class="w"> </span>deps/avs_coap/include_public/avsystem<span class="w"> </span>/usr/local/include/
+cp<span class="w"> </span>-r<span class="w"> </span>deps/avs_commons/include_public/avsystem<span class="w"> </span>/usr/local/include/
+cp<span class="w"> </span>-r<span class="w"> </span>config/*<span class="w"> </span>/usr/local/include/
 </pre></div>
 </div>
 </section>
@@ -288,7 +285,7 @@ cp -r config/* /usr/local/include/
 <h3><span class="section-number">3.4.2. </span>Alternative build systems<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>If Anjay itself has been compiled using CMake, flags necessary for other build systems can be
 retrieved using <code class="code docutils literal notranslate"><span class="pre">cmake</span></code> command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake --find-package -DNAME<span class="o">=</span>anjay -DLANGUAGE<span class="o">=</span>C -DCOMPILER_ID<span class="o">=</span>Generic -DMODE<span class="o">=</span>&lt;mode&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--find-package<span class="w"> </span>-DNAME<span class="o">=</span>anjay<span class="w"> </span>-DLANGUAGE<span class="o">=</span>C<span class="w"> </span>-DCOMPILER_ID<span class="o">=</span>Generic<span class="w"> </span>-DMODE<span class="o">=</span>&lt;mode&gt;
 </pre></div>
 </div>
 <p>Where <code class="code docutils literal notranslate"><span class="pre">&lt;mode&gt;</span></code> is one of:</p>
@@ -333,7 +330,7 @@ retrieved using <code class="code docutils literal notranslate"><span class="pre
 <li><p>Anjay compiled and installed as shown in the example in the <a class="reference internal" href="#no-cmake"><span class="std std-ref">Alternative build systems</span></a> section</p></li>
 </ul>
 <p>the flags necessary to link client applications would be:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-lanjay -lz -lmbedtls -lmbedcrypto -lmbedx509 -lm -pthread
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-lanjay<span class="w"> </span>-lz<span class="w"> </span>-lmbedtls<span class="w"> </span>-lmbedcrypto<span class="w"> </span>-lmbedx509<span class="w"> </span>-lm<span class="w"> </span>-pthread
 </pre></div>
 </div>
 </section>

@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.4. Migrating from Anjay 2.5.x or 2.6.x &mdash; Anjay 3.4.0 documentation</title>
+  <title>9.4. Migrating from Anjay 2.5.x or 2.6.x &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -81,9 +78,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">9.4. </span>Migrating from Anjay 2.5.x or 2.6.x</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../Migrating.html"><span class="section-number">9. </span>Migrating from older versions</a> &raquo;</li>
+      <li><span class="section-number">9.4. </span>Migrating from Anjay 2.5.x or 2.6.x</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -160,15 +157,15 @@ approach, without using the provided CMake scripts.</p>
 <li><p><strong>Getter function for retrieving security information from data model</strong></p>
 <ul>
 <li><p><strong>Old API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_config_t</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                                       </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">uri</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_security_config_t</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                                       </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">uri</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>New API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                  </span><span class="n">anjay_security_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_config</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">uri</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">anjay_security_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_config</span><span class="p">,</span>
+<span class="w">                                  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">uri</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -382,71 +379,71 @@ affects <code class="docutils literal notranslate"><span class="pre">avs_net_sec
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * A PSK/identity pair with borrowed pointers. avs_commons will never attempt</span>
 <span class="cm"> * to modify these values.</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">psk</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">identity</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">avs_net_psk_info_t</span><span class="p">;</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">psk</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">identity</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">avs_net_psk_info_t</span><span class="p">;</span>
 
 <span class="c1">// ...</span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_net_security_mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_net_certificate_info_t</span><span class="w"> </span><span class="n">cert</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">avs_net_security_info_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_net_security_mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">;</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">;</span>
+<span class="w">        </span><span class="n">avs_net_certificate_info_t</span><span class="w"> </span><span class="n">cert</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">avs_net_security_info_t</span><span class="p">;</span>
 
-<span class="n">avs_net_security_info_t</span><span class="w"> </span><span class="nf">avs_net_security_info_from_psk</span><span class="p">(</span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
+<span class="n">avs_net_security_info_t</span><span class="w"> </span><span class="nf">avs_net_security_info_from_psk</span><span class="p">(</span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>New API:</strong></p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_crypto_security_info_union_t</span><span class="w"> </span><span class="n">desc</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">avs_crypto_psk_identity_info_t</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_crypto_security_info_union_t</span><span class="w"> </span><span class="n">desc</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">avs_crypto_psk_identity_info_t</span><span class="p">;</span>
 
 <span class="c1">// ...</span>
 
-<span class="n">avs_crypto_psk_identity_info_t</span><span class="w"></span>
-<span class="nf">avs_crypto_psk_identity_info_from_buffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                         </span><span class="kt">size_t</span><span class="w"> </span><span class="n">buffer_size</span><span class="p">);</span><span class="w"></span>
+<span class="n">avs_crypto_psk_identity_info_t</span>
+<span class="nf">avs_crypto_psk_identity_info_from_buffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                         </span><span class="kt">size_t</span><span class="w"> </span><span class="n">buffer_size</span><span class="p">);</span>
 
 <span class="c1">// ...</span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_crypto_security_info_union_t</span><span class="w"> </span><span class="n">desc</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">avs_crypto_psk_key_info_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_crypto_security_info_union_t</span><span class="w"> </span><span class="n">desc</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">avs_crypto_psk_key_info_t</span><span class="p">;</span>
 
 <span class="c1">// ...</span>
 
-<span class="n">avs_crypto_psk_key_info_t</span><span class="w"></span>
-<span class="nf">avs_crypto_psk_key_info_from_buffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">buffer_size</span><span class="p">);</span><span class="w"></span>
+<span class="n">avs_crypto_psk_key_info_t</span>
+<span class="nf">avs_crypto_psk_key_info_from_buffer</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">buffer_size</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * A PSK/identity pair. avs_commons will never attempt to modify these values.</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_crypto_psk_key_info_t</span><span class="w"> </span><span class="n">key</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_crypto_psk_identity_info_t</span><span class="w"> </span><span class="n">identity</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">avs_net_psk_info_t</span><span class="p">;</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_crypto_psk_key_info_t</span><span class="w"> </span><span class="n">key</span><span class="p">;</span>
+<span class="w">    </span><span class="n">avs_crypto_psk_identity_info_t</span><span class="w"> </span><span class="n">identity</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">avs_net_psk_info_t</span><span class="p">;</span>
 
 <span class="c1">// ...</span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_net_security_mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_net_certificate_info_t</span><span class="w"> </span><span class="n">cert</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">avs_net_security_info_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_net_security_mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">;</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">;</span>
+<span class="w">        </span><span class="n">avs_net_certificate_info_t</span><span class="w"> </span><span class="n">cert</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">avs_net_security_info_t</span><span class="p">;</span>
 
-<span class="n">avs_net_security_info_t</span><span class="w"></span>
-<span class="nf">avs_net_security_info_from_psk</span><span class="p">(</span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
+<span class="n">avs_net_security_info_t</span>
+<span class="nf">avs_net_security_info_from_psk</span><span class="p">(</span><span class="n">avs_net_psk_info_t</span><span class="w"> </span><span class="n">psk</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>

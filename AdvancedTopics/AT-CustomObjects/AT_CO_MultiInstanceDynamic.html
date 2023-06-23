@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 3.4.0 documentation</title>
+  <title>5.4.5. Multi-instance writable object with dynamic number of instances &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -90,10 +87,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-          <li class="breadcrumb-item"><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.4.5. </span>Multi-instance writable object with dynamic number of instances</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
+      <li><span class="section-number">5.4.5. </span>Multi-instance writable object with dynamic number of instances</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -189,15 +186,15 @@ that comes with unnecessary distraction, and as a matter of fact is a bit
 error-prone.  Therefore, in this tutorial, we are going to use <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code>,
 which is an abstraction over singly linked list, and has been used in Anjay
 with success since the beginning of the project.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_object</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_object</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// handlers</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj_def</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj_def</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// object state</span>
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">instances</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">instances</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">backup_instances</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">test_object_t</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">backup_instances</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">test_object_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -212,15 +209,15 @@ complicated than that. We recommend you to refer to the <a class="reference exte
 longer have such comfort, and have to be able to uniquely identify Object
 Instances. As a consequence, we will add <code class="docutils literal notranslate"><span class="pre">anjay_iid_t</span> <span class="pre">iid</span></code> field to
 <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_instance</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">test_instance</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">has_label</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">has_label</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">label</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
 
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">has_value</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">test_instance_t</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">has_value</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">test_instance_t</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
@@ -247,15 +244,15 @@ able to register it), unless some additional public API is provided.</p></li>
 </div>
 <p>To achieve proper control over object lifetime and initialization, we are
 going to introduce two functions, namely <code class="docutils literal notranslate"><span class="pre">create_test_object</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">create_test_object</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="p">(</span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">test_object_t</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">repr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">obj_def</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">obj_def</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">create_test_object</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="p">(</span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">test_object_t</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">repr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">obj_def</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">obj_def</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="topic">
@@ -264,15 +261,15 @@ going to introduce two functions, namely <code class="docutils literal notransla
 <p>No, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> is a valid (and only) representation of an empty <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code>.</p>
 </div>
 <p>and <code class="docutils literal notranslate"><span class="pre">delete_test_object</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">delete_test_object</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">backup_instances</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_free</span><span class="p">(</span><span class="n">repr</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">delete_test_object</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">);</span>
+<span class="w">    </span><span class="n">AVS_LIST_CLEAR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">backup_instances</span><span class="p">);</span>
+<span class="w">    </span><span class="n">avs_free</span><span class="p">(</span><span class="n">repr</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>As you can see, dynamic memory management is semi-automatically handled by <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code>.</p>
@@ -302,40 +299,40 @@ the fact they MUST be unique.</p></li>
 <p>OK, now that we made our assumptions, we are ready to implement utility function
 <code class="docutils literal notranslate"><span class="pre">get_instance</span></code> which retrieves Test object instance with specified Instance ID.
 It will happen to be very useful in the next couple of subsections:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">get_instance</span><span class="p">(</span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                              </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">it</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">get_instance</span><span class="p">(</span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="p">,</span>
+<span class="w">                                              </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="c1">// Since list of instances is sorted by Instance ID,</span>
 <span class="w">            </span><span class="c1">// Instance with given iid does not exist on that list</span>
-<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="c1">// Instance was not found.</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>And one more method, presenting another functionality of <code class="docutils literal notranslate"><span class="pre">AVS_LISTs</span></code>
 before going into details of <code class="docutils literal notranslate"><span class="pre">instance_create</span></code> and <code class="docutils literal notranslate"><span class="pre">instance_remove</span></code>
 and leaving the rest of the work of this kind as an exercise for the reader
 (or, if they are lazy, they can always look at the code):</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_list_instances</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                               </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                               </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_list_instances</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                               </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"> </span><span class="c1">// unused</span>
 
 <span class="w">    </span><span class="c1">// iterate over all instances and return their IDs</span>
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">it</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">anjay_dm_emit</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note that as we keep the Instances in sorted order, this implementation
@@ -348,10 +345,10 @@ on your own, especially <strong>remember about updating transaction handlers</st
 <section id="instance-create-handler">
 <h2><span class="section-number">5.4.5.4. </span><code class="docutils literal notranslate"><span class="pre">instance_create</span></code> handler<a class="headerlink" href="#instance-create-handler" title="Permalink to this headline"></a></h2>
 <p>Let’s have a look on <code class="docutils literal notranslate"><span class="pre">anjay_dm_instance_create_t</span></code> handler type signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
-<span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">iid</span></code> parameter is the most important for us at the moment, as this is the
@@ -363,34 +360,34 @@ not specified by the server, it will iterate over existing instances using the
 already occupied. If the Instance ID is specified by the server, Anjay will call
 the <code class="docutils literal notranslate"><span class="pre">anjay_dm_list_instances_t</span></code> handler and ensure that there is no such
 Instance ID already existing.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_instance_create</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_instance_create</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"> </span><span class="c1">// unused</span>
 
-<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">new_instance</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="n">AVS_LIST_NEW_ELEMENT</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">new_instance</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">AVS_LIST_NEW_ELEMENT</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">new_instance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">new_instance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// out of memory</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">new_instance</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">new_instance</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
 
 <span class="w">    </span><span class="c1">// find a place where instance should be inserted,</span>
 <span class="w">    </span><span class="c1">// insert it and claim a victory</span>
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">insert_ptr</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">insert_ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">*</span><span class="n">insert_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_instance</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST_INSERT</span><span class="p">(</span><span class="n">insert_ptr</span><span class="p">,</span><span class="w"> </span><span class="n">new_instance</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">insert_ptr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">insert_ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">*</span><span class="n">insert_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_instance</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">AVS_LIST_INSERT</span><span class="p">(</span><span class="n">insert_ptr</span><span class="p">,</span><span class="w"> </span><span class="n">new_instance</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -404,23 +401,23 @@ Instance ID already existing.</p>
 <h2><span class="section-number">5.4.5.5. </span><code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler<a class="headerlink" href="#instance-remove-handler" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">instance_remove</span></code> handler does not have to perform anything other than
 removing the instance from our list.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_instance_remove</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_instance_remove</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"> </span><span class="c1">// unused</span>
-<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">test_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">repr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_test_object</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">AVS_LIST_DELETE</span><span class="p">(</span><span class="n">it</span><span class="p">);</span><span class="w"></span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">test_instance_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="p">;</span>
+<span class="w">    </span><span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">repr</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">AVS_LIST_DELETE</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="c1">// should never happen as Anjay checks whether instance is present</span>
 <span class="w">    </span><span class="c1">// prior to issuing instance_remove</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">

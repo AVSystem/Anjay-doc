@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.2. Attribute storage &mdash; Anjay 3.4.0 documentation</title>
+  <title>5.2. Attribute storage &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -81,9 +78,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.2. </span>Attribute storage</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+      <li><span class="section-number">5.2. </span>Attribute storage</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -137,16 +134,16 @@ Attribute Storage subsystem contains a persistence code, that can be used to
 serialize and deserialize all the stored attributes to some kind of external
 memory.</p>
 <p>To use the persistence code, you first need to include the appropriate header:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/attr_storage.h&gt;</span>
 </pre></div>
 </div>
 <p>It contains declarations of the two functions that can be used to manage the
 persistent information:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                       </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_stream</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                       </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">in_stream</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The data are read or written to and from objects of the

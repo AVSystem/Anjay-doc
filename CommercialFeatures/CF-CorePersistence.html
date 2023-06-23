@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10.1. Core Persistence &mdash; Anjay 3.4.0 documentation</title>
+  <title>10.1. Core Persistence &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -62,7 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="CF-NIDD.html">10.7. Non-IP Data Delivery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CF-OSCORE.html">10.8. OSCORE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CF-SMSBinding.html">10.9. SMS Binding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CF-SmartCardBootstrap.html">10.10. Bootstrapper (smart card bootstrap)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-SmartCardBootstrap.html">10.10. Bootstrapper and SIM bootstrap</a></li>
 </ul>
 </li>
 </ul>
@@ -80,9 +77,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">10.1. </span>Core Persistence</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a> &raquo;</li>
+      <li><span class="section-number">10.1. </span>Core Persistence</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -253,51 +250,51 @@ deinitialization of Anjay.</p>
 instantiate Anjay and possibly resume our connection to the server. If the
 persistence file is not accessible or an attempt to use it is unsuccessful, we
 should fall back to normal <a class="reference external" href="../api/core_8h.html#a077b9b3db59c5b4539271e190508c520">anjay_new()</a> call.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
-<span class="nf">anjay_new_try_from_core_persistence</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;Attempting to initialize Anjay from core persistence&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span>
+<span class="nf">anjay_new_try_from_core_persistence</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;Attempting to initialize Anjay from core persistence&quot;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">file_stream</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                   </span><span class="n">AVS_STREAM_FILE_READ</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">file_stream</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">AVS_STREAM_FILE_READ</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">file_stream</span><span class="w"></span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new_from_core_persistence</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                                          </span><span class="n">file_stream</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="n">config</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">file_stream</span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new_from_core_persistence</span><span class="p">(</span><span class="n">config</span><span class="p">,</span>
+<span class="w">                                                          </span><span class="n">file_stream</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span>
 <span class="w">    </span><span class="c1">// remove persistence file to prevent client from reading</span>
 <span class="w">    </span><span class="c1">// outdated state in case it doesn&#39;t shut down gracefully</span>
-<span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Similarly, if core persistence file is not accessible due to some error, we
 want to resort to default <a class="reference external" href="../api/core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete()</a> call.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_delete_try_with_core_persistence</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;Attempting to shut down Anjay and persist its state&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_delete_try_with_core_persistence</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;Attempting to shut down Anjay and persist its state&quot;</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">file_stream</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                   </span><span class="n">AVS_STREAM_FILE_WRITE</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">file_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_delete_with_core_persistence</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">file_stream</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">unlink</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">file_stream</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">AVS_STREAM_FILE_WRITE</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">file_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_delete_with_core_persistence</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">file_stream</span><span class="p">);</span>
+<span class="w">        </span><span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">unlink</span><span class="p">(</span><span class="n">CORE_PERSISTENCE_FILENAME</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -319,36 +316,36 @@ generally not possible to reliably determine whether the address visible to
 the server is still the same; it might be affected by e.g. how routing and
 Network Address Translation is configured between the parties.</p>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">initialize_objects_with_default_settings</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;identity&quot;</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">initialize_objects_with_default_settings</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;identity&quot;</span><span class="p">;</span>
+</span><span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
 </span>
-<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coaps://eu.iot.avsystem.cloud:5684&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">private_cert_or_psk_key_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span><span class="w"></span>
-</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coaps://eu.iot.avsystem.cloud:5684&quot;</span><span class="p">,</span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_PSK</span><span class="p">,</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">public_cert_or_psk_identity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">,</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">public_cert_or_psk_identity_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">private_cert_or_psk_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">,</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">private_cert_or_psk_key_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">)</span>
+</span><span class="w">     </span><span class="p">};</span>
 
-<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"></span>
-</span><span class="w">         </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span><span class="w"></span>
-<span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+</span><span class="w">         </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span>
+<span class="w">     </span><span class="p">};</span>
 
-<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                      </span><span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">);</span><span class="w"></span>
-<span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="w">     </span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+<span class="w">                                        </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">);</span>
+<span class="w">     </span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
+<span class="w">                                      </span><span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">);</span>
+<span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -362,57 +359,57 @@ disconnecting, or use other Layer 3/Layer 4 protocol combination which
 doesn’t require frequent communication with the server.</p>
 </div>
 <p>Let’s use all the functions we have implemented above.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">signal_handler</span><span class="p">);</span><span class="w"></span>
+<span class="w">     </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">signal_handler</span><span class="p">);</span>
 
-<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="w"></span>
-<span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="w">         </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span>
+<span class="w">     </span><span class="p">};</span>
 
-<span class="hll"><span class="w">     </span><span class="n">g_anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new_try_from_core_persistence</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span><span class="w"></span>
-</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">g_anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="n">g_anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new_try_from_core_persistence</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">g_anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
 
 <span class="w">     </span><span class="c1">// Setup necessary objects</span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">)</span><span class="w"></span>
-<span class="w">             </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">)</span>
+<span class="w">             </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">restore_retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">restore_objects_if_possible</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">restore_retval</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">restore_retval</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="n">initialize_objects_with_default_settings</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">restore_retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">restore_objects_if_possible</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">restore_retval</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">restore_retval</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="n">initialize_objects_with_default_settings</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                   </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span><span class="w"></span>
+<span class="w">     </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span>
 
-<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">persist_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persist_objects</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persist_result</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">persist_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persist_objects</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persist_result</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w"> </span><span class="nl">cleanup</span><span class="p">:</span><span class="w"></span>
-<span class="hll"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">     </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_delete_try_with_core_persistence</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">     </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w"> </span><span class="nl">cleanup</span><span class="p">:</span>
+<span class="hll"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">         </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span>
+</span><span class="hll"><span class="w">     </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_delete_try_with_core_persistence</span><span class="p">(</span><span class="n">g_anjay</span><span class="p">);</span>
+</span><span class="hll"><span class="w">     </span><span class="p">}</span>
+</span><span class="hll"><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 <p>To see how this feature affects data sent during the connection, we encourage to

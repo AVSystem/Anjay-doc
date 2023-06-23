@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4. Custom (D)TLS layers &mdash; Anjay 3.4.0 documentation</title>
+  <title>8.4. Custom (D)TLS layers &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -83,9 +80,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">8.4. </span>Custom (D)TLS layers</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+      <li><span class="section-number">8.4. </span>Custom (D)TLS layers</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -183,8 +180,8 @@ thoroughly supported and not covered by this documentation at the moment.</p></l
 <p>Implementations of the following functions will need to be provided:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_create_dtls_socket</span></code> - a function with the following signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket</span><span class="p">,</span>
+<span class="w">                                        </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
@@ -195,8 +192,8 @@ thoroughly supported and not covered by this documentation at the moment.</p></l
 <li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_create_ssl_socket</span></code> - only required if the <code class="docutils literal notranslate"><span class="pre">fw_update</span></code> module
 should support HTTPS transfers, or if support for CoAP over TCP is desired.
 Otherwise, it can be safely implemented as <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">avs_errno(AVS_ENOTSUP);</span></code>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_ssl_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                       </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_ssl_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket</span><span class="p">,</span>
+<span class="w">                                       </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">socket_configuration</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">socket_configuration</span></code> argument is a pointer to
@@ -206,7 +203,7 @@ Otherwise, it can be safely implemented as <code class="docutils literal notrans
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_initialize_global_ssl_state</span></code> - a function with the following
 signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_initialize_global_ssl_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_initialize_global_ssl_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The function should return <code class="docutils literal notranslate"><span class="pre">AVS_OK</span></code> on success and an error code on error.
@@ -217,7 +214,7 @@ function as a no-op (<code class="docutils literal notranslate"><span class="pre
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_avs_net_cleanup_global_ssl_state</span></code> - a function with the following
 signature:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">_avs_net_cleanup_global_ssl_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">_avs_net_cleanup_global_ssl_state</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The function should clean up any global state that is kept by the TLS

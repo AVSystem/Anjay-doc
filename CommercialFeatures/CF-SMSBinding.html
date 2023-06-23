@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10.9. SMS Binding &mdash; Anjay 3.4.0 documentation</title>
+  <title>10.9. SMS Binding &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -19,7 +16,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="10.10. Bootstrapper (smart card bootstrap)" href="CF-SmartCardBootstrap.html" />
+    <link rel="next" title="10.10. Bootstrapper and SIM bootstrap" href="CF-SmartCardBootstrap.html" />
     <link rel="prev" title="10.8. OSCORE" href="CF-OSCORE.html" /> 
 </head>
 
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -62,7 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="CF-NIDD.html">10.7. Non-IP Data Delivery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CF-OSCORE.html">10.8. OSCORE</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">10.9. SMS Binding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CF-SmartCardBootstrap.html">10.10. Bootstrapper (smart card bootstrap)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CF-SmartCardBootstrap.html">10.10. Bootstrapper and SIM bootstrap</a></li>
 </ul>
 </li>
 </ul>
@@ -80,9 +77,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">10.9. </span>SMS Binding</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a> &raquo;</li>
+      <li><span class="section-number">10.9. </span>SMS Binding</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -191,60 +188,60 @@ to the original application.</p>
 <p>Since the server is reachable by phone number, not by an internet address, we
 have to reconfigure the LwM2M Security object - server URI should be changed
 and the security mode for the SMS binding should be specified.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tel:+12125550178&quot;</span><span class="p">,</span><span class="w"></span>
-</span><span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span><span class="w"></span>
-</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tel:+12125550178&quot;</span><span class="p">,</span>
+</span><span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span>
+</span><span class="w">     </span><span class="p">};</span>
 
 <span class="w">     </span><span class="c1">// Anjay will assign Instance ID automatically</span>
-<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                            </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+<span class="w">                                            </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Next up, we should update the preferred binding information in the configuration
 of LwM2M Server object.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="c1">// Server Short ID</span>
-<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">         </span><span class="c1">// Client will send Update message often than every 60 seconds</span>
-<span class="w">         </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
 <span class="w">         </span><span class="c1">// Disable Default Minimum Period resource</span>
-<span class="w">         </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
 <span class="w">         </span><span class="c1">// Disable Default Maximum Period resource</span>
-<span class="w">         </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
 <span class="w">         </span><span class="c1">// Disable Disable Timeout resource</span>
-<span class="w">         </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
 <span class="hll"><span class="w">         </span><span class="c1">// Sets preferred transport to SMS</span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;S&quot;</span><span class="w"></span>
-</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;S&quot;</span>
+</span><span class="w">     </span><span class="p">};</span>
 
 <span class="w">     </span><span class="c1">// Anjay will assign Instance ID automatically</span>
-<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                          </span><span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance</span><span class="p">,</span>
+<span class="w">                                          </span><span class="o">&amp;</span><span class="n">server_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 <p>As the example SMS driver expects a path to a file representing an AT terminal,
@@ -257,42 +254,42 @@ included in the config structure.</p>
 code-prefixed phone number without the ‘+’ sign or other prefixes specific
 to your location.</p>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="hll"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME MODEM_DEVICE&quot;</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">                 </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
-</span><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME MODEM_DEVICE&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                 </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_at_sms_create</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">local_msisdn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;14155550125&quot;</span><span class="w"></span>
-</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="w">         </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_at_sms_create</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">local_msisdn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;14155550125&quot;</span>
+</span><span class="w">     </span><span class="p">};</span>
 
-<span class="w">     </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">     </span><span class="c1">// Setup necessary objects</span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="w"></span>
-<span class="w">                 </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span>
+<span class="w">                 </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 <p>If you have access to an AT modem with SMS functionality and a LwM2M server
@@ -336,35 +333,35 @@ fields explicitly related to the SMS binding.</p>
 <p class="admonition-title">Note</p>
 <p>LwM2M allows only for PSK mode to be used with DTLS over SMS.</p>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;identity&quot;</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;identity&quot;</span><span class="p">;</span>
+</span><span class="hll"><span class="w">     </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;P4s$w0rd&quot;</span><span class="p">;</span>
 </span>
-<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tel:+12125550178&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_DTLS_PSK</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_key_parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_key_parameters_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">),</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_name_indication</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;eu.iot.avsystem.cloud&quot;</span><span class="w"></span>
-</span><span class="w">     </span><span class="p">};</span><span class="w"></span>
+<span class="w">     </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tel:+12125550178&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span>
+<span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_DTLS_PSK</span><span class="p">,</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_key_parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_IDENTITY</span><span class="p">,</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_key_parameters_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_IDENTITY</span><span class="p">),</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">PSK_KEY</span><span class="p">,</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">sms_secret_key_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">PSK_KEY</span><span class="p">),</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">server_name_indication</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;eu.iot.avsystem.cloud&quot;</span>
+</span><span class="w">     </span><span class="p">};</span>
 
 <span class="w">     </span><span class="c1">// Anjay will assign Instance ID automatically</span>
-<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                            </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+<span class="w">                                            </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">     </span><span class="p">}</span>
 
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Notice that the <code class="docutils literal notranslate"><span class="pre">security_mode</span></code> setting must remain untouched as it’s
@@ -384,19 +381,19 @@ number as correct server name.</p>
 <p>To make DTLS over SMS work correctly, we have to ensure that appropriate
 ciphersuite is used. The MTU of SMS is just 140 bytes, so some ciphersuites
 have too much overhead to be conveyed over SMS messages.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">sms_driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_at_sms_create</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">local_msisdn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;14155550125&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">default_tls_ciphersuites</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="w">     </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">     </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">     </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">     </span><span class="p">.</span><span class="n">sms_driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_at_sms_create</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+<span class="w">     </span><span class="p">.</span><span class="n">local_msisdn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;14155550125&quot;</span><span class="p">,</span>
+<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">default_tls_ciphersuites</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">         </span><span class="c1">// TLS_PSK_WITH_AES_128_CCM_8</span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">[]){</span><span class="w"> </span><span class="mh">0xC0A8</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">num_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-</span><span class="hll"><span class="w">     </span><span class="p">}</span><span class="w"></span>
-</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">[]){</span><span class="w"> </span><span class="mh">0xC0A8</span><span class="w"> </span><span class="p">},</span>
+</span><span class="hll"><span class="w">         </span><span class="p">.</span><span class="n">num_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</span><span class="hll"><span class="w">     </span><span class="p">}</span>
+</span><span class="w"> </span><span class="p">};</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -428,33 +425,33 @@ be achieved using <em>US</em> or <em>UQS</em> binding modes available in LwM2M 1
 section, use LwM2M 1.1 and UDP as transport binding.</p>
 <p>Firstly, let’s change the Server URI to use UDP again. Server’s phone number
 will be passed through another field, <code class="docutils literal notranslate"><span class="pre">server_sms_number</span></code>, in MSISDN form.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://eu.iot.avsystem.cloud:5683&quot;</span><span class="p">,</span><span class="w"></span>
-</span><span class="w">     </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_sms_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;12125550178&quot;</span><span class="w"></span>
-</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://eu.iot.avsystem.cloud:5683&quot;</span><span class="p">,</span>
+</span><span class="w">     </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span>
+<span class="w">     </span><span class="p">.</span><span class="n">sms_security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span><span class="p">,</span>
+<span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">server_sms_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;12125550178&quot;</span>
+</span><span class="w"> </span><span class="p">};</span>
 </pre></div>
 </div>
 <p>To change the binding back to UDP and enable the Trigger resource in Server
 object which controls Trigger Mode, apply following changes:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="c1">// Server Short ID</span>
-<span class="w">     </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">     </span><span class="c1">// Client will send Update message often than every 60 seconds</span>
-<span class="w">     </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
 <span class="w">     </span><span class="c1">// Disable Default Minimum Period resource</span>
-<span class="w">     </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
 <span class="w">     </span><span class="c1">// Disable Default Maximum Period resource</span>
-<span class="w">     </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
 <span class="w">     </span><span class="c1">// Disable Disable Timeout resource</span>
-<span class="w">     </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
 <span class="hll"><span class="w">     </span><span class="c1">// Sets preferred transport to UDP</span>
-</span><span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span><span class="p">,</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span><span class="p">,</span>
 </span><span class="hll"><span class="w">     </span><span class="c1">// Enables optional Trigger resource and sets it to true</span>
-</span><span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</span><span class="hll"><span class="w">     </span><span class="p">.</span><span class="n">trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">}</span>
+</span><span class="w"> </span><span class="p">};</span>
 </pre></div>
 </div>
 </section>
@@ -467,7 +464,7 @@ object which controls Trigger Mode, apply following changes:</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="CF-OSCORE.html" class="btn btn-neutral float-left" title="10.8. OSCORE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="CF-SmartCardBootstrap.html" class="btn btn-neutral float-right" title="10.10. Bootstrapper (smart card bootstrap)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="CF-SmartCardBootstrap.html" class="btn btn-neutral float-right" title="10.10. Bootstrapper and SIM bootstrap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

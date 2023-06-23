@@ -19,6 +19,7 @@ var dir_f1282f3667e08fb5f3f6a37ec99711a1 =
     [ "nidd.h", "nidd_8h.html", "nidd_8h" ],
     [ "security.h", "security_8h.html", "security_8h" ],
     [ "server.h", "server_8h.html", "server_8h" ],
+    [ "sim_bootstrap.h", "sim__bootstrap_8h.html", "sim__bootstrap_8h" ],
     [ "sms.h", "sms_8h.html", "sms_8h" ],
     [ "stats.h", "stats_8h.html", "stats_8h" ]
 ];

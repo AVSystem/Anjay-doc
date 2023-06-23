@@ -185,6 +185,8 @@ Macros</h2></td></tr>
 <tr class="separator:ac424b635b078ce4aa6da00d35652b703"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c94b83078cb3f9bb63fb02fffe04732"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="anjay__config_8h.html#a0c94b83078cb3f9bb63fb02fffe04732">ANJAY_WITH_MODULE_BOOTSTRAPPER</a></td></tr>
 <tr class="separator:a0c94b83078cb3f9bb63fb02fffe04732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5fb9b290dc4936eb045ad850de10b96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="anjay__config_8h.html#ac5fb9b290dc4936eb045ad850de10b96">ANJAY_WITH_MODULE_SIM_BOOTSTRAP</a></td></tr>
+<tr class="separator:ac5fb9b290dc4936eb045ad850de10b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e1a4967a8fc19a9165de610000cc163"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="anjay__config_8h.html#a5e1a4967a8fc19a9165de610000cc163">ANJAY_WITH_MODULE_FACTORY_PROVISIONING</a></td></tr>
 <tr class="separator:a5e1a4967a8fc19a9165de610000cc163"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -723,7 +725,15 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Enable factory provisioning module. Data provided during provisioning uses SenML CBOR format. </p>
+<p>Forced ID of the file to read the SIM bootstrap information from.</p>
+<p>If not defined (default), the bootstrap information file will be discovered through the ODF file, as mandated by the specification.</p>
+<p>Requires <code>ANJAY_WITH_MODULE_BOOTSTRAPPER</code> to be enabled. At most one of <code>ANJAY_MODULE_SIM_BOOTSTRAP_HARDCODED_FILE_ID</code> and <code>ANJAY_MODULE_SIM_BOOTSTRAP_DATA_OID_OVERRIDE_HEX</code> may be defined at the same time.</p>
+<p>IMPORTANT: Only available with the bootstrapper feature. Ignored in the open source version. Overridden OID of the SIM bootstrap information to look for in the DODF file, expressed as a hexlified DER representation (without the header).</p>
+<p>This is the hexlified expected value of the 'id' field within the 'OidDO' sequence in the DODF file (please refer to the PKCS #15 document for more information).</p>
+<p>If not defined, the default value of <code>"672b0901"</code>, which corresponds to OID 2.23.43.9.1 {joint-iso-itu-t(2) international-organizations(23) wap(43) oma-lwm2m(9) lwm2m-bootstrap(1)}, will be used.</p>
+<p>No other values than the default are valid according to the specification, but some SIM cards are known to use other non-standard values, e.g. <code>"0604672b0901"</code> - including a superfluous nested BER-TLV header, as erroneously illustrated in the EF(DODF-bootstrap) file coding example in LwM2M TS 1.2 and earlier (fixed in LwM2M TS 1.2.1) - which is interpreted as OID 0.6.4.103.43.9.1 (note that it is invalid as the 0.6 tree does not exist in the repository as of writing this note).</p>
+<p>Requires <code>ANJAY_WITH_MODULE_BOOTSTRAPPER</code> to be enabled. At most one of <code>ANJAY_MODULE_SIM_BOOTSTRAP_HARDCODED_FILE_ID</code> and <code>ANJAY_MODULE_SIM_BOOTSTRAP_DATA_OID_OVERRIDE_HEX</code> may be defined at the same time.</p>
+<p>IMPORTANT: Only available with the bootstrapper feature. Ignored in the open source version. Enable factory provisioning module. Data provided during provisioning uses SenML CBOR format. </p>
 
 </div>
 </div>
@@ -803,6 +813,23 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Enable server module (implementation of the LwM2M Server object). </p>
+
+</div>
+</div>
+<a id="ac5fb9b290dc4936eb045ad850de10b96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5fb9b290dc4936eb045ad850de10b96">&#9670;&nbsp;</a></span>ANJAY_WITH_MODULE_SIM_BOOTSTRAP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ANJAY_WITH_MODULE_SIM_BOOTSTRAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Enable the SIM bootstrap module, which enables reading the SIM bootstrap information from a smartcard, which can then be passed through to the bootstrapper module.</p>
+<p>Requires <code>ANJAY_WITH_MODULE_BOOTSTRAPPER</code> to be enabled.</p>
+<p>IMPORTANT: Only available with the bootstrapper feature. Ignored in the open source version. </p>
 
 </div>
 </div>
@@ -994,7 +1021,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="anjay__config_8h.html">anjay_config.h</a></li>
-    <li class="footer">Generated on Wed Jun 14 2023 10:22:57 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Jun 23 2023 17:09:41 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

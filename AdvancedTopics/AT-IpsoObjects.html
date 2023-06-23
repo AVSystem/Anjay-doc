@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.11. Anjay IPSO Objects implementation &mdash; Anjay 3.4.0 documentation</title>
+  <title>5.11. Anjay IPSO Objects implementation &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -81,9 +78,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.11. </span>Anjay IPSO Objects implementation</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+      <li><span class="section-number">5.11. </span>Anjay IPSO Objects implementation</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -125,13 +122,13 @@ and equals 3347).</p>
 <p>For example, if we wanted to create a Temperature Object (which has OID equal to
 3303) that could have up to 2 instances, we would call
 <code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_install</span></code> function like we did in our demo:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_basic_sensor_install</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">ANJAY_DEMO_TEMPERATURE_MAX_INSTANCE_NUM</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">ipso</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not install Temperature object&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_basic_sensor_install</span><span class="p">(</span>
+<span class="w">            </span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ANJAY_DEMO_TEMPERATURE_MAX_INSTANCE_NUM</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">ipso</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not install Temperature object&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -149,39 +146,39 @@ each of them corresponding to a specific class of objects:</p>
 <p>As you can see, in case of basic or three-axis sensors we need to provide the
 OID, IID and the implementation. Let’s have a look at
 <code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_impl_t</span></code> structure:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_ipso_basic_sensor_impl_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_ipso_basic_sensor_impl_struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * Unit of the measured values.</span>
 <span class="cm">    *</span>
 <span class="cm">    * The pointed string won&#39;t be copied, so user code must assure that the</span>
 <span class="cm">    * pointer will remain valid for the lifetime of the object.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">unit</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">unit</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * User context which will be passed to @ref get_value callback.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_context</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_context</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * The minimum value that can be measured by the sensor.</span>
 <span class="cm">    *</span>
 <span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">min_range_value</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">min_range_value</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * The maximum value that can be measured by the sensor.</span>
 <span class="cm">    *</span>
 <span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">max_range_value</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">max_range_value</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * User provided callback for reading the sensor value.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_ipso_basic_sensor_value_reader_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_value</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_impl_t</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="n">anjay_ipso_basic_sensor_value_reader_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_value</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_impl_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>The most important field of the structure is <code class="docutils literal notranslate"><span class="pre">get_value</span></code> which is a callback
@@ -194,14 +191,14 @@ Object and let <code class="docutils literal notranslate"><span class="pre">get_
 function (which takes as an argument some thermometer instance of type
 <code class="docutils literal notranslate"><span class="pre">thermometer_t</span> <span class="pre">*</span></code>) for reading the temperature. We fake such situation for our
 demo client and in this scenario we can use the following simple function:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
-<span class="nf">temperature_get_value</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">thermometer</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">temperature_get_value</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">thermometer</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
 
-<span class="w">    </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_temperature</span><span class="p">((</span><span class="n">thermometer_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">thermometer</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_temperature</span><span class="p">((</span><span class="n">thermometer_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">thermometer</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The proper temperature unit are degrees Celsius (as defined in
@@ -210,17 +207,17 @@ Let assume that our thermometer measures temperatures between 0 and 100 degrees
 Celsius. Knowing this we can prepare an instance of
 <code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_impl_t</span></code> and pass it to
 <code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_add_instance</span></code> function, as we did in our demo:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_instance_add</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="n">anjay_ipso_basic_sensor_impl_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="n">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_UNIT</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="n">get_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperature_get_value</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="n">user_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="n">THERMOMETER</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="n">min_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="n">max_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_MAX_VALUE</span><span class="w"></span>
-<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_instance_add</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span>
+<span class="w">        </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">        </span><span class="p">(</span><span class="n">anjay_ipso_basic_sensor_impl_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">.</span><span class="n">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_UNIT</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">get_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperature_get_value</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">user_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="n">THERMOMETER</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">min_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="p">.</span><span class="n">max_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_MAX_VALUE</span>
+<span class="w">        </span><span class="p">});</span>
 </pre></div>
 </div>
 <p>The implementation struct for the three axis objects is quite similar to this
@@ -233,47 +230,47 @@ optional Y and Z axes,</p></li>
 </ul>
 </div></blockquote>
 <p>Let’s have a look on the whole structure:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_ipso_3d_sensor_impl_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_ipso_3d_sensor_impl_struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * Unit of the measured values.</span>
 <span class="cm">    *</span>
 <span class="cm">    * The pointed string won&#39;t be copied, so user code must assure that the</span>
 <span class="cm">    * pointer will remain valid for the lifetime of the object.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">unit</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">unit</span><span class="p">;</span>
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * Enables usage of the optional Y axis.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_y_value</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_y_value</span><span class="p">;</span>
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * Enables usage of the optional Z axis.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_z_value</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_z_value</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * User context which will be passed to @ref get_values callback.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_context</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_context</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * The minimum value that can be measured by the sensor.</span>
 <span class="cm">    *</span>
 <span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">min_range_value</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">min_range_value</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * The maximum value that can be measured by the sensor.</span>
 <span class="cm">    *</span>
 <span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">max_range_value</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">max_range_value</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">    * User provided callback for reading the sensor value.</span>
-<span class="cm">    */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_ipso_3d_sensor_value_reader_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_values</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">anjay_ipso_3d_sensor_impl_t</span><span class="p">;</span><span class="w"></span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="n">anjay_ipso_3d_sensor_value_reader_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_values</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_ipso_3d_sensor_impl_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>In case of the Push Button Object, neither implementation nor OID is required.
@@ -301,11 +298,11 @@ significant - it is meant to be called every time the button is pressed or
 released and it is the only way to update the state of the Object Instance.
 In addition to IID it passes a new state of the button. Thus, when an instance
 of the fake button in our demo is pressed, we call:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">demo</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">demo</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>and when it is released:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">demo</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">demo</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -322,8 +319,8 @@ each of them corresponding to a specific class of objects:</p>
 </div></blockquote>
 <p>For example, we can look how the fake temperature object instance is removed in
 our demo:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_instance_remove</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_instance_remove</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>

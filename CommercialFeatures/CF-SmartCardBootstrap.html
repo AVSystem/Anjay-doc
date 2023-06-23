@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10.10. Bootstrapper (smart card bootstrap) &mdash; Anjay 3.4.0 documentation</title>
+  <title>10.10. Bootstrapper and SIM bootstrap &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -31,7 +28,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -61,7 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="CF-NIDD.html">10.7. Non-IP Data Delivery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CF-OSCORE.html">10.8. OSCORE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CF-SMSBinding.html">10.9. SMS Binding</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">10.10. Bootstrapper (smart card bootstrap)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.10. Bootstrapper and SIM bootstrap</a></li>
 </ul>
 </li>
 </ul>
@@ -79,9 +76,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">10.10. </span>Bootstrapper (smart card bootstrap)</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../CommercialFeatures.html"><span class="section-number">10. </span>Commercial features</a> &raquo;</li>
+      <li><span class="section-number">10.10. </span>Bootstrapper and SIM bootstrap</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -90,16 +87,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="bootstrapper-smart-card-bootstrap">
-<h1><span class="section-number">10.10. </span>Bootstrapper (smart card bootstrap)<a class="headerlink" href="#bootstrapper-smart-card-bootstrap" title="Permalink to this headline"></a></h1>
+  <section id="bootstrapper-and-sim-bootstrap">
+<h1><span class="section-number">10.10. </span>Bootstrapper and SIM bootstrap<a class="headerlink" href="#bootstrapper-and-sim-bootstrap" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#general-description" id="id2">General description</a></p></li>
 <li><p><a class="reference internal" href="#technical-documentation" id="id3">Technical documentation</a></p>
 <ul>
 <li><p><a class="reference internal" href="#enabling-the-bootstrapper-module" id="id4">Enabling the bootstrapper module</a></p></li>
-<li><p><a class="reference internal" href="#bootstrap-information-generator-tool" id="id5">Bootstrap information generator tool</a></p></li>
-<li><p><a class="reference internal" href="#example-code" id="id6">Example code</a></p></li>
+<li><p><a class="reference internal" href="#enabling-and-configuring-the-sim-bootstrap-module" id="id5">Enabling and configuring the sim_bootstrap module</a></p></li>
+<li><p><a class="reference internal" href="#bootstrap-information-generator-tool" id="id6">Bootstrap information generator tool</a></p></li>
+<li><p><a class="reference internal" href="#example-code" id="id7">Example code</a></p></li>
 </ul>
 </li>
 </ul>
@@ -115,10 +113,19 @@ defined in <a class="reference external" href="http://www.openmobilealliance.org
 of the LwM2M Technical Specification, and specifications for the secure channel
 between Smartcard and LwM2M Device Storage in <a class="reference external" href="http://www.openmobilealliance.org/release/LightweightM2M/V1_1_1-20190617-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_1_1-20190617-A.html#16-0-Appendix-H-Secure-channel-between-Smartcard-and-LwM2M-Device-Storage-for-secure-Bootstrap-Data-provisioning-Normative">Appendix H</a>
 thereof.</p>
-<p>While communicating with the smart card is considered outside the scope for the
-Anjay library, the “bootstrapper” feature, available commercially, implements a
-parser for the file format described in <a class="reference external" href="http://www.openmobilealliance.org/release/LightweightM2M/V1_1_1-20190617-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_1_1-20190617-A.html#15-3-4-0-G34-EF-LwM2M_Bootstrap">section G.3.4 of the Appendix G</a>
-mentioned above.</p>
+<p>The “bootstrapper” feature, available as a commercial extension to the Anjay
+library, includes two modules that aid in implementing this part of the
+specification:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bootstrapper</span></code> implements a parser for the file format described in
+<a class="reference external" href="http://www.openmobilealliance.org/release/LightweightM2M/V1_1_1-20190617-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_1_1-20190617-A.html#15-3-4-0-G34-EF-LwM2M_Bootstrap">section G.3.4 of the Appendix G</a>
+mentioned above</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sim_bootstrap</span></code> implements the flow of <a class="reference external" href="https://www.iso.org/obp/ui/#iso:std:iso-iec:7816:-4:ed-4:v1:en">ISO/IEC 7816-4</a> commands
+necessary to retrieve the aforementioned file</p></li>
+</ul>
+<p>With the above features in place, all that’s left to implement is actual
+communication with the smart card, typically sending and receiving <code class="docutils literal notranslate"><span class="pre">AT+CSIM</span></code>
+commands to a cellular modem.</p>
 <p>Bootstrapping from smart card has a number of advantages, including:</p>
 <ul class="simple">
 <li><p>Ability to store bootstrap information securely, increasing the device’s
@@ -141,10 +148,38 @@ in the <code class="docutils literal notranslate"><span class="pre">anjay_config
 be used. The user will need to provide an implementation of <code class="docutils literal notranslate"><span class="pre">avs_stream_t</span></code>
 that allows the Anjay code to read the file contained on the smartcard. The
 <code class="docutils literal notranslate"><span class="pre">avs_stream_simple_input_create()</span></code> function from the <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_stream_simple_io.h">avs_stream_simple_io.h</a>
-header is likely to be the easiest way to provide such an implementation.</p>
+header is likely to be the easiest way to provide such an implementation, aside
+from using the SIM bootstrap module described below.</p>
+</section>
+<section id="enabling-and-configuring-the-sim-bootstrap-module">
+<h3><a class="toc-backref" href="#id5"><span class="section-number">10.10.2.2. </span>Enabling and configuring the sim_bootstrap module</a><a class="headerlink" href="#enabling-and-configuring-the-sim-bootstrap-module" title="Permalink to this headline"></a></h3>
+<p>Similarly, to enable the sim_bootstrap module, you can enable the
+<code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_MODULE_SIM_BOOTSTRAP</span></code> macro in the <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> file or, if
+using CMake, enable the corresponding <code class="docutils literal notranslate"><span class="pre">WITH_MODULE_sim_bootstrap</span></code> CMake
+option. This requires that the bootstrapper feature is also enabled.</p>
+<p>By default, the module will access the PKCS#15 application directory file and
+search it for the EF(DODF-bootstrap) file in a way that is compliant with LwM2M
+TS Appendix G mentioned above.</p>
+<p>However, you can override the OID of the file to look for, by defining the
+<code class="docutils literal notranslate"><span class="pre">ANJAY_MODULE_SIM_BOOTSTRAP_DATA_OID_OVERRIDE_HEX</span></code> macro in <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code>
+or setting the corresponding <code class="docutils literal notranslate"><span class="pre">MODULE_sim_bootstrap_DATA_OID_OVERRIDE_HEX</span></code>
+CMake option. It shall be set to a string containing hexlified DER
+representation of the desired OID. The default, standards-compliant value is
+<code class="docutils literal notranslate"><span class="pre">&quot;672b0901&quot;</span></code> (which corresponds to OID 2.23.43.9.1), but you may need to
+change it to a different value, for example some cards are known to use a
+mistakenly encoded value of <code class="docutils literal notranslate"><span class="pre">&quot;0604672b0901&quot;</span></code>.</p>
+<p>Alternatively, you might define the
+<code class="docutils literal notranslate"><span class="pre">ANJAY_MODULE_SIM_BOOTSTRAP_HARDCODED_FILE_ID</span></code> macro (or set the
+<code class="docutils literal notranslate"><span class="pre">MODULE_sim_bootstrap_HARDCODED_FILE_ID</span></code> CMake option) to bypass the directory
+search entirely and set a hardcoded file ID, e.g. <code class="docutils literal notranslate"><span class="pre">0x6432</span></code>.</p>
+<p>Once the module is enabled and configured, you can use the
+<a class="reference external" href="../api/sim__bootstrap_8h.html#a7cd497f30bfc7d36c6f0efb1db1d5a19">anjay_sim_bootstrap_stream_create()</a> function to
+create an input stream suitable for passing to <code class="docutils literal notranslate"><span class="pre">anjay_bootstrapper()</span></code>. In the
+simplest case, you can also use the <a class="reference external" href="../api/sim__bootstrap_8h.html#aa94114321f3af6532babde1efd9bdcec">anjay_sim_bootstrap_perform()</a> function
+that combines both calls and automatically closes the stream as well.</p>
 </section>
 <section id="bootstrap-information-generator-tool">
-<h3><a class="toc-backref" href="#id5"><span class="section-number">10.10.2.2. </span>Bootstrap information generator tool</a><a class="headerlink" href="#bootstrap-information-generator-tool" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id6"><span class="section-number">10.10.2.3. </span>Bootstrap information generator tool</a><a class="headerlink" href="#bootstrap-information-generator-tool" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">generator.py</span></code> application, located in the <code class="docutils literal notranslate"><span class="pre">bootstrap</span></code> directory of
 Anjay source package, allows generating binary files in the EF LwM2M_Bootstrap
 format that is supposed to be stored on smart cards, from a human-readable text
@@ -246,7 +281,7 @@ binary bootstrap information file:</p>
 </div>
 </section>
 <section id="example-code">
-<h3><a class="toc-backref" href="#id6"><span class="section-number">10.10.2.3. </span>Example code</a><a class="headerlink" href="#example-code" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id7"><span class="section-number">10.10.2.4. </span>Example code</a><a class="headerlink" href="#example-code" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The full code for the following example can be found in the
@@ -255,85 +290,185 @@ sources. Note that to compile and run it, you need to have access to a
 commercial version of Anjay that includes the bootstrapper feature.</p>
 </div>
 <p>The example is loosely based on the <a class="reference internal" href="../BasicClient/BC-MandatoryObjects.html"><span class="doc">Installing mandatory Objects</span></a>
-tutorial. However, since the bootstrap information will be loaded from a file,
-the <code class="docutils literal notranslate"><span class="pre">setup_security_object()</span></code> and <code class="docutils literal notranslate"><span class="pre">setup_server_object()</span></code> functions are no
-longer necessary, and the calls to them can be replaced with direct calls to
-<a class="reference external" href="../api/security_8h.html#a5fffaeedfc5c2933e58ac1446fd0401d">anjay_security_object_install()</a> and
+tutorial, and additionally borrows much of the modem communication code from
+<a class="reference internal" href="CF-NIDD.html"><span class="doc">Non-IP Data Delivery</span></a>. Since the bootstrap information will be loaded from a smart
+card, the <code class="docutils literal notranslate"><span class="pre">setup_security_object()</span></code> and <code class="docutils literal notranslate"><span class="pre">setup_server_object()</span></code> functions
+are no longer necessary, and the calls to them can be replaced with direct calls
+to <a class="reference external" href="../api/security_8h.html#a5fffaeedfc5c2933e58ac1446fd0401d">anjay_security_object_install()</a> and
 <a class="reference external" href="../api/server_8h.html#a36a369c0d7d1b2ad42c898ac47b75765">anjay_server_object_install()</a>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME BOOTSTRAP_INFO_FILE&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME MODEM_PATH&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="w"></span>
-<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="w">        </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span>
+<span class="w">    </span><span class="p">};</span>
 
-<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="c1">// Setup necessary objects</span>
-<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
-</span><span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+</span><span class="w">    </span><span class="p">}</span>
 
-<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bootstrap_from_file</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
-</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bootstrap_from_sim</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll">
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span>
+<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>As you can see, the command line now expects a second argument with a name of
 the file containing the bootstrap information.</p>
-<p>This file is loaded using the <code class="docutils literal notranslate"><span class="pre">bootstrap_from_file()</span></code> function, implemented as
+<p>This file is loaded using the <code class="docutils literal notranslate"><span class="pre">bootstrap_from_sim()</span></code> function, implemented as
 follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">bootstrap_from_file</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">filename</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Attempting to bootstrap from file&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_buffer_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">fifo_t</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">file_stream</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="n">avs_stream_file_create</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_STREAM_FILE_READ</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// ...</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">file_stream</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not open file&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">fifo_t</span><span class="w"> </span><span class="n">fifo</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pts_fd</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">modem_ctx_t</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">anjay_bootstrapper</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">file_stream</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not bootstrap from file&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="c1">// ...</span>
 
-<span class="w">    </span><span class="n">avs_stream_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file_stream</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">sim_perform_command</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">modem_ctx_</span><span class="p">,</span>
+<span class="w">                               </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">cmd</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">cmd_length</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">out_buf</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">out_buf_size</span><span class="p">,</span>
+<span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_response_size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">modem_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">modem_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">modem_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">modem_ctx_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">req_buf</span><span class="p">[</span><span class="n">REQ_BUF_SIZE</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">resp_buf</span><span class="p">[</span><span class="n">RESP_BUF_SIZE</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">req_buf_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req_buf</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">req_buf_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req_buf</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">req_buf</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_simple_snprintf</span><span class="p">(</span><span class="n">req_buf_ptr</span><span class="p">,</span>
+<span class="w">                                     </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">req_buf_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">req_buf_ptr</span><span class="p">),</span>
+<span class="w">                                     </span><span class="s">&quot;AT+CSIM=%&quot;</span><span class="w"> </span><span class="n">PRIu32</span><span class="w"> </span><span class="s">&quot;,</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                                     </span><span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cmd_length</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">req_buf_ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="kt">size_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">req_buf_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">req_buf_ptr</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cmd_length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_hexlify</span><span class="p">(</span><span class="n">req_buf_ptr</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">req_buf_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">req_buf_ptr</span><span class="p">),</span>
+<span class="w">                              </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="n">cmd_length</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">req_buf_ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cmd_length</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_simple_snprintf</span><span class="p">(</span>
+<span class="w">                 </span><span class="n">req_buf_ptr</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">req_buf_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">req_buf_ptr</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;\r\n</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">req_buf_ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">ssize_t</span><span class="w"> </span><span class="n">written</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">write</span><span class="p">(</span><span class="n">modem_ctx</span><span class="o">-&gt;</span><span class="n">pts_fd</span><span class="p">,</span><span class="w"> </span><span class="n">req_buf</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">req_buf_ptr</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">req_buf</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">written</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="p">(</span><span class="kt">ssize_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">req_buf_ptr</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">req_buf</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">avs_time_monotonic_t</span><span class="w"> </span><span class="n">deadline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_time_monotonic_add</span><span class="p">(</span>
+<span class="w">            </span><span class="n">avs_time_monotonic_now</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">csim_resp_received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">ok_received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ok_received</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">modem_getline</span><span class="p">(</span><span class="n">modem_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">resp_buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">resp_buf</span><span class="p">),</span><span class="w"> </span><span class="n">deadline</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">resp_terminator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memchr</span><span class="p">(</span><span class="n">resp_buf</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">resp_buf</span><span class="p">));</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">resp_terminator</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">memcmp</span><span class="p">(</span><span class="n">resp_buf</span><span class="p">,</span><span class="w"> </span><span class="n">CSIM_RESP</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">CSIM_RESP</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">csim_resp_received</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">errno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">endptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">resp_reported_length</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                    </span><span class="n">strtoll</span><span class="p">(</span><span class="n">resp_buf</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">CSIM_RESP</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">endptr</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">errno</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">endptr</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">endptr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;,&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">endptr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;&quot;&#39;</span>
+<span class="w">                    </span><span class="o">||</span><span class="w"> </span><span class="n">resp_reported_length</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">                    </span><span class="o">||</span><span class="w"> </span><span class="n">endptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">resp_reported_length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">resp_terminator</span>
+<span class="w">                    </span><span class="o">||</span><span class="w"> </span><span class="n">endptr</span><span class="p">[</span><span class="n">resp_reported_length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;&quot;&#39;</span>
+<span class="w">                    </span><span class="o">||</span><span class="w"> </span><span class="n">avs_unhexlify</span><span class="p">(</span><span class="n">out_response_size</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">out_buf</span><span class="p">,</span>
+<span class="w">                                     </span><span class="n">out_buf_size</span><span class="p">,</span><span class="w"> </span><span class="n">endptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">                                     </span><span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="w"> </span><span class="n">resp_reported_length</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">csim_resp_received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">resp_buf</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;OK&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">ok_received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">csim_resp_received</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">bootstrap_from_sim</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">modem_device</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">modem_ctx_t</span><span class="w"> </span><span class="n">modem_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">pts_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Attempting to bootstrap from SIM card&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fifo_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">modem_ctx</span><span class="p">.</span><span class="n">fifo</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;could not initialize FIFO&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">finish</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">modem_ctx</span><span class="p">.</span><span class="n">pts_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">modem_device</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDWR</span><span class="p">))</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;could not open modem device %s: %s&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">modem_device</span><span class="p">,</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">finish</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">anjay_sim_bootstrap_perform</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">sim_perform_command</span><span class="p">,</span>
+<span class="w">                                               </span><span class="o">&amp;</span><span class="n">modem_ctx</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not bootstrap from SIM card&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">finish</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="nl">finish</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">modem_ctx</span><span class="p">.</span><span class="n">pts_fd</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">modem_ctx</span><span class="p">.</span><span class="n">pts_fd</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">fifo_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">modem_ctx</span><span class="p">.</span><span class="n">fifo</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>This shares similarities with the <code class="docutils literal notranslate"><span class="pre">restore_objects_if_possible()</span></code> function
-from the <a class="reference internal" href="../AdvancedTopics/AT-Persistence.html"><span class="doc">Persistence support</span></a> tutorial.</p>
-<p>As mentioned in the <a class="reference internal" href="#cf-smart-card-bootstrap-enabling"><span class="std std-ref">Enabling the bootstrapper module</span></a> section above, to
-perform bootstrap using an actual smart card, the
-<code class="docutils literal notranslate"><span class="pre">avs_stream_simple_input_create()</span></code> function from the <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/include_public/avsystem/commons/avs_stream_simple_io.h">avs_stream_simple_io.h</a>
-header could be used instead of the <code class="docutils literal notranslate"><span class="pre">avs_stream_file_create()</span></code> call that is
-used here to access regular file system.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sim_perform_command()</span></code> function is a callback that is passed to the
+<code class="docutils literal notranslate"><span class="pre">sim_bootstrap</span></code> module logic, and performs the <code class="docutils literal notranslate"><span class="pre">AT+CSIM</span></code> command over a
+serial port. The <code class="docutils literal notranslate"><span class="pre">modem_getline()</span></code> function it calls is almost identical to
+the one originally implemented for <a class="reference internal" href="CF-NIDD.html"><span class="doc">Non-IP Data Delivery</span></a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">bootstrap_from_sim()</span></code> function itself is a wrapper over
+<a class="reference external" href="../api/sim__bootstrap_8h.html#aa94114321f3af6532babde1efd9bdcec">anjay_sim_bootstrap_perform()</a> that
+additionally initializes and closes the card communication channel.</p>
 </section>
 </section>
 </section>

@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.4. Implementing standard Object &mdash; Anjay 3.4.0 documentation</title>
+  <title>4.4. Implementing standard Object &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -77,9 +74,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.4. </span>Implementing standard Object</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../BasicClient.html"><span class="section-number">4. </span>Basic client</a> &raquo;</li>
+      <li><span class="section-number">4.4. </span>Implementing standard Object</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -185,16 +182,16 @@ at the end of this tutorial.</p>
 anything related to the entire Time Object, so we can leave the default
 implementation, which just keeps the Object definition and the list of its
 instances.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">time_instance_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">application_type</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">application_type_backup</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span><span class="w"></span>
-</span><span class="p">}</span><span class="w"> </span><span class="n">time_instance_t</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">time_instance_struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
+<span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">application_type</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+</span><span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">application_type_backup</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+</span><span class="p">}</span><span class="w"> </span><span class="n">time_instance_t</span><span class="p">;</span>
 
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">time_object_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">def</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">instances</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">time_object_t</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">time_object_struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">def</span><span class="p">;</span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">time_instance_t</span><span class="p">)</span><span class="w"> </span><span class="n">instances</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">time_object_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p><strong>Initializing, releasing and resetting the instance</strong></p>
@@ -203,14 +200,14 @@ functions. These functions are used during creation and deletion of instances,
 performed by LwM2M Server for example.</p>
 <p>In this case, all we have to do is to initialize Application Type with some
 value. Since it is a C-string, it is enough to set the first byte to <code class="docutils literal notranslate"><span class="pre">\0</span></code>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">init_instance</span><span class="p">(</span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">init_instance</span><span class="p">(</span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
+<span class="hll"><span class="w">    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
 </span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>If you decide to allocate the memory for the Application Type dynamically
@@ -220,20 +217,20 @@ nothing and the default implementation can be left.</p>
 <p>The next function to implement is <code class="docutils literal notranslate"><span class="pre">instance_reset()</span></code>, which should reset
 the Instance to its default state, which means the empty Application Type in our
 case.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">instance_reset</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
-<span class="hll"><span class="w">    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
 </span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>We can also disable the presence of one of the Resources in the
@@ -241,22 +238,22 @@ case.</p>
 <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_PRESENT</span></code> to <code class="docutils literal notranslate"><span class="pre">ANJAY_DM_RES_ABSENT</span></code> in the
 <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit_res()</span></code> call. This change will simplify implementation of Read
 handler and Observe/Notifications support in the next section.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">obj_ptr</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">obj_ptr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_CURRENT_TIME</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span><span class="w"></span>
-<span class="w">                      </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_FRACTIONAL_TIME</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">                      </span><span class="n">ANJAY_DM_RES_ABSENT</span><span class="p">);</span><span class="w"></span>
-</span><span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_APPLICATION_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span><span class="w"></span>
-<span class="w">                      </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_CURRENT_TIME</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+<span class="hll"><span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_FRACTIONAL_TIME</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                      </span><span class="n">ANJAY_DM_RES_ABSENT</span><span class="p">);</span>
+</span><span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">RID_APPLICATION_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_RW</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -269,65 +266,65 @@ Object’s stub with specified Resources only.</p>
 handlers. These handlers will be called every time LwM2M Server performs Read
 or Write operation.</p>
 <p>We may use <code class="docutils literal notranslate"><span class="pre">avs_time_real_now()</span></code> to get the current time.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_read</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                         </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                         </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                         </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                         </span><span class="n">anjay_output_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_read</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_output_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_CURRENT_TIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_time_real_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timestamp</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                    </span><span class="n">avs_time_real_now</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">timestamp</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">RID_CURRENT_TIME</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_time_real_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timestamp</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                                    </span><span class="n">avs_time_real_now</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">timestamp</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_APPLICATION_TYPE</span><span class="p">:</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">RID_APPLICATION_TYPE</span><span class="p">:</span>
+</span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span>
 </span>
-<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>As you remember, we do not want to set the system time, so Write operation is
 allowed only on Application Type resource.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_write</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                          </span><span class="n">anjay_input_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">resource_write</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_input_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+<span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">RID_APPLICATION_TYPE</span><span class="p">:</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                </span><span class="k">sizeof</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">RID_APPLICATION_TYPE</span><span class="p">:</span>
+</span><span class="hll"><span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_get_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                                </span><span class="k">sizeof</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">));</span>
 </span>
-<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ANJAY_ERR_METHOD_NOT_ALLOWED</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Initialization of the Object</strong></p>
@@ -335,23 +332,23 @@ allowed only on Application Type resource.</p>
 <code class="docutils literal notranslate"><span class="pre">time_object_create()</span></code>. By default, there is no Object Instance created, so no
 data could be read unless LwM2M Server creates it. However, we are able to
 add an Instance right now, by calling <code class="docutils literal notranslate"><span class="pre">add_instance()</span></code>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">time_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">time_object_t</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJ_DEF</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">time_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">time_object_t</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJ_DEF</span><span class="p">;</span>
 
-<span class="hll"><span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Clock 0&quot;</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Clock 0&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">avs_free</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
 </span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Since we do not allocate memory for anything else during object creation, we may
@@ -365,10 +362,10 @@ it in Anjay and update <code class="docutils literal notranslate"><span class="p
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef TIME_OBJECT_H</span>
 <span class="cp">#define TIME_OBJECT_H</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/dm.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/dm.h&gt;</span>
 
-<span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">time_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"></span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">time_object_release</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">def</span><span class="p">);</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="nf">time_object_create</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">time_object_release</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">def</span><span class="p">);</span>
 
 <span class="cp">#endif </span><span class="c1">// TIME_OBJECT_H</span>
 </pre></div>
@@ -376,50 +373,50 @@ it in Anjay and update <code class="docutils literal notranslate"><span class="p
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">main.c</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="w"></span>
-<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">endpoint_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="w">        </span><span class="p">.</span><span class="n">in_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">out_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">msg_cache_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span>
+<span class="w">    </span><span class="p">};</span>
 
-<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">    </span><span class="c1">// Setup necessary objects</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="hll"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">time_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">time_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time_object_create</span><span class="p">();</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">time_object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">time_object</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">time_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">time_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time_object_create</span><span class="p">();</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">time_object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">time_object</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
 </span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span>
+<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="n">time_object_release</span><span class="p">(</span><span class="n">time_object</span><span class="p">);</span><span class="w"></span>
-</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<span class="hll"><span class="w">    </span><span class="n">time_object_release</span><span class="p">(</span><span class="n">time_object</span><span class="p">);</span>
+</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -464,50 +461,50 @@ tutorial, it is enough to implement only two handlers: <code class="docutils lit
 which makes a backup of Application Type value and <code class="docutils literal notranslate"><span class="pre">transaction_rollback</span></code>,
 which reverts Application Type to its initial value (before Write is performed).
 This is why we need <code class="docutils literal notranslate"><span class="pre">application_type_backup</span></code> array.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kt">int</span><span class="w"> </span><span class="nf">transaction_begin</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kt">int</span><span class="w"> </span><span class="nf">transaction_begin</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                      </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">element</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">element</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
 </span><span class="hll">
-</span><span class="hll"><span class="kt">int</span><span class="w"> </span><span class="nf">transaction_rollback</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w"></span>
+</span><span class="hll"><span class="kt">int</span><span class="w"> </span><span class="nf">transaction_rollback</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">time_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
 </span><span class="hll">
-</span><span class="hll"><span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">element</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="n">time_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">element</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="o">-&gt;</span><span class="n">application_type_backup</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
 </span>
-<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="n">OBJ_DEF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3333</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">list_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_instances</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">instance_create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_create</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">instance_remove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_remove</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">instance_reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_reset</span><span class="p">,</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="n">OBJ_DEF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3333</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_instances</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">instance_create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_create</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">instance_remove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_remove</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">instance_reset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance_reset</span><span class="p">,</span>
 
-<span class="w">        </span><span class="p">.</span><span class="n">list_resources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_resources</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">resource_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_read</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">resource_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_write</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_resources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_resources</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_read</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource_write</span><span class="p">,</span>
 
-<span class="hll"><span class="w">        </span><span class="p">.</span><span class="n">transaction_begin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction_begin</span><span class="p">,</span><span class="w"></span>
-</span><span class="w">        </span><span class="p">.</span><span class="n">transaction_validate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">transaction_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span><span class="w"></span>
-<span class="hll"><span class="w">        </span><span class="p">.</span><span class="n">transaction_rollback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction_rollback</span><span class="w"></span>
-</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="p">.</span><span class="n">transaction_begin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction_begin</span><span class="p">,</span>
+</span><span class="w">        </span><span class="p">.</span><span class="n">transaction_validate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">transaction_commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_transaction_NOOP</span><span class="p">,</span>
+<span class="hll"><span class="w">        </span><span class="p">.</span><span class="n">transaction_rollback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transaction_rollback</span>
+</span><span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <div class="admonition note">

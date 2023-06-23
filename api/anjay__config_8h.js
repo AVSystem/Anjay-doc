@@ -36,6 +36,7 @@ var anjay__config_8h =
     [ "ANJAY_WITH_MODULE_SECURITY", "anjay__config_8h.html#af3826c0f2b7e58651d8237f2d8f71394", null ],
     [ "ANJAY_WITH_MODULE_SECURITY_ENGINE_SUPPORT", "anjay__config_8h.html#a73efb35fc555fdda695dc571626850e6", null ],
     [ "ANJAY_WITH_MODULE_SERVER", "anjay__config_8h.html#af53296d4db302f03403cdf2b0443b59a", null ],
+    [ "ANJAY_WITH_MODULE_SIM_BOOTSTRAP", "anjay__config_8h.html#ac5fb9b290dc4936eb045ad850de10b96", null ],
     [ "ANJAY_WITH_NET_STATS", "anjay__config_8h.html#a16f03e937cee569e516ff4616c3b97fc", null ],
     [ "ANJAY_WITH_NIDD", "anjay__config_8h.html#a587ff02d54991baf464a4b911612b25a", null ],
     [ "ANJAY_WITH_OBSERVATION_STATUS", "anjay__config_8h.html#a94b3894de8e54ba40684218883475ac2", null ],

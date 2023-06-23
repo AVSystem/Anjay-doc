@@ -4,13 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4. Custom LwM2M objects &mdash; Anjay 3.4.0 documentation</title>
+  <title>5.4. Custom LwM2M objects &mdash; Anjay 3.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
@@ -32,7 +29,7 @@
             <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.0
+                3.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -90,9 +87,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.4. </span>Custom LwM2M objects</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+      <li><span class="section-number">5.4. </span>Custom LwM2M objects</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,8 +117,8 @@ which holds:</p>
 <li><p>a list of Resource IDs that the Object might contain,</p></li>
 <li><p>a set of handlers used by the library to access and possibly modify the Object.</p></li>
 </ul>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/** A struct containing pointers to Object handlers. */</span><span class="w"></span>
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/** A struct containing pointers to Object handlers. */</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Get default Object attributes, @ref anjay_dm_object_read_default_attrs_t</span>
 <span class="cm">     *</span>
@@ -129,8 +126,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL if the *Attribute Storage* feature is enabled. Non-NULL</span>
 <span class="cm">     * handler overrides *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_object_read_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">object_read_default_attrs</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_object_read_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">object_read_default_attrs</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Set default Object attributes,</span>
@@ -140,8 +137,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL when *Attribute Storage* feature is enabled. Non-NULL handler</span>
 <span class="cm">     * overrides *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_object_write_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">object_write_default_attrs</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_object_write_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">object_write_default_attrs</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Enumerate available Object Instances, @ref anjay_dm_list_instances_t</span>
@@ -150,8 +147,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * **Must not be NULL.** @ref anjay_dm_list_instances_SINGLE can be used</span>
 <span class="cm">     * here.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_list_instances_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_instances</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_list_instances_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_instances</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Resets an Object Instance, @ref anjay_dm_instance_reset_t</span>
@@ -159,8 +156,8 @@ which holds:</p>
 <span class="cm">     * Required for handling *LwM2M Write* operation in *replace mode*.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL if the object does not contain writable resources.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_instance_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_reset</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_instance_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_reset</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Create an Object Instance, @ref anjay_dm_instance_create_t</span>
@@ -168,8 +165,8 @@ which holds:</p>
 <span class="cm">     * Required for handling *LwM2M Create* operation.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL for single instance objects.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_instance_create_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_create</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_instance_create_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_create</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Delete an Object Instance, @ref anjay_dm_instance_remove_t</span>
@@ -178,8 +175,8 @@ which holds:</p>
 <span class="cm">     * Instances.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL for single instance objects.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_instance_remove_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_remove</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_instance_remove_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_remove</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Get default Object Instance attributes,</span>
@@ -189,8 +186,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL when *Attribute Storage* feature is enabled. Non-NULL handler</span>
 <span class="cm">     * overrides *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_instance_read_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_read_default_attrs</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_instance_read_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_read_default_attrs</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Set default Object Instance attributes,</span>
@@ -200,8 +197,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL when *Attribute Storage* feature is enabled. Non-NULL handler</span>
 <span class="cm">     * overrides *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_instance_write_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_write_default_attrs</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_instance_write_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_write_default_attrs</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Enumerate PRESENT Resources in a given Object Instance,</span>
@@ -210,8 +207,8 @@ which holds:</p>
 <span class="cm">     * Required for every LwM2M operation.</span>
 <span class="cm">     *</span>
 <span class="cm">     * **Must not be NULL.**</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_list_resources_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_resources</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_list_resources_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_resources</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Get Resource value, @ref anjay_dm_resource_read_t</span>
@@ -219,8 +216,8 @@ which holds:</p>
 <span class="cm">     * Required for *LwM2M Read* operation.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL if the object does not contain readable resources.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_read_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_read</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_read_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_read</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Set Resource value, @ref anjay_dm_resource_write_t</span>
@@ -228,8 +225,8 @@ which holds:</p>
 <span class="cm">     * Required for *LwM2M Write* operation.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL if the object does not contain writable resources.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_write_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_write</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_write_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_write</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Perform Execute action on a Resource, @ref anjay_dm_resource_execute_t</span>
@@ -237,8 +234,8 @@ which holds:</p>
 <span class="cm">     * Required for *LwM2M Execute* operation.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL if the object does not contain executable resources.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_execute_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_execute</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_execute_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_execute</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Remove all Resource Instances from a Multiple Resource,</span>
@@ -248,8 +245,8 @@ which holds:</p>
 <span class="cm">     * resources.</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL if the object does not contain multiple writable resources.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_reset</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_reset</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Enumerate available Resource Instances,</span>
@@ -259,8 +256,8 @@ which holds:</p>
 <span class="cm">     * performed on multiple-instance resources..</span>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL if the object does not contain multiple resources.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_list_resource_instances_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_resource_instances</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_list_resource_instances_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_resource_instances</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Get Resource attributes, @ref anjay_dm_resource_read_attrs_t</span>
@@ -269,8 +266,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL when *Attribute Storage* feature is enabled. Non-NULL handler</span>
 <span class="cm">     * overrides *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_read_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_read_attrs</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_read_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_read_attrs</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Set Resource attributes, @ref anjay_dm_resource_write_attrs_t</span>
@@ -279,8 +276,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL when *Attribute Storage* feature is enabled. Non-NULL handler</span>
 <span class="cm">     * overrides *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_write_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_write_attrs</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_write_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_write_attrs</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Begin a transaction on this Object, @ref anjay_dm_transaction_begin_t</span>
@@ -290,8 +287,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL for read-only objects. @ref anjay_dm_transaction_NOOP can be</span>
 <span class="cm">     * used here.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_transaction_begin_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_begin</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_transaction_begin_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_begin</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Validate whether a transaction on this Object can be cleanly committed.</span>
@@ -302,8 +299,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL for read-only objects. @ref anjay_dm_transaction_NOOP can be</span>
 <span class="cm">     * used here.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_transaction_validate_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_validate</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_transaction_validate_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_validate</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Commit changes made in a transaction, @ref anjay_dm_transaction_commit_t</span>
@@ -313,8 +310,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL for read-only objects. @ref anjay_dm_transaction_NOOP can be</span>
 <span class="cm">     * used here.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_transaction_commit_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_commit</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_transaction_commit_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_commit</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Rollback changes made in a transaction,</span>
@@ -325,8 +322,8 @@ which holds:</p>
 <span class="cm">     *</span>
 <span class="cm">     * Can be NULL for read-only objects. @ref anjay_dm_transaction_NOOP can be</span>
 <span class="cm">     * used here.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_transaction_rollback_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_rollback</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_transaction_rollback_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_rollback</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Get Resource Instance attributes, @ref</span>
@@ -338,8 +335,8 @@ which holds:</p>
 <span class="cm">     * *Attribute Storage* feature is enabled, or when the application only</span>
 <span class="cm">     * targets compliance with LwM2M TS 1.0. Non-NULL handler overrides</span>
 <span class="cm">     * *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_instance_read_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_instance_read_attrs</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_instance_read_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_instance_read_attrs</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Set Resource Instance attributes, @ref</span>
@@ -351,26 +348,26 @@ which holds:</p>
 <span class="cm">     * *Attribute Storage* feature is enabled, or when the application only</span>
 <span class="cm">     * targets compliance with LwM2M TS 1.0. Non-NULL handler overrides</span>
 <span class="cm">     * *Attribute Storage* logic.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_resource_instance_write_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_instance_write_attrs</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">anjay_dm_handlers_t</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_instance_write_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_instance_write_attrs</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_dm_handlers_t</span><span class="p">;</span>
 
-<span class="cm">/** A struct defining a LwM2M Object. */</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">anjay_dm_object_def_struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/** Object ID; MUST not be &lt;c&gt;ANJAY_ID_INVALID&lt;/c&gt; (65535) */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_oid_t</span><span class="w"> </span><span class="n">oid</span><span class="p">;</span><span class="w"></span>
+<span class="cm">/** A struct defining a LwM2M Object. */</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">anjay_dm_object_def_struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/** Object ID; MUST not be &lt;c&gt;ANJAY_ID_INVALID&lt;/c&gt; (65535) */</span>
+<span class="w">    </span><span class="n">anjay_oid_t</span><span class="w"> </span><span class="n">oid</span><span class="p">;</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Object version: a string with static lifetime, containing two digits</span>
 <span class="cm">     * separated by a dot (for example: &quot;1.1&quot;).</span>
 <span class="cm">     * If left NULL, client will not include the &quot;ver=&quot; attribute in Register</span>
 <span class="cm">     * and Discover messages, which implies version 1.0.</span>
-<span class="cm">     */</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">version</span><span class="p">;</span><span class="w"></span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">version</span><span class="p">;</span>
 
-<span class="w">    </span><span class="cm">/** Handler callbacks for this object. */</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_dm_handlers_t</span><span class="w"> </span><span class="n">handlers</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/** Handler callbacks for this object. */</span>
+<span class="w">    </span><span class="n">anjay_dm_handlers_t</span><span class="w"> </span><span class="n">handlers</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="../api/structanjay__dm__object__def__struct.html">API docs</a> for detailed
