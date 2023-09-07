@@ -980,7 +980,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Cleans up all resources and releases the Anjay object.</p>
-<p>NOTE: It shall be called <b>before</b> freeing LwM2M Objects registered within the <code>anjay</code> object.</p>
+<p><b>NOTE:</b> It shall be called <b>before</b> freeing LwM2M Objects registered within the <code>anjay</code> object.</p>
+<p><b>NOTE:</b> The <code>anjay</code> pointer is invalidated during the call to this function. If Anjay is compiled with thread safety enabled, all the intermediary cleanup code is properly synchronized, but you should still make sure that no other thread is able to access the <code>anjay</code> object before calling this function, to avoid its usage after <em>free</em>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to delete. MUST NOT be <code>NULL</code> . </td></tr>
@@ -1016,7 +1017,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Persists the core library state into the <code>out_stream</code> and then deletes the Anjay instance but does NOT deregister from any LwM2M Servers.</p>
-<p>NOTE: Anjay is deleted from memory even if the persistence operation fails (in which case any persisted data shall be considered invalid). It should generally not be a problem though, because in the worst case scenario the client will later need to perform full re-register and reconnection (at DTLS layer as well, if secure connection is used).</p>
+<p><b>NOTE:</b> Anjay is deleted from memory even if the persistence operation fails (in which case any persisted data shall be considered invalid). It should generally not be a problem though, because in the worst case scenario the client will later need to perform full re-register and reconnection (at DTLS layer as well, if secure connection is used).</p>
+<p><b>NOTE:</b> It shall be called <b>before</b> freeing LwM2M Objects registered within the <code>anjay</code> object.</p>
+<p><b>NOTE:</b> The <code>anjay</code> pointer is invalidated during the call to this function. If Anjay is compiled with thread safety enabled, all the intermediary cleanup code is properly synchronized, but you should still make sure that no other thread is able to access the <code>anjay</code> object before calling this function, to avoid its usage after <em>free</em>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to persist and then delete from memory. </td></tr>
@@ -1552,6 +1555,8 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 </div><div class="memdoc">
 <p>Retrieves a list of structures that describe sockets used for communication with LwM2M servers. Returned list must not be freed nor modified.</p>
 <p>The returned data is equivalent to the one that can be retrieved using <a class="el" href="core_8h.html#afb06d3039ea169fc8f0d551bc04c929f">anjay_get_sockets</a> - but includes additional data that describes the socket in addition to the socket itself. See <a class="el" href="structanjay__socket__entry__t.html">anjay_socket_entry_t</a> for details.</p>
+<p><b>NOTE:</b> The returned list will be invalidated by any subsequent call to <a class="el" href="core_8h.html#afb06d3039ea169fc8f0d551bc04c929f">anjay_get_sockets</a> or <code>anjay_get_socket_entries</code>. If you need to call these functions from multiple threads, you need to implement additional synchronization to achieve thread safety.</p>
+<p>The socket object pointers themselves may additionally be invalidated by a call to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>, <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>, <a class="el" href="core_8h.html#ac436ac24095cb10ef008c8fd91126b31">anjay_serve_any</a> or during the execution of <a class="el" href="core_8h.html#a95c229caf3ee8ce7de556256f4307507">anjay_event_loop_run</a> or <a class="el" href="core_8h.html#ad639f40ca08cd88ee1ccc935f37c3a14">anjay_event_loop_run_with_error_handling</a> . For this reason, it is recommended to only call this function from callback functions called from within Anjay, in scheduler jobs, or as part of a custom event loop.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to operate on.</td></tr>
@@ -1600,7 +1605,9 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div class="line">}</div>
 <div class="ttc" id="acore_8h_html_aa743e53b432d4a7b82001c5cdad163fe"><div class="ttname"><a href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a></div><div class="ttdeci">int anjay_serve(anjay_t *anjay, avs_net_socket_t *ready_socket)</div></div>
 <div class="ttc" id="acore_8h_html_afb06d3039ea169fc8f0d551bc04c929f"><div class="ttname"><a href="core_8h.html#afb06d3039ea169fc8f0d551bc04c929f">anjay_get_sockets</a></div><div class="ttdeci">AVS_LIST[avs_net_socket_t *const] anjay_get_sockets(anjay_t *anjay)</div></div>
-</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+</div><!-- fragment --><p><b>NOTE:</b> The returned list will be invalidated by any subsequent call to <code><a class="el" href="core_8h.html#afb06d3039ea169fc8f0d551bc04c929f">anjay_get_sockets()</a></code> or <a class="el" href="core_8h.html#accc841d429905c688957594c05c59e52">anjay_get_socket_entries</a> . If you need to call these functions from multiple threads, you need to implement additional synchronization to achieve thread safety.</p>
+<p>The socket object pointers themselves may additionally be invalidated by a call to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>, <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>, <a class="el" href="core_8h.html#ac436ac24095cb10ef008c8fd91126b31">anjay_serve_any</a> or during the execution of <a class="el" href="core_8h.html#a95c229caf3ee8ce7de556256f4307507">anjay_event_loop_run</a> or <a class="el" href="core_8h.html#ad639f40ca08cd88ee1ccc935f37c3a14">anjay_event_loop_run_with_error_handling</a> . For this reason, it is recommended to only call this function from callback functions called from within Anjay, in scheduler jobs, or as part of a custom event loop.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to operate on.</td></tr>
   </table>
@@ -2224,7 +2231,8 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 for success, or a negative value in case of error, including if no suitable LwM2M Security Object instance could be found.</dd></dl>
-<p><b>NOTE:</b> The returned structure will contain pointers to buffers allocated within the <code>anjay</code> object. They will only be valid until next call to <code><a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm()</a></code> or <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>. Note that this is enough for direct use in <a class="el" href="fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397">anjay_fw_update_get_security_config_t</a> implementations. If you need this information for a longer period, you will need to manually create a deep copy. </p>
+<p><b>NOTE:</b> The returned structure will contain pointers to buffers allocated within the <code>anjay</code> object. They will only be valid until next call to <code><a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm()</a></code> or <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a>. Note that this is enough for direct use in <a class="el" href="fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397">anjay_fw_update_get_security_config_t</a> implementations. If you need this information for a longer period, you will need to manually create a deep copy.</p>
+<p>In particular, you may need to implement additional synchronization to achieve thread safety if calling this function from multiple threads. Instead, it is recommended to only call it from callback functions called from within Anjay, or in scheduler jobs. </p>
 
 </div>
 </div>
@@ -3029,7 +3037,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Fri Jun 23 2023 17:09:41 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 7 2023 14:23:36 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

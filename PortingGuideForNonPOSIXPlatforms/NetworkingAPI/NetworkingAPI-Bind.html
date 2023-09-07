@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.3. Bind operation &mdash; Anjay 3.4.1 documentation</title>
+  <title>8.3.1.3. Bind operation &mdash; Anjay 3.5.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../../index.html">
-            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.1
+                3.5.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -81,10 +90,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
-          <li><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a> &raquo;</li>
-      <li><span class="section-number">8.3.1.3. </span>Bind operation</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
+          <li class="breadcrumb-item"><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.3.1.3. </span>Bind operation</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -94,8 +103,8 @@
            <div itemprop="articleBody">
              
   <section id="bind-operation">
-<h1><span class="section-number">8.3.1.3. </span>Bind operation<a class="headerlink" href="#bind-operation" title="Permalink to this headline"></a></h1>
-<div class="contents local topic" id="contents">
+<h1><span class="section-number">8.3.1.3. </span>Bind operation<a class="headerlink" href="#bind-operation" title="Permalink to this heading"></a></h1>
+<nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id2">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#bind-operation-itself" id="id3">Bind operation itself</a></p></li>
@@ -103,7 +112,7 @@
 <li><p><a class="reference internal" href="#get-local-port-operation" id="id5">Get local port operation</a></p></li>
 <li><p><a class="reference internal" href="#update-to-vtable" id="id6">Update to vtable</a></p></li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Code related to this tutorial can be found under
@@ -111,7 +120,7 @@
 in the Anjay source directory.</p>
 </div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.3.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">8.3.1.3.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI-RemoteHostPort.html"><span class="doc">the previous one</span></a> and adds support for the bind operation.</p>
 <p>This will allow use of the <a class="reference external" href="../../api/structanjay__configuration.html#acf74549a99ca3ad5aedb227c4b0258ca">anjay_configuration_t::udp_listen_port</a>
 setting, which might be useful e.g. for the LwM2M 1.0-style Server-Initiated
@@ -121,7 +130,7 @@ even ephemeral listening port number to be retained between subsequent
 connections to the same server.</p>
 </section>
 <section id="bind-operation-itself">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.3.2. </span>Bind operation itself</a><a class="headerlink" href="#bind-operation-itself" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">8.3.1.3.2. </span>Bind operation itself</a><a class="headerlink" href="#bind-operation-itself" title="Permalink to this heading"></a></h2>
 <p>Implementation of the bind function is very similar to the previously
 implemented <a class="reference internal" href="NetworkingAPI-Minimal.html#non-posix-networking-api-connect"><span class="std std-ref">Connect</span></a> one. Important changes are
 highlighted.</p>
@@ -181,7 +190,7 @@ which will be evident in the modifications to <code class="docutils literal notr
 below.</p>
 </section>
 <section id="changes-to-net-get-opt">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.3.3. </span>Changes to net_get_opt()</a><a class="headerlink" href="#changes-to-net-get-opt" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">8.3.1.3.3. </span>Changes to net_get_opt()</a><a class="headerlink" href="#changes-to-net-get-opt" title="Permalink to this heading"></a></h2>
 <p>Changes to this function are highlighted:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">net_get_opt</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span>
 <span class="w">                               </span><span class="n">avs_net_socket_opt_key_t</span><span class="w"> </span><span class="n">option_key</span><span class="p">,</span>
@@ -227,7 +236,7 @@ valid remote address.</p>
 <code class="docutils literal notranslate"><span class="pre">sockaddr_union_t</span></code> type <a class="reference internal" href="NetworkingAPI-RemoteHostPort.html#non-posix-networking-api-get-remote-host"><span class="std std-ref">declared in the previous tutorial</span></a> is used.</p>
 </section>
 <section id="get-local-port-operation">
-<h2><a class="toc-backref" href="#id5"><span class="section-number">8.3.1.3.4. </span>Get local port operation</a><a class="headerlink" href="#get-local-port-operation" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">8.3.1.3.4. </span>Get local port operation</a><a class="headerlink" href="#get-local-port-operation" title="Permalink to this heading"></a></h2>
 <p>The “get local port” operation may or may not be implemented. It is not
 necessary for the bind operation to work, but if implemented, it will allow
 Anjay to keep ephemeral listening port number consistent across subsequent
@@ -250,7 +259,7 @@ from the previous tutorial, only with <code class="docutils literal notranslate"
 </div>
 </section>
 <section id="update-to-vtable">
-<h2><a class="toc-backref" href="#id6"><span class="section-number">8.3.1.3.5. </span>Update to vtable</a><a class="headerlink" href="#update-to-vtable" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">8.3.1.3.5. </span>Update to vtable</a><a class="headerlink" href="#update-to-vtable" title="Permalink to this heading"></a></h2>
 <p>Of course the newly implemented functions need to be referenced in the virtual
 method table:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="n">NET_SOCKET_VTABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>

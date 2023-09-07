@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4. Custom (D)TLS layers &mdash; Anjay 3.4.1 documentation</title>
+  <title>8.4. Custom (D)TLS layers &mdash; Anjay 3.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../index.html">
-            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.1
+                3.5.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,9 +89,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
-      <li><span class="section-number">8.4. </span>Custom (D)TLS layers</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.4. </span>Custom (D)TLS layers</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -92,9 +101,9 @@
            <div itemprop="articleBody">
              
   <section id="custom-d-tls-layers">
-<h1><span class="section-number">8.4. </span>Custom (D)TLS layers<a class="headerlink" href="#custom-d-tls-layers" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">8.4. </span>Custom (D)TLS layers<a class="headerlink" href="#custom-d-tls-layers" title="Permalink to this heading"></a></h1>
 <section id="introduction">
-<h2><span class="section-number">8.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> and <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> include full-featured, ready-to-use integrations
 with the TLS and DTLS protocols, using either
 <a class="reference external" href="https://www.openssl.org/">OpenSSL</a> or <a class="reference external" href="https://tls.mbed.org/">Mbed TLS</a>,
@@ -125,7 +134,7 @@ a reference for integrating with any other TLS API.</p>
 </div>
 </section>
 <section id="theory-of-operation">
-<h2><span class="section-number">8.4.2. </span>Theory of operation<a class="headerlink" href="#theory-of-operation" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.4.2. </span>Theory of operation<a class="headerlink" href="#theory-of-operation" title="Permalink to this heading"></a></h2>
 <p>TLS and DTLS integration in Anjay is based on the same <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> socket APIs
 as the basic unencrypted TCP and UDP sockets, with a couple of minor
 adjustments:</p>
@@ -157,7 +166,7 @@ transport.</p></li>
 </ul>
 </section>
 <section id="list-of-functions-to-implement">
-<h2><span class="section-number">8.4.3. </span>List of functions to implement<a class="headerlink" href="#list-of-functions-to-implement" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.4.3. </span>List of functions to implement<a class="headerlink" href="#list-of-functions-to-implement" title="Permalink to this heading"></a></h2>
 <p>Support for custom TLS layer needs to be enabled in the compile-time
 configuration first:</p>
 <ul class="simple">

@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7.3. Anjay Object stub generator &mdash; Anjay 3.4.1 documentation</title>
+  <title>7.4. Anjay Object stub generator &mdash; Anjay 3.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="8. Porting guide for non-POSIX platforms" href="../PortingGuideForNonPOSIXPlatforms.html" />
-    <link rel="prev" title="7.2. Factory Provisioning Tool" href="FactoryProvisioning.html" /> 
+    <link rel="prev" title="7.3. Standalone LwM2M Object implementations" href="StandaloneObjects.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../index.html">
-            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.1
+                3.5.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -49,7 +58,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../Tools.html">7. Tools</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="CliLwM2MServer.html">7.1. LwM2M testing shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="FactoryProvisioning.html">7.2. Factory Provisioning Tool</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">7.3. Anjay Object stub generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StandaloneObjects.html">7.3. Standalone LwM2M Object implementations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.4. Anjay Object stub generator</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
@@ -70,9 +80,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../Tools.html"><span class="section-number">7. </span>Tools</a> &raquo;</li>
-      <li><span class="section-number">7.3. </span>Anjay Object stub generator</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../Tools.html"><span class="section-number">7. </span>Tools</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.4. </span>Anjay Object stub generator</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -82,8 +92,8 @@
            <div itemprop="articleBody">
              
   <section id="anjay-object-stub-generator">
-<span id="id1"></span><h1><span class="section-number">7.3. </span>Anjay Object stub generator<a class="headerlink" href="#anjay-object-stub-generator" title="Permalink to this headline"></a></h1>
-<div class="contents local topic" id="contents">
+<span id="id1"></span><h1><span class="section-number">7.4. </span>Anjay Object stub generator<a class="headerlink" href="#anjay-object-stub-generator" title="Permalink to this heading"></a></h1>
+<nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#code-generation" id="id6">Code generation</a></p>
@@ -97,9 +107,9 @@
 <li><p><a class="reference internal" href="#after-generating-the-object-template" id="id11">After generating the object template</a></p></li>
 <li><p><a class="reference internal" href="#additional-examples" id="id12">Additional examples</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id5"><span class="section-number">7.3.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">7.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p>For easy implementation of custom objects, you can use the
 <cite>./tools/anjay_codegen.py</cite> script. It parses a LwM2M Object Definition XML
 and generates a skeleton of the LwM2M object code, requiring the user to only
@@ -111,11 +121,11 @@ Object Definition XML from <a class="reference external" href="https://technical
 </div>
 </section>
 <section id="code-generation">
-<h2><a class="toc-backref" href="#id6"><span class="section-number">7.3.2. </span>Code generation</a><a class="headerlink" href="#code-generation" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">7.4.2. </span>Code generation</a><a class="headerlink" href="#code-generation" title="Permalink to this heading"></a></h2>
 <p>This section shows how to generate code for an example object defined in an XML
 file and covers object templates with both static and dynamic instances.</p>
 <section id="example-object-definition">
-<h3><a class="toc-backref" href="#id7"><span class="section-number">7.3.2.1. </span>Example object definition</a><a class="headerlink" href="#example-object-definition" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">7.4.2.1. </span>Example object definition</a><a class="headerlink" href="#example-object-definition" title="Permalink to this heading"></a></h3>
 <p>The example object definition is stored in <cite>some_object.xml</cite> file with the
 following contents:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -174,7 +184,7 @@ a container whose size is fixed and known at compilation time. Both of these
 approaches are described in the next subsections.</p>
 </section>
 <section id="object-with-dynamically-allocated-instances">
-<h3><a class="toc-backref" href="#id8"><span class="section-number">7.3.2.2. </span>Object with dynamically-allocated instances</a><a class="headerlink" href="#object-with-dynamically-allocated-instances" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">7.4.2.2. </span>Object with dynamically-allocated instances</a><a class="headerlink" href="#object-with-dynamically-allocated-instances" title="Permalink to this heading"></a></h3>
 <p>To create a C language object template with dynamically-allocated instances we
 execute the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py<span class="w"> </span>-i<span class="w"> </span>some_object.xml<span class="w"> </span>-o<span class="w"> </span>some_object.c
@@ -313,7 +323,6 @@ execute the following command:</p>
 <span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">add_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ANJAY_ERR_INTERNAL</span><span class="p">;</span>
 <span class="p">}</span>
@@ -323,7 +332,6 @@ execute the following command:</p>
 <span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 
 <span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">some_object_name_instance_t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="p">;</span>
 <span class="w">    </span><span class="n">AVS_LIST_FOREACH_PTR</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -346,7 +354,6 @@ execute the following command:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
@@ -380,7 +387,6 @@ execute the following command:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
@@ -411,7 +417,6 @@ execute the following command:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
@@ -446,7 +451,6 @@ execute the following command:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
@@ -467,7 +471,6 @@ execute the following command:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find_instance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">inst</span><span class="p">);</span>
 
@@ -552,7 +555,7 @@ function.</p></li>
 </ul>
 </section>
 <section id="object-with-statically-allocated-instances">
-<h3><a class="toc-backref" href="#id9"><span class="section-number">7.3.2.3. </span>Object with statically-allocated instances</a><a class="headerlink" href="#object-with-statically-allocated-instances" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">7.4.2.3. </span>Object with statically-allocated instances</a><a class="headerlink" href="#object-with-statically-allocated-instances" title="Permalink to this heading"></a></h3>
 <p>To create a C language object template with fixed 10 instances we use the <cite>-n</cite>
 switch:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py<span class="w"> </span>-i<span class="w"> </span>some_object.xml<span class="w"> </span>-o<span class="w"> </span>some_object.c<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
@@ -633,7 +636,6 @@ switch:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
 
@@ -669,7 +671,6 @@ switch:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
 
@@ -700,7 +701,6 @@ switch:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
 
@@ -735,7 +735,6 @@ switch:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
 
@@ -756,7 +755,6 @@ switch:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span>
 
 <span class="w">    </span><span class="n">some_object_name_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">obj_ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">AVS_ARRAY_SIZE</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">));</span>
 <span class="w">    </span><span class="n">some_object_name_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="n">iid</span><span class="p">];</span>
 
@@ -825,7 +823,7 @@ array, meaning that <code class="docutils literal notranslate"><span class="pre"
 </ul>
 </section>
 <section id="c-object-templates">
-<h3><a class="toc-backref" href="#id10"><span class="section-number">7.3.2.4. </span>C++ object templates</a><a class="headerlink" href="#c-object-templates" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">7.4.2.4. </span>C++ object templates</a><a class="headerlink" href="#c-object-templates" title="Permalink to this heading"></a></h3>
 <p>The script is capable of generating C++ object templates as well - the <cite>-x</cite>
 switch is intended to be used in this case. So, in order to create a C++ object
 with dynamic instances one has to execute the command:</p>
@@ -843,14 +841,14 @@ and the latter one takes advantage of
 </section>
 </section>
 <section id="after-generating-the-object-template">
-<h2><a class="toc-backref" href="#id11"><span class="section-number">7.3.3. </span>After generating the object template</a><a class="headerlink" href="#after-generating-the-object-template" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">7.4.3. </span>After generating the object template</a><a class="headerlink" href="#after-generating-the-object-template" title="Permalink to this heading"></a></h2>
 <p>Now that the basic object structure is created, one can start thinking about filling in
 missing parts marked in the code by the <cite>TODO</cite> comments. Then, to make the object present
 in the LwM2M Data Model, one shall instantiate it, and finally <a class="reference internal" href="../BasicClient/BC-ObjectImplementation.html#registering-objects"><span class="std std-ref">register</span></a>
 it within Anjay.</p>
 </section>
 <section id="additional-examples">
-<h2><a class="toc-backref" href="#id12"><span class="section-number">7.3.4. </span>Additional examples</a><a class="headerlink" href="#additional-examples" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink"><span class="section-number">7.4.4. </span>Additional examples</a><a class="headerlink" href="#additional-examples" title="Permalink to this heading"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># list registered LwM2M objects</span>
 ./tools/lwm2m_object_registry.py<span class="w"> </span>--list
 
@@ -876,7 +874,7 @@ it within Anjay.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="FactoryProvisioning.html" class="btn btn-neutral float-left" title="7.2. Factory Provisioning Tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="StandaloneObjects.html" class="btn btn-neutral float-left" title="7.3. Standalone LwM2M Object implementations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../PortingGuideForNonPOSIXPlatforms.html" class="btn btn-neutral float-right" title="8. Porting guide for non-POSIX platforms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

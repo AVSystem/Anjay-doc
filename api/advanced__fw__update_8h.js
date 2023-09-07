@@ -57,6 +57,8 @@ var advanced__fw__update_8h =
     [ "anjay_advanced_fw_update_get_state", "advanced__fw__update_8h.html#a23e392d1f8826bf480a373a6ac0e0ba2", null ],
     [ "anjay_advanced_fw_update_install", "advanced__fw__update_8h.html#a0e3630f78e22046ebf8d0c0ad02361c1", null ],
     [ "anjay_advanced_fw_update_instance_add", "advanced__fw__update_8h.html#a546840dfa844b34c486dec2b19e513d4", null ],
+    [ "anjay_advanced_fw_update_pull_reconnect", "advanced__fw__update_8h.html#a9313261902c1a806b7ba7ebdffb7bcd1", null ],
+    [ "anjay_advanced_fw_update_pull_suspend", "advanced__fw__update_8h.html#a0cf9dbd61cc4e5e6c699f7a77a46ee89", null ],
     [ "anjay_advanced_fw_update_set_conflicting_instances", "advanced__fw__update_8h.html#aba46d7e3f19ebb6ff261b728eb8db0b2", null ],
     [ "anjay_advanced_fw_update_set_linked_instances", "advanced__fw__update_8h.html#a285dd61ab0044537ea91f34ad49ca75d", null ],
     [ "anjay_advanced_fw_update_set_state_and_result", "advanced__fw__update_8h.html#ab5608e993993692e021408fc70394a44", null ]

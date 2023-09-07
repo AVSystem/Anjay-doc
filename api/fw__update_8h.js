@@ -37,5 +37,7 @@ var fw__update_8h =
       [ "ANJAY_FW_UPDATE_RESULT_UNSUPPORTED_PROTOCOL", "fw__update_8h.html#a7f9a69c33597a29d9f37ca42a3560139abc980454fe6aee4b77dc9061e1639454", null ]
     ] ],
     [ "anjay_fw_update_install", "fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38", null ],
+    [ "anjay_fw_update_pull_reconnect", "fw__update_8h.html#aed4524adc342e6823d0151dcdc4c2f93", null ],
+    [ "anjay_fw_update_pull_suspend", "fw__update_8h.html#a6e0f6c792fc7df62a1763f6e612ae5c9", null ],
     [ "anjay_fw_update_set_result", "fw__update_8h.html#ac863d2d01b8796cb047fd4520f737b6f", null ]
 ];

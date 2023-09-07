@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.4. Advanced configuration features &mdash; Anjay 3.4.1 documentation</title>
+  <title>8.4.1.4. Advanced configuration features &mdash; Anjay 3.5.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../../index.html">
-            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.4.1
+                3.5.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,10 +89,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
-          <li><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a> &raquo;</li>
-      <li><span class="section-number">8.4.1.4. </span>Advanced configuration features</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
+          <li class="breadcrumb-item"><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.4.1.4. </span>Advanced configuration features</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -93,8 +102,8 @@
            <div itemprop="articleBody">
              
   <section id="advanced-configuration-features">
-<h1><span class="section-number">8.4.1.4. </span>Advanced configuration features<a class="headerlink" href="#advanced-configuration-features" title="Permalink to this headline"></a></h1>
-<div class="contents local topic" id="contents">
+<h1><span class="section-number">8.4.1.4. </span>Advanced configuration features<a class="headerlink" href="#advanced-configuration-features" title="Permalink to this heading"></a></h1>
+<nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#configurable-dtls-version" id="id2">Configurable DTLS version</a></p></li>
@@ -103,7 +112,7 @@
 <li><p><a class="reference internal" href="#overriding-the-hostname-used-for-sni" id="id5">Overriding the hostname used for SNI</a></p></li>
 <li><p><a class="reference internal" href="#applying-the-configuration" id="id6">Applying the configuration</a></p></li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Code related to this tutorial can be found under
@@ -111,7 +120,7 @@
 in the Anjay source directory.</p>
 </div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">8.4.1.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">8.4.1.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="CustomTLS-Resumption.html"><span class="doc">the previous one</span></a> and
 adds support for some of the more advanced features configurable via the
 <code class="docutils literal notranslate"><span class="pre">avs_net_ssl_configuration_t</span></code> structure.</p>
@@ -149,7 +158,7 @@ Identification hostname can be controlled through the LwM2M data model, when
 LwM2M 1.1 is in use.</p>
 </section>
 <section id="configurable-dtls-version">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">8.4.1.4.2. </span>Configurable DTLS version</a><a class="headerlink" href="#configurable-dtls-version" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">8.4.1.4.2. </span>Configurable DTLS version</a><a class="headerlink" href="#configurable-dtls-version" title="Permalink to this heading"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_dtls_version</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span>
 <span class="w">                                          </span><span class="n">avs_net_ssl_version_t</span><span class="w"> </span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -187,7 +196,7 @@ newer. This is also an acceptable behavior for this option, although configuring
 only the <em>minimum</em> version is preferred whenever possible.</p>
 </section>
 <section id="configurable-dtls-handshake-timers">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.4.3. </span>Configurable DTLS handshake timers</a><a class="headerlink" href="#configurable-dtls-handshake-timers" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">8.4.1.4.3. </span>Configurable DTLS handshake timers</a><a class="headerlink" href="#configurable-dtls-handshake-timers" title="Permalink to this heading"></a></h2>
 <p>When exchanging application data, DTLS acts as a thin wrapper over the
 underlying transport protocol (e.g. UDP) and does not implement any reliability
 mechanisms of its own. However, basic reliability is provided during the
@@ -321,7 +330,7 @@ example, a simple call to <code class="docutils literal notranslate"><span class
 provides the expected semantics.</p>
 </section>
 <section id="configurable-ciphersuite-list">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.4.4. </span>Configurable ciphersuite list</a><a class="headerlink" href="#configurable-ciphersuite-list" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">8.4.1.4.4. </span>Configurable ciphersuite list</a><a class="headerlink" href="#configurable-ciphersuite-list" title="Permalink to this heading"></a></h2>
 <p>OpenSSL allows configuring the ciphersuite list using a specially prepared
 string. For example, to configure the use of the two ciphersuites mentioned in
 the LwM2M specification for the PSK mode (<code class="docutils literal notranslate"><span class="pre">TLS_PSK_WITH_AES_128_CCM_8</span></code> and
@@ -401,7 +410,7 @@ for more information on how this can be implemented.</p>
 </div>
 </section>
 <section id="overriding-the-hostname-used-for-sni">
-<h2><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.4.5. </span>Overriding the hostname used for SNI</a><a class="headerlink" href="#overriding-the-hostname-used-for-sni" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">8.4.1.4.5. </span>Overriding the hostname used for SNI</a><a class="headerlink" href="#overriding-the-hostname-used-for-sni" title="Permalink to this heading"></a></h2>
 <p>We already have most of the logic related to SNI implemented in the
 <code class="docutils literal notranslate"><span class="pre">perform_handshake()</span></code> function. However, this is currently locked to the
 hostname provided to the <code class="docutils literal notranslate"><span class="pre">connect</span></code> operation. However, it is relatively simple
@@ -469,7 +478,7 @@ in <code class="docutils literal notranslate"><span class="pre">avs_net_ssl_conf
 </div>
 </section>
 <section id="applying-the-configuration">
-<h2><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.4.6. </span>Applying the configuration</a><a class="headerlink" href="#applying-the-configuration" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">8.4.1.4.6. </span>Applying the configuration</a><a class="headerlink" href="#applying-the-configuration" title="Permalink to this heading"></a></h2>
 <p>Having written all the <code class="docutils literal notranslate"><span class="pre">configure_*</span></code> functions, they can be called during
 socket creation in <code class="docutils literal notranslate"><span class="pre">_avs_net_create_dtls_socket()</span></code>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket_ptr</span><span class="p">,</span>

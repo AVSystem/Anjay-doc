@@ -89,6 +89,7 @@ $(document).ready(function(){initNavTree('sim__bootstrap_8h.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;avsystem/commons/avs_stream.h&gt;</code><br />
+<code>#include &lt;avsystem/commons/avs_stream_md5.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="bootstrapper_8h_source.html">anjay/bootstrapper.h</a>&gt;</code><br />
 </div>
 <p><a href="sim__bootstrap_8h_source.html">Go to the source code of this file.</a></p>
@@ -104,6 +105,8 @@ Functions</h2></td></tr>
 <tr class="separator:a7cd497f30bfc7d36c6f0efb1db1d5a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa94114321f3af6532babde1efd9bdcec"><td class="memItemLeft" align="right" valign="top">static avs_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sim__bootstrap_8h.html#aa94114321f3af6532babde1efd9bdcec">anjay_sim_bootstrap_perform</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="sim__bootstrap_8h.html#a0d7d68e8a819eb6ca0ab0277654b46fe">anjay_sim_bootstrap_perform_command_cb_t</a> *perform_command_cb, void *perform_command_cb_arg)</td></tr>
 <tr class="separator:aa94114321f3af6532babde1efd9bdcec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba60c6a090f5f20c9d6f240d815217f4"><td class="memItemLeft" align="right" valign="top">avs_error_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sim__bootstrap_8h.html#aba60c6a090f5f20c9d6f240d815217f4">anjay_sim_bootstrap_calculate_md5</a> (avs_stream_t *stream, uint8_t(*md5)[AVS_COMMONS_MD5_LENGTH])</td></tr>
+<tr class="separator:aba60c6a090f5f20c9d6f240d815217f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a0d7d68e8a819eb6ca0ab0277654b46fe"></a>
@@ -135,6 +138,43 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="aba60c6a090f5f20c9d6f240d815217f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba60c6a090f5f20c9d6f240d815217f4">&#9670;&nbsp;</a></span>anjay_sim_bootstrap_calculate_md5()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_error_t anjay_sim_bootstrap_calculate_md5 </td>
+          <td>(</td>
+          <td class="paramtype">avs_stream_t *&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t(*)&#160;</td>
+          <td class="paramname"><em>md5</em>[AVS_COMMONS_MD5_LENGTH]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calulates MD5 hash value of a Bootstrap Information stored in an avs_stream_t object previously created with <a class="el" href="sim__bootstrap_8h.html#a7cd497f30bfc7d36c6f0efb1db1d5a19">anjay_sim_bootstrap_stream_create()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>Stream to opeate on. avs_stream_reset() is called on it on function exit.</td></tr>
+    <tr><td class="paramname">md5</td><td>Pointer to an array of AVS_COMMONS_MD5_LENGTH size that will be filled with MD5 hash value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AVS_OK in case of success, or an error code. </dd></dl>
+
+</div>
+</div>
 <a id="aa94114321f3af6532babde1efd9bdcec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa94114321f3af6532babde1efd9bdcec">&#9670;&nbsp;</a></span>anjay_sim_bootstrap_perform()</h2>
 
@@ -234,7 +274,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="sim__bootstrap_8h.html">sim_bootstrap.h</a></li>
-    <li class="footer">Generated on Fri Jun 23 2023 17:09:41 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 7 2023 14:23:36 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

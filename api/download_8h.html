@@ -147,6 +147,10 @@ Functions</h2></td></tr>
 <tr class="separator:a1d4f64fb6a245841ab84728349e5dc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27e638a6569742faabffef4c870f0cf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="download_8h.html#a27e638a6569742faabffef4c870f0cf6">anjay_download_abort</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="download_8h.html#a24eb7f2118d3e2d27928b09d9081bd8c">anjay_download_handle_t</a> dl_handle)</td></tr>
 <tr class="separator:a27e638a6569742faabffef4c870f0cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296825171f69fc59a73b5872b56ad4d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="download_8h.html#a296825171f69fc59a73b5872b56ad4d0">anjay_download_suspend</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="download_8h.html#a24eb7f2118d3e2d27928b09d9081bd8c">anjay_download_handle_t</a> dl_handle)</td></tr>
+<tr class="separator:a296825171f69fc59a73b5872b56ad4d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a021fd37fdccae0a5b9ba54a44ee6bea3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="download_8h.html#a021fd37fdccae0a5b9ba54a44ee6bea3">anjay_download_reconnect</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="download_8h.html#a24eb7f2118d3e2d27928b09d9081bd8c">anjay_download_handle_t</a> dl_handle)</td></tr>
+<tr class="separator:a021fd37fdccae0a5b9ba54a44ee6bea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a7983cecb33bcd0b7b67949f06f8c2e8c"></a>
@@ -320,6 +324,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Requests asynchronous download of an external resource.</p>
 <p>Download will create a new socket that will be later included in the list returned by <a class="el" href="core_8h.html#afb06d3039ea169fc8f0d551bc04c929f">anjay_get_sockets</a> . Calling <a class="el" href="core_8h.html#aa743e53b432d4a7b82001c5cdad163fe">anjay_serve</a> on such socket may cause calling <a class="el" href="structanjay__download__config.html#aab4096703745a47675b4558db02de277">anjay_download_config_t::on_next_block</a> if received packet is the next expected chunk of downloaded data and <a class="el" href="download_8h.html#a44f0d37ec9ef8123bf88aa9ea9ee7291">anjay_download_finished_handler_t</a> if the transfer completes or fails. Request packet retransmissions are managed by Anjay scheduler, and sent by <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a> whenever required.</p>
+<p>No network activity is performed immediately during the call to <code><a class="el" href="download_8h.html#a7a4d736c0a4ada68f0770e5eb45a84ce">anjay_download()</a></code>. Instead, the TCP and/or (D)TLS handshakes and the first request packet, will be sent during subsequent calls to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>. This also means that you can create a postponed download by calling <a class="el" href="download_8h.html#a296825171f69fc59a73b5872b56ad4d0">anjay_download_suspend</a> immediately afterwards.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object that will manage the download process. </td></tr>
@@ -369,6 +374,45 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a021fd37fdccae0a5b9ba54a44ee6bea3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a021fd37fdccae0a5b9ba54a44ee6bea3">&#9670;&nbsp;</a></span>anjay_download_reconnect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anjay_download_reconnect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="download_8h.html#a24eb7f2118d3e2d27928b09d9081bd8c">anjay_download_handle_t</a>&#160;</td>
+          <td class="paramname"><em>dl_handle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reconnects a download identified by <code>dl_handle</code> while retaining the download progress.</p>
+<p>If the download has been previously suspended using <a class="el" href="download_8h.html#a296825171f69fc59a73b5872b56ad4d0">anjay_download_suspend</a>, it will be resumed. If the download is suspended due to the transport being offline (see <a class="el" href="core_8h.html#a66dc55edc9d54a25e939b338eea0c62c">anjay_transport_set_online</a>), no immediate action is performed, but the suspended state as per <a class="el" href="download_8h.html#a296825171f69fc59a73b5872b56ad4d0">anjay_download_suspend</a> will be cleared.</p>
+<p>This function only schedules the actual reconnect operation. The socket will be actually reconnected during subsequent calls to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object managing the download process. </td></tr>
+    <tr><td class="paramname">dl_handle</td><td>Download handle previously returned by <a class="el" href="download_8h.html#a7a4d736c0a4ada68f0770e5eb45a84ce">anjay_download</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 for success; -1 if <code>dl_handle</code> does not represent a valid download handle, or if the reconnect job could not be scheduled (e.g. due to an out-of-memory condition). </dd></dl>
 
 </div>
 </div>
@@ -425,6 +469,44 @@ Functions</h2></td></tr>
 <li><code>avs_errno(AVS_ENOTSUP</code> if Anjay has been compiled without support for downloads </li>
 </ul>
 </dd></dl>
+
+</div>
+</div>
+<a id="a296825171f69fc59a73b5872b56ad4d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296825171f69fc59a73b5872b56ad4d0">&#9670;&nbsp;</a></span>anjay_download_suspend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void anjay_download_suspend </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="download_8h.html#a24eb7f2118d3e2d27928b09d9081bd8c">anjay_download_handle_t</a>&#160;</td>
+          <td class="paramname"><em>dl_handle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Suspends a download identified by <code>dl_handle</code>. Does nothing if <code>dl_handle</code> does not represent a valid download handle.</p>
+<p>The suspend operation is performed immediately and synchronously. The socket is disconnected, but the rest of the download context is kept intact. The download can be resumed by calling <code>anjay_download_reconnect</code>.</p>
+<p>If the download is already suspended due to the transport being offline (see <a class="el" href="core_8h.html#a66dc55edc9d54a25e939b338eea0c62c">anjay_transport_set_online</a>), no immediate action is performed, but the download is marked in such a way that it will not be automatically resumed until an explicit call to <a class="el" href="download_8h.html#a021fd37fdccae0a5b9ba54a44ee6bea3">anjay_download_reconnect</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object managing the download process. </td></tr>
+    <tr><td class="paramname">dl_handle</td><td>Download handle previously returned by <a class="el" href="download_8h.html#a7a4d736c0a4ada68f0770e5eb45a84ce">anjay_download</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -486,7 +568,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="download_8h.html">download.h</a></li>
-    <li class="footer">Generated on Fri Jun 23 2023 17:09:41 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 7 2023 14:23:36 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
