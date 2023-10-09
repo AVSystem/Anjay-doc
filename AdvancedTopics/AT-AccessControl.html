@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.1. Access Control in multi-server environment &mdash; Anjay 3.5.0 documentation</title>
+  <title>5.1. Access Control in multi-server environment &mdash; Anjay 3.6.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -30,19 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../index.html">
-            
-              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.5.0
+                3.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -87,9 +78,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.1. </span>Access Control in multi-server environment</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+      <li><span class="section-number">5.1. </span>Access Control in multi-server environment</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -99,7 +90,7 @@
            <div itemprop="articleBody">
              
   <section id="access-control-in-multi-server-environment">
-<h1><span class="section-number">5.1. </span>Access Control in multi-server environment<a class="headerlink" href="#access-control-in-multi-server-environment" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">5.1. </span>Access Control in multi-server environment<a class="headerlink" href="#access-control-in-multi-server-environment" title="Permalink to this headline"></a></h1>
 <p>LwM2M Client may be connected to more than one LwM2M Server. In such situation,
 restricting Server access to some part of the <a class="reference internal" href="../LwM2M.html#data-model"><span class="std std-ref">data model</span></a>
 may be required.</p>
@@ -110,6 +101,11 @@ LwM2M Server.</p>
 <p>In a multi-server environment every Object Instance (except Instances of
 the Access Control Object) has associated Access Control Instance:</p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 16%" />
+<col style="width: 58%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Resource</p></th>
 <th class="head"><p>Resource ID</p></th>
@@ -147,11 +143,16 @@ the Bootstrap Phase and is valid only in combination with <strong>Create</strong
 access flag.</p>
 </div>
 <section id="acl-resource">
-<h2><span class="section-number">5.1.1. </span>ACL Resource<a class="headerlink" href="#acl-resource" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.1.1. </span>ACL Resource<a class="headerlink" href="#acl-resource" title="Permalink to this headline"></a></h2>
 <p>ACL Resource of the Access Control Object Instance is populated with pairs
 of form (<cite>Short Server ID</cite>, <cite>Access mask</cite>). Access mask is a combination of
 the following access flags (combined by bitwise OR operator):</p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 33%" />
+<col style="width: 39%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Access flag</p></th>
 <th class="head"><p>Allowed LwM2M Operations</p></th>
@@ -188,7 +189,7 @@ a mechanism for forbidding it.</p>
 </div>
 </section>
 <section id="note-on-data-model-instances-lifetime">
-<h2><span class="section-number">5.1.2. </span>Note on data-model instances lifetime<a class="headerlink" href="#note-on-data-model-instances-lifetime" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.1.2. </span>Note on data-model instances lifetime<a class="headerlink" href="#note-on-data-model-instances-lifetime" title="Permalink to this headline"></a></h2>
 <p>Access Control Object also helps in managing Object Instance lifetime. Whenever
 some Object Instance is orphaned (i.e. no LwM2M Server is an Access Control
 Owner of the Access Control Instance associated with this Object Instance) it
@@ -202,7 +203,7 @@ is an extremely complex Object to implement in a correct way.</p>
 </div>
 </section>
 <section id="example-usage">
-<h2><span class="section-number">5.1.3. </span>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.1.3. </span>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline"></a></h2>
 <p>In this example, we are going to setup multiple-server
 environment. We will assign LwM2M Server with SSID 1 the <strong>Create</strong>
 permission on the <a class="reference internal" href="AT-CustomObjects/AT_CO_MultiInstanceDynamic.html"><span class="doc">Test Object developed in another tutorial</span></a>.</p>

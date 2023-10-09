@@ -137,6 +137,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a5c30c0b3b9c6ce7c76e19784d053f397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50900e2aaff21e91df693795965136b2"><td class="memItemLeft" align="right" valign="top">typedef avs_coap_udp_tx_params_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#a50900e2aaff21e91df693795965136b2">anjay_fw_update_get_coap_tx_params_t</a>(void *user_ptr, const char *download_uri)</td></tr>
 <tr class="separator:a50900e2aaff21e91df693795965136b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1a8d0ab1f26dfae3d058a4ee254b2ff"><td class="memItemLeft" align="right" valign="top">typedef avs_time_duration_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fw__update_8h.html#ab1a8d0ab1f26dfae3d058a4ee254b2ff">anjay_fw_update_get_tcp_request_timeout_t</a>(void *user_ptr, const char *download_uri)</td></tr>
+<tr class="separator:ab1a8d0ab1f26dfae3d058a4ee254b2ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -303,8 +305,9 @@ Functions</h2></td></tr>
 <p>May be called before <a class="el" href="fw__update_8h.html#a024b15279a6415219f67ba9e2dadaa61">anjay_fw_update_stream_open_t</a> if the download is to be performed in PULL mode and the connection needs to use TLS or DTLS encryption.</p>
 <p>Note that the <a class="el" href="structanjay__security__config__t.html">anjay_security_config_t</a> contains references to file paths, binary security keys, and/or ciphersuite lists. It is the user's responsibility to appropriately allocate them and ensure proper lifetime of the returned pointers. The returned security information may only be invalidated in a call to <a class="el" href="fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a">anjay_fw_update_reset_t</a> or after a call to <a class="el" href="core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete</a> .</p>
 <p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm</a> will be used as a default way to get security information.</p>
-<p>In that (no user-defined handler) case, <code><a class="el" href="core_8h.html#a4ccd37c26433e3dc1e146b3c3f5b29ee">anjay_security_config_pkix()</a></code> will be used as an additional fallback if <code>ANJAY_WITH_LWM2M11</code> is enabled and a valid trust store is available (either specified through <code>use_system_trust_store</code>, <code>trust_store_certs</code> or <code>trust_store_crls</code> fields in <code>anjay_configuration_t</code>, or obtained via <code>/est/crts</code> request if <code>est_cacerts_policy</code> is set to <code>ANJAY_EST_CACERTS_IF_EST_CONFIGURED</code> or <code>ANJAY_EST_CACERTS_ALWAYS</code>).</p>
-<p>You may also use these functions yourself, for example as a fallback mechanism.</p>
+<p><b>WARNING:</b> If the aforementioned <a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm</a> function won't find any server connection that matches the <code>download_uri</code> by protocol, hostname and port triple, it'll attempt to match a configuration just by the hostname. This may cause Anjay to use wrong security configuration, e.g. in case when both CoAPS LwM2M server and HTTPS firmware package server have the same hostname, but require different security configs.</p>
+<p>If no user-defined handler is provided and the call to <a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm</a> fails (including case when no matching LwM2M Security Object instance is found, even just by the hostname), <a class="el" href="core_8h.html#a4ccd37c26433e3dc1e146b3c3f5b29ee">anjay_security_config_pkix</a> will be used as an additional fallback if <code>ANJAY_WITH_LWM2M11</code> is enabled and a valid trust store is available (either specified through <code>use_system_trust_store</code>, <code>trust_store_certs</code> or <code>trust_store_crls</code> fields in <code>anjay_configuration_t</code>, or obtained via <code>/est/crts</code> request if <code>est_cacerts_policy</code> is set to <code>ANJAY_EST_CACERTS_IF_EST_CONFIGURED</code> or <code>ANJAY_EST_CACERTS_ALWAYS</code>).</p>
+<p>You may also use those aforementioned functions (<a class="el" href="core_8h.html#ac53bd86289a4bcaa70237f8ba7450cd7">anjay_security_config_from_dm</a>, <a class="el" href="core_8h.html#a4ccd37c26433e3dc1e146b3c3f5b29ee">anjay_security_config_pkix</a>) in your callback, for example as a fallback mechanism.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">user_ptr</td><td>Opaque pointer to user data, as passed to <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a></td></tr>
@@ -314,6 +317,31 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The callback shall return 0 if successful or a negative value in case of error. If one of the <code>ANJAY_FW_UPDATE_ERR_*</code> value is returned, an equivalent value will be set in the Update Result Resource. </dd></dl>
+
+</div>
+</div>
+<a id="ab1a8d0ab1f26dfae3d058a4ee254b2ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1a8d0ab1f26dfae3d058a4ee254b2ff">&#9670;&nbsp;</a></span>anjay_fw_update_get_tcp_request_timeout_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef avs_time_duration_t anjay_fw_update_get_tcp_request_timeout_t(void *user_ptr, const char *download_uri)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns request timeout to be used during firmware update over CoAP+TCP or HTTP.</p>
+<p>If this handler is not implemented at all (with the corresponding field set to <code>NULL</code>), <code>coap_tcp_request_timeout</code> from <code>anjay_t</code> object will be used for CoAP+TCP, and <code>AVS_NET_SOCKET_DEFAULT_RECV_TIMEOUT</code> (i.e., 30 seconds) will be used for HTTP.</p>
+<p><b>NOTE:</b> This callback is called even for non-TCP downloads, but the returned transmission parameters are ignored in that case.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user_ptr</td><td>Opaque pointer to user data, as passed to <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a> .</td></tr>
+    <tr><td class="paramname">download_uri</td><td>Target firmware URI.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The desired request timeout. If the value returned is non-positive (including zero and invalid value), the default will be used. </dd></dl>
 
 </div>
 </div>
@@ -628,7 +656,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Suspends the operation of PULL-mode downloads in the Firmware Update module.</p>
 <p>This will have the effect of suspending any ongoing downloads (see <a class="el" href="download_8h.html#a296825171f69fc59a73b5872b56ad4d0">anjay_download_suspend</a> for details), as well as preventing new downloads from being started.</p>
-<p>When PULL-mode downloads are suspended, <a class="el" href="fw__update_8h.html#a024b15279a6415219f67ba9e2dadaa61">anjay_fw_update_stream_open_t</a> will <b>NOT</b> be called when a download request is issued. However, <a class="el" href="fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397">anjay_fw_update_get_security_config_t</a> and <a class="el" href="fw__update_8h.html#a50900e2aaff21e91df693795965136b2">anjay_fw_update_get_coap_tx_params_t</a> will be called. You may call <a class="el" href="fw__update_8h.html#aed4524adc342e6823d0151dcdc4c2f93">anjay_fw_update_pull_reconnect</a> from one of these functions if you decide to accept the download immediately after all.</p>
+<p>When PULL-mode downloads are suspended, <a class="el" href="fw__update_8h.html#a024b15279a6415219f67ba9e2dadaa61">anjay_fw_update_stream_open_t</a> will <b>NOT</b> be called when a download request is issued. However, <a class="el" href="fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397">anjay_fw_update_get_security_config_t</a>, <a class="el" href="fw__update_8h.html#a50900e2aaff21e91df693795965136b2">anjay_fw_update_get_coap_tx_params_t</a> and <a class="el" href="fw__update_8h.html#ab1a8d0ab1f26dfae3d058a4ee254b2ff">anjay_fw_update_get_tcp_request_timeout_t</a> will be called. You may call <a class="el" href="fw__update_8h.html#aed4524adc342e6823d0151dcdc4c2f93">anjay_fw_update_pull_reconnect</a> from one of these functions if you decide to accept the download immediately after all.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
@@ -689,7 +717,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
-    <li class="footer">Generated on Thu Sep 7 2023 14:23:36 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Oct 9 2023 15:02:05 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

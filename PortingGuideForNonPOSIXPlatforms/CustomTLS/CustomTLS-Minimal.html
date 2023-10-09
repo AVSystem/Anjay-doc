@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.2. Minimal DTLS implementation &mdash; Anjay 3.5.0 documentation</title>
+  <title>8.4.1.2. Minimal DTLS implementation &mdash; Anjay 3.6.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -30,19 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../../index.html">
-            
-              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.5.0
+                3.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -89,10 +80,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
-          <li class="breadcrumb-item"><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">8.4.1.2. </span>Minimal DTLS implementation</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+          <li><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a> &raquo;</li>
+      <li><span class="section-number">8.4.1.2. </span>Minimal DTLS implementation</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -102,8 +93,8 @@
            <div itemprop="articleBody">
              
   <section id="minimal-dtls-implementation">
-<h1><span class="section-number">8.4.1.2. </span>Minimal DTLS implementation<a class="headerlink" href="#minimal-dtls-implementation" title="Permalink to this heading"></a></h1>
-<nav class="contents local" id="contents">
+<h1><span class="section-number">8.4.1.2. </span>Minimal DTLS implementation<a class="headerlink" href="#minimal-dtls-implementation" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#implementation-of-the-dtls-socket" id="id2">Implementation of the DTLS socket</a></p>
@@ -121,7 +112,7 @@
 </li>
 <li><p><a class="reference internal" href="#limitations" id="id9">Limitations</a></p></li>
 </ul>
-</nav>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Code related to this tutorial can be found under
@@ -129,7 +120,7 @@
 in the Anjay source directory.</p>
 </div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">8.4.1.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id1"><span class="section-number">8.4.1.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="CustomTLS-Stub.html"><span class="doc">the previous one</span></a> and adds
 logic related to actually initializing the SSL context state and performing the
 DTLS handshake.</p>
@@ -138,9 +129,9 @@ implemented for now - but this is enough to register to a LwM2M server in PSK
 mode.</p>
 </section>
 <section id="implementation-of-the-dtls-socket">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">8.4.1.2.2. </span>Implementation of the DTLS socket</a><a class="headerlink" href="#implementation-of-the-dtls-socket" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.4.1.2.2. </span>Implementation of the DTLS socket</a><a class="headerlink" href="#implementation-of-the-dtls-socket" title="Permalink to this headline"></a></h2>
 <section id="initialization">
-<span id="custom-tls-api-create"></span><h3><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">8.4.1.2.2.1. </span>Initialization</a><a class="headerlink" href="#initialization" title="Permalink to this heading"></a></h3>
+<span id="custom-tls-api-create"></span><h3><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.2.2.1. </span>Initialization</a><a class="headerlink" href="#initialization" title="Permalink to this headline"></a></h3>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket_ptr</span><span class="p">,</span>
 <span class="w">                                        </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">configuration_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span>
@@ -196,7 +187,7 @@ that simplifies the implementation when the non-blocking mode is not used. See
 for details.</p></li>
 </ul>
 <section id="the-avs-crypto-security-info-union-t-type">
-<span id="custom-tls-security-info-union-type"></span><h4><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">8.4.1.2.2.1.1. </span>The <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> type</a><a class="headerlink" href="#the-avs-crypto-security-info-union-t-type" title="Permalink to this heading"></a></h4>
+<span id="custom-tls-security-info-union-type"></span><h4><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.2.2.1.1. </span>The <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> type</a><a class="headerlink" href="#the-avs-crypto-security-info-union-t-type" title="Permalink to this headline"></a></h4>
 <p>Loading of security credentials in <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> and <code class="docutils literal notranslate"><span class="pre">avs_crypto</span></code> is centered
 around the <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> type, declared as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
@@ -342,7 +333,7 @@ mode is described, <code class="docutils literal notranslate"><span class="pre">
 <code class="docutils literal notranslate"><span class="pre">AVS_CRYPTO_DATA_SOURCE_LIST</span></code> will also be implemented for some cases.</p>
 </section>
 <section id="initialization-of-psk-credentials">
-<h4><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">8.4.1.2.2.1.2. </span>Initialization of PSK credentials</a><a class="headerlink" href="#initialization-of-psk-credentials" title="Permalink to this heading"></a></h4>
+<h4><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.2.2.1.2. </span>Initialization of PSK credentials</a><a class="headerlink" href="#initialization-of-psk-credentials" title="Permalink to this headline"></a></h4>
 <p>In OpenSSL, credentials for the PSK mode are provided through a callback -
 a function is set using <a class="reference external" href="https://www.openssl.org/docs/man1.1.1/man3/SSL_CTX_set_psk_client_callback.html">SSL_CTX_set_psk_client_callback()</a>
 and it is called whenever the library needs the PSK credentials - this means
@@ -447,7 +438,7 @@ configured for this connection.</p></li>
 </section>
 </section>
 <section id="cleanup">
-<h3><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">8.4.1.2.2.2. </span>Cleanup</a><a class="headerlink" href="#cleanup" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.2.2.2. </span>Cleanup</a><a class="headerlink" href="#cleanup" title="Permalink to this headline"></a></h3>
 <p>Knowing what is happening during initialization, we can now reverse this process
 in the cleanup function:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">tls_cleanup</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">sock_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -468,7 +459,7 @@ in the cleanup function:</p>
 </div>
 </section>
 <section id="performing-the-handshake">
-<span id="custom-tls-minimal-handshake"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">8.4.1.2.2.3. </span>Performing the handshake</a><a class="headerlink" href="#performing-the-handshake" title="Permalink to this heading"></a></h3>
+<span id="custom-tls-minimal-handshake"></span><h3><a class="toc-backref" href="#id7"><span class="section-number">8.4.1.2.2.3. </span>Performing the handshake</a><a class="headerlink" href="#performing-the-handshake" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">perform_handshake()</span></code> function is now relatively straightforward to
 implement:</p>
 <ul class="simple">
@@ -546,7 +537,7 @@ with the raw server address queried using <code class="docutils literal notransl
 <code class="docutils literal notranslate"><span class="pre">SSL</span></code> object multiple times.</p>
 </section>
 <section id="fixing-the-socket-option-values">
-<h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">8.4.1.2.2.4. </span>Fixing the socket option values</a><a class="headerlink" href="#fixing-the-socket-option-values" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id8"><span class="section-number">8.4.1.2.2.4. </span>Fixing the socket option values</a><a class="headerlink" href="#fixing-the-socket-option-values" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">tls_get_opt()</span></code> function has been previously implemented by simply
 forwarding the call to the underlying unencrypted socket.</p>
 <p>This yields inaccurate results for the <code class="docutils literal notranslate"><span class="pre">AVS_NET_SOCKET_OPT_INNER_MTU</span></code> option.
@@ -595,7 +586,7 @@ overhead for the current session, based on the specific ciphersuite in use.</p>
 </section>
 </section>
 <section id="limitations">
-<h2><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">8.4.1.2.3. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id9"><span class="section-number">8.4.1.2.3. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
 <p>This minimal implementation is enough to communicate with an LwM2M server in PSK
 mode, but a number of functionalities will not work:</p>
 <ul class="simple">

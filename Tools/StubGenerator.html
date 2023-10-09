@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7.4. Anjay Object stub generator &mdash; Anjay 3.5.0 documentation</title>
+  <title>7.4. Anjay Object stub generator &mdash; Anjay 3.6.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -30,19 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../index.html">
-            
-              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.5.0
+                3.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,9 +71,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../Tools.html"><span class="section-number">7. </span>Tools</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">7.4. </span>Anjay Object stub generator</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../Tools.html"><span class="section-number">7. </span>Tools</a> &raquo;</li>
+      <li><span class="section-number">7.4. </span>Anjay Object stub generator</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -92,8 +83,8 @@
            <div itemprop="articleBody">
              
   <section id="anjay-object-stub-generator">
-<span id="id1"></span><h1><span class="section-number">7.4. </span>Anjay Object stub generator<a class="headerlink" href="#anjay-object-stub-generator" title="Permalink to this heading"></a></h1>
-<nav class="contents local" id="contents">
+<span id="id1"></span><h1><span class="section-number">7.4. </span>Anjay Object stub generator<a class="headerlink" href="#anjay-object-stub-generator" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#code-generation" id="id6">Code generation</a></p>
@@ -107,9 +98,9 @@
 <li><p><a class="reference internal" href="#after-generating-the-object-template" id="id11">After generating the object template</a></p></li>
 <li><p><a class="reference internal" href="#additional-examples" id="id12">Additional examples</a></p></li>
 </ul>
-</nav>
+</div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">7.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5"><span class="section-number">7.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>For easy implementation of custom objects, you can use the
 <cite>./tools/anjay_codegen.py</cite> script. It parses a LwM2M Object Definition XML
 and generates a skeleton of the LwM2M object code, requiring the user to only
@@ -121,11 +112,11 @@ Object Definition XML from <a class="reference external" href="https://technical
 </div>
 </section>
 <section id="code-generation">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">7.4.2. </span>Code generation</a><a class="headerlink" href="#code-generation" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id6"><span class="section-number">7.4.2. </span>Code generation</a><a class="headerlink" href="#code-generation" title="Permalink to this headline"></a></h2>
 <p>This section shows how to generate code for an example object defined in an XML
 file and covers object templates with both static and dynamic instances.</p>
 <section id="example-object-definition">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">7.4.2.1. </span>Example object definition</a><a class="headerlink" href="#example-object-definition" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id7"><span class="section-number">7.4.2.1. </span>Example object definition</a><a class="headerlink" href="#example-object-definition" title="Permalink to this headline"></a></h3>
 <p>The example object definition is stored in <cite>some_object.xml</cite> file with the
 following contents:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -184,7 +175,7 @@ a container whose size is fixed and known at compilation time. Both of these
 approaches are described in the next subsections.</p>
 </section>
 <section id="object-with-dynamically-allocated-instances">
-<h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">7.4.2.2. </span>Object with dynamically-allocated instances</a><a class="headerlink" href="#object-with-dynamically-allocated-instances" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id8"><span class="section-number">7.4.2.2. </span>Object with dynamically-allocated instances</a><a class="headerlink" href="#object-with-dynamically-allocated-instances" title="Permalink to this headline"></a></h3>
 <p>To create a C language object template with dynamically-allocated instances we
 execute the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py<span class="w"> </span>-i<span class="w"> </span>some_object.xml<span class="w"> </span>-o<span class="w"> </span>some_object.c
@@ -555,7 +546,7 @@ function.</p></li>
 </ul>
 </section>
 <section id="object-with-statically-allocated-instances">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">7.4.2.3. </span>Object with statically-allocated instances</a><a class="headerlink" href="#object-with-statically-allocated-instances" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id9"><span class="section-number">7.4.2.3. </span>Object with statically-allocated instances</a><a class="headerlink" href="#object-with-statically-allocated-instances" title="Permalink to this headline"></a></h3>
 <p>To create a C language object template with fixed 10 instances we use the <cite>-n</cite>
 switch:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/anjay_codegen.py<span class="w"> </span>-i<span class="w"> </span>some_object.xml<span class="w"> </span>-o<span class="w"> </span>some_object.c<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
@@ -823,7 +814,7 @@ array, meaning that <code class="docutils literal notranslate"><span class="pre"
 </ul>
 </section>
 <section id="c-object-templates">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">7.4.2.4. </span>C++ object templates</a><a class="headerlink" href="#c-object-templates" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id10"><span class="section-number">7.4.2.4. </span>C++ object templates</a><a class="headerlink" href="#c-object-templates" title="Permalink to this headline"></a></h3>
 <p>The script is capable of generating C++ object templates as well - the <cite>-x</cite>
 switch is intended to be used in this case. So, in order to create a C++ object
 with dynamic instances one has to execute the command:</p>
@@ -841,14 +832,14 @@ and the latter one takes advantage of
 </section>
 </section>
 <section id="after-generating-the-object-template">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">7.4.3. </span>After generating the object template</a><a class="headerlink" href="#after-generating-the-object-template" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id11"><span class="section-number">7.4.3. </span>After generating the object template</a><a class="headerlink" href="#after-generating-the-object-template" title="Permalink to this headline"></a></h2>
 <p>Now that the basic object structure is created, one can start thinking about filling in
 missing parts marked in the code by the <cite>TODO</cite> comments. Then, to make the object present
 in the LwM2M Data Model, one shall instantiate it, and finally <a class="reference internal" href="../BasicClient/BC-ObjectImplementation.html#registering-objects"><span class="std std-ref">register</span></a>
 it within Anjay.</p>
 </section>
 <section id="additional-examples">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink"><span class="section-number">7.4.4. </span>Additional examples</a><a class="headerlink" href="#additional-examples" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id12"><span class="section-number">7.4.4. </span>Additional examples</a><a class="headerlink" href="#additional-examples" title="Permalink to this headline"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># list registered LwM2M objects</span>
 ./tools/lwm2m_object_registry.py<span class="w"> </span>--list
 

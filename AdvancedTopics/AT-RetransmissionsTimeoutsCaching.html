@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.8. Retransmissions, timeouts &amp; response caching &mdash; Anjay 3.5.0 documentation</title>
+  <title>5.8. Retransmissions, timeouts &amp; response caching &mdash; Anjay 3.6.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -30,19 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../index.html">
-            
-              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.5.0
+                3.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -87,9 +78,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.8. </span>Retransmissions, timeouts &amp; response caching</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+      <li><span class="section-number">5.8. </span>Retransmissions, timeouts &amp; response caching</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -99,12 +90,12 @@
            <div itemprop="articleBody">
              
   <section id="retransmissions-timeouts-response-caching">
-<h1><span class="section-number">5.8. </span>Retransmissions, timeouts &amp; response caching<a class="headerlink" href="#retransmissions-timeouts-response-caching" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">5.8. </span>Retransmissions, timeouts &amp; response caching<a class="headerlink" href="#retransmissions-timeouts-response-caching" title="Permalink to this headline"></a></h1>
 <p>Due to potential network instability, the need to retransmit a message
 between a Client and a Server may sometimes occur. Detecting retransmissions
 is especially important if the operation has some observable side effects.</p>
 <section id="motivational-examples">
-<h2><span class="section-number">5.8.1. </span>Motivational examples<a class="headerlink" href="#motivational-examples" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.8.1. </span>Motivational examples<a class="headerlink" href="#motivational-examples" title="Permalink to this headline"></a></h2>
 <p>Imagine a LwM2M Object with a numeric, executable Resource, whose value is
 incremented every time a LwM2M Server performs Execute on it. Now, consider
 the following scenario:</p>
@@ -127,7 +118,7 @@ from happening.</p>
 yield measurable performance benefits.</p>
 </section>
 <section id="caching-mechanism">
-<h2><span class="section-number">5.8.2. </span>Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.8.2. </span>Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Permalink to this headline"></a></h2>
 <p>Anjay provides a built-in message cache - when the request is received, Anjay
 checks if there exists an appropriate response to it in the cache already. In
 case there is one, it is retransmitted. Otherwise Anjay processes the request as
@@ -150,7 +141,7 @@ as defined in <a class="reference external" href="https://tools.ietf.org/html/rf
 it is automatically removed.</p>
 </section>
 <section id="cache-size">
-<h2><span class="section-number">5.8.3. </span>Cache size<a class="headerlink" href="#cache-size" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.8.3. </span>Cache size<a class="headerlink" href="#cache-size" title="Permalink to this headline"></a></h2>
 <p>The size of the cache is specified at Anjay instantiation time by setting
 <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::msg_cache_size</span></code> to a non-zero value (zero disables
 any caching). This limits the number of bytes used to store cached responses.</p>
@@ -161,7 +152,7 @@ to all Servers are stored within a single cache.</p>
 </div>
 </section>
 <section id="limitations">
-<h2><span class="section-number">5.8.4. </span>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.8.4. </span>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>If a response is too big to fit into the cache, it is <strong>not cached</strong>,</p></li>
 <li><p>If a response would fit into the cache, but the cache is currently full,
@@ -171,9 +162,9 @@ till the new response fits.</p></li>
 </ul>
 </section>
 <section id="configuring-retransmissions-and-timeouts">
-<span id="coap-retransmission-parameters"></span><h2><span class="section-number">5.8.5. </span>Configuring retransmissions and timeouts<a class="headerlink" href="#configuring-retransmissions-and-timeouts" title="Permalink to this heading"></a></h2>
+<span id="coap-retransmission-parameters"></span><h2><span class="section-number">5.8.5. </span>Configuring retransmissions and timeouts<a class="headerlink" href="#configuring-retransmissions-and-timeouts" title="Permalink to this headline"></a></h2>
 <section id="background">
-<h3><span class="section-number">5.8.5.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">5.8.5.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this headline"></a></h3>
 <p>To provide custom retransmission policy, affecting CoAP layer across
 the library, one needs to set <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code>
 accordingly prior library instantiation with <code class="docutils literal notranslate"><span class="pre">anjay_new()</span></code>.</p>
@@ -195,6 +186,11 @@ structure, defined as follows:</p>
 <p>It should be noted that without any additional configuration,
 Anjay uses default values as specified in the <a class="reference external" href="https://tools.ietf.org/html/rfc7252#section-4.8">Section 4.8 of RFC7252</a>:</p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 58%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
 <th class="head"><p>Default value</p></th>
@@ -222,9 +218,9 @@ Anjay uses default values as specified in the <a class="reference external" href
 </table>
 </section>
 <section id="meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions">
-<h3><span class="section-number">5.8.5.2. </span>Meaning of each parameter, calculations of timeouts and the number of retransmissions<a class="headerlink" href="#meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">5.8.5.2. </span>Meaning of each parameter, calculations of timeouts and the number of retransmissions<a class="headerlink" href="#meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions" title="Permalink to this headline"></a></h3>
 <section id="ack-random-factor">
-<h4><span class="section-number">5.8.5.2.1. </span><code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code><a class="headerlink" href="#ack-random-factor" title="Permalink to this heading"></a></h4>
+<h4><span class="section-number">5.8.5.2.1. </span><code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code><a class="headerlink" href="#ack-random-factor" title="Permalink to this headline"></a></h4>
 <p>Configures the amount of random perturbation to a timeout to a response to
 an initial message (<code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code>, see next subsection). Its value has to
 be at least <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. The randomness is mixed in as follows:</p>
@@ -246,7 +242,7 @@ may vary between <code class="docutils literal notranslate"><span class="pre">[1
 </div>
 </section>
 <section id="ack-timeout">
-<h4><span class="section-number">5.8.5.2.2. </span><code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code><a class="headerlink" href="#ack-timeout" title="Permalink to this heading"></a></h4>
+<h4><span class="section-number">5.8.5.2.2. </span><code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code><a class="headerlink" href="#ack-timeout" title="Permalink to this headline"></a></h4>
 <p>Configures the amount of time the library shall wait for the response to the
 initial confirmable message (not retransmission).</p>
 <div class="hint admonition">
@@ -258,7 +254,7 @@ above discussion about <code class="docutils literal notranslate"><span class="p
 </div>
 </section>
 <section id="max-retransmit">
-<h4><span class="section-number">5.8.5.2.3. </span><code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code><a class="headerlink" href="#max-retransmit" title="Permalink to this heading"></a></h4>
+<h4><span class="section-number">5.8.5.2.3. </span><code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code><a class="headerlink" href="#max-retransmit" title="Permalink to this headline"></a></h4>
 <p>Configures the total number of retransmissions the library is allowed to
 perform before giving up on message delivery.</p>
 <div class="hint admonition">
@@ -272,7 +268,7 @@ and the library would give up if no response arrived after <code class="docutils
 </div>
 </section>
 <section id="nstart">
-<h4><span class="section-number">5.8.5.2.4. </span><code class="docutils literal notranslate"><span class="pre">NSTART</span></code><a class="headerlink" href="#nstart" title="Permalink to this heading"></a></h4>
+<h4><span class="section-number">5.8.5.2.4. </span><code class="docutils literal notranslate"><span class="pre">NSTART</span></code><a class="headerlink" href="#nstart" title="Permalink to this headline"></a></h4>
 <p>Configures the maximum number of exchanges that may be ongoing at the same time
 with a given remote CoAP endpoint (i.e., a LwM2M Server).</p>
 <p>In Anjay, it is mostly ignored. It is not recommended to set it to any other
@@ -281,14 +277,14 @@ value than the default of 1.</p>
 APIs.</p>
 </section>
 <section id="exponential-back-off">
-<h4><span class="section-number">5.8.5.2.5. </span>Exponential back-off<a class="headerlink" href="#exponential-back-off" title="Permalink to this heading"></a></h4>
+<h4><span class="section-number">5.8.5.2.5. </span>Exponential back-off<a class="headerlink" href="#exponential-back-off" title="Permalink to this headline"></a></h4>
 <p>After waiting for a response for <code class="docutils literal notranslate"><span class="pre">t</span></code> seconds , the wait time for the next
 retransmission (in the absence of response) would be <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">t</span></code> seconds. In
 other words, retransmissions are performed with exponential back-off.</p>
 </section>
 </section>
 <section id="example-configuration">
-<h3><span class="section-number">5.8.5.3. </span>Example configuration<a class="headerlink" href="#example-configuration" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">5.8.5.3. </span>Example configuration<a class="headerlink" href="#example-configuration" title="Permalink to this headline"></a></h3>
 <p>As an example, we may configure the library as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_coap_udp_tx_params_t</span><span class="w"> </span><span class="n">udp_tx_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="c1">// Wait at least 4 seconds for the initial response.</span>
@@ -315,6 +311,12 @@ other words, retransmissions are performed with exponential back-off.</p>
 <p>The above configuration would result in the following retransmission times to a confirmable
 message:</p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 38%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Time [s]</p></th>
 <th class="head"><p>Retry number</p></th>
@@ -358,7 +360,7 @@ message:</p>
 </section>
 </section>
 <section id="other-retransmission-parameters">
-<h2><span class="section-number">5.8.6. </span>Other retransmission parameters<a class="headerlink" href="#other-retransmission-parameters" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.8.6. </span>Other retransmission parameters<a class="headerlink" href="#other-retransmission-parameters" title="Permalink to this headline"></a></h2>
 <p>While setting <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code> parameter
 covers most cases, there are also means to configure:</p>
 <ul class="simple">

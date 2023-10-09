@@ -9,6 +9,7 @@ var fw__update_8h =
     [ "anjay_fw_update_get_coap_tx_params_t", "fw__update_8h.html#a50900e2aaff21e91df693795965136b2", null ],
     [ "anjay_fw_update_get_name_t", "fw__update_8h.html#a270e3076262423d8ef7f99333249b9ac", null ],
     [ "anjay_fw_update_get_security_config_t", "fw__update_8h.html#a5c30c0b3b9c6ce7c76e19784d053f397", null ],
+    [ "anjay_fw_update_get_tcp_request_timeout_t", "fw__update_8h.html#ab1a8d0ab1f26dfae3d058a4ee254b2ff", null ],
     [ "anjay_fw_update_get_version_t", "fw__update_8h.html#a3a2a8ad514cff78979eb806dba248713", null ],
     [ "anjay_fw_update_perform_upgrade_t", "fw__update_8h.html#a81c7c16c083eb93677d8a9d6df78a13c", null ],
     [ "anjay_fw_update_reset_t", "fw__update_8h.html#a13a472bcf015f0d4f8b69b240d68d10a", null ],

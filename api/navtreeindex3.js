@@ -1,5 +1,10 @@
 var NAVTREEINDEX3 =
 {
+"structanjay__fw__update__initial__state__t.html#ae20ae990f31a9f048924023be6f7ccfd":[0,0,14,3],
+"structanjay__fw__update__initial__state__t.html#afcd7f92b45f6dc7f069bb0418fe344a2":[0,0,14,4],
+"structanjay__ipso__3d__sensor__impl__struct.html":[0,0,15],
+"structanjay__ipso__3d__sensor__impl__struct.html#a070685a02ef05f3655eac7b5303ee294":[0,0,15,2],
+"structanjay__ipso__3d__sensor__impl__struct.html#a47336679b82d67350e9a3c5a86020231":[0,0,15,0],
 "structanjay__ipso__3d__sensor__impl__struct.html#a9a395374120db0d0280e16f53201d5cf":[0,0,15,6],
 "structanjay__ipso__3d__sensor__impl__struct.html#aa8f27134ade80165cc0efbce66c9ddc8":[0,0,15,1],
 "structanjay__ipso__3d__sensor__impl__struct.html#aac7b3b36f9434340b03a5ab79de22604":[0,0,15,4],
@@ -31,7 +36,8 @@ var NAVTREEINDEX3 =
 "structanjay__resource__observation__status__t.html#afa984ccd2bbab85ee480261307ea5a5c":[0,0,19,1],
 "structanjay__security__config__t.html":[0,0,20],
 "structanjay__security__config__t.html#aa04dc460a3720de15f0db91a8249b273":[0,0,20,1],
-"structanjay__security__config__t.html#af87c6258068ee5ad64400112bb2c8738":[0,0,20,2],
+"structanjay__security__config__t.html#aaf2020bd0872c0adfe719ca82a5cf141":[0,0,20,2],
+"structanjay__security__config__t.html#af87c6258068ee5ad64400112bb2c8738":[0,0,20,3],
 "structanjay__security__config__t.html#aff2a5c435e752ed77657abc518f33d8c":[0,0,20,0],
 "structanjay__security__hsm__configuration__t.html":[0,0,21],
 "structanjay__security__hsm__configuration__t.html#a04cb2d6e48d79c58fee91e4d988cac7d":[0,0,21,4],

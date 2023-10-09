@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.5. Basic certificate support &mdash; Anjay 3.5.0 documentation</title>
+  <title>8.4.1.5. Basic certificate support &mdash; Anjay 3.6.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -30,19 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../../index.html">
-            
-              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.5.0
+                3.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -89,10 +80,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
-          <li class="breadcrumb-item"><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">8.4.1.5. </span>Basic certificate support</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+          <li><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a> &raquo;</li>
+      <li><span class="section-number">8.4.1.5. </span>Basic certificate support</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -102,8 +93,8 @@
            <div itemprop="articleBody">
              
   <section id="basic-certificate-support">
-<h1><span class="section-number">8.4.1.5. </span>Basic certificate support<a class="headerlink" href="#basic-certificate-support" title="Permalink to this heading"></a></h1>
-<nav class="contents local" id="contents">
+<h1><span class="section-number">8.4.1.5. </span>Basic certificate support<a class="headerlink" href="#basic-certificate-support" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#adding-support-for-the-certificate-mode" id="id2">Adding support for the certificate mode</a></p></li>
@@ -118,7 +109,7 @@
 <li><p><a class="reference internal" href="#enabling-hostname-verification" id="id8">Enabling hostname verification</a></p></li>
 <li><p><a class="reference internal" href="#limitations" id="id9">Limitations</a></p></li>
 </ul>
-</nav>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Code related to this tutorial can be found under
@@ -126,7 +117,7 @@
 in the Anjay source directory.</p>
 </div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">8.4.1.5.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id1"><span class="section-number">8.4.1.5.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>This tutorials builds up on <a class="reference internal" href="CustomTLS-ConfigFeatures.html"><span class="doc">the previous one</span></a>
 and adds basic support for the security mode based on certificates and public
 key infrastructure.</p>
@@ -166,7 +157,7 @@ article for details.</p>
 </div>
 </section>
 <section id="adding-support-for-the-certificate-mode">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">8.4.1.5.2. </span>Adding support for the certificate mode</a><a class="headerlink" href="#adding-support-for-the-certificate-mode" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.4.1.5.2. </span>Adding support for the certificate mode</a><a class="headerlink" href="#adding-support-for-the-certificate-mode" title="Permalink to this headline"></a></h2>
 <p>In <code class="docutils literal notranslate"><span class="pre">avs_net</span></code>, the security mode of the socket - either PSK or certificates -
 is configured by the <code class="docutils literal notranslate"><span class="pre">mode</span></code> field in the <code class="docutils literal notranslate"><span class="pre">avs_net_security_mode_t</span></code> structure
 (which is a tagged union, with the <code class="docutils literal notranslate"><span class="pre">mode</span></code> field acting as the tag), which
@@ -292,7 +283,7 @@ the security credential types: trusted certificates, certificate revocation
 lists, the client certificate and the client private key.</p>
 </section>
 <section id="loading-security-credentials">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">8.4.1.5.3. </span>Loading security credentials</a><a class="headerlink" href="#loading-security-credentials" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.5.3. </span>Loading security credentials</a><a class="headerlink" href="#loading-security-credentials" title="Permalink to this headline"></a></h2>
 <p>The security credentials related to the public key infrastructure utilize the
 <code class="docutils literal notranslate"><span class="pre">avs_crypto_security_info_union_t</span></code> that has been previously described in
 <a class="reference internal" href="CustomTLS-Minimal.html#custom-tls-security-info-union-type"><span class="std std-ref">The avs_crypto_security_info_union_t type</span></a> chapter. You might want to recap the
@@ -306,7 +297,7 @@ For this reason, the credential data needs to be actually copied.</p>
 reference in the TLS backend you are integrating with.</p>
 </div>
 <section id="loading-client-certificates">
-<h3><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">8.4.1.5.3.1. </span>Loading client certificates</a><a class="headerlink" href="#loading-client-certificates" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.5.3.1. </span>Loading client certificates</a><a class="headerlink" href="#loading-client-certificates" title="Permalink to this headline"></a></h3>
 <p>Client certificates is the simplest case, as we only need to load a single
 certificate, handling the <code class="docutils literal notranslate"><span class="pre">AVS_CRYPTO_DATA_SOURCE_BUFFER</span></code> case:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span>
@@ -344,7 +335,7 @@ autodetected based on the contents of the file or buffer.</p>
 </div>
 </section>
 <section id="loading-client-private-keys">
-<h3><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">8.4.1.5.3.2. </span>Loading client private keys</a><a class="headerlink" href="#loading-client-private-keys" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.5.3.2. </span>Loading client private keys</a><a class="headerlink" href="#loading-client-private-keys" title="Permalink to this headline"></a></h3>
 <p>The code for loading client private keys is very similar, although we want to
 make sure that the <code class="docutils literal notranslate"><span class="pre">password</span></code> field is not used.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span>
@@ -378,7 +369,7 @@ make sure that the <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="loading-trusted-certificates">
-<h3><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">8.4.1.5.3.3. </span>Loading trusted certificates</a><a class="headerlink" href="#loading-trusted-certificates" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.5.3.3. </span>Loading trusted certificates</a><a class="headerlink" href="#loading-trusted-certificates" title="Permalink to this headline"></a></h3>
 <p>For the trusted certificates, we need to support the empty and compound sources
 in addition to loading a simple single buffer:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;openssl/err.h&gt;</span>
@@ -451,7 +442,7 @@ store.</p></li>
 </ul>
 </section>
 <section id="loading-certificate-revocation-lists">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">8.4.1.5.3.4. </span>Loading certificate revocation lists</a><a class="headerlink" href="#loading-certificate-revocation-lists" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id7"><span class="section-number">8.4.1.5.3.4. </span>Loading certificate revocation lists</a><a class="headerlink" href="#loading-certificate-revocation-lists" title="Permalink to this headline"></a></h3>
 <p>The CRL loading function is actually almost identical to the certificate chain
 loading one:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_cert_revocation_lists</span><span class="p">(</span>
@@ -513,7 +504,7 @@ loading one:</p>
 </section>
 </section>
 <section id="enabling-hostname-verification">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">8.4.1.5.4. </span>Enabling hostname verification</a><a class="headerlink" href="#enabling-hostname-verification" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id8"><span class="section-number">8.4.1.5.4. </span>Enabling hostname verification</a><a class="headerlink" href="#enabling-hostname-verification" title="Permalink to this headline"></a></h2>
 <p>Now that all the credentials are properly loaded, the only thing left is to
 inform the TLS library of the hostname, so that the CN or SAN fields of the
 server certificate can be properly verified. This can be done by calling
@@ -569,7 +560,7 @@ server certificate can be properly verified. This can be done by calling
 </div>
 </section>
 <section id="limitations">
-<span id="custom-tls-api-certificates-basic-limitations"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">8.4.1.5.5. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this heading"></a></h2>
+<span id="custom-tls-api-certificates-basic-limitations"></span><h2><a class="toc-backref" href="#id9"><span class="section-number">8.4.1.5.5. </span>Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
 <p>The implementation above is a complete basic integration with the private key
 infrastructure, however it lacks a number of features that are supported by the
 <code class="docutils literal notranslate"><span class="pre">avs_net</span></code> API:</p>

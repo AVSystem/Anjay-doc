@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.7. Event loop support &mdash; Anjay 3.5.0 documentation</title>
+  <title>8.3.1.7. Event loop support &mdash; Anjay 3.6.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -30,19 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../../index.html">
-            
-              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.5.0
+                3.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -90,10 +81,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
-          <li class="breadcrumb-item"><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">8.3.1.7. </span>Event loop support</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
+          <li><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a> &raquo;</li>
+      <li><span class="section-number">8.3.1.7. </span>Event loop support</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -103,16 +94,16 @@
            <div itemprop="articleBody">
              
   <section id="event-loop-support">
-<h1><span class="section-number">8.3.1.7. </span>Event loop support<a class="headerlink" href="#event-loop-support" title="Permalink to this heading"></a></h1>
-<nav class="contents local" id="contents">
+<h1><span class="section-number">8.3.1.7. </span>Event loop support<a class="headerlink" href="#event-loop-support" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#deciding-between-select-and-poll" id="id2">Deciding between select() and poll()</a></p></li>
 <li><p><a class="reference internal" href="#writing-the-posix-compatibility-header" id="id3">Writing the POSIX compatibility header</a></p></li>
 </ul>
-</nav>
+</div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">8.3.1.7.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.7.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
 <p>When <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_SOCKET</span></code> option is disabled when compiling Anjay,
 <code class="docutils literal notranslate"><span class="pre">WITH_EVENT_LOOP</span></code> will normally be disabled as well. That means that the
 <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_serve_any()</span></code> functions will not be
@@ -124,7 +115,7 @@ functionality by providing a POSIX compatibility header and manually enabling
 <code class="docutils literal notranslate"><span class="pre">WITH_EVENT_LOOP</span></code>.</p>
 </section>
 <section id="deciding-between-select-and-poll">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">8.3.1.7.2. </span>Deciding between select() and poll()</a><a class="headerlink" href="#deciding-between-select-and-poll" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.7.2. </span>Deciding between select() and poll()</a><a class="headerlink" href="#deciding-between-select-and-poll" title="Permalink to this headline"></a></h2>
 <p>Two equivalent implementations of the event loop are provided in Anjay - one
 uses the <code class="docutils literal notranslate"><span class="pre">select()</span></code> call, the other uses <code class="docutils literal notranslate"><span class="pre">poll()</span></code>. <code class="docutils literal notranslate"><span class="pre">poll()</span></code> is generally
 preferred due to known limitations of <code class="docutils literal notranslate"><span class="pre">select()</span></code>. On Unix-like systems, when
@@ -175,7 +166,7 @@ configuration headers, it can be configured in <code class="docutils literal not
 compatibility header, explained below.</p>
 </section>
 <section id="writing-the-posix-compatibility-header">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">8.3.1.7.3. </span>Writing the POSIX compatibility header</a><a class="headerlink" href="#writing-the-posix-compatibility-header" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.7.3. </span>Writing the POSIX compatibility header</a><a class="headerlink" href="#writing-the-posix-compatibility-header" title="Permalink to this headline"></a></h2>
 <p>The POSIX compatibility header mechanism has originally been conceived as a way
 of allowing the use of the default implementations of the networking API (as
 well as time API) on platforms that have APIs that are close to the Unix
