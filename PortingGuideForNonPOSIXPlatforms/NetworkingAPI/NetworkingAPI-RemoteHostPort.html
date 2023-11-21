@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.3.1.2. Get remote host/port operations &mdash; Anjay 3.6.0 documentation</title>
+  <title>8.3.1.2. Get remote host/port operations &mdash; Anjay 3.6.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../../index.html">
-            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.0
+                3.6.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -81,10 +90,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
-          <li><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a> &raquo;</li>
-      <li><span class="section-number">8.3.1.2. </span>Get remote host/port operations</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
+          <li class="breadcrumb-item"><a href="../NetworkingAPI.html"><span class="section-number">8.3. </span>Networking API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.3.1.2. </span>Get remote host/port operations</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -94,15 +103,15 @@
            <div itemprop="articleBody">
              
   <section id="get-remote-host-port-operations">
-<h1><span class="section-number">8.3.1.2. </span>Get remote host/port operations<a class="headerlink" href="#get-remote-host-port-operations" title="Permalink to this headline"></a></h1>
-<div class="contents local topic" id="contents">
+<h1><span class="section-number">8.3.1.2. </span>Get remote host/port operations<a class="headerlink" href="#get-remote-host-port-operations" title="Permalink to this heading"></a></h1>
+<nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#get-remote-host-operation" id="id2">Get remote host operation</a></p></li>
 <li><p><a class="reference internal" href="#get-remote-port-operation" id="id3">Get remote port operation</a></p></li>
 <li><p><a class="reference internal" href="#update-to-vtable" id="id4">Update to vtable</a></p></li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Code related to this tutorial can be found under
@@ -110,7 +119,7 @@
 in the Anjay source directory.</p>
 </div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">8.3.1.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">8.3.1.2.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="NetworkingAPI-Minimal.html"><span class="doc">the previous one</span></a> and
 adds support for the “get remote host” and “get remote port” operations.</p>
 <p>This will allow CoAP response cache to work and the
@@ -122,7 +131,7 @@ the cache storage - and these functions are used to retrieve this information
 from sockets.</p>
 </section>
 <section id="get-remote-host-operation">
-<span id="non-posix-networking-api-get-remote-host"></span><h2><a class="toc-backref" href="#id2"><span class="section-number">8.3.1.2.2. </span>Get remote host operation</a><a class="headerlink" href="#get-remote-host-operation" title="Permalink to this headline"></a></h2>
+<span id="non-posix-networking-api-get-remote-host"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">8.3.1.2.2. </span>Get remote host operation</a><a class="headerlink" href="#get-remote-host-operation" title="Permalink to this heading"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;arpa/inet.h&gt;</span>
 
 <span class="c1">// ...</span>
@@ -180,7 +189,7 @@ enabled. <code class="docutils literal notranslate"><span class="pre">inet_ntop(
 </div>
 </section>
 <section id="get-remote-port-operation">
-<span id="non-posix-networking-api-get-remote-port"></span><h2><a class="toc-backref" href="#id3"><span class="section-number">8.3.1.2.3. </span>Get remote port operation</a><a class="headerlink" href="#get-remote-port-operation" title="Permalink to this headline"></a></h2>
+<span id="non-posix-networking-api-get-remote-port"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">8.3.1.2.3. </span>Get remote port operation</a><a class="headerlink" href="#get-remote-port-operation" title="Permalink to this heading"></a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;inttypes.h&gt;</span>
 <span class="c1">// ...</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_utils.h&gt;</span>
@@ -223,7 +232,7 @@ address stored in the <code class="docutils literal notranslate"><span class="pr
 stringifies it using <code class="docutils literal notranslate"><span class="pre">avs_simple_snprintf()</span></code>.</p>
 </section>
 <section id="update-to-vtable">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">8.3.1.2.4. </span>Update to vtable</a><a class="headerlink" href="#update-to-vtable" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">8.3.1.2.4. </span>Update to vtable</a><a class="headerlink" href="#update-to-vtable" title="Permalink to this heading"></a></h2>
 <p>Of course the newly implemented function need to be referenced in the virtual
 method table:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="n">NET_SOCKET_VTABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>

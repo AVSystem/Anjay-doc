@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"structanjay__fw__update__initial__state__t.html#a98c7bd5f331c4b7755de9b9488ccf1bd":[0,0,14,1],
 "structanjay__fw__update__initial__state__t.html#ae20ae990f31a9f048924023be6f7ccfd":[0,0,14,3],
 "structanjay__fw__update__initial__state__t.html#afcd7f92b45f6dc7f069bb0418fe344a2":[0,0,14,4],
 "structanjay__ipso__3d__sensor__impl__struct.html":[0,0,15],

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.9. Custom event loop &mdash; Anjay 3.6.0 documentation</title>
+  <title>5.9. Custom event loop &mdash; Anjay 3.6.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../index.html">
-            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.0
+                3.6.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -78,9 +87,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
-      <li><span class="section-number">5.9. </span>Custom event loop</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.9. </span>Custom event loop</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -90,7 +99,7 @@
            <div itemprop="articleBody">
              
   <section id="custom-event-loop">
-<h1><span class="section-number">5.9. </span>Custom event loop<a class="headerlink" href="#custom-event-loop" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">5.9. </span>Custom event loop<a class="headerlink" href="#custom-event-loop" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> function that is used in other examples carries
 out all the tasks necessary to handle events related to LwM2M. However, there
 are scenarios in which you might not want to use this function, including:</p>
@@ -114,7 +123,7 @@ sources:</p>
 <p>On POSIX compliant systems, a simple and portable way to handle all these events
 is to use the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> system call.</p>
 <section id="incoming-network-packets">
-<h2><span class="section-number">5.9.1. </span>Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.9.1. </span>Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Permalink to this heading"></a></h2>
 <p>UDP sockets that Anjay uses to communicate with LwM2M Servers are accessible
 via the <code class="docutils literal notranslate"><span class="pre">anjay_get_sockets()</span></code> call. All the used sockets are returned as an
 <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> (implemented and documented in the <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons Library</a>).</p>
@@ -136,7 +145,7 @@ library.</p></li>
 Anjay is using, the task scheduler.</p>
 </section>
 <section id="task-scheduler">
-<span id="id1"></span><h2><span class="section-number">5.9.2. </span>Task scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this headline"></a></h2>
+<span id="id1"></span><h2><span class="section-number">5.9.2. </span>Task scheduler<a class="headerlink" href="#task-scheduler" title="Permalink to this heading"></a></h2>
 <p>Anjay uses an internal scheduler for executing a number of tasks, including
 automated sending of Registration Updates and notifications, among others.</p>
 <p>During runtime, Anjay schedules jobs with specific deadlines, and
@@ -156,7 +165,7 @@ communication going on, it would be the amount of time the CPU can sleep. In the
 next example we will use this value as a <code class="docutils literal notranslate"><span class="pre">poll()</span></code> timeout.</p>
 </section>
 <section id="event-loop-implementation">
-<span id="basic-event-loop"></span><h2><span class="section-number">5.9.3. </span>Event loop implementation<a class="headerlink" href="#event-loop-implementation" title="Permalink to this headline"></a></h2>
+<span id="basic-event-loop"></span><h2><span class="section-number">5.9.3. </span>Event loop implementation<a class="headerlink" href="#event-loop-implementation" title="Permalink to this heading"></a></h2>
 <p>Taking into account previous subsections we could modify the event loop
 presented <a class="reference internal" href="#incomplete-event-loop-idea"><span class="std std-ref">before</span></a> as follows:</p>
 <ol class="arabic simple">
@@ -168,7 +177,7 @@ long, to prevent missing any pending scheduler jobs).</p></li>
 <li><p>Run the scheduler by calling <code class="docutils literal notranslate"><span class="pre">anjay_sched_run()</span></code> to execute any outstanding
 jobs.</p></li>
 </ol>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Wait, why do I have to repeatedly get the sources of packets?</p>
 <p>There are at least two reasons for doing that:</p>
 <ol class="arabic simple">
@@ -178,7 +187,7 @@ to reconnect the socket, possibly changing its underlying descriptor.</p></li>
 Write) and some Server were added / removed or their credentials were
 modified.</p></li>
 </ol>
-</div>
+</aside>
 <p>So, it could be written like this:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/anjay.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/security.h&gt;</span>
@@ -340,7 +349,7 @@ needs to handle its own functionality, this is however outside of the scope of
 this tutorial, but the presented code may be used as a good starting point.</p>
 </section>
 <section id="anjay-serve-any">
-<h2><span class="section-number">5.9.4. </span>anjay_serve_any()<a class="headerlink" href="#anjay-serve-any" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.9.4. </span>anjay_serve_any()<a class="headerlink" href="#anjay-serve-any" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="../api/core_8h.html#ac436ac24095cb10ef008c8fd91126b31">anjay_serve_any()</a> is
 a simplified API that allows writing a simple event loop that the user retains
 control of.</p>

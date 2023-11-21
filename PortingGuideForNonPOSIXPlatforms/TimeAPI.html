@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.1. Time API &mdash; Anjay 3.6.0 documentation</title>
+  <title>8.1. Time API &mdash; Anjay 3.6.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../index.html">
-            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.0
+                3.6.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -71,9 +80,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
-      <li><span class="section-number">8.1. </span>Time API</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.1. </span>Time API</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -83,9 +92,9 @@
            <div itemprop="articleBody">
              
   <section id="time-api">
-<h1><span class="section-number">8.1. </span>Time API<a class="headerlink" href="#time-api" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">8.1. </span>Time API<a class="headerlink" href="#time-api" title="Permalink to this heading"></a></h1>
 <section id="list-of-functions-to-implement">
-<h2><span class="section-number">8.1.1. </span>List of functions to implement<a class="headerlink" href="#list-of-functions-to-implement" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.1.1. </span>List of functions to implement<a class="headerlink" href="#list-of-functions-to-implement" title="Permalink to this heading"></a></h2>
 <p>If POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime</span></code> function is not available:</p>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_TIME=OFF</span></code> when running CMake on Anjay,</p></li>
@@ -103,13 +112,13 @@
 </div>
 </section>
 <section id="reference-implementation">
-<h2><span class="section-number">8.1.2. </span>Reference implementation<a class="headerlink" href="#reference-implementation" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">8.1.2. </span>Reference implementation<a class="headerlink" href="#reference-implementation" title="Permalink to this heading"></a></h2>
 <p>The default
 <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/utils/compat/posix/avs_compat_time.c">avs_compat_time.c</a>
 implementation that uses POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime()</span></code> API can be used as a
 reference for writing your own integration layer.</p>
 <section id="avs-time-real-now">
-<span id="timeapi-avs-time-real-now"></span><h3><span class="section-number">8.1.2.1. </span>avs_time_real_now()<a class="headerlink" href="#avs-time-real-now" title="Permalink to this headline"></a></h3>
+<span id="timeapi-avs-time-real-now"></span><h3><span class="section-number">8.1.2.1. </span>avs_time_real_now()<a class="headerlink" href="#avs-time-real-now" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">avs_time_real_now()</span></code> function should return the current <em>real</em> time,
 i.e. the amount of time that passed since January 1st, 1970, midnight UTC (the
 Unix epoch).</p>
@@ -127,7 +136,7 @@ Unix epoch).</p>
 </div>
 </section>
 <section id="avs-time-monotonic-now">
-<h3><span class="section-number">8.1.2.2. </span>avs_time_monotonic_now()<a class="headerlink" href="#avs-time-monotonic-now" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">8.1.2.2. </span>avs_time_monotonic_now()<a class="headerlink" href="#avs-time-monotonic-now" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now()</span></code> function should return the current <em>monotonic</em>
 time, i.e. the amount of time that passed since <em>some epoch</em> - it might be
 any point in time, but needs to be stable at least throughout the lifetime of

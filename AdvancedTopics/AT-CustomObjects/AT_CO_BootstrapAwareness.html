@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.7. Bootstrap awareness &mdash; Anjay 3.6.0 documentation</title>
+  <title>5.4.7. Bootstrap awareness &mdash; Anjay 3.6.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../../index.html">
-            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.0
+                3.6.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -87,10 +96,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
-          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
-      <li><span class="section-number">5.4.7. </span>Bootstrap awareness</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+          <li class="breadcrumb-item"><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.4.7. </span>Bootstrap awareness</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -100,11 +109,11 @@
            <div itemprop="articleBody">
              
   <section id="bootstrap-awareness">
-<h1><span class="section-number">5.4.7. </span>Bootstrap awareness<a class="headerlink" href="#bootstrap-awareness" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">5.4.7. </span>Bootstrap awareness<a class="headerlink" href="#bootstrap-awareness" title="Permalink to this heading"></a></h1>
 <p>In this tutorial you will learn how to setup Resources writable only by the
 LwM2M Bootstrap Server.</p>
 <section id="handling-lwm2m-bootstrap-server">
-<h2><span class="section-number">5.4.7.1. </span>Handling LwM2M Bootstrap Server<a class="headerlink" href="#handling-lwm2m-bootstrap-server" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4.7.1. </span>Handling LwM2M Bootstrap Server<a class="headerlink" href="#handling-lwm2m-bootstrap-server" title="Permalink to this heading"></a></h2>
 <p>LwM2M Bootstrap Server is an unusual entity: it is allowed to modify Instances
 and Resources not accessible to “regular” LwM2M Servers. That is useful for
 setting up sensitive data that servers should not change (or even read) during
@@ -127,16 +136,11 @@ issued by a non-bootstrap server.</p></li>
 </ul>
 </section>
 <section id="example-bootstrap-writable-resource">
-<h2><span class="section-number">5.4.7.2. </span>Example: bootstrap-writable Resource<a class="headerlink" href="#example-bootstrap-writable-resource" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4.7.2. </span>Example: bootstrap-writable Resource<a class="headerlink" href="#example-bootstrap-writable-resource" title="Permalink to this heading"></a></h2>
 <p>As an example, we will modify the Test Object from
 <a class="reference internal" href="AT_CO_FixedInstanceWritable.html"><span class="doc">Multi-instance writable object with fixed number of instances</span></a> to prevent changing the value of <code class="docutils literal notranslate"><span class="pre">Label</span></code>
 Resource by non-bootstrap servers:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 37%" />
-<col style="width: 31%" />
-<col style="width: 31%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Object ID</p></th>
@@ -152,14 +156,6 @@ Resource by non-bootstrap servers:</p>
 </table>
 <p>Each Object Instance has two Resources:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 21%" />
-<col style="width: 19%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 14%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Resource ID</p></th>

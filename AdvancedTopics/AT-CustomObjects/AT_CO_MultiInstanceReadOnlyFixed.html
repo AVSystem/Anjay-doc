@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 3.6.0 documentation</title>
+  <title>5.4.3. Multi-instance read-only object with fixed number of instances &mdash; Anjay 3.6.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../../index.html">
-            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.0
+                3.6.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -87,10 +96,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
-          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
-      <li><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+          <li class="breadcrumb-item"><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -100,7 +109,7 @@
            <div itemprop="articleBody">
              
   <section id="multi-instance-read-only-object-with-fixed-number-of-instances">
-<h1><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances<a class="headerlink" href="#multi-instance-read-only-object-with-fixed-number-of-instances" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">5.4.3. </span>Multi-instance read-only object with fixed number of instances<a class="headerlink" href="#multi-instance-read-only-object-with-fixed-number-of-instances" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
@@ -116,11 +125,6 @@ multi-instance LwM2M Object.</p>
 <p>The implemented Object will look as in <a class="reference internal" href="AT_CO_SingleInstanceReadOnly.html"><span class="doc">Single-instance read-only object</span></a>,
 but will now support multiple Object Instances:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 37%" />
-<col style="width: 31%" />
-<col style="width: 31%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Object ID</p></th>
@@ -136,14 +140,6 @@ but will now support multiple Object Instances:</p>
 </table>
 <p>Each Object Instance has two Resources:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 21%" />
-<col style="width: 19%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 14%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Resource ID</p></th>
@@ -226,14 +222,14 @@ Instance IDs:</p>
 order.</p>
 </li>
 </ul>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Why is enumerating Object Instances necessary?</p>
 <p>LwM2M does not require existing Object Instances to have consecutive IDs.
 It is perfectly fine to implement an Object that only contains Instances
 3 and 40235. Without <code class="docutils literal notranslate"><span class="pre">list_instances</span></code> handler the library would need
 to iterate over all possible Instance IDs to be able to prepare a list
 of available Object Instances whenever the LwM2M Server requests one.</p>
-</div>
+</aside>
 <p>Having done that, <code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler needs to be slightly modified
 to correctly handle requests to different Object Instance IDs.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>

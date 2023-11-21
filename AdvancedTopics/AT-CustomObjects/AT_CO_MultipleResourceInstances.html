@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.6. Objects with Multiple Instance Resources &mdash; Anjay 3.6.0 documentation</title>
+  <title>5.4.6. Objects with Multiple Instance Resources &mdash; Anjay 3.6.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -25,15 +30,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../../index.html">
-            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.0
+                3.6.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -87,10 +96,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
-          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
-      <li><span class="section-number">5.4.6. </span>Objects with Multiple Instance Resources</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+          <li class="breadcrumb-item"><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.4.6. </span>Objects with Multiple Instance Resources</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -100,7 +109,7 @@
            <div itemprop="articleBody">
              
   <section id="objects-with-multiple-instance-resources">
-<h1><span class="section-number">5.4.6. </span>Objects with Multiple Instance Resources<a class="headerlink" href="#objects-with-multiple-instance-resources" title="Permalink to this headline"></a></h1>
+<h1><span class="section-number">5.4.6. </span>Objects with Multiple Instance Resources<a class="headerlink" href="#objects-with-multiple-instance-resources" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section describes in details the implementation of custom Objects in
@@ -119,7 +128,7 @@ various parts of the LwM2M Object code are for.</p>
 <p>We will extend the Test object from <a class="reference internal" href="AT_CO_MultiInstanceDynamic.html"><span class="doc">previous tutorial</span></a> by allowing <cite>Value</cite> Resource to contain multiple
 values.</p>
 <section id="api-for-multiple-instance-resources-management">
-<h2><span class="section-number">5.4.6.1. </span>API for Multiple Instance Resources management<a class="headerlink" href="#api-for-multiple-instance-resources-management" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4.6.1. </span>API for Multiple Instance Resources management<a class="headerlink" href="#api-for-multiple-instance-resources-management" title="Permalink to this heading"></a></h2>
 <p>Dealing with Multiple Instance Resources in the data model requires implementing
 additional handlers. The most important in the <code class="docutils literal notranslate"><span class="pre">list_resource_instances</span></code>
 handler:</p>
@@ -153,7 +162,7 @@ having zero instances.</p>
 ignoring, is used to determine the Resource Instance that is targeted.</p>
 </section>
 <section id="preparing-test-object-for-multiple-instance-resources">
-<h2><span class="section-number">5.4.6.2. </span>Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4.6.2. </span>Preparing Test object for Multiple Instance Resources<a class="headerlink" href="#preparing-test-object-for-multiple-instance-resources" title="Permalink to this heading"></a></h2>
 <p>First of all, we need to update the List Resources handler so that the library
 knows that Resource 1 now has multiple instances:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -192,15 +201,15 @@ able to store all valid Resource Instance IDs.</p>
 <span class="p">}</span><span class="w"> </span><span class="n">test_instance_t</span><span class="p">;</span>
 </pre></div>
 </div>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Why does <code class="docutils literal notranslate"><span class="pre">test_instance_t</span></code> still contain boolean flag indicating presence of the value?</p>
 <p>There is certainly a difference between lack of presence of Multiple
 Instance Resource value, and Multiple Instance Resource containing
 zero Instances (i.e. lack of list presence vs an empty list).</p>
-</div>
+</aside>
 </section>
 <section id="implementing-the-list-resource-instances-handler">
-<h2><span class="section-number">5.4.6.3. </span>Implementing the List Resource Instances handler<a class="headerlink" href="#implementing-the-list-resource-instances-handler" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4.6.3. </span>Implementing the List Resource Instances handler<a class="headerlink" href="#implementing-the-list-resource-instances-handler" title="Permalink to this heading"></a></h2>
 <p>Here is how the List Resource Instances is implemented for our test object:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span>
 <span class="nf">test_list_resource_instances</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -231,7 +240,7 @@ sorted order. We will keep the resource instances in sorted order, so this
 implementation satisfies this contract.</p>
 </section>
 <section id="handling-multiple-instance-resources-in-read-operation">
-<h2><span class="section-number">5.4.6.4. </span>Handling Multiple Instance Resources in Read operation<a class="headerlink" href="#handling-multiple-instance-resources-in-read-operation" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4.6.4. </span>Handling Multiple Instance Resources in Read operation<a class="headerlink" href="#handling-multiple-instance-resources-in-read-operation" title="Permalink to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">resource_read</span></code> handler is being called by Anjay for each Resource Instance
 referenced by the server, giving the control to the user. Thus, the read handler
 could look like this:</p>
@@ -261,8 +270,8 @@ could look like this:</p>
 </div>
 </section>
 <section id="implementing-the-resource-reset-handler">
-<h2><span class="section-number">5.4.6.5. </span>Implementing the Resource Reset handler<a class="headerlink" href="#implementing-the-resource-reset-handler" title="Permalink to this headline"></a></h2>
-<div class="topic">
+<h2><span class="section-number">5.4.6.5. </span>Implementing the Resource Reset handler<a class="headerlink" href="#implementing-the-resource-reset-handler" title="Permalink to this heading"></a></h2>
+<aside class="topic">
 <p class="topic-title">General flow of function calls when LwM2M Write operation was
        issued on Multiple Instance Resource.</p>
 <ol class="arabic simple">
@@ -273,7 +282,7 @@ Instance referenced by the server, giving the control to the user. The
 handler shall add or replace the Resource with the instance it is being
 called for.</p></li>
 </ol>
-</div>
+</aside>
 <p>The above means that the Resource Reset handler is rather simple to implement,
 as it only needs to clear the resource:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_resource_reset</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
@@ -297,7 +306,7 @@ as it only needs to clear the resource:</p>
 </div>
 </section>
 <section id="handling-multiple-instance-resources-in-write-operation">
-<h2><span class="section-number">5.4.6.6. </span>Handling Multiple Instance Resources in Write operation<a class="headerlink" href="#handling-multiple-instance-resources-in-write-operation" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.4.6.6. </span>Handling Multiple Instance Resources in Write operation<a class="headerlink" href="#handling-multiple-instance-resources-in-write-operation" title="Permalink to this heading"></a></h2>
 <p>Now we are ready to actually implement the write operation. We will create a
 helper function for actually updating the Resource Instance list with a newly
 written value.</p>

@@ -2,6 +2,7 @@ var sms_8h =
 [
     [ "anjay_smsdrv_multipart_info_t", "structanjay__smsdrv__multipart__info__t.html", "structanjay__smsdrv__multipart__info__t" ],
     [ "anjay_smsdrv_struct", "structanjay__smsdrv__struct.html", "structanjay__smsdrv__struct" ],
+    [ "ANJAY_MSISDN_SIZE", "sms_8h.html#a2ca1ea16d0b315499a1479ee957503cf", null ],
     [ "anjay_smsdrv_error_t", "sms_8h.html#aca42793dd71f431bd458d4b3eabfdc03", null ],
     [ "anjay_smsdrv_free_t", "sms_8h.html#ad53b1c3fa387b1eec1d00893ccacbfd2", null ],
     [ "anjay_smsdrv_recv_all_cb_t", "sms_8h.html#acb8b708c48cd9abbbedcdc02f962303e", null ],
