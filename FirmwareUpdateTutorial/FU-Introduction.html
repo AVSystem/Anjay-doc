@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.1. Firmware Update &mdash; Anjay 3.6.1 documentation</title>
+  <title>6.1. Firmware Update &mdash; Anjay 3.7.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -30,19 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../index.html">
-            
-              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.1
+                3.7.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -83,9 +79,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6.1. </span>Firmware Update</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../FirmwareUpdateTutorial.html"><span class="section-number">6. </span>Firmware Update Tutorial</a> &raquo;</li>
+      <li><span class="section-number">6.1. </span>Firmware Update</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -158,44 +154,44 @@ or directly sends the firmware to the Client.</p>
 implementation for the user. At its core, Firmware Update module consists
 of user-implemented callbacks of various sort. They are shown below, to
 give an idea on what the implementation of FOTA would take:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="cm">/** Opens the stream that will be used to write the firmware package to;</span>
-<span class="cm">     * @ref anjay_fw_update_stream_open_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_stream_open_t</span><span class="w"> </span><span class="o">*</span><span class="n">stream_open</span><span class="p">;</span>
+<span class="cm">     * @ref anjay_fw_update_stream_open_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_stream_open_t</span><span class="w"> </span><span class="o">*</span><span class="n">stream_open</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="cm">/** Writes data to the download stream;</span>
-<span class="cm">     * @ref anjay_fw_update_stream_write_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_stream_write_t</span><span class="w"> </span><span class="o">*</span><span class="n">stream_write</span><span class="p">;</span>
+<span class="cm">     * @ref anjay_fw_update_stream_write_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_stream_write_t</span><span class="w"> </span><span class="o">*</span><span class="n">stream_write</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="cm">/** Closes the download stream and prepares the firmware package to be</span>
-<span class="cm">     * flashed; @ref anjay_fw_update_stream_finish_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_stream_finish_t</span><span class="w"> </span><span class="o">*</span><span class="n">stream_finish</span><span class="p">;</span>
+<span class="cm">     * flashed; @ref anjay_fw_update_stream_finish_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_stream_finish_t</span><span class="w"> </span><span class="o">*</span><span class="n">stream_finish</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/** Resets the firmware update state and performs any applicable cleanup of</span>
-<span class="cm">     * temporary storage if necessary; @ref anjay_fw_update_reset_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">reset</span><span class="p">;</span>
+<span class="cm">     * temporary storage if necessary; @ref anjay_fw_update_reset_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">reset</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/** Returns the name of downloaded firmware package;</span>
-<span class="cm">     * @ref anjay_fw_update_get_name_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_get_name_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_name</span><span class="p">;</span>
+<span class="cm">     * @ref anjay_fw_update_get_name_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_get_name_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_name</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="cm">/** Return the version of downloaded firmware package;</span>
-<span class="cm">     * @ref anjay_fw_update_get_version_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_get_version_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_version</span><span class="p">;</span>
+<span class="cm">     * @ref anjay_fw_update_get_version_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_get_version_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_version</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/** Performs the actual upgrade with previously downloaded package;</span>
-<span class="cm">     * @ref anjay_fw_update_perform_upgrade_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_perform_upgrade_t</span><span class="w"> </span><span class="o">*</span><span class="n">perform_upgrade</span><span class="p">;</span>
+<span class="cm">     * @ref anjay_fw_update_perform_upgrade_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_perform_upgrade_t</span><span class="w"> </span><span class="o">*</span><span class="n">perform_upgrade</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/** Queries security configuration that shall be used for an encrypted</span>
-<span class="cm">     * connection; @ref anjay_fw_update_get_security_config_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_get_security_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_security_config</span><span class="p">;</span>
+<span class="cm">     * connection; @ref anjay_fw_update_get_security_config_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_get_security_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_security_config</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/** Queries CoAP transmission parameters to be used during firmware</span>
-<span class="cm">     * update; @ref anjay_fw_update_get_coap_tx_params_t */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_get_coap_tx_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_coap_tx_params</span><span class="p">;</span>
+<span class="cm">     * update; @ref anjay_fw_update_get_coap_tx_params_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_get_coap_tx_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_coap_tx_params</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="cm">/** Queries request timeout to be used during firmware update over CoAP+TCP</span>
-<span class="cm">     * or HTTP; @ref anjay_advanced_fw_update_get_tcp_request_timeout */</span>
-<span class="w">    </span><span class="n">anjay_fw_update_get_tcp_request_timeout_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_tcp_request_timeout</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">anjay_fw_update_handlers_t</span><span class="p">;</span>
+<span class="cm">     * or HTTP; @ref anjay_fw_update_get_tcp_request_timeout_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_fw_update_get_tcp_request_timeout_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_tcp_request_timeout</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_fw_update_handlers_t</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Luckily, not all of them need to be implemented during initial
@@ -246,7 +242,7 @@ upgrade the device.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, AVSystem.</p>
+    <p>&#169; Copyright 2017-2024, AVSystem.</p>
   </div>
 
    

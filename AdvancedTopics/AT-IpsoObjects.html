@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.11. Anjay IPSO Objects implementation &mdash; Anjay 3.6.1 documentation</title>
+  <title>5.11. IPSO objects implementation &mdash; Anjay 3.7.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -30,19 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../index.html">
-            
-              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.1
+                3.7.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -64,7 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.9. Custom event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5.11. Anjay IPSO Objects implementation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.11. IPSO objects implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -87,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.11. </span>Anjay IPSO Objects implementation</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+      <li><span class="section-number">5.11. </span>IPSO objects implementation</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -98,247 +94,478 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="anjay-ipso-objects-implementation">
-<h1><span class="section-number">5.11. </span>Anjay IPSO Objects implementation<a class="headerlink" href="#anjay-ipso-objects-implementation" title="Permalink to this heading"></a></h1>
-<p>Among many Objects defined in
-<a class="reference external" href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">OMA LightweightM2M (LwM2M) Object and Resource Registry</a>
-there are some which are used quite frequently.
-Anjay provides an easy to use API for implementing some of them, i.e. for a few
-kinds of IPSO objects:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>basic sensors (like Temperature or Humidity Objects),</p></li>
-<li><p>three axis sensors (like Accelerometer or Gyrometer Objects) and</p></li>
+  <section id="ipso-objects-implementation">
+<h1><span class="section-number">5.11. </span>IPSO objects implementation<a class="headerlink" href="#ipso-objects-implementation" title="Permalink to this heading"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#supported-objects" id="id2">Supported objects</a></p></li>
+<li><p><a class="reference internal" href="#usage-example" id="id3">Usage example</a></p>
+<ul>
+<li><p><a class="reference internal" href="#installing-objects-and-instances" id="id4">Installing objects and instances</a></p></li>
+<li><p><a class="reference internal" href="#updating-values" id="id5">Updating values</a></p></li>
+<li><p><a class="reference internal" href="#removing-instances" id="id6">Removing instances</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id1"><span class="section-number">5.11.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>IPSO (Internet Protocol for Smart Objects) objects are a collection of LwM2M
+objects that can be used to expose some common features of many IoT devices,
+like sensors, buttons, actuators or control switches. Using predefined objects
+for these purposes enables higher interoperability of applications, i.e. all
+devices that have a temperature sensor can report the readings in a standardized
+way, making it possible to easily process such measurements from different,
+nonhomogeneous devices on the cloud.</p>
+<p>In practice, IPSO objects are most importantly a convenient way to report sensor
+data over LwM2M. All IPSO objects of aforementioned certain kinds share
+common set of resources, and thanks to that these objects in a large part can be
+easily preimplemented.</p>
+<p>Anjay provides a ready-to-use implementation of:</p>
+<ul class="simple">
+<li><p>basic (i.e. scalar) sensor objects (e.g. Temperature Object or Pressure
+Object),</p></li>
+<li><p>three-axis sensor objects (e.g. Accelerometer Object or Magnetometer Object),</p></li>
 <li><p>Push Button Object.</p></li>
 </ul>
-</div></blockquote>
-<p>The API is declared in <a class="reference external" href="../api/ipso__objects_8h.html">anjay/ipso_objects.h</a> header.</p>
-<section id="object-installation">
-<h2><span class="section-number">5.11.1. </span>Object installation<a class="headerlink" href="#object-installation" title="Permalink to this heading"></a></h2>
-<p>To install an Anjay IPSO Object we can use one of the following functions, each
-of them corresponding to a specific class of objects:</p>
+<p>User’s only responsibility is to retrieve those values from actual sensors
+and supply them to Anjay, making it very easy to implement LwM2M devices with
+sensor support.</p>
+<p>The API is declared in <code class="docutils literal notranslate"><span class="pre">include_public/anjay/ipso_objects.h</span></code> and
+<code class="docutils literal notranslate"><span class="pre">include_public/anjay/ipso_objects_v2.h</span></code> headers. To use them, enable them
+first by either defining <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_MODULE_IPSO_OBJECTS</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_MODULE_IPSO_OBJECTS_V2</span></code> in the Anjay’s configuration files, or, if
+using CMake, enabling <code class="docutils literal notranslate"><span class="pre">WITH_MODULE_ipso_objects</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">WITH_MODULE_ipso_objects_v2</span></code> options.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The APIs for basic and 3D IPSO sensors objects explained in this tutorial
+are new, experimental variants declared in
+<code class="docutils literal notranslate"><span class="pre">include_public/anjay/ipso_objects_v2.h</span></code>.</p>
+</div>
+</section>
+<section id="supported-objects">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">5.11.2. </span>Supported objects</a><a class="headerlink" href="#supported-objects" title="Permalink to this heading"></a></h2>
+<p>Implementation of IPSO objects in Anjay supports objects that have the following
+set of resources:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="4"><p> <strong>Basic (scalar) sensor objects</strong></p></th>
+</tr>
+<tr class="row-even"><th class="head"><p><strong>Resource ID</strong></p></th>
+<th class="head"><p><strong>Resource Name</strong></p></th>
+<th class="head" colspan="2"><p><strong>Must be supported by object</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>5601</p></td>
+<td><p>Min Measured Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5602</p></td>
+<td><p>Max Measured Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5603</p></td>
+<td><p>Min Range Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5604</p></td>
+<td><p>Max Range Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5605</p></td>
+<td><p>Reset Min and Max Measured Values</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5700</p></td>
+<td><p>Sensor Value</p></td>
+<td colspan="2"><p><strong>yes</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>5701</p></td>
+<td><p>Sensor Units</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head" colspan="4"><p> <strong>Three-axis sensor objects</strong></p></th>
+</tr>
+<tr class="row-even"><th class="head"><p><strong>Resource ID</strong></p></th>
+<th class="head"><p><strong>Resource Name</strong></p></th>
+<th class="head" colspan="2"><p><strong>Must be supported by object</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>5508</p></td>
+<td><p>Min X Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5509</p></td>
+<td><p>Max X Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5510</p></td>
+<td><p>Min Y Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5511</p></td>
+<td><p>Max Y Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5512</p></td>
+<td><p>Min Z Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5513</p></td>
+<td><p>Max Z Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5603</p></td>
+<td><p>Min Range Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5604</p></td>
+<td><p>Max Range Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5605</p></td>
+<td><p>Reset Min and Max Measured Values</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-even"><td><p>5701</p></td>
+<td><p>Sensor Units</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5702</p></td>
+<td><p>X Value</p></td>
+<td colspan="2"><p><strong>yes</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>5703</p></td>
+<td><p>Y Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>5704</p></td>
+<td><p>Z Value</p></td>
+<td colspan="2"><p>no</p></td>
+</tr>
+</tbody>
+</table>
+<p>As of December 13th, 2023, objects registered by IPSO Alliance that meet these
+requirements are:
+3300 (Generic Sensor),
+3301 (Illuminance),
+3303 (Temperature),
+3304 (Humidity),
+3313 (Accelerometer),
+3314 (Magnetometer),
+3315 (Barometer),
+3316 (Voltage),
+3317 (Current),
+3318 (Frequency),
+3319 (Depth),
+3320 (Percentage),
+3321 (Altitude),
+3322 (Load),
+3323 (Pressure),
+3324 (Loudness),
+3325 (Concentration),
+3326 (Acidity),
+3327 (Conductivity),
+3328 (Power),
+3329 (Power Factor),
+3330 (Distance),
+3334 (Gyrometer),
+3345 (Multiple Axis Joystick),
+3346 (Rate).</p>
+<p>Additionally, object 3347 (Push Button) is supported with a separate API.</p>
+</section>
+<section id="usage-example">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">5.11.3. </span>Usage example</a><a class="headerlink" href="#usage-example" title="Permalink to this heading"></a></h2>
+<p>This tutorial builds up on the <a class="reference internal" href="../BasicClient/BC-MandatoryObjects.html"><span class="doc">Installing mandatory Objects</span></a>
+tutorial which contains an implementation of a minimal, but complete LwM2M
+client.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
+<cite>examples/tutorial/AT-IpsoObjects</cite> subdirectory of main Anjay project
+repository.</p>
+</div>
+<p>In this example we’ll implement a simple application that simulates a few
+thermometers, accelerometers and buttons.</p>
+<section id="installing-objects-and-instances">
+<h3><a class="toc-backref" href="#id4"><span class="section-number">5.11.3.1. </span>Installing objects and instances</a><a class="headerlink" href="#installing-objects-and-instances" title="Permalink to this heading"></a></h3>
+<p>To setup an IPSO object, you must install it first using one of the following
+methods:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a8a95f45e84db077652f65d272ccbf730">anjay_ipso_basic_sensor_install</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a9911f0f48d8cdebcbd8bfd9859f43358">anjay_ipso_3d_sensor_install</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#ac3200c3c61ea62f76eb4e606adfcd90f">anjay_ipso_v2_basic_sensor_install</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a154a62e2adafe9890cbd66c91bb8f20a">anjay_ipso_v2_3d_sensor_install</a>,</p></li>
 <li><p><a class="reference external" href="../api/ipso__objects_8h.html#a11e68bd571d70da7d17ee5c73cff6e0d">anjay_ipso_button_install</a>.</p></li>
 </ul>
 </div></blockquote>
-<p>As you can see, it needs only the maximum number of
-instances which will be used and, in case of sensor objects, OID of the
-installed objects (in the case of the Push Button Object it is always the same
-and equals 3347).</p>
-<p>For example, if we wanted to create a Temperature Object (which has OID equal to
-3303) that could have up to 2 instances, we would call
-<code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_install</span></code> function like we did in our demo:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_basic_sensor_install</span><span class="p">(</span>
-<span class="w">            </span><span class="n">anjay</span><span class="p">,</span>
-<span class="w">            </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span>
-<span class="w">            </span><span class="n">ANJAY_DEMO_TEMPERATURE_MAX_INSTANCE_NUM</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">ipso</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not install Temperature object&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
+<p>For sensors, the API accepts Object ID, object version and maximum number of
+instances that’ll be installed later. For button, the Object ID and version is
+defined upfront.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It’s important to set appropriate object version number. Without configuring
+it a LwM2M server may fail to interpret resources that were added in newer
+versions of an object. Such an example is Gyrometer Object, which has the
+“Reset Min and Max Measured Values” resource available only since version
+1.1.</p>
+<p>In this example all enabled resources are available in version 1.0 of these
+objects, to which passing <code class="docutils literal notranslate"><span class="pre">NULL</span></code> defaults to.</p>
 </div>
-</section>
-<section id="instance-addition">
-<h2><span class="section-number">5.11.2. </span>Instance addition<a class="headerlink" href="#instance-addition" title="Permalink to this heading"></a></h2>
-<p>To add an instance of an existing Anjay IPSO Object we can use one of the following functions,
-each of them corresponding to a specific class of objects:</p>
+<p>After installing objects, instances of these objects can be added using
+following APIs:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#adc74272152c265197c86eff505bde54a">anjay_ipso_basic_sensor_instance_add</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a822eca024f1b55d83ca6828b56b02bef">anjay_ipso_3d_sensor_instance_add</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#ae92a38b4eba14909b00233088e6256b5">anjay_ipso_v2_basic_sensor_instance_add</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a760f33f44690447409e77066b4c86295">anjay_ipso_v2_3d_sensor_instance_add</a>,</p></li>
 <li><p><a class="reference external" href="../api/ipso__objects_8h.html#ae981fe67ce9c2e9032284f26fa5fb3c3">anjay_ipso_button_instance_add</a>.</p></li>
 </ul>
 </div></blockquote>
-<p>As you can see, in case of basic or three-axis sensors we need to provide the
-OID, IID and the implementation. Let’s have a look at
-<code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_impl_t</span></code> structure:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_ipso_basic_sensor_impl_struct</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * Unit of the measured values.</span>
-<span class="cm">    *</span>
-<span class="cm">    * The pointed string won&#39;t be copied, so user code must assure that the</span>
-<span class="cm">    * pointer will remain valid for the lifetime of the object.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">unit</span><span class="p">;</span>
+<p>For basic and 3D sensors, these methods accept an initial value of the sensor
+and a structure that provides metadata about each instance:
+<a class="reference external" href="../api/ipso__objects__v2_8h.html#a2e0cd9b35002025a91edb96842cd29cf">anjay_ipso_v2_basic_sensor_meta_t</a>
+and
+<a class="reference external" href="../api/ipso__objects__v2_8h.html#a34fe615fc03fa7313a2dffabd326058f">anjay_ipso_v2_3d_sensor_meta_t</a>,
+respectively.</p>
+<p>These structs are used to configure unit, reported minimum and maximum values
+that can be measured by a sensor, and presence of optional Y and Z axis in case
+of 3D objects.</p>
+<p>In our example, let’s define some macros and necessary metadata structs first:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TEMPERATURE_OBJ_OID 3303</span>
+<span class="cp">#define ACCELEROMETER_OBJ_OID 3313</span>
 
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * User context which will be passed to @ref get_value callback.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_context</span><span class="p">;</span>
+<span class="cp">#define THERMOMETER_COUNT 3</span>
+<span class="cp">#define ACCELEROMETER_COUNT 2</span>
+<span class="cp">#define BUTTON_COUNT 4</span>
 
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * The minimum value that can be measured by the sensor.</span>
-<span class="cm">    *</span>
-<span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">min_range_value</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_ipso_v2_basic_sensor_meta_t</span><span class="w"> </span><span class="n">thermometer_meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Cel&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">min_max_measured_value_present</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">min_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-20.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">max_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">120.0</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * The maximum value that can be measured by the sensor.</span>
-<span class="cm">    *</span>
-<span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">max_range_value</span><span class="p">;</span>
-
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * User provided callback for reading the sensor value.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="n">anjay_ipso_basic_sensor_value_reader_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_value</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_impl_t</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_ipso_v2_3d_sensor_meta_t</span><span class="w"> </span><span class="n">accelerometer_meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;m/s2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">min_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-20.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">max_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">y_axis_present</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="n">z_axis_present</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<p>The most important field of the structure is <code class="docutils literal notranslate"><span class="pre">get_value</span></code> which is a callback
-called whenever the sensor value needs to be read (so either when it is
-updated explicitly by the client or when the value is read by the server).
-User might pass some additional context to the callback using the <code class="docutils literal notranslate"><span class="pre">user_ctx</span></code>
-field.</p>
-<p>Let’s assume that we want to add an instance of the installed Temperature
-Object and let <code class="docutils literal notranslate"><span class="pre">get_temperature</span></code> be a given system
-function (which takes as an argument some thermometer instance of type
-<code class="docutils literal notranslate"><span class="pre">thermometer_t</span> <span class="pre">*</span></code>) for reading the temperature. We fake such situation for our
-demo client and in this scenario we can use the following simple function:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span>
-<span class="nf">temperature_get_value</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">thermometer</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s a good practice to report values using units defined in
+<a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8428.html#section-12.1">SenML Units Registry</a>,
+the up to date list can be
+<a class="reference external" href="https://www.iana.org/assignments/senml/senml.xhtml">found here</a>.</p>
+</div>
+<p>Then, let’s introduce some helper methods that will install our sensor objects
+and add all instances upfront:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_temperature_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_v2_basic_sensor_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">TEMPERATURE_OBJ_OID</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                          </span><span class="n">THERMOMETER_COUNT</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">    </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_temperature</span><span class="p">((</span><span class="n">thermometer_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">thermometer</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">THERMOMETER_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_v2_basic_sensor_instance_add</span><span class="p">(</span><span class="w"></span>
+<span class="w">                    </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">TEMPERATURE_OBJ_OID</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">thermometer_meta</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_accelerometer_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_v2_3d_sensor_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ACCELEROMETER_OBJ_OID</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                        </span><span class="n">ACCELEROMETER_COUNT</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ACCELEROMETER_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_ipso_v2_3d_sensor_value_t</span><span class="w"> </span><span class="n">initial_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+<span class="w">        </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_v2_3d_sensor_instance_add</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ACCELEROMETER_OBJ_OID</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">initial_value</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                </span><span class="o">&amp;</span><span class="n">accelerometer_meta</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_button_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_button_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">BUTTON_COUNT</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">BUTTON_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_button_instance_add</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>The proper temperature unit are degrees Celsius (as defined in
-<a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8428#section-12.1">SenML RFC</a>).
-Let assume that our thermometer measures temperatures between 0 and 100 degrees
-Celsius. Knowing this we can prepare an instance of
-<code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_impl_t</span></code> and pass it to
-<code class="docutils literal notranslate"><span class="pre">anjay_ipso_basic_sensor_add_instance</span></code> function, as we did in our demo:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_instance_add</span><span class="p">(</span>
-<span class="w">        </span><span class="n">anjay</span><span class="p">,</span>
-<span class="w">        </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span>
-<span class="w">        </span><span class="n">iid</span><span class="p">,</span>
-<span class="w">        </span><span class="p">(</span><span class="n">anjay_ipso_basic_sensor_impl_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="p">.</span><span class="n">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_UNIT</span><span class="p">,</span>
-<span class="w">            </span><span class="p">.</span><span class="n">get_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperature_get_value</span><span class="p">,</span>
-<span class="w">            </span><span class="p">.</span><span class="n">user_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="n">THERMOMETER</span><span class="p">,</span>
-<span class="w">            </span><span class="p">.</span><span class="n">min_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">            </span><span class="p">.</span><span class="n">max_range_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_MAX_VALUE</span>
-<span class="w">        </span><span class="p">});</span>
-</pre></div>
-</div>
-<p>The implementation struct for the three axis objects is quite similar to this
-for basic objects - there are three major differences:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>there are additional <code class="docutils literal notranslate"><span class="pre">use_y_value</span></code> and <code class="docutils literal notranslate"><span class="pre">use_z_value</span></code> fields for enabling
-optional Y and Z axes,</p></li>
-<li><p>callback needs to take three output pointers, one for each of the axes.</p></li>
-</ul>
-</div></blockquote>
-<p>Let’s have a look on the whole structure:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_ipso_3d_sensor_impl_struct</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * Unit of the measured values.</span>
-<span class="cm">    *</span>
-<span class="cm">    * The pointed string won&#39;t be copied, so user code must assure that the</span>
-<span class="cm">    * pointer will remain valid for the lifetime of the object.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">unit</span><span class="p">;</span>
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * Enables usage of the optional Y axis.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_y_value</span><span class="p">;</span>
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * Enables usage of the optional Z axis.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_z_value</span><span class="p">;</span>
+<p>Finally, let’s call these methods in initialization code, in <code class="docutils literal notranslate"><span class="pre">main()</span></code> method:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
 
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * User context which will be passed to @ref get_values callback.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_context</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
+<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">setup_temperature_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">setup_accelerometer_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
+</span><span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">setup_button_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+</span><span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * The minimum value that can be measured by the sensor.</span>
-<span class="cm">    *</span>
-<span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">min_range_value</span><span class="p">;</span>
-
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * The maximum value that can be measured by the sensor.</span>
-<span class="cm">    *</span>
-<span class="cm">    * If the value is NaN the resource won&#39;t be created.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">max_range_value</span><span class="p">;</span>
-
-<span class="w">    </span><span class="cm">/**</span>
-<span class="cm">    * User provided callback for reading the sensor value.</span>
-<span class="cm">    */</span>
-<span class="w">    </span><span class="n">anjay_ipso_3d_sensor_value_reader_t</span><span class="w"> </span><span class="o">*</span><span class="n">get_values</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">anjay_ipso_3d_sensor_impl_t</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>In case of the Push Button Object, neither implementation nor OID is required.
-Instead, we need to provide the initial string for the “Application Type” field.</p>
-<p>In both cases it is allowed to overwrite an existing instance of an object
-(but in the case of the Push Button Object it can change only “Application Type”
-field).</p>
-</section>
-<section id="instance-update">
-<h2><span class="section-number">5.11.3. </span>Instance update<a class="headerlink" href="#instance-update" title="Permalink to this heading"></a></h2>
-<p>To update an instance of an existing Anjay IPSO Object we can use one of the following functions,
-each of them corresponding to a specific class of objects:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#adb1d4d64c728ad7e77f35c8c28eb74bf">anjay_ipso_basic_sensor_instance_update</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a254fafed91f3ef3613ae29de05a67449">anjay_ipso_3d_sensor_instance_update</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a84a9bf58b9cff7e1bd5fe9083576cfa2">anjay_ipso_button_instance_update</a>.</p></li>
-</ul>
-</div></blockquote>
-<p>In case of the sensor objects they just force an update of the sensor value
-for the proper instance of the sensor object instance. To keep the value of
-the sensor object current, it is usually a good practice to call it frequently.</p>
-<p>In the case of the Push Button Object the update function is a bit more
-significant - it is meant to be called every time the button is pressed or
-released and it is the only way to update the state of the Object Instance.
-In addition to IID it passes a new state of the button. Thus, when an instance
-of the fake button in our demo is pressed, we call:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">demo</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>and when it is released:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">demo</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
-<section id="instance-removal">
-<h2><span class="section-number">5.11.4. </span>Instance removal<a class="headerlink" href="#instance-removal" title="Permalink to this heading"></a></h2>
-<p>To remove an instance of an existing Anjay IPSO Object we can use one of the following functions,
-each of them corresponding to a specific class of objects:</p>
+<section id="updating-values">
+<h3><a class="toc-backref" href="#id5"><span class="section-number">5.11.3.2. </span>Updating values</a><a class="headerlink" href="#updating-values" title="Permalink to this heading"></a></h3>
+<p>To update reported value of a sensor, use one of following methods:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a50e8c38ac2271e9d702d305349ea79c3">anjay_ipso_basic_sensor_instance_remove</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a2bd255f62cf4817ea567b65ddae6644c">anjay_ipso_3d_sensor_instance_remove</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#ab9ee3d855e885a2dc25ae73f466dd228">anjay_ipso_v2_basic_sensor_value_update</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a2166bd5daae8fb235f96064d8b97c740">anjay_ipso_v2_3d_sensor_value_update</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a84a9bf58b9cff7e1bd5fe9083576cfa2">anjay_ipso_button_update</a>.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Keep in mind that a LwM2M Server is allowed to configure resource
+observations with attributes that require the client to report the data very
+frequently or when some threshold value is exceeded, even for a very short
+moment. If you want to ensure that server is notified of every change of
+resource value that could meet such conditions, <strong>you must update the value
+very frequently</strong>.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>These methods (as all methods in Anjay’s public API) cannot be called from
+an interrupt. In case <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_THREAD_SAFETY</span></code> is disabled Anjay APIs
+are not safe to call from other contexts than method which runs event loop
+and <code class="docutils literal notranslate"><span class="pre">avs_sched</span></code> tasks, while if <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_THREAD_SAFETY</span></code> is enabled
+calling such methods will attempt to lock a mutex from an interrupt which
+also is wrong.</p>
+<p>If your application retrieves new sensor values and/or button state changes
+in an interrupt, you must find a way to pass these values to a non-interrupt
+execution context.</p>
+</div>
+<p>In our example we’re simulating values of these sensors, so let’s add some
+utility methods first:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">get_random_in_range</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">min</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">max</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RAND_MAX</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">get_thermometer_value</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">get_random_in_range</span><span class="p">(</span><span class="n">thermometer_meta</span><span class="p">.</span><span class="n">min_range_value</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="n">thermometer_meta</span><span class="p">.</span><span class="n">max_range_value</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">anjay_ipso_v2_3d_sensor_value_t</span><span class="w"> </span><span class="nf">get_accelerometer_value</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_ipso_v2_3d_sensor_value_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_random_in_range</span><span class="p">(</span><span class="n">accelerometer_meta</span><span class="p">.</span><span class="n">min_range_value</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">accelerometer_meta</span><span class="p">.</span><span class="n">max_range_value</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_random_in_range</span><span class="p">(</span><span class="n">accelerometer_meta</span><span class="p">.</span><span class="n">min_range_value</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">accelerometer_meta</span><span class="p">.</span><span class="n">max_range_value</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_random_in_range</span><span class="p">(</span><span class="n">accelerometer_meta</span><span class="p">.</span><span class="n">min_range_value</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">accelerometer_meta</span><span class="p">.</span><span class="n">max_range_value</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">get_button_state</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Then, let’s implement a scheduler task that will update all sensors. The task
+schedules itself to run every second:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update_sensor_values</span><span class="p">(</span><span class="n">avs_sched_t</span><span class="w"> </span><span class="o">*</span><span class="n">sched</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">anjay_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">THERMOMETER_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_v2_basic_sensor_value_update</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">TEMPERATURE_OBJ_OID</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">get_thermometer_value</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ACCELEROMETER_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">anjay_ipso_v2_3d_sensor_value_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_accelerometer_value</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_v2_3d_sensor_value_update</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ACCELEROMETER_OBJ_OID</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">BUTTON_COUNT</span><span class="p">;</span><span class="w"> </span><span class="n">iid</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_button_update</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">get_button_state</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">AVS_SCHED_DELAYED</span><span class="p">(</span><span class="n">sched</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">),</span><span class="w"></span>
+<span class="w">                      </span><span class="n">update_sensor_values</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">anjay</span><span class="p">));</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Lastly, let’s call this method once before entering event loop. From that moment
+the task will keep running infinitely.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ...</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="hll"><span class="w">        </span><span class="n">update_sensor_values</span><span class="p">(</span><span class="n">anjay_get_scheduler</span><span class="p">(</span><span class="n">anjay</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
+</span><span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="removing-instances">
+<h3><a class="toc-backref" href="#id6"><span class="section-number">5.11.3.3. </span>Removing instances</a><a class="headerlink" href="#removing-instances" title="Permalink to this heading"></a></h3>
+<p>In case you need to change the set of instances of installed IPSO objects, those
+instances can be removed using following methods:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#af53a1881ef4ed8de52cb000700a0dbb9">anjay_ipso_v2_basic_sensor_instance_remove</a>,</p></li>
+<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a2bd255f62cf4817ea567b65ddae6644c">anjay_ipso_v2_3d_sensor_instance_remove</a>,</p></li>
 <li><p><a class="reference external" href="../api/ipso__objects_8h.html#af53a1881ef4ed8de52cb000700a0dbb9">anjay_ipso_button_instance_remove</a>.</p></li>
 </ul>
 </div></blockquote>
-<p>For example, we can look how the fake temperature object instance is removed in
-our demo:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_ipso_basic_sensor_instance_remove</span><span class="p">(</span>
-<span class="w">        </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DEMO_TEMPERATURE_OID</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
-</pre></div>
-</div>
+<p>In our example instance set doesn’t change. All objects and instances are
+automatically deleted when <code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code> is called.</p>
 </section>
-<section id="further-reading">
-<h2><span class="section-number">5.11.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading"></a></h2>
-<p>To learn more about Anjay IPSO Objects API you can look how they are used in
-our demo <a class="reference external" href="../../../../../demo/objects/ipso_objects.c">demo/objects/ipso_objects.c</a>
-and our integrations: <a class="reference external" href="https://github.com/AVSystem/Anjay-zephyr-client">Anjay Zephyr Client</a>
-and <a class="reference external" href="https://github.com/AVSystem/Anjay-freertos-client">Anjay FreeRTOS Client</a>.</p>
 </section>
 </section>
 
@@ -353,7 +580,7 @@ and <a class="reference external" href="https://github.com/AVSystem/Anjay-freert
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, AVSystem.</p>
+    <p>&#169; Copyright 2017-2024, AVSystem.</p>
   </div>
 
    

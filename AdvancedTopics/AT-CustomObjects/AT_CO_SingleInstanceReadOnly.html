@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.4.1. Single-instance read-only object &mdash; Anjay 3.6.1 documentation</title>
+  <title>5.4.1. Single-instance read-only object &mdash; Anjay 3.7.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
@@ -30,19 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../../index.html">
-            
-              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../../index.html">
+            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.1
+                3.7.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -73,7 +69,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../AT-CustomEventLoop.html">5.9. Custom event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../AT-IpsoObjects.html">5.11. Anjay IPSO Objects implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT-IpsoObjects.html">5.11. IPSO objects implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -96,10 +92,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-          <li class="breadcrumb-item"><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.4.1. </span>Single-instance read-only object</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+          <li><a href="../AT-CustomObjects.html"><span class="section-number">5.4. </span>Custom LwM2M objects</a> &raquo;</li>
+      <li><span class="section-number">5.4.1. </span>Single-instance read-only object</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -122,6 +118,11 @@ various parts of the LwM2M Object code are for.</p>
 </div>
 <p>This is the simplest possible case. Let us implement following custom Object:</p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Object ID</p></th>
@@ -137,6 +138,14 @@ various parts of the LwM2M Object code are for.</p>
 </table>
 <p>With two simple Resources:</p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Resource ID</p></th>
@@ -173,12 +182,12 @@ happen if:</p>
 (mostly related to Objects 0 (Security), 1 (Server) and 2 (Access Control)).</p></li>
 </ul>
 <p>The Read handler for our test object might be implemented as follows:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-<span class="w">                              </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">anjay_output_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_resource_read</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="n">anjay_output_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// These arguments may seem superfluous now, but they will come in handy</span>
 <span class="w">    </span><span class="c1">// while defining more complex objects</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w">   </span><span class="c1">// unused</span>
@@ -186,16 +195,16 @@ happen if:</p>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w">     </span><span class="c1">// unused: will always be 0 for single-instance Objects</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">riid</span><span class="p">;</span><span class="w">    </span><span class="c1">// unused: will always be ANJAY_ID_INVALID</span>
 
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Test object&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_real_now</span><span class="p">().</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="p">);</span>
-<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_string</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Test object&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_ret_i64</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_real_now</span><span class="p">().</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// control will never reach this part due to test_list_resources</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>What happens here?</p>
@@ -217,25 +226,25 @@ via the Discover operation, for example. Examples include Default Minimum Period
 and Default Maximum Period Resources of the LwM2M Server object.</p>
 <p>In our case, Resources 0 and 1 are always present in the only Instance we have,
 so we can implement the <code class="docutils literal notranslate"><span class="pre">test_resource_preset</span></code> handler simply as:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-<span class="w">                               </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
-<span class="w">                               </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
-<span class="w">                               </span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">test_list_resources</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">anjay</span><span class="p">;</span><span class="w">   </span><span class="c1">// unused</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">obj_ptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// unused</span>
 <span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span><span class="w">     </span><span class="c1">// unused</span>
 
-<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_R</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
-<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_R</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_R</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">anjay_dm_emit_res</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_R</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_DM_RES_PRESENT</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">anjay_dm_emit_res()</span></code> function, used in the above snippet, is declared as:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">anjay_dm_emit_res</span><span class="p">(</span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">anjay_dm_resource_kind_t</span><span class="w"> </span><span class="n">kind</span><span class="p">,</span>
-<span class="w">                       </span><span class="n">anjay_dm_resource_presence_t</span><span class="w"> </span><span class="n">presence</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">anjay_dm_emit_res</span><span class="p">(</span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">,</span><span class="w"></span>
+<span class="w">                       </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"></span>
+<span class="w">                       </span><span class="n">anjay_dm_resource_kind_t</span><span class="w"> </span><span class="n">kind</span><span class="p">,</span><span class="w"></span>
+<span class="w">                       </span><span class="n">anjay_dm_resource_presence_t</span><span class="w"> </span><span class="n">presence</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>It shall be called for all <em>supported</em> resources. The <code class="docutils literal notranslate"><span class="pre">presence</span></code> argument
@@ -258,24 +267,24 @@ information, see <a class="reference internal" href="AT_CO_BootstrapAwareness.ht
 <p>Note that the resources MUST be returned in a strictly ascending, sorted order.</p>
 <p>Having the Read and List Resources handlers implemented, one can initialize the
 <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code> structure:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="n">OBJECT_DEF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="n">OBJECT_DEF</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// Object ID</span>
-<span class="w">    </span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">oid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="p">.</span><span class="n">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// single-instance Objects can use this pre-implemented handler:</span>
-<span class="w">        </span><span class="p">.</span><span class="n">list_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_list_instances_SINGLE</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_dm_list_instances_SINGLE</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">        </span><span class="p">.</span><span class="n">list_resources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_list_resources</span><span class="p">,</span>
-<span class="w">        </span><span class="p">.</span><span class="n">resource_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_resource_read</span>
+<span class="w">        </span><span class="p">.</span><span class="n">list_resources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_list_resources</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">resource_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">test_resource_read</span><span class="w"></span>
 
 <span class="w">        </span><span class="c1">// all other handlers can be left NULL if only Read operation is</span>
 <span class="w">        </span><span class="c1">// required</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<aside class="topic">
+<div class="topic">
 <p class="topic-title">Why are all these handlers required?</p>
 <p>When the library attempts to perform an operation (e.g. Read) on a Resource
 it first performs a number of checks to ensure the target path is correct
@@ -304,20 +313,20 @@ a Not Found response is issued.</p></li>
 (see <a class="reference external" href="../../api/core_8h.html">ANJAY_ERR_* constants</a>), aborting the
 sequence early and - if the Read was triggered by a server request - causing
 the library to respond with returned error code.</p>
-</aside>
+</div>
 <p>When the Object Definition is ready, the only thing left to do is registering
 it in the library:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// ... Anjay initialization</span>
 
 <span class="w">    </span><span class="c1">// note: in this simple case the object does not have any state,</span>
 <span class="w">    </span><span class="c1">// so it&#39;s fine to use a plain double pointer to its definition struct</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">test_object_def_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="n">test_object_def_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">OBJECT_DEF</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">test_object_def_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">anjay_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">test_object_def_ptr</span><span class="p">);</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// ... event loop</span>
-<span class="p">}</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>After registering the object, whenever a LwM2M Server issues a Read request
@@ -342,7 +351,7 @@ project repository.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, AVSystem.</p>
+    <p>&#169; Copyright 2017-2024, AVSystem.</p>
   </div>
 
    

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.2. Attribute storage &mdash; Anjay 3.6.1 documentation</title>
+  <title>5.2. Attribute storage &mdash; Anjay 3.7.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
@@ -30,19 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-
-          
-          
-          <a href="../index.html">
-            
-              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+            <a href="../index.html">
+            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.6.1
+                3.7.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -64,7 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.9. Custom event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.11. Anjay IPSO Objects implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.11. IPSO objects implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -87,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.2. </span>Attribute storage</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
+      <li><span class="section-number">5.2. </span>Attribute storage</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -143,16 +139,16 @@ Attribute Storage subsystem contains a persistence code, that can be used to
 serialize and deserialize all the stored attributes to some kind of external
 memory.</p>
 <p>To use the persistence code, you first need to include the appropriate header:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/attr_storage.h&gt;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/attr_storage.h&gt;</span><span class="cp"></span>
 </pre></div>
 </div>
 <p>It contains declarations of the two functions that can be used to manage the
 persistent information:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
-<span class="w">                                       </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_persist</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_stream</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_attr_storage_restore</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">in_stream</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The data are read or written to and from objects of the
@@ -183,7 +179,7 @@ non-existent Objects or their Instances will be discarded.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, AVSystem.</p>
+    <p>&#169; Copyright 2017-2024, AVSystem.</p>
   </div>
 
    

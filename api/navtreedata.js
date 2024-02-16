@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "anjay", "index.html", [
+    [ "Experimental List", "experimentals.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -37,7 +38,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "Globals", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", null ],
+        [ "Functions", "globals_func.html", "globals_func" ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
@@ -51,9 +52,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "access__control_8h.html",
-"core_8h.html#aea8122688986696cc12c0a1a5a5bef91",
-"ipso__objects_8h.html#a50e8c38ac2271e9d702d305349ea79c3",
-"structanjay__fw__update__initial__state__t.html#a98c7bd5f331c4b7755de9b9488ccf1bd"
+"core_8h.html#ada55d45a08ccabf16b76ebc613f4a170",
+"io_8h.html#ab928e342119acd5844a647fb14ec460c",
+"structanjay__download__config.html#acb2b2bee6b320b8f6dcdbdc2cbea02d4",
+"sw__mgmt_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

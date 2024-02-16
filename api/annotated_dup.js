@@ -17,6 +17,9 @@ var annotated_dup =
     [ "anjay_fw_update_initial_state_t", "structanjay__fw__update__initial__state__t.html", "structanjay__fw__update__initial__state__t" ],
     [ "anjay_ipso_3d_sensor_impl_struct", "structanjay__ipso__3d__sensor__impl__struct.html", "structanjay__ipso__3d__sensor__impl__struct" ],
     [ "anjay_ipso_basic_sensor_impl_struct", "structanjay__ipso__basic__sensor__impl__struct.html", "structanjay__ipso__basic__sensor__impl__struct" ],
+    [ "anjay_ipso_v2_3d_sensor_meta_struct", "structanjay__ipso__v2__3d__sensor__meta__struct.html", "structanjay__ipso__v2__3d__sensor__meta__struct" ],
+    [ "anjay_ipso_v2_3d_sensor_value_struct", "structanjay__ipso__v2__3d__sensor__value__struct.html", "structanjay__ipso__v2__3d__sensor__value__struct" ],
+    [ "anjay_ipso_v2_basic_sensor_meta_struct", "structanjay__ipso__v2__basic__sensor__meta__struct.html", "structanjay__ipso__v2__basic__sensor__meta__struct" ],
     [ "anjay_lwm2m_version_config_t", "structanjay__lwm2m__version__config__t.html", "structanjay__lwm2m__version__config__t" ],
     [ "anjay_nidd_driver_struct", "structanjay__nidd__driver__struct.html", "structanjay__nidd__driver__struct" ],
     [ "anjay_resource_observation_status_t", "structanjay__resource__observation__status__t.html", "structanjay__resource__observation__status__t" ],
@@ -28,5 +31,8 @@ var annotated_dup =
     [ "anjay_smsdrv_multipart_info_t", "structanjay__smsdrv__multipart__info__t.html", "structanjay__smsdrv__multipart__info__t" ],
     [ "anjay_smsdrv_struct", "structanjay__smsdrv__struct.html", "structanjay__smsdrv__struct" ],
     [ "anjay_socket_entry_t", "structanjay__socket__entry__t.html", "structanjay__socket__entry__t" ],
+    [ "anjay_sw_mgmt_handlers_t", "structanjay__sw__mgmt__handlers__t.html", "structanjay__sw__mgmt__handlers__t" ],
+    [ "anjay_sw_mgmt_instance_initializer_t", "structanjay__sw__mgmt__instance__initializer__t.html", "structanjay__sw__mgmt__instance__initializer__t" ],
+    [ "anjay_sw_mgmt_settings_t", "structanjay__sw__mgmt__settings__t.html", "structanjay__sw__mgmt__settings__t" ],
     [ "anjay_transport_set_t", "structanjay__transport__set__t.html", "structanjay__transport__set__t" ]
 ];

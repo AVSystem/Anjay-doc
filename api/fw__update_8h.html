@@ -386,7 +386,7 @@ Functions</h2></td></tr>
 <p>Most users will want to implement firmware update in a way that involves a reboot. In such case, it is expected that this callback will do either one of the following:</p>
 <ul>
 <li>perform firmware upgrade, terminate outermost event loop and return, call reboot after <a class="el" href="core_8h.html#a95c229caf3ee8ce7de556256f4307507">anjay_event_loop_run()</a></li>
-<li>perform the firmware upgrade internally and then reboot, it means that the return will never happen</li>
+<li>perform the firmware upgrade internally and then reboot, it means that the return will never happen (although the library won't be able to send the acknowledgement to execution of Update resource)</li>
 </ul>
 <p>After rebooting, the result of the upgrade process may be passed to the library during initialization via the <code>initial_result</code> argument to <a class="el" href="fw__update_8h.html#a058f05510e5b22fbdf53466a03cc6d38">anjay_fw_update_install</a> .</p>
 <p>Alternatively, if the update can be performed without reinitializing Anjay, you can use <a class="el" href="fw__update_8h.html#ac863d2d01b8796cb047fd4520f737b6f">anjay_fw_update_set_result</a> (either from within the handler or some time after returning from it) to pass the update result.</p>
@@ -717,7 +717,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="fw__update_8h.html">fw_update.h</a></li>
-    <li class="footer">Generated on Tue Nov 21 2023 12:37:06 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Feb 16 2024 11:36:38 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

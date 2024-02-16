@@ -53,6 +53,11 @@ var core_8h =
       [ "ANJAY_PREFER_ONLINE_MODE", "core_8h.html#a6f7aeb0a4c155aba842fab2edbfcbdc7ac76fbd1ae6bddc3fc962f82e87c18eae", null ],
       [ "ANJAY_FORCE_ONLINE_MODE", "core_8h.html#a6f7aeb0a4c155aba842fab2edbfcbdc7a8408d77fade33e9456fb2f12e34f72ab", null ]
     ] ],
+    [ "anjay_registration_expiration_status_t", "core_8h.html#a01dbde61b57a27e475ab19d11778f1ac", [
+      [ "ANJAY_REGISTRATION_EXPIRATION_STATUS_VALID", "core_8h.html#a01dbde61b57a27e475ab19d11778f1aca4afb4f9fb234d174ccfd55c171df9a68", null ],
+      [ "ANJAY_REGISTRATION_EXPIRATION_STATUS_EXPIRED", "core_8h.html#a01dbde61b57a27e475ab19d11778f1acac6acbf8c7b504633cebaac8d244e645c", null ],
+      [ "ANJAY_REGISTRATION_EXPIRATION_STATUS_INFINITE_LIFETIME", "core_8h.html#a01dbde61b57a27e475ab19d11778f1acaa75661c5d67ba0200bccfb135c58e4b1", null ]
+    ] ],
     [ "anjay_socket_transport_t", "core_8h.html#a38b3213870f87f8d125ee1793b36138f", [
       [ "ANJAY_SOCKET_TRANSPORT_INVALID", "core_8h.html#a38b3213870f87f8d125ee1793b36138fa28e4cfc8905459138e08f14e73459802", null ],
       [ "ANJAY_SOCKET_TRANSPORT_UDP", "core_8h.html#a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7", null ],
@@ -76,6 +81,8 @@ var core_8h =
     [ "anjay_get_server_last_communication_time", "core_8h.html#a9c52dee9a26062cffd8567f5b02df6ef", null ],
     [ "anjay_get_server_last_registration_time", "core_8h.html#a993b094deb9b588853057da6725412cd", null ],
     [ "anjay_get_server_next_update_time", "core_8h.html#ac13652a492a658aac8a61374722e44f9", null ],
+    [ "anjay_get_server_ssid_by_msisdn", "core_8h.html#ab55b34e46ad898e435728d8dadc2b0ad", null ],
+    [ "anjay_get_sms_trigger", "core_8h.html#a38a8640ba2a4ab2e36671af73fe63caf", null ],
     [ "anjay_get_socket_entries", "core_8h.html#accc841d429905c688957594c05c59e52", null ],
     [ "anjay_get_sockets", "core_8h.html#afb06d3039ea169fc8f0d551bc04c929f", null ],
     [ "anjay_get_version", "core_8h.html#ad2fa000fb24ae72702fd552c2f207472", null ],
@@ -86,7 +93,8 @@ var core_8h =
     [ "anjay_next_planned_notify_trigger", "core_8h.html#a7c6bcd4c08e33954f5278c24ed4fced7", null ],
     [ "anjay_next_planned_pmax_notify_trigger", "core_8h.html#a27c832f5d4cf002b9de2cefaf263fd57", null ],
     [ "anjay_ongoing_registration_exists", "core_8h.html#a497b359f5c1660fc3e02a56362a819ea", null ],
-    [ "anjay_registration_expiration_time", "core_8h.html#a7c3219cdd3cbe2ab387cb236081466a4", null ],
+    [ "anjay_registration_expiration_time", "core_8h.html#a0235b95a5b42d3d76e1344c6299c29c2", null ],
+    [ "anjay_registration_expiration_time_with_status", "core_8h.html#ad7e0e96bb052d5996d12bae9e365cebb", null ],
     [ "anjay_sched_calculate_wait_time_ms", "core_8h.html#aea8122688986696cc12c0a1a5a5bef91", null ],
     [ "anjay_sched_run", "core_8h.html#aa8358a25354b91b9058a2b9888db2f85", null ],
     [ "anjay_sched_time_to_next", "core_8h.html#ad83be53577741a9f3f94c39c464def09", null ],
