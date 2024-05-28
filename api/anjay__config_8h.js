@@ -15,6 +15,7 @@ var anjay__config_8h =
     [ "ANJAY_WITH_COAP_DOWNLOAD", "anjay__config_8h.html#ac0c49e6eb1f1bf4233d4100f75e02ef3", null ],
     [ "ANJAY_WITH_COMMUNICATION_TIMESTAMP_API", "anjay__config_8h.html#a6c4776aab1ad2d74677adec7b939660e", null ],
     [ "ANJAY_WITH_CON_ATTR", "anjay__config_8h.html#a748f705c32b8e352089e7e233bb7782e", null ],
+    [ "ANJAY_WITH_CONN_STATUS_API", "anjay__config_8h.html#aacc008a1cd527de44bf9d0d0c5d50178", null ],
     [ "ANJAY_WITH_CORE_PERSISTENCE", "anjay__config_8h.html#ad83f5d3a0ede5bb617cfae1ed67e89ce", null ],
     [ "ANJAY_WITH_DISCOVER", "anjay__config_8h.html#a55fa5826aba0829bd86563a976b4bd88", null ],
     [ "ANJAY_WITH_DOWNLOADER", "anjay__config_8h.html#a9879332ce70641480bdf8752bdd74907", null ],

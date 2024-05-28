@@ -124,6 +124,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:aa203c2a1b1e606f1f292873170841ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03229ff908f641ebec2ff96f6e20740e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a03229ff908f641ebec2ff96f6e20740e">enable_self_notify</a></td></tr>
 <tr class="separator:a03229ff908f641ebec2ff96f6e20740e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcc95609ca645a5bd6a572f4c99a83fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#adcc95609ca645a5bd6a572f4c99a83fb">connection_error_is_registration_failure</a></td></tr>
+<tr class="separator:adcc95609ca645a5bd6a572f4c99a83fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5c0d3b6618cce9452d224a361e7479f"><td class="memItemLeft" align="right" valign="top">avs_net_socket_tls_ciphersuites_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#ab5c0d3b6618cce9452d224a361e7479f">default_tls_ciphersuites</a></td></tr>
 <tr class="separator:ab5c0d3b6618cce9452d224a361e7479f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87caa58c7de566e8c837d996b779f936"><td class="memItemLeft" align="right" valign="top">avs_crypto_prng_ctx_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a87caa58c7de566e8c837d996b779f936">prng_ctx</a></td></tr>
@@ -168,6 +170,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:abc4fdd9feb2cb58a47408a96308dbf6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695689ab4fc248793ad63f631a0c630f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a695689ab4fc248793ad63f631a0c630f">est_engine_cacerts_address_gen_cb_arg</a></td></tr>
 <tr class="separator:a695689ab4fc248793ad63f631a0c630f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac735e561573092a23a82e212c2ab2a69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="core_8h.html#aa46996148689d7dfb4db59947c311b01">anjay_server_connection_status_cb_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#ac735e561573092a23a82e212c2ab2a69">server_connection_status_cb</a></td></tr>
+<tr class="separator:ac735e561573092a23a82e212c2ab2a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4961cf98b0de93c11cf0892abaaf0b1c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a4961cf98b0de93c11cf0892abaaf0b1c">server_connection_status_cb_arg</a></td></tr>
+<tr class="separator:a4961cf98b0de93c11cf0892abaaf0b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="af4beab316b41955825df88a1dba26dcd"></a>
@@ -229,6 +235,23 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Controls whether Notify operations are conveyed using Confirmable CoAP messages by default. </p>
+
+</div>
+</div>
+<a id="adcc95609ca645a5bd6a572f4c99a83fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcc95609ca645a5bd6a572f4c99a83fb">&#9670;&nbsp;</a></span>connection_error_is_registration_failure</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool connection_error_is_registration_failure</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Treat failures of the "connect" socket operation (e.g. (D)TLS handshake failures) as a failed LwM2M Register operation. This enables automatic retrying of them as described in the "Bootstrap and LwM2M Server
+Registration Mechanisms" of LwM2M Core TS 1.1.</p>
+<p>When disabled, such failures are treated as fatal errors and cause the entire registration sequence for that server to be aborted (which will trigger a fallback to Bootstrap if applicable). </p>
 
 </div>
 </div>
@@ -597,6 +620,39 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="ac735e561573092a23a82e212c2ab2a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac735e561573092a23a82e212c2ab2a69">&#9670;&nbsp;</a></span>server_connection_status_cb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="core_8h.html#aa46996148689d7dfb4db59947c311b01">anjay_server_connection_status_cb_t</a>* server_connection_status_cb</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000004">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<p>Function called each time there is a transition of a server connection status (as listed in <a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a> ). </p>
+
+</div>
+</div>
+<a id="a4961cf98b0de93c11cf0892abaaf0b1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4961cf98b0de93c11cf0892abaaf0b1c">&#9670;&nbsp;</a></span>server_connection_status_cb_arg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* server_connection_status_cb_arg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000005">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<p>Opaque argument that will be passed to the function configured in the <code>server_connection_status_cb</code> field.</p>
+<p>If <code>server_connection_status_cb</code> is NULL, this field is ignored. </p>
+
+</div>
+</div>
 <a id="afd5f1cd16a6433b3fa8edec080e21226"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd5f1cd16a6433b3fa8edec080e21226">&#9670;&nbsp;</a></span>sms_driver</h2>
 
@@ -827,7 +883,7 @@ Usage" modes configured in the Security object of the data model. It is also not
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__configuration.html">anjay_configuration</a></li>
-    <li class="footer">Generated on Fri Feb 16 2024 11:36:38 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue May 28 2024 11:28:24 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

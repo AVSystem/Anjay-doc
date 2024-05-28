@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4.1.4. Advanced configuration features &mdash; Anjay 3.7.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+  <title>8.4.1.4. Advanced configuration features &mdash; Anjay 3.8.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=b9c2c5b9" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=948f11bf"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -30,15 +31,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../../index.html">
-            <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.7.0
+                3.8.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -85,10 +90,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
-          <li><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a> &raquo;</li>
-      <li><span class="section-number">8.4.1.4. </span>Advanced configuration features</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
+          <li class="breadcrumb-item"><a href="../CustomTLS.html"><span class="section-number">8.4. </span>Custom (D)TLS layers</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.4.1.4. </span>Advanced configuration features</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -98,8 +103,8 @@
            <div itemprop="articleBody">
              
   <section id="advanced-configuration-features">
-<h1><span class="section-number">8.4.1.4. </span>Advanced configuration features<a class="headerlink" href="#advanced-configuration-features" title="Permalink to this heading"></a></h1>
-<div class="contents local topic" id="contents">
+<h1><span class="section-number">8.4.1.4. </span>Advanced configuration features<a class="headerlink" href="#advanced-configuration-features" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#introduction" id="id1">Introduction</a></p></li>
 <li><p><a class="reference internal" href="#configurable-dtls-version" id="id2">Configurable DTLS version</a></p></li>
@@ -108,7 +113,7 @@
 <li><p><a class="reference internal" href="#overriding-the-hostname-used-for-sni" id="id5">Overriding the hostname used for SNI</a></p></li>
 <li><p><a class="reference internal" href="#applying-the-configuration" id="id6">Applying the configuration</a></p></li>
 </ul>
-</div>
+</nav>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Code related to this tutorial can be found under
@@ -116,7 +121,7 @@
 in the Anjay source directory.</p>
 </div>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id1"><span class="section-number">8.4.1.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">8.4.1.4.1. </span>Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>This tutorial builds up on <a class="reference internal" href="CustomTLS-Resumption.html"><span class="doc">the previous one</span></a> and
 adds support for some of the more advanced features configurable via the
 <code class="docutils literal notranslate"><span class="pre">avs_net_ssl_configuration_t</span></code> structure.</p>
@@ -154,23 +159,23 @@ Identification hostname can be controlled through the LwM2M data model, when
 LwM2M 1.1 is in use.</p>
 </section>
 <section id="configurable-dtls-version">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">8.4.1.4.2. </span>Configurable DTLS version</a><a class="headerlink" href="#configurable-dtls-version" title="Permalink to this heading"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_dtls_version</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                          </span><span class="n">avs_net_ssl_version_t</span><span class="w"> </span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_DEFAULT</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1_1</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">DTLS1_VERSION</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">DTLS1_2_VERSION</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">8.4.1.4.2. </span>Configurable DTLS version</a><a class="headerlink" href="#configurable-dtls-version" title="Link to this heading"></a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_dtls_version</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span>
+<span class="w">                                          </span><span class="n">avs_net_ssl_version_t</span><span class="w"> </span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_DEFAULT</span><span class="p">:</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1</span><span class="p">:</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1_1</span><span class="p">:</span>
+<span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">DTLS1_VERSION</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SSL_VERSION_TLSv1_2</span><span class="p">:</span>
+<span class="w">        </span><span class="n">SSL_CTX_set_min_proto_version</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">DTLS1_2_VERSION</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">version</span></code> values comes from the <code class="docutils literal notranslate"><span class="pre">version</span></code> field of the
@@ -192,7 +197,7 @@ newer. This is also an acceptable behavior for this option, although configuring
 only the <em>minimum</em> version is preferred whenever possible.</p>
 </section>
 <section id="configurable-dtls-handshake-timers">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">8.4.1.4.3. </span>Configurable DTLS handshake timers</a><a class="headerlink" href="#configurable-dtls-handshake-timers" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">8.4.1.4.3. </span>Configurable DTLS handshake timers</a><a class="headerlink" href="#configurable-dtls-handshake-timers" title="Link to this heading"></a></h2>
 <p>When exchanging application data, DTLS acts as a thin wrapper over the
 underlying transport protocol (e.g. UDP) and does not implement any reliability
 mechanisms of its own. However, basic reliability is provided during the
@@ -211,109 +216,109 @@ default doubling logic, configured using <code class="docutils literal notransla
 <p>These values need to be stored somewhere so that we can read them during the
 handshake. OpenSSL APIs use microseconds represented as <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">int</span></code> for
 this purpose, so let’s use that in <code class="docutils literal notranslate"><span class="pre">tls_socket_impl_t</span></code> as well:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="o">*</span><span class="n">operations</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">backend_socket</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="o">*</span><span class="n">operations</span><span class="p">;</span>
+<span class="w">    </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">backend_socket</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">psk</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">identity</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">psk</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">identity</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">session_resumption_buffer_size</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">session_resumption_buffer</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">session_resumption_buffer_size</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">server_name_indication</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_min_us</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_max_us</span><span class="p">;</span><span class="w"></span>
-</span><span class="p">}</span><span class="w"> </span><span class="n">tls_socket_impl_t</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">server_name_indication</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+<span class="hll"><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_min_us</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_max_us</span><span class="p">;</span>
+</span><span class="p">}</span><span class="w"> </span><span class="n">tls_socket_impl_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>These values shall be populated based on the <code class="docutils literal notranslate"><span class="pre">dtls_handshake_timeouts</span></code> field
 in <code class="docutils literal notranslate"><span class="pre">avs_net_ssl_configuration_t</span></code>, and default to 1 and 60 seconds if that is
 absent:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_dtls_handshake_timeouts</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_dtls_handshake_timeouts_t</span><span class="w"> </span><span class="o">*</span><span class="n">dtls_handshake_timeouts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">min_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="n">max_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60000000</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dtls_handshake_timeouts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_time_duration_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">min_us</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_US</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                    </span><span class="n">dtls_handshake_timeouts</span><span class="o">-&gt;</span><span class="n">min</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_time_duration_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">max_us</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_US</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                    </span><span class="n">dtls_handshake_timeouts</span><span class="o">-&gt;</span><span class="n">max</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_min_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">min_us</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">max_us</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_dtls_handshake_timeouts</span><span class="p">(</span>
+<span class="w">        </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_dtls_handshake_timeouts_t</span><span class="w"> </span><span class="o">*</span><span class="n">dtls_handshake_timeouts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">min_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w"> </span><span class="n">max_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60000000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dtls_handshake_timeouts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_time_duration_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">min_us</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_US</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">dtls_handshake_timeouts</span><span class="o">-&gt;</span><span class="n">min</span><span class="p">);</span>
+<span class="w">        </span><span class="n">avs_time_duration_to_scalar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">max_us</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_US</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">dtls_handshake_timeouts</span><span class="o">-&gt;</span><span class="n">max</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_min_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">min_us</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">max_us</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>We can now implement and apply the timer callback function:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="k">static</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">dtls_timer_cb</span><span class="p">(</span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">timer_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">SSL_get_app_data</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">timer_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_min_us</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">timer_us</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="k">static</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">dtls_timer_cb</span><span class="p">(</span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">timer_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">SSL_get_app_data</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">timer_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_min_us</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">timer_us</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span class="hll"><span class="w">        </span><span class="c1">// maximum number of retransmissions reached, let&#39;s give up</span>
-</span><span class="hll"><span class="w">        </span><span class="n">avs_net_socket_shutdown</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">timer_us</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">timer_us</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">            </span><span class="n">timer_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">timer_us</span><span class="p">;</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
-</span><span class="hll"><span class="p">}</span><span class="w"></span>
+</span><span class="hll"><span class="w">        </span><span class="n">avs_net_socket_shutdown</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">timer_us</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">timer_us</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">timer_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">dtls_hs_timeout_max_us</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">timer_us</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="hll"><span class="p">}</span>
 </span>
-<span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">perform_handshake</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                     </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="n">addr</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_storage</span><span class="w"> </span><span class="n">storage</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">peername</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">fd_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fd_ptr</span><span class="w"></span>
-<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">getpeername</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                           </span><span class="o">&amp;</span><span class="p">(</span><span class="kt">socklen_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">peername</span><span class="p">)</span><span class="w"> </span><span class="p">}))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EBADF</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">perform_handshake</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span>
+<span class="w">                                     </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="n">addr</span><span class="p">;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_storage</span><span class="w"> </span><span class="n">storage</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">peername</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">fd_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fd_ptr</span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">getpeername</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">,</span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="p">(</span><span class="kt">socklen_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">peername</span><span class="p">)</span><span class="w"> </span><span class="p">}))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EBADF</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_new</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_new</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">SSL_set_app_data</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">sock</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL_set_tlsext_host_name</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">SSL_set_app_data</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">sock</span><span class="p">);</span>
+<span class="w">    </span><span class="n">SSL_set_tlsext_host_name</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">BIO</span><span class="w"> </span><span class="o">*</span><span class="n">bio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BIO_new_dgram</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bio</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">BIO_ctrl</span><span class="p">(</span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">BIO_CTRL_DGRAM_SET_CONNECTED</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL_set_bio</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">);</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="n">DTLS_set_timer_cb</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">dtls_timer_cb</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">BIO</span><span class="w"> </span><span class="o">*</span><span class="n">bio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BIO_new_dgram</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">fd_ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bio</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">BIO_ctrl</span><span class="p">(</span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">BIO_CTRL_DGRAM_SET_CONNECTED</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peername</span><span class="p">.</span><span class="n">addr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">SSL_set_bio</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">,</span><span class="w"> </span><span class="n">bio</span><span class="p">);</span>
+<span class="hll"><span class="w">    </span><span class="n">DTLS_set_timer_cb</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">dtls_timer_cb</span><span class="p">);</span>
 </span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">                </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">session</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">                </span><span class="n">d2i_SSL_SESSION</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">session</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">SSL_set_session</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">session</span><span class="p">);</span><span class="w"></span>
-<span class="w">            </span><span class="n">SSL_SESSION_free</span><span class="p">(</span><span class="n">session</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">SSL_SESSION</span><span class="w"> </span><span class="o">*</span><span class="n">session</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="n">d2i_SSL_SESSION</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">session</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">SSL_set_session</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">,</span><span class="w"> </span><span class="n">session</span><span class="p">);</span>
+<span class="w">            </span><span class="n">SSL_SESSION_free</span><span class="p">(</span><span class="n">session</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SSL_connect</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EPROTO</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SSL_connect</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EPROTO</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Note the call to <code class="docutils literal notranslate"><span class="pre">avs_net_socket_shutdown(sock-&gt;backend_socket)</span></code> - OpenSSL has
@@ -326,7 +331,7 @@ example, a simple call to <code class="docutils literal notranslate"><span class
 provides the expected semantics.</p>
 </section>
 <section id="configurable-ciphersuite-list">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">8.4.1.4.4. </span>Configurable ciphersuite list</a><a class="headerlink" href="#configurable-ciphersuite-list" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">8.4.1.4.4. </span>Configurable ciphersuite list</a><a class="headerlink" href="#configurable-ciphersuite-list" title="Link to this heading"></a></h2>
 <p>OpenSSL allows configuring the ciphersuite list using a specially prepared
 string. For example, to configure the use of the two ciphersuites mentioned in
 the LwM2M specification for the PSK mode (<code class="docutils literal notranslate"><span class="pre">TLS_PSK_WITH_AES_128_CCM_8</span></code> and
@@ -341,41 +346,41 @@ ciphersuite IDs as transmitted over the wire in TLS, so, for example,
 for a full list of known IDs.</p>
 <p>We need to write a function that converts this array into the string format
 expected by OpenSSL:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"></span>
-<span class="nf">configure_ciphersuites</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
-<span class="w">                       </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_tls_ciphersuites_t</span><span class="w"> </span><span class="o">*</span><span class="n">ciphersuites</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">num_ids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">dummy_ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_new</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">dummy_ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">cipher_list</span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;-ALL&quot;</span><span class="p">;</span><span class="w"></span>
-</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">cipher_list_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cipher_list</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">cipher_list</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">cipher_list_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cipher_list</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">cipher_list</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">num_ids</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">id_as_chars</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span><span class="w"></span>
-<span class="w">            </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">};</span><span class="w"></span>
-<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">SSL_CIPHER</span><span class="w"> </span><span class="o">*</span><span class="n">cipher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CIPHER_find</span><span class="p">(</span><span class="n">dummy_ssl</span><span class="p">,</span><span class="w"> </span><span class="n">id_as_chars</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CIPHER_get_name</span><span class="p">(</span><span class="n">cipher</span><span class="p">);</span><span class="w"></span>
-<span class="hll"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!!</span><span class="n">strstr</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PSK&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">!!</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">psk_size</span><span class="w"></span>
-</span><span class="w">                    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cipher_list_ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cipher_list_end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="o">*</span><span class="n">cipher_list_ptr</span><span class="o">++</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;:&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">                </span><span class="n">strcpy</span><span class="p">(</span><span class="n">cipher_list_ptr</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"></span>
-<span class="w">                </span><span class="n">cipher_list_ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL_free</span><span class="p">(</span><span class="n">dummy_ssl</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL_CTX_set_cipher_list</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">cipher_list</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span>
+<span class="nf">configure_ciphersuites</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span>
+<span class="w">                       </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_tls_ciphersuites_t</span><span class="w"> </span><span class="o">*</span><span class="n">ciphersuites</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">num_ids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">dummy_ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_new</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">dummy_ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">cipher_list</span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;-ALL&quot;</span><span class="p">;</span>
+</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">cipher_list_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cipher_list</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">cipher_list</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">cipher_list_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cipher_list</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">cipher_list</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">num_ids</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">id_as_chars</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span>
+<span class="w">            </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">ciphersuites</span><span class="o">-&gt;</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">)</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">SSL_CIPHER</span><span class="w"> </span><span class="o">*</span><span class="n">cipher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CIPHER_find</span><span class="p">(</span><span class="n">dummy_ssl</span><span class="p">,</span><span class="w"> </span><span class="n">id_as_chars</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CIPHER_get_name</span><span class="p">(</span><span class="n">cipher</span><span class="p">);</span>
+<span class="hll"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!!</span><span class="n">strstr</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PSK&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">!!</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">psk_size</span>
+</span><span class="w">                    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cipher_list_ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cipher_list_end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="o">*</span><span class="n">cipher_list_ptr</span><span class="o">++</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;:&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">strcpy</span><span class="p">(</span><span class="n">cipher_list_ptr</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<span class="w">                </span><span class="n">cipher_list_ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">SSL_free</span><span class="p">(</span><span class="n">dummy_ssl</span><span class="p">);</span>
+<span class="w">    </span><span class="n">SSL_CTX_set_cipher_list</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">cipher_list</span><span class="p">);</span>
 <span class="w">    </span><span class="c1">// NOTE: Configuring the set of supported new-style ciphersuites as defined</span>
 <span class="w">    </span><span class="c1">// for TLS 1.3 are not supported by this function.</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">-ALL</span></code> at the beginning disables the default configuration, which is not
@@ -406,137 +411,137 @@ for more information on how this can be implemented.</p>
 </div>
 </section>
 <section id="overriding-the-hostname-used-for-sni">
-<h2><a class="toc-backref" href="#id5"><span class="section-number">8.4.1.4.5. </span>Overriding the hostname used for SNI</a><a class="headerlink" href="#overriding-the-hostname-used-for-sni" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">8.4.1.4.5. </span>Overriding the hostname used for SNI</a><a class="headerlink" href="#overriding-the-hostname-used-for-sni" title="Link to this heading"></a></h2>
 <p>We already have most of the logic related to SNI implemented in the
 <code class="docutils literal notranslate"><span class="pre">perform_handshake()</span></code> function. However, this is currently locked to the
 hostname provided to the <code class="docutils literal notranslate"><span class="pre">connect</span></code> operation. However, it is relatively simple
 to allow overriding this value.</p>
 <p>First, we need to reserve a place to store the overridden hostname:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="o">*</span><span class="n">operations</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">backend_socket</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_v_table_t</span><span class="w"> </span><span class="o">*</span><span class="n">operations</span><span class="p">;</span>
+<span class="w">    </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">backend_socket</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SSL_CTX</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SSL</span><span class="w"> </span><span class="o">*</span><span class="n">ssl</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">psk</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">identity</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">psk</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">psk_size</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">identity</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">identity_size</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">session_resumption_buffer_size</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">session_resumption_buffer</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">session_resumption_buffer_size</span><span class="p">;</span>
 
-<span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">server_name_indication</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span><span class="w"></span>
-</span><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_min_us</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_max_us</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">tls_socket_impl_t</span><span class="p">;</span><span class="w"></span>
+<span class="hll"><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">server_name_indication</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+</span><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_min_us</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dtls_hs_timeout_max_us</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">tls_socket_impl_t</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>This value shall be populated based on the <code class="docutils literal notranslate"><span class="pre">server_name_indication</span></code> field
 in <code class="docutils literal notranslate"><span class="pre">avs_net_ssl_configuration_t</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_sni</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                 </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">server_name_indication</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">server_name_indication</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">server_name_indication</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="o">&gt;=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOBUFS</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">,</span><span class="w"> </span><span class="n">server_name_indication</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">configure_sni</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="p">,</span>
+<span class="w">                                 </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">server_name_indication</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">server_name_indication</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">server_name_indication</span><span class="p">)</span>
+<span class="w">                </span><span class="o">&gt;=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOBUFS</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">strcpy</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">,</span><span class="w"> </span><span class="n">server_name_indication</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This value can now, if present, override the hostname when calling
 <code class="docutils literal notranslate"><span class="pre">perform_handshake()</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span><span class="w"></span>
-<span class="nf">tls_connect</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EBADF</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">((</span><span class="w"></span>
-<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_connect</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)))</span><span class="w"></span>
-<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">perform_handshake</span><span class="p">(</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                   </span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                                 </span><span class="o">?</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                                 </span><span class="o">:</span><span class="w"> </span><span class="n">host</span><span class="p">))))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">SSL_free</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">);</span><span class="w"></span>
-<span class="w">            </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="n">avs_net_socket_close</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">avs_error_t</span>
+<span class="nf">tls_connect</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock_</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sock_</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_EBADF</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">((</span>
+<span class="w">                </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_socket_connect</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)))</span>
+<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">perform_handshake</span><span class="p">(</span>
+</span><span class="hll"><span class="w">                                   </span><span class="n">sock</span><span class="p">,</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class="hll"><span class="w">                                                 </span><span class="o">?</span><span class="w"> </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">server_name_indication</span>
+</span><span class="hll"><span class="w">                                                 </span><span class="o">:</span><span class="w"> </span><span class="n">host</span><span class="p">))))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">SSL_free</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="p">);</span>
+<span class="w">            </span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">ssl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">avs_net_socket_close</span><span class="p">(</span><span class="n">sock</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="applying-the-configuration">
-<h2><a class="toc-backref" href="#id6"><span class="section-number">8.4.1.4.6. </span>Applying the configuration</a><a class="headerlink" href="#applying-the-configuration" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">8.4.1.4.6. </span>Applying the configuration</a><a class="headerlink" href="#applying-the-configuration" title="Link to this heading"></a></h2>
 <p>Having written all the <code class="docutils literal notranslate"><span class="pre">configure_*</span></code> functions, they can be called during
 socket creation in <code class="docutils literal notranslate"><span class="pre">_avs_net_create_dtls_socket()</span></code>:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket_ptr</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                        </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">configuration_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="o">!*</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">configuration_</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">configuration</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">configuration_</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">socket</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">socket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="o">*</span><span class="n">socket_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">socket</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">TLS_SOCKET_VTABLE</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_error_t</span><span class="w"> </span><span class="nf">_avs_net_create_dtls_socket</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">**</span><span class="n">socket_ptr</span><span class="p">,</span>
+<span class="w">                                        </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">configuration_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="o">!*</span><span class="n">socket_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">configuration_</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">configuration</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_ssl_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">configuration_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="n">socket</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">avs_calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">tls_socket_impl_t</span><span class="p">));</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">socket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="o">*</span><span class="n">socket_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">socket</span><span class="p">;</span>
+<span class="w">    </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">TLS_SOCKET_VTABLE</span><span class="p">;</span>
 
-<span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_udp_socket_create</span><span class="p">(</span><span class="w"></span>
-<span class="w">                           </span><span class="o">&amp;</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span><span class="w"></span>
-<span class="w">                           </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">backend_configuration</span><span class="p">)))</span><span class="w"></span>
-<span class="w">            </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CTX_new</span><span class="p">(</span><span class="n">DTLS_method</span><span class="p">())))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="hll"><span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_dtls_version</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">);</span><span class="w"></span>
-</span><span class="hll"><span class="w">    </span><span class="p">}</span><span class="w"></span>
-</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_PSK</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span><span class="w"></span>
-<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"></span>
-<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span><span class="w"></span>
-</span><span class="hll"><span class="w">                       </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_dtls_handshake_timeouts</span><span class="p">(</span><span class="w"></span>
-</span><span class="hll"><span class="w">                               </span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">dtls_handshake_timeouts</span><span class="p">)))</span><span class="w"></span>
-</span><span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_ciphersuites</span><span class="p">(</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                   </span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">ciphersuites</span><span class="p">)))</span><span class="w"></span>
-</span><span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_sni</span><span class="p">(</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                   </span><span class="n">socket</span><span class="p">,</span><span class="w"></span>
-</span><span class="hll"><span class="w">                                   </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">))))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-</span><span class="w">        </span><span class="n">avs_net_socket_cleanup</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">SSL_CTX_set_mode</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">SSL_MODE_AUTO_RETRY</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">                </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">                </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">SSL_CTX_set_session_cache_mode</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">SSL_SESS_CACHE_CLIENT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SSL_SESS_CACHE_NO_INTERNAL_STORE</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">SSL_CTX_sess_set_new_cb</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">new_session_cb</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_net_udp_socket_create</span><span class="p">(</span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">backend_socket</span><span class="p">,</span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">backend_configuration</span><span class="p">)))</span>
+<span class="w">            </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SSL_CTX_new</span><span class="p">(</span><span class="n">DTLS_method</span><span class="p">())))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOMEM</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_dtls_version</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">);</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_ok</span><span class="p">(</span><span class="n">err</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">AVS_NET_SECURITY_PSK</span><span class="p">:</span>
+<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_psk</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">security</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">psk</span><span class="p">);</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="k">default</span><span class="o">:</span>
+<span class="w">            </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avs_errno</span><span class="p">(</span><span class="n">AVS_ENOTSUP</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avs_is_err</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span>
+</span><span class="hll"><span class="w">                       </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_dtls_handshake_timeouts</span><span class="p">(</span>
+</span><span class="hll"><span class="w">                               </span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">dtls_handshake_timeouts</span><span class="p">)))</span>
+</span><span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_ciphersuites</span><span class="p">(</span>
+</span><span class="hll"><span class="w">                                   </span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">ciphersuites</span><span class="p">)))</span>
+</span><span class="hll"><span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="n">avs_is_err</span><span class="p">((</span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configure_sni</span><span class="p">(</span>
+</span><span class="hll"><span class="w">                                   </span><span class="n">socket</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                                   </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">server_name_indication</span><span class="p">))))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">        </span><span class="n">avs_net_socket_cleanup</span><span class="p">(</span><span class="n">socket_ptr</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">SSL_CTX_set_mode</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">SSL_MODE_AUTO_RETRY</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">);</span>
+<span class="w">        </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="n">configuration</span><span class="o">-&gt;</span><span class="n">session_resumption_buffer_size</span><span class="p">;</span>
+<span class="w">        </span><span class="n">SSL_CTX_set_session_cache_mode</span><span class="p">(</span>
+<span class="w">                </span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">                </span><span class="n">SSL_SESS_CACHE_CLIENT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SSL_SESS_CACHE_NO_INTERNAL_STORE</span><span class="p">);</span>
+<span class="w">        </span><span class="n">SSL_CTX_sess_set_new_cb</span><span class="p">(</span><span class="n">socket</span><span class="o">-&gt;</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">new_session_cb</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AVS_OK</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>

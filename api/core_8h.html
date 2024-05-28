@@ -175,6 +175,10 @@ Typedefs</h2></td></tr>
 <tr class="separator:a3b59febc7a2faeaf26e6af04fc72a397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8604feaa669414289ed99d75a03d6fb"><td class="memItemLeft" align="right" valign="top">typedef const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ae8604feaa669414289ed99d75a03d6fb">anjay_est_engine_cacert_address_gen_t</a>(void *arg, const void *x509_der_data, size_t x509_der_data_size)</td></tr>
 <tr class="separator:ae8604feaa669414289ed99d75a03d6fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a6a65ff63f05022d08ae35aa56bfe9"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2e">anjay_server_conn_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a></td></tr>
+<tr class="separator:a15a6a65ff63f05022d08ae35aa56bfe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa46996148689d7dfb4db59947c311b01"><td class="memItemLeft" align="right" valign="top">typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#aa46996148689d7dfb4db59947c311b01">anjay_server_connection_status_cb_t</a>(void *arg, <a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, <a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a> status)</td></tr>
+<tr class="separator:aa46996148689d7dfb4db59947c311b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0a489fe34c85c5caa003c6629301ef2"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structanjay__configuration.html">anjay_configuration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ae0a489fe34c85c5caa003c6629301ef2">anjay_configuration_t</a></td></tr>
 <tr class="separator:ae0a489fe34c85c5caa003c6629301ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d98afc759c24fff65c6dcd5fc438f32"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a3d98afc759c24fff65c6dcd5fc438f32">anjay_oid_t</a></td></tr>
@@ -202,6 +206,28 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a150879e082c4c2355393dab23bacddba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab871d33319fce6c255d8c6ed5bf4eb2e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2e">anjay_server_conn_status</a> { <br />
+&#160;&#160;<a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea624d5e91f991eee0a42d055b85214d21">ANJAY_SERV_CONN_STATUS_INVALID</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea6fdd86602aae6918f2578c5366acd3eb">ANJAY_SERV_CONN_STATUS_ERROR</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea0246ea3d78017f4a66180c94fa1cd88c">ANJAY_SERV_CONN_STATUS_INITIAL</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2eadd73a7e0adbe22d52f451db47f056182">ANJAY_SERV_CONN_STATUS_CONNECTING</a>
+, <br />
+&#160;&#160;<a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea4748c1b85b6dce235000204a4c17bd5c">ANJAY_SERV_CONN_STATUS_BOOTSTRAPPING</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2eafa89747293e4149e50b9857ea33f9db2">ANJAY_SERV_CONN_STATUS_BOOTSTRAPPED</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea44994d8fcce51b0e99a445f0be7e60e6">ANJAY_SERV_CONN_STATUS_REGISTERING</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea9bcaf71c897e44edbe79cb18d7287583">ANJAY_SERV_CONN_STATUS_REGISTERED</a>
+, <br />
+&#160;&#160;<a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2eab5be61373ef157dce5c9df69283e1a4f">ANJAY_SERV_CONN_STATUS_REG_FAILURE</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea5c3b1d63cf133b11b41cb74e3783a0c1">ANJAY_SERV_CONN_STATUS_DEREGISTERING</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ead2e588fc53bba047dd517ce9d2bff2a5">ANJAY_SERV_CONN_STATUS_DEREGISTERED</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2eaca64d89ff115c8fc47fbfd930a660276">ANJAY_SERV_CONN_STATUS_SUSPENDING</a>
+, <br />
+&#160;&#160;<a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ead4959b9038ee78fe3836a6d1ad22970d">ANJAY_SERV_CONN_STATUS_SUSPENDED</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea6736e9b278d04bdfb40248db38ed69e1">ANJAY_SERV_CONN_STATUS_REREGISTERING</a>
+, <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2ea823781139b78f7d63b9a837692a17244">ANJAY_SERV_CONN_STATUS_UPDATING</a>
+<br />
+ }</td></tr>
+<tr class="separator:ab871d33319fce6c255d8c6ed5bf4eb2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38b3213870f87f8d125ee1793b36138f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138f">anjay_socket_transport_t</a> { <br />
 &#160;&#160;<a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138fa28e4cfc8905459138e08f14e73459802">ANJAY_SOCKET_TRANSPORT_INVALID</a> = -1
 , <a class="el" href="core_8h.html#a38b3213870f87f8d125ee1793b36138fa566a71c36753b30cf8e9188310a84dd7">ANJAY_SOCKET_TRANSPORT_UDP</a> = 0
@@ -226,6 +252,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a50251bc6b432adfd446a287ed77a6d9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a50251bc6b432adfd446a287ed77a6d9f">anjay_get_server_connection_status</a> (<a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid)</td></tr>
+<tr class="separator:a50251bc6b432adfd446a287ed77a6d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2fa000fb24ae72702fd552c2f207472"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#ad2fa000fb24ae72702fd552c2f207472">anjay_get_version</a> (void)</td></tr>
 <tr class="separator:ad2fa000fb24ae72702fd552c2f207472"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d95a5005ff7c3b1d76573616c57d4cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html#a9d95a5005ff7c3b1d76573616c57d4cc">anjay_new</a> (const <a class="el" href="core_8h.html#ae0a489fe34c85c5caa003c6629301ef2">anjay_configuration_t</a> *config)</td></tr>
@@ -806,6 +834,47 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a15a6a65ff63f05022d08ae35aa56bfe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a6a65ff63f05022d08ae35aa56bfe9">&#9670;&nbsp;</a></span>anjay_server_conn_status_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2e">anjay_server_conn_status</a> <a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000001">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<p>This enum represents the possible states of a server connection. </p>
+
+</div>
+</div>
+<a id="aa46996148689d7dfb4db59947c311b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa46996148689d7dfb4db59947c311b01">&#9670;&nbsp;</a></span>anjay_server_connection_status_cb_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void anjay_server_connection_status_cb_t(void *arg, <a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *anjay, <a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a> ssid, <a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a> status)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000002">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<p>Callback called each time there is a transition of a server connection status (as listed in <a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a> ).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arg</td><td>Opaque argument as set through the <code>server_connection_status_cb_arg</code> field in <a class="el" href="core_8h.html#ae0a489fe34c85c5caa003c6629301ef2">anjay_configuration_t</a></td></tr>
+    <tr><td class="paramname">anjay</td><td>Anjay object that calls this callback</td></tr>
+    <tr><td class="paramname">ssid</td><td>Short Server ID of the server for which the status is reported</td></tr>
+    <tr><td class="paramname">status</td><td>New status of the server connection </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a7f18a9f365482cbf0108af3d134c05c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f18a9f365482cbf0108af3d134c05c3">&#9670;&nbsp;</a></span>anjay_smsdrv_t</h2>
 
@@ -943,6 +1012,54 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a01dbde61b57a27e475ab19d11778f1acac6acbf8c7b504633cebaac8d244e645c"></a>ANJAY_REGISTRATION_EXPIRATION_STATUS_EXPIRED&#160;</td><td class="fielddoc"><p>Anjay registration expired, expiration time is set to <code>AVS_TIME_REAL_INVALID</code>. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a01dbde61b57a27e475ab19d11778f1acaa75661c5d67ba0200bccfb135c58e4b1"></a>ANJAY_REGISTRATION_EXPIRATION_STATUS_INFINITE_LIFETIME&#160;</td><td class="fielddoc"><p>Anjay lifetime is set to infinity and expiration time is set to <code>AVS_TIME_REAL_INVALID</code>. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ab871d33319fce6c255d8c6ed5bf4eb2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab871d33319fce6c255d8c6ed5bf4eb2e">&#9670;&nbsp;</a></span>anjay_server_conn_status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="core_8h.html#ab871d33319fce6c255d8c6ed5bf4eb2e">anjay_server_conn_status</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000001">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<p>This enum represents the possible states of a server connection. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea624d5e91f991eee0a42d055b85214d21"></a>ANJAY_SERV_CONN_STATUS_INVALID&#160;</td><td class="fielddoc"><p>Invalid state. It is only returned if a given server connection object does not exist, or there was an error in determining its state. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea6fdd86602aae6918f2578c5366acd3eb"></a>ANJAY_SERV_CONN_STATUS_ERROR&#160;</td><td class="fielddoc"><p>Generic state for any errors for which more specific states are not defined. For a regular LwM2M Server, this means that the primary connection is invalid or de-register/update operation has failed. For a LwM2M Bootstrap Server, it means that the bootstrap process failed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea0246ea3d78017f4a66180c94fa1cd88c"></a>ANJAY_SERV_CONN_STATUS_INITIAL&#160;</td><td class="fielddoc"><p>This status means that the server connection object has been just created as a result of the Security and Server object instances having been previously added to the data model. A connection attempt is scheduled to be made during subsequent calls to <a class="el" href="core_8h.html#aa8358a25354b91b9058a2b9888db2f85">anjay_sched_run</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2eadd73a7e0adbe22d52f451db47f056182"></a>ANJAY_SERV_CONN_STATUS_CONNECTING&#160;</td><td class="fielddoc"><p>This status is reported just before attempting the connection procedure, which may include binding the socket to a local port, performing DNS resolution, connecting the socket, and performing a (D)TLS handshake. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea4748c1b85b6dce235000204a4c17bd5c"></a>ANJAY_SERV_CONN_STATUS_BOOTSTRAPPING&#160;</td><td class="fielddoc"><p>This status means that the bootstrap process is in progress. It only applies to LwM2M Bootstrap Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2eafa89747293e4149e50b9857ea33f9db2"></a>ANJAY_SERV_CONN_STATUS_BOOTSTRAPPED&#160;</td><td class="fielddoc"><p>This status means that the bootstrap process has completed successfully. It only applies to LwM2M Bootstrap Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea44994d8fcce51b0e99a445f0be7e60e6"></a>ANJAY_SERV_CONN_STATUS_REGISTERING&#160;</td><td class="fielddoc"><p>This status means that the register operation is in progress. It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea9bcaf71c897e44edbe79cb18d7287583"></a>ANJAY_SERV_CONN_STATUS_REGISTERED&#160;</td><td class="fielddoc"><p>This status means that the Anjay is registered to the LwM2M Server. It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2eab5be61373ef157dce5c9df69283e1a4f"></a>ANJAY_SERV_CONN_STATUS_REG_FAILURE&#160;</td><td class="fielddoc"><p>This status means that the last register operation has failed due to no response, a non-success CoAP response was received, or network problems. It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea5c3b1d63cf133b11b41cb74e3783a0c1"></a>ANJAY_SERV_CONN_STATUS_DEREGISTERING&#160;</td><td class="fielddoc"><p>This status means that the de-register operation is in progress. It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ead2e588fc53bba047dd517ce9d2bff2a5"></a>ANJAY_SERV_CONN_STATUS_DEREGISTERED&#160;</td><td class="fielddoc"><p>This status means that the the library has de-registered with the LwM2M Server, either explicitly by successfully performing the De-register operation, or implicitly by discarding the registration state (which happens when the server is disabled while offline). It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2eaca64d89ff115c8fc47fbfd930a660276"></a>ANJAY_SERV_CONN_STATUS_SUSPENDING&#160;</td><td class="fielddoc"><p>This status means that the /1/x/4 resource has been executed and Anjay will try to suspend the LwM2M Server. It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ead4959b9038ee78fe3836a6d1ad22970d"></a>ANJAY_SERV_CONN_STATUS_SUSPENDED&#160;</td><td class="fielddoc"><p>This status means that the suspend process has completed successfully. It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea6736e9b278d04bdfb40248db38ed69e1"></a>ANJAY_SERV_CONN_STATUS_REREGISTERING&#160;</td><td class="fielddoc"><p>This status means that the last update operation has failed due to either no response or a non-success CoAP response was received. It only applies to regular LwM2M Servers. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab871d33319fce6c255d8c6ed5bf4eb2ea823781139b78f7d63b9a837692a17244"></a>ANJAY_SERV_CONN_STATUS_UPDATING&#160;</td><td class="fielddoc"><p>This status means that the update operation is in progress. It only applies to regular LwM2M Servers. </p>
 </td></tr>
 </table>
 
@@ -1435,6 +1552,44 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>non-null scheduler object used by Anjay. </dd></dl>
+
+</div>
+</div>
+<a id="a50251bc6b432adfd446a287ed77a6d9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50251bc6b432adfd446a287ed77a6d9f">&#9670;&nbsp;</a></span>anjay_get_server_connection_status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a> anjay_get_server_connection_status </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> *&#160;</td>
+          <td class="paramname"><em>anjay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="core_8h.html#a7702b524bb4425a3174b6a09615c0d2e">anjay_ssid_t</a>&#160;</td>
+          <td class="paramname"><em>ssid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000003">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<p>This function returns the server connection status. Possible statuses are given in the <a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a>. Statuses for a LwM2M Bootstrap Server are different from the statuses for a regular LwM2M Server.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anjay</td><td>Anjay object to operate on. </td></tr>
+    <tr><td class="paramname">ssid</td><td>Short Server ID of the server which status will be returned. <a class="el" href="core_8h.html#a75735105ebc11358f8f707568a8b11fa">ANJAY_SSID_ANY</a> is not a valid argument.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Server status on success, in case of error ANJAY_SERV_CONN_STATUS_UNKNOWN. </dd></dl>
 
 </div>
 </div>
@@ -3213,7 +3368,7 @@ blob/master/include_public/avsystem/commons/sched.h">avs_commons library</a> for
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_ae037c79f53c15c524ca38a0620e930a.html">include_public</a></li><li class="navelem"><a class="el" href="dir_f1282f3667e08fb5f3f6a37ec99711a1.html">anjay</a></li><li class="navelem"><a class="el" href="core_8h.html">core.h</a></li>
-    <li class="footer">Generated on Fri Feb 16 2024 11:36:38 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue May 28 2024 11:28:24 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

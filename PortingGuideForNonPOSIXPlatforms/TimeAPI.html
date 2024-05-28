@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.1. Time API &mdash; Anjay 3.7.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <title>8.1. Time API &mdash; Anjay 3.8.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=b9c2c5b9" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=948f11bf"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -30,15 +31,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../index.html">
-            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.7.0
+                3.8.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -76,9 +81,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a> &raquo;</li>
-      <li><span class="section-number">8.1. </span>Time API</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../PortingGuideForNonPOSIXPlatforms.html"><span class="section-number">8. </span>Porting guide for non-POSIX platforms</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.1. </span>Time API</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -88,9 +93,9 @@
            <div itemprop="articleBody">
              
   <section id="time-api">
-<h1><span class="section-number">8.1. </span>Time API<a class="headerlink" href="#time-api" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">8.1. </span>Time API<a class="headerlink" href="#time-api" title="Link to this heading"></a></h1>
 <section id="list-of-functions-to-implement">
-<h2><span class="section-number">8.1.1. </span>List of functions to implement<a class="headerlink" href="#list-of-functions-to-implement" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">8.1.1. </span>List of functions to implement<a class="headerlink" href="#list-of-functions-to-implement" title="Link to this heading"></a></h2>
 <p>If POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime</span></code> function is not available:</p>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">WITH_POSIX_AVS_TIME=OFF</span></code> when running CMake on Anjay,</p></li>
@@ -108,31 +113,31 @@
 </div>
 </section>
 <section id="reference-implementation">
-<h2><span class="section-number">8.1.2. </span>Reference implementation<a class="headerlink" href="#reference-implementation" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">8.1.2. </span>Reference implementation<a class="headerlink" href="#reference-implementation" title="Link to this heading"></a></h2>
 <p>The default
 <a class="reference external" href="https://github.com/AVSystem/avs_commons/blob/master/src/utils/compat/posix/avs_compat_time.c">avs_compat_time.c</a>
 implementation that uses POSIX <code class="docutils literal notranslate"><span class="pre">clock_gettime()</span></code> API can be used as a
 reference for writing your own integration layer.</p>
 <section id="avs-time-real-now">
-<span id="timeapi-avs-time-real-now"></span><h3><span class="section-number">8.1.2.1. </span>avs_time_real_now()<a class="headerlink" href="#avs-time-real-now" title="Permalink to this heading"></a></h3>
+<span id="timeapi-avs-time-real-now"></span><h3><span class="section-number">8.1.2.1. </span>avs_time_real_now()<a class="headerlink" href="#avs-time-real-now" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">avs_time_real_now()</span></code> function should return the current <em>real</em> time,
 i.e. the amount of time that passed since January 1st, 1970, midnight UTC (the
 Unix epoch).</p>
 <p>In the reference POSIX-based implementation, it is a simple wrapper for the
 <code class="docutils literal notranslate"><span class="pre">CLOCK_REALITME</span></code> clock.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">avs_time_real_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">timespec</span><span class="w"> </span><span class="n">system_value</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_time_real_t</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">system_value</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">nanoseconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">avs_time_real_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">timespec</span><span class="w"> </span><span class="n">system_value</span><span class="p">;</span>
+<span class="w">    </span><span class="n">avs_time_real_t</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">system_value</span><span class="p">);</span>
+<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span>
+<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_real_epoch</span><span class="p">.</span><span class="n">nanoseconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="avs-time-monotonic-now">
-<h3><span class="section-number">8.1.2.2. </span>avs_time_monotonic_now()<a class="headerlink" href="#avs-time-monotonic-now" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">8.1.2.2. </span>avs_time_monotonic_now()<a class="headerlink" href="#avs-time-monotonic-now" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">avs_time_monotonic_now()</span></code> function should return the current <em>monotonic</em>
 time, i.e. the amount of time that passed since <em>some epoch</em> - it might be
 any point in time, but needs to be stable at least throughout the lifetime of
@@ -144,21 +149,21 @@ is running, it may be also used as the monotonic clock.</p>
 <p>This is used in the reference implementation - it is generally a wrapper for the
 <code class="docutils literal notranslate"><span class="pre">CLOCK_MONOTONIC</span></code> clock, but on some platforms it is not available -
 <code class="docutils literal notranslate"><span class="pre">CLOCK_REALTIME</span></code> is used in these cases.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_monotonic_t</span><span class="w"> </span><span class="nf">avs_time_monotonic_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">timespec</span><span class="w"> </span><span class="n">system_value</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">avs_time_monotonic_t</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_time_monotonic_t</span><span class="w"> </span><span class="nf">avs_time_monotonic_now</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">timespec</span><span class="w"> </span><span class="n">system_value</span><span class="p">;</span>
+<span class="w">    </span><span class="n">avs_time_monotonic_t</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
 <span class="cp">#    ifdef CLOCK_MONOTONIC</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">system_value</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_MONOTONIC</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">system_value</span><span class="p">))</span>
 <span class="cp">#    endif</span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// CLOCK_MONOTONIC is not mandatory in POSIX;</span>
 <span class="w">        </span><span class="c1">// fallback to REALTIME if we don&#39;t have it</span>
-<span class="w">        </span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">system_value</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_monotonic_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_monotonic_epoch</span><span class="p">.</span><span class="n">nanoseconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">clock_gettime</span><span class="p">(</span><span class="n">CLOCK_REALTIME</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">system_value</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_monotonic_epoch</span><span class="p">.</span><span class="n">seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">;</span>
+<span class="w">    </span><span class="n">result</span><span class="p">.</span><span class="n">since_monotonic_epoch</span><span class="p">.</span><span class="n">nanoseconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="w"> </span><span class="n">system_value</span><span class="p">.</span><span class="n">tv_nsec</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>

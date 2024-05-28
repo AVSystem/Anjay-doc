@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.1. Access Control in multi-server environment &mdash; Anjay 3.7.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <title>5.1. Access Control in multi-server environment &mdash; Anjay 3.8.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=b9c2c5b9" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=948f11bf"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -30,15 +31,19 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #ffd500" >
-            <a href="../index.html">
-            <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.7.0
+                3.8.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -83,9 +88,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a> &raquo;</li>
-      <li><span class="section-number">5.1. </span>Access Control in multi-server environment</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.1. </span>Access Control in multi-server environment</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -95,7 +100,7 @@
            <div itemprop="articleBody">
              
   <section id="access-control-in-multi-server-environment">
-<h1><span class="section-number">5.1. </span>Access Control in multi-server environment<a class="headerlink" href="#access-control-in-multi-server-environment" title="Permalink to this heading"></a></h1>
+<h1><span class="section-number">5.1. </span>Access Control in multi-server environment<a class="headerlink" href="#access-control-in-multi-server-environment" title="Link to this heading"></a></h1>
 <p>LwM2M Client may be connected to more than one LwM2M Server. In such situation,
 restricting Server access to some part of the <a class="reference internal" href="../LwM2M.html#data-model"><span class="std std-ref">data model</span></a>
 may be required.</p>
@@ -106,11 +111,6 @@ LwM2M Server.</p>
 <p>In a multi-server environment every Object Instance (except Instances of
 the Access Control Object) has associated Access Control Instance:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 16%" />
-<col style="width: 58%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Resource</p></th>
 <th class="head"><p>Resource ID</p></th>
@@ -148,16 +148,11 @@ the Bootstrap Phase and is valid only in combination with <strong>Create</strong
 access flag.</p>
 </div>
 <section id="acl-resource">
-<h2><span class="section-number">5.1.1. </span>ACL Resource<a class="headerlink" href="#acl-resource" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.1.1. </span>ACL Resource<a class="headerlink" href="#acl-resource" title="Link to this heading"></a></h2>
 <p>ACL Resource of the Access Control Object Instance is populated with pairs
 of form (<cite>Short Server ID</cite>, <cite>Access mask</cite>). Access mask is a combination of
 the following access flags (combined by bitwise OR operator):</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 33%" />
-<col style="width: 39%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Access flag</p></th>
 <th class="head"><p>Allowed LwM2M Operations</p></th>
@@ -194,7 +189,7 @@ a mechanism for forbidding it.</p>
 </div>
 </section>
 <section id="note-on-data-model-instances-lifetime">
-<h2><span class="section-number">5.1.2. </span>Note on data-model instances lifetime<a class="headerlink" href="#note-on-data-model-instances-lifetime" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.1.2. </span>Note on data-model instances lifetime<a class="headerlink" href="#note-on-data-model-instances-lifetime" title="Link to this heading"></a></h2>
 <p>Access Control Object also helps in managing Object Instance lifetime. Whenever
 some Object Instance is orphaned (i.e. no LwM2M Server is an Access Control
 Owner of the Access Control Instance associated with this Object Instance) it
@@ -208,7 +203,7 @@ is an extremely complex Object to implement in a correct way.</p>
 </div>
 </section>
 <section id="example-usage">
-<h2><span class="section-number">5.1.3. </span>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">5.1.3. </span>Example usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
 <p>In this example, we are going to setup multiple-server
 environment. We will assign LwM2M Server with SSID 1 the <strong>Create</strong>
 permission on the <a class="reference internal" href="AT-CustomObjects/AT_CO_MultiInstanceDynamic.html"><span class="doc">Test Object developed in another tutorial</span></a>.</p>
@@ -224,77 +219,77 @@ permissions on its own in a multiple-server environment.</p>
 </div>
 <p>We start with installation of the Access Control, Security Object and Server
 Object modules:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_access_control_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_access_control_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+<span class="w">        </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span>
+<span class="w">        </span><span class="o">||</span><span class="w"> </span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Then we setup two LwM2M Servers:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// LwM2M Server account with SSID = 1</span>
-<span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://eu.iot.avsystem.cloud:5683&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://eu.iot.avsystem.cloud:5683&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span>
+<span class="p">};</span>
 
-<span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">86400</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">86400</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span>
+<span class="p">};</span>
 
 <span class="c1">// LwM2M Server account with SSID = 2</span>
-<span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://127.0.0.1:5683&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span>
+<span class="p">};</span>
 
-<span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">86400</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">anjay_server_instance_t</span><span class="w"> </span><span class="n">server_instance2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">lifetime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">86400</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">default_min_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">default_max_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">disable_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">binding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;U&quot;</span>
+<span class="p">};</span>
 
 <span class="c1">// Setup first LwM2M Server</span>
-<span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_iid1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
-<span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance1</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                   </span><span class="o">&amp;</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
-<span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance1</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                 </span><span class="o">&amp;</span><span class="n">server_instance_iid1</span><span class="p">);</span><span class="w"></span>
+<span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_iid1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance1</span><span class="p">,</span>
+<span class="w">                                   </span><span class="o">&amp;</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="w"> </span><span class="p">});</span>
+<span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance1</span><span class="p">,</span>
+<span class="w">                                 </span><span class="o">&amp;</span><span class="n">server_instance_iid1</span><span class="p">);</span>
 
 <span class="c1">// Setup second LwM2M Server</span>
-<span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_iid2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span><span class="w"></span>
-<span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance2</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                   </span><span class="o">&amp;</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
-<span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance2</span><span class="p">,</span><span class="w"></span>
-<span class="w">                                 </span><span class="o">&amp;</span><span class="n">server_instance_iid2</span><span class="p">);</span><span class="w"></span>
+<span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">server_instance_iid2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance2</span><span class="p">,</span>
+<span class="w">                                   </span><span class="o">&amp;</span><span class="p">(</span><span class="n">anjay_iid_t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="w"> </span><span class="p">});</span>
+<span class="n">anjay_server_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">server_instance2</span><span class="p">,</span>
+<span class="w">                                 </span><span class="o">&amp;</span><span class="n">server_instance_iid2</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>And finally, we are ready to set access lists:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Make SSID = 1 the owner of the Test object</span>
-<span class="n">anjay_access_control_set_owner</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">,</span><span class="w"></span>
-<span class="w">                               </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="n">anjay_access_control_set_owner</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 
 <span class="c1">// Set LwM2M Create permission rights for it as well</span>
-<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">,</span><span class="w"></span>
-<span class="w">                             </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"></span>
-<span class="w">                             </span><span class="n">ANJAY_ACCESS_MASK_CREATE</span><span class="p">);</span><span class="w"></span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">ANJAY_ACCESS_MASK_CREATE</span><span class="p">);</span>
 
 <span class="c1">// Allow both LwM2M Servers to read their Server Instances</span>
-<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">server_instance_iid1</span><span class="p">,</span><span class="w"></span>
-<span class="w">                             </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span><span class="w"></span>
-<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">server_instance_iid2</span><span class="p">,</span><span class="w"></span>
-<span class="w">                             </span><span class="n">server_instance2</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span><span class="w"></span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">server_instance_iid1</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">server_instance1</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span>
+<span class="n">anjay_access_control_set_acl</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">server_instance_iid2</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">server_instance2</span><span class="p">.</span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="n">ANJAY_ACCESS_MASK_READ</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>That way we have ensured an exclusive access of Server with SSID 1 to Test
@@ -311,10 +306,10 @@ Specification for more details on Access Control Object, as well as at our
 to delete your own implemented objects after calling <code class="docutils literal notranslate"><span class="pre">anjay_delete()</span></code>, as
 during the instance destruction Anjay may still try to refer to object’s
 data and premature object deletion could be disastrous in effects.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="nl">cleanup</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">delete_test_object</span><span class="p">(</span><span class="n">test_obj</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="nl">cleanup</span><span class="p">:</span>
+<span class="w">    </span><span class="n">anjay_delete</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<span class="w">    </span><span class="n">delete_test_object</span><span class="p">(</span><span class="n">test_obj</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
