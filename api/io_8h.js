@@ -39,7 +39,7 @@ var io_8h =
     [ "anjay_ret_bool", "io_8h.html#a442fdb39da64698a5262b0920f9a3a23", null ],
     [ "anjay_ret_bytes", "io_8h.html#a720e89af778281f09c86ceb43ab2db09", null ],
     [ "anjay_ret_bytes_append", "io_8h.html#ac03b5aec5d596605f6ebe200df9f3ca1", null ],
-    [ "anjay_ret_bytes_begin", "io_8h.html#a92a77e4ee5397106e691d57f3aef8ce6", null ],
+    [ "anjay_ret_bytes_begin", "io_8h.html#abaa10ad27dfcfa90e2fa71ff19a36465", null ],
     [ "anjay_ret_certificate_chain_info", "io_8h.html#ae5624bcb7511cd623fd22aa3f3fd7bd7", null ],
     [ "anjay_ret_double", "io_8h.html#af56c16f57c7e8d6fb1b562593d4a5875", null ],
     [ "anjay_ret_float", "io_8h.html#a25c72caf022015f5f11175d90ac22ed3", null ],

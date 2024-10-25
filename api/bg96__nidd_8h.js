@@ -9,5 +9,5 @@ var bg96__nidd_8h =
       [ "ANJAY_BG96_NIDD_USERNAME", "bg96__nidd_8h.html#a1f9781d9e9587b1f359a435d133deb34aa410934cce3901ec2aa08e621d369e83", null ],
       [ "ANJAY_BG96_NIDD_PASSWORD", "bg96__nidd_8h.html#a1f9781d9e9587b1f359a435d133deb34a3a3278fbea774d6620898c39cf5abe97", null ]
     ] ],
-    [ "anjay_bg96_nidd_driver_create", "bg96__nidd_8h.html#a87acb200fa9c0a4c42cc1ad32294b62f", null ]
+    [ "anjay_bg96_nidd_driver_create", "bg96__nidd_8h.html#a345a48ce47e1bfb5e788a8ec5d1d1760", null ]
 ];

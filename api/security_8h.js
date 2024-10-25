@@ -2,7 +2,7 @@ var security_8h =
 [
     [ "anjay_security_instance_t", "structanjay__security__instance__t.html", "structanjay__security__instance__t" ],
     [ "anjay_security_hsm_configuration_t", "structanjay__security__hsm__configuration__t.html", "structanjay__security__hsm__configuration__t" ],
-    [ "anjay_security_hsm_query_cb_t", "security_8h.html#ada0dbff2a045a3cd7bbaff797bd7f28a", null ],
+    [ "anjay_security_hsm_query_cb_t", "security_8h.html#a3876473f100d2dce8c06892011f29bbe", null ],
     [ "anjay_security_mark_hsm_permanent", "security_8h.html#a76147593ffc5841362a38589178fbaf1", null ],
     [ "anjay_security_object_add_instance", "security_8h.html#ae0bb9e4afad60fe21f2614d998c28b14", null ],
     [ "anjay_security_object_install", "security_8h.html#a5fffaeedfc5c2933e58ac1446fd0401d", null ],

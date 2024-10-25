@@ -21,6 +21,6 @@ var download_8h =
     [ "anjay_download_reconnect", "download_8h.html#a021fd37fdccae0a5b9ba54a44ee6bea3", null ],
     [ "anjay_download_set_next_block_offset", "download_8h.html#a1d4f64fb6a245841ab84728349e5dc69", null ],
     [ "anjay_download_suspend", "download_8h.html#a296825171f69fc59a73b5872b56ad4d0", null ],
-    [ "anjay_etag_clone", "download_8h.html#aaaed72e05c83db399a38e1391105046d", null ],
-    [ "anjay_etag_new", "download_8h.html#a0f6620b0915f52b649559712eb34551b", null ]
+    [ "anjay_etag_clone", "download_8h.html#a9868e6ebe7e52b2a69bfc884de7b51c8", null ],
+    [ "anjay_etag_new", "download_8h.html#a56bc5d65a101f3e6a0fd1a4b0fc6bf08", null ]
 ];
