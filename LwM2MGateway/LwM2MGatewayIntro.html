@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.1. LwM2M Gateway Introduction &mdash; Anjay 3.9.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=554064f1" />
+
+  
+  
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e55a5be6"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7.2. LwM2M Gateway API" href="LwM2MGatewayAPI.html" />
+    <link rel="prev" title="7. LwM2M Gateway" href="../LwM2MGateway.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.1. LwM2M Gateway Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewayAPI.html">7.2. LwM2M Gateway API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewayNotifications.html">7.3. Observe and Notify support for LwM2M Gateway EIDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewaySend.html">7.4. Send method for LwM2M Gateway EIDs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">8. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">9. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">10. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">11. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../LwM2MGateway.html"><span class="section-number">7. </span>LwM2M Gateway</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.1. </span>LwM2M Gateway Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lwm2m-gateway-introduction">
+<h1><span class="section-number">7.1. </span>LwM2M Gateway Introduction<a class="headerlink" href="#lwm2m-gateway-introduction" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#why-the-lwm2m-gateway-was-created" id="id2">Why the LwM2M gateway was created</a></p></li>
+<li><p><a class="reference internal" href="#how-the-lwm2m-gateway-works" id="id3">How the LwM2M Gateway works</a></p></li>
+<li><p><a class="reference internal" href="#lwm2m-gateway-in-anjay" id="id4">LwM2M Gateway in Anjay</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#purpose-and-benefits" id="id5">Purpose and benefits</a></p></li>
+<li><p><a class="reference internal" href="#features-and-limitations" id="id6">Features and limitations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#supported-lwm2m-operations" id="id7">Supported LwM2M operations</a></p></li>
+<li><p><a class="reference internal" href="#lwm2m-gateway-limitations" id="id8">LwM2M Gateway limitations</a></p></li>
+<li><p><a class="reference internal" href="#unsupported-features" id="id9">Unsupported features</a></p></li>
+<li><p><a class="reference internal" href="#enabling-lwm2m-gateway-support" id="id10">Enabling LwM2M Gateway support</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">7.1.1. </span>Overview</a><a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<section id="why-the-lwm2m-gateway-was-created">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">7.1.1.1. </span>Why the LwM2M gateway was created</a><a class="headerlink" href="#why-the-lwm2m-gateway-was-created" title="Link to this heading"></a></h3>
+<p>As the IoT continues to grow, so does the need for managing a wide range of
+connected devices. Many of these devices operate in constrained network
+environments or have limited processing power. Some IoT devices do not natively
+support the LwM2M protocol.</p>
+<p>To address this challenge, the Open Mobile Alliance (OMA) introduced the <a class="reference external" href="https://www.openmobilealliance.org/release/LwM2M_Gateway/V1_1_1-20240312-A/OMA-TS-LWM2M_Gateway-V1_1_1-20240312-A.pdf">(/25)
+LwM2M Gateway Object</a>. This extension
+to the LwM2M specification allows an LwM2M Server to manage IoT End Devices
+through an intermediary <strong>LwM2M Gateway</strong> in a standardized and LwM2M-compliant
+way.</p>
+</section>
+<section id="how-the-lwm2m-gateway-works">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">7.1.1.2. </span>How the LwM2M Gateway works</a><a class="headerlink" href="#how-the-lwm2m-gateway-works" title="Link to this heading"></a></h3>
+<p>The <strong>LwM2M Gateway</strong> acts as a bridge between IoT End Devices and the LwM2M
+Server. It translates the data models of connected End Devices and presents
+them to the Server, ensuring seamless interoperability. This eliminates the
+need for native LwM2M support on End Devices while still allowing robust device
+management, monitoring, and control.</p>
+<p>The Gateway allows for communication with IoT End Devices over various
+interfaces, for example <strong>Bluetooth Low Energy (BLE)</strong>, <strong>Wi-Fi</strong>, or <strong>Serial
+protocols</strong> such as UART and RS-485.</p>
+<p>Each End Device is identified by the LwM2M Server using the <strong>Device Identifier
+Resource</strong>, which is stored in separate <code class="docutils literal notranslate"><span class="pre">/25</span></code> <strong>LwM2M Gateway Object</strong>
+instances. The Server accesses these devices using a <strong>prefix in the URI path</strong>.</p>
+</section>
+<section id="lwm2m-gateway-in-anjay">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">7.1.1.3. </span>LwM2M Gateway in Anjay</a><a class="headerlink" href="#lwm2m-gateway-in-anjay" title="Link to this heading"></a></h3>
+<p>The <strong>LwM2M Gateway</strong> in Anjay provides a scalable and efficient solution for
+managing End Devices that lack the hardware capabilities for a full LwM2M
+communication stack. By leveraging the standardized Gateway Object (<code class="docutils literal notranslate"><span class="pre">/25</span></code>),
+the Gateway enables communication between an LwM2M Server and connected
+devices.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In accordance with the specification, each connected device must be
+<strong>registered separately</strong> in the Anjay client by the Gateway Device
+application.</p>
+</div>
+<p>This design simplifies the integration of cost-effective, resource-constrained
+devices into IoT ecosystems while maintaining compliance with LwM2M
+specifications.</p>
+</section>
+</section>
+<section id="purpose-and-benefits">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">7.1.2. </span>Purpose and benefits</a><a class="headerlink" href="#purpose-and-benefits" title="Link to this heading"></a></h2>
+<p>The <strong>LwM2M Gateway</strong> helps overcome key challenges in IoT deployments by
+providing an efficient, scalable, and secure way to manage connected devices.</p>
+<p><strong>Key Benefits:</strong></p>
+<ul>
+<li><p><strong>Optimized Resource Use and Cost Savings</strong></p>
+<p>The Gateway offloads internet communication and protocol handling from End
+Devices, reducing their hardware requirements and enabling the use of
+simpler, cost-effective devices.</p>
+</li>
+<li><p><strong>Seamless Communication &amp; Interoperability</strong></p>
+<p>By leveraging the LwM2M protocol, the Gateway ensures standardized
+interaction with End Devices, simplifying integration across different IoT
+ecosystems.</p>
+</li>
+<li><p><strong>Scalability for Diverse Applications</strong></p>
+<p>The Gateway supports various device types and data models, making it
+suitable for industries such as Smart metering, Asset tracking and
+Environmental monitoring.</p>
+</li>
+<li><p><strong>Support for Legacy Devices</strong></p>
+<p>Devices that were not originally designed for LwM2M can still be managed and
+integrated through the Gateway. This extends their lifecycle and improves
+operational efficiency without requiring major hardware modifications.</p>
+</li>
+<li><p><strong>Local Control &amp; Edge Computing</strong></p>
+<p>Applications running on the Gateway can process data locally and manage
+connected devices, even during network outages, ensuring continuous
+operation.</p>
+</li>
+<li><p><strong>Enhanced Security</strong></p>
+<ul class="simple">
+<li><p>The connection between End Devices and the Gateway (southbound) is often
+within a trusted local zone.</p></li>
+<li><p>Many constrained devices lack built-in security features. The Gateway
+ensures that all northbound communication (to the LwM2M Server over a
+public network) remains secure.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="features-and-limitations">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">7.1.3. </span>Features and limitations</a><a class="headerlink" href="#features-and-limitations" title="Link to this heading"></a></h2>
+<section id="supported-lwm2m-operations">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">7.1.3.1. </span>Supported LwM2M operations</a><a class="headerlink" href="#supported-lwm2m-operations" title="Link to this heading"></a></h3>
+<p>The LwM2M Gateway supports the following operations on End Devices:</p>
+<ul class="simple">
+<li><p><strong>Read</strong></p></li>
+<li><p><strong>Write</strong></p></li>
+<li><p><strong>Execute</strong></p></li>
+<li><p><strong>Discover</strong></p></li>
+<li><p><strong>Write-Attributes</strong></p></li>
+<li><p><strong>Observe/Notify</strong></p></li>
+<li><p><strong>Cancel Observe</strong></p></li>
+<li><p><strong>Send</strong></p></li>
+</ul>
+</section>
+<section id="lwm2m-gateway-limitations">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">7.1.3.2. </span>LwM2M Gateway limitations</a><a class="headerlink" href="#lwm2m-gateway-limitations" title="Link to this heading"></a></h3>
+<p>The LwM2M Gateway simplifies the management of non-LwM2M devices but does not
+perform real-time protocol translation. Instead, it abstracts data models and
+provides a standardized interface for device management.</p>
+<p>While the Gateway handles communication between End Devices and the LwM2M
+Server, <strong>developers are responsible for implementing specific drivers and
+object definitions</strong> for their End Devices.</p>
+</section>
+<section id="unsupported-features">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">7.1.3.3. </span>Unsupported features</a><a class="headerlink" href="#unsupported-features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Composite operations</strong> targeting End Devices are not supported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/25</span></code> <strong>Gateway Object instances</strong> and <strong>End Device Data Models</strong> are not
+included in the LwM2M Client Bootstrap Information.</p></li>
+<li><p>The <strong>Firmware Update (FOTA) mechanism</strong>, as described in the LwM2M
+specification and implemented in the <code class="docutils literal notranslate"><span class="pre">/5</span></code> <strong>Firmware Object</strong>, is currently
+not supported.</p></li>
+</ul>
+</section>
+<section id="enabling-lwm2m-gateway-support">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">7.1.3.4. </span>Enabling LwM2M Gateway support</a><a class="headerlink" href="#enabling-lwm2m-gateway-support" title="Link to this heading"></a></h3>
+<p>LwM2M Gateway functionality can be enabled at compile-time by enabling the
+<code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_LWM2M_GATEWAY</span></code> macro in the <code class="docutils literal notranslate"><span class="pre">anjay_config.h</span></code> file or, if using
+CMake, by enabling the corresponding <code class="docutils literal notranslate"><span class="pre">WITH_LWM2M_GATEWAY</span></code> CMake option.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../LwM2MGateway.html" class="btn btn-neutral float-left" title="7. LwM2M Gateway" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LwM2MGatewayAPI.html" class="btn btn-neutral float-right" title="7.2. LwM2M Gateway API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

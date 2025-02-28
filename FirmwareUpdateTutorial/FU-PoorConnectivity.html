@@ -4,16 +4,16 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.5. Poor network connectivity &mdash; Anjay 3.8.1 documentation</title>
+  <title>6.5. Poor network connectivity &mdash; Anjay 3.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=b9c2c5b9" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=554064f1" />
 
   
   
         <script src="../_static/jquery.js?v=8dae8fb0"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=30f795a6"></script>
+        <script src="../_static/documentation_options.js?v=e55a5be6"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -36,7 +36,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.8.1
+                3.9.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -62,10 +62,11 @@
 <li class="toctree-l2"><a class="reference internal" href="FU-AdvancedFirmwareUpdate.html">6.7. Advanced Firmware Update</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Tools.html">7. Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">8. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">9. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">10. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">11. Commercial features</a></li>
 </ul>
 
         </div>
@@ -131,13 +132,9 @@ for CoAP(s)/TCP, and the default timeout is also 30 seconds.</p>
 <p>When the download fails, the firmware update module calls <code class="docutils literal notranslate"><span class="pre">reset</span></code>
 handler. Its implementation is required to cleanup any outstanding resources,
 and prepare the Client for a potential new download request.</p>
-<p>Unfortunately it also means that the firmware image downloaded so far
-needs to be deleted. In the current implementation there is no support for
-continuation of firmware download which failed due to network connectivity
-problems as it doesn’t seem to be supported by the LwM2M protocol.</p>
 </section>
 <section id="how-can-we-ensure-higher-success-rate">
-<h2><span class="section-number">6.5.4. </span>How can we ensure higher success rate?<a class="headerlink" href="#how-can-we-ensure-higher-success-rate" title="Link to this heading"></a></h2>
+<span id="id1"></span><h2><span class="section-number">6.5.4. </span>How can we ensure higher success rate?<a class="headerlink" href="#how-can-we-ensure-higher-success-rate" title="Link to this heading"></a></h2>
 <p>For CoAP/UDP, you can provide the <a class="reference internal" href="../AdvancedTopics/AT-RetransmissionsTimeoutsCaching.html#coap-retransmission-parameters"><span class="std std-ref">CoAP transmission parameters</span></a> by implementing the <code class="docutils literal notranslate"><span class="pre">get_coap_tx_params</span></code>
 handler, which is a part of <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_handlers_t</span></code>. If not provided,
 default CoAP transmission parameters (or passed as part of
@@ -145,6 +142,20 @@ default CoAP transmission parameters (or passed as part of
 <p>In a similar manner, for TCP-based transports (i.e., CoAP(s)/TCP and HTTP(s))
 you can implement the <code class="docutils literal notranslate"><span class="pre">get_tcp_request_timeout</span></code> to set a custom request
 timeout. This is the time of stream inactivity that will be treated as an error.</p>
+<p>For CoAP(s)/UDP and CoAP(s)/TCP, you can also use configuration parameters:
+<code class="docutils literal notranslate"><span class="pre">coap_downloader_retry_count</span></code> and <code class="docutils literal notranslate"><span class="pre">coap_downloader_retry_delay</span></code> in
+<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code>. The first one specifies the number of attempts
+to resume downloads, and the second specifies the delay between retries.
+This is not a mechanism of the CoAP protocol, but an additional layer of
+abstraction that allows resumption of downloads in case of network errors.
+The download will start from the point where it was interrupted. Using the
+DTLS Connection ID extension makes it possible to resume the connection without
+performing a handshake. In case of a poor connectivity, a combination of
+Connection ID and ETag provides the optimal solution. The ETag parameter is not
+mandatory, but if it is passed by the server then its value is checked when the
+download is resumed. The download is considered unsuccessful and the <code class="docutils literal notranslate"><span class="pre">reset</span></code>
+handler is called after the last failed attempt. If <code class="docutils literal notranslate"><span class="pre">coap_downloader_retry_count</span></code>
+is not set, functionality is disabled.</p>
 </section>
 </section>
 
@@ -159,7 +170,7 @@ timeout. This is the time of stream inactivity that will be treated as an error.
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2024, AVSystem.</p>
+    <p>&#169; Copyright 2017-2025, AVSystem.</p>
   </div>
 
    

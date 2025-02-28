@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.4. Send method for LwM2M Gateway EIDs &mdash; Anjay 3.9.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=554064f1" />
+
+  
+  
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e55a5be6"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Tools" href="../Tools.html" />
+    <link rel="prev" title="7.3. Observe and Notify support for LwM2M Gateway EIDs" href="LwM2MGatewayNotifications.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewayIntro.html">7.1. LwM2M Gateway Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewayAPI.html">7.2. LwM2M Gateway API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewayNotifications.html">7.3. Observe and Notify support for LwM2M Gateway EIDs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.4. Send method for LwM2M Gateway EIDs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">8. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">9. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">10. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">11. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../LwM2MGateway.html"><span class="section-number">7. </span>LwM2M Gateway</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.4. </span>Send method for LwM2M Gateway EIDs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="send-method-for-lwm2m-gateway-eids">
+<h1><span class="section-number">7.4. </span>Send method for LwM2M Gateway EIDs<a class="headerlink" href="#send-method-for-lwm2m-gateway-eids" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#why-use-the-lwm2m-send-method" id="id2">Why use the LwM2M Send method?</a></p></li>
+<li><p><a class="reference internal" href="#lwm2m-send-for-eids-vs-standard-devices" id="id3">LwM2M Send for EIDs vs. standard Devices</a></p></li>
+<li><p><a class="reference internal" href="#send-method-api-comparison" id="id4">Send method API comparison</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#example" id="id5">Example</a></p>
+<ul>
+<li><p><a class="reference internal" href="#how-it-works" id="id6">How it works</a></p></li>
+<li><p><a class="reference internal" href="#differences-from-standard-lwm2m-send" id="id7">Differences from standard LwM2M Send</a></p></li>
+<li><p><a class="reference internal" href="#scheduling-periodic-data-transmission" id="id8">Scheduling periodic data transmission</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">7.4.1. </span>Overview</a><a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The LwM2M Gateway specification supports the <strong>LwM2M Send method</strong>, allowing
+efficient data transmission from End IoT Devices (EIDs). Anjay fully supports
+this feature, and it works similarly to the API used for standard LwM2M devices.</p>
+<section id="why-use-the-lwm2m-send-method">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">7.4.1.1. </span>Why use the LwM2M Send method?</a><a class="headerlink" href="#why-use-the-lwm2m-send-method" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Batch Data Transmission</strong> – You can send multiple resource values at once
+without needing Observations.</p></li>
+<li><p><strong>Multi-Device Support</strong> – A single Send message can include data from
+multiple EIDs, reducing communication overhead.</p></li>
+<li><p><strong>Gateway &amp; EID Data Combination</strong> – You can send data from both the LwM2M
+Gateway (Client) and its connected EIDs in one message.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re new to the <strong>LwM2M Send method</strong> and how it works in Anjay for
+standard LwM2M clients, read the <a class="reference internal" href="../BasicClient/BC-Send.html"><span class="doc">Send method</span></a> tutorial
+first.</p>
+</div>
+</section>
+<section id="lwm2m-send-for-eids-vs-standard-devices">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">7.4.1.2. </span>LwM2M Send for EIDs vs. standard Devices</a><a class="headerlink" href="#lwm2m-send-for-eids-vs-standard-devices" title="Link to this heading"></a></h3>
+<p>The main difference when using the Send method for EIDs is that the family of
+<code class="docutils literal notranslate"><span class="pre">anjay_send_batch_[data_]add_*</span></code> functions require an extra parameter—the
+<strong>EID</strong>. This <strong>EID parameter</strong> is an integer ID assigned when calling
+<code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_register_device()</span></code>,
+<a class="reference internal" href="LwM2MGatewayAPI.html#lwm2m-gateway-register-device"><span class="std std-ref">as shown here</span></a>.</p>
+</section>
+<section id="send-method-api-comparison">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">7.4.1.3. </span>Send method API comparison</a><a class="headerlink" href="#send-method-api-comparison" title="Link to this heading"></a></h3>
+<p>Below is a side-by-side comparison of the original <strong>Send API</strong> and its
+counterpart for <strong>LwM2M Gateway EIDs</strong>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Standard Send API</p></th>
+<th class="head"><p>Send API for LwM2M Gateway EIDs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_add_int()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_add_int()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_add_uint()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_add_uint()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_add_double()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_add_double()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_add_bool()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_add_bool()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_add_string()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_add_string()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_add_bytes()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_add_bytes()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_add_objlnk()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_add_objlnk()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_data_add_current()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_data_add_current()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_data_add_current_multiple()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_data_add_current_multiple()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="small-literal docutils literal notranslate"><span class="pre">anjay_send_batch_data_add_current_multiple_ignore_not_found()</span></code></p></td>
+<td><p><code class="small-literal docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_data_add_current_multiple_ignore_not_found()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>These APIs are meant to be used with other standard APIs for Send method, such as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_send_batch_builder_new()</span></code> – To build batch messages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_send()</span></code> – To transmit data efficiently.</p></li>
+</ul>
+</section>
+</section>
+<section id="example">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">7.4.2. </span>Example</a><a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
+<code class="docutils literal notranslate"><span class="pre">examples/tutorial/LwM2M-Gateway</span></code> subdirectory of the main
+Anjay project repository.</p>
+<p>For specifics on how this example works, refer to the
+<a class="reference internal" href="LwM2MGatewayAPI.html"><span class="doc">LwM2M Gateway API</span></a> article.</p>
+</div>
+<section id="how-it-works">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">7.4.2.1. </span>How it works</a><a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h3>
+<p>This example periodically sends the temperature measured by all EIDs.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">temperature_object_send()</span></code> (defined in <code class="docutils literal notranslate"><span class="pre">temperature_object.c</span></code>):</p>
+<ul class="simple">
+<li><p><strong>Creates a new batch</strong> for collecting data.</p></li>
+<li><p><strong>Iterates through the list of EIDs</strong>, fetching their temperature values.</p></li>
+<li><p><strong>Compiles the batch</strong> and schedules it for transmission.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">temperature_object_send</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="hll"><span class="w">                             </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">end_device_t</span><span class="p">)</span><span class="w"> </span><span class="n">end_devices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">server_ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">end_devices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">temperature_object</span><span class="p">,</span><span class="w"> </span><span class="n">TRACE</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;No end devices found, skipping sending data&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Allocate new batch builder.</span>
+<span class="w">    </span><span class="n">anjay_send_batch_builder_t</span><span class="w"> </span><span class="o">*</span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_send_batch_builder_new</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">builder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">temperature_object</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to allocate batch builder&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="hll"><span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">end_device_t</span><span class="p">)</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+</span><span class="hll"><span class="w">    </span><span class="n">AVS_LIST_FOREACH</span><span class="p">(</span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">end_devices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="c1">// Add current values of resource from Temperature Object.</span>
+</span><span class="hll"><span class="w">        </span><span class="n">temperature_object_t</span><span class="w"> </span><span class="o">*</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_obj</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">temperature_object</span><span class="p">);</span>
+</span><span class="hll"><span class="w">        </span><span class="n">temperature_instance_t</span><span class="w"> </span><span class="o">*</span><span class="n">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class="hll"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_lwm2m_gateway_send_batch_data_add_current</span><span class="p">(</span>
+</span><span class="hll"><span class="w">                    </span><span class="n">builder</span><span class="p">,</span><span class="w"> </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">end_device_iid</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">def</span><span class="o">-&gt;</span><span class="n">oid</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                    </span><span class="n">inst</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">RID_SENSOR_VALUE</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">            </span><span class="n">anjay_send_batch_builder_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">builder</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="n">avs_log</span><span class="p">(</span><span class="n">temperature_object</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to add batch data&quot;</span><span class="p">);</span>
+</span><span class="hll"><span class="w">            </span><span class="k">return</span><span class="p">;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}</span>
+</span>
+<span class="w">    </span><span class="c1">// After adding all values, compile our batch for sending.</span>
+<span class="w">    </span><span class="n">anjay_send_batch_t</span><span class="w"> </span><span class="o">*</span><span class="n">batch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_send_batch_builder_compile</span><span class="p">(</span><span class="o">&amp;</span><span class="n">builder</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">batch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">anjay_send_batch_builder_cleanup</span><span class="p">(</span><span class="o">&amp;</span><span class="n">builder</span><span class="p">);</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">temperature_object</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Batch compile failed&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Schedule our send to be run on next `anjay_sched_run()` call.</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">anjay_send</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">server_ssid</span><span class="p">,</span><span class="w"> </span><span class="n">batch</span><span class="p">,</span><span class="w"> </span><span class="n">send_finished_handler</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">temperature_object</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to send, result: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// After scheduling, we can release our batch.</span>
+<span class="w">    </span><span class="n">anjay_send_batch_release</span><span class="p">(</span><span class="o">&amp;</span><span class="n">batch</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="differences-from-standard-lwm2m-send">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">7.4.2.2. </span>Differences from standard LwM2M Send</a><a class="headerlink" href="#differences-from-standard-lwm2m-send" title="Link to this heading"></a></h3>
+<p>Compared to the standard <strong>LwM2M Send method</strong> described in the
+<a class="reference internal" href="../BasicClient/BC-Send.html"><span class="doc">Send method</span></a> tutorial, this implementation includes:</p>
+<ul class="simple">
+<li><p><strong>Support for Multiple EIDs</strong> – Instead of sending data from a single device,
+this function accepts a list of EIDs and retrieves temperature readings from
+each one.</p></li>
+<li><p><strong>New API Function with Extra Parameter:</strong> – The function
+<code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_send_batch_data_add_current()</span></code> is used to support EIDs.
+The function takes an additional parameter, <code class="docutils literal notranslate"><span class="pre">obj-&gt;end_device_iid</span></code>, which:</p>
+<ul>
+<li><p>Specifies the data source (the correct EID).</p></li>
+<li><p>Encodes a proper URI prefix retrieved internally from Gateway module.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="scheduling-periodic-data-transmission">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">7.4.2.3. </span>Scheduling periodic data transmission</a><a class="headerlink" href="#scheduling-periodic-data-transmission" title="Link to this heading"></a></h3>
+<p>To ensure temperature readings are <strong>sent at regular intervals</strong>, this function
+is called periodically by the scheduler as shown below:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Periodically issues a Send message with measured values of the temperature</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">send_job</span><span class="p">(</span><span class="n">avs_sched_t</span><span class="w"> </span><span class="o">*</span><span class="n">sched</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">args_ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">gateway_srv_t</span><span class="w"> </span><span class="o">*</span><span class="n">gateway_srv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">gateway_srv_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">args_ptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">temperature_object_send</span><span class="p">(</span><span class="n">gateway_srv</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">gateway_srv</span><span class="o">-&gt;</span><span class="n">end_devices</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Schedule run of the same function after 10 seconds</span>
+<span class="w">    </span><span class="n">AVS_SCHED_DELAYED</span><span class="p">(</span><span class="n">sched</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">),</span><span class="w"> </span><span class="n">send_job</span><span class="p">,</span>
+<span class="w">                    </span><span class="o">&amp;</span><span class="n">gateway_srv</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">gateway_srv</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This periodic behavior is set up in <code class="docutils literal notranslate"><span class="pre">main()</span></code>, just before
+<code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> is called:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">        </span><span class="c1">// Run send_job the first time;</span>
+</span><span class="hll"><span class="w">        </span><span class="c1">// this will schedule periodic calls to themselves via the scheduler</span>
+</span><span class="hll"><span class="w">        </span><span class="n">send_job</span><span class="p">(</span><span class="n">anjay_get_scheduler</span><span class="p">(</span><span class="n">anjay</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">gateway_srv_ptr</span><span class="p">);</span>
+</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_event_loop_run</span><span class="p">(</span>
+<span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_from_scalar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">AVS_TIME_S</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LwM2MGatewayNotifications.html" class="btn btn-neutral float-left" title="7.3. Observe and Notify support for LwM2M Gateway EIDs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Tools.html" class="btn btn-neutral float-right" title="8. Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

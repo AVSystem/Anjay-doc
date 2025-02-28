@@ -181,6 +181,10 @@ Data Fields</h2></td></tr>
 <tr class="separator:ac735e561573092a23a82e212c2ab2a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4961cf98b0de93c11cf0892abaaf0b1c" id="r_a4961cf98b0de93c11cf0892abaaf0b1c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a4961cf98b0de93c11cf0892abaaf0b1c">server_connection_status_cb_arg</a></td></tr>
 <tr class="separator:a4961cf98b0de93c11cf0892abaaf0b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bf74be766b2aa128ed72b46dab7d7bf" id="r_a2bf74be766b2aa128ed72b46dab7d7bf"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a2bf74be766b2aa128ed72b46dab7d7bf">coap_downloader_retry_count</a></td></tr>
+<tr class="separator:a2bf74be766b2aa128ed72b46dab7d7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4034a445947ac9ccd810c88527522779" id="r_a4034a445947ac9ccd810c88527522779"><td class="memItemLeft" align="right" valign="top">avs_time_duration_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a4034a445947ac9ccd810c88527522779">coap_downloader_retry_delay</a></td></tr>
+<tr class="separator:a4034a445947ac9ccd810c88527522779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="af4beab316b41955825df88a1dba26dcd" name="af4beab316b41955825df88a1dba26dcd"></a>
@@ -195,6 +199,41 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Callback that will be executed when initializing TLS and DTLS connections, that can be used for additional configuration of the TLS backend. </p>
+
+</div>
+</div>
+<a id="a2bf74be766b2aa128ed72b46dab7d7bf" name="a2bf74be766b2aa128ed72b46dab7d7bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bf74be766b2aa128ed72b46dab7d7bf">&#9670;&#160;</a></span>coap_downloader_retry_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t coap_downloader_retry_count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000006">Experimental:</a></b></dt><dd>This is experimental feature of CoAP downloader. This API can change in future versions without any notice.</dd></dl>
+<p>If set, defines the number of additional CoAP download attempts that will be made in case of failure. Can be useful for large files (Firmware Update) and poor network quality. If the resumption of the transfer was successful then the retry counter is reset.</p>
+<p>Retries are performed only in case of network problems - AVS_ERRNO_CATEGORY or exchange timeout, in case of internal problems or error server responses the download is stopped.</p>
+<p>Each try will establish new connections and start a new exchange but preserve the download status. This logic does not comply with CoAP, but it can prevent multiple downloads of the same file.</p>
+<p>NOTE: Keep in mind that the behavior of this feature changes when the same socket is used for both file downloads and other CoAP operations (which may happen if the prefer_same_socket_downloads flag is set). A specific difference is how network errors (e.g., ICMP) are handled: if a separate socket is used for downloads, Anjay will retry downloading; however, if the same socket is used for other CoAP operations, Anjay will abort the download. In the event of a timeout, Anjay will retry downloading in both cases. </p>
+
+</div>
+</div>
+<a id="a4034a445947ac9ccd810c88527522779" name="a4034a445947ac9ccd810c88527522779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4034a445947ac9ccd810c88527522779">&#9670;&#160;</a></span>coap_downloader_retry_delay</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">avs_time_duration_t coap_downloader_retry_delay</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000007">Experimental:</a></b></dt><dd>This is experimental feature of CoAP downloader. This API can change in future versions without any notice.</dd></dl>
+<p>If set, defines the delay between CoAP download attempts in case of failure. If not set, next attempt will be made immediately. Related to <a class="el" href="structanjay__configuration.html#a2bf74be766b2aa128ed72b46dab7d7bf">coap_downloader_retry_count</a>. </p>
 
 </div>
 </div>
@@ -890,7 +929,7 @@ Usage" modes configured in the Security object of the data model. It is also not
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__configuration.html">anjay_configuration</a></li>
-    <li class="footer">Generated on Wed Nov 13 2024 12:29:53 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Fri Feb 28 2025 11:38:28 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

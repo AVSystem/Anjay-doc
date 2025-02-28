@@ -20,6 +20,7 @@ var dm_8h =
     [ "ANJAY_DM_OID_ACCESS_CONTROL", "dm_8h.html#a37180e898829f3bb5a7a019046790fca", null ],
     [ "ANJAY_DM_OID_DEVICE", "dm_8h.html#a00bcde8dd080fb016edd4b5f83bb3f6a", null ],
     [ "ANJAY_DM_OID_FIRMWARE_UPDATE", "dm_8h.html#a53f34c44be6325e48f2ae56c75cf0af1", null ],
+    [ "ANJAY_DM_OID_LWM2M_GATEWAY", "dm_8h.html#a99e47620722fc40c6b406dfa1375f14d", null ],
     [ "ANJAY_DM_OID_SECURITY", "dm_8h.html#aa6fbde638b573ea1a4fe39712e70ab3d", null ],
     [ "ANJAY_DM_OID_SERVER", "dm_8h.html#af7ba0ce6868a759941b37972fb550bde", null ],
     [ "ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER", "dm_8h.html#a91bf1e1a9dbc892318b1236baef759a6", null ],

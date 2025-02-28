@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.2. LwM2M Gateway API &mdash; Anjay 3.9.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=554064f1" />
+
+  
+  
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e55a5be6"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7.3. Observe and Notify support for LwM2M Gateway EIDs" href="LwM2MGatewayNotifications.html" />
+    <link rel="prev" title="7.1. LwM2M Gateway Introduction" href="LwM2MGatewayIntro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.9.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewayIntro.html">7.1. LwM2M Gateway Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.2. LwM2M Gateway API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewayNotifications.html">7.3. Observe and Notify support for LwM2M Gateway EIDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MGatewaySend.html">7.4. Send method for LwM2M Gateway EIDs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">8. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">9. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">10. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">11. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../LwM2MGateway.html"><span class="section-number">7. </span>LwM2M Gateway</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.2. </span>LwM2M Gateway API</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lwm2m-gateway-api">
+<h1><span class="section-number">7.2. </span>LwM2M Gateway API<a class="headerlink" href="#lwm2m-gateway-api" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#lwm2m-gateway-object" id="id1">LwM2M Gateway object</a></p></li>
+<li><p><a class="reference internal" href="#managing-end-devices" id="id2">Managing End Devices</a></p>
+<ul>
+<li><p><a class="reference internal" href="#communication-with-end-devices" id="id3">Communication with End Devices</a></p></li>
+<li><p><a class="reference internal" href="#registering-an-end-device" id="id4">Registering an End Device</a></p></li>
+<li><p><a class="reference internal" href="#instance-id-iid-management" id="id5">Instance ID (iid) management</a></p></li>
+<li><p><a class="reference internal" href="#registering-lwm2m-objects-for-an-end-device" id="id6">Registering LwM2M objects for an End Device</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#cleaning-up" id="id7">Cleaning up</a></p></li>
+</ul>
+</nav>
+<section id="lwm2m-gateway-object">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">7.2.1. </span>LwM2M Gateway object</a><a class="headerlink" href="#lwm2m-gateway-object" title="Link to this heading"></a></h2>
+<p>Before using the LwM2M Gateway object, we need to inform Anjay of its existence.
+Anjay includes a built-in implementation of the LwM2M Gateway object
+<a class="reference external" href="https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/25.xml">LwM2M Gateway</a>
+(<code class="docutils literal notranslate"><span class="pre">/25</span></code>), which can be easily utilized.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Anjay implements version 2.0 of Object <code class="docutils literal notranslate"><span class="pre">/25</span></code> containing all three
+mandatory resources: <code class="docutils literal notranslate"><span class="pre">Device</span> <span class="pre">ID</span></code>, <code class="docutils literal notranslate"><span class="pre">Prefix</span></code>, and <code class="docutils literal notranslate"><span class="pre">IoT</span> <span class="pre">Device</span> <span class="pre">Object</span></code>.</p>
+</div>
+<p>Once the Anjay object is created, the Gateway object can be installed using
+the <code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_install()</span></code> function.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
+<code class="docutils literal notranslate"><span class="pre">examples/commercial-features/CF-LwM2M-Gateway</span></code> subdirectory of the main
+Anjay project repository.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">CONFIG</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Could not create Anjay object&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setup_security_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">setup_server_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">anjay_lwm2m_gateway_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to add /25 Gateway Object&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="managing-end-devices">
+<span id="lwm2m-gateway-register-device"></span><h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">7.2.2. </span>Managing End Devices</a><a class="headerlink" href="#managing-end-devices" title="Link to this heading"></a></h2>
+<p>Managing a new End Device involves two key steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Establishing communication</strong> between the Gateway and the End Device.</p></li>
+<li><p><strong>Registering the device and its objects</strong> in the LwM2M Gateway.</p></li>
+</ol>
+<section id="communication-with-end-devices">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">7.2.2.1. </span>Communication with End Devices</a><a class="headerlink" href="#communication-with-end-devices" title="Link to this heading"></a></h3>
+<p>Since different End Devices may have unique requirements, the communication
+method varies. The example provided in the next section includes a Python script
+<code class="docutils literal notranslate"><span class="pre">examples/commercial-features/CF-LwM2M-Gateway/end_device.py</span></code>. This script
+communicates with the Anjay example code using <strong>UNIX sockets</strong>. However, it is
+the user’s responsibility to implement the appropriate communication mechanism
+for their specific End Devices.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Python script can be started multiple times, and each instance of the
+script will automatically connect to the Gateway and simulate a
+single End Device. Stopping the execution of the script will dynamically
+disconnect the associated End Device from the LwM2M Gateway.</p>
+</div>
+</section>
+<section id="registering-an-end-device">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">7.2.2.2. </span>Registering an End Device</a><a class="headerlink" href="#registering-an-end-device" title="Link to this heading"></a></h3>
+<p>When a new End Device sends an <strong>attach request</strong>, the LwM2M Gateway must
+register it by adding a new instance of the <code class="docutils literal notranslate"><span class="pre">/25</span></code> Gateway Object. This is
+done using the <code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_register_device()</span></code> function.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_end_device</span><span class="p">(</span><span class="n">gateway_srv_t</span><span class="w"> </span><span class="o">*</span><span class="n">gateway_srv</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">end_device_t</span><span class="w"> </span><span class="o">*</span><span class="n">end_device</span><span class="p">,</span>
+<span class="w">                            </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="w">    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gateway_srv</span><span class="o">-&gt;</span><span class="n">anjay</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">strcpy</span><span class="p">(</span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">end_device_name</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span>
+<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_lwm2m_gateway_register_device</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">end_device_name</span><span class="p">,</span>
+</span><span class="hll"><span class="w">                                            </span><span class="o">&amp;</span><span class="n">iid</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to add End Device&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">iid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iid</span><span class="p">;</span>
+<span class="w">    </span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">evaluation_period</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_MAXIMAL_EVALUATION_PERIOD</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="instance-id-iid-management">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">7.2.2.3. </span>Instance ID (iid) management</a><a class="headerlink" href="#instance-id-iid-management" title="Link to this heading"></a></h3>
+<p>You can specify an <strong>Instance ID (iid)</strong> manually or set it to
+<code class="docutils literal notranslate"><span class="pre">ANJAY_ID_INVALID</span></code> to let Anjay assign the first available ID automatically.
+Always check the return code of <code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_register_device()</span></code>,
+especially when assigning <code class="docutils literal notranslate"><span class="pre">iid</span></code> manually. If a collision occurs, the function
+will return a <strong>negative value</strong> without modifying the passed <code class="docutils literal notranslate"><span class="pre">iid</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">device_id</span></code> parameter passed to <code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_register_device()</span></code>
+must remain <strong>valid until the device is deregistered</strong>. The value is not
+copied internally.</p>
+</div>
+</section>
+<section id="registering-lwm2m-objects-for-an-end-device">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">7.2.2.4. </span>Registering LwM2M objects for an End Device</a><a class="headerlink" href="#registering-lwm2m-objects-for-an-end-device" title="Link to this heading"></a></h3>
+<p>Once an End Device is registered, its supported LwM2M objects must also be
+registered. In the provided example, only one object: <strong>Temperature Object</strong>
+(<code class="docutils literal notranslate"><span class="pre">/3303</span></code>) (<a class="reference external" href="https://github.com/OpenMobileAlliance/lwm2m-registry/blob/prod/3303.xml">LwM2M Temperature Object Specification</a>) is
+registered.</p>
+<p>To register an object, use the <code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_register_object()</span></code>
+function. The object implementation should handle communication with the End
+Device, but otherwise follows the same pattern as <code class="docutils literal notranslate"><span class="pre">anjay_register_object()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">**</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">temperature_object_create</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">gateway_srv</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to create Temperature Object&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">end_device</span><span class="o">-&gt;</span><span class="n">temperature_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span>
+
+<span class="hll"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_lwm2m_gateway_register_object</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">obj</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to register Temperature Object&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Temperature Object implementation
+(<code class="docutils literal notranslate"><span class="pre">examples/tutorial/LwM2M-Gateway/src/temperature_object.c</span></code>)
+interacts with the Python script simulating an End Device to perform actual
+read and write operations.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Anjay LwM2M Gateway <strong>automatically assigns Prefixes</strong> (<code class="docutils literal notranslate"><span class="pre">/25/*/1</span></code>).
+However, when using the LwM2M Gateway API, users should rely on the integer
+<strong>End Device Instance ID</strong> returned by <code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_register_device()</span></code>.
+It is recommended to <strong>store the Instance ID</strong> in a structure representing
+the object registered on the End Device. This makes it easier to match
+the correct End Device when using shared object implementations.</p>
+</div>
+</section>
+</section>
+<section id="cleaning-up">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">7.2.3. </span>Cleaning up</a><a class="headerlink" href="#cleaning-up" title="Link to this heading"></a></h2>
+<p>When a device disconnects, the user should perform two actions:</p>
+<ul class="simple">
+<li><p>Unregister all of the objects of a given End Device using
+<code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_unregister_object()</span></code></p></li>
+<li><p>Deregister the End Device with <code class="docutils literal notranslate"><span class="pre">anjay_lwm2m_gateway_deregister_device()</span></code></p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">temperature_object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_lwm2m_gateway_unregister_object</span><span class="p">(</span>
+</span><span class="hll"><span class="w">                </span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">temperature_object</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to unregister Temperature Object&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">temperature_object_release</span><span class="p">(</span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">temperature_object</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="hll"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_lwm2m_gateway_deregister_device</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">end_device</span><span class="o">-&gt;</span><span class="n">iid</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span class="w">    </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to deregister End Device&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="LwM2MGatewayIntro.html" class="btn btn-neutral float-left" title="7.1. LwM2M Gateway Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LwM2MGatewayNotifications.html" class="btn btn-neutral float-right" title="7.3. Observe and Notify support for LwM2M Gateway EIDs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

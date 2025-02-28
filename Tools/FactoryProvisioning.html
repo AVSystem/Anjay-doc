@@ -4,23 +4,23 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7.2. Factory Provisioning Tool &mdash; Anjay 3.8.1 documentation</title>
+  <title>8.2. Factory Provisioning Tool &mdash; Anjay 3.9.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=b9c2c5b9" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=554064f1" />
 
   
   
         <script src="../_static/jquery.js?v=8dae8fb0"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=30f795a6"></script>
+        <script src="../_static/documentation_options.js?v=e55a5be6"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7.3. Standalone LwM2M Object implementations" href="StandaloneObjects.html" />
-    <link rel="prev" title="7.1. LwM2M testing shell" href="CliLwM2MServer.html" /> 
+    <link rel="next" title="8.3. Standalone LwM2M Object implementations" href="StandaloneObjects.html" />
+    <link rel="prev" title="8.1. LwM2M testing shell" href="CliLwM2MServer.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +36,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.8.1
+                3.9.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -53,16 +53,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../Tools.html">7. Tools</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="CliLwM2MServer.html">7.1. LwM2M testing shell</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">7.2. Factory Provisioning Tool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="StandaloneObjects.html">7.3. Standalone LwM2M Object implementations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="StubGenerator.html">7.4. Anjay Object stub generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Tools.html">8. Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CliLwM2MServer.html">8.1. LwM2M testing shell</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.2. Factory Provisioning Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StandaloneObjects.html">8.3. Standalone LwM2M Object implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StubGenerator.html">8.4. Anjay Object stub generator</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">8. Porting guide for non-POSIX platforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">9. Migrating from older versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">10. Commercial features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">9. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">10. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">11. Commercial features</a></li>
 </ul>
 
         </div>
@@ -79,8 +80,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../Tools.html"><span class="section-number">7. </span>Tools</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">7.2. </span>Factory Provisioning Tool</li>
+          <li class="breadcrumb-item"><a href="../Tools.html"><span class="section-number">8. </span>Tools</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.2. </span>Factory Provisioning Tool</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -90,9 +91,9 @@
            <div itemprop="articleBody">
              
   <section id="factory-provisioning-tool">
-<h1><span class="section-number">7.2. </span>Factory Provisioning Tool<a class="headerlink" href="#factory-provisioning-tool" title="Link to this heading"></a></h1>
+<h1><span class="section-number">8.2. </span>Factory Provisioning Tool<a class="headerlink" href="#factory-provisioning-tool" title="Link to this heading"></a></h1>
 <section id="general-overview">
-<h2><span class="section-number">7.2.1. </span>General overview<a class="headerlink" href="#general-overview" title="Link to this heading"></a></h2>
+<h2><span class="section-number">8.2.1. </span>General overview<a class="headerlink" href="#general-overview" title="Link to this heading"></a></h2>
 <p>Anjay comes with a simple Python script that makes factory device
 provisioning easier. The script supports:</p>
 <ul class="simple">
@@ -103,7 +104,7 @@ provisioning easier. The script supports:</p>
 </ul>
 </section>
 <section id="provisioning-tool">
-<h2><span class="section-number">7.2.2. </span>Provisioning tool<a class="headerlink" href="#provisioning-tool" title="Link to this heading"></a></h2>
+<h2><span class="section-number">8.2.2. </span>Provisioning tool<a class="headerlink" href="#provisioning-tool" title="Link to this heading"></a></h2>
 <p>The provisioning tool is a small script that the user will interact with
 during the factory provisioning process. It uses the Factory Provisioning library
 that we will talk about in the next section.</p>
@@ -280,7 +281,7 @@ or converted from PEM format using:
 </div>
 </section>
 <section id="factory-provisioning-library">
-<h2><span class="section-number">7.2.3. </span>Factory Provisioning library<a class="headerlink" href="#factory-provisioning-library" title="Link to this heading"></a></h2>
+<h2><span class="section-number">8.2.3. </span>Factory Provisioning library<a class="headerlink" href="#factory-provisioning-library" title="Link to this heading"></a></h2>
 <p>To better understand the provisioning process we will look into the implementation
 of the Factory Provisioning library.</p>
 <div class="admonition note">
@@ -394,14 +395,14 @@ messages should give the user a hint what went wrong in case of any trouble.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="CliLwM2MServer.html" class="btn btn-neutral float-left" title="7.1. LwM2M testing shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="StandaloneObjects.html" class="btn btn-neutral float-right" title="7.3. Standalone LwM2M Object implementations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="CliLwM2MServer.html" class="btn btn-neutral float-left" title="8.1. LwM2M testing shell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="StandaloneObjects.html" class="btn btn-neutral float-right" title="8.3. Standalone LwM2M Object implementations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2024, AVSystem.</p>
+    <p>&#169; Copyright 2017-2025, AVSystem.</p>
   </div>
 
    

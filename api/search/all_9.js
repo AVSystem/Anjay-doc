@@ -7,6 +7,7 @@ var searchData=
   ['list_5fresource_5finstances_4',['list_resource_instances',['../structanjay__dm__handlers__t.html#a403cc4428856c795f39d7cc51109ccca',1,'anjay_dm_handlers_t']]],
   ['list_5fresources_5',['list_resources',['../structanjay__dm__handlers__t.html#aff1028c21861b57e345b55f557cb400a',1,'anjay_dm_handlers_t']]],
   ['local_5fmsisdn_6',['local_msisdn',['../structanjay__configuration.html#ab6bb44906738be517af97e3319a8ca78',1,'anjay_configuration']]],
-  ['lwm2m_5fsend_2eh_7',['lwm2m_send.h',['../lwm2m__send_8h.html',1,'']]],
-  ['lwm2m_5fversion_5fconfig_8',['lwm2m_version_config',['../structanjay__configuration.html#a53d4371420f52d82f1e94b551cef8f98',1,'anjay_configuration']]]
+  ['lwm2m_5fgateway_2eh_7',['lwm2m_gateway.h',['../lwm2m__gateway_8h.html',1,'']]],
+  ['lwm2m_5fsend_2eh_8',['lwm2m_send.h',['../lwm2m__send_8h.html',1,'']]],
+  ['lwm2m_5fversion_5fconfig_9',['lwm2m_version_config',['../structanjay__configuration.html#a53d4371420f52d82f1e94b551cef8f98',1,'anjay_configuration']]]
 ];

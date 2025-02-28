@@ -16,6 +16,7 @@ var dir_f1282f3667e08fb5f3f6a37ec99711a1 =
     [ "io.h", "io_8h.html", "io_8h" ],
     [ "ipso_objects.h", "ipso__objects_8h.html", "ipso__objects_8h" ],
     [ "ipso_objects_v2.h", "ipso__objects__v2_8h.html", "ipso__objects__v2_8h" ],
+    [ "lwm2m_gateway.h", "lwm2m__gateway_8h.html", "lwm2m__gateway_8h" ],
     [ "lwm2m_send.h", "lwm2m__send_8h.html", "lwm2m__send_8h" ],
     [ "nidd.h", "nidd_8h.html", "nidd_8h" ],
     [ "security.h", "security_8h.html", "security_8h" ],

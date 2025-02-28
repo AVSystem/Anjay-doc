@@ -23,6 +23,7 @@ var core_8h =
     [ "ANJAY_ERR_SERVICE_UNAVAILABLE", "core_8h.html#aa5b26069ef78147330a4c05aa13a6c57", null ],
     [ "ANJAY_ERR_UNAUTHORIZED", "core_8h.html#a8f24cff6f35cf135a4cd1387dd181713", null ],
     [ "ANJAY_ERR_UNSUPPORTED_CONTENT_FORMAT", "core_8h.html#a9f7cbd8ea614fe042206af9d9a384660", null ],
+    [ "ANJAY_GATEWAY_MAX_PREFIX_LEN", "core_8h.html#a8c956519050dab506f21d0695b239b58", null ],
     [ "ANJAY_ID_INVALID", "core_8h.html#a76bba83ae1b2f9d2037fdaea8a81e9d6", null ],
     [ "ANJAY_SSID_ANY", "core_8h.html#a75735105ebc11358f8f707568a8b11fa", null ],
     [ "ANJAY_SSID_BOOTSTRAP", "core_8h.html#a857486d85f02514fc3f69ae7b2566f4c", null ],
