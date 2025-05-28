@@ -1,19 +1,13 @@
 var searchData=
 [
-  ['matching_5ftype_0',['matching_type',['../structanjay__security__instance__t.html#afad392381e9cf76bb76386eaed7b0cd5',1,'anjay_security_instance_t']]],
-  ['max_5feval_5fperiod_1',['max_eval_period',['../structanjay__dm__oi__attributes__t.html#afa984ccd2bbab85ee480261307ea5a5c',1,'anjay_dm_oi_attributes_t::max_eval_period'],['../structanjay__resource__observation__status__t.html#afa984ccd2bbab85ee480261307ea5a5c',1,'anjay_resource_observation_status_t::max_eval_period']]],
-  ['max_5fmargin_2',['max_margin',['../structanjay__est__reenroll__config__t.html#a86dcdfa2d69c8a3ba4eb41535456819f',1,'anjay_est_reenroll_config_t']]],
-  ['max_5fperiod_3',['max_period',['../structanjay__dm__oi__attributes__t.html#a046b26ed7b41645334da73120a9be970',1,'anjay_dm_oi_attributes_t']]],
-  ['max_5frange_5fvalue_4',['max_range_value',['../structanjay__ipso__basic__sensor__impl__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_basic_sensor_impl_struct::max_range_value'],['../structanjay__ipso__3d__sensor__impl__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_3d_sensor_impl_struct::max_range_value'],['../structanjay__ipso__v2__basic__sensor__meta__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_v2_basic_sensor_meta_struct::max_range_value'],['../structanjay__ipso__v2__3d__sensor__meta__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_v2_3d_sensor_meta_struct::max_range_value']]],
-  ['maximum_5fversion_5',['maximum_version',['../structanjay__lwm2m__version__config__t.html#a971f51d70d53f93e6b5469186a573856',1,'anjay_lwm2m_version_config_t']]],
-  ['min_5feval_5fperiod_6',['min_eval_period',['../structanjay__dm__oi__attributes__t.html#afbe98dcf90d951da1f357b58871ca755',1,'anjay_dm_oi_attributes_t']]],
-  ['min_5fmax_5fmeasured_5fvalue_5fpresent_7',['min_max_measured_value_present',['../structanjay__ipso__v2__3d__sensor__meta__struct.html#a4e0af6b274ecb662b276b9100300bdfa',1,'anjay_ipso_v2_3d_sensor_meta_struct::min_max_measured_value_present'],['../structanjay__ipso__v2__basic__sensor__meta__struct.html#a4e0af6b274ecb662b276b9100300bdfa',1,'anjay_ipso_v2_basic_sensor_meta_struct::min_max_measured_value_present']]],
-  ['min_5fperiod_8',['min_period',['../structanjay__dm__oi__attributes__t.html#adbd8b3ddb9229708bdb35221036beb60',1,'anjay_dm_oi_attributes_t::min_period'],['../structanjay__resource__observation__status__t.html#adbd8b3ddb9229708bdb35221036beb60',1,'anjay_resource_observation_status_t::min_period']]],
-  ['min_5frange_5fvalue_9',['min_range_value',['../structanjay__ipso__basic__sensor__impl__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_basic_sensor_impl_struct::min_range_value'],['../structanjay__ipso__3d__sensor__impl__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_3d_sensor_impl_struct::min_range_value'],['../structanjay__ipso__v2__basic__sensor__meta__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_v2_basic_sensor_meta_struct::min_range_value'],['../structanjay__ipso__v2__3d__sensor__meta__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_v2_3d_sensor_meta_struct::min_range_value']]],
-  ['minimum_5fversion_10',['minimum_version',['../structanjay__lwm2m__version__config__t.html#a78a5c007835a100fefd6188742bebe3d',1,'anjay_lwm2m_version_config_t']]],
-  ['modem_5fget_5fparameter_11',['modem_get_parameter',['../structanjay__bg96__nidd__config__t.html#ad1d9abcea6d4553717b3e9314058476f',1,'anjay_bg96_nidd_config_t']]],
-  ['modem_5fgetline_12',['modem_getline',['../structanjay__bg96__nidd__config__t.html#a6daa008f4ff58e1a6686c1b4a0edc61b',1,'anjay_bg96_nidd_config_t']]],
-  ['modem_5fwrite_13',['modem_write',['../structanjay__bg96__nidd__config__t.html#a7dd04fef96e6789443b5cfa87c979bf6',1,'anjay_bg96_nidd_config_t']]],
-  ['msg_5fcache_5fsize_14',['msg_cache_size',['../structanjay__configuration.html#a3bb16de58b283370b1ab20698dd4849a',1,'anjay_configuration']]],
-  ['mute_5fsend_15',['mute_send',['../structanjay__server__instance__t.html#a085805695bcc56a9045f71f5a80aa280',1,'anjay_server_instance_t']]]
+  ['less_5fthan_0',['less_than',['../structanjay__dm__r__attributes__t.html#a6eb3c5ea7152b9d4ad0bdd814c360f47',1,'anjay_dm_r_attributes_t']]],
+  ['lifetime_1',['lifetime',['../structanjay__server__instance__t.html#a50c31a8af62f98f46e76d5f6fca819b1',1,'anjay_server_instance_t']]],
+  ['list_2',['Experimental List',['../experimentals.html',1,'']]],
+  ['list_5finstances_3',['list_instances',['../structanjay__dm__handlers__t.html#acb219257fbf5b61ee85c96c3e23f991f',1,'anjay_dm_handlers_t']]],
+  ['list_5fresource_5finstances_4',['list_resource_instances',['../structanjay__dm__handlers__t.html#a403cc4428856c795f39d7cc51109ccca',1,'anjay_dm_handlers_t']]],
+  ['list_5fresources_5',['list_resources',['../structanjay__dm__handlers__t.html#aff1028c21861b57e345b55f557cb400a',1,'anjay_dm_handlers_t']]],
+  ['local_5fmsisdn_6',['local_msisdn',['../structanjay__configuration.html#ab6bb44906738be517af97e3319a8ca78',1,'anjay_configuration']]],
+  ['lwm2m_5fgateway_2eh_7',['lwm2m_gateway.h',['../lwm2m__gateway_8h.html',1,'']]],
+  ['lwm2m_5fsend_2eh_8',['lwm2m_send.h',['../lwm2m__send_8h.html',1,'']]],
+  ['lwm2m_5fversion_5fconfig_9',['lwm2m_version_config',['../structanjay__configuration.html#a53d4371420f52d82f1e94b551cef8f98',1,'anjay_configuration']]]
 ];

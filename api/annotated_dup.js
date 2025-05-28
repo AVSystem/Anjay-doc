@@ -22,6 +22,7 @@ var annotated_dup =
     [ "anjay_ipso_v2_basic_sensor_meta_struct", "structanjay__ipso__v2__basic__sensor__meta__struct.html", "structanjay__ipso__v2__basic__sensor__meta__struct" ],
     [ "anjay_lwm2m_version_config_t", "structanjay__lwm2m__version__config__t.html", "structanjay__lwm2m__version__config__t" ],
     [ "anjay_nidd_driver_struct", "structanjay__nidd__driver__struct.html", "structanjay__nidd__driver__struct" ],
+    [ "anjay_oscore_instance_t", "structanjay__oscore__instance__t.html", "structanjay__oscore__instance__t" ],
     [ "anjay_resource_observation_status_t", "structanjay__resource__observation__status__t.html", "structanjay__resource__observation__status__t" ],
     [ "anjay_security_config_t", "structanjay__security__config__t.html", "structanjay__security__config__t" ],
     [ "anjay_security_hsm_configuration_t", "structanjay__security__hsm__configuration__t.html", "structanjay__security__hsm__configuration__t" ],
@@ -34,5 +35,6 @@ var annotated_dup =
     [ "anjay_sw_mgmt_handlers_t", "structanjay__sw__mgmt__handlers__t.html", "structanjay__sw__mgmt__handlers__t" ],
     [ "anjay_sw_mgmt_instance_initializer_t", "structanjay__sw__mgmt__instance__initializer__t.html", "structanjay__sw__mgmt__instance__initializer__t" ],
     [ "anjay_sw_mgmt_settings_t", "structanjay__sw__mgmt__settings__t.html", "structanjay__sw__mgmt__settings__t" ],
-    [ "anjay_transport_set_t", "structanjay__transport__set__t.html", "structanjay__transport__set__t" ]
+    [ "anjay_transport_set_t", "structanjay__transport__set__t.html", "structanjay__transport__set__t" ],
+    [ "anjay_uri_path_t", "structanjay__uri__path__t.html", "structanjay__uri__path__t" ]
 ];

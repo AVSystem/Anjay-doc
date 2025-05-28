@@ -5,6 +5,7 @@ var structanjay__configuration =
     [ "coap_downloader_retry_delay", "structanjay__configuration.html#a4034a445947ac9ccd810c88527522779", null ],
     [ "coap_tcp_max_options_size", "structanjay__configuration.html#aaee4c29de8d38b23e7b4a586829b2294", null ],
     [ "coap_tcp_request_timeout", "structanjay__configuration.html#a3ed2199020b41ef9cab2b20fb27a7f3e", null ],
+    [ "confirmable_notification_status_cb", "structanjay__configuration.html#a6d029ef6e0f106e08a10cc01f26deb35", null ],
     [ "confirmable_notifications", "structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05", null ],
     [ "connection_error_is_registration_failure", "structanjay__configuration.html#adcc95609ca645a5bd6a572f4c99a83fb", null ],
     [ "default_tls_ciphersuites", "structanjay__configuration.html#ab5c0d3b6618cce9452d224a361e7479f", null ],

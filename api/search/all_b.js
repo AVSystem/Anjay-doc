@@ -1,9 +1,21 @@
 var searchData=
 [
-  ['nidd_0',['nidd',['../structanjay__transport__set__t.html#ac1a47506220b9d4ccad7bfb51d61c9c8',1,'anjay_transport_set_t']]],
-  ['nidd_2eh_1',['nidd.h',['../nidd_8h.html',1,'']]],
-  ['nidd_5fdriver_2',['nidd_driver',['../structanjay__configuration.html#a6b9146075bd687d935f24690d478dcb0',1,'anjay_configuration']]],
-  ['nidd_5ftx_5fparams_3',['nidd_tx_params',['../structanjay__configuration.html#aed7839b224d4df21dbf537c351b2d7dc',1,'anjay_configuration']]],
-  ['nominal_5fusage_4',['nominal_usage',['../structanjay__est__reenroll__config__t.html#a28e7bc9334fec0cf348a46b03fa9df74',1,'anjay_est_reenroll_config_t']]],
-  ['notification_5fstoring_5',['notification_storing',['../structanjay__server__instance__t.html#a1c616832e733228fa20bfc16920d4dea',1,'anjay_server_instance_t']]]
+  ['master_5fsalt_0',['master_salt',['../structanjay__oscore__instance__t.html#a5b0bb869c867ddea6b937b96149b5f73',1,'anjay_oscore_instance_t']]],
+  ['master_5fsecret_1',['master_secret',['../structanjay__oscore__instance__t.html#ab5707231e015c190982c14cee6c7fca2',1,'anjay_oscore_instance_t']]],
+  ['matching_5ftype_2',['matching_type',['../structanjay__security__instance__t.html#afad392381e9cf76bb76386eaed7b0cd5',1,'anjay_security_instance_t']]],
+  ['max_5feval_5fperiod_3',['max_eval_period',['../structanjay__dm__oi__attributes__t.html#afa984ccd2bbab85ee480261307ea5a5c',1,'anjay_dm_oi_attributes_t::max_eval_period'],['../structanjay__resource__observation__status__t.html#afa984ccd2bbab85ee480261307ea5a5c',1,'anjay_resource_observation_status_t::max_eval_period']]],
+  ['max_5fmargin_4',['max_margin',['../structanjay__est__reenroll__config__t.html#a86dcdfa2d69c8a3ba4eb41535456819f',1,'anjay_est_reenroll_config_t']]],
+  ['max_5fperiod_5',['max_period',['../structanjay__dm__oi__attributes__t.html#a046b26ed7b41645334da73120a9be970',1,'anjay_dm_oi_attributes_t']]],
+  ['max_5frange_5fvalue_6',['max_range_value',['../structanjay__ipso__basic__sensor__impl__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_basic_sensor_impl_struct::max_range_value'],['../structanjay__ipso__3d__sensor__impl__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_3d_sensor_impl_struct::max_range_value'],['../structanjay__ipso__v2__basic__sensor__meta__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_v2_basic_sensor_meta_struct::max_range_value'],['../structanjay__ipso__v2__3d__sensor__meta__struct.html#aa8f27134ade80165cc0efbce66c9ddc8',1,'anjay_ipso_v2_3d_sensor_meta_struct::max_range_value']]],
+  ['maximum_5fversion_7',['maximum_version',['../structanjay__lwm2m__version__config__t.html#a971f51d70d53f93e6b5469186a573856',1,'anjay_lwm2m_version_config_t']]],
+  ['min_5feval_5fperiod_8',['min_eval_period',['../structanjay__dm__oi__attributes__t.html#afbe98dcf90d951da1f357b58871ca755',1,'anjay_dm_oi_attributes_t']]],
+  ['min_5fmax_5fmeasured_5fvalue_5fpresent_9',['min_max_measured_value_present',['../structanjay__ipso__v2__basic__sensor__meta__struct.html#a4e0af6b274ecb662b276b9100300bdfa',1,'anjay_ipso_v2_basic_sensor_meta_struct::min_max_measured_value_present'],['../structanjay__ipso__v2__3d__sensor__meta__struct.html#a4e0af6b274ecb662b276b9100300bdfa',1,'anjay_ipso_v2_3d_sensor_meta_struct::min_max_measured_value_present']]],
+  ['min_5fperiod_10',['min_period',['../structanjay__dm__oi__attributes__t.html#adbd8b3ddb9229708bdb35221036beb60',1,'anjay_dm_oi_attributes_t::min_period'],['../structanjay__resource__observation__status__t.html#adbd8b3ddb9229708bdb35221036beb60',1,'anjay_resource_observation_status_t::min_period']]],
+  ['min_5frange_5fvalue_11',['min_range_value',['../structanjay__ipso__basic__sensor__impl__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_basic_sensor_impl_struct::min_range_value'],['../structanjay__ipso__3d__sensor__impl__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_3d_sensor_impl_struct::min_range_value'],['../structanjay__ipso__v2__basic__sensor__meta__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_v2_basic_sensor_meta_struct::min_range_value'],['../structanjay__ipso__v2__3d__sensor__meta__struct.html#a070685a02ef05f3655eac7b5303ee294',1,'anjay_ipso_v2_3d_sensor_meta_struct::min_range_value']]],
+  ['minimum_5fversion_12',['minimum_version',['../structanjay__lwm2m__version__config__t.html#a78a5c007835a100fefd6188742bebe3d',1,'anjay_lwm2m_version_config_t']]],
+  ['modem_5fget_5fparameter_13',['modem_get_parameter',['../structanjay__bg96__nidd__config__t.html#ad1d9abcea6d4553717b3e9314058476f',1,'anjay_bg96_nidd_config_t']]],
+  ['modem_5fgetline_14',['modem_getline',['../structanjay__bg96__nidd__config__t.html#a6daa008f4ff58e1a6686c1b4a0edc61b',1,'anjay_bg96_nidd_config_t']]],
+  ['modem_5fwrite_15',['modem_write',['../structanjay__bg96__nidd__config__t.html#a7dd04fef96e6789443b5cfa87c979bf6',1,'anjay_bg96_nidd_config_t']]],
+  ['msg_5fcache_5fsize_16',['msg_cache_size',['../structanjay__configuration.html#a3bb16de58b283370b1ab20698dd4849a',1,'anjay_configuration']]],
+  ['mute_5fsend_17',['mute_send',['../structanjay__server__instance__t.html#a085805695bcc56a9045f71f5a80aa280',1,'anjay_server_instance_t']]]
 ];

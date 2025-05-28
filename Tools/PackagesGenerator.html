@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8.3. Package generator &mdash; Anjay 3.10.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=2238f999" />
+
+  
+  
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=f8d09eac"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8.4. Standalone LwM2M Object implementations" href="StandaloneObjects.html" />
+    <link rel="prev" title="8.2. Factory Provisioning Tool" href="FactoryProvisioning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.10.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Tools.html">8. Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CliLwM2MServer.html">8.1. LwM2M testing shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FactoryProvisioning.html">8.2. Factory Provisioning Tool</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.3. Package generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StandaloneObjects.html">8.4. Standalone LwM2M Object implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StubGenerator.html">8.5. Anjay Object stub generator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../API_description.html">9. API description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">10. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">11. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">12. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../Tools.html"><span class="section-number">8. </span>Tools</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.3. </span>Package generator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package-generator">
+<h1><span class="section-number">8.3. </span>Package generator<a class="headerlink" href="#package-generator" title="Link to this heading"></a></h1>
+<p>This section describes the <code class="docutils literal notranslate"><span class="pre">create_package.py</span></code> script used to generate test packages for
+LwM2M objects implemented in the Anjay demo. These packages simulate firmware and software
+updates with configurable behaviors and error conditions.</p>
+<section id="overview">
+<h2><span class="section-number">8.3.1. </span>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The Anjay demo implements several LwM2M objects to facilitate firmware and software management.
+These objects include:</p>
+<ul class="simple">
+<li><p>object 5 — Firmware Update</p></li>
+<li><p>object 9 — Software Management</p></li>
+<li><p>object 33629 — Advanced Firmware Update (AFU)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These objects are implemented primarily for testing purposes and are not production-ready. To
+generate compatible update packages for testing, use the create_package.py script located in
+the tests/integration/framework directory. If you need help implementing the required callbacks
+for Objects /5 and /33629, refer to <a class="reference internal" href="../FirmwareUpdateTutorial.html"><span class="doc">Firmware Update tutorial</span></a>.</p>
+</div>
+<p>In order to use the objects, you need packages that contain the appropriate metadata. To generate
+these packages, run <code class="docutils literal notranslate"><span class="pre">create_package.py</span></code> script located in the <code class="docutils literal notranslate"><span class="pre">tests/integration/framework</span></code>
+directory.</p>
+</section>
+<section id="example-usage">
+<h2><span class="section-number">8.3.2. </span>Example usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
+<p>To generate an example package:</p>
+<ol class="arabic simple">
+<li><p>Run one of the following commands:</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Package for the object 5 that will be executed during update</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Package for the object 9 that will be executed through the system’s shell interpreter during installation</button><button aria-controls="panel-0-0-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-2" name="0-2" role="tab" tabindex="-1">Package for the object 9 that will fail during validation</button><button aria-controls="panel-0-0-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-3" name="0-3" role="tab" tabindex="-1">Package for the object 9 that will fail during installation</button><button aria-controls="panel-0-0-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-4" name="0-4" role="tab" tabindex="-1">Package for the object 9 that will fail during activation</button><button aria-controls="panel-0-0-5" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-5" name="0-5" role="tab" tabindex="-1">Package for the zero instance of object 33629 that will be executed during update</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_FW
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If persistence is enabled, then if the package execution is successful, upon restarting
+the demo (which may occur during an update if the package includes the demo), the resource
+/5/0/5 will be set to the value corresponding to the state <cite>Firmware updated successfully</cite>.</p>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-c<span class="w"> </span><span class="m">1234</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-3" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-3" name="0-3" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-e<span class="w"> </span>FailedInstall
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-4" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-4" name="0-4" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-e<span class="w"> </span>FailureInPerformActivate
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-5" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-5" name="0-5" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_APP
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If persistence is enabled and persistence file is set by <code class="docutils literal notranslate"><span class="pre">--afu-marker-path</span></code> argument,
+then if the package execution is successful, upon restarting the demo (which may occur
+during an update if the package includes the demo), the resource /33629/0/5 will be set
+to the value corresponding to the state <cite>Firmware updated successfully</cite>.</p>
+</div>
+</div></div>
+<ol class="arabic simple" start="2">
+<li><p>Provide package content, e.g.:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nb">echo</span><span class="w"> </span>installed
+</pre></div>
+</div>
+<p>Press <code class="docutils literal notranslate"><span class="pre">Ctrl+D</span></code> (<cite>EOF</cite>) to complete input.</p>
+<ol class="arabic simple" start="3">
+<li><p>After that, package should exists:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>./package<span class="w"> </span><span class="p">|</span><span class="w"> </span>xxd<span class="w"> </span>-p
+414e4a41595f5357000200000813e38003312e3023212f62696e2f73680a
+6563686f20696e7374616c6c65640a
+</pre></div>
+</div>
+</section>
+<section id="package-generation-arguments">
+<h2><span class="section-number">8.3.3. </span>Package generation arguments<a class="headerlink" href="#package-generation-arguments" title="Link to this heading"></a></h2>
+<p>To obtain information about each of the available arguments, display the help message by running
+the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tests/integration/framework/create_package.py<span class="w"> </span>--help
+</pre></div>
+</div>
+</section>
+<section id="manipulating-the-behavior-of-objects">
+<h2><span class="section-number">8.3.4. </span>Manipulating the behavior of objects<a class="headerlink" href="#manipulating-the-behavior-of-objects" title="Link to this heading"></a></h2>
+<p>The behavior of the upgrade/install process in the Demo application can be manipulated using
+metadata embedded in the package header. You can trigger specific errors during image generation
+by passing the <code class="docutils literal notranslate"><span class="pre">--error</span></code> argument to the <code class="docutils literal notranslate"><span class="pre">create_package.py</span></code> script.
+Likewise, the <code class="docutils literal notranslate"><span class="pre">--crc</span></code> and <code class="docutils literal notranslate"><span class="pre">--magic</span></code> arguments can be used to trigger an error during
+package validation.</p>
+</section>
+<section id="errors-description">
+<h2><span class="section-number">8.3.5. </span>Errors description<a class="headerlink" href="#errors-description" title="Link to this heading"></a></h2>
+<section id="firmware-update-and-advanced-firmware-update-errors">
+<h3><span class="section-number">8.3.5.1. </span>Firmware Update and Advanced Firmware Update errors<a class="headerlink" href="#firmware-update-and-advanced-firmware-update-errors" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the case of AFU, this description is only valid for the zero instance
+(magic == AJAY_APP). For other instances, the behavior may differ.</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error name</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NoError</p></td>
+<td><p>The demo will replace the current process with a new one by
+executing the downloaded package during update
+(<code class="docutils literal notranslate"><span class="pre">perform_upgrade</span></code> callback). It will pass along the
+arguments specified when running the demo itself.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OutOfMemory</p></td>
+<td><p>The firmware update will fail after the package is
+downloaded, during its validation in the <code class="docutils literal notranslate"><span class="pre">stream_finish</span></code>
+callback, by returning ANJAY_FW_UPDATE_ERR_OUT_OF_MEMORY.</p></td>
+</tr>
+<tr class="row-even"><td><p>FailedUpdate</p></td>
+<td><p>The firmware update will fail during update
+(<code class="docutils literal notranslate"><span class="pre">perform_upgrade</span></code> callback) by returning -1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DelayedSuccess</p></td>
+<td><p>The demo will replace the current process with a new one by
+executing the downloaded package during update
+(<code class="docutils literal notranslate"><span class="pre">perform_upgrade</span></code> callback). It will pass along the
+arguments specified when running the demo, plus an argument
+that causes the result to be set to success — provided that
+the package contains a demo capable of interpreting this
+argument accordingly.</p></td>
+</tr>
+<tr class="row-even"><td><p>DelayedFailedUpdate</p></td>
+<td><p>The demo will replace the current process with a new one by
+executing the downloaded package during update
+(<code class="docutils literal notranslate"><span class="pre">perform_upgrade</span></code> callback). It will pass along the
+arguments specified when running the demo, plus an argument
+that causes the result to be set to <cite>Firmware update failed</cite>
+— provided that the package contains a demo capable of
+interpreting this argument accordingly.</p></td>
+</tr>
+<tr class="row-odd"><td><p>SetSuccessInPerformUpgrade</p></td>
+<td><p>The demo will set the result to success by using the
+<code class="docutils literal notranslate"><span class="pre">anjay_fw_update_set_result</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_set_state_and_result</span></code> in case of
+AFU) function during update (<code class="docutils literal notranslate"><span class="pre">perform_upgrade</span></code> callback).</p></td>
+</tr>
+<tr class="row-even"><td><p>SetFailureInPerformUpgrade</p></td>
+<td><p>The demo will set the result to <cite>Firmware update failed</cite> by
+using the <code class="docutils literal notranslate"><span class="pre">anjay_fw_update_set_result</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">anjay_advanced_fw_update_set_state_and_result</span></code> in case of
+AFU) function during update (<code class="docutils literal notranslate"><span class="pre">perform_upgrade</span></code> callback).</p></td>
+</tr>
+<tr class="row-odd"><td><p>DoNothing</p></td>
+<td><p>The demo will return 0 in the <code class="docutils literal notranslate"><span class="pre">perform_upgrade</span></code> callback.</p></td>
+</tr>
+<tr class="row-even"><td><p>Defer</p></td>
+<td><p>The demo will set the result to deferred by using the
+<code class="docutils literal notranslate"><span class="pre">anjay_fw_update_set_result</span></code> function during updating
+(or return <code class="docutils literal notranslate"><span class="pre">ANJAY_ADVANCED_FW_UPDATE_ERR_DEFERRED</span></code> in case
+of AFU).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="software-management-errors">
+<h3><span class="section-number">8.3.5.2. </span>Software Management errors<a class="headerlink" href="#software-management-errors" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To enable the Software Management object, define <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_MODULE_SW_MGMT</span></code> e.g. by running
+CMake or <code class="docutils literal notranslate"><span class="pre">./devconfig</span></code> with <code class="docutils literal notranslate"><span class="pre">-DANJAY_WITH_MODULE_SW_MGMT=ON</span></code> argument.</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Error name</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NoError</p></td>
+<td><p>The demo will create a child process during installation
+(<code class="docutils literal notranslate"><span class="pre">pkg_install</span></code> callback) by executing the downloaded
+package through the system’s shell interpreter and will
+wait until the end of its execution. The result will be
+set to success and activation state to <cite>Disable</cite> by
+using <code class="docutils literal notranslate"><span class="pre">anjay_sw_mgmt_finish_pkg_install</span></code> function.</p></td>
+</tr>
+<tr class="row-odd"><td><p>FailedInstall</p></td>
+<td><p>The software installation will fail during installation
+(<code class="docutils literal notranslate"><span class="pre">pkg_install</span></code> callback) by returning -1.</p></td>
+</tr>
+<tr class="row-even"><td><p>DelayedSuccessInstall</p></td>
+<td><p>The demo will replace the current process with a new one
+by executing the downloaded package during installation
+(<code class="docutils literal notranslate"><span class="pre">pkg_install</span></code> callback). It will pass along the
+arguments specified when running the demo, plus an
+argument that causes the result to be set to success —
+provided that the package contains a demo capable
+of interpreting this argument accordingly.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DelayedFailedInstall</p></td>
+<td><p>The demo will replace the current process with a new one
+by executing the downloaded package during installation
+(<code class="docutils literal notranslate"><span class="pre">pkg_install</span></code> callback). It will pass along the
+arguments specified when running the demo, plus an
+argument that causes the result to be set to <cite>Software
+installation failure</cite> — provided that the package
+contains a demo capable of interpreting this argument
+accordingly.</p></td>
+</tr>
+<tr class="row-even"><td><p>SuccessInPerformInstall</p></td>
+<td><p>The demo will set the result to success by using the
+<code class="docutils literal notranslate"><span class="pre">anjay_sw_mgmt_finish_pkg_install</span></code> function during
+installation (<code class="docutils literal notranslate"><span class="pre">pkg_install</span></code> callback).</p></td>
+</tr>
+<tr class="row-odd"><td><p>SuccessInPerformInstallActivate</p></td>
+<td><p>The demo will set the result to success and activation
+state to <cite>Enable</cite> by using the
+<code class="docutils literal notranslate"><span class="pre">anjay_sw_mgmt_finish_pkg_install</span></code> function during
+installation (<code class="docutils literal notranslate"><span class="pre">pkg_install</span></code> callback).</p></td>
+</tr>
+<tr class="row-even"><td><p>FailureInPerformInstall</p></td>
+<td><p>The demo will set the result to <cite>Software installation
+failure</cite> by using the
+<code class="docutils literal notranslate"><span class="pre">anjay_sw_mgmt_finish_pkg_install</span></code> function during
+installation (<code class="docutils literal notranslate"><span class="pre">pkg_install</span></code> callback).</p></td>
+</tr>
+<tr class="row-odd"><td><p>FailureInPerformUninstall</p></td>
+<td><p>The software uninstallation will fail in the
+<code class="docutils literal notranslate"><span class="pre">pkg_uninstall</span></code> callback by returning -1.</p></td>
+</tr>
+<tr class="row-even"><td><p>FailureInPerformActivate</p></td>
+<td><p>The software activation will fail in the
+<code class="docutils literal notranslate"><span class="pre">activate</span></code> callback by returning -1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>FailureInPerformDeactivate</p></td>
+<td><p>The software deactivation will fail in the
+<code class="docutils literal notranslate"><span class="pre">deactivate</span></code> callback by returning -1.</p></td>
+</tr>
+<tr class="row-even"><td><p>FailureInPerformPrepareForUpdate</p></td>
+<td><p>The software update preparation will fail in the
+<code class="docutils literal notranslate"><span class="pre">prepare_for_update</span></code> callback by returning -1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DoNothing</p></td>
+<td><p>The demo will return 0 in the <code class="docutils literal notranslate"><span class="pre">pkg_install</span></code>
+callback.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="package-version">
+<h2><span class="section-number">8.3.6. </span>Package version<a class="headerlink" href="#package-version" title="Link to this heading"></a></h2>
+<p>You can set the package version for all objects by using the <code class="docutils literal notranslate"><span class="pre">--version</span></code> argument.
+However, the version of the Firmware Update and Software Management package must be set to
+<cite>1.0</cite> (this is due to how these objects have been implemented in the demo and is not a
+limitation of the Anjay library itself). In the case of Advanced Firmware Update, the
+version can be anything as long as it is shorter than 24 characters.</p>
+</section>
+<section id="removing-persistence-files">
+<h2><span class="section-number">8.3.7. </span>Removing persistence files<a class="headerlink" href="#removing-persistence-files" title="Link to this heading"></a></h2>
+<p>Each object can store its state in a persistence file.  To ensure you’re working with an object
+in its initial state, remove the persistence file. By default, these files are located in the
+following paths:</p>
+<ul class="simple">
+<li><p>Firmware Update — <code class="docutils literal notranslate"><span class="pre">/tmp/anjay-fw-updated</span></code></p></li>
+<li><p>Software Management — <code class="docutils literal notranslate"><span class="pre">/tmp/anjay-sw-mgmt</span></code></p></li>
+<li><p>Advanced Firmware Update — by default there is no persistence file</p></li>
+</ul>
+<p>Additionally, you can set the persistence file location using the following arguments:</p>
+<ul class="simple">
+<li><p>Firmware Update — <code class="docutils literal notranslate"><span class="pre">--fw-updated-marker-path</span></code></p></li>
+<li><p>Software Management — <code class="docutils literal notranslate"><span class="pre">--sw-mgmt-persistence-file</span></code></p></li>
+<li><p>Advanced Firmware Update — <code class="docutils literal notranslate"><span class="pre">--afu-marker-path</span></code></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="FactoryProvisioning.html" class="btn btn-neutral float-left" title="8.2. Factory Provisioning Tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="StandaloneObjects.html" class="btn btn-neutral float-right" title="8.4. Standalone LwM2M Object implementations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

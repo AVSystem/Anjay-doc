@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['obj_5fctx_0',['obj_ctx',['../structanjay__sw__mgmt__settings__t.html#a98e316c7f17bc3e26a01c3684e61832d',1,'anjay_sw_mgmt_settings_t']]],
-  ['object_5fread_5fdefault_5fattrs_1',['object_read_default_attrs',['../structanjay__dm__handlers__t.html#a87945af7c2bc8b5dc9eabcd25025fcdb',1,'anjay_dm_handlers_t']]],
-  ['object_5fwrite_5fdefault_5fattrs_2',['object_write_default_attrs',['../structanjay__dm__handlers__t.html#a67f62ac9b8cc31357f5b8c00348e47c2',1,'anjay_dm_handlers_t']]],
-  ['oid_3',['oid',['../structanjay__dm__object__def__struct.html#ad3eee71f62e1771a96416a38cd63a794',1,'anjay_dm_object_def_struct::oid'],['../structanjay__send__resource__path__t.html#ad3eee71f62e1771a96416a38cd63a794',1,'anjay_send_resource_path_t::oid']]],
-  ['on_5fdownload_5ffinished_4',['on_download_finished',['../structanjay__download__config.html#aafd235d5c763f9b44f7f33e846053026',1,'anjay_download_config']]],
-  ['on_5fnext_5fblock_5',['on_next_block',['../structanjay__download__config.html#aab4096703745a47675b4558db02de277',1,'anjay_download_config']]],
-  ['out_5fbuffer_5fsize_6',['out_buffer_size',['../structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4',1,'anjay_configuration']]],
-  ['outgoing_5fmtu_7',['outgoing_mtu',['../structanjay__bg96__nidd__config__t.html#a7aeb4b7869c2dc12c96b1bb1918b9879',1,'anjay_bg96_nidd_config_t::outgoing_mtu'],['../structanjay__nidd__driver__struct.html#a45b894e991d6182b9e480a1467b6559a',1,'anjay_nidd_driver_struct::outgoing_mtu']]]
+  ['nidd_0',['nidd',['../structanjay__transport__set__t.html#ac1a47506220b9d4ccad7bfb51d61c9c8',1,'anjay_transport_set_t']]],
+  ['nidd_2eh_1',['nidd.h',['../nidd_8h.html',1,'']]],
+  ['nidd_5fdriver_2',['nidd_driver',['../structanjay__configuration.html#a6b9146075bd687d935f24690d478dcb0',1,'anjay_configuration']]],
+  ['nidd_5ftx_5fparams_3',['nidd_tx_params',['../structanjay__configuration.html#aed7839b224d4df21dbf537c351b2d7dc',1,'anjay_configuration']]],
+  ['nominal_5fusage_4',['nominal_usage',['../structanjay__est__reenroll__config__t.html#a28e7bc9334fec0cf348a46b03fa9df74',1,'anjay_est_reenroll_config_t']]],
+  ['notification_5fstoring_5',['notification_storing',['../structanjay__server__instance__t.html#a1c616832e733228fa20bfc16920d4dea',1,'anjay_server_instance_t']]]
 ];

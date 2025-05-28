@@ -1,25 +1,9 @@
 var searchData=
 [
-  ['can_5frecv_0',['can_recv',['../structanjay__nidd__driver__struct.html#a48258262f4656646af5bb32960c76791',1,'anjay_nidd_driver_struct']]],
-  ['certificate_5fusage_1',['certificate_usage',['../structanjay__security__instance__t.html#ac972ac4a1d3ff7ea8501c31f08773d4c',1,'anjay_security_instance_t']]],
-  ['check_5fintegrity_2',['check_integrity',['../structanjay__sw__mgmt__handlers__t.html#aefe28f352b946e9489fd6f0b30926880',1,'anjay_sw_mgmt_handlers_t']]],
-  ['ciphersuites_3',['ciphersuites',['../structanjay__security__instance__t.html#ac17623f882f1adfe7834fb21b4532b29',1,'anjay_security_instance_t']]],
-  ['client_5fholdoff_5fs_4',['client_holdoff_s',['../structanjay__security__instance__t.html#abe22f8c8164f40496fcf4e1d4d688cf2',1,'anjay_security_instance_t']]],
-  ['coap_5fdownloader_5fretry_5fcount_5',['coap_downloader_retry_count',['../structanjay__configuration.html#a2bf74be766b2aa128ed72b46dab7d7bf',1,'anjay_configuration']]],
-  ['coap_5fdownloader_5fretry_5fdelay_6',['coap_downloader_retry_delay',['../structanjay__configuration.html#a4034a445947ac9ccd810c88527522779',1,'anjay_configuration']]],
-  ['coap_5ftcp_5fmax_5foptions_5fsize_7',['coap_tcp_max_options_size',['../structanjay__configuration.html#aaee4c29de8d38b23e7b4a586829b2294',1,'anjay_configuration']]],
-  ['coap_5ftcp_5frequest_5ftimeout_8',['coap_tcp_request_timeout',['../structanjay__configuration.html#a3ed2199020b41ef9cab2b20fb27a7f3e',1,'anjay_configuration']]],
-  ['coap_5ftx_5fparams_9',['coap_tx_params',['../structanjay__download__config.html#aceb2f7b7c21b5f899a2fb7019573383b',1,'anjay_download_config']]],
-  ['common_10',['common',['../structanjay__dm__r__attributes__t.html#adf95e4da149032ab8de25a53d3475e3b',1,'anjay_dm_r_attributes_t']]],
-  ['communication_5fretry_5fcount_11',['communication_retry_count',['../structanjay__server__instance__t.html#ae2c3a96734302d4bc95e6ca49a374df2',1,'anjay_server_instance_t']]],
-  ['communication_5fretry_5ftimer_12',['communication_retry_timer',['../structanjay__server__instance__t.html#a954774497ece739022705daac2803de3',1,'anjay_server_instance_t']]],
-  ['communication_5fsequence_5fdelay_5ftimer_13',['communication_sequence_delay_timer',['../structanjay__server__instance__t.html#a2e6a921d7e7271344b71280f3e163868',1,'anjay_server_instance_t']]],
-  ['communication_5fsequence_5fretry_5fcount_14',['communication_sequence_retry_count',['../structanjay__server__instance__t.html#ad3134c88c0e266911fb72fc423bec44d',1,'anjay_server_instance_t']]],
-  ['con_15',['con',['../structanjay__dm__oi__attributes__t.html#ac44a8d59b302b200ac07fd9d3f2ba6c1',1,'anjay_dm_oi_attributes_t']]],
-  ['confirmable_5fnotifications_16',['confirmable_notifications',['../structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05',1,'anjay_configuration']]],
-  ['connect_17',['connect',['../structanjay__nidd__driver__struct.html#abebcf646d73d99ff5d0c50e74ab20590',1,'anjay_nidd_driver_struct']]],
-  ['connection_5ferror_5fis_5fregistration_5ffailure_18',['connection_error_is_registration_failure',['../structanjay__configuration.html#adcc95609ca645a5bd6a572f4c99a83fb',1,'anjay_configuration']]],
-  ['core_2eh_19',['core.h',['../core_8h.html',1,'']]],
-  ['csms_5fref_20',['csms_ref',['../structanjay__smsdrv__multipart__info__t.html#a3df9b56d6a63a7aebdc5b7099a475b10',1,'anjay_smsdrv_multipart_info_t']]],
-  ['csms_5fref_5flength_21',['csms_ref_length',['../structanjay__smsdrv__multipart__info__t.html#a3ada316707d9568241a1b1739651ecbd',1,'anjay_smsdrv_multipart_info_t']]]
+  ['bg96_5fnidd_2eh_0',['bg96_nidd.h',['../bg96__nidd_8h.html',1,'']]],
+  ['binding_1',['binding',['../structanjay__server__instance__t.html#a94ad17fccaa53ca2a96847c70306ff55',1,'anjay_server_instance_t']]],
+  ['bootstrap_5fon_5fregistration_5ffailure_2',['bootstrap_on_registration_failure',['../structanjay__server__instance__t.html#a7f5c5e3aa452495762224a495920377c',1,'anjay_server_instance_t']]],
+  ['bootstrap_5fserver_3',['bootstrap_server',['../structanjay__security__instance__t.html#aabce58ea8cf040fbb08cbb43efe60dd9',1,'anjay_security_instance_t']]],
+  ['bootstrap_5ftimeout_5fs_4',['bootstrap_timeout_s',['../structanjay__security__instance__t.html#a5f249397d36fffa3c7e263c2c923fb76',1,'anjay_security_instance_t']]],
+  ['bootstrapper_2eh_5',['bootstrapper.h',['../bootstrapper_8h.html',1,'']]]
 ];

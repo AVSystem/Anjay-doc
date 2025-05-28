@@ -6,7 +6,7 @@ var lwm2m__gateway_8h =
     [ "anjay_lwm2m_gateway_notify_instances_changed", "lwm2m__gateway_8h.html#aecf86bdceba2fee336b43577a6894c03", null ],
     [ "anjay_lwm2m_gateway_register_device", "lwm2m__gateway_8h.html#a2020dc59339db5ee1d285422c9a74db9", null ],
     [ "anjay_lwm2m_gateway_register_object", "lwm2m__gateway_8h.html#a496ba662da8b8290607d8caa2598c706", null ],
-    [ "anjay_lwm2m_gateway_resource_observation_status", "lwm2m__gateway_8h.html#a6c2da1f26a696fba4b7c1e873cc4bd16", null ],
+    [ "anjay_lwm2m_gateway_resource_observation_status", "lwm2m__gateway_8h.html#a47c7f7ca4afab2e6cd03e89092fe0cdf", null ],
     [ "anjay_lwm2m_gateway_send_batch_add_bool", "lwm2m__gateway_8h.html#af0566041c3f777414af9023302530c2d", null ],
     [ "anjay_lwm2m_gateway_send_batch_add_bytes", "lwm2m__gateway_8h.html#af9c95b412ee92532c08692801ed259d6", null ],
     [ "anjay_lwm2m_gateway_send_batch_add_double", "lwm2m__gateway_8h.html#acc5413bc50c1fab183b879314a6b3a54", null ],

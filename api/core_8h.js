@@ -2,6 +2,7 @@ var core_8h =
 [
     [ "anjay_lwm2m_version_config_t", "structanjay__lwm2m__version__config__t.html", "structanjay__lwm2m__version__config__t" ],
     [ "anjay_est_reenroll_config_t", "structanjay__est__reenroll__config__t.html", "structanjay__est__reenroll__config__t" ],
+    [ "anjay_uri_path_t", "structanjay__uri__path__t.html", "structanjay__uri__path__t" ],
     [ "anjay_configuration", "structanjay__configuration.html", "structanjay__configuration" ],
     [ "anjay_socket_entry_t", "structanjay__socket__entry__t.html", "structanjay__socket__entry__t" ],
     [ "anjay_transport_set_t", "structanjay__transport__set__t.html", "structanjay__transport__set__t" ],
@@ -28,6 +29,7 @@ var core_8h =
     [ "ANJAY_SSID_ANY", "core_8h.html#a75735105ebc11358f8f707568a8b11fa", null ],
     [ "ANJAY_SSID_BOOTSTRAP", "core_8h.html#a857486d85f02514fc3f69ae7b2566f4c", null ],
     [ "anjay_configuration_t", "core_8h.html#ae0a489fe34c85c5caa003c6629301ef2", null ],
+    [ "anjay_confirmable_notification_status_cb_t", "core_8h.html#ac44402624bc79788989e831f5a6106db", null ],
     [ "anjay_est_engine_cacert_address_gen_t", "core_8h.html#a9d019635ff7787fab2b88b29f37bbdb6", null ],
     [ "anjay_iid_t", "core_8h.html#a4738d24ad04e0e49991008e29cb054a4", null ],
     [ "anjay_nidd_driver_t", "core_8h.html#a3b59febc7a2faeaf26e6af04fc72a397", null ],
@@ -45,6 +47,13 @@ var core_8h =
       [ "ANJAY_EST_CACERTS_IF_EST_CONFIGURED", "core_8h.html#a150879e082c4c2355393dab23bacddbaa87e060d1ba3e29b0f7c455ae3e9e960e", null ],
       [ "ANJAY_EST_CACERTS_ALWAYS", "core_8h.html#a150879e082c4c2355393dab23bacddbaae67944018d99ccbd57aa0b29c17e20eb", null ],
       [ "ANJAY_EST_CACERTS_DISABLED", "core_8h.html#a150879e082c4c2355393dab23bacddbaabeb5c6ddc43e0417e7bcfbe3cd71c415", null ]
+    ] ],
+    [ "anjay_id_type_t", "core_8h.html#af602de940a2a4cd375433d7be0bdaee1", [
+      [ "ANJAY_ID_OID", "core_8h.html#af602de940a2a4cd375433d7be0bdaee1afb894f286f0f20b8091b73bf0727f7f4", null ],
+      [ "ANJAY_ID_IID", "core_8h.html#af602de940a2a4cd375433d7be0bdaee1ae3993358a11aa732e4c74a7e2d699a46", null ],
+      [ "ANJAY_ID_RID", "core_8h.html#af602de940a2a4cd375433d7be0bdaee1afd8a524ad74f676b9e841544f89af2e0", null ],
+      [ "ANJAY_ID_RIID", "core_8h.html#af602de940a2a4cd375433d7be0bdaee1aca4ae7254a95ea11781fee648da78f33", null ],
+      [ "_ANJAY_URI_PATH_MAX_LENGTH", "core_8h.html#af602de940a2a4cd375433d7be0bdaee1ada0359c351f2aa36e282b401114049c6", null ]
     ] ],
     [ "anjay_lwm2m_version_t", "core_8h.html#ada55d45a08ccabf16b76ebc613f4a170", [
       [ "ANJAY_LWM2M_VERSION_1_0", "core_8h.html#ada55d45a08ccabf16b76ebc613f4a170a8dabf6b1c92405281fe5d77d8b633b4d", null ],
@@ -96,7 +105,7 @@ var core_8h =
     [ "anjay_est_state_restore", "core_8h.html#ae5afb6b28af55505174c85138a5e089c", null ],
     [ "anjay_event_loop_interrupt", "core_8h.html#a3ec2ea3a2ed009414870b2b5f976e340", null ],
     [ "anjay_event_loop_run", "core_8h.html#a95c229caf3ee8ce7de556256f4307507", null ],
-    [ "anjay_event_loop_run_with_error_handling", "core_8h.html#ad639f40ca08cd88ee1ccc935f37c3a14", null ],
+    [ "anjay_event_loop_run_with_error_handling", "core_8h.html#ad8fb214939b8c4732d9eab048151d195", null ],
     [ "anjay_get_scheduler", "core_8h.html#abb848d235da740cd483aa931292a4e29", null ],
     [ "anjay_get_server_connection_status", "core_8h.html#a50251bc6b432adfd446a287ed77a6d9f", null ],
     [ "anjay_get_server_last_communication_time", "core_8h.html#a9c52dee9a26062cffd8567f5b02df6ef", null ],

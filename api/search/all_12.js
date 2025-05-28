@@ -1,17 +1,15 @@
 var searchData=
 [
-  ['udp_0',['udp',['../structanjay__transport__set__t.html#ab093586650b1cac22e2def5050295f33',1,'anjay_transport_set_t']]],
-  ['udp_5fdtls_5fhs_5ftx_5fparams_1',['udp_dtls_hs_tx_params',['../structanjay__configuration.html#ab8ca076537138e7d78bd1ee5d5e2031a',1,'anjay_configuration']]],
-  ['udp_5flisten_5fport_2',['udp_listen_port',['../structanjay__configuration.html#acf74549a99ca3ad5aedb227c4b0258ca',1,'anjay_configuration']]],
-  ['udp_5ftx_5fparams_3',['udp_tx_params',['../structanjay__configuration.html#a9690621b087639e06dd0c747206d0679',1,'anjay_configuration']]],
-  ['unit_4',['unit',['../structanjay__ipso__basic__sensor__impl__struct.html#aecc11ed10081190afa939a166627f9d4',1,'anjay_ipso_basic_sensor_impl_struct::unit'],['../structanjay__ipso__3d__sensor__impl__struct.html#aecc11ed10081190afa939a166627f9d4',1,'anjay_ipso_3d_sensor_impl_struct::unit'],['../structanjay__ipso__v2__basic__sensor__meta__struct.html#aecc11ed10081190afa939a166627f9d4',1,'anjay_ipso_v2_basic_sensor_meta_struct::unit'],['../structanjay__ipso__v2__3d__sensor__meta__struct.html#aecc11ed10081190afa939a166627f9d4',1,'anjay_ipso_v2_3d_sensor_meta_struct::unit']]],
-  ['update_5fimmediately_5fon_5fdm_5fchange_5',['update_immediately_on_dm_change',['../structanjay__configuration.html#aa203c2a1b1e606f1f292873170841ca3',1,'anjay_configuration']]],
-  ['url_6',['url',['../structanjay__download__config.html#aec657bef26e5ff27b9442563a591d9ec',1,'anjay_download_config']]],
-  ['use_5fconnection_5fid_7',['use_connection_id',['../structanjay__configuration.html#a0165032f6801d2c79d377f498fdc3970',1,'anjay_configuration']]],
-  ['use_5flwm2m_5fsend_8',['use_lwm2m_send',['../structanjay__advanced__fw__update__global__config__t.html#a7e3f90c68f971da03780fed9f63e4573',1,'anjay_advanced_fw_update_global_config_t::use_lwm2m_send'],['../structanjay__fw__update__initial__state__t.html#a7e3f90c68f971da03780fed9f63e4573',1,'anjay_fw_update_initial_state_t::use_lwm2m_send']]],
-  ['use_5fsystem_5ftrust_5fstore_9',['use_system_trust_store',['../structanjay__configuration.html#a84b693c1bb9e83bbf67a0a9b304d5e88',1,'anjay_configuration']]],
-  ['use_5fy_5fvalue_10',['use_y_value',['../structanjay__ipso__3d__sensor__impl__struct.html#aac7b3b36f9434340b03a5ab79de22604',1,'anjay_ipso_3d_sensor_impl_struct']]],
-  ['use_5fz_5fvalue_11',['use_z_value',['../structanjay__ipso__3d__sensor__impl__struct.html#ac6794c116d3631460089de8c66398833',1,'anjay_ipso_3d_sensor_impl_struct']]],
-  ['user_5fcontext_12',['user_context',['../structanjay__bg96__nidd__config__t.html#a9a395374120db0d0280e16f53201d5cf',1,'anjay_bg96_nidd_config_t::user_context'],['../structanjay__ipso__basic__sensor__impl__struct.html#a9a395374120db0d0280e16f53201d5cf',1,'anjay_ipso_basic_sensor_impl_struct::user_context'],['../structanjay__ipso__3d__sensor__impl__struct.html#a9a395374120db0d0280e16f53201d5cf',1,'anjay_ipso_3d_sensor_impl_struct::user_context']]],
-  ['user_5fdata_13',['user_data',['../structanjay__download__config.html#a0f53d287ac7c064d1a49d4bd93ca1cb9',1,'anjay_download_config']]]
+  ['tcp_0',['tcp',['../structanjay__transport__set__t.html#a136cfddc5ec9ed96811d418f0e73a34e',1,'anjay_transport_set_t']]],
+  ['tcp_5frequest_5ftimeout_1',['tcp_request_timeout',['../structanjay__download__config.html#a9e72aa941ff3f87e16f3324ae1662faf',1,'anjay_download_config']]],
+  ['tls_5fciphersuites_2',['tls_ciphersuites',['../structanjay__security__config__t.html#af87c6258068ee5ad64400112bb2c8738',1,'anjay_security_config_t']]],
+  ['total_5fparts_3',['total_parts',['../structanjay__smsdrv__multipart__info__t.html#a580e6bb917b3e274498e5ab8d5c02501',1,'anjay_smsdrv_multipart_info_t']]],
+  ['transaction_5fbegin_4',['transaction_begin',['../structanjay__dm__handlers__t.html#ae4bfe4220abd93a8424ff5fca38489f3',1,'anjay_dm_handlers_t']]],
+  ['transaction_5fcommit_5',['transaction_commit',['../structanjay__dm__handlers__t.html#a8cb64731cda5bdc1f920ff559f21e412',1,'anjay_dm_handlers_t']]],
+  ['transaction_5frollback_6',['transaction_rollback',['../structanjay__dm__handlers__t.html#a6913b4787b5ebe267b504a0ed8c43c40',1,'anjay_dm_handlers_t']]],
+  ['transaction_5fvalidate_7',['transaction_validate',['../structanjay__dm__handlers__t.html#a795348c91e2d6104b4750cc23e2eb03b',1,'anjay_dm_handlers_t']]],
+  ['transport_8',['transport',['../structanjay__socket__entry__t.html#a8138e934efc9113fa1b46ec6fe790dd7',1,'anjay_socket_entry_t']]],
+  ['trigger_9',['trigger',['../structanjay__server__instance__t.html#aec062b60c729b31627bee4d358851863',1,'anjay_server_instance_t']]],
+  ['trust_5fstore_5fcerts_10',['trust_store_certs',['../structanjay__configuration.html#a6eb46a8b375d73a4c2fb609ac17748db',1,'anjay_configuration']]],
+  ['trust_5fstore_5fcrls_11',['trust_store_crls',['../structanjay__configuration.html#aa0a29edbd09fca4542ac146b39663657',1,'anjay_configuration']]]
 ];

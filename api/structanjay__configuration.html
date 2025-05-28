@@ -177,6 +177,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:abc4fdd9feb2cb58a47408a96308dbf6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695689ab4fc248793ad63f631a0c630f" id="r_a695689ab4fc248793ad63f631a0c630f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a695689ab4fc248793ad63f631a0c630f">est_engine_cacerts_address_gen_cb_arg</a></td></tr>
 <tr class="separator:a695689ab4fc248793ad63f631a0c630f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d029ef6e0f106e08a10cc01f26deb35" id="r_a6d029ef6e0f106e08a10cc01f26deb35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="core_8h.html#ac44402624bc79788989e831f5a6106db">anjay_confirmable_notification_status_cb_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a6d029ef6e0f106e08a10cc01f26deb35">confirmable_notification_status_cb</a></td></tr>
+<tr class="separator:a6d029ef6e0f106e08a10cc01f26deb35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac735e561573092a23a82e212c2ab2a69" id="r_ac735e561573092a23a82e212c2ab2a69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="core_8h.html#aa46996148689d7dfb4db59947c311b01">anjay_server_connection_status_cb_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#ac735e561573092a23a82e212c2ab2a69">server_connection_status_cb</a></td></tr>
 <tr class="separator:ac735e561573092a23a82e212c2ab2a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4961cf98b0de93c11cf0892abaaf0b1c" id="r_a4961cf98b0de93c11cf0892abaaf0b1c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structanjay__configuration.html#a4961cf98b0de93c11cf0892abaaf0b1c">server_connection_status_cb_arg</a></td></tr>
@@ -213,11 +215,11 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000006">Experimental:</a></b></dt><dd>This is experimental feature of CoAP downloader. This API can change in future versions without any notice.</dd></dl>
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000008">Experimental:</a></b></dt><dd>This is experimental feature of CoAP downloader. This API can change in future versions without any notice.</dd></dl>
 <p>If set, defines the number of additional CoAP download attempts that will be made in case of failure. Can be useful for large files (Firmware Update) and poor network quality. If the resumption of the transfer was successful then the retry counter is reset.</p>
 <p>Retries are performed only in case of network problems - AVS_ERRNO_CATEGORY or exchange timeout, in case of internal problems or error server responses the download is stopped.</p>
 <p>Each try will establish new connections and start a new exchange but preserve the download status. This logic does not comply with CoAP, but it can prevent multiple downloads of the same file.</p>
-<p>NOTE: Keep in mind that the behavior of this feature changes when the same socket is used for both file downloads and other CoAP operations (which may happen if the prefer_same_socket_downloads flag is set). A specific difference is how network errors (e.g., ICMP) are handled: if a separate socket is used for downloads, Anjay will retry downloading; however, if the same socket is used for other CoAP operations, Anjay will abort the download. In the event of a timeout, Anjay will retry downloading in both cases. </p>
+<p>NOTE: Keep in mind that the behavior of this feature changes when the same socket is used for both file downloads and other CoAP operations (which may happen if the <a class="el" href="structanjay__download__config.html#a98c7bd5f331c4b7755de9b9488ccf1bd">anjay_download_config_t::prefer_same_socket_downloads</a> flag is set). A specific difference is how network errors (e.g., ICMP) are handled: if a separate socket is used for downloads, Anjay will retry downloading; however, if the same socket is used for other CoAP operations, Anjay will abort the download. In the event of a timeout, Anjay will retry downloading in both cases. </p>
 
 </div>
 </div>
@@ -232,7 +234,7 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000007">Experimental:</a></b></dt><dd>This is experimental feature of CoAP downloader. This API can change in future versions without any notice.</dd></dl>
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000009">Experimental:</a></b></dt><dd>This is experimental feature of CoAP downloader. This API can change in future versions without any notice.</dd></dl>
 <p>If set, defines the delay between CoAP download attempts in case of failure. If not set, next attempt will be made immediately. Related to <a class="el" href="structanjay__configuration.html#a2bf74be766b2aa128ed72b46dab7d7bf">coap_downloader_retry_count</a>. </p>
 
 </div>
@@ -266,6 +268,22 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 <p>Time to wait for incoming response after sending a request. After this time request is considered unsuccessful.</p>
 <p>If zero-initialized or set to <code>AVS_TIME_DURATION_ZERO</code>, a default value of 30s is used. </p>
+
+</div>
+</div>
+<a id="a6d029ef6e0f106e08a10cc01f26deb35" name="a6d029ef6e0f106e08a10cc01f26deb35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d029ef6e0f106e08a10cc01f26deb35">&#9670;&#160;</a></span>confirmable_notification_status_cb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="core_8h.html#ac44402624bc79788989e831f5a6106db">anjay_confirmable_notification_status_cb_t</a>* confirmable_notification_status_cb</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000005">Experimental:</a></b></dt><dd>This is experimental callback for confirmable notifications. This API can change in future versions without any notice.</dd></dl>
+<p>A handler called if acknowledgement for confirmable notification is received from the Server or some error has occurred. </p>
 
 </div>
 </div>
@@ -677,7 +695,7 @@ Registration Mechanisms" of LwM2M Core TS 1.1.</p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000004">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000006">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
 <p>Function called each time there is a transition of a server connection status (as listed in <a class="el" href="core_8h.html#a15a6a65ff63f05022d08ae35aa56bfe9">anjay_server_conn_status_t</a> ). </p>
 
 </div>
@@ -693,7 +711,7 @@ Registration Mechanisms" of LwM2M Core TS 1.1.</p>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000005">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
+<dl class="experimentals"><dt><b><a class="el" href="experimentals.html#_experimentals000007">Experimental:</a></b></dt><dd>This is experimental server connection status API. This API can change in future versions without any notice.</dd></dl>
 <p>Opaque argument that will be passed to the function configured in the <code>server_connection_status_cb</code> field.</p>
 <p>If <code>server_connection_status_cb</code> is NULL, this field is ignored. </p>
 
@@ -929,7 +947,7 @@ Usage" modes configured in the Security object of the data model. It is also not
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structanjay__configuration.html">anjay_configuration</a></li>
-    <li class="footer">Generated on Fri Feb 28 2025 11:38:28 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Fri Jun 6 2025 12:48:54 for anjay by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

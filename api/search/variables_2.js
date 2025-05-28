@@ -16,9 +16,10 @@ var searchData=
   ['communication_5fsequence_5fdelay_5ftimer_13',['communication_sequence_delay_timer',['../structanjay__server__instance__t.html#a2e6a921d7e7271344b71280f3e163868',1,'anjay_server_instance_t']]],
   ['communication_5fsequence_5fretry_5fcount_14',['communication_sequence_retry_count',['../structanjay__server__instance__t.html#ad3134c88c0e266911fb72fc423bec44d',1,'anjay_server_instance_t']]],
   ['con_15',['con',['../structanjay__dm__oi__attributes__t.html#ac44a8d59b302b200ac07fd9d3f2ba6c1',1,'anjay_dm_oi_attributes_t']]],
-  ['confirmable_5fnotifications_16',['confirmable_notifications',['../structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05',1,'anjay_configuration']]],
-  ['connect_17',['connect',['../structanjay__nidd__driver__struct.html#abebcf646d73d99ff5d0c50e74ab20590',1,'anjay_nidd_driver_struct']]],
-  ['connection_5ferror_5fis_5fregistration_5ffailure_18',['connection_error_is_registration_failure',['../structanjay__configuration.html#adcc95609ca645a5bd6a572f4c99a83fb',1,'anjay_configuration']]],
-  ['csms_5fref_19',['csms_ref',['../structanjay__smsdrv__multipart__info__t.html#a3df9b56d6a63a7aebdc5b7099a475b10',1,'anjay_smsdrv_multipart_info_t']]],
-  ['csms_5fref_5flength_20',['csms_ref_length',['../structanjay__smsdrv__multipart__info__t.html#a3ada316707d9568241a1b1739651ecbd',1,'anjay_smsdrv_multipart_info_t']]]
+  ['confirmable_5fnotification_5fstatus_5fcb_16',['confirmable_notification_status_cb',['../structanjay__configuration.html#a6d029ef6e0f106e08a10cc01f26deb35',1,'anjay_configuration']]],
+  ['confirmable_5fnotifications_17',['confirmable_notifications',['../structanjay__configuration.html#a86aadc48d030ec4c66750cd6204c5b05',1,'anjay_configuration']]],
+  ['connect_18',['connect',['../structanjay__nidd__driver__struct.html#abebcf646d73d99ff5d0c50e74ab20590',1,'anjay_nidd_driver_struct']]],
+  ['connection_5ferror_5fis_5fregistration_5ffailure_19',['connection_error_is_registration_failure',['../structanjay__configuration.html#adcc95609ca645a5bd6a572f4c99a83fb',1,'anjay_configuration']]],
+  ['csms_5fref_20',['csms_ref',['../structanjay__smsdrv__multipart__info__t.html#a3df9b56d6a63a7aebdc5b7099a475b10',1,'anjay_smsdrv_multipart_info_t']]],
+  ['csms_5fref_5flength_21',['csms_ref_length',['../structanjay__smsdrv__multipart__info__t.html#a3ada316707d9568241a1b1739651ecbd',1,'anjay_smsdrv_multipart_info_t']]]
 ];

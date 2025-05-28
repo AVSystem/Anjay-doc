@@ -4,23 +4,23 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.2. Installing mandatory Objects &mdash; Anjay 3.9.0 documentation</title>
+  <title>4.2. Installing mandatory Objects &mdash; Anjay 3.10.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=554064f1" />
+      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=2238f999" />
 
   
   
         <script src="../_static/jquery.js?v=8dae8fb0"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e55a5be6"></script>
+        <script src="../_static/documentation_options.js?v=f8d09eac"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.3. Enabling secure communication" href="BC-Security.html" />
-    <link rel="prev" title="4.1. Anjay initialization" href="BC-Initialization.html" /> 
+    <link rel="prev" title="4.1. Initialize Anjay client" href="BC-Initialization.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +36,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.9.0
+                3.10.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -51,7 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../BasicClient.html">4. Basic client</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="BC-Initialization.html">4.1. Anjay initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BC-Initialization.html">4.1. Initialize Anjay client</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Installing mandatory Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BC-Security.html">4.3. Enabling secure communication</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BC-ObjectImplementation.html">4.4. Implementing standard Object</a></li>
@@ -64,9 +64,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Tools.html">8. Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">9. Porting guide for non-POSIX platforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">10. Migrating from older versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">11. Commercial features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_description.html">9. API description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">10. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">11. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">12. Commercial features</a></li>
 </ul>
 
         </div>
@@ -95,20 +96,23 @@
              
   <section id="installing-mandatory-objects">
 <h1><span class="section-number">4.2. </span>Installing mandatory Objects<a class="headerlink" href="#installing-mandatory-objects" title="Link to this heading"></a></h1>
-<p>In order to be able to connect to some LwM2M Server and handle incoming
-packets our client has to have at least <a class="reference external" href="https://www.openmobilealliance.org/tech/profiles/LWM2M_Security-v1_0.xml">LwM2M Security</a>
-(<code class="docutils literal notranslate"><span class="pre">/0</span></code>) and <a class="reference external" href="https://www.openmobilealliance.org/tech/profiles/LWM2M_Server-v1_0.xml">LwM2M Server</a>
-(<code class="docutils literal notranslate"><span class="pre">/1</span></code>) Objects implemented.</p>
-<p>Fortunately, Anjay provides both of these Objects in the form of pre-implemented
-modules, and they can be used easily.</p>
+<p>To connect to a LwM2M server and handle incoming packets, the client must support the following mandatory LwM2M Objects:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.openmobilealliance.org/tech/profiles/LWM2M_Security-v1_0.xml">LwM2M Security</a> (<code class="docutils literal notranslate"><span class="pre">/0</span></code>)</p></li>
+<li><p><a class="reference external" href="https://www.openmobilealliance.org/tech/profiles/LWM2M_Server-v1_0.xml">LwM2M Server</a> (<code class="docutils literal notranslate"><span class="pre">/1</span></code>)</p></li>
+</ul>
+</div></blockquote>
+<p>Anjay provides pre-implemented modules for all two objects, making setup
+straightforward.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It doesn’t impact on Anjay flexibility – i.e., users can still provide
-their own implementation of these Objects if necessary.</p>
+<p>Users can still provide their own implementation of these Objects if needed
+— Anjay remains fully flexible.</p>
 </div>
-<p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BC-Initialization.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example), it has no knowledge about the Data Model,
-i.e., no LwM2M Objects are registered within it. Security and Server objects can
-be registered using installation mechanism, presented in the next subsection.</p>
+<p>When Anjay is first instantiated (as in our previous <a class="reference internal" href="BC-Initialization.html#anjay-hello-world"><span class="std std-ref">hello world</span></a> example), it has no knowledge about the Data Model, i.e.,
+no LwM2M Objects are registered within it. You must explicitly install the
+required Objects, as shown below.</p>
 <section id="installing-objects">
 <h2><span class="section-number">4.2.1. </span>Installing Objects<a class="headerlink" href="#installing-objects" title="Link to this heading"></a></h2>
 <p>Each LwM2M Object is defined by an instance of the <code class="docutils literal notranslate"><span class="pre">anjay_dm_object_def_t</span></code>
@@ -125,27 +129,44 @@ structure. To add support for a new Object, you’d need to:</p>
 structure and object registration on your own. In case you are interested in
 this topic, <a class="reference internal" href="BC-ObjectImplementation.html"><span class="doc">Implementing standard Object</span></a> section provides more information on
 this subject.</p>
-<p>To install the Objects we are going to use <code class="docutils literal notranslate"><span class="pre">anjay_security_object_install()</span></code>
-and <code class="docutils literal notranslate"><span class="pre">anjay_server_object_install()</span></code> functions.</p>
+<p>Use the following functions to install the Objects:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_security_object_install()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay_server_object_install()</span></code></p></li>
+</ul>
+</div></blockquote>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Remember to include <code class="docutils literal notranslate"><span class="pre">anjay/security.h</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay/server.h</span></code> headers to
-use the functions mentioned above.</p>
+<p>To use these function you must include the following headers:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay/security.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">anjay/server.h</span></code></p></li>
+</ul>
+</div></blockquote>
 </div>
 </section>
 <section id="setting-up-server-and-security-objects">
 <h2><span class="section-number">4.2.2. </span>Setting up Server and Security Objects<a class="headerlink" href="#setting-up-server-and-security-objects" title="Link to this heading"></a></h2>
-<p>Now we are going to create functions which install Server and Security Objects
-and add instances of them. We modify the code from the
+<p>This section shows how to implement and register the mandatory Objects:
+Security and Server. It builds upon the setup from the
 <a class="reference internal" href="BC-Initialization.html#anjay-hello-world"><span class="std std-ref">previous tutorial</span></a>.</p>
-<p>The first one will be <code class="docutils literal notranslate"><span class="pre">setup_security_object()</span></code>. In this tutorial, we will use
-the Coiote IoT Device Management platform as the hard-coded server URI. You can
-go to <a class="reference external" href="https://avsystem.com/coiote-iot-device-management-platform/">https://avsystem.com/coiote-iot-device-management-platform/</a> to create an
-account, and after logging in, add the device entry for your application. If you
-wish to use another server, then you must replace
-<code class="docutils literal notranslate"><span class="pre">coap://eu.iot.avsystem.cloud:5683</span></code> with a valid value.</p>
-<p>For now, we will establish non-secure connection, a secure one will be described
-later.</p>
+<section id="security-object">
+<h3><span class="section-number">4.2.2.1. </span>Security Object<a class="headerlink" href="#security-object" title="Link to this heading"></a></h3>
+<p>The Security Object holds connection parameters for the LwM2M server. In this
+example, we configure a non-secure connection to the Coiote IoT Device
+Management platform. A secure connection setup will be described in a later
+section.</p>
+<p>To use Coiote:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Create an account at avsystem.com/coiote-iot-device-management-platform.</p></li>
+<li><p>Add your device entry in the Coiote interface using the following URI for
+the connection: <code class="docutils literal notranslate"><span class="pre">coap://eu.iot.avsystem.cloud:5683</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>If you are using another server, replace the URI with your target address.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Installs Security Object and adds and instance of it.</span>
 <span class="c1">// An instance of Security Object provides information needed to connect to</span>
 <span class="c1">// LwM2M server.</span>
@@ -171,9 +192,11 @@ later.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Both Security and Server instances are linked together by the Short Server ID
-Resource (<code class="docutils literal notranslate"><span class="pre">ssid</span></code>). That is why we keep SSID matched in both
-<code class="docutils literal notranslate"><span class="pre">setup_server_object()</span></code> and <code class="docutils literal notranslate"><span class="pre">setup_security_object()</span></code>.</p>
+</section>
+<section id="server-object">
+<h3><span class="section-number">4.2.2.2. </span>Server Object<a class="headerlink" href="#server-object" title="Link to this heading"></a></h3>
+<p>The Server Object defines registration parameters like lifetime and binding
+mode.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Installs Server Object and adds and instance of it.</span>
 <span class="c1">// An instance of Server Object provides the data related to a LwM2M Server.</span>
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -207,7 +230,14 @@ Resource (<code class="docutils literal notranslate"><span class="pre">ssid</spa
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now we are ready to call these functions from <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p>
+<p>Both Security and Server instances are linked together by the Short Server ID
+Resource (<code class="docutils literal notranslate"><span class="pre">ssid</span></code>). That is why the ssid value must match between the Security
+and Server instances.</p>
+</section>
+<section id="integrate-object-installation">
+<h3><span class="section-number">4.2.2.3. </span>Integrate Object Installation<a class="headerlink" href="#integrate-object-installation" title="Link to this heading"></a></h3>
+<p>Once the installation functions are implemented, call them from your <code class="docutils literal notranslate"><span class="pre">main()</span></code>
+function:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">avs_log</span><span class="p">(</span><span class="n">tutorial</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;usage: %s ENDPOINT_NAME&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
@@ -254,18 +284,32 @@ destruction of Anjay instance.</p>
 <cite>examples/tutorial/BC-MandatoryObjects</cite> subdirectory of main Anjay project
 repository.</p>
 </div>
+<section id="logs-example">
+<h4><span class="section-number">4.2.2.3.1. </span>Logs example<a class="headerlink" href="#logs-example" title="Link to this heading"></a></h4>
 <p>After running the client, you should see <code class="docutils literal notranslate"><span class="pre">registration</span> <span class="pre">successful,</span> <span class="pre">location</span> <span class="pre">=</span>
 <span class="pre">/rd/&lt;server-dependent</span> <span class="pre">identifier&gt;</span></code> once and <code class="docutils literal notranslate"><span class="pre">registration</span> <span class="pre">successfully</span>
 <span class="pre">updated</span></code> every 30 seconds in logs. It means, that the client has connected to
-the server and successfully sends Update messages. Now you can perform some
-Reads for example from the LwM2M Server side.</p>
+the server and successfully sends Update messages. You can now perform
+operations like Read from the server side.</p>
+</section>
+</section>
 </section>
 <section id="application-events">
 <h2><span class="section-number">4.2.3. </span>Application events<a class="headerlink" href="#application-events" title="Link to this heading"></a></h2>
-<p>The code above handles all events that may happen within the Anjay library
-itself. Of course, the application usually needs to handle its own
-functionality. Some ways to do this will be handled later in the
-<a class="reference internal" href="BC-Notifications.html"><span class="doc">Notifications support</span></a> tutorial.</p>
+<p>The example code shown above covers events managed internally by the Anjay
+library. However, most real-world applications also need to handle their own
+logic. How to implement application-specific functionality will be explained
+in the following sections.</p>
+</section>
+<section id="coiote-experience">
+<h2><span class="section-number">4.2.4. </span>Coiote experience<a class="headerlink" href="#coiote-experience" title="Link to this heading"></a></h2>
+<p>At this stage, you can log in to Coiote IoT Device Management and open the
+<strong>Device Center</strong> for your registered device to explore the platform
+functionality. Check the <strong>Data Model tab</strong> to see which LwM2M Objects are
+currently exposed. You will notice that the Server object is visible, but the
+Security object is not. This is expected behavior defined by the LwM2M
+specification — the Security object is neither readable nor discoverable from
+the device to protect sensitive configuration data.</p>
 </section>
 </section>
 
@@ -273,7 +317,7 @@ functionality. Some ways to do this will be handled later in the
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="BC-Initialization.html" class="btn btn-neutral float-left" title="4.1. Anjay initialization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="BC-Initialization.html" class="btn btn-neutral float-left" title="4.1. Initialize Anjay client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="BC-Security.html" class="btn btn-neutral float-right" title="4.3. Enabling secure communication" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -19,6 +19,7 @@ var dir_f1282f3667e08fb5f3f6a37ec99711a1 =
     [ "lwm2m_gateway.h", "lwm2m__gateway_8h.html", "lwm2m__gateway_8h" ],
     [ "lwm2m_send.h", "lwm2m__send_8h.html", "lwm2m__send_8h" ],
     [ "nidd.h", "nidd_8h.html", "nidd_8h" ],
+    [ "oscore.h", "oscore_8h.html", "oscore_8h" ],
     [ "security.h", "security_8h.html", "security_8h" ],
     [ "server.h", "server_8h.html", "server_8h" ],
     [ "sim_bootstrap.h", "sim__bootstrap_8h.html", "sim__bootstrap_8h" ],
