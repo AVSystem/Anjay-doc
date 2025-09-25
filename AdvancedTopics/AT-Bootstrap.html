@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.1. Bootstrap &mdash; Anjay 3.11.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8905d4f5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.2. Access Control in multi-server environment" href="AT-AccessControl.html" />
+    <link rel="prev" title="5. Advanced topics" href="../AdvancedTopics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.11.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.1. Bootstrap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.2. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.3. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.4. DTLS connection using certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CertificateUsage.html">5.5. Certificate Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.6. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.8. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.9. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.10. Retransmissions, timeouts &amp; response caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.11. Custom event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.12. Notes on event loop APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.13. IPSO objects implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">8. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_description.html">9. API description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">10. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">11. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">12. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.1. </span>Bootstrap</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bootstrap">
+<h1><span class="section-number">5.1. </span>Bootstrap<a class="headerlink" href="#bootstrap" title="Link to this heading"></a></h1>
+<p>The LwM2M Protocol Specification defines the Bootstrap Interface, whose primary
+role is to provision LwM2M-enabled devices with the necessary configuration and
+credentials required to establish a connection with the LwM2M Server.</p>
+<p>The most common use case of this interface, and the one covered in this example,
+involves delivering the LwM2M Server Object Instance together with appropriate
+security credentials. However, the bootstrap process is far more versatile.</p>
+<p><strong>LwM2M Bootstrap Server</strong></p>
+<p>A LwM2M Bootstrap Server is a special entity in the LwM2M architecture, as it is
+allowed to modify object instances and resources that are otherwise inaccessible
+to regular LwM2M Servers, ignoring the Read-Only property.</p>
+<p>Security Object instance that is related to the connection with LwM2M Bootstrap
+Server (has <code class="docutils literal notranslate"><span class="pre">Bootstrap-Server</span></code> Resource set to true, as well as URI and security
+credentials for LwM2M Bootstrap Server) is often called a
+<strong>LwM2M Bootstrap-Server Account</strong>. LwM2M Bootstrap Server connection requires
+only <code class="docutils literal notranslate"><span class="pre">/0</span></code> Security Object instance, without a corresponding <code class="docutils literal notranslate"><span class="pre">/1</span></code> Server
+Object instance (with matching SSID).</p>
+<p><strong>Key Operations</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Bootstrap-Delete</span> <span class="pre">/0</span></code>: Removes all Security Object instances except the one related to the Bootstrap Server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bootstrap-Discover</span></code>: Identifies the Security Object instance ID for the Bootstrap Server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bootstrap-Write</span></code>: Updates server URI or credentials.</p></li>
+</ul>
+<p>Bootstrap Interface support is enabled with <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_BOOTSTRAP</span></code> configuration
+flag or, if using CMake, with <code class="docutils literal notranslate"><span class="pre">WITH_BOOTSTRAP</span></code> option.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Complete code of this example can be found in
+<cite>examples/tutorial/AT-Bootstrap</cite> subdirectory of main Anjay project
+repository.
+Comparing it to <cite>examples/tutorial/BC-MandatoryObjects</cite> can give a good
+insight on the difference between how LwM2M Bootstrap server is handled.</p>
+</div>
+<section id="add-a-bootstrap-account-in-anjay">
+<h2><span class="section-number">5.1.1. </span>Add a Bootstrap Account in Anjay<a class="headerlink" href="#add-a-bootstrap-account-in-anjay" title="Link to this heading"></a></h2>
+<p>The Security Object holds connection parameters for the LwM2M server. In this
+example, we configure a non-secure connection to the Coiote IoT Device
+Management platform. <a class="reference external" href="https://avsystem.github.io/Anjay-doc/api/structanjay__security__instance__t.html#aabce58ea8cf040fbb08cbb43efe60dd9">anjay_security_instance_t.bootstrap_server</a>
+flag needs to be set to <cite>true</cite>. Also, LwM2M Bootstrap Server has a different IP
+port than a regular LwM2M Server.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Installs Security Object and adds an instance of it.</span>
+<span class="c1">// An instance of Security Object provides information needed to connect to</span>
+<span class="c1">// LwM2M Bootstrap server.</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_security_instance_t</span><span class="w"> </span><span class="n">security_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">ssid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="hll"><span class="w">        </span><span class="p">.</span><span class="n">bootstrap_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="p">.</span><span class="n">server_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;coap://eu.iot.avsystem.cloud:5693&quot;</span><span class="p">,</span>
+</span><span class="w">        </span><span class="p">.</span><span class="n">security_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// Anjay will assign Instance ID automatically</span>
+<span class="w">    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">security_instance_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ANJAY_ID_INVALID</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_security_object_add_instance</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">security_instance</span><span class="p">,</span>
+<span class="w">                                        </span><span class="o">&amp;</span><span class="n">security_instance_id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The LwM2M Bootstrap Server doesn’t have a /1 Server Object instance. However,
+you must still install the Server Object in Anjay data model to allow the
+Bootstrap Server to create the Server Object dynamically.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Installs Server Object but does not add any instances of it. This is</span>
+<span class="c1">// necessary to allow LwM2M Bootstrap Server to create Server Object instances.</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-bootstrap">
+<h2><span class="section-number">5.1.2. </span>Configure Bootstrap<a class="headerlink" href="#configure-bootstrap" title="Link to this heading"></a></h2>
+<p>Anjay will automatically try to connect to the LwM2M Bootstrap Server if it
+does not have a LwM2M Server configured in the data model, or if the connection
+to the LwM2M Server has failed.</p>
+<p>The Bootstrap Procedure is considered failed if a LwM2M Client does not receive
+the “Bootstrap-Finish” operation after the last received Bootstrap-Server command
+in a certain period. The LwM2M Specification suggest setting it to the
+value of CoAP Parameter <code class="docutils literal notranslate"><span class="pre">EXCHANGE_LIFETIME</span></code> and it is calculated based on
+<a class="reference external" href="https://avsystem.github.io/Anjay-doc/api/structanjay__configuration.html#a9690621b087639e06dd0c747206d0679">anjay_configuration_t::udp_tx_params</a> or <a class="reference external" href="https://avsystem.github.io/Anjay-doc/api/structanjay__configuration.html#a3ed2199020b41ef9cab2b20fb27a7f3e">anjay_configuration_t::coap_tcp_request_timeout</a>.</p>
+<dl class="simple">
+<dt>The default values are as follows:</dt><dd><ul class="simple">
+<li><p>247 seconds for UDP</p></li>
+<li><p>215.5 seconds for TCP</p></li>
+</ul>
+</dd>
+</dl>
+<p>The following Bootstrap-related Resources are also implemented in the Anjay’s
+build-in Security Object:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://avsystem.github.io/Anjay-doc/api/structanjay__security__instance__t.html#abe22f8c8164f40496fcf4e1d4d688cf2">anjay_security_instance_t::client_holdoff_s</a> - the time that Anjay waits
+before performing a Client Initiated Bootstrap once it determines that it
+should initiate this bootstrap mode.</p></li>
+<li><p><a class="reference external" href="https://avsystem.github.io/Anjay-doc/api/structanjay__security__instance__t.html#a5f249397d36fffa3c7e263c2c923fb76">anjay_security_instance_t::bootstrap_timeout_s</a> - if set, Anjay will automatically
+purge the LwM2M Bootstrap-Server Account after this timeout value if a Bootstrap
+procedure ends successfully. By default, the Bootstrap-Server Account lifetime
+is infinite.</p></li>
+</ul>
+<p>There is also a legacy Server-Initiated Bootstrap mechanism based on an
+interpretation of LwM2M 1.0 TS. To learn more, see
+<a class="reference external" href="https://avsystem.github.io/Anjay-doc/api/structanjay__configuration.html#aa5f75a1b0546352b00b4bddb3edab1eb">anjay_configuration_t::disable_legacy_server_initiated_bootstrap</a>.</p>
+</section>
+<section id="coiote-lwm2m-server">
+<h2><span class="section-number">5.1.3. </span>Coiote LwM2M Server<a class="headerlink" href="#coiote-lwm2m-server" title="Link to this heading"></a></h2>
+<p>To Bootstrap your device using AVSystem Coiote LwM2M Server, refer to
+<a class="reference external" href="https://eu.iot.avsystem.cloud/doc/user/getting-started/add-devices/#add-device-via-the-bootstrap-server">Add device via the Bootstrap server guide</a>
+in the Coiote documentation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../AdvancedTopics.html" class="btn btn-neutral float-left" title="5. Advanced topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="AT-AccessControl.html" class="btn btn-neutral float-right" title="5.2. Access Control in multi-server environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

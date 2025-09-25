@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"globals_func.html":[2,1,1],
 "globals_type.html":[2,1,3],
 "globals_vars.html":[2,1,2],
 "index.html":[],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "structanjay__configuration.html#a4034a445947ac9ccd810c88527522779":[1,0,4,2],
 "structanjay__configuration.html#a44513f6007ea6db2c75a517dbfa77df4":[1,0,4,25],
 "structanjay__configuration.html#a4961cf98b0de93c11cf0892abaaf0b1c":[1,0,4,31],
-"structanjay__configuration.html#a53d4371420f52d82f1e94b551cef8f98":[1,0,4,21],
-"structanjay__configuration.html#a695689ab4fc248793ad63f631a0c630f":[1,0,4,15]
+"structanjay__configuration.html#a53d4371420f52d82f1e94b551cef8f98":[1,0,4,21]
 };

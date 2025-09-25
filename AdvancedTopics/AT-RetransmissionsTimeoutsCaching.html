@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.8. Retransmissions, timeouts &amp; response caching &mdash; Anjay 3.10.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=2238f999" />
-
+  <title>5.10. Retransmissions, timeouts &amp; response caching &mdash; Anjay 3.11.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=f8d09eac"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/documentation_options.js?v=8905d4f5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.9. Custom event loop" href="AT-CustomEventLoop.html" />
-    <link rel="prev" title="5.7. Persistence support" href="AT-Persistence.html" /> 
+    <link rel="next" title="5.11. Custom event loop" href="AT-CustomEventLoop.html" />
+    <link rel="prev" title="5.9. Persistence support" href="AT-Persistence.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +37,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.10.0
+                3.11.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -52,17 +53,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.2. Attribute storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.4. Custom LwM2M objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.6. Other library features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.7. Persistence support</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5.8. Retransmissions, timeouts &amp; response caching</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.9. Custom event loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.11. IPSO objects implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Bootstrap.html">5.1. Bootstrap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.2. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.3. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.4. DTLS connection using certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CertificateUsage.html">5.5. Certificate Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.6. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.8. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.9. Persistence support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.10. Retransmissions, timeouts &amp; response caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.11. Custom event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.12. Notes on event loop APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.13. IPSO objects implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -89,7 +92,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.8. </span>Retransmissions, timeouts &amp; response caching</li>
+      <li class="breadcrumb-item active"><span class="section-number">5.10. </span>Retransmissions, timeouts &amp; response caching</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -99,12 +102,12 @@
            <div itemprop="articleBody">
              
   <section id="retransmissions-timeouts-response-caching">
-<h1><span class="section-number">5.8. </span>Retransmissions, timeouts &amp; response caching<a class="headerlink" href="#retransmissions-timeouts-response-caching" title="Link to this heading"></a></h1>
+<h1><span class="section-number">5.10. </span>Retransmissions, timeouts &amp; response caching<a class="headerlink" href="#retransmissions-timeouts-response-caching" title="Link to this heading"></a></h1>
 <p>Due to potential network instability, the need to retransmit a message
 between a Client and a Server may sometimes occur. Detecting retransmissions
 is especially important if the operation has some observable side effects.</p>
 <section id="motivational-examples">
-<h2><span class="section-number">5.8.1. </span>Motivational examples<a class="headerlink" href="#motivational-examples" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.10.1. </span>Motivational examples<a class="headerlink" href="#motivational-examples" title="Link to this heading"></a></h2>
 <p>Imagine a LwM2M Object with a numeric, executable Resource, whose value is
 incremented every time a LwM2M Server performs Execute on it. Now, consider
 the following scenario:</p>
@@ -127,7 +130,7 @@ from happening.</p>
 yield measurable performance benefits.</p>
 </section>
 <section id="caching-mechanism">
-<h2><span class="section-number">5.8.2. </span>Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.10.2. </span>Caching mechanism<a class="headerlink" href="#caching-mechanism" title="Link to this heading"></a></h2>
 <p>Anjay provides a built-in message cache - when the request is received, Anjay
 checks if there exists an appropriate response to it in the cache already. In
 case there is one, it is retransmitted. Otherwise Anjay processes the request as
@@ -150,7 +153,7 @@ as defined in <a class="reference external" href="https://tools.ietf.org/html/rf
 it is automatically removed.</p>
 </section>
 <section id="cache-size">
-<h2><span class="section-number">5.8.3. </span>Cache size<a class="headerlink" href="#cache-size" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.10.3. </span>Cache size<a class="headerlink" href="#cache-size" title="Link to this heading"></a></h2>
 <p>The size of the cache is specified at Anjay instantiation time by setting
 <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::msg_cache_size</span></code> to a non-zero value (zero disables
 any caching). This limits the number of bytes used to store cached responses.</p>
@@ -161,7 +164,7 @@ to all Servers are stored within a single cache.</p>
 </div>
 </section>
 <section id="limitations">
-<h2><span class="section-number">5.8.4. </span>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.10.4. </span>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>If a response is too big to fit into the cache, it is <strong>not cached</strong>,</p></li>
 <li><p>If a response would fit into the cache, but the cache is currently full,
@@ -171,9 +174,9 @@ till the new response fits.</p></li>
 </ul>
 </section>
 <section id="configuring-retransmissions-and-timeouts">
-<span id="coap-retransmission-parameters"></span><h2><span class="section-number">5.8.5. </span>Configuring retransmissions and timeouts<a class="headerlink" href="#configuring-retransmissions-and-timeouts" title="Link to this heading"></a></h2>
+<span id="coap-retransmission-parameters"></span><h2><span class="section-number">5.10.5. </span>Configuring retransmissions and timeouts<a class="headerlink" href="#configuring-retransmissions-and-timeouts" title="Link to this heading"></a></h2>
 <section id="background">
-<h3><span class="section-number">5.8.5.1. </span>Background<a class="headerlink" href="#background" title="Link to this heading"></a></h3>
+<h3><span class="section-number">5.10.5.1. </span>Background<a class="headerlink" href="#background" title="Link to this heading"></a></h3>
 <p>To provide custom retransmission policy, affecting CoAP layer across
 the library, one needs to set <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code>
 accordingly prior library instantiation with <code class="docutils literal notranslate"><span class="pre">anjay_new()</span></code>.</p>
@@ -222,9 +225,9 @@ Anjay uses default values as specified in the <a class="reference external" href
 </table>
 </section>
 <section id="meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions">
-<h3><span class="section-number">5.8.5.2. </span>Meaning of each parameter, calculations of timeouts and the number of retransmissions<a class="headerlink" href="#meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions" title="Link to this heading"></a></h3>
+<h3><span class="section-number">5.10.5.2. </span>Meaning of each parameter, calculations of timeouts and the number of retransmissions<a class="headerlink" href="#meaning-of-each-parameter-calculations-of-timeouts-and-the-number-of-retransmissions" title="Link to this heading"></a></h3>
 <section id="ack-random-factor">
-<h4><span class="section-number">5.8.5.2.1. </span><code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code><a class="headerlink" href="#ack-random-factor" title="Link to this heading"></a></h4>
+<h4><span class="section-number">5.10.5.2.1. </span><code class="docutils literal notranslate"><span class="pre">ACK_RANDOM_FACTOR</span></code><a class="headerlink" href="#ack-random-factor" title="Link to this heading"></a></h4>
 <p>Configures the amount of random perturbation to a timeout to a response to
 an initial message (<code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code>, see next subsection). Its value has to
 be at least <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. The randomness is mixed in as follows:</p>
@@ -246,7 +249,7 @@ may vary between <code class="docutils literal notranslate"><span class="pre">[1
 </div>
 </section>
 <section id="ack-timeout">
-<h4><span class="section-number">5.8.5.2.2. </span><code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code><a class="headerlink" href="#ack-timeout" title="Link to this heading"></a></h4>
+<h4><span class="section-number">5.10.5.2.2. </span><code class="docutils literal notranslate"><span class="pre">ACK_TIMEOUT</span></code><a class="headerlink" href="#ack-timeout" title="Link to this heading"></a></h4>
 <p>Configures the amount of time the library shall wait for the response to the
 initial confirmable message (not retransmission).</p>
 <div class="hint admonition">
@@ -258,7 +261,7 @@ above discussion about <code class="docutils literal notranslate"><span class="p
 </div>
 </section>
 <section id="max-retransmit">
-<h4><span class="section-number">5.8.5.2.3. </span><code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code><a class="headerlink" href="#max-retransmit" title="Link to this heading"></a></h4>
+<h4><span class="section-number">5.10.5.2.3. </span><code class="docutils literal notranslate"><span class="pre">MAX_RETRANSMIT</span></code><a class="headerlink" href="#max-retransmit" title="Link to this heading"></a></h4>
 <p>Configures the total number of retransmissions the library is allowed to
 perform before giving up on message delivery.</p>
 <div class="hint admonition">
@@ -272,7 +275,7 @@ and the library would give up if no response arrived after <code class="docutils
 </div>
 </section>
 <section id="nstart">
-<h4><span class="section-number">5.8.5.2.4. </span><code class="docutils literal notranslate"><span class="pre">NSTART</span></code><a class="headerlink" href="#nstart" title="Link to this heading"></a></h4>
+<h4><span class="section-number">5.10.5.2.4. </span><code class="docutils literal notranslate"><span class="pre">NSTART</span></code><a class="headerlink" href="#nstart" title="Link to this heading"></a></h4>
 <p>Configures the maximum number of exchanges that may be ongoing at the same time
 with a given remote CoAP endpoint (i.e., a LwM2M Server).</p>
 <p>In Anjay, it is mostly ignored. It is not recommended to set it to any other
@@ -281,14 +284,14 @@ value than the default of 1.</p>
 APIs.</p>
 </section>
 <section id="exponential-back-off">
-<h4><span class="section-number">5.8.5.2.5. </span>Exponential back-off<a class="headerlink" href="#exponential-back-off" title="Link to this heading"></a></h4>
+<h4><span class="section-number">5.10.5.2.5. </span>Exponential back-off<a class="headerlink" href="#exponential-back-off" title="Link to this heading"></a></h4>
 <p>After waiting for a response for <code class="docutils literal notranslate"><span class="pre">t</span></code> seconds , the wait time for the next
 retransmission (in the absence of response) would be <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">t</span></code> seconds. In
 other words, retransmissions are performed with exponential back-off.</p>
 </section>
 </section>
 <section id="example-configuration">
-<h3><span class="section-number">5.8.5.3. </span>Example configuration<a class="headerlink" href="#example-configuration" title="Link to this heading"></a></h3>
+<h3><span class="section-number">5.10.5.3. </span>Example configuration<a class="headerlink" href="#example-configuration" title="Link to this heading"></a></h3>
 <p>As an example, we may configure the library as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">avs_coap_udp_tx_params_t</span><span class="w"> </span><span class="n">udp_tx_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="c1">// Wait at least 4 seconds for the initial response.</span>
@@ -358,7 +361,7 @@ message:</p>
 </section>
 </section>
 <section id="other-retransmission-parameters">
-<h2><span class="section-number">5.8.6. </span>Other retransmission parameters<a class="headerlink" href="#other-retransmission-parameters" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.10.6. </span>Other retransmission parameters<a class="headerlink" href="#other-retransmission-parameters" title="Link to this heading"></a></h2>
 <p>While setting <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t::udp_tx_params</span></code> parameter
 covers most cases, there are also means to configure:</p>
 <ul class="simple">
@@ -377,8 +380,8 @@ parameters for non-UDP transports.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="AT-Persistence.html" class="btn btn-neutral float-left" title="5.7. Persistence support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="AT-CustomEventLoop.html" class="btn btn-neutral float-right" title="5.9. Custom event loop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AT-Persistence.html" class="btn btn-neutral float-left" title="5.9. Persistence support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="AT-CustomEventLoop.html" class="btn btn-neutral float-right" title="5.11. Custom event loop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

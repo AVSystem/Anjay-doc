@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"structanjay__socket__entry__t.html#a8138e934efc9113fa1b46ec6fe790dd7":[1,0,31,3],
+"structanjay__socket__entry__t.html#aa05391f76b578a92592b35fe088dd4c3":[1,0,31,1],
 "structanjay__sw__mgmt__handlers__t.html":[1,0,32],
 "structanjay__sw__mgmt__handlers__t.html#a1b6a1e69ce7a09e28799eddc2cf5f2f5":[1,0,32,14],
 "structanjay__sw__mgmt__handlers__t.html#a28862080ab999689a9465cedbd559552":[1,0,32,5],

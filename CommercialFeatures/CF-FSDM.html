@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>12.4. File System Data Model &mdash; Anjay 3.10.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=2238f999" />
-
+  <title>12.4. File System Data Model &mdash; Anjay 3.11.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=f8d09eac"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/documentation_options.js?v=8905d4f5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -36,7 +37,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.10.0
+                3.11.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -277,10 +278,10 @@ the <code class="docutils literal notranslate"><span class="pre">Fraction</span>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">fsdm</span> <span class="kn">import</span> <span class="n">ResourceHandler</span><span class="p">,</span> <span class="n">CoapError</span><span class="p">,</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">KvStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fsdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResourceHandler</span><span class="p">,</span> <span class="n">CoapError</span><span class="p">,</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">KvStore</span>
 
 
-<span class="k">class</span> <span class="nc">ResourceHandler_3333_5506</span><span class="p">(</span><span class="n">ResourceHandler</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResourceHandler_3333_5506</span><span class="p">(</span><span class="n">ResourceHandler</span><span class="p">):</span>
     <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;Current Time&quot;</span>
     <span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span><span class="se">\</span>
 <span class="s1">Unix Time. A signed integer representing the number of seconds since</span>
@@ -288,21 +289,21 @@ the <code class="docutils literal notranslate"><span class="pre">Fraction</span>
     <span class="n">DATATYPE</span> <span class="o">=</span> <span class="n">DataType</span><span class="o">.</span><span class="n">TIME</span>
     <span class="n">EXTERNAL_NOTIFY</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
              <span class="n">instance_id</span><span class="p">,</span>            <span class="c1"># int</span>
              <span class="n">resource_instance_id</span><span class="p">):</span>  <span class="c1"># int for multiple resources, None otherwise</span>
         <span class="c1"># It&#39;s just that simple!</span>
-        <span class="kn">import</span> <span class="nn">time</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())))</span>
 
 
-    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">instance_id</span><span class="p">,</span>            <span class="c1"># int</span>
               <span class="n">resource_instance_id</span><span class="p">):</span>  <span class="c1"># int for multiple resources, None otherwise</span>
         <span class="c1"># NOTE: Implement this if you want to be able to change time on your system.</span>
         <span class="k">raise</span> <span class="n">CoapError</span><span class="o">.</span><span class="n">NOT_IMPLEMENTED</span>
 
-    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">instance_id</span><span class="p">):</span>  <span class="c1"># int</span>
         <span class="c1"># NOTE: reset resource to its original state. You can either set it to</span>
         <span class="c1"># a default value or delete the resource.</span>
@@ -330,11 +331,11 @@ the <code class="docutils literal notranslate"><span class="pre">KvStore</span><
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- encoding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">fsdm</span> <span class="kn">import</span> <span class="n">ResourceHandler</span><span class="p">,</span> <span class="n">CoapError</span><span class="p">,</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">KvStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fsdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResourceHandler</span><span class="p">,</span> <span class="n">CoapError</span><span class="p">,</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">KvStore</span>
 
-<span class="kn">import</span> <span class="nn">sys</span> <span class="c1"># for sys.stdout.write() and sys.stdin.read()</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span> <span class="c1"># for sys.stdout.write() and sys.stdin.read()</span>
 
-<span class="k">class</span> <span class="nc">ResourceHandler_3333_5750</span><span class="p">(</span><span class="n">ResourceHandler</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResourceHandler_3333_5750</span><span class="p">(</span><span class="n">ResourceHandler</span><span class="p">):</span>
     <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;Application Type&quot;</span>
     <span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span><span class="se">\</span>
 <span class="s1">The application type of the sensor or actuator as a string depending</span>
@@ -342,7 +343,7 @@ the <code class="docutils literal notranslate"><span class="pre">KvStore</span><
     <span class="n">DATATYPE</span> <span class="o">=</span> <span class="n">DataType</span><span class="o">.</span><span class="n">STRING</span>
     <span class="n">EXTERNAL_NOTIFY</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
              <span class="n">instance_id</span><span class="p">,</span>            <span class="c1"># int</span>
              <span class="n">resource_instance_id</span><span class="p">):</span>  <span class="c1"># int for multiple resources, None otherwise</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">KvStore</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="mi">3333</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;application_type&#39;</span><span class="p">)</span>
@@ -358,14 +359,14 @@ the <code class="docutils literal notranslate"><span class="pre">KvStore</span><
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
 
-    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">instance_id</span><span class="p">,</span>            <span class="c1"># int</span>
               <span class="n">resource_instance_id</span><span class="p">):</span>  <span class="c1"># int for multiple resources, None otherwise</span>
         <span class="c1"># All we need to do is to assign a value to the application_type key.</span>
         <span class="n">KvStore</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="mi">3333</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;application_type&#39;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
 
-    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">instance_id</span><span class="p">):</span>  <span class="c1"># int</span>
         <span class="c1"># We reset the resource to its original state by simply deleting the application_type</span>
         <span class="c1"># key</span>

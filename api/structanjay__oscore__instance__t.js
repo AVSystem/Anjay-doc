@@ -1,5 +1,6 @@
 var structanjay__oscore__instance__t =
 [
+    [ "id_context", "structanjay__oscore__instance__t.html#ab8edb9d8ab67bc1711fe520e60f62dfd", null ],
     [ "master_salt", "structanjay__oscore__instance__t.html#a5b0bb869c867ddea6b937b96149b5f73", null ],
     [ "master_secret", "structanjay__oscore__instance__t.html#ab5707231e015c190982c14cee6c7fca2", null ],
     [ "recipient_id", "structanjay__oscore__instance__t.html#ad9f23746afcbe8a8a41419bb29f2ac15", null ],

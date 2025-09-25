@@ -3,6 +3,7 @@ var anjay__config_8h =
     [ "ANJAY_DEFAULT_SEND_FORMAT", "anjay__config_8h.html#a1a84b5d902c054161b5c8416f708ff47", null ],
     [ "ANJAY_DTLS_SESSION_BUFFER_SIZE", "anjay__config_8h.html#a5a2af7df20d4af954b059285bf9d8082", null ],
     [ "ANJAY_MAX_DOUBLE_STRING_SIZE", "anjay__config_8h.html#a5c4af7225e70339a9a8bf6f7ea3691dd", null ],
+    [ "ANJAY_MAX_HOLDOFF_TIME", "anjay__config_8h.html#a49245317e5b5d338be2351ba43734707", null ],
     [ "ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER", "anjay__config_8h.html#a91bf1e1a9dbc892318b1236baef759a6", null ],
     [ "ANJAY_MAX_PK_OR_IDENTITY_SIZE", "anjay__config_8h.html#ab0f0c7d580b87f00e7a3e0ba7863439a", null ],
     [ "ANJAY_MAX_SECRET_KEY_SIZE", "anjay__config_8h.html#a07617d932867cb801411f90bd0b45fdf", null ],

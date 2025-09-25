@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.9. Custom event loop &mdash; Anjay 3.10.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
-      <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=2238f999" />
-
+  <title>5.11. Custom event loop &mdash; Anjay 3.11.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  
-        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=f8d09eac"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/documentation_options.js?v=8905d4f5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.10. Notes on event loop APIs" href="AT-EventLoopNotes.html" />
-    <link rel="prev" title="5.8. Retransmissions, timeouts &amp; response caching" href="AT-RetransmissionsTimeoutsCaching.html" /> 
+    <link rel="next" title="5.12. Notes on event loop APIs" href="AT-EventLoopNotes.html" />
+    <link rel="prev" title="5.10. Retransmissions, timeouts &amp; response caching" href="AT-RetransmissionsTimeoutsCaching.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +37,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.10.0
+                3.11.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -52,17 +53,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.1. Access Control in multi-server environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.2. Attribute storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.3. DTLS connection using certificates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.4. Custom LwM2M objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.5. Network error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.6. Other library features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.7. Persistence support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.8. Retransmissions, timeouts &amp; response caching</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5.9. Custom event loop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.10. Notes on event loop APIs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.11. IPSO objects implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Bootstrap.html">5.1. Bootstrap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.2. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.3. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.4. DTLS connection using certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CertificateUsage.html">5.5. Certificate Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.6. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.8. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.9. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.10. Retransmissions, timeouts &amp; response caching</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.11. Custom event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.12. Notes on event loop APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.13. IPSO objects implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -89,7 +92,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5.9. </span>Custom event loop</li>
+      <li class="breadcrumb-item active"><span class="section-number">5.11. </span>Custom event loop</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -99,7 +102,7 @@
            <div itemprop="articleBody">
              
   <section id="custom-event-loop">
-<h1><span class="section-number">5.9. </span>Custom event loop<a class="headerlink" href="#custom-event-loop" title="Link to this heading"></a></h1>
+<h1><span class="section-number">5.11. </span>Custom event loop<a class="headerlink" href="#custom-event-loop" title="Link to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">anjay_event_loop_run()</span></code> function that is used in other examples carries
 out all the tasks necessary to handle events related to LwM2M. However, there
 are scenarios in which you might not want to use this function, including:</p>
@@ -123,7 +126,7 @@ sources:</p>
 <p>On POSIX compliant systems, a simple and portable way to handle all these events
 is to use the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> system call.</p>
 <section id="incoming-network-packets">
-<h2><span class="section-number">5.9.1. </span>Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.11.1. </span>Incoming network packets<a class="headerlink" href="#incoming-network-packets" title="Link to this heading"></a></h2>
 <p>UDP sockets that Anjay uses to communicate with LwM2M Servers are accessible
 via the <code class="docutils literal notranslate"><span class="pre">anjay_get_sockets()</span></code> call. All the used sockets are returned as an
 <code class="docutils literal notranslate"><span class="pre">AVS_LIST</span></code> (implemented and documented in the <a class="reference external" href="https://github.com/AVSystem/avs_commons">AVSystem Commons Library</a>).</p>
@@ -145,7 +148,7 @@ library.</p></li>
 Anjay is using, the task scheduler.</p>
 </section>
 <section id="task-scheduler">
-<span id="id1"></span><h2><span class="section-number">5.9.2. </span>Task scheduler<a class="headerlink" href="#task-scheduler" title="Link to this heading"></a></h2>
+<span id="id1"></span><h2><span class="section-number">5.11.2. </span>Task scheduler<a class="headerlink" href="#task-scheduler" title="Link to this heading"></a></h2>
 <p>Anjay uses an internal scheduler for executing a number of tasks, including
 automated sending of Registration Updates and notifications, among others.</p>
 <p>During runtime, Anjay schedules jobs with specific deadlines, and
@@ -165,7 +168,7 @@ communication going on, it would be the amount of time the CPU can sleep. In the
 next example we will use this value as a <code class="docutils literal notranslate"><span class="pre">poll()</span></code> timeout.</p>
 </section>
 <section id="event-loop-implementation">
-<span id="basic-event-loop"></span><h2><span class="section-number">5.9.3. </span>Event loop implementation<a class="headerlink" href="#event-loop-implementation" title="Link to this heading"></a></h2>
+<span id="basic-event-loop"></span><h2><span class="section-number">5.11.3. </span>Event loop implementation<a class="headerlink" href="#event-loop-implementation" title="Link to this heading"></a></h2>
 <p>Taking into account previous subsections we could modify the event loop
 presented <a class="reference internal" href="#incomplete-event-loop-idea"><span class="std std-ref">before</span></a> as follows:</p>
 <ol class="arabic simple">
@@ -240,7 +243,7 @@ modified.</p></li>
 </span><span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </span><span class="hll"><span class="p">}</span>
 </span>
-<span class="c1">// Installs Security Object and adds and instance of it.</span>
+<span class="c1">// Installs Security Object and adds an instance of it.</span>
 <span class="c1">// An instance of Security Object provides information needed to connect to</span>
 <span class="c1">// LwM2M server.</span>
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_security_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -271,7 +274,7 @@ modified.</p></li>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c1">// Installs Server Object and adds and instance of it.</span>
+<span class="c1">// Installs Server Object and adds an instance of it.</span>
 <span class="c1">// An instance of Server Object provides the data related to a LwM2M Server.</span>
 <span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">setup_server_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_server_object_install</span><span class="p">(</span><span class="n">anjay</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
@@ -349,7 +352,7 @@ needs to handle its own functionality, this is however outside of the scope of
 this tutorial, but the presented code may be used as a good starting point.</p>
 </section>
 <section id="anjay-serve-any">
-<h2><span class="section-number">5.9.4. </span>anjay_serve_any()<a class="headerlink" href="#anjay-serve-any" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.11.4. </span>anjay_serve_any()<a class="headerlink" href="#anjay-serve-any" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="../api/core_8h.html#ac436ac24095cb10ef008c8fd91126b31">anjay_serve_any()</a> is
 a simplified API that allows writing a simple event loop that the user retains
 control of.</p>
@@ -374,8 +377,8 @@ for non-standard network socket layers.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="AT-RetransmissionsTimeoutsCaching.html" class="btn btn-neutral float-left" title="5.8. Retransmissions, timeouts &amp; response caching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="AT-EventLoopNotes.html" class="btn btn-neutral float-right" title="5.10. Notes on event loop APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AT-RetransmissionsTimeoutsCaching.html" class="btn btn-neutral float-left" title="5.10. Retransmissions, timeouts &amp; response caching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="AT-EventLoopNotes.html" class="btn btn-neutral float-right" title="5.12. Notes on event loop APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

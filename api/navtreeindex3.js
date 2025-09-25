@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"structanjay__configuration.html#a695689ab4fc248793ad63f631a0c630f":[1,0,4,15],
 "structanjay__configuration.html#a6b9146075bd687d935f24690d478dcb0":[1,0,4,23],
 "structanjay__configuration.html#a6d029ef6e0f106e08a10cc01f26deb35":[1,0,4,5],
 "structanjay__configuration.html#a6eb46a8b375d73a4c2fb609ac17748db":[1,0,4,36],
@@ -155,10 +156,11 @@ var NAVTREEINDEX3 =
 "structanjay__nidd__driver__struct.html#ad64f590797ed92577b0e93a255b4e6e9":[1,0,21,2],
 "structanjay__nidd__driver__struct.html#aef9324448ce2245bf06db0ba060123aa":[1,0,21,9],
 "structanjay__oscore__instance__t.html":[1,0,22],
-"structanjay__oscore__instance__t.html#a45d91b241f2421662d88130e920f5a10":[1,0,22,3],
-"structanjay__oscore__instance__t.html#a5b0bb869c867ddea6b937b96149b5f73":[1,0,22,0],
-"structanjay__oscore__instance__t.html#ab5707231e015c190982c14cee6c7fca2":[1,0,22,1],
-"structanjay__oscore__instance__t.html#ad9f23746afcbe8a8a41419bb29f2ac15":[1,0,22,2],
+"structanjay__oscore__instance__t.html#a45d91b241f2421662d88130e920f5a10":[1,0,22,4],
+"structanjay__oscore__instance__t.html#a5b0bb869c867ddea6b937b96149b5f73":[1,0,22,1],
+"structanjay__oscore__instance__t.html#ab5707231e015c190982c14cee6c7fca2":[1,0,22,2],
+"structanjay__oscore__instance__t.html#ab8edb9d8ab67bc1711fe520e60f62dfd":[1,0,22,0],
+"structanjay__oscore__instance__t.html#ad9f23746afcbe8a8a41419bb29f2ac15":[1,0,22,3],
 "structanjay__resource__observation__status__t.html":[1,0,23],
 "structanjay__resource__observation__status__t.html#a35fdd20a722988284dc57c39729c7b0e":[1,0,23,3],
 "structanjay__resource__observation__status__t.html#ad15e33c97228433a89368564588a0e3d":[1,0,23,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "structanjay__smsdrv__struct.html#aa1b6407d9347635f277880fe23957b79":[1,0,30,4],
 "structanjay__socket__entry__t.html":[1,0,31],
 "structanjay__socket__entry__t.html#a4d58c28c450d30bb248f2e9d90132207":[1,0,31,0],
-"structanjay__socket__entry__t.html#a661af3675ddfb29608e7b48a44de557e":[1,0,31,2],
-"structanjay__socket__entry__t.html#a8138e934efc9113fa1b46ec6fe790dd7":[1,0,31,3],
-"structanjay__socket__entry__t.html#aa05391f76b578a92592b35fe088dd4c3":[1,0,31,1]
+"structanjay__socket__entry__t.html#a661af3675ddfb29608e7b48a44de557e":[1,0,31,2]
 };
