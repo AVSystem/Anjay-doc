@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. Known Issues &mdash; Anjay 3.12.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=1b7a0a1e"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="10. API description" href="API_description.html" />
+    <link rel="prev" title="8.6. Package generator" href="Tools/PackagesGenerator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.12.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AdvancedTopics.html">5. Advanced topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LwM2MGateway.html">7. LwM2M Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tools.html">8. Tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API_description.html">10. API description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PortingGuideForNonPOSIXPlatforms.html">11. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Migrating.html">12. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CommercialFeatures.html">13. Commercial features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">9. </span>Known Issues</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="known-issues">
+<h1><span class="section-number">9. </span>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#non-valid-hostname-may-appear-in-sni-extension" id="id1">Non valid hostname may appear in SNI extension</a></p></li>
+<li><p><a class="reference internal" href="#compatibility-issues-between-openssl-and-libp11-on-some-linux-distributions" id="id2">Compatibility issues between OpenSSL and libp11 on some Linux distributions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example-procedure-tested-on-ubuntu-24-04" id="id3">Example procedure (tested on Ubuntu 24.04)</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="non-valid-hostname-may-appear-in-sni-extension">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">9.1. </span>Non valid hostname may appear in SNI extension</a><a class="headerlink" href="#non-valid-hostname-may-appear-in-sni-extension" title="Link to this heading"></a></h2>
+<p>The DTLS Server Name Indication (SNI) extension is designed to communicate
+the expected server hostname during a TLS/DTLS handshake, particularly when
+it differs from the connection URI. According to <cite>RFC6066</cite>, the SNI extension
+must contain a valid hostname, not an IP address.</p>
+<p>In Anjay, when the LwM2M Server URI (<code class="docutils literal notranslate"><span class="pre">/0/x/0</span></code>) is set to a raw IP address, the default
+MbedTLS or OpenSSL integration layer used by Anjay automatically includes that IP address
+in the SNI field. This behavior is non-compliant with <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6066">RFC6066</a>, since both
+MbedTLS and OpenSSL derive the SNI value from the hostname used for
+certificate validation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can resolve this issue by configuring a valid hostname in the
+SNI Resource (<code class="docutils literal notranslate"><span class="pre">/0/x/14</span></code>) of the Security Object instance used to
+connect to the server. The value provided in this resource will be
+sent in the SNI extension and will also be used for certificate
+verification. Therefore, it must match the Common Name (CN) or
+Subject Alternative Name (SAN) in the server’s certificate.</p>
+</div>
+<p>If you prefer to verify the certificate by IP address instead, the SNI
+extension can be disabled. In MbedTLS, this can be done by removing the
+<code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">MBEDTLS_SSL_SERVER_NAME_INDICATION</span></code> directive from the MbedTLS
+configuration header.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This issue may lead to DTLS handshake failures without any explicit
+error message appearing in Anjay logs.</p>
+</div>
+</section>
+<section id="compatibility-issues-between-openssl-and-libp11-on-some-linux-distributions">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">9.2. </span>Compatibility issues between OpenSSL and libp11 on some Linux distributions</a><a class="headerlink" href="#compatibility-issues-between-openssl-and-libp11-on-some-linux-distributions" title="Link to this heading"></a></h2>
+<p>In certain Linux distributions, the versions of OpenSSL and the PKCS#11 engine
+(<code class="docutils literal notranslate"><span class="pre">libp11</span></code>, providing <code class="docutils literal notranslate"><span class="pre">libengine-pkcs11-openssl</span></code>) shipped with the system may
+be incompatible. This incompatibility can result in runtime failures such as
+segmentation faults when using PKCS#11-backed cryptography through OpenSSL.</p>
+<p>For example, on Ubuntu 24.04, OpenSSL 3.0.13 combined with libp11 0.4.12 exposes
+a bug in the libp11 library that leads to a crash of the application. This issue
+has been fixed recent version of libp11, but the fix is not yet available in the
+default Ubuntu repositories at the time of writing.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you encounter such issues (e.g., segmentation faults or unexpected
+handshake failures when using PKCS#11 with OpenSSL), consider upgrading
+libp11 to a newer version than the one provided by your distribution. The
+simplest method is to manually build and install libp11 from the latest
+upstream sources.</p>
+<p>However, installing a self-built version with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">install</span></code> may
+lead to incompatibilities or conflicts with system packages managed by
+apt or other package managers. It is therefore <strong>preferable to rebuild
+and install the library in a way that remains compatible with the package
+management system</strong> of your distribution. The example below demonstrates
+such an approach, which was successfully used on Ubuntu 24.04 to produce a
+clean <code class="docutils literal notranslate"><span class="pre">.deb</span></code> package at the time of writing.</p>
+</div>
+<section id="example-procedure-tested-on-ubuntu-24-04">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">9.2.1. </span>Example procedure (tested on Ubuntu 24.04)</a><a class="headerlink" href="#example-procedure-tested-on-ubuntu-24-04" title="Link to this heading"></a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The procedure below is provided as an <strong>example</strong> of how the issue was
+resolved in our environment. The exact steps required on your system may (and
+likely will) differ.</p>
+</div>
+<p>The following steps reproduce the approach used in our internal CI environment
+to rebuilt <code class="docutils literal notranslate"><span class="pre">libengine-pkcs11-openssl</span></code> from a newer upstream tag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable fetching package sources</span>
+sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;s/Types: deb/Types: deb deb-src/g&#39;</span><span class="w"> </span>/etc/apt/sources.list.d/ubuntu.sources
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+
+<span class="c1"># Obtain package source and generic dependencies used for building .debs</span>
+mkdir<span class="w"> </span>~/libp11-pkg-build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/libp11-pkg-build
+apt-get<span class="w"> </span><span class="nb">source</span><span class="w"> </span>libengine-pkcs11-openssl
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>devscripts<span class="w"> </span>dpkg-dev<span class="w"> </span>fakeroot<span class="w"> </span>quilt
+
+<span class="c1"># Download newer upstream release of libp11</span>
+wget<span class="w"> </span>https://github.com/OpenSC/libp11/archive/refs/tags/libp11-0.4.16.tar.gz<span class="w"> </span>-O<span class="w"> </span>libp11_0.4.16.orig.tar.gz
+tar<span class="w"> </span>xf<span class="w"> </span>libp11_0.4.16.orig.tar.gz
+mv<span class="w"> </span>libp11-libp11-0.4.16<span class="w"> </span>libp11-0.4.16
+
+<span class="c1"># Reuse debian/ directory from previous package version</span>
+cp<span class="w"> </span>-a<span class="w"> </span>libp11-0.4.12/debian<span class="w"> </span>libp11-0.4.16/
+<span class="nb">cd</span><span class="w"> </span>libp11-0.4.16
+rm<span class="w"> </span>-rf<span class="w"> </span>debian/patches
+
+<span class="c1"># Tag new version</span>
+dch<span class="w"> </span>-v<span class="w"> </span><span class="m">0</span>.4.16-0ubuntu1+local1<span class="w"> </span><span class="s2">&quot;Local rebuild of libp11 from upstream tag libp11-0.4.16&quot;</span>
+
+<span class="c1"># Install build dependencies and build the package</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>build-dep<span class="w"> </span>-y<span class="w"> </span>libp11
+debuild<span class="w"> </span>-us<span class="w"> </span>-uc<span class="w"> </span>-b
+
+<span class="c1"># Install the rebuilt package</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>../libengine-pkcs11-openssl_0.4.16-0ubuntu1+local1_amd64.deb
+</pre></div>
+</div>
+<p>After installation, the newer libp11 should resolve the incompatibility and
+enable stable operation of PKCS#11 integration with OpenSSL-based DTLS/TLS
+backend.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Tools/PackagesGenerator.html" class="btn btn-neutral float-left" title="8.6. Package generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="API_description.html" class="btn btn-neutral float-right" title="10. API description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2026, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

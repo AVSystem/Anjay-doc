@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['master_5fsalt_0',['master_salt',['../structanjay__oscore__instance__t.html#a5b0bb869c867ddea6b937b96149b5f73',1,'anjay_oscore_instance_t']]],
-  ['master_5fsecret_1',['master_secret',['../structanjay__oscore__instance__t.html#ab5707231e015c190982c14cee6c7fca2',1,'anjay_oscore_instance_t']]],
+  ['master_5fsalt_0',['master_salt',['../structanjay__oscore__instance__t.html#a0ca7fa76ad89c8bf3fd6e35fb192a50e',1,'anjay_oscore_instance_t']]],
+  ['master_5fsecret_1',['master_secret',['../structanjay__oscore__instance__t.html#ad8318b0e8d9c5c69e54dddedddd3185c',1,'anjay_oscore_instance_t']]],
   ['matching_5ftype_2',['matching_type',['../structanjay__security__instance__t.html#afad392381e9cf76bb76386eaed7b0cd5',1,'anjay_security_instance_t']]],
   ['max_5feval_5fperiod_3',['max_eval_period',['../structanjay__dm__oi__attributes__t.html#afa984ccd2bbab85ee480261307ea5a5c',1,'anjay_dm_oi_attributes_t::max_eval_period'],['../structanjay__resource__observation__status__t.html#afa984ccd2bbab85ee480261307ea5a5c',1,'anjay_resource_observation_status_t::max_eval_period']]],
   ['max_5fmargin_4',['max_margin',['../structanjay__est__reenroll__config__t.html#a86dcdfa2d69c8a3ba4eb41535456819f',1,'anjay_est_reenroll_config_t']]],

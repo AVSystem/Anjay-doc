@@ -25,7 +25,6 @@
 var NAVTREE =
 [
   [ "anjay", "index.html", [
-    [ "Experimental List", "experimentals.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -53,9 +52,9 @@ var NAVTREEINDEX =
 [
 "access__control_8h.html",
 "core_8h.html#aa6d9ea59e679bb16ef5e54d05fe4d24b",
-"globals_func.html",
-"structanjay__configuration.html#a695689ab4fc248793ad63f631a0c630f",
-"structanjay__socket__entry__t.html#a8138e934efc9113fa1b46ec6fe790dd7"
+"globals_type.html",
+"structanjay__configuration.html#a6b9146075bd687d935f24690d478dcb0",
+"structanjay__socket__entry__t.html#aa05391f76b578a92592b35fe088dd4c3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
