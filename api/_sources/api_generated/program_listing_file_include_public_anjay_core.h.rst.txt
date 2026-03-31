@@ -1,0 +1,628 @@
+
+.. _program_listing_file_include_public_anjay_core.h:
+
+Program Listing for File core.h
+===============================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_core.h>` (``include_public/anjay/core.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   
+   while (true) {
+       AVS_LIST(avs_net_socket_t*) sockets = anjay_get_sockets(anjay);
+       if (sockets) {
+           // assuming there is only one socket
+           poll_fd.fd = *(const int*)avs_net_socket_get_system(*sockets);
+       } else {
+           // sockets not initialized yet
+           poll_fd.fd = -1;
+       }
+       if (poll(&poll_fd, 1, 1000) > 0) {
+            if (poll_fd.revents & POLLIN) {
+                if (anjay_serve(anjay, *sockets)) {
+                    log("anjay_serve failed");
+                }
+            }
+       }
+   }
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_CORE_H
+   #define ANJAY_INCLUDE_ANJAY_CORE_H
+   
+   #include <stdint.h>
+   
+   #include <avsystem/coap/udp.h>
+   
+   #include <avsystem/commons/avs_list.h>
+   #include <avsystem/commons/avs_net.h>
+   #include <avsystem/commons/avs_prng.h>
+   #include <avsystem/commons/avs_sched.h>
+   #include <avsystem/commons/avs_stream.h>
+   #include <avsystem/commons/avs_time.h>
+   
+   #include <anjay/anjay_config.h>
+   
+   #ifdef ANJAY_WITH_LWM2M_GATEWAY
+   #    define ANJAY_GATEWAY_MAX_PREFIX_LEN sizeof("dev65535")
+   #endif // ANJAY_WITH_LWM2M_GATEWAY
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef uint16_t anjay_ssid_t;
+   
+   #define ANJAY_SSID_ANY 0
+   
+   #define ANJAY_SSID_BOOTSTRAP UINT16_MAX
+   
+   typedef struct anjay_struct anjay_t;
+   
+   #ifdef ANJAY_WITH_SMS
+   typedef struct anjay_smsdrv_struct anjay_smsdrv_t;
+   #endif // ANJAY_WITH_SMS
+   
+   #ifdef ANJAY_WITH_NIDD
+   typedef struct anjay_nidd_driver_struct anjay_nidd_driver_t;
+   #endif // ANJAY_WITH_NIDD
+   
+   // clang-format off
+   #define ANJAY_COAP_DEFAULT_UDP_TX_PARAMS \
+       {                                    \
+           /* .ack_timeout = */ { 2, 0 },   \
+           /* .ack_random_factor = */ 1.5,  \
+           /* .max_retransmit = */ 4,       \
+           /* .nstart = */ 1                \
+       }
+   // clang-format on
+   
+   // clang-format off
+   #define ANJAY_DTLS_DEFAULT_UDP_HS_TX_PARAMS \
+       {                                       \
+           /* .min = */ { 1, 0 },              \
+           /* .max = */ { 60, 0 }              \
+       }
+   // clang-format on
+   
+   #ifdef ANJAY_WITH_SMS
+   // clang-format off
+   #define ANJAY_COAP_DEFAULT_SMS_TX_PARAMS \
+       {                                    \
+           /* .ack_timeout = */ { 62, 0 },  \
+           /* .ack_random_factor = */ 1.5,  \
+           /* .max_retransmit = */ 0,       \
+           /* .nstart = */ 1                \
+       }
+   // clang-format on
+   #endif // ANJAY_WITH_SMS
+   
+   #ifdef ANJAY_WITH_NIDD
+   // clang-format off
+   #define ANJAY_COAP_DEFAULT_NIDD_TX_PARAMS \
+       {                                    \
+           /* .ack_timeout = */ { 60, 0 },  \
+           /* .ack_random_factor = */ 1.5,  \
+           /* .max_retransmit = */ 0,       \
+           /* .nstart = */ 1                \
+       }
+   // clang-format on
+   #endif // ANJAY_WITH_NIDD
+   
+   #ifdef ANJAY_WITH_LWM2M11
+   typedef enum {
+       ANJAY_LWM2M_VERSION_1_0,
+       ANJAY_LWM2M_VERSION_1_1
+   #    ifdef ANJAY_WITH_LWM2M12
+       ,
+       ANJAY_LWM2M_VERSION_1_2
+   #    endif // ANJAY_WITH_LWM2M12
+   } anjay_lwm2m_version_t;
+   
+   typedef struct {
+       anjay_lwm2m_version_t minimum_version;
+   
+       anjay_lwm2m_version_t maximum_version;
+   } anjay_lwm2m_version_config_t;
+   #endif // ANJAY_WITH_LWM2M11
+   
+   #ifdef ANJAY_WITH_EST
+   typedef struct {
+       bool enable;
+   
+       double nominal_usage;
+   
+       avs_time_duration_t max_margin;
+   } anjay_est_reenroll_config_t;
+   
+   #    ifdef ANJAY_WITH_LWM2M11
+   typedef enum {
+       ANJAY_EST_CACERTS_FOR_EST_SECURITY_AND_BOOTSTRAP = 0,
+   
+       ANJAY_EST_CACERTS_FOR_EST_SECURITY,
+   
+       ANJAY_EST_CACERTS_IF_EST_CONFIGURED,
+   
+       ANJAY_EST_CACERTS_ALWAYS,
+   
+       ANJAY_EST_CACERTS_DISABLED,
+   } anjay_est_cacerts_policy_t;
+   #    endif // ANJAY_WITH_LWM2M11
+   
+   #    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT
+   typedef const char *anjay_est_engine_cacert_address_gen_t(
+           void *arg, const void *x509_der_data, size_t x509_der_data_size);
+   #    endif // ANJAY_WITH_EST_ENGINE_SUPPORT
+   #endif     // ANJAY_WITH_EST
+   
+   // NOTE: A lot of code depends on numerical values of these constants.
+   // Please be careful when refactoring.
+   typedef enum {
+       ANJAY_ID_OID,
+       ANJAY_ID_IID,
+       ANJAY_ID_RID,
+       ANJAY_ID_RIID,
+       _ANJAY_URI_PATH_MAX_LENGTH
+   } anjay_id_type_t;
+   
+   typedef struct {
+       uint16_t ids[_ANJAY_URI_PATH_MAX_LENGTH];
+   
+   #ifdef ANJAY_WITH_LWM2M_GATEWAY
+       // NULL-terminated string
+       char prefix[ANJAY_GATEWAY_MAX_PREFIX_LEN];
+   #endif // ANJAY_WITH_LWM2M_GATEWAY
+   } anjay_uri_path_t;
+   
+   typedef void anjay_confirmable_notification_status_cb_t(
+           anjay_t *anjay,
+           anjay_ssid_t ssid,
+           const anjay_uri_path_t *observation_paths,
+           const size_t paths_count,
+           avs_error_t err);
+   
+   #ifdef ANJAY_WITH_CONN_STATUS_API
+   typedef enum anjay_server_conn_status {
+       ANJAY_SERV_CONN_STATUS_INVALID,
+       ANJAY_SERV_CONN_STATUS_ERROR,
+       ANJAY_SERV_CONN_STATUS_INITIAL,
+       ANJAY_SERV_CONN_STATUS_CONNECTING,
+       ANJAY_SERV_CONN_STATUS_BOOTSTRAPPING,
+       ANJAY_SERV_CONN_STATUS_BOOTSTRAPPED,
+       ANJAY_SERV_CONN_STATUS_REGISTERING,
+       ANJAY_SERV_CONN_STATUS_REGISTERED,
+       ANJAY_SERV_CONN_STATUS_REG_FAILURE,
+       ANJAY_SERV_CONN_STATUS_DEREGISTERING,
+       ANJAY_SERV_CONN_STATUS_DEREGISTERED,
+       ANJAY_SERV_CONN_STATUS_SUSPENDING,
+       ANJAY_SERV_CONN_STATUS_SUSPENDED,
+       ANJAY_SERV_CONN_STATUS_REREGISTERING,
+       ANJAY_SERV_CONN_STATUS_UPDATING
+   } anjay_server_conn_status_t;
+   
+   typedef void
+   anjay_server_connection_status_cb_t(void *arg,
+                                       anjay_t *anjay,
+                                       anjay_ssid_t ssid,
+                                       anjay_server_conn_status_t status);
+   
+   anjay_server_conn_status_t
+   anjay_get_server_connection_status(anjay_t *anjay, anjay_ssid_t ssid);
+   #endif // ANJAY_WITH_CONN_STATUS_API
+   
+   #ifdef ANJAY_WITH_SSL_ERROR_API
+   typedef void anjay_ssl_error_cb_t(void *arg,
+                                     anjay_t *anjay,
+                                     anjay_ssid_t ssid,
+                                     avs_error_t error);
+   
+   #endif // ANJAY_WITH_SSL_ERROR_API
+   
+   typedef struct anjay_configuration {
+       const char *endpoint_name;
+   
+       uint16_t udp_listen_port;
+   
+       avs_net_ssl_version_t dtls_version;
+   
+       size_t in_buffer_size;
+   
+       size_t out_buffer_size;
+   
+       size_t msg_cache_size;
+   
+       avs_net_socket_configuration_t socket_config;
+   
+       const avs_coap_udp_tx_params_t *udp_tx_params;
+   
+       const avs_net_dtls_handshake_timeouts_t *udp_dtls_hs_tx_params;
+   
+       bool confirmable_notifications;
+   
+       bool disable_legacy_server_initiated_bootstrap;
+   
+       size_t stored_notification_limit;
+   
+       bool prefer_hierarchical_formats;
+   
+       bool use_connection_id;
+   
+       bool update_immediately_on_dm_change;
+   
+       bool enable_self_notify;
+   
+       bool connection_error_is_registration_failure;
+   
+       avs_net_socket_tls_ciphersuites_t default_tls_ciphersuites;
+   
+       avs_crypto_prng_ctx_t *prng_ctx;
+   
+       avs_ssl_additional_configuration_clb_t *additional_tls_config_clb;
+   
+   #if defined(WITH_AVS_COAP_TCP) \
+           && (defined(ANJAY_WITH_LWM2M11) || defined(ANJAY_WITH_COAP_DOWNLOAD))
+       size_t coap_tcp_max_options_size;
+   
+       avs_time_duration_t coap_tcp_request_timeout;
+   #endif // defined(WITH_AVS_COAP_TCP) && (defined(ANJAY_WITH_LWM2M11) ||
+          // defined(ANJAY_WITH_COAP_DOWNLOAD))
+   
+   #ifdef ANJAY_WITH_SMS
+       const avs_coap_udp_tx_params_t *sms_tx_params;
+   #endif // ANJAY_WITH_SMS
+   
+   #ifdef ANJAY_WITH_NIDD
+       const avs_coap_udp_tx_params_t *nidd_tx_params;
+   #endif // ANJAY_WITH_NIDD
+   
+   #ifdef ANJAY_WITH_SMS
+       anjay_smsdrv_t *sms_driver;
+   #endif // ANJAY_WITH_SMS
+   
+   #ifdef ANJAY_WITH_NIDD
+       anjay_nidd_driver_t *nidd_driver;
+   #endif // ANJAY_WITH_NIDD
+   
+   #ifdef ANJAY_WITH_SMS
+       const char *local_msisdn;
+   
+       bool prefer_multipart_sms;
+   #endif // ANJAY_WITH_SMS
+   
+   #ifdef ANJAY_WITH_LWM2M11
+       const anjay_lwm2m_version_config_t *lwm2m_version_config;
+   
+       bool use_system_trust_store;
+   
+       avs_crypto_certificate_chain_info_t trust_store_certs;
+   
+       avs_crypto_cert_revocation_list_info_t trust_store_crls;
+   
+       bool rebuild_client_cert_chain;
+   #endif // ANJAY_WITH_LWM2M11
+   
+   #ifdef ANJAY_WITH_EST
+       const anjay_est_reenroll_config_t *est_reenroll_config;
+   
+   #    ifdef ANJAY_WITH_LWM2M11
+       anjay_est_cacerts_policy_t est_cacerts_policy;
+   #    endif // ANJAY_WITH_LWM2M11
+   
+   #    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT
+       const char *est_engine_key_address;
+   
+       const char *est_engine_cert_address;
+   
+       anjay_est_engine_cacert_address_gen_t *est_engine_cacerts_address_gen_cb;
+   
+       void *est_engine_cacerts_address_gen_cb_arg;
+   #    endif // ANJAY_WITH_EST_ENGINE_SUPPORT
+   #endif     // ANJAY_WITH_EST
+   
+       anjay_confirmable_notification_status_cb_t
+               *confirmable_notification_status_cb;
+   
+   #ifdef ANJAY_WITH_CONN_STATUS_API
+       anjay_server_connection_status_cb_t *server_connection_status_cb;
+   
+       void *server_connection_status_cb_arg;
+   #endif // ANJAY_WITH_CONN_STATUS_API
+   #ifdef ANJAY_WITH_SSL_ERROR_API
+       anjay_ssl_error_cb_t *ssl_error_cb;
+   
+       void *ssl_error_cb_arg;
+   #endif // ANJAY_WITH_SSL_ERROR_API
+   #ifdef ANJAY_WITH_COAP_DOWNLOAD
+       size_t coap_downloader_retry_count;
+   
+       avs_time_duration_t coap_downloader_retry_delay;
+   #endif // ANJAY_WITH_COAP_DOWNLOAD
+   } anjay_configuration_t;
+   
+   const char *anjay_get_version(void);
+   
+   anjay_t *anjay_new(const anjay_configuration_t *config);
+   
+   void anjay_delete(anjay_t *anjay);
+   
+   #ifdef ANJAY_WITH_CORE_PERSISTENCE
+   anjay_t *anjay_new_from_core_persistence(const anjay_configuration_t *config,
+                                            avs_stream_t *in_stream);
+   
+   int anjay_delete_with_core_persistence(anjay_t *anjay,
+                                          avs_stream_t *out_stream);
+   
+   #endif // ANJAY_WITH_CORE_PERSISTENCE
+   
+   AVS_LIST(avs_net_socket_t *const) anjay_get_sockets(anjay_t *anjay);
+   
+   typedef enum {
+       ANJAY_SOCKET_TRANSPORT_INVALID = -1,
+       ANJAY_SOCKET_TRANSPORT_UDP = 0,
+       ANJAY_SOCKET_TRANSPORT_TCP,
+       ANJAY_SOCKET_TRANSPORT_SMS,
+       ANJAY_SOCKET_TRANSPORT_NIDD
+   } anjay_socket_transport_t;
+   
+   typedef struct {
+       avs_net_socket_t *socket;
+   
+       anjay_socket_transport_t transport;
+   
+       anjay_ssid_t ssid;
+   
+       bool queue_mode;
+   } anjay_socket_entry_t;
+   
+   AVS_LIST(const anjay_socket_entry_t) anjay_get_socket_entries(anjay_t *anjay);
+   
+   int anjay_serve(anjay_t *anjay, avs_net_socket_t *ready_socket);
+   
+   typedef uint16_t anjay_oid_t;
+   
+   typedef uint16_t anjay_iid_t;
+   
+   typedef uint16_t anjay_rid_t;
+   
+   typedef uint16_t anjay_riid_t;
+   
+   #define ANJAY_ID_INVALID UINT16_MAX
+   
+   #define ANJAY_COAP_STATUS(Maj, Min) ((uint8_t) ((Maj << 5) | (Min & 0x1F)))
+   
+   #define ANJAY_ERR_BAD_REQUEST (-(int) ANJAY_COAP_STATUS(4, 0))
+   #define ANJAY_ERR_UNAUTHORIZED (-(int) ANJAY_COAP_STATUS(4, 1))
+   #define ANJAY_ERR_BAD_OPTION (-(int) ANJAY_COAP_STATUS(4, 2))
+   #define ANJAY_ERR_FORBIDDEN (-(int) ANJAY_COAP_STATUS(4, 3))
+   #define ANJAY_ERR_NOT_FOUND (-(int) ANJAY_COAP_STATUS(4, 4))
+   #define ANJAY_ERR_METHOD_NOT_ALLOWED (-(int) ANJAY_COAP_STATUS(4, 5))
+   #define ANJAY_ERR_NOT_ACCEPTABLE (-(int) ANJAY_COAP_STATUS(4, 6))
+   #define ANJAY_ERR_REQUEST_ENTITY_INCOMPLETE (-(int) ANJAY_COAP_STATUS(4, 8))
+   #define ANJAY_ERR_UNSUPPORTED_CONTENT_FORMAT (-(int) ANJAY_COAP_STATUS(4, 15))
+   #define ANJAY_ERR_INTERNAL (-(int) ANJAY_COAP_STATUS(5, 0))
+   #define ANJAY_ERR_NOT_IMPLEMENTED (-(int) ANJAY_COAP_STATUS(5, 1))
+   #define ANJAY_ERR_SERVICE_UNAVAILABLE (-(int) ANJAY_COAP_STATUS(5, 3))
+   avs_sched_t *anjay_get_scheduler(anjay_t *anjay);
+   
+   int anjay_sched_time_to_next(anjay_t *anjay, avs_time_duration_t *out_delay);
+   
+   int anjay_sched_time_to_next_ms(anjay_t *anjay, int *out_delay_ms);
+   
+   int anjay_sched_calculate_wait_time_ms(anjay_t *anjay, int limit_ms);
+   
+   void anjay_sched_run(anjay_t *anjay);
+   
+   #ifdef ANJAY_WITH_EVENT_LOOP
+   int anjay_event_loop_run(anjay_t *anjay, avs_time_duration_t max_wait_time);
+   
+   int anjay_event_loop_run_with_error_handling(anjay_t *anjay,
+                                                avs_time_duration_t max_wait_time);
+   
+   int anjay_event_loop_interrupt(anjay_t *anjay);
+   
+   int anjay_serve_any(anjay_t *anjay, avs_time_duration_t max_wait_time);
+   #endif // ANJAY_WITH_EVENT_LOOP
+   
+   int anjay_schedule_register(anjay_t *anjay, anjay_ssid_t ssid);
+   
+   int anjay_schedule_registration_update(anjay_t *anjay, anjay_ssid_t ssid);
+   
+   #ifdef ANJAY_WITH_LWM2M11
+   int anjay_schedule_bootstrap_request(anjay_t *anjay);
+   #endif // ANJAY_WITH_LWM2M11
+   
+   int anjay_disable_server(anjay_t *anjay, anjay_ssid_t ssid);
+   
+   int anjay_disable_server_with_timeout(anjay_t *anjay,
+                                         anjay_ssid_t ssid,
+                                         avs_time_duration_t timeout);
+   
+   int anjay_enable_server(anjay_t *anjay, anjay_ssid_t ssid);
+   
+   int anjay_server_schedule_reconnect(anjay_t *anjay, anjay_ssid_t ssid);
+   
+   typedef struct {
+       bool udp : 1;
+       bool tcp : 1;
+   #ifdef ANJAY_WITH_SMS
+       bool sms : 1;
+   #endif // ANJAY_WITH_SMS
+   #ifdef ANJAY_WITH_NIDD
+       bool nidd : 1;
+   #endif // ANJAY_WITH_NIDD
+   } anjay_transport_set_t;
+   
+   extern const anjay_transport_set_t ANJAY_TRANSPORT_SET_ALL;
+   
+   extern const anjay_transport_set_t ANJAY_TRANSPORT_SET_IP;
+   
+   extern const anjay_transport_set_t ANJAY_TRANSPORT_SET_UDP;
+   
+   extern const anjay_transport_set_t ANJAY_TRANSPORT_SET_TCP;
+   
+   #ifdef ANJAY_WITH_SMS
+   extern const anjay_transport_set_t ANJAY_TRANSPORT_SET_SMS;
+   #endif // ANJAY_WITH_SMS
+   
+   #ifdef ANJAY_WITH_NIDD
+   extern const anjay_transport_set_t ANJAY_TRANSPORT_SET_NIDD;
+   #endif // ANJAY_WITH_NIDD
+   
+   bool anjay_transport_is_offline(anjay_t *anjay,
+                                   anjay_transport_set_t transport_set);
+   
+   int anjay_transport_enter_offline(anjay_t *anjay,
+                                     anjay_transport_set_t transport_set);
+   
+   int anjay_transport_exit_offline(anjay_t *anjay,
+                                    anjay_transport_set_t transport_set);
+   
+   int anjay_transport_set_online(anjay_t *anjay,
+                                  anjay_transport_set_t transport_set);
+   
+   int anjay_transport_schedule_reconnect(anjay_t *anjay,
+                                          anjay_transport_set_t transport_set);
+   
+   bool anjay_all_connections_failed(anjay_t *anjay);
+   
+   #ifdef ANJAY_WITH_LWM2M11
+   typedef enum {
+       ANJAY_FORCE_QUEUE_MODE,
+   
+       ANJAY_PREFER_QUEUE_MODE,
+   
+       ANJAY_PREFER_ONLINE_MODE,
+   
+       ANJAY_FORCE_ONLINE_MODE
+   } anjay_queue_mode_preference_t;
+   
+   int anjay_set_queue_mode_preference(anjay_t *anjay,
+                                       anjay_queue_mode_preference_t preference);
+   #endif // ANJAY_WITH_LWM2M11
+   
+   typedef struct {
+       avs_net_security_info_t security_info;
+   
+       const avs_net_socket_dane_tlsa_record_t *dane_tlsa_record;
+   
+       avs_net_socket_tls_ciphersuites_t tls_ciphersuites;
+   
+       /*
+        * Server Name Indicator to use for authenticating with the peer during
+        * secure TLS connection. The value is passed to the underlying TLS library
+        * that need to take this variable into account for it make any effect. This
+        * field is optional and can be left zero-initialized. If not set the
+        * integration layer should use the Server URI instead.
+        */
+       const char *server_name_indication;
+   } anjay_security_config_t;
+   
+   int anjay_security_config_from_dm(anjay_t *anjay,
+                                     anjay_security_config_t *out_config,
+                                     const char *uri);
+   
+   anjay_security_config_t anjay_security_config_pkix(anjay_t *anjay);
+   
+   #if defined(ANJAY_WITH_EST) && defined(AVS_COMMONS_WITH_AVS_PERSISTENCE)
+   avs_error_t anjay_est_state_persist(anjay_t *anjay, avs_stream_t *out_stream);
+   
+   avs_error_t anjay_est_state_restore(anjay_t *anjay, avs_stream_t *out_stream);
+   
+   bool anjay_est_state_is_ready_for_persistence(anjay_t *anjay);
+   #endif // defined(ANJAY_WITH_EST) && defined(AVS_COMMONS_WITH_AVS_PERSISTENCE)
+   
+   bool anjay_ongoing_registration_exists(anjay_t *anjay);
+   
+   typedef enum {
+       ANJAY_REGISTRATION_EXPIRATION_STATUS_VALID,
+       ANJAY_REGISTRATION_EXPIRATION_STATUS_EXPIRED,
+       ANJAY_REGISTRATION_EXPIRATION_STATUS_INFINITE_LIFETIME,
+   } anjay_registration_expiration_status_t;
+   
+   avs_time_real_t anjay_registration_expiration_time_with_status(
+           anjay_t *anjay,
+           anjay_ssid_t ssid,
+           anjay_registration_expiration_status_t *out_status);
+   
+   static inline avs_time_real_t
+   anjay_registration_expiration_time(anjay_t *anjay, anjay_ssid_t ssid) {
+       return anjay_registration_expiration_time_with_status(anjay, ssid, NULL);
+   }
+   
+   avs_time_real_t anjay_next_planned_lifecycle_operation(anjay_t *anjay,
+                                                          anjay_ssid_t ssid);
+   
+   avs_time_real_t anjay_transport_next_planned_lifecycle_operation(
+           anjay_t *anjay, anjay_transport_set_t transport_set);
+   
+   avs_time_real_t anjay_next_planned_notify_trigger(anjay_t *anjay,
+                                                     anjay_ssid_t ssid);
+   
+   avs_time_real_t anjay_next_planned_pmax_notify_trigger(anjay_t *anjay,
+                                                          anjay_ssid_t ssid);
+   
+   avs_time_real_t anjay_transport_next_planned_notify_trigger(
+           anjay_t *anjay, anjay_transport_set_t transport_set);
+   
+   avs_time_real_t anjay_transport_next_planned_pmax_notify_trigger(
+           anjay_t *anjay, anjay_transport_set_t transport_set);
+   
+   bool anjay_has_unsent_notifications(anjay_t *anjay, anjay_ssid_t ssid);
+   
+   bool anjay_transport_has_unsent_notifications(
+           anjay_t *anjay, anjay_transport_set_t transport_set);
+   
+   avs_error_t
+   anjay_update_transport_tx_params(anjay_t *anjay,
+                                    anjay_transport_set_t transport_set,
+                                    const avs_coap_udp_tx_params_t *tx_params);
+   
+   avs_error_t
+   anjay_update_coap_exchange_timeout(anjay_t *anjay,
+                                      anjay_transport_set_t transport_set,
+                                      avs_time_duration_t exchange_timeout);
+   
+   avs_error_t anjay_update_dtls_handshake_timeouts(
+           anjay_t *anjay,
+           avs_net_dtls_handshake_timeouts_t dtls_handshake_timeouts);
+   
+   #ifdef ANJAY_WITH_COMMUNICATION_TIMESTAMP_API
+   avs_error_t anjay_get_server_last_registration_time(anjay_t *anjay,
+                                                       anjay_ssid_t ssid,
+                                                       avs_time_real_t *out_time);
+   
+   avs_error_t anjay_get_server_next_update_time(anjay_t *anjay,
+                                                 anjay_ssid_t ssid,
+                                                 avs_time_real_t *out_time);
+   avs_error_t anjay_get_server_last_communication_time(anjay_t *anjay,
+                                                        anjay_ssid_t ssid,
+                                                        avs_time_real_t *out_time);
+   #endif // ANJAY_WITH_COMMUNICATION_TIMESTAMP_API
+   
+   #ifdef ANJAY_WITH_SMS
+   #    ifdef ANJAY_WITH_LWM2M11
+   int anjay_get_sms_trigger(anjay_t *anjay,
+                             anjay_ssid_t ssid,
+                             bool *out_sms_trigger);
+   #    endif // ANJAY_WITH_LWM2M11
+   
+   int anjay_get_server_ssid_by_msisdn(anjay_t *anjay,
+                                       const char *server_msisdn,
+                                       anjay_ssid_t *out_ssid);
+   #endif // ANJAY_WITH_SMS
+   
+   #ifdef __cplusplus
+   } /* extern "C" */
+   #endif
+   
+   #endif /*ANJAY_INCLUDE_ANJAY_CORE_H*/

@@ -1,0 +1,184 @@
+
+.. _program_listing_file_include_public_anjay_fw_update.h:
+
+Program Listing for File fw_update.h
+====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_fw_update.h>` (``include_public/anjay/fw_update.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_FW_UPDATE_H
+   #define ANJAY_INCLUDE_ANJAY_FW_UPDATE_H
+   
+   #include <anjay/anjay_config.h>
+   #include <anjay/dm.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef enum {
+       ANJAY_FW_UPDATE_RESULT_INITIAL = 0,
+       ANJAY_FW_UPDATE_RESULT_SUCCESS = 1,
+       ANJAY_FW_UPDATE_RESULT_NOT_ENOUGH_SPACE = 2,
+       ANJAY_FW_UPDATE_RESULT_OUT_OF_MEMORY = 3,
+       ANJAY_FW_UPDATE_RESULT_CONNECTION_LOST = 4,
+       ANJAY_FW_UPDATE_RESULT_INTEGRITY_FAILURE = 5,
+       ANJAY_FW_UPDATE_RESULT_UNSUPPORTED_PACKAGE_TYPE = 6,
+       ANJAY_FW_UPDATE_RESULT_INVALID_URI = 7,
+       ANJAY_FW_UPDATE_RESULT_FAILED = 8,
+       ANJAY_FW_UPDATE_RESULT_UNSUPPORTED_PROTOCOL = 9,
+       ANJAY_FW_UPDATE_RESULT_UPDATE_CANCELLED = 10,
+       ANJAY_FW_UPDATE_RESULT_DEFERRED = 11,
+   } anjay_fw_update_result_t;
+   
+   #define ANJAY_FW_UPDATE_ERR_NOT_ENOUGH_SPACE \
+       (-(int) ANJAY_FW_UPDATE_RESULT_NOT_ENOUGH_SPACE)
+   #define ANJAY_FW_UPDATE_ERR_OUT_OF_MEMORY \
+       (-(int) ANJAY_FW_UPDATE_RESULT_OUT_OF_MEMORY)
+   #define ANJAY_FW_UPDATE_ERR_INTEGRITY_FAILURE \
+       (-(int) ANJAY_FW_UPDATE_RESULT_INTEGRITY_FAILURE)
+   #define ANJAY_FW_UPDATE_ERR_UNSUPPORTED_PACKAGE_TYPE \
+       (-(int) ANJAY_FW_UPDATE_RESULT_UNSUPPORTED_PACKAGE_TYPE)
+   #ifdef ANJAY_WITH_LWM2M11
+   #    define ANJAY_FW_UPDATE_ERR_DEFERRED \
+           (-(int) ANJAY_FW_UPDATE_RESULT_DEFERRED)
+   #endif // ANJAY_WITH_LWM2M11
+   
+   typedef enum {
+       ANJAY_FW_UPDATE_INITIAL_UPDATING = -3,
+       ANJAY_FW_UPDATE_INITIAL_DOWNLOADED = -2,
+   
+       ANJAY_FW_UPDATE_INITIAL_DOWNLOADING = -1,
+   
+       ANJAY_FW_UPDATE_INITIAL_NEUTRAL = 0,
+   
+       ANJAY_FW_UPDATE_INITIAL_SUCCESS = 1,
+   
+       ANJAY_FW_UPDATE_INITIAL_INTEGRITY_FAILURE = 5,
+   
+       ANJAY_FW_UPDATE_INITIAL_FAILED = 8
+   } anjay_fw_update_initial_result_t;
+   
+   typedef enum {
+       ANJAY_FW_UPDATE_SEVERITY_CRITICAL = 0,
+       ANJAY_FW_UPDATE_SEVERITY_MANDATORY,
+       ANJAY_FW_UPDATE_SEVERITY_OPTIONAL
+   } anjay_fw_update_severity_t;
+   
+   typedef struct {
+       anjay_fw_update_initial_result_t result;
+   
+       const char *persisted_uri;
+   
+       size_t resume_offset;
+   
+       const struct anjay_etag *resume_etag;
+   
+       bool prefer_same_socket_downloads;
+   
+   #ifdef ANJAY_WITH_SEND
+       bool use_lwm2m_send;
+   #endif // ANJAY_WITH_SEND
+   
+   #if defined(ANJAY_WITH_LWM2M11) \
+           && defined(ANJAY_WITH_MODULE_FW_UPDATE_V11_RESOURCES)
+       anjay_fw_update_severity_t persisted_severity;
+   
+       avs_time_real_t persisted_last_state_change_time;
+   
+       avs_time_real_t persisted_update_deadline;
+   #endif /* defined(ANJAY_WITH_LWM2M11) && \
+             defined(ANJAY_WITH_MODULE_FW_UPDATE_V11_RESOURCES) */
+   } anjay_fw_update_initial_state_t;
+   
+   typedef int
+   anjay_fw_update_stream_open_t(void *user_ptr,
+                                 const char *package_uri,
+                                 const struct anjay_etag *package_etag);
+   
+   typedef int
+   anjay_fw_update_stream_write_t(void *user_ptr, const void *data, size_t length);
+   
+   typedef int anjay_fw_update_stream_finish_t(void *user_ptr);
+   
+   typedef void anjay_fw_update_reset_t(void *user_ptr);
+   
+   typedef const char *anjay_fw_update_get_name_t(void *user_ptr);
+   
+   typedef const char *anjay_fw_update_get_version_t(void *user_ptr);
+   
+   typedef int anjay_fw_update_perform_upgrade_t(void *user_ptr);
+   
+   typedef int anjay_fw_update_get_security_config_t(
+           void *user_ptr,
+           anjay_security_config_t *out_security_info,
+           const char *download_uri);
+   
+   typedef avs_coap_udp_tx_params_t
+   anjay_fw_update_get_coap_tx_params_t(void *user_ptr, const char *download_uri);
+   
+   typedef avs_time_duration_t
+   anjay_fw_update_get_tcp_request_timeout_t(void *user_ptr,
+                                             const char *download_uri);
+   
+   typedef struct {
+       anjay_fw_update_stream_open_t *stream_open;
+       anjay_fw_update_stream_write_t *stream_write;
+       anjay_fw_update_stream_finish_t *stream_finish;
+   
+       anjay_fw_update_reset_t *reset;
+   
+       anjay_fw_update_get_name_t *get_name;
+       anjay_fw_update_get_version_t *get_version;
+   
+       anjay_fw_update_perform_upgrade_t *perform_upgrade;
+   
+       anjay_fw_update_get_security_config_t *get_security_config;
+   
+       anjay_fw_update_get_coap_tx_params_t *get_coap_tx_params;
+   
+       anjay_fw_update_get_tcp_request_timeout_t *get_tcp_request_timeout;
+   } anjay_fw_update_handlers_t;
+   
+   int anjay_fw_update_install(
+           anjay_t *anjay,
+           const anjay_fw_update_handlers_t *handlers,
+           void *user_arg,
+           const anjay_fw_update_initial_state_t *initial_state);
+   
+   int anjay_fw_update_set_result(anjay_t *anjay, anjay_fw_update_result_t result);
+   
+   #ifdef ANJAY_WITH_DOWNLOADER
+   void anjay_fw_update_pull_suspend(anjay_t *anjay);
+   
+   int anjay_fw_update_pull_reconnect(anjay_t *anjay);
+   #endif // ANJAY_WITH_DOWNLOADER
+   
+   #if defined(ANJAY_WITH_LWM2M11) \
+           && defined(ANJAY_WITH_MODULE_FW_UPDATE_V11_RESOURCES)
+   avs_time_real_t anjay_fw_update_get_deadline(anjay_t *anjay);
+   
+   anjay_fw_update_severity_t anjay_fw_update_get_severity(anjay_t *anjay);
+   
+   avs_time_real_t anjay_fw_update_get_last_state_change_time(anjay_t *anjay);
+   #endif /* defined(ANJAY_WITH_LWM2M11) && \
+             defined(ANJAY_WITH_MODULE_FW_UPDATE_V11_RESOURCES) */
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_FW_UPDATE_H */

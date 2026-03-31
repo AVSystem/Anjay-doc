@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File dm.h &mdash; Anjay 3.13.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="canonical" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/program_listing_file_include_public_anjay_dm.h.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=6aaf4047"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.13.0
+              </div><div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search API..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="library_root.html">Anjay API Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BackToDocumentation.html">Back to documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File dm.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-dm-h">
+<span id="program-listing-file-include-public-anjay-dm-h"></span><h1>Program Listing for File dm.h<a class="headerlink" href="#program-listing-for-file-dm-h" title="Link to this heading"></a></h1>
+<p>↰ <a class="reference internal" href="file_include_public_anjay_dm.h.html#file-include-public-anjay-dm-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include_public/anjay/dm.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Copyright 2017-2026 AVSystem &lt;avsystem@avsystem.com&gt;</span>
+<span class="cm"> * AVSystem Anjay LwM2M SDK</span>
+<span class="cm"> * All rights reserved.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.</span>
+<span class="cm"> * See the attached LICENSE file for details.</span>
+<span class="cm"> */</span>
+
+<span class="cp">#ifndef ANJAY_INCLUDE_ANJAY_DM_H</span>
+<span class="cp">#define ANJAY_INCLUDE_ANJAY_DM_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;math.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/io.h&gt;</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define ANJAY_DM_OID_SECURITY 0</span>
+<span class="cp">#define ANJAY_DM_OID_SERVER 1</span>
+<span class="cp">#define ANJAY_DM_OID_ACCESS_CONTROL 2</span>
+<span class="cp">#define ANJAY_DM_OID_DEVICE 3</span>
+<span class="cp">#define ANJAY_DM_OID_FIRMWARE_UPDATE 5</span>
+<span class="cp">#ifdef ANJAY_WITH_COAP_OSCORE</span>
+<span class="cp">#    define ANJAY_DM_OID_OSCORE 21</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_COAP_OSCORE</span>
+<span class="cp">#ifdef ANJAY_WITH_LWM2M_GATEWAY</span>
+<span class="cp">#    define ANJAY_DM_OID_LWM2M_GATEWAY 25</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M_GATEWAY</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_dm_object_def_struct</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_DM_CON_ATTR_NONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_DM_CON_ATTR_NON</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_DM_CON_ATTR_CON</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_dm_con_attr_t</span><span class="p">;</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M12</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_DM_EDGE_ATTR_NONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_DM_EDGE_ATTR_FALLING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_DM_EDGE_ATTR_RISING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_dm_edge_attr_t</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M12</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">min_period</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">max_period</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">min_eval_period</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">max_eval_period</span><span class="p">;</span>
+<span class="cp">#ifdef ANJAY_WITH_CON_ATTR</span>
+<span class="w">    </span><span class="n">anjay_dm_con_attr_t</span><span class="w"> </span><span class="n">con</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_CON_ATTR</span>
+<span class="cp">#ifdef ANJAY_WITH_LWM2M12</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">hqmax</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M12</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_dm_oi_attributes_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">anjay_dm_oi_attributes_t</span><span class="w"> </span><span class="n">common</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">greater_than</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">less_than</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">step</span><span class="p">;</span>
+<span class="cp">#ifdef ANJAY_WITH_LWM2M12</span>
+<span class="w">    </span><span class="n">anjay_dm_edge_attr_t</span><span class="w"> </span><span class="n">edge</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M12</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_dm_r_attributes_t</span><span class="p">;</span>
+
+<span class="cp">#define ANJAY_ATTRIB_INTEGER_NONE (-1)</span>
+
+<span class="cp">#define ANJAY_ATTRIB_PERIOD_NONE ANJAY_ATTRIB_INTEGER_NONE</span>
+
+<span class="cp">#define ANJAY_ATTRIB_DOUBLE_NONE (NAN)</span>
+
+<span class="cp">#define ANJAY_ATTRIB_VALUE_NONE ANJAY_ATTRIB_DOUBLE_NONE</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_oi_attributes_t</span><span class="w"> </span><span class="n">ANJAY_DM_OI_ATTRIBUTES_EMPTY</span><span class="p">;</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_r_attributes_t</span><span class="w"> </span><span class="n">ANJAY_DM_R_ATTRIBUTES_EMPTY</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_object_read_default_attrs_t</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_dm_oi_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_object_write_default_attrs_t</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_oi_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">attrs</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_list_instances_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_list_instances_SINGLE</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                   </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_instance_reset_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_instance_remove_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_instance_create_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                           </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_instance_read_default_attrs_t</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_dm_oi_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_instance_write_default_attrs_t</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_oi_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">attrs</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_list_resources_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_dm_resource_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_resource_read_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_output_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_resource_write_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_input_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_resource_execute_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                            </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">anjay_execute_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_resource_reset_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_list_resource_instances_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                   </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">anjay_dm_list_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">ctx</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_resource_read_attrs_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                               </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">anjay_dm_r_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_resource_write_attrs_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_r_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">attrs</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_resource_instance_read_attrs_t</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_dm_r_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_resource_instance_write_attrs_t</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_r_attributes_t</span><span class="w"> </span><span class="o">*</span><span class="n">attrs</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_resource_instance_remove_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_riid_t</span><span class="w"> </span><span class="n">riid</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_transaction_begin_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                             </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_transaction_validate_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_transaction_commit_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                              </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_dm_transaction_NOOP</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                              </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span>
+<span class="nf">anjay_dm_transaction_rollback_t</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">obj_ptr</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">anjay_dm_object_read_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">object_read_default_attrs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_object_write_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">object_write_default_attrs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_list_instances_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_instances</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_instance_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_reset</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_instance_create_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_create</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_instance_remove_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_remove</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_instance_read_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_read_default_attrs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_instance_write_default_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">instance_write_default_attrs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_list_resources_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_resources</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_read_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_read</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_write_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_write</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_execute_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_execute</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_reset_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_reset</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_list_resource_instances_t</span><span class="w"> </span><span class="o">*</span><span class="n">list_resource_instances</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_read_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_read_attrs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_write_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_write_attrs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_transaction_begin_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_begin</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_transaction_validate_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_validate</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_transaction_commit_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_commit</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_transaction_rollback_t</span><span class="w"> </span><span class="o">*</span><span class="n">transaction_rollback</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_instance_read_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_instance_read_attrs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_resource_instance_write_attrs_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_instance_write_attrs</span><span class="p">;</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M12</span>
+<span class="w">    </span><span class="n">anjay_dm_resource_instance_remove_t</span><span class="w"> </span><span class="o">*</span><span class="n">resource_instance_remove</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M12</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_dm_handlers_t</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">anjay_dm_object_def_struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">anjay_oid_t</span><span class="w"> </span><span class="n">oid</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">version</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_dm_handlers_t</span><span class="w"> </span><span class="n">handlers</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_notify_changed</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_oid_t</span><span class="w"> </span><span class="n">oid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_notify_instances_changed</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_oid_t</span><span class="w"> </span><span class="n">oid</span><span class="p">);</span>
+
+<span class="cp">#ifdef ANJAY_WITH_OBSERVATION_STATUS</span>
+<span class="cp">#    ifndef ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER</span>
+<span class="cp">#        define ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER 0</span>
+<span class="cp">#    endif </span><span class="c1">// ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_observed</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">min_period</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">max_eval_period</span><span class="p">;</span>
+<span class="cp">#    if (ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER &gt; 0)</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">servers_number</span><span class="p">;</span>
+<span class="w">    </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">servers</span><span class="p">[</span><span class="n">ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER</span><span class="p">];</span>
+<span class="cp">#    endif </span><span class="c1">//(ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER &gt; 0)</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_resource_observation_status_t</span><span class="p">;</span>
+
+<span class="n">anjay_resource_observation_status_t</span><span class="w"> </span><span class="nf">anjay_resource_observation_status</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_oid_t</span><span class="w"> </span><span class="n">oid</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="w"> </span><span class="n">iid</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_rid_t</span><span class="w"> </span><span class="n">rid</span><span class="p">);</span>
+
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_OBSERVATION_STATUS</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_register_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">def_ptr</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_unregister_object</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                            </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_dm_object_def_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">def_ptr</span><span class="p">);</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">anjay_binding_mode_valid</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">binding_mode</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_SECURITY_PSK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">         </span><span class="c1">//&lt; Pre-Shared Key mode</span>
+<span class="w">    </span><span class="n">ANJAY_SECURITY_RPK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">         </span><span class="c1">//&lt; Raw Public Key mode</span>
+<span class="w">    </span><span class="n">ANJAY_SECURITY_CERTIFICATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="c1">//&lt; Certificate mode</span>
+<span class="w">    </span><span class="n">ANJAY_SECURITY_NOSEC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">       </span><span class="c1">//&lt; NoSec mode</span>
+<span class="w">    </span><span class="n">ANJAY_SECURITY_EST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w">          </span><span class="c1">//&lt; Certificate mode with EST</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_security_mode_t</span><span class="p">;</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_SMS_SECURITY_DTLS_PSK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">      </span><span class="c1">//&lt; DTLS in PSK mode</span>
+<span class="w">    </span><span class="n">ANJAY_SMS_SECURITY_SECURE_PACKET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="c1">//&lt; Secure Packet Structure</span>
+<span class="w">    </span><span class="n">ANJAY_SMS_SECURITY_NOSEC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">          </span><span class="c1">//&lt; NoSec mode</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_sms_security_mode_t</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#define ANJAY_ACCESS_MASK_READ (1U &lt;&lt; 0)</span>
+<span class="cp">#define ANJAY_ACCESS_MASK_WRITE (1U &lt;&lt; 1)</span>
+<span class="cp">#define ANJAY_ACCESS_MASK_EXECUTE (1U &lt;&lt; 2)</span>
+<span class="cp">#define ANJAY_ACCESS_MASK_DELETE (1U &lt;&lt; 3)</span>
+<span class="cp">#define ANJAY_ACCESS_MASK_CREATE (1U &lt;&lt; 4)</span>
+<span class="c1">// clang-format off</span>
+<span class="cp">#define ANJAY_ACCESS_MASK_FULL   \</span>
+<span class="cp">    (ANJAY_ACCESS_MASK_READ      \</span>
+<span class="cp">     | ANJAY_ACCESS_MASK_WRITE   \</span>
+<span class="cp">     | ANJAY_ACCESS_MASK_DELETE  \</span>
+<span class="cp">     | ANJAY_ACCESS_MASK_EXECUTE \</span>
+<span class="cp">     | ANJAY_ACCESS_MASK_CREATE)</span>
+<span class="c1">// clang-format on</span>
+<span class="cp">#define ANJAY_ACCESS_MASK_NONE 0</span>
+<span class="cp">#define ANJAY_ACCESS_LIST_OWNER_BOOTSTRAP UINT16_MAX</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">anjay_access_mask_t</span><span class="p">;</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span><span class="w"> </span><span class="cm">/* extern &quot;C&quot; */</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#endif </span><span class="cm">/*ANJAY_INCLUDE_ANJAY_DM_H*/</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+        <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/139620700.js"></script>
+
+
+</body>
+</html>

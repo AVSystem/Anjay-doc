@@ -1,0 +1,136 @@
+
+.. _program_listing_file_include_public_anjay_security.h:
+
+Program Listing for File security.h
+===================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_security.h>` (``include_public/anjay/security.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_SECURITY_H
+   #define ANJAY_INCLUDE_ANJAY_SECURITY_H
+   
+   #include <anjay/dm.h>
+   
+   #include <avsystem/commons/avs_stream.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef struct {
+       anjay_ssid_t ssid;
+       const char *server_uri;
+       bool bootstrap_server;
+       anjay_security_mode_t security_mode;
+       int32_t client_holdoff_s;
+       int32_t bootstrap_timeout_s;
+       const uint8_t *public_cert_or_psk_identity;
+       size_t public_cert_or_psk_identity_size;
+       const uint8_t *private_cert_or_psk_key;
+       size_t private_cert_or_psk_key_size;
+       const uint8_t *server_public_key;
+       size_t server_public_key_size;
+   #ifdef ANJAY_WITH_SMS
+       anjay_sms_security_mode_t sms_security_mode;
+       const uint8_t *sms_key_parameters;
+       size_t sms_key_parameters_size;
+       const uint8_t *sms_secret_key;
+       size_t sms_secret_key_size;
+       const char *server_sms_number;
+   #endif // ANJAY_WITH_SMS
+   #ifdef ANJAY_WITH_LWM2M11
+       const uint8_t *matching_type;
+       const char *server_name_indication;
+       const uint8_t *certificate_usage;
+       avs_net_socket_tls_ciphersuites_t ciphersuites;
+   #    ifdef ANJAY_WITH_COAP_OSCORE
+       const anjay_iid_t *oscore_iid;
+   #    endif // ANJAY_WITH_COAP_OSCORE
+   #endif     // ANJAY_WITH_LWM2M11
+   #ifdef ANJAY_WITH_SECURITY_STRUCTURED
+       avs_crypto_certificate_chain_info_t public_cert;
+       avs_crypto_private_key_info_t private_key;
+       avs_crypto_psk_identity_info_t psk_identity;
+       avs_crypto_psk_key_info_t psk_key;
+   #    ifdef ANJAY_WITH_SMS
+       avs_crypto_psk_identity_info_t sms_psk_identity;
+       avs_crypto_psk_key_info_t sms_psk_key;
+   #    endif // ANJAY_WITH_SMS
+   #endif     // ANJAY_WITH_SECURITY_STRUCTURED
+   } anjay_security_instance_t;
+   
+   int anjay_security_object_add_instance(
+           anjay_t *anjay,
+           const anjay_security_instance_t *instance,
+           anjay_iid_t *inout_iid);
+   
+   void anjay_security_object_purge(anjay_t *anjay);
+   
+   avs_error_t anjay_security_object_persist(anjay_t *anjay,
+                                             avs_stream_t *out_stream);
+   
+   avs_error_t anjay_security_object_restore(anjay_t *anjay,
+                                             avs_stream_t *in_stream);
+   
+   bool anjay_security_object_is_modified(anjay_t *anjay);
+   
+   int anjay_security_object_install(anjay_t *anjay);
+   
+   #ifdef ANJAY_WITH_MODULE_SECURITY_ENGINE_SUPPORT
+   typedef const char *anjay_security_hsm_query_cb_t(anjay_iid_t iid,
+                                                     anjay_ssid_t ssid,
+                                                     const void *data,
+                                                     size_t data_size,
+                                                     void *arg);
+   
+   typedef struct {
+       anjay_security_hsm_query_cb_t *public_cert_cb;
+   
+       void *public_cert_cb_arg;
+   
+       anjay_security_hsm_query_cb_t *private_key_cb;
+   
+       void *private_key_cb_arg;
+   
+       anjay_security_hsm_query_cb_t *psk_identity_cb;
+   
+       void *psk_identity_cb_arg;
+   
+       anjay_security_hsm_query_cb_t *psk_key_cb;
+   
+       void *psk_key_cb_arg;
+   #    ifdef ANJAY_WITH_SMS
+       anjay_security_hsm_query_cb_t *sms_psk_identity_cb;
+   
+       void *sms_psk_identity_cb_arg;
+   
+       anjay_security_hsm_query_cb_t *sms_psk_key_cb;
+   
+       void *sms_psk_key_cb_arg;
+   #    endif // ANJAY_WITH_SMS
+   } anjay_security_hsm_configuration_t;
+   
+   int anjay_security_object_install_with_hsm(
+           anjay_t *anjay, const anjay_security_hsm_configuration_t *hsm_config);
+   
+   void anjay_security_mark_hsm_permanent(anjay_t *anjay, anjay_ssid_t ssid);
+   #endif // ANJAY_WITH_MODULE_SECURITY_ENGINE_SUPPORT
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_SECURITY_H */

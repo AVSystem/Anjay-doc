@@ -1,0 +1,75 @@
+
+.. _program_listing_file_include_public_anjay_attr_storage.h:
+
+Program Listing for File attr_storage.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_attr_storage.h>` (``include_public/anjay/attr_storage.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_ATTR_STORAGE_H
+   #define ANJAY_INCLUDE_ANJAY_ATTR_STORAGE_H
+   
+   #include <avsystem/commons/avs_stream.h>
+   
+   #include <anjay/dm.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   bool anjay_attr_storage_is_modified(anjay_t *anjay);
+   
+   void anjay_attr_storage_purge(anjay_t *anjay);
+   
+   avs_error_t anjay_attr_storage_persist(anjay_t *anjay,
+                                          avs_stream_t *out_stream);
+   
+   avs_error_t anjay_attr_storage_restore(anjay_t *anjay, avs_stream_t *in_stream);
+   
+   int anjay_attr_storage_set_object_attrs(anjay_t *anjay,
+                                           anjay_ssid_t ssid,
+                                           anjay_oid_t oid,
+                                           const anjay_dm_oi_attributes_t *attrs);
+   int anjay_attr_storage_set_instance_attrs(
+           anjay_t *anjay,
+           anjay_ssid_t ssid,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           const anjay_dm_oi_attributes_t *attrs);
+   
+   int anjay_attr_storage_set_resource_attrs(anjay_t *anjay,
+                                             anjay_ssid_t ssid,
+                                             anjay_oid_t oid,
+                                             anjay_iid_t iid,
+                                             anjay_rid_t rid,
+                                             const anjay_dm_r_attributes_t *attrs);
+   
+   #ifdef ANJAY_WITH_LWM2M11
+   int anjay_attr_storage_set_resource_instance_attrs(
+           anjay_t *anjay,
+           anjay_ssid_t ssid,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           anjay_rid_t rid,
+           anjay_riid_t riid,
+           const anjay_dm_r_attributes_t *attrs);
+   #endif // ANJAY_WITH_LWM2M11
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_ATTR_STORAGE_H */

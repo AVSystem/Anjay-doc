@@ -1,0 +1,69 @@
+
+.. _program_listing_file_include_public_anjay_bg96_nidd.h:
+
+Program Listing for File bg96_nidd.h
+====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_bg96_nidd.h>` (``include_public/anjay/bg96_nidd.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   #ifndef ANJAY_INCLUDE_ANJAY_BG96_NIDD_H
+   #define ANJAY_INCLUDE_ANJAY_BG96_NIDD_H
+   
+   #include <anjay/core.h>
+   #include <anjay/nidd.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef int anjay_bg96_nidd_getline_t(void *user_context,
+                                         char *out_line_buffer,
+                                         size_t buffer_size,
+                                         avs_time_monotonic_t deadline);
+   
+   typedef int anjay_bg96_nidd_write_t(void *user_context, const char *buffer);
+   
+   typedef enum {
+       ANJAY_BG96_NIDD_APN,
+       ANJAY_BG96_NIDD_USERNAME,
+       ANJAY_BG96_NIDD_PASSWORD
+   } anjay_bg96_nidd_parameter_t;
+   
+   typedef int
+   anjay_bg96_nidd_get_parameter_t(void *user_context,
+                                   anjay_bg96_nidd_parameter_t parameter,
+                                   char *out_value,
+                                   size_t size);
+   
+   typedef struct {
+       const void *system_descriptor;
+   
+       void *user_context;
+       anjay_bg96_nidd_getline_t *modem_getline;
+       anjay_bg96_nidd_write_t *modem_write;
+       anjay_bg96_nidd_get_parameter_t *modem_get_parameter;
+   
+       size_t outgoing_mtu;
+       size_t incoming_mtu;
+   } anjay_bg96_nidd_config_t;
+   
+   anjay_nidd_driver_t *
+   anjay_bg96_nidd_driver_create(const anjay_bg96_nidd_config_t *config);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_BG96_NIDD_H */

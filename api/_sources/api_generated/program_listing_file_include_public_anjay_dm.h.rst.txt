@@ -1,0 +1,380 @@
+
+.. _program_listing_file_include_public_anjay_dm.h:
+
+Program Listing for File dm.h
+=============================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_dm.h>` (``include_public/anjay/dm.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_DM_H
+   #define ANJAY_INCLUDE_ANJAY_DM_H
+   
+   #include <math.h>
+   #include <stdint.h>
+   
+   #include <anjay/io.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   #define ANJAY_DM_OID_SECURITY 0
+   #define ANJAY_DM_OID_SERVER 1
+   #define ANJAY_DM_OID_ACCESS_CONTROL 2
+   #define ANJAY_DM_OID_DEVICE 3
+   #define ANJAY_DM_OID_FIRMWARE_UPDATE 5
+   #ifdef ANJAY_WITH_COAP_OSCORE
+   #    define ANJAY_DM_OID_OSCORE 21
+   #endif // ANJAY_WITH_COAP_OSCORE
+   #ifdef ANJAY_WITH_LWM2M_GATEWAY
+   #    define ANJAY_DM_OID_LWM2M_GATEWAY 25
+   #endif // ANJAY_WITH_LWM2M_GATEWAY
+   
+   typedef struct anjay_dm_object_def_struct anjay_dm_object_def_t;
+   
+   typedef enum {
+       ANJAY_DM_CON_ATTR_NONE = -1,
+       ANJAY_DM_CON_ATTR_NON = 0,
+       ANJAY_DM_CON_ATTR_CON = 1
+   } anjay_dm_con_attr_t;
+   
+   #ifdef ANJAY_WITH_LWM2M12
+   typedef enum {
+       ANJAY_DM_EDGE_ATTR_NONE = -1,
+       ANJAY_DM_EDGE_ATTR_FALLING = 0,
+       ANJAY_DM_EDGE_ATTR_RISING = 1
+   } anjay_dm_edge_attr_t;
+   #endif // ANJAY_WITH_LWM2M12
+   
+   typedef struct {
+       int32_t min_period;
+       int32_t max_period;
+       int32_t min_eval_period;
+       int32_t max_eval_period;
+   #ifdef ANJAY_WITH_CON_ATTR
+       anjay_dm_con_attr_t con;
+   #endif // ANJAY_WITH_CON_ATTR
+   #ifdef ANJAY_WITH_LWM2M12
+       int32_t hqmax;
+   #endif // ANJAY_WITH_LWM2M12
+   } anjay_dm_oi_attributes_t;
+   
+   typedef struct {
+       anjay_dm_oi_attributes_t common;
+       double greater_than;
+       double less_than;
+       double step;
+   #ifdef ANJAY_WITH_LWM2M12
+       anjay_dm_edge_attr_t edge;
+   #endif // ANJAY_WITH_LWM2M12
+   } anjay_dm_r_attributes_t;
+   
+   #define ANJAY_ATTRIB_INTEGER_NONE (-1)
+   
+   #define ANJAY_ATTRIB_PERIOD_NONE ANJAY_ATTRIB_INTEGER_NONE
+   
+   #define ANJAY_ATTRIB_DOUBLE_NONE (NAN)
+   
+   #define ANJAY_ATTRIB_VALUE_NONE ANJAY_ATTRIB_DOUBLE_NONE
+   
+   extern const anjay_dm_oi_attributes_t ANJAY_DM_OI_ATTRIBUTES_EMPTY;
+   
+   extern const anjay_dm_r_attributes_t ANJAY_DM_R_ATTRIBUTES_EMPTY;
+   
+   typedef int anjay_dm_object_read_default_attrs_t(
+           anjay_t *anjay,
+           const anjay_dm_object_def_t *const *obj_ptr,
+           anjay_ssid_t ssid,
+           anjay_dm_oi_attributes_t *out);
+   
+   typedef int anjay_dm_object_write_default_attrs_t(
+           anjay_t *anjay,
+           const anjay_dm_object_def_t *const *obj_ptr,
+           anjay_ssid_t ssid,
+           const anjay_dm_oi_attributes_t *attrs);
+   
+   typedef int
+   anjay_dm_list_instances_t(anjay_t *anjay,
+                             const anjay_dm_object_def_t *const *obj_ptr,
+                             anjay_dm_list_ctx_t *ctx);
+   
+   int anjay_dm_list_instances_SINGLE(anjay_t *anjay,
+                                      const anjay_dm_object_def_t *const *obj_ptr,
+                                      anjay_dm_list_ctx_t *ctx);
+   
+   typedef int
+   anjay_dm_instance_reset_t(anjay_t *anjay,
+                             const anjay_dm_object_def_t *const *obj_ptr,
+                             anjay_iid_t iid);
+   
+   typedef int
+   anjay_dm_instance_remove_t(anjay_t *anjay,
+                              const anjay_dm_object_def_t *const *obj_ptr,
+                              anjay_iid_t iid);
+   
+   typedef int
+   anjay_dm_instance_create_t(anjay_t *anjay,
+                              const anjay_dm_object_def_t *const *obj_ptr,
+                              anjay_iid_t iid);
+   
+   typedef int anjay_dm_instance_read_default_attrs_t(
+           anjay_t *anjay,
+           const anjay_dm_object_def_t *const *obj_ptr,
+           anjay_iid_t iid,
+           anjay_ssid_t ssid,
+           anjay_dm_oi_attributes_t *out);
+   
+   typedef int anjay_dm_instance_write_default_attrs_t(
+           anjay_t *anjay,
+           const anjay_dm_object_def_t *const *obj_ptr,
+           anjay_iid_t iid,
+           anjay_ssid_t ssid,
+           const anjay_dm_oi_attributes_t *attrs);
+   
+   typedef int
+   anjay_dm_list_resources_t(anjay_t *anjay,
+                             const anjay_dm_object_def_t *const *obj_ptr,
+                             anjay_iid_t iid,
+                             anjay_dm_resource_list_ctx_t *ctx);
+   
+   typedef int
+   anjay_dm_resource_read_t(anjay_t *anjay,
+                            const anjay_dm_object_def_t *const *obj_ptr,
+                            anjay_iid_t iid,
+                            anjay_rid_t rid,
+                            anjay_riid_t riid,
+                            anjay_output_ctx_t *ctx);
+   
+   typedef int
+   anjay_dm_resource_write_t(anjay_t *anjay,
+                             const anjay_dm_object_def_t *const *obj_ptr,
+                             anjay_iid_t iid,
+                             anjay_rid_t rid,
+                             anjay_riid_t riid,
+                             anjay_input_ctx_t *ctx);
+   
+   typedef int
+   anjay_dm_resource_execute_t(anjay_t *anjay,
+                               const anjay_dm_object_def_t *const *obj_ptr,
+                               anjay_iid_t iid,
+                               anjay_rid_t rid,
+                               anjay_execute_ctx_t *ctx);
+   
+   typedef int
+   anjay_dm_resource_reset_t(anjay_t *anjay,
+                             const anjay_dm_object_def_t *const *obj_ptr,
+                             anjay_iid_t iid,
+                             anjay_rid_t rid);
+   
+   typedef int
+   anjay_dm_list_resource_instances_t(anjay_t *anjay,
+                                      const anjay_dm_object_def_t *const *obj_ptr,
+                                      anjay_iid_t iid,
+                                      anjay_rid_t rid,
+                                      anjay_dm_list_ctx_t *ctx);
+   
+   typedef int
+   anjay_dm_resource_read_attrs_t(anjay_t *anjay,
+                                  const anjay_dm_object_def_t *const *obj_ptr,
+                                  anjay_iid_t iid,
+                                  anjay_rid_t rid,
+                                  anjay_ssid_t ssid,
+                                  anjay_dm_r_attributes_t *out);
+   
+   typedef int
+   anjay_dm_resource_write_attrs_t(anjay_t *anjay,
+                                   const anjay_dm_object_def_t *const *obj_ptr,
+                                   anjay_iid_t iid,
+                                   anjay_rid_t rid,
+                                   anjay_ssid_t ssid,
+                                   const anjay_dm_r_attributes_t *attrs);
+   
+   typedef int anjay_dm_resource_instance_read_attrs_t(
+           anjay_t *anjay,
+           const anjay_dm_object_def_t *const *obj_ptr,
+           anjay_iid_t iid,
+           anjay_rid_t rid,
+           anjay_riid_t riid,
+           anjay_ssid_t ssid,
+           anjay_dm_r_attributes_t *out);
+   
+   typedef int anjay_dm_resource_instance_write_attrs_t(
+           anjay_t *anjay,
+           const anjay_dm_object_def_t *const *obj_ptr,
+           anjay_iid_t iid,
+           anjay_rid_t rid,
+           anjay_riid_t riid,
+           anjay_ssid_t ssid,
+           const anjay_dm_r_attributes_t *attrs);
+   
+   typedef int
+   anjay_dm_resource_instance_remove_t(anjay_t *anjay,
+                                       const anjay_dm_object_def_t *const *obj_ptr,
+                                       anjay_iid_t iid,
+                                       anjay_rid_t rid,
+                                       anjay_riid_t riid);
+   
+   typedef int
+   anjay_dm_transaction_begin_t(anjay_t *anjay,
+                                const anjay_dm_object_def_t *const *obj_ptr);
+   
+   typedef int
+   anjay_dm_transaction_validate_t(anjay_t *anjay,
+                                   const anjay_dm_object_def_t *const *obj_ptr);
+   
+   typedef int
+   anjay_dm_transaction_commit_t(anjay_t *anjay,
+                                 const anjay_dm_object_def_t *const *obj_ptr);
+   
+   int anjay_dm_transaction_NOOP(anjay_t *anjay,
+                                 const anjay_dm_object_def_t *const *obj_ptr);
+   
+   typedef int
+   anjay_dm_transaction_rollback_t(anjay_t *anjay,
+                                   const anjay_dm_object_def_t *const *obj_ptr);
+   
+   typedef struct {
+       anjay_dm_object_read_default_attrs_t *object_read_default_attrs;
+   
+       anjay_dm_object_write_default_attrs_t *object_write_default_attrs;
+   
+       anjay_dm_list_instances_t *list_instances;
+   
+       anjay_dm_instance_reset_t *instance_reset;
+   
+       anjay_dm_instance_create_t *instance_create;
+   
+       anjay_dm_instance_remove_t *instance_remove;
+   
+       anjay_dm_instance_read_default_attrs_t *instance_read_default_attrs;
+   
+       anjay_dm_instance_write_default_attrs_t *instance_write_default_attrs;
+   
+       anjay_dm_list_resources_t *list_resources;
+   
+       anjay_dm_resource_read_t *resource_read;
+   
+       anjay_dm_resource_write_t *resource_write;
+   
+       anjay_dm_resource_execute_t *resource_execute;
+   
+       anjay_dm_resource_reset_t *resource_reset;
+   
+       anjay_dm_list_resource_instances_t *list_resource_instances;
+   
+       anjay_dm_resource_read_attrs_t *resource_read_attrs;
+   
+       anjay_dm_resource_write_attrs_t *resource_write_attrs;
+   
+       anjay_dm_transaction_begin_t *transaction_begin;
+   
+       anjay_dm_transaction_validate_t *transaction_validate;
+   
+       anjay_dm_transaction_commit_t *transaction_commit;
+   
+       anjay_dm_transaction_rollback_t *transaction_rollback;
+   
+       anjay_dm_resource_instance_read_attrs_t *resource_instance_read_attrs;
+   
+       anjay_dm_resource_instance_write_attrs_t *resource_instance_write_attrs;
+   
+   #ifdef ANJAY_WITH_LWM2M12
+       anjay_dm_resource_instance_remove_t *resource_instance_remove;
+   #endif // ANJAY_WITH_LWM2M12
+   } anjay_dm_handlers_t;
+   
+   struct anjay_dm_object_def_struct {
+       anjay_oid_t oid;
+   
+       const char *version;
+   
+       anjay_dm_handlers_t handlers;
+   };
+   
+   int anjay_notify_changed(anjay_t *anjay,
+                            anjay_oid_t oid,
+                            anjay_iid_t iid,
+                            anjay_rid_t rid);
+   
+   int anjay_notify_instances_changed(anjay_t *anjay, anjay_oid_t oid);
+   
+   #ifdef ANJAY_WITH_OBSERVATION_STATUS
+   #    ifndef ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER
+   #        define ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER 0
+   #    endif // ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER
+   
+   typedef struct {
+       bool is_observed;
+       int32_t min_period;
+       int32_t max_eval_period;
+   #    if (ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER > 0)
+       uint16_t servers_number;
+       anjay_ssid_t servers[ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER];
+   #    endif //(ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER > 0)
+   } anjay_resource_observation_status_t;
+   
+   anjay_resource_observation_status_t anjay_resource_observation_status(
+           anjay_t *anjay, anjay_oid_t oid, anjay_iid_t iid, anjay_rid_t rid);
+   
+   #endif // ANJAY_WITH_OBSERVATION_STATUS
+   
+   int anjay_register_object(anjay_t *anjay,
+                             const anjay_dm_object_def_t *const *def_ptr);
+   
+   int anjay_unregister_object(anjay_t *anjay,
+                               const anjay_dm_object_def_t *const *def_ptr);
+   
+   bool anjay_binding_mode_valid(const char *binding_mode);
+   
+   typedef enum {
+       ANJAY_SECURITY_PSK = 0,         //< Pre-Shared Key mode
+       ANJAY_SECURITY_RPK = 1,         //< Raw Public Key mode
+       ANJAY_SECURITY_CERTIFICATE = 2, //< Certificate mode
+       ANJAY_SECURITY_NOSEC = 3,       //< NoSec mode
+       ANJAY_SECURITY_EST = 4          //< Certificate mode with EST
+   } anjay_security_mode_t;
+   
+   #ifdef ANJAY_WITH_SMS
+   typedef enum {
+       ANJAY_SMS_SECURITY_DTLS_PSK = 1,      //< DTLS in PSK mode
+       ANJAY_SMS_SECURITY_SECURE_PACKET = 2, //< Secure Packet Structure
+       ANJAY_SMS_SECURITY_NOSEC = 3          //< NoSec mode
+   } anjay_sms_security_mode_t;
+   #endif // ANJAY_WITH_SMS
+   
+   #define ANJAY_ACCESS_MASK_READ (1U << 0)
+   #define ANJAY_ACCESS_MASK_WRITE (1U << 1)
+   #define ANJAY_ACCESS_MASK_EXECUTE (1U << 2)
+   #define ANJAY_ACCESS_MASK_DELETE (1U << 3)
+   #define ANJAY_ACCESS_MASK_CREATE (1U << 4)
+   // clang-format off
+   #define ANJAY_ACCESS_MASK_FULL   \
+       (ANJAY_ACCESS_MASK_READ      \
+        | ANJAY_ACCESS_MASK_WRITE   \
+        | ANJAY_ACCESS_MASK_DELETE  \
+        | ANJAY_ACCESS_MASK_EXECUTE \
+        | ANJAY_ACCESS_MASK_CREATE)
+   // clang-format on
+   #define ANJAY_ACCESS_MASK_NONE 0
+   #define ANJAY_ACCESS_LIST_OWNER_BOOTSTRAP UINT16_MAX
+   
+   typedef uint16_t anjay_access_mask_t;
+   
+   #ifdef __cplusplus
+   } /* extern "C" */
+   #endif
+   
+   #endif /*ANJAY_INCLUDE_ANJAY_DM_H*/

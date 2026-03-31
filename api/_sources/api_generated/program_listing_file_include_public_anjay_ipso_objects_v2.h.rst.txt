@@ -1,0 +1,109 @@
+
+.. _program_listing_file_include_public_anjay_ipso_objects_v2.h:
+
+Program Listing for File ipso_objects_v2.h
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_ipso_objects_v2.h>` (``include_public/anjay/ipso_objects_v2.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   #ifndef ANJAY_IPSO_OBJECTS_V2_H
+   #define ANJAY_IPSO_OBJECTS_V2_H
+   
+   #include <anjay/dm.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef struct anjay_ipso_v2_basic_sensor_meta_struct {
+       const char *unit;
+   
+       bool min_max_measured_value_present;
+   
+       double min_range_value;
+   
+       double max_range_value;
+   } anjay_ipso_v2_basic_sensor_meta_t;
+   
+   typedef struct anjay_ipso_v2_3d_sensor_meta_struct {
+       const char *unit;
+   
+       bool y_axis_present;
+   
+       bool z_axis_present;
+   
+       bool min_max_measured_value_present;
+   
+       double min_range_value;
+   
+       double max_range_value;
+   } anjay_ipso_v2_3d_sensor_meta_t;
+   
+   typedef struct anjay_ipso_v2_3d_sensor_value_struct {
+       double x;
+   
+       double y;
+   
+       double z;
+   } anjay_ipso_v2_3d_sensor_value_t;
+   
+   int anjay_ipso_v2_basic_sensor_install(anjay_t *anjay,
+                                          anjay_oid_t oid,
+                                          const char *version,
+                                          size_t instance_count);
+   
+   int anjay_ipso_v2_basic_sensor_instance_add(
+           anjay_t *anjay,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           double initial_value,
+           const anjay_ipso_v2_basic_sensor_meta_t *meta);
+   
+   int anjay_ipso_v2_basic_sensor_value_update(anjay_t *anjay,
+                                               anjay_oid_t oid,
+                                               anjay_iid_t iid,
+                                               double value);
+   
+   int anjay_ipso_v2_basic_sensor_instance_remove(anjay_t *anjay,
+                                                  anjay_oid_t oid,
+                                                  anjay_iid_t iid);
+   
+   int anjay_ipso_v2_3d_sensor_install(anjay_t *anjay,
+                                       anjay_oid_t oid,
+                                       const char *version,
+                                       size_t instance_count);
+   
+   int anjay_ipso_v2_3d_sensor_instance_add(
+           anjay_t *anjay,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           const anjay_ipso_v2_3d_sensor_value_t *initial_value,
+           const anjay_ipso_v2_3d_sensor_meta_t *meta);
+   
+   int anjay_ipso_v2_3d_sensor_value_update(
+           anjay_t *anjay,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           const anjay_ipso_v2_3d_sensor_value_t *value);
+   
+   int anjay_ipso_v2_3d_sensor_instance_remove(anjay_t *anjay,
+                                               anjay_oid_t oid,
+                                               anjay_iid_t iid);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif // ANJAY_IPSO_OBJECTS_V2_H

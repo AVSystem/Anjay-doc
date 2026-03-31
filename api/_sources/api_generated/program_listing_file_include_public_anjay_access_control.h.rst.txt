@@ -1,0 +1,61 @@
+
+.. _program_listing_file_include_public_anjay_access_control.h:
+
+Program Listing for File access_control.h
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_access_control.h>` (``include_public/anjay/access_control.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_MODULES_ACCESS_CONTROL_H
+   #define ANJAY_INCLUDE_ANJAY_MODULES_ACCESS_CONTROL_H
+   
+   #include <avsystem/commons/avs_stream.h>
+   
+   #include <anjay/dm.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   int anjay_access_control_install(anjay_t *anjay);
+   
+   void anjay_access_control_purge(anjay_t *anjay);
+   
+   avs_error_t anjay_access_control_persist(anjay_t *anjay,
+                                            avs_stream_t *out_stream);
+   
+   avs_error_t anjay_access_control_restore(anjay_t *anjay,
+                                            avs_stream_t *in_stream);
+   
+   bool anjay_access_control_is_modified(anjay_t *anjay);
+   
+   int anjay_access_control_set_acl(anjay_t *anjay,
+                                    anjay_oid_t oid,
+                                    anjay_iid_t iid,
+                                    anjay_ssid_t ssid,
+                                    anjay_access_mask_t access_mask);
+   
+   int anjay_access_control_set_owner(anjay_t *anjay,
+                                      anjay_oid_t target_oid,
+                                      anjay_iid_t target_iid,
+                                      anjay_ssid_t owner_ssid,
+                                      anjay_iid_t *inout_acl_iid);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_MODULES_ACCESS_CONTROL_H */

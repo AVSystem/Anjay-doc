@@ -1,0 +1,81 @@
+
+.. _program_listing_file_include_public_anjay_nidd.h:
+
+Program Listing for File nidd.h
+===============================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_nidd.h>` (``include_public/anjay/nidd.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_NIDD_DRIVER_H
+   #define ANJAY_INCLUDE_ANJAY_NIDD_DRIVER_H
+   
+   #include <anjay/core.h>
+   
+   #include <avsystem/commons/avs_defs.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef int anjay_nidd_driver_recv_t(anjay_nidd_driver_t *driver,
+                                        size_t *out_bytes_received,
+                                        void *out_message,
+                                        size_t size,
+                                        avs_time_monotonic_t deadline);
+   
+   typedef int anjay_nidd_driver_can_recv_t(anjay_nidd_driver_t *driver);
+   
+   typedef int anjay_nidd_driver_send_t(anjay_nidd_driver_t *driver,
+                                        const void *message,
+                                        size_t size);
+   
+   typedef avs_errno_t anjay_nidd_driver_error_t(anjay_nidd_driver_t *driver);
+   
+   typedef int anjay_nidd_driver_connect_t(anjay_nidd_driver_t *driver);
+   
+   typedef int anjay_nidd_driver_disconnect_t(anjay_nidd_driver_t *driver);
+   
+   typedef int anjay_nidd_driver_system_descriptor_t(anjay_nidd_driver_t *driver,
+                                                     const void **out);
+   
+   typedef void anjay_nidd_driver_free_t(anjay_nidd_driver_t *driver);
+   
+   typedef int anjay_nidd_driver_outgoing_mtu_t(anjay_nidd_driver_t *driver,
+                                                size_t *out_mtu);
+   
+   typedef int anjay_nidd_driver_incoming_mtu_t(anjay_nidd_driver_t *driver,
+                                                size_t *out_mtu);
+   
+   struct anjay_nidd_driver_struct {
+       anjay_nidd_driver_connect_t *connect;
+       anjay_nidd_driver_disconnect_t *disconnect;
+       anjay_nidd_driver_system_descriptor_t *system_descriptor;
+       anjay_nidd_driver_send_t *send;
+       anjay_nidd_driver_recv_t *recv;
+       anjay_nidd_driver_can_recv_t *can_recv;
+       anjay_nidd_driver_outgoing_mtu_t *outgoing_mtu;
+       anjay_nidd_driver_incoming_mtu_t *incoming_mtu;
+       anjay_nidd_driver_error_t *get_error;
+       anjay_nidd_driver_free_t *free;
+   };
+   
+   void anjay_nidd_driver_cleanup(anjay_nidd_driver_t **driver);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_NIDD_DRIVER_H */

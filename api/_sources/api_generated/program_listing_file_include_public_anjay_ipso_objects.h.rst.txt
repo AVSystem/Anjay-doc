@@ -1,0 +1,115 @@
+
+.. _program_listing_file_include_public_anjay_ipso_objects.h:
+
+Program Listing for File ipso_objects.h
+=======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_ipso_objects.h>` (``include_public/anjay/ipso_objects.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   #ifndef ANJAY_IPSO_OBJECTS_H
+   #define ANJAY_IPSO_OBJECTS_H
+   
+   #include <anjay/dm.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef int anjay_ipso_basic_sensor_value_reader_t(anjay_iid_t iid,
+                                                      void *ctx,
+                                                      double *value);
+   
+   typedef struct anjay_ipso_basic_sensor_impl_struct {
+       const char *unit;
+   
+       void *user_context;
+   
+       double min_range_value;
+   
+       double max_range_value;
+   
+       anjay_ipso_basic_sensor_value_reader_t *get_value;
+   } anjay_ipso_basic_sensor_impl_t;
+   
+   int anjay_ipso_basic_sensor_install(anjay_t *anjay,
+                                       anjay_oid_t oid,
+                                       size_t num_instances);
+   
+   int anjay_ipso_basic_sensor_instance_add(
+           anjay_t *anjay,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           const anjay_ipso_basic_sensor_impl_t impl);
+   
+   int anjay_ipso_basic_sensor_instance_remove(anjay_t *anjay,
+                                               anjay_oid_t oid,
+                                               anjay_iid_t iid);
+   
+   int anjay_ipso_basic_sensor_update(anjay_t *anjay,
+                                      anjay_oid_t oid,
+                                      anjay_iid_t iid);
+   
+   typedef int anjay_ipso_3d_sensor_value_reader_t(anjay_iid_t iid,
+                                                   void *ctx,
+                                                   double *x_value,
+                                                   double *y_value,
+                                                   double *z_value);
+   
+   typedef struct anjay_ipso_3d_sensor_impl_struct {
+       const char *unit;
+       bool use_y_value;
+       bool use_z_value;
+   
+       void *user_context;
+   
+       double min_range_value;
+   
+       double max_range_value;
+   
+       anjay_ipso_3d_sensor_value_reader_t *get_values;
+   } anjay_ipso_3d_sensor_impl_t;
+   
+   int anjay_ipso_3d_sensor_install(anjay_t *anjay,
+                                    anjay_oid_t oid,
+                                    size_t num_instances);
+   
+   int anjay_ipso_3d_sensor_instance_add(anjay_t *anjay,
+                                         anjay_oid_t oid,
+                                         anjay_iid_t iid,
+                                         const anjay_ipso_3d_sensor_impl_t impl);
+   
+   int anjay_ipso_3d_sensor_instance_remove(anjay_t *anjay,
+                                            anjay_oid_t oid,
+                                            anjay_iid_t iid);
+   
+   int anjay_ipso_3d_sensor_update(anjay_t *anjay,
+                                   anjay_oid_t oid,
+                                   anjay_iid_t iid);
+   
+   int anjay_ipso_button_install(anjay_t *anjay, size_t num_instances);
+   
+   int anjay_ipso_button_instance_add(anjay_t *anjay,
+                                      anjay_iid_t iid,
+                                      const char *application_type);
+   
+   int anjay_ipso_button_instance_remove(anjay_t *anjay, anjay_iid_t iid);
+   
+   int anjay_ipso_button_update(anjay_t *anjay, anjay_iid_t iid, bool pressed);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif // ANJAY_IPSO_OBJECTS_H

@@ -1,0 +1,72 @@
+
+.. _program_listing_file_include_public_anjay_sim_bootstrap.h:
+
+Program Listing for File sim_bootstrap.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_sim_bootstrap.h>` (``include_public/anjay/sim_bootstrap.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   #ifndef ANJAY_INCLUDE_ANJAY_SIM_BOOTSTRAP_H
+   #define ANJAY_INCLUDE_ANJAY_SIM_BOOTSTRAP_H
+   
+   #include <avsystem/commons/avs_stream.h>
+   #include <avsystem/commons/avs_stream_md5.h>
+   
+   #include <anjay/bootstrapper.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   #ifdef ANJAY_WITH_MODULE_SIM_BOOTSTRAP
+   
+   typedef int anjay_sim_bootstrap_perform_command_cb_t(void *arg,
+                                                        const void *cmd,
+                                                        size_t cmd_length,
+                                                        void *out_buf,
+                                                        size_t out_buf_size,
+                                                        size_t *out_response_size);
+   
+   avs_stream_t *anjay_sim_bootstrap_stream_create(
+           anjay_sim_bootstrap_perform_command_cb_t *perform_command_cb,
+           void *perform_command_cb_arg);
+   
+   static inline avs_error_t anjay_sim_bootstrap_perform(
+           anjay_t *anjay,
+           anjay_sim_bootstrap_perform_command_cb_t *perform_command_cb,
+           void *perform_command_cb_arg) {
+       avs_error_t err = avs_errno(AVS_EIO);
+       avs_stream_t *stream =
+               anjay_sim_bootstrap_stream_create(perform_command_cb,
+                                                 perform_command_cb_arg);
+       if (stream) {
+           err = anjay_bootstrapper(anjay, stream);
+           avs_stream_cleanup(&stream);
+       }
+       return err;
+   }
+   
+   typedef uint8_t anjay_sim_bootstrap_md5_t[AVS_COMMONS_MD5_LENGTH];
+   
+   avs_error_t anjay_sim_bootstrap_calculate_md5(avs_stream_t *stream,
+                                                 anjay_sim_bootstrap_md5_t *md5);
+   
+   #endif // ANJAY_WITH_MODULE_SIM_BOOTSTRAP
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_SIM_BOOTSTRAP_H */

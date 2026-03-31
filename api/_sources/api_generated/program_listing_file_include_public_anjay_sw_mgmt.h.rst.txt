@@ -1,0 +1,230 @@
+
+.. _program_listing_file_include_public_anjay_sw_mgmt.h:
+
+Program Listing for File sw_mgmt.h
+==================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_sw_mgmt.h>` (``include_public/anjay/sw_mgmt.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_SW_MGMT_H
+   #define ANJAY_INCLUDE_ANJAY_SW_MGMT_H
+   
+   #include <anjay/anjay_config.h>
+   #include <anjay/dm.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef enum {
+       ANJAY_SW_MGMT_UPDATE_RESULT_INITIAL = 0,
+       ANJAY_SW_MGMT_UPDATE_RESULT_DOWNLOADING = 1,
+       ANJAY_SW_MGMT_UPDATE_RESULT_INSTALLED = 2,
+       ANJAY_SW_MGMT_UPDATE_RESULT_DOWNLOADED_VERIFIED = 3,
+       ANJAY_SW_MGMT_UPDATE_RESULT_NOT_ENOUGH_SPACE = 50,
+       ANJAY_SW_MGMT_UPDATE_RESULT_OUT_OF_MEMORY = 51,
+       ANJAY_SW_MGMT_UPDATE_RESULT_CONNECTION_LOST = 52,
+       ANJAY_SW_MGMT_UPDATE_RESULT_INTEGRITY_FAILURE = 53,
+       ANJAY_SW_MGMT_UPDATE_RESULT_UNSUPPORTED_PACKAGE_TYPE = 54,
+       ANJAY_SW_MGMT_UPDATE_RESULT_INVALID_URI = 56,
+       ANJAY_SW_MGMT_UPDATE_RESULT_UPDATE_ERROR = 57,
+       ANJAY_SW_MGMT_UPDATE_RESULT_INSTALLATION_FAILURE = 58,
+       ANJAY_SW_MGMT_UPDATE_RESULT_UNINSTALLATION_FAILURE = 59
+   } anjay_sw_mgmt_update_result_t;
+   
+   #define ANJAY_SW_MGMT_ERR_NOT_ENOUGH_SPACE \
+       (-(int) ANJAY_SW_MGMT_UPDATE_RESULT_NOT_ENOUGH_SPACE)
+   #define ANJAY_SW_MGMT_ERR_OUT_OF_MEMORY \
+       (-(int) ANJAY_SW_MGMT_UPDATE_RESULT_OUT_OF_MEMORY)
+   #define ANJAY_SW_MGMT_ERR_INTEGRITY_FAILURE \
+       (-(int) ANJAY_SW_MGMT_UPDATE_RESULT_INTEGRITY_FAILURE)
+   #define ANJAY_SW_MGMT_ERR_UNSUPPORTED_PACKAGE_TYPE \
+       (-(int) ANJAY_SW_MGMT_UPDATE_RESULT_UNSUPPORTED_PACKAGE_TYPE)
+   typedef enum {
+       ANJAY_SW_MGMT_INITIAL_STATE_IDLE,
+   
+       ANJAY_SW_MGMT_INITIAL_STATE_DOWNLOADED,
+   
+       ANJAY_SW_MGMT_INITIAL_STATE_DELIVERED,
+   
+       ANJAY_SW_MGMT_INITIAL_STATE_INSTALLING,
+   
+       ANJAY_SW_MGMT_INITIAL_STATE_INSTALLED_DEACTIVATED,
+   
+       ANJAY_SW_MGMT_INITIAL_STATE_INSTALLED_ACTIVATED
+   } anjay_sw_mgmt_initial_state_t;
+   
+   typedef struct {
+       anjay_sw_mgmt_initial_state_t initial_state;
+   
+       anjay_iid_t iid;
+   
+       void *inst_ctx;
+   } anjay_sw_mgmt_instance_initializer_t;
+   
+   typedef int
+   anjay_sw_mgmt_stream_open_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef int anjay_sw_mgmt_stream_write_t(void *obj_ctx,
+                                            anjay_iid_t iid,
+                                            void *inst_ctx,
+                                            const void *data,
+                                            size_t length);
+   
+   typedef int
+   anjay_sw_mgmt_stream_finish_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef int
+   anjay_sw_mgmt_check_integrity_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef void
+   anjay_sw_mgmt_reset_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef const char *
+   anjay_sw_mgmt_get_name_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef const char *
+   anjay_sw_mgmt_get_version_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef int
+   anjay_sw_mgmt_pkg_install_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef int
+   anjay_sw_mgmt_pkg_uninstall_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef int anjay_sw_mgmt_prepare_for_update_t(void *obj_ctx,
+                                                  anjay_iid_t iid,
+                                                  void *inst_ctx);
+   
+   typedef int
+   anjay_sw_mgmt_activate_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef int
+   anjay_sw_mgmt_deactivate_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   #ifdef ANJAY_WITH_DOWNLOADER
+   
+   typedef int
+   anjay_sw_mgmt_get_security_config_t(void *obj_ctx,
+                                       anjay_iid_t iid,
+                                       void *inst_ctx,
+                                       const char *download_uri,
+                                       anjay_security_config_t *out_security_info);
+   
+   typedef avs_coap_udp_tx_params_t
+   anjay_sw_mgmt_get_coap_tx_params_t(void *obj_ctx,
+                                      anjay_iid_t iid,
+                                      void *inst_ctx,
+                                      const char *download_uri);
+   
+   typedef avs_time_duration_t
+   anjay_sw_mgmt_get_tcp_request_timeout_t(void *obj_ctx,
+                                           anjay_iid_t iid,
+                                           void *inst_ctx,
+                                           const char *download_uri);
+   
+   void anjay_sw_mgmt_pull_suspend(anjay_t *anjay);
+   
+   int anjay_sw_mgmt_pull_reconnect(anjay_t *anjay);
+   
+   #endif // ANJAY_WITH_DOWNLOADER
+   
+   typedef int anjay_sw_mgmt_add_handler_t(void *obj_ctx,
+                                           anjay_iid_t iid,
+                                           void **out_inst_ctx);
+   
+   typedef int
+   anjay_sw_mgmt_remove_handler_t(void *obj_ctx, anjay_iid_t iid, void *inst_ctx);
+   
+   typedef struct {
+       anjay_sw_mgmt_stream_open_t *stream_open;
+   
+       anjay_sw_mgmt_stream_write_t *stream_write;
+   
+       anjay_sw_mgmt_stream_finish_t *stream_finish;
+   
+       anjay_sw_mgmt_check_integrity_t *check_integrity;
+   
+       anjay_sw_mgmt_reset_t *reset;
+   
+       anjay_sw_mgmt_get_name_t *get_name;
+   
+       anjay_sw_mgmt_get_version_t *get_version;
+   
+       anjay_sw_mgmt_pkg_install_t *pkg_install;
+   
+       anjay_sw_mgmt_pkg_uninstall_t *pkg_uninstall;
+   
+       anjay_sw_mgmt_prepare_for_update_t *prepare_for_update;
+   
+       anjay_sw_mgmt_activate_t *activate;
+   
+       anjay_sw_mgmt_deactivate_t *deactivate;
+   
+   #ifdef ANJAY_WITH_DOWNLOADER
+       anjay_sw_mgmt_get_security_config_t *get_security_config;
+   
+       anjay_sw_mgmt_get_tcp_request_timeout_t *get_tcp_request_timeout;
+   
+   #    ifdef ANJAY_WITH_COAP_DOWNLOAD
+       anjay_sw_mgmt_get_coap_tx_params_t *get_coap_tx_params;
+   #    endif // ANJAY_WITH_COAP_DOWNLOAD
+   #endif     // ANJAY_WITH_DOWNLOADER
+   
+       anjay_sw_mgmt_add_handler_t *add_handler;
+   
+       anjay_sw_mgmt_remove_handler_t *remove_handler;
+   } anjay_sw_mgmt_handlers_t;
+   
+   typedef struct {
+       const anjay_sw_mgmt_handlers_t *handlers;
+   
+       void *obj_ctx;
+   
+   #if defined(ANJAY_WITH_DOWNLOADER)
+       bool prefer_same_socket_downloads;
+   #endif // defined(ANJAY_WITH_DOWNLOADER)
+   } anjay_sw_mgmt_settings_t;
+   
+   int anjay_sw_mgmt_install(anjay_t *anjay,
+                             const anjay_sw_mgmt_settings_t *settings);
+   
+   int anjay_sw_mgmt_get_activation_state(anjay_t *anjay,
+                                          anjay_iid_t iid,
+                                          bool *out_state);
+   
+   typedef enum {
+       ANJAY_SW_MGMT_FINISH_PKG_INSTALL_SUCCESS_INACTIVE,
+       ANJAY_SW_MGMT_FINISH_PKG_INSTALL_SUCCESS_ACTIVE,
+       ANJAY_SW_MGMT_FINISH_PKG_INSTALL_FAILURE
+   } anjay_sw_mgmt_finish_pkg_install_result_t;
+   
+   int anjay_sw_mgmt_finish_pkg_install(
+           anjay_t *anjay,
+           anjay_iid_t iid,
+           anjay_sw_mgmt_finish_pkg_install_result_t pkg_install_result);
+   
+   int anjay_sw_mgmt_add_instance(
+           anjay_t *anjay,
+           const anjay_sw_mgmt_instance_initializer_t *instance_initializer);
+   
+   int anjay_sw_mgmt_remove_instance(anjay_t *anjay, anjay_iid_t iid);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_SW_MGMT_H */

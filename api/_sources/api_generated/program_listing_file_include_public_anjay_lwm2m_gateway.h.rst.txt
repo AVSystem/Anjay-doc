@@ -1,0 +1,170 @@
+
+.. _program_listing_file_include_public_anjay_lwm2m_gateway.h:
+
+Program Listing for File lwm2m_gateway.h
+========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_lwm2m_gateway.h>` (``include_public/anjay/lwm2m_gateway.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_LWM2M_GATEWAY_H
+   #define ANJAY_INCLUDE_LWM2M_GATEWAY_H
+   
+   #include <anjay/anjay.h>
+   #include <anjay/anjay_config.h>
+   #include <anjay/lwm2m_send.h>
+   
+   #ifdef ANJAY_WITH_LWM2M_GATEWAY
+   
+   #    ifdef __cplusplus
+   extern "C" {
+   #    endif
+   
+   int anjay_lwm2m_gateway_install(anjay_t *anjay);
+   
+   int anjay_lwm2m_gateway_register_device(anjay_t *anjay,
+                                           const char *device_id,
+                                           anjay_iid_t *inout_iid);
+   
+   int anjay_lwm2m_gateway_deregister_device(anjay_t *anjay, anjay_iid_t iid);
+   
+   int anjay_lwm2m_gateway_register_object(
+           anjay_t *anjay,
+           anjay_iid_t iid,
+           const anjay_dm_object_def_t *const *def_ptr);
+   
+   int anjay_lwm2m_gateway_unregister_object(
+           anjay_t *anjay,
+           anjay_iid_t iid,
+           const anjay_dm_object_def_t *const *def_ptr);
+   
+   #    ifdef ANJAY_WITH_SEND
+   
+   int anjay_lwm2m_gateway_send_batch_add_int(anjay_send_batch_builder_t *builder,
+                                              anjay_iid_t gateway_iid,
+                                              anjay_oid_t oid,
+                                              anjay_iid_t iid,
+                                              anjay_rid_t rid,
+                                              anjay_riid_t riid,
+                                              avs_time_real_t timestamp,
+                                              int64_t value);
+   
+   int anjay_lwm2m_gateway_send_batch_add_uint(anjay_send_batch_builder_t *builder,
+                                               anjay_iid_t gateway_iid,
+                                               anjay_oid_t oid,
+                                               anjay_iid_t iid,
+                                               anjay_rid_t rid,
+                                               anjay_riid_t riid,
+                                               avs_time_real_t timestamp,
+                                               uint64_t value);
+   
+   int anjay_lwm2m_gateway_send_batch_add_double(
+           anjay_send_batch_builder_t *builder,
+           anjay_iid_t gateway_iid,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           anjay_rid_t rid,
+           anjay_riid_t riid,
+           avs_time_real_t timestamp,
+           double value);
+   
+   int anjay_lwm2m_gateway_send_batch_add_bool(anjay_send_batch_builder_t *builder,
+                                               anjay_iid_t gateway_iid,
+                                               anjay_oid_t oid,
+                                               anjay_iid_t iid,
+                                               anjay_rid_t rid,
+                                               anjay_riid_t riid,
+                                               avs_time_real_t timestamp,
+                                               bool value);
+   
+   int anjay_lwm2m_gateway_send_batch_add_string(
+           anjay_send_batch_builder_t *builder,
+           anjay_iid_t gateway_iid,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           anjay_rid_t rid,
+           anjay_riid_t riid,
+           avs_time_real_t timestamp,
+           const char *str);
+   
+   int anjay_lwm2m_gateway_send_batch_add_bytes(
+           anjay_send_batch_builder_t *builder,
+           anjay_iid_t gateway_iid,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           anjay_rid_t rid,
+           anjay_riid_t riid,
+           avs_time_real_t timestamp,
+           const void *data,
+           size_t length);
+   
+   int anjay_lwm2m_gateway_send_batch_add_objlnk(
+           anjay_send_batch_builder_t *builder,
+           anjay_iid_t gateway_iid,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           anjay_rid_t rid,
+           anjay_riid_t riid,
+           avs_time_real_t timestamp,
+           anjay_oid_t objlnk_oid,
+           anjay_iid_t objlnk_iid);
+   
+   int anjay_lwm2m_gateway_send_batch_data_add_current(
+           anjay_send_batch_builder_t *builder,
+           anjay_t *anjay,
+           anjay_iid_t gateway_iid,
+           anjay_oid_t oid,
+           anjay_iid_t iid,
+           anjay_rid_t rid);
+   
+   int anjay_lwm2m_gateway_send_batch_data_add_current_multiple(
+           anjay_send_batch_builder_t *builder,
+           anjay_t *anjay,
+           anjay_iid_t gateway_iid,
+           const anjay_send_resource_path_t *paths,
+           size_t paths_length);
+   
+   int anjay_lwm2m_gateway_send_batch_data_add_current_multiple_ignore_not_found(
+           anjay_send_batch_builder_t *builder,
+           anjay_t *anjay,
+           anjay_iid_t gateway_iid,
+           const anjay_send_resource_path_t *paths,
+           size_t paths_length);
+   
+   #    endif // ANJAY_WITH_SEND
+   
+   int anjay_lwm2m_gateway_notify_changed(anjay_t *anjay,
+                                          anjay_iid_t end_dev,
+                                          anjay_oid_t oid,
+                                          anjay_iid_t iid,
+                                          anjay_rid_t rid);
+   
+   int anjay_lwm2m_gateway_notify_instances_changed(anjay_t *anjay,
+                                                    anjay_iid_t end_dev,
+                                                    anjay_oid_t oid);
+   #    ifdef ANJAY_WITH_OBSERVATION_STATUS
+   anjay_resource_observation_status_t
+   anjay_lwm2m_gateway_resource_observation_status(anjay_t *anjay,
+                                                   anjay_iid_t end_dev,
+                                                   anjay_oid_t oid,
+                                                   anjay_iid_t iid,
+                                                   anjay_rid_t rid);
+   #    endif // ANJAY_WITH_OBSERVATION_STATUS
+   #    ifdef __cplusplus
+   }
+   #    endif
+   
+   #endif // ANJAY_WITH_LWM2M_GATEWAY
+   #endif // ANJAY_INCLUDE_LWM2M_GATEWAY_H

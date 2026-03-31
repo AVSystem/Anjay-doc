@@ -1,0 +1,203 @@
+
+.. _program_listing_file_include_public_anjay_lwm2m_send.h:
+
+Program Listing for File lwm2m_send.h
+=====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_lwm2m_send.h>` (``include_public/anjay/lwm2m_send.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   anjay_send_batch_builder_t *builder = anjay_send_batch_builder_new();
+   
+   // Adds signed integer value to batch builder, without checking if such
+   // resource (oid=1, iid=2, rid=3) exists in datamodel.
+   anjay_send_batch_add_int(
+           builder, 1, 2, 3, UINT16_MAX, avs_time_real_now(), 123);
+   
+   // Adds value from datamodel (oid=4, iid=5, rid=6) to batch builder if it
+   // exists.
+   anjay_send_batch_data_add_current(builder, anjay, 4, 5, 6);
+   
+   // Creates immutable data batch and releases builder.
+   anjay_send_batch_t *batch = anjay_send_batch_builder_compile(builder);
+   
+   // Puts LwM2M Send request on the scheduler queue. During next call to
+   // anjay_sched_run content of the batch will be sent to server with SSID=1
+   anjay_send(anjay, 1, batch, NULL, NULL);
+   
+   // Releases the batch if it's not used by some send operation.
+   anjay_send_batch_release(&batch);
+   anjay_send_batch_t *empty_batch = anjay_send_batch_builder_compile(&builder);
+   anjay_send(anjay, ssid, empty_batch, NULL, NULL);
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_LWM2M_SEND_H
+   #define ANJAY_INCLUDE_ANJAY_LWM2M_SEND_H
+   
+   #include <anjay/anjay.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   #ifdef ANJAY_WITH_SEND
+   
+   typedef struct anjay_send_batch_builder_struct anjay_send_batch_builder_t;
+   
+   typedef struct anjay_send_batch_struct anjay_send_batch_t;
+   
+   typedef struct {
+       anjay_oid_t oid;
+       anjay_iid_t iid;
+       anjay_rid_t rid;
+   } anjay_send_resource_path_t;
+   
+   #    define ANJAY_SEND_DEFERRED_ERROR (-3)
+   
+   #    define ANJAY_SEND_ABORT (-2)
+   
+   #    define ANJAY_SEND_TIMEOUT (-1)
+   
+   #    define ANJAY_SEND_SUCCESS 0
+   
+   typedef void anjay_send_finished_handler_t(anjay_t *anjay,
+                                              anjay_ssid_t ssid,
+                                              const anjay_send_batch_t *batch,
+                                              int result,
+                                              void *data);
+   
+   anjay_send_batch_builder_t *anjay_send_batch_builder_new(void);
+   
+   void anjay_send_batch_builder_cleanup(anjay_send_batch_builder_t **builder);
+   
+   int anjay_send_batch_add_int(anjay_send_batch_builder_t *builder,
+                                anjay_oid_t oid,
+                                anjay_iid_t iid,
+                                anjay_rid_t rid,
+                                anjay_riid_t riid,
+                                avs_time_real_t timestamp,
+                                int64_t value);
+   
+   int anjay_send_batch_add_uint(anjay_send_batch_builder_t *builder,
+                                 anjay_oid_t oid,
+                                 anjay_iid_t iid,
+                                 anjay_rid_t rid,
+                                 anjay_riid_t riid,
+                                 avs_time_real_t timestamp,
+                                 uint64_t value);
+   
+   int anjay_send_batch_add_double(anjay_send_batch_builder_t *builder,
+                                   anjay_oid_t oid,
+                                   anjay_iid_t iid,
+                                   anjay_rid_t rid,
+                                   anjay_riid_t riid,
+                                   avs_time_real_t timestamp,
+                                   double value);
+   
+   int anjay_send_batch_add_bool(anjay_send_batch_builder_t *builder,
+                                 anjay_oid_t oid,
+                                 anjay_iid_t iid,
+                                 anjay_rid_t rid,
+                                 anjay_riid_t riid,
+                                 avs_time_real_t timestamp,
+                                 bool value);
+   
+   int anjay_send_batch_add_string(anjay_send_batch_builder_t *builder,
+                                   anjay_oid_t oid,
+                                   anjay_iid_t iid,
+                                   anjay_rid_t rid,
+                                   anjay_riid_t riid,
+                                   avs_time_real_t timestamp,
+                                   const char *str);
+   
+   int anjay_send_batch_add_bytes(anjay_send_batch_builder_t *builder,
+                                  anjay_oid_t oid,
+                                  anjay_iid_t iid,
+                                  anjay_rid_t rid,
+                                  anjay_riid_t riid,
+                                  avs_time_real_t timestamp,
+                                  const void *data,
+                                  size_t length);
+   
+   int anjay_send_batch_add_objlnk(anjay_send_batch_builder_t *builder,
+                                   anjay_oid_t oid,
+                                   anjay_iid_t iid,
+                                   anjay_rid_t rid,
+                                   anjay_riid_t riid,
+                                   avs_time_real_t timestamp,
+                                   anjay_oid_t objlnk_oid,
+                                   anjay_iid_t objlnk_iid);
+   
+   int anjay_send_batch_data_add_current(anjay_send_batch_builder_t *builder,
+                                         anjay_t *anjay,
+                                         anjay_oid_t oid,
+                                         anjay_iid_t iid,
+                                         anjay_rid_t rid);
+   
+   int anjay_send_batch_data_add_current_multiple(
+           anjay_send_batch_builder_t *builder,
+           anjay_t *anjay,
+           const anjay_send_resource_path_t *paths,
+           size_t paths_length);
+   
+   int anjay_send_batch_data_add_current_multiple_ignore_not_found(
+           anjay_send_batch_builder_t *builder,
+           anjay_t *anjay,
+           const anjay_send_resource_path_t *paths,
+           size_t paths_length);
+   
+   anjay_send_batch_t *
+   anjay_send_batch_builder_compile(anjay_send_batch_builder_t **builder);
+   
+   anjay_send_batch_t *anjay_send_batch_acquire(const anjay_send_batch_t *batch);
+   
+   void anjay_send_batch_release(anjay_send_batch_t **batch);
+   
+   typedef enum {
+       ANJAY_SEND_OK = 0,
+   
+       ANJAY_SEND_ERR_UNSUPPORTED,
+   
+       ANJAY_SEND_ERR_MUTED,
+   
+       ANJAY_SEND_ERR_OFFLINE,
+   
+       ANJAY_SEND_ERR_BOOTSTRAP,
+   
+       ANJAY_SEND_ERR_SSID,
+   
+       ANJAY_SEND_ERR_PROTOCOL,
+   
+       ANJAY_SEND_ERR_INTERNAL
+   } anjay_send_result_t;
+   
+   anjay_send_result_t anjay_send(anjay_t *anjay,
+                                  anjay_ssid_t ssid,
+                                  const anjay_send_batch_t *data,
+                                  anjay_send_finished_handler_t *finished_handler,
+                                  void *finished_handler_data);
+   
+   anjay_send_result_t
+   anjay_send_deferrable(anjay_t *anjay,
+                         anjay_ssid_t ssid,
+                         const anjay_send_batch_t *data,
+                         anjay_send_finished_handler_t *finished_handler,
+                         void *finished_handler_data);
+   
+   #endif // ANJAY_WITH_SEND
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif // ANJAY_INCLUDE_ANJAY_LWM2M_SEND_H

@@ -4,20 +4,26 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.6. Package generator &mdash; Anjay 3.12.0 documentation</title>
+  <title>8.6. Package generator &mdash; Anjay 3.13.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-design.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
       <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="canonical" href="https://docs.avsystem.com/hubfs/Anjay_Docs/Tools/PackagesGenerator.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=1b7a0a1e"></script>
+        <script src="../_static/documentation_options.js?v=6aaf4047"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script src="../_static/design-tabs.js?v=f930bc37"></script>
         <script src="../_static/tabs.js?v=3030b3cb"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -39,11 +45,10 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.12.0
-              </div>
-<div role="search">
+                3.13.0
+              </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search Documentation..." />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,10 +72,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../KnownIssues.html">9. Known Issues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../API_description.html">10. API description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">11. Porting guide for non-POSIX platforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">12. Migrating from older versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">13. Commercial features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">10. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">11. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">12. Commercial features</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../APIReference.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -120,13 +127,13 @@ These objects include:</p>
 <p class="admonition-title">Note</p>
 <p>These objects are implemented primarily for testing purposes and are not production-ready. To
 generate compatible update packages for testing, use the <code class="docutils literal notranslate"><span class="pre">create_package.py</span></code> script located in
-the <code class="docutils literal notranslate"><span class="pre">tests/integration/framework</span></code> directory.
+the <code class="docutils literal notranslate"><span class="pre">tests/integration/framework/framework</span></code> directory.
 If you need help implementing the required callbacks for Objects /5 and /33629,
 refer to <a class="reference internal" href="../FirmwareUpdateTutorial.html"><span class="doc">Firmware Update tutorial</span></a>.</p>
 </div>
 <p>In order to use the objects, you need packages that contain the appropriate metadata. To generate
 these packages, run <code class="docutils literal notranslate"><span class="pre">create_package.py</span></code> script located in the
-<code class="docutils literal notranslate"><span class="pre">tests/integration/framework</span></code> directory.</p>
+<code class="docutils literal notranslate"><span class="pre">tests/integration/framework/framework</span></code> directory.</p>
 </section>
 <section id="example-usage">
 <h2><span class="section-number">8.6.2. </span>Example usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
@@ -135,7 +142,7 @@ these packages, run <code class="docutils literal notranslate"><span class="pre"
 <li><p>Run one of the following commands:</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Package for the object 5 that will be executed during update</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Package for the object 9 that will be executed through the system’s shell interpreter during installation</button><button aria-controls="panel-0-0-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-2" name="0-2" role="tab" tabindex="-1">Package for the object 9 that will fail during validation</button><button aria-controls="panel-0-0-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-3" name="0-3" role="tab" tabindex="-1">Package for the object 9 that will fail during installation</button><button aria-controls="panel-0-0-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-4" name="0-4" role="tab" tabindex="-1">Package for the object 9 that will fail during activation</button><button aria-controls="panel-0-0-5" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-5" name="0-5" role="tab" tabindex="-1">Package for the zero instance of object 33629 that will be executed during update</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_FW
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Package for the object 5 that will be executed during update</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Package for the object 9 that will be executed through the system’s shell interpreter during installation</button><button aria-controls="panel-0-0-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-2" name="0-2" role="tab" tabindex="-1">Package for the object 9 that will fail during validation</button><button aria-controls="panel-0-0-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-3" name="0-3" role="tab" tabindex="-1">Package for the object 9 that will fail during installation</button><button aria-controls="panel-0-0-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-4" name="0-4" role="tab" tabindex="-1">Package for the object 9 that will fail during activation</button><button aria-controls="panel-0-0-5" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-5" name="0-5" role="tab" tabindex="-1">Package for the zero instance of object 33629 that will be executed during update</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_FW
 </pre></div>
 </div>
 <div class="admonition note">
@@ -144,19 +151,19 @@ these packages, run <code class="docutils literal notranslate"><span class="pre"
 the demo (which may occur during an update if the package includes the demo), the resource
 /5/0/5 will be set to the value corresponding to the state <cite>Firmware updated successfully</cite>.</p>
 </div>
-</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-c<span class="w"> </span><span class="m">1234</span>
+</div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-c<span class="w"> </span><span class="m">1234</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-0-3" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-3" name="0-3" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-e<span class="w"> </span>FailedInstall
+</div><div aria-labelledby="tab-0-0-3" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-3" name="0-3" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-e<span class="w"> </span>FailedInstall
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-0-4" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-4" name="0-4" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-e<span class="w"> </span>FailureInPerformActivate
+</div><div aria-labelledby="tab-0-0-4" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-4" name="0-4" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_SW<span class="w"> </span>-e<span class="w"> </span>FailureInPerformActivate
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-0-5" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-5" name="0-5" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_APP
+</div><div aria-labelledby="tab-0-0-5" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-5" name="0-5" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>./tests/integration/framework/framework/create_package.py<span class="w"> </span>-o<span class="w"> </span>./package<span class="w"> </span>-m<span class="w"> </span>ANJAY_APP
 </pre></div>
 </div>
 <div class="admonition note">
@@ -188,7 +195,7 @@ to the value corresponding to the state <cite>Firmware updated successfully</cit
 <h2><span class="section-number">8.6.3. </span>Package generation arguments<a class="headerlink" href="#package-generation-arguments" title="Link to this heading"></a></h2>
 <p>To obtain information about each of the available arguments, display the help message by running
 the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tests/integration/framework/create_package.py<span class="w"> </span>--help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tests/integration/framework/framework/create_package.py<span class="w"> </span>--help
 </pre></div>
 </div>
 </section>
@@ -397,7 +404,7 @@ following paths:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2026, AVSystem.</p>
+    <p>&#169; Copyright 2026, AVSystem.</p>
   </div>
 
    
@@ -411,7 +418,10 @@ following paths:</p>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+     
+        <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/139620700.js"></script>
+
 
 </body>
 </html>

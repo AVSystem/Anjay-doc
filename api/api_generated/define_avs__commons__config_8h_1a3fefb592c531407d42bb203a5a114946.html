@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Define AVS_COMMONS_COMPAT_THREADING_WITH_ATOMIC_SPINLOCK &mdash; Anjay 3.13.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="canonical" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/define_avs__commons__config_8h_1a3fefb592c531407d42bb203a5a114946.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=6aaf4047"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Define AVS_COMMONS_COMPAT_THREADING_WITH_PTHREAD" href="define_avs__commons__config_8h_1a4e5e684b761ee97e54d05a2cfa5b2af0.html" />
+    <link rel="prev" title="Define AVS_COMMONS_COMPAT_THREADING_PTHREAD_HAVE_PTHREAD_CONDATTR_SETCLOCK" href="define_avs__commons__config_8h_1a848443e5dfea2637c698c7eb57685434.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.13.0
+              </div><div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search API..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="library_root.html">Anjay API Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#page-hierarchy">Page Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#variables">Variables</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#defines">Defines</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a6dc6f3f1e5dc44fdd5f6157adcb72360.html">Define ANJAY_ACCESS_LIST_OWNER_BOOTSTRAP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1af176f2bc64b21e7071214e9998778e62.html">Define ANJAY_ACCESS_MASK_CREATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a19e7669b7c45da5e223e8c9803aa5c67.html">Define ANJAY_ACCESS_MASK_DELETE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a7fbd09f66b722cfe0b1c3adb302470eb.html">Define ANJAY_ACCESS_MASK_EXECUTE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a7d7ce1d11b32e824c921b6fd99d23831.html">Define ANJAY_ACCESS_MASK_FULL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1ab03648691edc1f22fc2c68a8033e519a.html">Define ANJAY_ACCESS_MASK_NONE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1af6b639e299674cb1d9ea87b96a5f2235.html">Define ANJAY_ACCESS_MASK_READ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1aa24c129b7c06fab33f356ccffeeb2043.html">Define ANJAY_ACCESS_MASK_WRITE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1a2ce4de099cceb6537a2d0abb8970dcbb.html">Define ANJAY_ADVANCED_FW_UPDATE_ERR_CONFLICTING_STATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1a1cce3b8776d280f550413c02be6e17cd.html">Define ANJAY_ADVANCED_FW_UPDATE_ERR_DEFERRED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1a22b9e863f6034da534f05c41dac271d0.html">Define ANJAY_ADVANCED_FW_UPDATE_ERR_DEPENDENCY_ERROR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1ad010b902300069f3f7c2156ea98f992d.html">Define ANJAY_ADVANCED_FW_UPDATE_ERR_INTEGRITY_FAILURE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1ac5bd2e0b9c814089cd9cef0deef7249b.html">Define ANJAY_ADVANCED_FW_UPDATE_ERR_NOT_ENOUGH_SPACE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1ac7a29743c41303d7126609fed4b8c5ab.html">Define ANJAY_ADVANCED_FW_UPDATE_ERR_OUT_OF_MEMORY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1a4d4aaf097df838c7b8719a59ecabca3d.html">Define ANJAY_ADVANCED_FW_UPDATE_ERR_UNSUPPORTED_PACKAGE_TYPE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_advanced__fw__update_8h_1ad01ea5e47624d95ee6116531160f8db9.html">Define ANJAY_ADVANCED_FW_UPDATE_OID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a2a7475abc61f62d8e283544b390c7882.html">Define ANJAY_ATTRIB_DOUBLE_NONE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a6160290a282c9135a1bf1b47d89eb394.html">Define ANJAY_ATTRIB_INTEGER_NONE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1afcacd9da4d8b43667f9f9b97aa73706b.html">Define ANJAY_ATTRIB_PERIOD_NONE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1ab5ebe3e4a8e369aa0365096047c78804.html">Define ANJAY_ATTRIB_VALUE_NONE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_io_8h_1a4a012ab598be622109d8ad34cf79c912.html">Define ANJAY_BUFFER_TOO_SHORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a14b6732ef5e69f94836817b523a1f7d8.html">Define ANJAY_COAP_DEFAULT_NIDD_TX_PARAMS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1ae70cfcbd2c5e6f2004f8d39a43fa3e8f.html">Define ANJAY_COAP_DEFAULT_SMS_TX_PARAMS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1af7abd5fb313c7990fc4e2e52e5395da3.html">Define ANJAY_COAP_DEFAULT_UDP_TX_PARAMS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1aa702d2d4be8e066aa7b1a1936889c121.html">Define ANJAY_COAP_STATUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a1a84b5d902c054161b5c8416f708ff47.html">Define ANJAY_DEFAULT_SEND_FORMAT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a37180e898829f3bb5a7a019046790fca.html">Define ANJAY_DM_OID_ACCESS_CONTROL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a00bcde8dd080fb016edd4b5f83bb3f6a.html">Define ANJAY_DM_OID_DEVICE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a53f34c44be6325e48f2ae56c75cf0af1.html">Define ANJAY_DM_OID_FIRMWARE_UPDATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1a99e47620722fc40c6b406dfa1375f14d.html">Define ANJAY_DM_OID_LWM2M_GATEWAY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1afa29777f24e1620979fd759795793d37.html">Define ANJAY_DM_OID_OSCORE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1aa6fbde638b573ea1a4fe39712e70ab3d.html">Define ANJAY_DM_OID_SECURITY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_dm_8h_1af7ba0ce6868a759941b37972fb550bde.html">Define ANJAY_DM_OID_SERVER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a1aea6d25934c472e8dfa96b6c102d174.html">Define ANJAY_DTLS_DEFAULT_UDP_HS_TX_PARAMS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5a2af7df20d4af954b059285bf9d8082.html">Define ANJAY_DTLS_SESSION_BUFFER_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1adb7395e29c732b502bce5d9721d7dc70.html">Define ANJAY_ERR_BAD_OPTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1ab482b6c6e5d7bdb3a343588cad964a15.html">Define ANJAY_ERR_BAD_REQUEST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a306ed339bda74d51d7fc69fb53b66aca.html">Define ANJAY_ERR_FORBIDDEN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1ae66a8257c2c958249dfaf84ebc3501c9.html">Define ANJAY_ERR_INTERNAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a2dfebe74e77b283c4e11ae900a675d49.html">Define ANJAY_ERR_METHOD_NOT_ALLOWED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a273711070ff6c68666abd02e5e621b20.html">Define ANJAY_ERR_NOT_ACCEPTABLE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a8780185b993e21a2d27f7ac5678088a0.html">Define ANJAY_ERR_NOT_FOUND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1aff04648e7b643fa5fbda0fa1971f76f1.html">Define ANJAY_ERR_NOT_IMPLEMENTED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a80688053f76faf9316ff5249737ee865.html">Define ANJAY_ERR_REQUEST_ENTITY_INCOMPLETE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1aa5b26069ef78147330a4c05aa13a6c57.html">Define ANJAY_ERR_SERVICE_UNAVAILABLE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a8f24cff6f35cf135a4cd1387dd181713.html">Define ANJAY_ERR_UNAUTHORIZED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a9f7cbd8ea614fe042206af9d9a384660.html">Define ANJAY_ERR_UNSUPPORTED_CONTENT_FORMAT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_io_8h_1ab42bb2dd9acc42fec434b521caaad979.html">Define ANJAY_EXECUTE_GET_ARG_END</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_fw__update_8h_1af71cf1653a9269cde8e73219bfc74e26.html">Define ANJAY_FW_UPDATE_ERR_DEFERRED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_fw__update_8h_1a2fdc049704f72819d0a6b1de7df739fb.html">Define ANJAY_FW_UPDATE_ERR_INTEGRITY_FAILURE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_fw__update_8h_1aefc50329eabcf89ae42815834c2f7e03.html">Define ANJAY_FW_UPDATE_ERR_NOT_ENOUGH_SPACE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_fw__update_8h_1a740d43f61c0ba1dfa5b559d88835c32d.html">Define ANJAY_FW_UPDATE_ERR_OUT_OF_MEMORY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_fw__update_8h_1a577fdccd2bede0ee6e284ef55b24621b.html">Define ANJAY_FW_UPDATE_ERR_UNSUPPORTED_PACKAGE_TYPE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a8c956519050dab506f21d0695b239b58.html">Define ANJAY_GATEWAY_MAX_PREFIX_LEN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a76bba83ae1b2f9d2037fdaea8a81e9d6.html">Define ANJAY_ID_INVALID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5c4af7225e70339a9a8bf6f7ea3691dd.html">Define ANJAY_MAX_DOUBLE_STRING_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a49245317e5b5d338be2351ba43734707.html">Define ANJAY_MAX_HOLDOFF_TIME</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a91bf1e1a9dbc892318b1236baef759a6.html">Define ANJAY_MAX_OBSERVATION_SERVERS_REPORTED_NUMBER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ab0f0c7d580b87f00e7a3e0ba7863439a.html">Define ANJAY_MAX_PK_OR_IDENTITY_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a07617d932867cb801411f90bd0b45fdf.html">Define ANJAY_MAX_SECRET_KEY_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a8b8bf42dd67ac3d09514513db1ada414.html">Define ANJAY_MAX_URI_QUERY_SEGMENT_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a31a131b0d27f70943f60f743dbb58167.html">Define ANJAY_MAX_URI_SEGMENT_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1acc320c0d91b70c29ec3a549681dcae19.html">Define ANJAY_MODULE_SIM_BOOTSTRAP_DATA_OID_OVERRIDE_HEX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a1d30409ea11dc4002d52e24e78ae9e41.html">Define ANJAY_MODULE_SIM_BOOTSTRAP_HARDCODED_FILE_ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_sms_8h_1a2ca1ea16d0b315499a1479ee957503cf.html">Define ANJAY_MSISDN_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_lwm2m__send_8h_1a1a4029648ebc20c73c3d98b26144fc7c.html">Define ANJAY_SEND_ABORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_lwm2m__send_8h_1a125cc2445c54ff57c25c732a06f47415.html">Define ANJAY_SEND_DEFERRED_ERROR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_lwm2m__send_8h_1a2208375104c8d09aa3e0365faa5d3ff6.html">Define ANJAY_SEND_SUCCESS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_lwm2m__send_8h_1a9741f74173b0cf4e9357347b0d852851.html">Define ANJAY_SEND_TIMEOUT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a75735105ebc11358f8f707568a8b11fa.html">Define ANJAY_SSID_ANY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_core_8h_1a857486d85f02514fc3f69ae7b2566f4c.html">Define ANJAY_SSID_BOOTSTRAP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_sw__mgmt_8h_1a1edd73ce39504e83420398be368eee8a.html">Define ANJAY_SW_MGMT_ERR_INTEGRITY_FAILURE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_sw__mgmt_8h_1a82ff2d360f70f03ee6d681b3dca68b22.html">Define ANJAY_SW_MGMT_ERR_NOT_ENOUGH_SPACE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_sw__mgmt_8h_1a094a71965ee19d84d6b9fbcc7e3587a9.html">Define ANJAY_SW_MGMT_ERR_OUT_OF_MEMORY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_sw__mgmt_8h_1acf9d0c4cbe8d2c6c5c677c6360e4c0ed.html">Define ANJAY_SW_MGMT_ERR_UNSUPPORTED_PACKAGE_TYPE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1abfe94aeaa70dc8ad4e9c4b3df4442a0b.html">Define ANJAY_WITH_ACCESS_CONTROL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1af4fa5d1e1e51b742ca5c663ba1b87c78.html">Define ANJAY_WITH_ATTR_STORAGE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a8a70f38b1f092c1eff76496512d0695f.html">Define ANJAY_WITH_BOOTSTRAP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a6e02729f9ee0d7005153b90837fb11a8.html">Define ANJAY_WITH_BOOTSTRAP_PACK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ac0e52744ae930db0f298d2d6f76bb483.html">Define ANJAY_WITH_CBOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ac0c49e6eb1f1bf4233d4100f75e02ef3.html">Define ANJAY_WITH_COAP_DOWNLOAD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a42ff0478e37edf2e161ae95725b2aff6.html">Define ANJAY_WITH_COAP_OSCORE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a6c4776aab1ad2d74677adec7b939660e.html">Define ANJAY_WITH_COMMUNICATION_TIMESTAMP_API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a748f705c32b8e352089e7e233bb7782e.html">Define ANJAY_WITH_CON_ATTR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1aacc008a1cd527de44bf9d0d0c5d50178.html">Define ANJAY_WITH_CONN_STATUS_API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ad83f5d3a0ede5bb617cfae1ed67e89ce.html">Define ANJAY_WITH_CORE_PERSISTENCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a55fa5826aba0829bd86563a976b4bd88.html">Define ANJAY_WITH_DISCOVER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a9879332ce70641480bdf8752bdd74907.html">Define ANJAY_WITH_DOWNLOADER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ac025023425772dbf0d92a34e49114642.html">Define ANJAY_WITH_EST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a9715f80522530f56e6dac36a1862cc09.html">Define ANJAY_WITH_EST_ENGINE_SUPPORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a4fdab113f2791041337d1eccbb9e7a05.html">Define ANJAY_WITH_EVENT_LOOP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a9ad86ed37979ceead668e68b1e9e439e.html">Define ANJAY_WITH_HTTP_DOWNLOAD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5b86ce9473c59c30f0039a10f13a3437.html">Define ANJAY_WITH_LEGACY_CONTENT_FORMAT_SUPPORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5caf0af969edccfbd8e19ea44b581902.html">Define ANJAY_WITH_LOGS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a297c84b47c7c1033e60f6e11bb4dcd07.html">Define ANJAY_WITH_LWM2M11</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a76b0e1614ac0af9d5c21c44e51c17ff4.html">Define ANJAY_WITH_LWM2M12</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a37272d012abb5c22e5f473d85e896fd2.html">Define ANJAY_WITH_LWM2M_GATEWAY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ab69302a2066492a5260f11d8950e1b3c.html">Define ANJAY_WITH_LWM2M_JSON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a3197f7e5fcb8086c8e7c573ed5b5fc26.html">Define ANJAY_WITH_MODULE_ACCESS_CONTROL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a41b81be95b1ceead5be5a9d5dcdbf39c.html">Define ANJAY_WITH_MODULE_ADVANCED_FW_UPDATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5fd5d48f37b29b23694a0ded05f952b3.html">Define ANJAY_WITH_MODULE_AT_SMS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ac424b635b078ce4aa6da00d35652b703.html">Define ANJAY_WITH_MODULE_BG96_NIDD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a0c94b83078cb3f9bb63fb02fffe04732.html">Define ANJAY_WITH_MODULE_BOOTSTRAPPER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5e1a4967a8fc19a9165de610000cc163.html">Define ANJAY_WITH_MODULE_FACTORY_PROVISIONING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a2a1fefa3a82d7d3defdcb13597733e06.html">Define ANJAY_WITH_MODULE_FW_UPDATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5de9c2550b5a6fac848ed67bd2b39ddd.html">Define ANJAY_WITH_MODULE_FW_UPDATE_V11_RESOURCES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a00544175958e46660b9e7cfe16c8578b.html">Define ANJAY_WITH_MODULE_IPSO_OBJECTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a379aa8fff9ca1afab5581149de8ab660.html">Define ANJAY_WITH_MODULE_IPSO_OBJECTS_V2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a47ff8a61d07dc2ccaf0229601c30773b.html">Define ANJAY_WITH_MODULE_OSCORE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1af3826c0f2b7e58651d8237f2d8f71394.html">Define ANJAY_WITH_MODULE_SECURITY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a73efb35fc555fdda695dc571626850e6.html">Define ANJAY_WITH_MODULE_SECURITY_ENGINE_SUPPORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1af53296d4db302f03403cdf2b0443b59a.html">Define ANJAY_WITH_MODULE_SERVER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ac5fb9b290dc4936eb045ad850de10b96.html">Define ANJAY_WITH_MODULE_SIM_BOOTSTRAP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a920d67032c468b15dec9bd9db2ed87eb.html">Define ANJAY_WITH_MODULE_SW_MGMT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a16f03e937cee569e516ff4616c3b97fc.html">Define ANJAY_WITH_NET_STATS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a587ff02d54991baf464a4b911612b25a.html">Define ANJAY_WITH_NIDD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a0aad7d93d16ad737c978d0a3d03e0afe.html">Define ANJAY_WITH_OBSERVATION_ATTRIBUTES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a94b3894de8e54ba40684218883475ac2.html">Define ANJAY_WITH_OBSERVATION_STATUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1add6266e9abb910f6d276143fbe185837.html">Define ANJAY_WITH_OBSERVE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a7548055e28a4d0b9c82c8026a2079ac1.html">Define ANJAY_WITH_SECURITY_STRUCTURED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a19759e71aa728a7643f8c07c25452636.html">Define ANJAY_WITH_SEND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ada3f87882cf52621892fb0dc8e440edb.html">Define ANJAY_WITH_SENML_JSON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a6ab678894c687841bf086de9b707666f.html">Define ANJAY_WITH_SMS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a867edaef535744dfa7326262ab3aeaa5.html">Define ANJAY_WITH_SMS_MULTIPART</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a2e6226e0bbefabbea1fef9fc0022e4a6.html">Define ANJAY_WITH_SSL_ERROR_API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a5bf6af2b96b0c63902efd9678e09917f.html">Define ANJAY_WITH_THREAD_SAFETY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a0bf7c70c2e84aed245739dbfb9c09a79.html">Define ANJAY_WITH_TRACE_LOGS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1ab5b22460fab132152fbb7b0d3a534e7e.html">Define ANJAY_WITHOUT_COMPOSITE_OPERATIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a44826aa45d0229e685dbb1e93990f602.html">Define ANJAY_WITHOUT_DEREGISTER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a1c8b1810f8e4ff24503665cdd9cecccc.html">Define ANJAY_WITHOUT_IP_STICKINESS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a355b48c6832e64bf8fb0f722e634583e.html">Define ANJAY_WITHOUT_MODULE_FW_UPDATE_PUSH_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a79d7e00d1578b136e24edddec55c8805.html">Define ANJAY_WITHOUT_PLAINTEXT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a8cf669efabe450657ec306e926f69a8a.html">Define ANJAY_WITHOUT_QUEUE_MODE_AUTOCLOSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_anjay__config_8h_1a4fbe21dde613874334a852257e4a5f3a.html">Define ANJAY_WITHOUT_TLV</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a24c63748469bab229af29b6d88944e08.html">Define AVS_COAP_OSCORE_MASTER_SALT_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1aaff4de44786118305c5cfe4bdac8f3ae.html">Define AVS_COAP_OSCORE_MASTER_SECRET_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a530dfe8ae3fe24190acc7a21cf933e72.html">Define AVS_COAP_UDP_NOTIFY_CACHE_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a4d61136e4b355462831e14e6bd5417f5.html">Define AVS_COMMONS_BIG_ENDIAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a848443e5dfea2637c698c7eb57685434.html">Define AVS_COMMONS_COMPAT_THREADING_PTHREAD_HAVE_PTHREAD_CONDATTR_SETCLOCK</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Define AVS_COMMONS_COMPAT_THREADING_WITH_ATOMIC_SPINLOCK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a4e5e684b761ee97e54d05a2cfa5b2af0.html">Define AVS_COMMONS_COMPAT_THREADING_WITH_PTHREAD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1aa84a97b71a448a996d748ba88c464f88.html">Define AVS_COMMONS_HAVE_BUILTIN_ADD_OVERFLOW</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1aabb913d4fbc6740855d003e0ed36fbe3.html">Define AVS_COMMONS_HAVE_BUILTIN_MUL_OVERFLOW</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1ae88f6f0d7aef9ac110b06759262be77e.html">Define AVS_COMMONS_HAVE_DLSYM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1aed1fd1b44a3cce7462791721e9475c4d.html">Define AVS_COMMONS_HAVE_NET_IF_H</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1aebb65006c2803f2cdb352dcd7d653ade.html">Define AVS_COMMONS_HAVE_PRAGMA_DIAGNOSTIC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a9ec307e0688e338315004d3df8b6c8f4.html">Define AVS_COMMONS_HAVE_VISIBILITY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1abeba376591734f3151a2f1c8c23327e1.html">Define AVS_COMMONS_HTTP_WITH_ZLIB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1ac8c080983967303ac96f5886c9092bf9.html">Define AVS_COMMONS_LOG_MAX_LINE_LENGTH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1adbfde8c031f2e2bda3b757a4f6bbcf50.html">Define AVS_COMMONS_LOG_USE_GLOBAL_BUFFER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1ab5e6d919c153969702ba258f0daa19db.html">Define AVS_COMMONS_LOG_WITH_DEFAULT_HANDLER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a4b5bfe4ed7415b1a798602ea1de0d05b.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_GAI_STRERROR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a8fafbcaf9b3a43888711dbb0ec8ab46b.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_GETIFADDRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a8d5244c60d2f88f6c8d34ab5caaec240.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_GETNAMEINFO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a7266202352821e75b126c62629a6a37d.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_IN6_IS_ADDR_V4MAPPED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a6dc300543449f2b1b4cd21049049318b.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_INET_NTOP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a6f66764748de488a46c76d4c6b67ad48.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_POLL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a333ea0b4b79e252c4ae5576ac7ede3fc.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_HAVE_RECVMSG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a5ac97db3c95c56a7db5ef18e24e336f7.html">Define AVS_COMMONS_NET_POSIX_AVS_SOCKET_WITHOUT_IN6_V4MAPPED_SUPPORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a882548a6b408230c65c61f42501dce5f.html">Define AVS_COMMONS_NET_WITH_DTLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a60a69f38a1879fc5e38c68469272b0b2.html">Define AVS_COMMONS_NET_WITH_IPV4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a86877a645fd203904ab2dfa33e166ba0.html">Define AVS_COMMONS_NET_WITH_IPV6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a0a38aedd1de1c9e5516d2133a25b7818.html">Define AVS_COMMONS_NET_WITH_MBEDTLS_LOGS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a25288e0a9f8a1e4feba6ed931f802390.html">Define AVS_COMMONS_NET_WITH_MBEDTLS_SSLKEYLOG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a92857860313a07e7a56ec440f47e4c0f.html">Define AVS_COMMONS_NET_WITH_POSIX_AVS_SOCKET</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a3c143a750d4832a7155bcadce3b4d9ca.html">Define AVS_COMMONS_NET_WITH_SOCKET_LOG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1ab29c41133d954f1b45b4eebe26919c16.html">Define AVS_COMMONS_NET_WITH_TLS_SESSION_PERSISTENCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a0410faa3cf5c51b96150f208c80a5122.html">Define AVS_COMMONS_POSIX_COMPAT_HEADER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a30f690dcd0448803e753d246cc636774.html">Define AVS_COMMONS_SCHED_THREAD_SAFE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a4a5cf592bb8d78799321baa15c6f42d5.html">Define AVS_COMMONS_STREAM_WITH_FILE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a76ed30d2eaa0a176cd4ceea8e51df312.html">Define AVS_COMMONS_UNIT_POSIX_HAVE_BACKTRACE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1aabce672d6fd97638b5df5c76fc81058f.html">Define AVS_COMMONS_UTILS_WITH_ALIGNFIX_ALLOCATOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1acb78759fef7d1fc6f7fcfd0152f335ec.html">Define AVS_COMMONS_UTILS_WITH_POSIX_AVS_TIME</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a5eddc31cb2397128fd56944fae299dcc.html">Define AVS_COMMONS_UTILS_WITH_STANDARD_ALLOCATOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1aacbcd049597fbc6277cb972117d8826d.html">Define AVS_COMMONS_WITH_AVS_ALGORITHM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a8dc63cb81697985df30dcfdb3bbbf8b2.html">Define AVS_COMMONS_WITH_AVS_BUFFER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a00ef30295fd850f4f548b27dbc6a3a10.html">Define AVS_COMMONS_WITH_AVS_COMPAT_THREADING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a0eaa0d3932fe11ba8b09c26e6e3402f9.html">Define AVS_COMMONS_WITH_AVS_CRYPTO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a009a94c441810d763f5dfd053d51cf28.html">Define AVS_COMMONS_WITH_AVS_CRYPTO_ADVANCED_FEATURES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1ae547136bdedd46c05c5d6a1027289680.html">Define AVS_COMMONS_WITH_AVS_CRYPTO_PKI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a6adaf72fa80ca53e8dad403fb37c611f.html">Define AVS_COMMONS_WITH_AVS_CRYPTO_PKI_ENGINE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1ac686ad77991ea49b3567ee99fbffd663.html">Define AVS_COMMONS_WITH_AVS_CRYPTO_PSK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1af7cba15261d9dfb8826816ff958a68fb.html">Define AVS_COMMONS_WITH_AVS_CRYPTO_PSK_ENGINE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a64b04bacb70f3220c01870071a3e8535.html">Define AVS_COMMONS_WITH_AVS_CRYPTO_VALGRIND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1af0d3c5816f9d289feedd67c60ff3fc46.html">Define AVS_COMMONS_WITH_AVS_HTTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a918e8786cffa49774ef7e9cad16c0737.html">Define AVS_COMMONS_WITH_AVS_LIST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a84d02dfa50acc0635ed69f4757e6cf18.html">Define AVS_COMMONS_WITH_AVS_LOG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a708f930840209ad69370a6fd76907436.html">Define AVS_COMMONS_WITH_AVS_NET</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a78917e9334f60ca8e68c1ff4cafd28c3.html">Define AVS_COMMONS_WITH_AVS_PERSISTENCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1abeb18233e8ca96ff3e64e073746df98e.html">Define AVS_COMMONS_WITH_AVS_RBTREE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a080b69eeb2d826c526fa36ec4277940e.html">Define AVS_COMMONS_WITH_AVS_SCHED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a0a25273afbcfd2d612da9efed56917d2.html">Define AVS_COMMONS_WITH_AVS_SORTED_SET</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1abf72181ddd0758bd317b1c1ec0bee013.html">Define AVS_COMMONS_WITH_AVS_STREAM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a90433e717e8324f9f6467eb8225e130a.html">Define AVS_COMMONS_WITH_AVS_UNIT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a6f45d2c6aec89ecc196973f619bd7fad.html">Define AVS_COMMONS_WITH_AVS_URL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a8486bb5a88a2e002701d5bfd46e1d3a8.html">Define AVS_COMMONS_WITH_AVS_UTILS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a116130da558c8fdcc7c5089f6b12a57f.html">Define AVS_COMMONS_WITH_AVS_VECTOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a889412265de8fd2689d3d9c0ab6a583f.html">Define AVS_COMMONS_WITH_CUSTOM_TLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a0a063c506885429bbb534450fd734eb2.html">Define AVS_COMMONS_WITH_EXTERNAL_LOG_LEVELS_HEADER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a8e79de06c49fd6d075c58ca01b0a6919.html">Define AVS_COMMONS_WITH_EXTERNAL_LOGGER_HEADER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a3a3bcb3e6dbc9cca1e1c07038c3758a8.html">Define AVS_COMMONS_WITH_INTERNAL_LOGS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a06aceb6ef1ca8369674953373c256ddd.html">Define AVS_COMMONS_WITH_INTERNAL_TRACE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1adc0378d190edcd2315ccb3ec970a72c3.html">Define AVS_COMMONS_WITH_MBEDTLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1acf764cd1f0033eee945272fb145bd43f.html">Define AVS_COMMONS_WITH_MBEDTLS_PKCS11_ENGINE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1aea6a3b0fa2202ff443b32f0369a5ca4d.html">Define AVS_COMMONS_WITH_MBEDTLS_PSA_ENGINE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a737f4d05a5a4fce136a81dadea2e40a6.html">Define AVS_COMMONS_WITH_MBEDTLS_PSA_ENGINE_PROTECTED_STORAGE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a08ca2a23adf8c66f3f81aa4166beb206.html">Define AVS_COMMONS_WITH_MBEDTLS_PSA_RNG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a5e79842bc58026dc16ea6a03698afba2.html">Define AVS_COMMONS_WITH_MICRO_LOGS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a36d9399c72822149a421218933745709.html">Define AVS_COMMONS_WITH_OPENSSL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a2d340146eb8121753f4330e363752ca3.html">Define AVS_COMMONS_WITH_OPENSSL_PKCS11_ENGINE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1abec5a0c5e8fff6eaeec42b7ba255c4de.html">Define AVS_COMMONS_WITH_POISONING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1abd1b439eef55d6a7d0ebe2e0e722da82.html">Define AVS_COMMONS_WITH_TINYDTLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a2c565e5890501ab95d8290b1efa778d5.html">Define AVS_COMMONS_WITH_TRAFFIC_INTERCEPTOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a3d2750946e4e99bf96f272e07cbbf063.html">Define AVS_COMMONS_WITHOUT_64BIT_FORMAT_SPECIFIERS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1a1df35840a27c529ca297386ebd8665a8.html">Define AVS_COMMONS_WITHOUT_FLOAT_FORMAT_SPECIFIERS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__commons__config_8h_1ae956072c3d8f4a4a16c6cdbe910fdfd0.html">Define AVS_COMMONS_WITHOUT_LOG_CHECK_IN_RUNTIME</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a0894f81da174cb38af8156515937ae25.html">Define WITH_AVS_COAP_BLOCK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a49cf157ff0fc9d82a7663b6268db1e3b.html">Define WITH_AVS_COAP_DIAGNOSTIC_MESSAGES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a7cc08c4aac323d482eda56fa2db320c8.html">Define WITH_AVS_COAP_LOGS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1aebaa4da8e066d55550bba2e8e63b02c6.html">Define WITH_AVS_COAP_OBSERVE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a3e298e3a1d92ca1ad8de5cc865e31685.html">Define WITH_AVS_COAP_OBSERVE_CANCEL_ON_TIMEOUT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a4851a0be5bec4a67e9b24b6e12c50878.html">Define WITH_AVS_COAP_OBSERVE_FORCE_CANCEL_ON_UNACKED_ERROR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1aa55cbfe74d2214cf8a54c4fd6a47b993.html">Define WITH_AVS_COAP_OBSERVE_PERSISTENCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a28d4d981962b6c55c34c31efbbbea6a0.html">Define WITH_AVS_COAP_OSCORE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a1e83f2b85dfbe1fbd6e6f3fefcfad190.html">Define WITH_AVS_COAP_OSCORE_DRAFT_8</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a58b5cd142bf248ed615a37d812a6265d.html">Define WITH_AVS_COAP_POISONING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a8cb20a225152d43c72ddf6655dea0eec.html">Define WITH_AVS_COAP_STREAMING_API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1af0da0b312c7ea723481eb484d8805495.html">Define WITH_AVS_COAP_TCP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a50c0b3d9bd0c64a60948752856181580.html">Define WITH_AVS_COAP_TRACE_LOGS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_avs__coap__config_8h_1a0f07940f136b2ed929a49a947d1d68b5.html">Define WITH_AVS_COAP_UDP</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BackToDocumentation.html">Back to documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">Anjay API Library</a></li>
+      <li class="breadcrumb-item active">Define AVS_COMMONS_COMPAT_THREADING_WITH_ATOMIC_SPINLOCK</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="define-avs-commons-compat-threading-with-atomic-spinlock">
+<span id="exhale-define-avs-commons-config-8h-1a3fefb592c531407d42bb203a5a114946"></span><h1>Define AVS_COMMONS_COMPAT_THREADING_WITH_ATOMIC_SPINLOCK<a class="headerlink" href="#define-avs-commons-compat-threading-with-atomic-spinlock" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_include_public_avsystem_commons_avs_commons_config.h.html#file-include-public-avsystem-commons-avs-commons-config-h"><span class="std std-ref">File avs_commons_config.h</span></a></p></li>
+</ul>
+<section id="define-documentation">
+<h2>Define Documentation<a class="headerlink" href="#define-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.AVS_COMMONS_COMPAT_THREADING_WITH_ATOMIC_SPINLOCK">
+<span class="target" id="avs__commons__config_8h_1a3fefb592c531407d42bb203a5a114946"></span><span class="sig-name descname"><span class="n"><span class="pre">AVS_COMMONS_COMPAT_THREADING_WITH_ATOMIC_SPINLOCK</span></span></span><a class="headerlink" href="#c.AVS_COMMONS_COMPAT_THREADING_WITH_ATOMIC_SPINLOCK" title="Link to this definition"></a><br /></dt>
+<dd><p>Options that control compilation of avs_compat_threading implementations.</p>
+<p>If CMake is not used, in the typical scenario at most one of the following implementations may be enabled at the same time. If none is enabled, the relevant symbols will need to be provided by the user, if used.</p>
+<p>These are meaningful only if <code class="docutils literal notranslate"><span class="pre">AVS_COMMONS_WITH_AVS_COMPAT_THREADING</span></code> is defined. Enable implementation based on spinlocks.</p>
+<p>This implementation is usually very inefficient, and requires C11 stdatomic.h header to be available. </p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="define_avs__commons__config_8h_1a848443e5dfea2637c698c7eb57685434.html" class="btn btn-neutral float-left" title="Define AVS_COMMONS_COMPAT_THREADING_PTHREAD_HAVE_PTHREAD_CONDATTR_SETCLOCK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="define_avs__commons__config_8h_1a4e5e684b761ee97e54d05a2cfa5b2af0.html" class="btn btn-neutral float-right" title="Define AVS_COMMONS_COMPAT_THREADING_WITH_PTHREAD" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+        <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/139620700.js"></script>
+
+
+</body>
+</html>

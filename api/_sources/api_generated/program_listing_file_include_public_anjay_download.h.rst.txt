@@ -1,0 +1,118 @@
+
+.. _program_listing_file_include_public_anjay_download.h:
+
+Program Listing for File download.h
+===================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_download.h>` (``include_public/anjay/download.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_DOWNLOAD_H
+   #define ANJAY_INCLUDE_ANJAY_DOWNLOAD_H
+   
+   #include <stddef.h>
+   #include <stdint.h>
+   
+   #include <avsystem/commons/avs_net.h>
+   
+   #include <anjay/anjay_config.h>
+   #include <anjay/core.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef struct anjay_etag {
+       uint8_t size;
+       uint8_t value[1]; // actually a flexible array member
+   } anjay_etag_t;
+   
+   anjay_etag_t *anjay_etag_new(uint8_t etag_size);
+   
+   anjay_etag_t *anjay_etag_clone(const anjay_etag_t *old_etag);
+   
+   typedef avs_error_t
+   anjay_download_next_block_handler_t(anjay_t *anjay,
+                                       const uint8_t *data,
+                                       size_t data_size,
+                                       const anjay_etag_t *etag,
+                                       void *user_data);
+   
+   typedef enum anjay_download_result {
+       ANJAY_DOWNLOAD_FINISHED,
+       ANJAY_DOWNLOAD_ERR_FAILED,
+       ANJAY_DOWNLOAD_ERR_INVALID_RESPONSE,
+       ANJAY_DOWNLOAD_ERR_EXPIRED,
+       ANJAY_DOWNLOAD_ERR_ABORTED
+   } anjay_download_result_t;
+   
+   typedef struct {
+       anjay_download_result_t result;
+   
+       union {
+           avs_error_t error;
+   
+           int status_code;
+       } details;
+   } anjay_download_status_t;
+   
+   typedef void anjay_download_finished_handler_t(anjay_t *anjay,
+                                                  anjay_download_status_t status,
+                                                  void *user_data);
+   
+   typedef struct anjay_download_config {
+       const char *url;
+   
+       size_t start_offset;
+   
+       const anjay_etag_t *etag;
+   
+       anjay_download_next_block_handler_t *on_next_block;
+   
+       anjay_download_finished_handler_t *on_download_finished;
+   
+       void *user_data;
+   
+       anjay_security_config_t security_config;
+   
+       avs_coap_udp_tx_params_t *coap_tx_params;
+   
+       avs_time_duration_t tcp_request_timeout;
+   
+       bool prefer_same_socket_downloads;
+   } anjay_download_config_t;
+   
+   typedef void *anjay_download_handle_t;
+   
+   avs_error_t anjay_download(anjay_t *anjay,
+                              const anjay_download_config_t *config,
+                              anjay_download_handle_t *out_handle);
+   
+   avs_error_t
+   anjay_download_set_next_block_offset(anjay_t *anjay,
+                                        anjay_download_handle_t dl_handle,
+                                        size_t next_block_offset);
+   
+   void anjay_download_abort(anjay_t *anjay, anjay_download_handle_t dl_handle);
+   
+   void anjay_download_suspend(anjay_t *anjay, anjay_download_handle_t dl_handle);
+   
+   int anjay_download_reconnect(anjay_t *anjay, anjay_download_handle_t dl_handle);
+   
+   #ifdef __cplusplus
+   } /* extern "C" */
+   #endif
+   
+   #endif /*ANJAY_INCLUDE_ANJAY_DOWNLOAD_H*/

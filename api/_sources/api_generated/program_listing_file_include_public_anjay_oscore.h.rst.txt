@@ -1,0 +1,65 @@
+
+.. _program_listing_file_include_public_anjay_oscore.h:
+
+Program Listing for File oscore.h
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_oscore.h>` (``include_public/anjay/oscore.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   
+   #ifndef ANJAY_INCLUDE_ANJAY_OSCORE_H
+   #define ANJAY_INCLUDE_ANJAY_OSCORE_H
+   
+   #include <anjay/dm.h>
+   
+   #include <avsystem/coap/oscore.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   typedef struct {
+       char master_secret[AVS_COAP_OSCORE_MASTER_SECRET_SIZE + 1];
+   
+       char master_salt[AVS_COAP_OSCORE_MASTER_SALT_SIZE + 1];
+   
+       char sender_id[AVS_COAP_OSCORE_MAX_PEER_ID_LENGTH + 1];
+   
+       char recipient_id[AVS_COAP_OSCORE_MAX_PEER_ID_LENGTH + 1];
+   
+       const char *id_context;
+   } anjay_oscore_instance_t;
+   
+   int anjay_oscore_add_instance(anjay_t *anjay,
+                                 const anjay_oscore_instance_t *instance,
+                                 anjay_iid_t *inout_iid);
+   
+   void anjay_oscore_object_purge(anjay_t *anjay);
+   
+   avs_error_t anjay_oscore_object_persist(anjay_t *anjay,
+                                           avs_stream_t *out_stream);
+   
+   avs_error_t anjay_oscore_object_restore(anjay_t *anjay,
+                                           avs_stream_t *in_stream);
+   
+   bool anjay_oscore_object_is_modified(anjay_t *anjay);
+   
+   int anjay_oscore_object_install(anjay_t *anjay);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_OSCORE_H */

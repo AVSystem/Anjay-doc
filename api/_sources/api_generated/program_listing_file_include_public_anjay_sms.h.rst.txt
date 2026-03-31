@@ -1,0 +1,83 @@
+
+.. _program_listing_file_include_public_anjay_sms.h:
+
+Program Listing for File sms.h
+==============================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_public_anjay_sms.h>` (``include_public/anjay/sms.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   /*
+    * Copyright 2017-2026 AVSystem <avsystem@avsystem.com>
+    * AVSystem Anjay LwM2M SDK
+    * All rights reserved.
+    *
+    * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.
+    * See the attached LICENSE file for details.
+    */
+   #ifndef ANJAY_INCLUDE_ANJAY_SMS_H
+   #define ANJAY_INCLUDE_ANJAY_SMS_H
+   
+   #include <anjay/core.h>
+   
+   #ifdef __cplusplus
+   extern "C" {
+   #endif
+   
+   #define ANJAY_MSISDN_SIZE 16
+   
+   typedef struct {
+       uint8_t csms_ref_length;
+       uint32_t csms_ref;
+       uint8_t part_number;
+       uint8_t total_parts;
+   } anjay_smsdrv_multipart_info_t;
+   
+   typedef int
+   anjay_smsdrv_recv_all_cb_t(void *cb_arg,
+                              const char *source,
+                              const void *data,
+                              uint8_t data_size,
+                              const anjay_smsdrv_multipart_info_t *multipart_info,
+                              bool *out_should_remove);
+   typedef int
+   anjay_smsdrv_send_t(anjay_smsdrv_t *driver,
+                       const char *destination,
+                       const void *data,
+                       size_t data_size,
+                       const anjay_smsdrv_multipart_info_t *multipart_info,
+                       avs_time_duration_t timeout);
+   
+   typedef int anjay_smsdrv_should_try_recv_t(anjay_smsdrv_t *driver,
+                                              avs_time_duration_t timeout);
+   
+   typedef int anjay_smsdrv_recv_all_t(anjay_smsdrv_t *driver,
+                                       anjay_smsdrv_recv_all_cb_t *cb,
+                                       void *cb_arg);
+   
+   typedef int anjay_smsdrv_system_socket_t(anjay_smsdrv_t *driver,
+                                            const void **out);
+   
+   typedef avs_errno_t anjay_smsdrv_error_t(anjay_smsdrv_t *driver);
+   
+   typedef void anjay_smsdrv_free_t(anjay_smsdrv_t *driver);
+   
+   struct anjay_smsdrv_struct {
+       anjay_smsdrv_send_t *send;
+       anjay_smsdrv_should_try_recv_t *should_try_recv;
+       anjay_smsdrv_recv_all_t *recv_all;
+       anjay_smsdrv_system_socket_t *system_socket;
+       anjay_smsdrv_error_t *get_error;
+       anjay_smsdrv_free_t *free;
+   };
+   
+   void anjay_smsdrv_cleanup(anjay_smsdrv_t **driver);
+   
+   #ifdef __cplusplus
+   }
+   #endif
+   
+   #endif /* ANJAY_INCLUDE_ANJAY_SMS_H */

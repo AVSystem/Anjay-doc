@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File core.h &mdash; Anjay 3.13.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="canonical" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/program_listing_file_include_public_anjay_core.h.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=6aaf4047"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.13.0
+              </div><div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search API..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="library_root.html">Anjay API Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BackToDocumentation.html">Back to documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File core.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-core-h">
+<span id="program-listing-file-include-public-anjay-core-h"></span><h1>Program Listing for File core.h<a class="headerlink" href="#program-listing-for-file-core-h" title="Link to this heading"></a></h1>
+<p>↰ <a class="reference internal" href="file_include_public_anjay_core.h.html#file-include-public-anjay-core-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">include_public/anjay/core.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sockets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anjay_get_sockets</span><span class="p">(</span><span class="n">anjay</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sockets</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// assuming there is only one socket</span>
+<span class="w">        </span><span class="n">poll_fd</span><span class="p">.</span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">avs_net_socket_get_system</span><span class="p">(</span><span class="o">*</span><span class="n">sockets</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// sockets not initialized yet</span>
+<span class="w">        </span><span class="n">poll_fd</span><span class="p">.</span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">poll</span><span class="p">(</span><span class="o">&amp;</span><span class="n">poll_fd</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">poll_fd</span><span class="p">.</span><span class="n">revents</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">POLLIN</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">             </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">anjay_serve</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">sockets</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                 </span><span class="n">log</span><span class="p">(</span><span class="s">&quot;anjay_serve failed&quot;</span><span class="p">);</span>
+<span class="w">             </span><span class="p">}</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="cm">/*</span>
+<span class="cm"> * Copyright 2017-2026 AVSystem &lt;avsystem@avsystem.com&gt;</span>
+<span class="cm"> * AVSystem Anjay LwM2M SDK</span>
+<span class="cm"> * All rights reserved.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Licensed under AVSystem Anjay LwM2M Client SDK - Non-Commercial License.</span>
+<span class="cm"> * See the attached LICENSE file for details.</span>
+<span class="cm"> */</span>
+
+<span class="cp">#ifndef ANJAY_INCLUDE_ANJAY_CORE_H</span>
+<span class="cp">#define ANJAY_INCLUDE_ANJAY_CORE_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/coap/udp.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_list.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_net.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_prng.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_sched.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_stream.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avsystem/commons/avs_time.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;anjay/anjay_config.h&gt;</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M_GATEWAY</span>
+<span class="cp">#    define ANJAY_GATEWAY_MAX_PREFIX_LEN sizeof(&quot;dev65535&quot;)</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M_GATEWAY</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#endif</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="p">;</span>
+
+<span class="cp">#define ANJAY_SSID_ANY 0</span>
+
+<span class="cp">#define ANJAY_SSID_BOOTSTRAP UINT16_MAX</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_struct</span><span class="w"> </span><span class="n">anjay_t</span><span class="p">;</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_smsdrv_struct</span><span class="w"> </span><span class="n">anjay_smsdrv_t</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#ifdef ANJAY_WITH_NIDD</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_nidd_driver_struct</span><span class="w"> </span><span class="n">anjay_nidd_driver_t</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_NIDD</span>
+
+<span class="c1">// clang-format off</span>
+<span class="cp">#define ANJAY_COAP_DEFAULT_UDP_TX_PARAMS \</span>
+<span class="cp">    {                                    \</span>
+<span class="cp">        </span><span class="cm">/* .ack_timeout = */</span><span class="cp"> { 2, 0 },   \</span>
+<span class="cp">        </span><span class="cm">/* .ack_random_factor = */</span><span class="cp"> 1.5,  \</span>
+<span class="cp">        </span><span class="cm">/* .max_retransmit = */</span><span class="cp"> 4,       \</span>
+<span class="cp">        </span><span class="cm">/* .nstart = */</span><span class="cp"> 1                \</span>
+<span class="cp">    }</span>
+<span class="c1">// clang-format on</span>
+
+<span class="c1">// clang-format off</span>
+<span class="cp">#define ANJAY_DTLS_DEFAULT_UDP_HS_TX_PARAMS \</span>
+<span class="cp">    {                                       \</span>
+<span class="cp">        </span><span class="cm">/* .min = */</span><span class="cp"> { 1, 0 },              \</span>
+<span class="cp">        </span><span class="cm">/* .max = */</span><span class="cp"> { 60, 0 }              \</span>
+<span class="cp">    }</span>
+<span class="c1">// clang-format on</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="c1">// clang-format off</span>
+<span class="cp">#define ANJAY_COAP_DEFAULT_SMS_TX_PARAMS \</span>
+<span class="cp">    {                                    \</span>
+<span class="cp">        </span><span class="cm">/* .ack_timeout = */</span><span class="cp"> { 62, 0 },  \</span>
+<span class="cp">        </span><span class="cm">/* .ack_random_factor = */</span><span class="cp"> 1.5,  \</span>
+<span class="cp">        </span><span class="cm">/* .max_retransmit = */</span><span class="cp"> 0,       \</span>
+<span class="cp">        </span><span class="cm">/* .nstart = */</span><span class="cp"> 1                \</span>
+<span class="cp">    }</span>
+<span class="c1">// clang-format on</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#ifdef ANJAY_WITH_NIDD</span>
+<span class="c1">// clang-format off</span>
+<span class="cp">#define ANJAY_COAP_DEFAULT_NIDD_TX_PARAMS \</span>
+<span class="cp">    {                                    \</span>
+<span class="cp">        </span><span class="cm">/* .ack_timeout = */</span><span class="cp"> { 60, 0 },  \</span>
+<span class="cp">        </span><span class="cm">/* .ack_random_factor = */</span><span class="cp"> 1.5,  \</span>
+<span class="cp">        </span><span class="cm">/* .max_retransmit = */</span><span class="cp"> 0,       \</span>
+<span class="cp">        </span><span class="cm">/* .nstart = */</span><span class="cp"> 1                \</span>
+<span class="cp">    }</span>
+<span class="c1">// clang-format on</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_NIDD</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M11</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_LWM2M_VERSION_1_0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_LWM2M_VERSION_1_1</span>
+<span class="cp">#    ifdef ANJAY_WITH_LWM2M12</span>
+<span class="w">    </span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_LWM2M_VERSION_1_2</span>
+<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_LWM2M12</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_lwm2m_version_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">anjay_lwm2m_version_t</span><span class="w"> </span><span class="n">minimum_version</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_lwm2m_version_t</span><span class="w"> </span><span class="n">maximum_version</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_lwm2m_version_config_t</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
+
+<span class="cp">#ifdef ANJAY_WITH_EST</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">enable</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">nominal_usage</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">max_margin</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_est_reenroll_config_t</span><span class="p">;</span>
+
+<span class="cp">#    ifdef ANJAY_WITH_LWM2M11</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_EST_CACERTS_FOR_EST_SECURITY_AND_BOOTSTRAP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">ANJAY_EST_CACERTS_FOR_EST_SECURITY</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">ANJAY_EST_CACERTS_IF_EST_CONFIGURED</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">ANJAY_EST_CACERTS_ALWAYS</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">ANJAY_EST_CACERTS_DISABLED</span><span class="p">,</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_est_cacerts_policy_t</span><span class="p">;</span>
+<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
+
+<span class="cp">#    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_est_engine_cacert_address_gen_t</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">x509_der_data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">x509_der_data_size</span><span class="p">);</span>
+<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_EST_ENGINE_SUPPORT</span>
+<span class="cp">#endif     </span><span class="c1">// ANJAY_WITH_EST</span>
+
+<span class="c1">// NOTE: A lot of code depends on numerical values of these constants.</span>
+<span class="c1">// Please be careful when refactoring.</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_ID_OID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_ID_IID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_ID_RID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_ID_RIID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">_ANJAY_URI_PATH_MAX_LENGTH</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_id_type_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ids</span><span class="p">[</span><span class="n">_ANJAY_URI_PATH_MAX_LENGTH</span><span class="p">];</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M_GATEWAY</span>
+<span class="w">    </span><span class="c1">// NULL-terminated string</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">prefix</span><span class="p">[</span><span class="n">ANJAY_GATEWAY_MAX_PREFIX_LEN</span><span class="p">];</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M_GATEWAY</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_uri_path_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">anjay_confirmable_notification_status_cb_t</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_uri_path_t</span><span class="w"> </span><span class="o">*</span><span class="n">observation_paths</span><span class="p">,</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">paths_count</span><span class="p">,</span>
+<span class="w">        </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+
+<span class="cp">#ifdef ANJAY_WITH_CONN_STATUS_API</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">anjay_server_conn_status</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_INVALID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_ERROR</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_INITIAL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_CONNECTING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_BOOTSTRAPPING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_BOOTSTRAPPED</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_REGISTERING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_REGISTERED</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_REG_FAILURE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_DEREGISTERING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_DEREGISTERED</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_SUSPENDING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_SUSPENDED</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_REREGISTERING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SERV_CONN_STATUS_UPDATING</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_server_conn_status_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span>
+<span class="nf">anjay_server_connection_status_cb_t</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_server_conn_status_t</span><span class="w"> </span><span class="n">status</span><span class="p">);</span>
+
+<span class="n">anjay_server_conn_status_t</span>
+<span class="nf">anjay_get_server_connection_status</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_CONN_STATUS_API</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SSL_ERROR_API</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">anjay_ssl_error_cb_t</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">avs_error_t</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SSL_ERROR_API</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">anjay_configuration</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">endpoint_name</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">udp_listen_port</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_net_ssl_version_t</span><span class="w"> </span><span class="n">dtls_version</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">in_buffer_size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">out_buffer_size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">msg_cache_size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_net_socket_configuration_t</span><span class="w"> </span><span class="n">socket_config</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_coap_udp_tx_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">udp_tx_params</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_dtls_handshake_timeouts_t</span><span class="w"> </span><span class="o">*</span><span class="n">udp_dtls_hs_tx_params</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">confirmable_notifications</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">disable_legacy_server_initiated_bootstrap</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">stored_notification_limit</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">prefer_hierarchical_formats</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_connection_id</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">update_immediately_on_dm_change</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">enable_self_notify</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">connection_error_is_registration_failure</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_net_socket_tls_ciphersuites_t</span><span class="w"> </span><span class="n">default_tls_ciphersuites</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_crypto_prng_ctx_t</span><span class="w"> </span><span class="o">*</span><span class="n">prng_ctx</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_ssl_additional_configuration_clb_t</span><span class="w"> </span><span class="o">*</span><span class="n">additional_tls_config_clb</span><span class="p">;</span>
+
+<span class="cp">#if defined(WITH_AVS_COAP_TCP) \</span>
+<span class="cp">        &amp;&amp; (defined(ANJAY_WITH_LWM2M11) || defined(ANJAY_WITH_COAP_DOWNLOAD))</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">coap_tcp_max_options_size</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">coap_tcp_request_timeout</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// defined(WITH_AVS_COAP_TCP) &amp;&amp; (defined(ANJAY_WITH_LWM2M11) ||</span>
+<span class="w">       </span><span class="c1">// defined(ANJAY_WITH_COAP_DOWNLOAD))</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_coap_udp_tx_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">sms_tx_params</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#ifdef ANJAY_WITH_NIDD</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_coap_udp_tx_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">nidd_tx_params</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_NIDD</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="w">    </span><span class="n">anjay_smsdrv_t</span><span class="w"> </span><span class="o">*</span><span class="n">sms_driver</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#ifdef ANJAY_WITH_NIDD</span>
+<span class="w">    </span><span class="n">anjay_nidd_driver_t</span><span class="w"> </span><span class="o">*</span><span class="n">nidd_driver</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_NIDD</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">local_msisdn</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">prefer_multipart_sms</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M11</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_lwm2m_version_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">lwm2m_version_config</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_system_trust_store</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_crypto_certificate_chain_info_t</span><span class="w"> </span><span class="n">trust_store_certs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_crypto_cert_revocation_list_info_t</span><span class="w"> </span><span class="n">trust_store_crls</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">rebuild_client_cert_chain</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
+
+<span class="cp">#ifdef ANJAY_WITH_EST</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_est_reenroll_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">est_reenroll_config</span><span class="p">;</span>
+
+<span class="cp">#    ifdef ANJAY_WITH_LWM2M11</span>
+<span class="w">    </span><span class="n">anjay_est_cacerts_policy_t</span><span class="w"> </span><span class="n">est_cacerts_policy</span><span class="p">;</span>
+<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
+
+<span class="cp">#    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">est_engine_key_address</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">est_engine_cert_address</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_est_engine_cacert_address_gen_t</span><span class="w"> </span><span class="o">*</span><span class="n">est_engine_cacerts_address_gen_cb</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">est_engine_cacerts_address_gen_cb_arg</span><span class="p">;</span>
+<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_EST_ENGINE_SUPPORT</span>
+<span class="cp">#endif     </span><span class="c1">// ANJAY_WITH_EST</span>
+
+<span class="w">    </span><span class="n">anjay_confirmable_notification_status_cb_t</span>
+<span class="w">            </span><span class="o">*</span><span class="n">confirmable_notification_status_cb</span><span class="p">;</span>
+
+<span class="cp">#ifdef ANJAY_WITH_CONN_STATUS_API</span>
+<span class="w">    </span><span class="n">anjay_server_connection_status_cb_t</span><span class="w"> </span><span class="o">*</span><span class="n">server_connection_status_cb</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">server_connection_status_cb_arg</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_CONN_STATUS_API</span>
+<span class="cp">#ifdef ANJAY_WITH_SSL_ERROR_API</span>
+<span class="w">    </span><span class="n">anjay_ssl_error_cb_t</span><span class="w"> </span><span class="o">*</span><span class="n">ssl_error_cb</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ssl_error_cb_arg</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SSL_ERROR_API</span>
+<span class="cp">#ifdef ANJAY_WITH_COAP_DOWNLOAD</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">coap_downloader_retry_count</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">coap_downloader_retry_delay</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_COAP_DOWNLOAD</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="p">;</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_get_version</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_new</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">anjay_delete</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="cp">#ifdef ANJAY_WITH_CORE_PERSISTENCE</span>
+<span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_new_from_core_persistence</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_configuration_t</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">,</span>
+<span class="w">                                         </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">in_stream</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_delete_with_core_persistence</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                       </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_CORE_PERSISTENCE</span>
+
+<span class="n">AVS_LIST</span><span class="p">(</span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_get_sockets</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_SOCKET_TRANSPORT_INVALID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SOCKET_TRANSPORT_UDP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SOCKET_TRANSPORT_TCP</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SOCKET_TRANSPORT_SMS</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_SOCKET_TRANSPORT_NIDD</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_socket_transport_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">socket</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_socket_transport_t</span><span class="w"> </span><span class="n">transport</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">queue_mode</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_socket_entry_t</span><span class="p">;</span>
+
+<span class="n">AVS_LIST</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">anjay_socket_entry_t</span><span class="p">)</span><span class="w"> </span><span class="n">anjay_get_socket_entries</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_serve</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_net_socket_t</span><span class="w"> </span><span class="o">*</span><span class="n">ready_socket</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">anjay_oid_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">anjay_iid_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">anjay_rid_t</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">anjay_riid_t</span><span class="p">;</span>
+
+<span class="cp">#define ANJAY_ID_INVALID UINT16_MAX</span>
+
+<span class="cp">#define ANJAY_COAP_STATUS(Maj, Min) ((uint8_t) ((Maj &lt;&lt; 5) | (Min &amp; 0x1F)))</span>
+
+<span class="cp">#define ANJAY_ERR_BAD_REQUEST (-(int) ANJAY_COAP_STATUS(4, 0))</span>
+<span class="cp">#define ANJAY_ERR_UNAUTHORIZED (-(int) ANJAY_COAP_STATUS(4, 1))</span>
+<span class="cp">#define ANJAY_ERR_BAD_OPTION (-(int) ANJAY_COAP_STATUS(4, 2))</span>
+<span class="cp">#define ANJAY_ERR_FORBIDDEN (-(int) ANJAY_COAP_STATUS(4, 3))</span>
+<span class="cp">#define ANJAY_ERR_NOT_FOUND (-(int) ANJAY_COAP_STATUS(4, 4))</span>
+<span class="cp">#define ANJAY_ERR_METHOD_NOT_ALLOWED (-(int) ANJAY_COAP_STATUS(4, 5))</span>
+<span class="cp">#define ANJAY_ERR_NOT_ACCEPTABLE (-(int) ANJAY_COAP_STATUS(4, 6))</span>
+<span class="cp">#define ANJAY_ERR_REQUEST_ENTITY_INCOMPLETE (-(int) ANJAY_COAP_STATUS(4, 8))</span>
+<span class="cp">#define ANJAY_ERR_UNSUPPORTED_CONTENT_FORMAT (-(int) ANJAY_COAP_STATUS(4, 15))</span>
+<span class="cp">#define ANJAY_ERR_INTERNAL (-(int) ANJAY_COAP_STATUS(5, 0))</span>
+<span class="cp">#define ANJAY_ERR_NOT_IMPLEMENTED (-(int) ANJAY_COAP_STATUS(5, 1))</span>
+<span class="cp">#define ANJAY_ERR_SERVICE_UNAVAILABLE (-(int) ANJAY_COAP_STATUS(5, 3))</span>
+<span class="n">avs_sched_t</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_get_scheduler</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_sched_time_to_next</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_delay</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_sched_time_to_next_ms</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">out_delay_ms</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_sched_calculate_wait_time_ms</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">limit_ms</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">anjay_sched_run</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="cp">#ifdef ANJAY_WITH_EVENT_LOOP</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_event_loop_run</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">max_wait_time</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_event_loop_run_with_error_handling</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                             </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">max_wait_time</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_event_loop_interrupt</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_serve_any</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">max_wait_time</span><span class="p">);</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_EVENT_LOOP</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_schedule_register</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_schedule_registration_update</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M11</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_schedule_bootstrap_request</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_disable_server</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_disable_server_with_timeout</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                      </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                      </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">timeout</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_enable_server</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_server_schedule_reconnect</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">udp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">tcp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">sms</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+<span class="cp">#ifdef ANJAY_WITH_NIDD</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">nidd</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_NIDD</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="p">;</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">ANJAY_TRANSPORT_SET_ALL</span><span class="p">;</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">ANJAY_TRANSPORT_SET_IP</span><span class="p">;</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">ANJAY_TRANSPORT_SET_UDP</span><span class="p">;</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">ANJAY_TRANSPORT_SET_TCP</span><span class="p">;</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">ANJAY_TRANSPORT_SET_SMS</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#ifdef ANJAY_WITH_NIDD</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">ANJAY_TRANSPORT_SET_NIDD</span><span class="p">;</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_NIDD</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">anjay_transport_is_offline</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_transport_enter_offline</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_transport_exit_offline</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                 </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_transport_set_online</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                               </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_transport_schedule_reconnect</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                       </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">anjay_all_connections_failed</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="cp">#ifdef ANJAY_WITH_LWM2M11</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_FORCE_QUEUE_MODE</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">ANJAY_PREFER_QUEUE_MODE</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">ANJAY_PREFER_ONLINE_MODE</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">ANJAY_FORCE_ONLINE_MODE</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_queue_mode_preference_t</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_set_queue_mode_preference</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_queue_mode_preference_t</span><span class="w"> </span><span class="n">preference</span><span class="p">);</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">avs_net_security_info_t</span><span class="w"> </span><span class="n">security_info</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">avs_net_socket_dane_tlsa_record_t</span><span class="w"> </span><span class="o">*</span><span class="n">dane_tlsa_record</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">avs_net_socket_tls_ciphersuites_t</span><span class="w"> </span><span class="n">tls_ciphersuites</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Server Name Indicator to use for authenticating with the peer during</span>
+<span class="cm">     * secure TLS connection. The value is passed to the underlying TLS library</span>
+<span class="cm">     * that need to take this variable into account for it make any effect. This</span>
+<span class="cm">     * field is optional and can be left zero-initialized. If not set the</span>
+<span class="cm">     * integration layer should use the Server URI instead.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">server_name_indication</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_security_config_t</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_security_config_from_dm</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">anjay_security_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_config</span><span class="p">,</span>
+<span class="w">                                  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">uri</span><span class="p">);</span>
+
+<span class="n">anjay_security_config_t</span><span class="w"> </span><span class="nf">anjay_security_config_pkix</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="cp">#if defined(ANJAY_WITH_EST) &amp;&amp; defined(AVS_COMMONS_WITH_AVS_PERSISTENCE)</span>
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_est_state_persist</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_est_state_restore</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_stream_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_stream</span><span class="p">);</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">anjay_est_state_is_ready_for_persistence</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+<span class="cp">#endif </span><span class="c1">// defined(ANJAY_WITH_EST) &amp;&amp; defined(AVS_COMMONS_WITH_AVS_PERSISTENCE)</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">anjay_ongoing_registration_exists</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ANJAY_REGISTRATION_EXPIRATION_STATUS_VALID</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_REGISTRATION_EXPIRATION_STATUS_EXPIRED</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ANJAY_REGISTRATION_EXPIRATION_STATUS_INFINITE_LIFETIME</span><span class="p">,</span>
+<span class="p">}</span><span class="w"> </span><span class="n">anjay_registration_expiration_status_t</span><span class="p">;</span>
+
+<span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">anjay_registration_expiration_time_with_status</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">        </span><span class="n">anjay_registration_expiration_status_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_status</span><span class="p">);</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">avs_time_real_t</span>
+<span class="nf">anjay_registration_expiration_time</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">anjay_registration_expiration_time_with_status</span><span class="p">(</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">anjay_next_planned_lifecycle_operation</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                                       </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">anjay_transport_next_planned_lifecycle_operation</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">anjay_next_planned_notify_trigger</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                                  </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">anjay_next_planned_pmax_notify_trigger</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                                       </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">anjay_transport_next_planned_notify_trigger</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="n">avs_time_real_t</span><span class="w"> </span><span class="nf">anjay_transport_next_planned_pmax_notify_trigger</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">anjay_has_unsent_notifications</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">);</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">anjay_transport_has_unsent_notifications</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">);</span>
+
+<span class="n">avs_error_t</span>
+<span class="nf">anjay_update_transport_tx_params</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                 </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">,</span>
+<span class="w">                                 </span><span class="k">const</span><span class="w"> </span><span class="n">avs_coap_udp_tx_params_t</span><span class="w"> </span><span class="o">*</span><span class="n">tx_params</span><span class="p">);</span>
+
+<span class="n">avs_error_t</span>
+<span class="nf">anjay_update_coap_exchange_timeout</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">anjay_transport_set_t</span><span class="w"> </span><span class="n">transport_set</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="n">exchange_timeout</span><span class="p">);</span>
+
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_update_dtls_handshake_timeouts</span><span class="p">(</span>
+<span class="w">        </span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">        </span><span class="n">avs_net_dtls_handshake_timeouts_t</span><span class="w"> </span><span class="n">dtls_handshake_timeouts</span><span class="p">);</span>
+
+<span class="cp">#ifdef ANJAY_WITH_COMMUNICATION_TIMESTAMP_API</span>
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_get_server_last_registration_time</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                                    </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                                    </span><span class="n">avs_time_real_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_time</span><span class="p">);</span>
+
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_get_server_next_update_time</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                              </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                              </span><span class="n">avs_time_real_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_time</span><span class="p">);</span>
+<span class="n">avs_error_t</span><span class="w"> </span><span class="nf">anjay_get_server_last_communication_time</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                                     </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                                     </span><span class="n">avs_time_real_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_time</span><span class="p">);</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_COMMUNICATION_TIMESTAMP_API</span>
+
+<span class="cp">#ifdef ANJAY_WITH_SMS</span>
+<span class="cp">#    ifdef ANJAY_WITH_LWM2M11</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_get_sms_trigger</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                          </span><span class="kt">bool</span><span class="w"> </span><span class="o">*</span><span class="n">out_sms_trigger</span><span class="p">);</span>
+<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">anjay_get_server_ssid_by_msisdn</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span>
+<span class="w">                                    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">server_msisdn</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">anjay_ssid_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_ssid</span><span class="p">);</span>
+<span class="cp">#endif </span><span class="c1">// ANJAY_WITH_SMS</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span><span class="w"> </span><span class="cm">/* extern &quot;C&quot; */</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#endif </span><span class="cm">/*ANJAY_INCLUDE_ANJAY_CORE_H*/</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+        <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/139620700.js"></script>
+
+
+</body>
+</html>
