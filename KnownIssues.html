@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9. Known Issues &mdash; Anjay 3.13.0 documentation</title>
+  <title>9. Known Issues &mdash; Anjay 3.13.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=6aaf4047"></script>
+        <script src="_static/documentation_options.js?v=ced7c45e"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -43,7 +43,7 @@
               <img src="_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.13.0
+                3.13.1
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search Documentation..." />
@@ -103,6 +103,7 @@
 <li><p><a class="reference internal" href="#example-procedure-tested-on-ubuntu-24-04" id="id3">Example procedure (tested on Ubuntu 24.04)</a></p></li>
 </ul>
 </li>
+<li><p><a class="reference internal" href="#notification-payload-may-not-reflect-threshold-crossing" id="id4">Notification payload may not reflect threshold crossing</a></p></li>
 </ul>
 </nav>
 <section id="non-valid-hostname-may-appear-in-sni-extension">
@@ -204,6 +205,16 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 enable stable operation of PKCS#11 integration with OpenSSL-based DTLS/TLS
 backend.</p>
 </section>
+</section>
+<section id="notification-payload-may-not-reflect-threshold-crossing">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">9.3. </span>Notification payload may not reflect threshold crossing</a><a class="headerlink" href="#notification-payload-may-not-reflect-threshold-crossing" title="Link to this heading"></a></h2>
+<p>In certain cases, a notification may be triggered when the observed value
+crosses a threshold (for example, configured using the <strong>gt</strong> attribute),
+but the actual notification is not sent immediately. If the value goes back
+below (or above) that threshold before the notification message is constructed,
+the server will receive a notification containing the new value that itself would
+not have caused the notification to be triggered. This applies to all value-based
+attributes: <strong>lt</strong>, <strong>gt</strong>, <strong>st</strong> and <strong>edge</strong>.</p>
 </section>
 </section>
 
