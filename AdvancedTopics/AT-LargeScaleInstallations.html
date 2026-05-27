@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.14. Large scale installations &mdash; Anjay 3.14.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-design.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="canonical" href="https://docs.avsystem.com/hubfs/Anjay_Docs/AdvancedTopics/AT-LargeScaleInstallations.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Firmware Update Tutorial" href="../FirmwareUpdateTutorial.html" />
+    <link rel="prev" title="5.13. IPSO objects implementation" href="AT-IpsoObjects.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffd500" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.14.0
+              </div><div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search Documentation..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2M.html">2. OMA LwM2M - Brief description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Compiling_client_applications.html">3. Compiling client applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicClient.html">4. Basic client</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../AdvancedTopics.html">5. Advanced topics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AT-Bootstrap.html">5.1. Bootstrap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AccessControl.html">5.2. Access Control in multi-server environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-AttributeStorage.html">5.3. Attribute storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.4. DTLS connection using certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CertificateUsage.html">5.5. Certificate Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.6. Custom LwM2M objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network and Server error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.8. Other library features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.9. Persistence support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.10. Retransmissions, timeouts &amp; response caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.11. Custom event loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.12. Notes on event loop APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.13. IPSO objects implementation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.14. Large scale installations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LwM2MGateway.html">7. LwM2M Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tools.html">8. Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../KnownIssues.html">9. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms.html">10. Porting guide for non-POSIX platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Migrating.html">11. Migrating from older versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">12. Commercial features</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../APIReference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffd500" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anjay</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../AdvancedTopics.html"><span class="section-number">5. </span>Advanced topics</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.14. </span>Large scale installations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="large-scale-installations">
+<h1><span class="section-number">5.14. </span>Large scale installations<a class="headerlink" href="#large-scale-installations" title="Link to this heading"></a></h1>
+<p>Deploying LwM2M at scale requires careful management of network traffic and server
+resources. When thousands of devices attempt to communicate simultaneously -
+for instance, after a widespread power outage - it can lead to a “thundering herd”
+effect, potentially overwhelming the LwM2M Server and the underlying network.</p>
+<p>There are several mechanisms defined in LwM2M and implemented in Anjay that
+help distribute load in time and optimize bandwidth.</p>
+<section id="avoiding-traffic-bursts">
+<h2><span class="section-number">5.14.1. </span>Avoiding Traffic Bursts<a class="headerlink" href="#avoiding-traffic-bursts" title="Link to this heading"></a></h2>
+<p>To prevent massive spikes in traffic, it is crucial to introduce randomness into
+device communication.</p>
+<dl>
+<dt><strong>Bootstrap Holdoff</strong></dt><dd><p>The <a class="reference internal" href="AT-Bootstrap.html#bs-holdoff"><span class="std std-ref">Bootstrap Holdoff</span></a> timer prevents devices
+from performing a Bootstrap request immediately after a failure or reboot.
+By distributing these requests in time with a randomized initial Bootstrap
+Holdoff (e.g. in range of 0 to 10 seconds), you ensure that the Bootstrap
+Server can process them sequentially rather than all at once.</p>
+</dd>
+<dt><strong>Initial Registration Delay</strong></dt><dd><p>This timer provides additional jitter to device fleets that perform the
+first registration after a Bootstrap. Setting this value to a randomized
+value within a defined range spreads the traffic comming to the LwM2M Server
+out.</p>
+<p>It is applied only to the first Register attempt after adding a server via
+Bootstrap or API. If it fails, <strong>Registration Retry</strong> mechanism is applied.</p>
+</dd>
+<dt><strong>Registration Retry</strong></dt><dd><p>There is a <a class="reference internal" href="AT-NetworkErrorHandling.html#err-abort-reg"><span class="std std-ref">Registration Retries</span></a> mechanism defined in
+LwM2M Specification and implemented in Anjay. You can define the parameters
+related to the number of retries and delays between them with <code class="docutils literal notranslate"><span class="pre">/0</span></code> Server
+Object Resources.</p>
+</dd>
+<dt><strong>CoAP Transmission Parameters</strong></dt><dd><p>LwM2M relies on CoAP, which uses an exponential backoff mechanism. A key
+parameter here is the <a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html#coap-retransmission-parameters"><span class="std std-ref">ACK_RANDOM_FACTOR</span></a>,
+which adds jitter to retransmission timeouts. This prevents synchronized
+retry loops across the entire fleet of devices.</p>
+</dd>
+</dl>
+</section>
+<section id="event-loop-management">
+<h2><span class="section-number">5.14.2. </span>Event Loop Management<a class="headerlink" href="#event-loop-management" title="Link to this heading"></a></h2>
+<p>The vast majority of Anjay’s background tasks and network operations are executed
+within the <cite>Anjay event loop</cite>.
+While a basic implementation is sufficient for simple scenarios, at a larger scale,
+the way an application handles this event loop - especially regarding connection
+errors, flow control, and reconnect strategies - becomes critical to the overall
+stability of the system.</p>
+<p>Anjay provides built-in event loop implementations that are suitable for most use cases:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../api/api_generated/function_core_8h_1a95c229caf3ee8ce7de556256f4307507.html">anjay_event_loop_run()</a> -
+The standard loop that exits when all connections fail and there are no more
+retries or fallbacks.</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_core_8h_1ad8fb214939b8c4732d9eab048151d195.html">anjay_event_loop_run_with_error_handling()</a> -
+A variant that attempts a reconnect when no server could be reached automatically.</p></li>
+</ul>
+<p>For specialized hardware or specific integration requirements, you may need
+to implement a <a class="reference internal" href="AT-CustomEventLoop.html"><span class="doc">Custom event loop</span></a>.</p>
+<p>To further customize the logic related to reconnections and error handling, the application
+may call several Anjay functions or set specific callbacks to fine-tune its behavior.
+They are defined in the
+<a class="reference external" href="../api/api_generated/file_include_public_anjay_core.h.html">core.h file</a>,
+and the most important ones are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../api/api_generated/function_core_8h_1a4329b620520c565fd61b526ba760e59f.html">anjay_all_connections_failed</a></p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_core_8h_1ad895be5694083d015ffcd8d0b87d0b2a.html">anjay_transport_schedule_reconnect</a></p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_core_8h_1a50251bc6b432adfd446a287ed77a6d9f.html">anjay_get_server_connection_status</a></p></li>
+<li><p><a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration27server_connection_status_cbE">anjay_configuration_t::server_connection_status_cb</a></p></li>
+</ul>
+</section>
+<section id="confirmable-vs-non-confirmable-notifications">
+<h2><span class="section-number">5.14.3. </span>Confirmable vs Non-Confirmable Notifications<a class="headerlink" href="#confirmable-vs-non-confirmable-notifications" title="Link to this heading"></a></h2>
+<p>Notifications (Information Reporting) can be sent as either <strong>Confirmable (CON)</strong>
+or <strong>Non-confirmable (NON)</strong> CoAP messages. Choosing the right type is critical
+for minimizing server load and bandwidth.</p>
+<ul class="simple">
+<li><p><strong>Non-confirmable (NON):</strong> These messages do not require an acknowledgement (ACK)
+from the server. This significantly reduces the total number of packets
+exchanged, lowering both the bandwidth usage and the processing overhead
+on the LwM2M Server. It is however an unreliable method of communication,
+and is suitable for non-critical data that can be lost without significant
+consequences (e.g. periodic sensor readings).</p></li>
+<li><p><strong>Confirmable (CON):</strong> These require an ACK. If the ACK is not received,
+the device will retransmit the message, consuming more network resources.
+Unlike NON messages, CON notifications are suitable for critical data that
+must be delivered to the server (e.g. alarm notifications).</p></li>
+</ul>
+<p><strong>Anjay’s Behavior</strong></p>
+<p>By default, Anjay sends almost all notifications as <strong>NON</strong>. To maintain
+compliance with <a class="reference external" href="https://tools.ietf.org/html/rfc7641">RFC 7641</a>, Anjay
+automatically sends a <strong>CON</strong> notification once every 24 hours to verify that
+the server is still interested in the resource.</p>
+<ul class="simple">
+<li><p><strong>Global Configuration:</strong> Use the <a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration25confirmable_notificationsE">confirmable_notifications</a> field
+in the <code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> struct to set the default behavior.</p></li>
+<li><p><strong>Fine-grained Control:</strong> The LwM2M <code class="docutils literal notranslate"><span class="pre">con</span></code> attribute (Section 7.3.2
+of the LwM2M 1.2 Core Specification) can be set per-resource to force confirmable
+notifications for critical data only. Be sure to enable <code class="docutils literal notranslate"><span class="pre">ANJAY_WITH_CON_ATTR</span></code>
+configuration switch in compile time.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="AT-IpsoObjects.html" class="btn btn-neutral float-left" title="5.13. IPSO objects implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../FirmwareUpdateTutorial.html" class="btn btn-neutral float-right" title="6. Firmware Update Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AVSystem.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+        <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/139620700.js"></script>
+
+
+</body>
+</html>

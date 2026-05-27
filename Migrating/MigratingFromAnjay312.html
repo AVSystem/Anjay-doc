@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>11.15. Migrating from Anjay 3.11 or 3.12 &mdash; Anjay 3.13.1 documentation</title>
+  <title>11.15. Migrating from Anjay 3.11 or 3.12 &mdash; Anjay 3.14.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -17,7 +17,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=ced7c45e"></script>
+        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -26,7 +26,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="12. Commercial features" href="../CommercialFeatures.html" />
+    <link rel="next" title="11.16. Migrating from Anjay 3.13" href="MigratingFromAnjay313.html" />
     <link rel="prev" title="11.14. Migrating from Anjay 3.8, 3.9 or 3.10" href="MigratingFromAnjay310.html" /> 
 </head>
 
@@ -43,7 +43,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.13.1
+                3.14.0
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search Documentation..." />
@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay37.html">11.13. Migrating from Anjay 3.5, 3.6 or 3.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay310.html">11.14. Migrating from Anjay 3.8, 3.9 or 3.10</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">11.15. Migrating from Anjay 3.11 or 3.12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MigratingFromAnjay313.html">11.16. Migrating from Anjay 3.13</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../CommercialFeatures.html">12. Commercial features</a></li>
@@ -116,6 +117,8 @@
 <nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#addition-of-resource-instance-remove-handler" id="id1">Addition of resource_instance_remove handler</a></p></li>
+<li><p><a class="reference internal" href="#dropping-built-in-support-for-tinydtls-as-a-crypto-backend" id="id2">Dropping built-in support for TinyDTLS as a crypto backend</a></p></li>
+<li><p><a class="reference internal" href="#changing-server-initiated-bootstrap-behavior" id="id3">Changing Server Initiated Bootstrap behavior</a></p></li>
 </ul>
 </nav>
 <section id="addition-of-resource-instance-remove-handler">
@@ -130,6 +133,31 @@ Resource Instance from a multiple-instance Resource.</p>
 multiple-instance Resource, if the client application aims for compliance with
 LwM2M 1.2.</p>
 </section>
+<section id="dropping-built-in-support-for-tinydtls-as-a-crypto-backend">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">11.15.2. </span>Dropping built-in support for TinyDTLS as a crypto backend</a><a class="headerlink" href="#dropping-built-in-support-for-tinydtls-as-a-crypto-backend" title="Link to this heading"></a></h2>
+<p>Built-in support for TinyDTLS as a (D)TLS backend has been removed.</p>
+<p>In previous versions of Anjay, TinyDTLS could be selected as a lightweight
+crypto backend, primarily intended for constrained environments. However, due
+to its limited feature set, lack of ongoing maintenance, and incompatibility
+with newer security requirements and LwM2M specifications, it is no longer
+supported.</p>
+<p>Users are now required to use one of the supported and actively maintained
+(D)TLS backends, such as Mbed TLS or OpenSSL (via avs_commons abstraction
+layer) or creating there own
+<a class="reference internal" href="../PortingGuideForNonPOSIXPlatforms/CustomTLS.html"><span class="doc">Custom (D)TLS layer</span></a>.</p>
+</section>
+<section id="changing-server-initiated-bootstrap-behavior">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">11.15.3. </span>Changing Server Initiated Bootstrap behavior</a><a class="headerlink" href="#changing-server-initiated-bootstrap-behavior" title="Link to this heading"></a></h2>
+<p>Previously, Anjay did not use the Client Hold Off Time resource (<code class="docutils literal notranslate"><span class="pre">/1/x/11</span></code>)
+during Server Initiated Bootstrap. This was because the description of
+<code class="docutils literal notranslate"><span class="pre">/1/x/11</span></code> states that its value should be used during Client Initiated
+Bootstrap.</p>
+<p>The LwM2M specification also states that Server Initiated Bootstrap causes
+the LwM2M Client to enter Client Initiated Bootstrap. For consistency with
+this behavior, Anjay now applies the Client Hold Off Time resource in this
+scenario as well.</p>
+<p>To avoid additional delay, adjust resource <code class="docutils literal notranslate"><span class="pre">/1/x/11</span></code> as needed.</p>
+</section>
 </section>
 
 
@@ -137,7 +165,7 @@ LwM2M 1.2.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="MigratingFromAnjay310.html" class="btn btn-neutral float-left" title="11.14. Migrating from Anjay 3.8, 3.9 or 3.10" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../CommercialFeatures.html" class="btn btn-neutral float-right" title="12. Commercial features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="MigratingFromAnjay313.html" class="btn btn-neutral float-right" title="11.16. Migrating from Anjay 3.13" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

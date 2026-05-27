@@ -143,6 +143,8 @@ Program Listing for File core.h
        double nominal_usage;
    
        avs_time_duration_t max_margin;
+   
+       uint8_t sren_attempts_count;
    } anjay_est_reenroll_config_t;
    
    #    ifdef ANJAY_WITH_LWM2M11
@@ -227,6 +229,11 @@ Program Listing for File core.h
                                      avs_error_t error);
    
    #endif // ANJAY_WITH_SSL_ERROR_API
+   
+   typedef void anjay_server_communication_error_cb_t(void *arg,
+                                                      anjay_t *anjay,
+                                                      anjay_ssid_t ssid,
+                                                      uint8_t code);
    
    typedef struct anjay_configuration {
        const char *endpoint_name;
@@ -342,6 +349,10 @@ Program Listing for File core.h
    
        void *ssl_error_cb_arg;
    #endif // ANJAY_WITH_SSL_ERROR_API
+       anjay_server_communication_error_cb_t *server_communication_error_cb;
+   
+       void *server_communication_error_cb_arg;
+   
    #ifdef ANJAY_WITH_COAP_DOWNLOAD
        size_t coap_downloader_retry_count;
    

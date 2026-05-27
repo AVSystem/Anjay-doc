@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.13. IPSO objects implementation &mdash; Anjay 3.13.1 documentation</title>
+  <title>5.13. IPSO objects implementation &mdash; Anjay 3.14.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -17,7 +17,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=ced7c45e"></script>
+        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -26,7 +26,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Firmware Update Tutorial" href="../FirmwareUpdateTutorial.html" />
+    <link rel="next" title="5.14. Large scale installations" href="AT-LargeScaleInstallations.html" />
     <link rel="prev" title="5.12. Notes on event loop APIs" href="AT-EventLoopNotes.html" /> 
 </head>
 
@@ -43,7 +43,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.13.1
+                3.14.0
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search Documentation..." />
@@ -64,13 +64,14 @@
 <li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.4. DTLS connection using certificates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CertificateUsage.html">5.5. Certificate Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.6. Custom LwM2M objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network and Server error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.8. Other library features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.9. Persistence support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.10. Retransmissions, timeouts &amp; response caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.11. Custom event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.12. Notes on event loop APIs</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">5.13. IPSO objects implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-LargeScaleInstallations.html">5.14. Large scale installations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -316,9 +317,9 @@ thermometers, accelerometers and buttons.</p>
 methods:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#ac3200c3c61ea62f76eb4e606adfcd90f">anjay_ipso_v2_basic_sensor_install</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a154a62e2adafe9890cbd66c91bb8f20a">anjay_ipso_v2_3d_sensor_install</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a11e68bd571d70da7d17ee5c73cff6e0d">anjay_ipso_button_install</a>.</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1ac3200c3c61ea62f76eb4e606adfcd90f.html">anjay_ipso_v2_basic_sensor_install</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1a154a62e2adafe9890cbd66c91bb8f20a.html">anjay_ipso_v2_3d_sensor_install</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects_8h_1a11e68bd571d70da7d17ee5c73cff6e0d.html">anjay_ipso_button_install</a>.</p></li>
 </ul>
 </div></blockquote>
 <p>For sensors, the API accepts Object ID, object version and maximum number of
@@ -338,16 +339,16 @@ objects, to which passing <code class="docutils literal notranslate"><span class
 following APIs:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#ae92a38b4eba14909b00233088e6256b5">anjay_ipso_v2_basic_sensor_instance_add</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a760f33f44690447409e77066b4c86295">anjay_ipso_v2_3d_sensor_instance_add</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#ae981fe67ce9c2e9032284f26fa5fb3c3">anjay_ipso_button_instance_add</a>.</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1ae92a38b4eba14909b00233088e6256b5.html">anjay_ipso_v2_basic_sensor_instance_add</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1a760f33f44690447409e77066b4c86295.html">anjay_ipso_v2_3d_sensor_instance_add</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects_8h_1ae981fe67ce9c2e9032284f26fa5fb3c3.html">anjay_ipso_button_instance_add</a>.</p></li>
 </ul>
 </div></blockquote>
 <p>For basic and 3D sensors, these methods accept an initial value of the sensor
 and a structure that provides metadata about each instance:
-<a class="reference external" href="../api/ipso__objects__v2_8h.html#a2e0cd9b35002025a91edb96842cd29cf">anjay_ipso_v2_basic_sensor_meta_t</a>
+<a class="reference external" href="../api/api_generated/typedef_ipso__objects__v2_8h_1a2e0cd9b35002025a91edb96842cd29cf.html">anjay_ipso_v2_basic_sensor_meta_t</a>
 and
-<a class="reference external" href="../api/ipso__objects__v2_8h.html#a34fe615fc03fa7313a2dffabd326058f">anjay_ipso_v2_3d_sensor_meta_t</a>,
+<a class="reference external" href="../api/api_generated/typedef_ipso__objects__v2_8h_1a34fe615fc03fa7313a2dffabd326058f.html">anjay_ipso_v2_3d_sensor_meta_t</a>,
 respectively.</p>
 <p>These structs are used to configure unit, reported minimum and maximum values
 that can be measured by a sensor, and presence of optional Y and Z axis in case
@@ -460,9 +461,9 @@ and add all instances upfront:</p>
 <p>To update reported value of a sensor, use one of following methods:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#ab9ee3d855e885a2dc25ae73f466dd228">anjay_ipso_v2_basic_sensor_value_update</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a2166bd5daae8fb235f96064d8b97c740">anjay_ipso_v2_3d_sensor_value_update</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#a84a9bf58b9cff7e1bd5fe9083576cfa2">anjay_ipso_button_update</a>.</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1ab9ee3d855e885a2dc25ae73f466dd228.html">anjay_ipso_v2_basic_sensor_value_update</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1a2166bd5daae8fb235f96064d8b97c740.html">anjay_ipso_v2_3d_sensor_value_update</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects_8h_1a84a9bf58b9cff7e1bd5fe9083576cfa2.html">anjay_ipso_button_update</a>.</p></li>
 </ul>
 </div></blockquote>
 <div class="admonition important">
@@ -561,9 +562,9 @@ the task will keep running infinitely.</p>
 instances can be removed using following methods:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#af53a1881ef4ed8de52cb000700a0dbb9">anjay_ipso_v2_basic_sensor_instance_remove</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects__v2_8h.html#a2bd255f62cf4817ea567b65ddae6644c">anjay_ipso_v2_3d_sensor_instance_remove</a>,</p></li>
-<li><p><a class="reference external" href="../api/ipso__objects_8h.html#af53a1881ef4ed8de52cb000700a0dbb9">anjay_ipso_button_instance_remove</a>.</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1afda08ed7a16c309ba541464f4e2224ed.html">anjay_ipso_v2_basic_sensor_instance_remove</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects__v2_8h_1ad2b11e97c665a2142dc1f50cac931adc.html">anjay_ipso_v2_3d_sensor_instance_remove</a>,</p></li>
+<li><p><a class="reference external" href="../api/api_generated/function_ipso__objects_8h_1af53a1881ef4ed8de52cb000700a0dbb9.html">anjay_ipso_button_instance_remove</a>.</p></li>
 </ul>
 </div></blockquote>
 <p>In our example instance set doesn’t change. All objects and instances are
@@ -577,7 +578,7 @@ automatically deleted when <code class="docutils literal notranslate"><span clas
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="AT-EventLoopNotes.html" class="btn btn-neutral float-left" title="5.12. Notes on event loop APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../FirmwareUpdateTutorial.html" class="btn btn-neutral float-right" title="6. Firmware Update Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AT-LargeScaleInstallations.html" class="btn btn-neutral float-right" title="5.14. Large scale installations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

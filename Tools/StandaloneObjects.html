@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8.4. Standalone LwM2M Object implementations &mdash; Anjay 3.13.1 documentation</title>
+  <title>8.4. Standalone LwM2M Object implementations &mdash; Anjay 3.14.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -17,7 +17,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=ced7c45e"></script>
+        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -43,7 +43,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.13.1
+                3.14.0
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search Documentation..." />
@@ -141,13 +141,13 @@ from <code class="docutils literal notranslate"><span class="pre">anjay_</span><
 <code class="docutils literal notranslate"><span class="pre">standalone_server_object_install()</span></code>), unlike their default versions,
 return <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">anjay_dm_object_def_t</span> <span class="pre">**</span></code> pointers. Please store this value
 during installation, as it needs to be passed for further API calls.
-However, you <strong>do not</strong> need to call <a class="reference external" href="../api/dm_8h.html#a1468b47fa9169474920c8c86d533b991">anjay_register_object()</a> as the install
+However, you <strong>do not</strong> need to call <a class="reference external" href="../api/api_generated/function_dm_8h_1a1468b47fa9169474920c8c86d533b991.html">anjay_register_object()</a> as the install
 functions already call it.</p></li>
 <li><p>All other public APIs take the aforementioned
-<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">anjay_dm_object_def_t</span> <span class="pre">*const</span> <span class="pre">*</span></code> pointer instead of the <a class="reference external" href="../api/core_8h.html#a6c9664a3b0c2d5629c9639dce7b1dbfb">anjay_t</a> object. Adjust the
-calls accordingly.</p></li>
+<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">anjay_dm_object_def_t</span> <span class="pre">*const</span> <span class="pre">*</span></code> pointer instead of the <code class="docutils literal notranslate"><span class="pre">anjay_t</span></code>
+object. Adjust the calls accordingly.</p></li>
 <li><p>Unlike the default implementation, the standalone objects are <strong>not
-automatically cleaned up</strong> at the time of <a class="reference external" href="../api/core_8h.html#a243f18f976bca57b5a7b0714bfb99095">anjay_delete()</a>. If your code ever
+automatically cleaned up</strong> at the time of <a class="reference external" href="../api/api_generated/function_core_8h_1a243f18f976bca57b5a7b0714bfb99095.html">anjay_delete()</a>. If your code ever
 cleans up the Anjay object, please make sure to call
 <code class="docutils literal notranslate"><span class="pre">standalone_security_object_cleanup()</span></code> and/or
 <code class="docutils literal notranslate"><span class="pre">standalone_server_object_cleanup()</span></code> afterwards.</p></li>

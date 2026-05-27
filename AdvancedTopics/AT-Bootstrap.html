@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.1. Bootstrap &mdash; Anjay 3.13.1 documentation</title>
+  <title>5.1. Bootstrap &mdash; Anjay 3.14.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -17,7 +17,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=ced7c45e"></script>
+        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -43,7 +43,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.13.1
+                3.14.0
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search Documentation..." />
@@ -64,13 +64,14 @@
 <li class="toctree-l2"><a class="reference internal" href="AT-Certificates.html">5.4. DTLS connection using certificates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CertificateUsage.html">5.5. Certificate Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CustomObjects.html">5.6. Custom LwM2M objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-NetworkErrorHandling.html">5.7. Network and Server error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-OtherFeatures.html">5.8. Other library features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-Persistence.html">5.9. Persistence support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-RetransmissionsTimeoutsCaching.html">5.10. Retransmissions, timeouts &amp; response caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-CustomEventLoop.html">5.11. Custom event loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.12. Notes on event loop APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.13. IPSO objects implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-LargeScaleInstallations.html">5.14. Large scale installations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -190,6 +191,13 @@ Bootstrap Server to create the Server Object dynamically.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Bootstrap-Write operation that configures the connection to LwM2M Server can
+overwrite the Bootstrap Account itself. Such operation is a legal mechanism
+intended to allow Bootstrap Server overwriting Bootstrap Account, and allowing
+a complete device ownership change.</p>
+</div>
 </section>
 <section id="configure-bootstrap">
 <h2><span class="section-number">5.1.2. </span>Configure Bootstrap<a class="headerlink" href="#configure-bootstrap" title="Link to this heading"></a></h2>
@@ -200,7 +208,7 @@ to the LwM2M Server has failed.</p>
 the “Bootstrap-Finish” operation after the last received Bootstrap-Server command
 in a certain period. The LwM2M Specification suggest setting it to the
 value of CoAP Parameter <code class="docutils literal notranslate"><span class="pre">EXCHANGE_LIFETIME</span></code> and it is calculated based on
-<a class="reference external" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration13udp_tx_paramsE">anjay_configuration_t::udp_tx_params</a> or <a class="reference external" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration24coap_tcp_request_timeoutE">anjay_configuration_t::coap_tcp_request_timeout</a>.</p>
+<a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration13udp_tx_paramsE">anjay_configuration_t::udp_tx_params</a> or <a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration24coap_tcp_request_timeoutE">anjay_configuration_t::coap_tcp_request_timeout</a>.</p>
 <dl class="simple">
 <dt>The default values are as follows:</dt><dd><ul class="simple">
 <li><p>247 seconds for UDP</p></li>
@@ -210,21 +218,67 @@ value of CoAP Parameter <code class="docutils literal notranslate"><span class="
 </dl>
 <p>The following Bootstrap-related Resources are also implemented in the Anjay’s
 build-in Security Object:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/structanjay__security__instance__t.html#_CPPv4N25anjay_security_instance_t16client_holdoff_sE">anjay_security_instance_t::client_holdoff_s</a> - the time that Anjay waits
-before performing a Client Initiated Bootstrap once it determines that it
-should initiate this bootstrap mode.</p></li>
-<li><p><a class="reference external" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/structanjay__security__instance__t.html#_CPPv4N25anjay_security_instance_t19bootstrap_timeout_sE">anjay_security_instance_t::bootstrap_timeout_s</a> - if set, Anjay will automatically
-purge the LwM2M Bootstrap-Server Account after this timeout value if a Bootstrap
-procedure ends successfully. By default, the Bootstrap-Server Account lifetime
-is infinite.</p></li>
+<ul>
+<li><p><a class="reference external" href="../api/api_generated/structanjay__security__instance__t.html#_CPPv4N25anjay_security_instance_t19bootstrap_timeout_sE">anjay_security_instance_t::bootstrap_timeout_s</a> -
+if set, Anjay will automatically purge the LwM2M Bootstrap-Server Account after
+this timeout value if a Bootstrap procedure ends successfully.
+By default, the Bootstrap-Server Account lifetime is infinite.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If bootstrap account is purged, there will be no way to change the LwM2M Management Server
+after this operation, unless it’s restored from factory settings. Be careful with
+this setting, especially when using <a class="reference internal" href="AT-Persistence.html"><span class="doc">Persistence support</span></a> feature.</p>
+</div>
+</li>
+<li><p>legacy Server-Initiated Bootstrap mechanism based on an interpretation of LwM2M 1.0 TS.
+To learn more, see <a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration41disable_legacy_server_initiated_bootstrapE">anjay_configuration_t::disable_legacy_server_initiated_bootstrap</a>.</p></li>
 </ul>
-<p>There is also a legacy Server-Initiated Bootstrap mechanism based on an
-interpretation of LwM2M 1.0 TS. To learn more, see
-<a class="reference external" href="https://docs.avsystem.com/hubfs/Anjay_Docs/api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration41disable_legacy_server_initiated_bootstrapE">anjay_configuration_t::disable_legacy_server_initiated_bootstrap</a>.</p>
+<section id="bootstrap-holdoff">
+<span id="bs-holdoff"></span><h3><span class="section-number">5.1.2.1. </span>Bootstrap Holdoff<a class="headerlink" href="#bootstrap-holdoff" title="Link to this heading"></a></h3>
+<p>There is a dedicated resource in Security Object that defines the time that Client waits
+before performing a Client Initiated Bootstrap (and therefore Server Initiated Bootstrap, since Server Initiated Bootstrap causes
+the LwM2M Client to enter Client Initiated Bootstrap)
+<a class="reference external" href="../api/api_generated/structanjay__security__instance__t.html#_CPPv4N25anjay_security_instance_t16client_holdoff_sE">anjay_security_instance_t::client_holdoff_s</a>.
+It is the initial holdoff and if the Bootstrap procedure fails, this timer is
+increased exponentially, capping at <a class="reference external" href="../api/api_generated/define_anjay__config_8h_1a49245317e5b5d338be2351ba43734707.html#c.ANJAY_MAX_HOLDOFF_TIME">ANJAY_MAX_HOLDOFF_TIME</a>.</p>
+<p>There is also <a class="reference external" href="api/api_generated/define_anjay__config_8h_1ac7870c809a27c09fd2e9d334bdb7956c.html#c.ANJAY_HOLDOFF_JITTER_RANDOM_FACTOR">ANJAY_HOLDOFF_JITTER_RANDOM_FACTOR</a>
+option which introduces jitter to prevent multiple clients from bootstrapping simultaneously. This value has no corresponding resource in the data model.</p>
+</section>
+</section>
+<section id="bootstrap-data-validation">
+<h2><span class="section-number">5.1.3. </span>Bootstrap data validation<a class="headerlink" href="#bootstrap-data-validation" title="Link to this heading"></a></h2>
+<p>There are several potential issues with data privisioned by LwM2M Bootstrap Server to Anjay.
+Different data integrity and correctness validation is possible and is performed at different moments:</p>
+<blockquote>
+<div><ul>
+<li><p>When Bootstrap Finish is received, Objects Instances are validated for Mandatory Resources existence and for
+specific resources values. Anjay also checks scheme corectness of URI, Binding Mode, Security Mode
+and credentials type support. <a class="reference external" href="../api/api_generated/structanjay__dm__handlers__t.html#_CPPv4N19anjay_dm_handlers_t20transaction_validateE">transaction_validate handler</a> will also be called for all other Objets.</p>
+<p>Error detected at this level will cause a negative response to Bootstrap Write or Bootstrap Finish operation.</p>
+</li>
+<li><p>When a Bootstrap-Write is performed to <code class="docutils literal notranslate"><span class="pre">/0</span></code> Security Object, Anjay ensures that only one Bootstrap Account is present.</p>
+<p>Error detected at this level will cause a negative response to Bootstrap Write operation.</p>
+</li>
+<li><p>Existence of <code class="docutils literal notranslate"><span class="pre">/0</span></code> Security and <code class="docutils literal notranslate"><span class="pre">/1</span></code> Server Objects Instances is checked.</p>
+<p>Error detected at this level will cause re-bootstrapping with regards to Bootstrap Holdoff timer.</p>
+</li>
+<li><p>Matching of Security and Server Objects Instances by SSID Resource to create</p>
+<p>Error detected at this level will cause re-bootstrapping with regards to Bootstrap Holdoff timer.</p>
+</li>
+<li><p>When creating connection context for the management server, Anjay verifies
+if the protocol specified in Server URI matches the Security Mode.
+(e.g. <code class="docutils literal notranslate"><span class="pre">coaps</span></code> protocol and <cite>PSK</cite> mode or <code class="docutils literal notranslate"><span class="pre">coap</span></code> protocol and <cite>NoSec</cite> mode)</p>
+<p>Error detected at this level will cause re-bootstrapping with regards to Bootstrap Holdoff timer.</p>
+</li>
+<li><p>When creating connection context for the management server, Anjay resolves
+the provisioned server hostname via DNS.</p>
+<p>Error detected at this level will cause re-bootstrapping with regards to Bootstrap Holdoff timer.</p>
+</li>
+</ul>
+</div></blockquote>
 </section>
 <section id="coiote-lwm2m-server">
-<h2><span class="section-number">5.1.3. </span>Coiote LwM2M Server<a class="headerlink" href="#coiote-lwm2m-server" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.1.4. </span>Coiote LwM2M Server<a class="headerlink" href="#coiote-lwm2m-server" title="Link to this heading"></a></h2>
 <p>To Bootstrap your device using AVSystem Coiote LwM2M Server, refer to
 <a class="reference external" href="https://eu.iot.avsystem.cloud/doc/user/getting-started/add-devices/#add-device-via-the-bootstrap-server">Add device via the Bootstrap server guide</a>
 in the Coiote documentation.</p>
