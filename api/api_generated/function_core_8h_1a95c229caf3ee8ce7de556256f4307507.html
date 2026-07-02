@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Function anjay_event_loop_run &mdash; Anjay 3.14.0 documentation</title>
+  <title>Function anjay_event_loop_run &mdash; Anjay 3.14.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
@@ -16,7 +16,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
+        <script src="../_static/documentation_options.js?v=408c3590"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
@@ -41,7 +41,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.14.0
+                3.14.1
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search API..." />
@@ -356,7 +356,7 @@
 </ul>
 </p>
 <p><strong>CAUTION:</strong> The preimplemented event loop will only work if all the sockets that may be created by Anjay will return file descriptors compatible with <code class="docutils literal notranslate"><span class="pre">poll()</span></code> or <code class="docutils literal notranslate"><span class="pre">select()</span></code> through <code class="docutils literal notranslate"><span class="pre">avs_net_socket_get_system()</span></code>.</p>
-<p>In particular, please be cautious when using SMS or NIDD transports (in versions of Anjay that include the relevant commercial features) - your <code class="docutils literal notranslate"><span class="pre">anjay_smsdrv_system_socket_t</span></code> and <code class="docutils literal notranslate"><span class="pre">anjay_nidd_driver_system_descriptor_t</span></code> functions need to populate the output argument with a valid file descriptor (e.g. <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">fd</span> <span class="pre">=</span> <span class="pre">...;</span> <span class="pre">*out</span> <span class="pre">=</span> <span class="pre">&amp;fd;</span></code>), and that file descriptor must be valid to use with the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> or <code class="docutils literal notranslate"><span class="pre">select()</span></code> functions (which may not true if the socket API is separate from other IO APIs, as is the case e.g. on Windows). Otherwise attempting to use this event loop implementation will not handle NIDD and SMS transports properly, and may even lead to undefined behavior.</p>
+<p>In particular, please be cautious when using SMS or NIDD transports (in versions of Anjay that include the relevant commercial features) - your <code class="docutils literal notranslate"><a class="reference internal" href="typedef_sms_8h_1afd6a876a11d81072b0dd703e4789bffa.html#sms_8h_1afd6a876a11d81072b0dd703e4789bffa"><span class="std std-ref"><span class="pre">anjay_smsdrv_system_socket_t</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="typedef_nidd_8h_1a8379de1511d194ee2af58b674188732f.html#nidd_8h_1a8379de1511d194ee2af58b674188732f"><span class="std std-ref"><span class="pre">anjay_nidd_driver_system_descriptor_t</span></span></a></code> functions need to populate the output argument with a valid file descriptor (e.g. <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">fd</span> <span class="pre">=</span> <span class="pre">...;</span> <span class="pre">*out</span> <span class="pre">=</span> <span class="pre">&amp;fd;</span></code>), and that file descriptor must be valid to use with the <code class="docutils literal notranslate"><span class="pre">poll()</span></code> or <code class="docutils literal notranslate"><span class="pre">select()</span></code> functions (which may not true if the socket API is separate from other IO APIs, as is the case e.g. on Windows). Otherwise attempting to use this event loop implementation will not handle NIDD and SMS transports properly, and may even lead to undefined behavior.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5.5. Certificate Usage &mdash; Anjay 3.14.0 documentation</title>
+  <title>5.5. Certificate Usage &mdash; Anjay 3.14.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -17,7 +17,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
+        <script src="../_static/documentation_options.js?v=408c3590"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -43,7 +43,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.14.0
+                3.14.1
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search Documentation..." />
@@ -72,6 +72,7 @@
 <li class="toctree-l2"><a class="reference internal" href="AT-EventLoopNotes.html">5.12. Notes on event loop APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-IpsoObjects.html">5.13. IPSO objects implementation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AT-LargeScaleInstallations.html">5.14. Large scale installations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AT-MbedTLSBestPractices.html">5.15. Using Mbed TLS with Anjay: configuration and troubleshooting</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../FirmwareUpdateTutorial.html">6. Firmware Update Tutorial</a></li>
@@ -112,8 +113,9 @@
              
   <section id="certificate-usage">
 <h1><span class="section-number">5.5. </span>Certificate Usage<a class="headerlink" href="#certificate-usage" title="Link to this heading"></a></h1>
-<p>The Certificate Usage resource in the LwM2M Security Object defines how Anjay
-interprets and applies the Server Public Key resource. This setting decides whether
+<p>The <a class="reference external" href="https://www.openmobilealliance.org/release/LightweightM2M/V1_2-20201110-A/HTML-Version/OMA-TS-LightweightM2M_Transport-V1_2-20201110-A.html#5-2-9-7-0-5297-Certificate-Usage-Field">Certificate Usage</a>
+resource in the LwM2M Security Object defines how Anjay interprets
+and applies the Server Public Key resource. This setting decides whether
 the certificate provided in the Security Object is used as a trust anchor, as
 the exact server certificate, or in some other way.</p>
 <p>Configuring certificate usage correctly is crucial for secure communication. Anjay
@@ -164,7 +166,8 @@ for this server. It attempts to build and verify the path from the handshake
 <strong>leaf</strong> to that <strong>anchor</strong> using the certificates received in the handshake.</p>
 <ul class="simple">
 <li><p>The <strong>local trust store is not required</strong> and is <strong>ignored</strong> for the accept/reject decision when a DANE anchor is present.</p></li>
-<li><p>The “Server Public Key” <strong>must be a CA/root</strong>. A leaf value is invalid for usage 2.</p></li>
+<li><p>The “Server Public Key” <strong>must be a CA/root</strong>. Using a leaf certificate
+is invalid for certificate usage set to 2.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Program Listing for File core.h &mdash; Anjay 3.14.0 documentation</title>
+  <title>Program Listing for File core.h &mdash; Anjay 3.14.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
@@ -16,7 +16,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
+        <script src="../_static/documentation_options.js?v=408c3590"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
@@ -39,7 +39,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.14.0
+                3.14.1
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search API..." />
@@ -215,7 +215,6 @@
 <span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sren_attempts_count</span><span class="p">;</span>
 <span class="p">}</span><span class="w"> </span><span class="n">anjay_est_reenroll_config_t</span><span class="p">;</span>
 
-<span class="cp">#    ifdef ANJAY_WITH_LWM2M11</span>
 <span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">ANJAY_EST_CACERTS_FOR_EST_SECURITY_AND_BOOTSTRAP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
 
@@ -227,7 +226,6 @@
 
 <span class="w">    </span><span class="n">ANJAY_EST_CACERTS_DISABLED</span><span class="p">,</span>
 <span class="p">}</span><span class="w"> </span><span class="n">anjay_est_cacerts_policy_t</span><span class="p">;</span>
-<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
 
 <span class="cp">#    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT</span>
 <span class="k">typedef</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_est_engine_cacert_address_gen_t</span><span class="p">(</span>
@@ -389,9 +387,7 @@
 <span class="cp">#ifdef ANJAY_WITH_EST</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">anjay_est_reenroll_config_t</span><span class="w"> </span><span class="o">*</span><span class="n">est_reenroll_config</span><span class="p">;</span>
 
-<span class="cp">#    ifdef ANJAY_WITH_LWM2M11</span>
 <span class="w">    </span><span class="n">anjay_est_cacerts_policy_t</span><span class="w"> </span><span class="n">est_cacerts_policy</span><span class="p">;</span>
-<span class="cp">#    endif </span><span class="c1">// ANJAY_WITH_LWM2M11</span>
 
 <span class="cp">#    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT</span>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">est_engine_key_address</span><span class="p">;</span>
@@ -491,6 +487,7 @@
 <span class="cp">#define ANJAY_ERR_INTERNAL (-(int) ANJAY_COAP_STATUS(5, 0))</span>
 <span class="cp">#define ANJAY_ERR_NOT_IMPLEMENTED (-(int) ANJAY_COAP_STATUS(5, 1))</span>
 <span class="cp">#define ANJAY_ERR_SERVICE_UNAVAILABLE (-(int) ANJAY_COAP_STATUS(5, 3))</span>
+
 <span class="n">avs_sched_t</span><span class="w"> </span><span class="o">*</span><span class="nf">anjay_get_scheduler</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">);</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">anjay_sched_time_to_next</span><span class="p">(</span><span class="n">anjay_t</span><span class="w"> </span><span class="o">*</span><span class="n">anjay</span><span class="p">,</span><span class="w"> </span><span class="n">avs_time_duration_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_delay</span><span class="p">);</span>

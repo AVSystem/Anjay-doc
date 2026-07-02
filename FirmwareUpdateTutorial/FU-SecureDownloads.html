@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6.4. Secure downloads &mdash; Anjay 3.14.0 documentation</title>
+  <title>6.4. Secure downloads &mdash; Anjay 3.14.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -17,7 +17,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
+        <script src="../_static/documentation_options.js?v=408c3590"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -43,7 +43,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.14.0
+                3.14.1
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search Documentation..." />
@@ -116,7 +116,7 @@ of credentials required to establishing the secure connection.</p>
 <strong>PULL</strong> mode transfers.</p>
 </section>
 <section id="two-ways-of-security-configuration">
-<h2><span class="section-number">6.4.2. </span>Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Link to this heading"></a></h2>
+<span id="two-ways"></span><h2><span class="section-number">6.4.2. </span>Two ways of security configuration<a class="headerlink" href="#two-ways-of-security-configuration" title="Link to this heading"></a></h2>
 <p>When a secure firmware transfer is initiated, firmware update module implemented
 in Anjay gets security configuration in one of two following ways.</p>
 <ol class="arabic simple">
@@ -292,15 +292,52 @@ is:</p>
 <span class="p">}</span><span class="w"> </span><span class="n">avs_net_certificate_info_t</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>To populate it properly, we’re gonna need at least two pieces of information
-from the following list:</p>
+<p>To populate it properly, first decide which certificate-related parts of the
+firmware download connection are actually needed. The management connection
+security mode (i.e. certificate-based or PSK) does not by itself decide
+which certificate fields are required for firmware downloads. What matters is
+how the firmware download server authenticates itself, and whether that server
+also requires the client to authenticate with a certificate.</p>
+<p>There are three certificate-related fields to consider:</p>
 <ul class="simple">
-<li><p>Trusted Certificates, also known as CA / Root certificates (required only
-if we intend to verify certificates presented to us by the Server; although
-it’s optional it is <strong>highly recommended</strong>),</p></li>
-<li><p>Client Certificate, which is <strong>required</strong>,</p></li>
-<li><p>Client Private Key, which is also <strong>required</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trusted_certs</span></code> define trust anchors used to verify the certificate chain
+presented by the firmware download server.
+They are used when <code class="docutils literal notranslate"><span class="pre">server_cert_validation</span></code> is set to true. This
+field needs to be provided in the firmware download security configuration
+when a CoAPS or HTTPS firmware download uses server certificate validation and
+no matching Security Object instance (see <a class="reference internal" href="#two-ways"><span class="std std-ref">Two ways of security configuration</span></a>) or trust store
+already provides the required trust anchors (see <a class="reference internal" href="#firmware-update-trust-stores"><span class="std std-ref">below</span></a>).
+Server certificate validation is optional from the API perspective, but <strong>highly recommended</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_cert</span></code> is the certificate chain presented by Anjay to the
+firmware download server. This field is needed only if the firmware download
+server requires client authentication. In that case, it may
+come from a matching Security Object configuration, or it may be returned from
+<code class="docutils literal notranslate"><span class="pre">get_security_config</span></code>. It is not needed for ordinary CoAPS or HTTPS
+downloads where only the server is authenticated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_key</span></code> is the private key matching Client Certificate. It is
+needed whenever Client Certificate is configured, and it needs to be available
+from the same security configuration.</p></li>
 </ul>
+<div class="admonition note" id="firmware-update-trust-stores">
+<p class="admonition-title">Note</p>
+<p>The global trust store means the Anjay-level trust store configured in
+<code class="docutils literal notranslate"><span class="pre">anjay_configuration_t</span></code> using <a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration17trust_store_certsE">trust_store_certs</a> and
+<a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration16trust_store_crlsE">trust_store_crls</a>.</p>
+<p>The system trust store is the platform or TLS backend trust store. It is
+currently supported only by the OpenSSL backend. If
+<code class="docutils literal notranslate"><span class="pre">ignore_system_trust_store</span></code> is false, OpenSSL uses its default verification
+paths in addition to <code class="docutils literal notranslate"><span class="pre">trusted_certs</span></code>. The Mbed TLS backend ignores this
+setting.
+The <a class="reference external" href="../api/api_generated/structanjay__configuration.html#_CPPv4N19anjay_configuration22use_system_trust_storeE">anjay_configuration_t::use_system_trust_store</a>
+field controls whether the system trust store may also be used.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">get_security_config</span></code> is implemented, the global trust store is not
+added automatically. When <code class="docutils literal notranslate"><span class="pre">server_cert_validation</span></code> is true, the server is
+verified using <code class="docutils literal notranslate"><span class="pre">trusted_certs</span></code> returned by the callback and, if supported,
+the system trust store. To use Anjay’s global trust store
+from a custom callback, return <a class="reference external" href="../api/api_generated/function_core_8h_1a4ccd37c26433e3dc1e146b3c3f5b29ee.html">anjay_security_config_pkix()</a> explicitly,
+or call <a class="reference external" href="../api/api_generated/function_core_8h_1ac53bd86289a4bcaa70237f8ba7450cd7.html">anjay_security_config_from_dm()</a> to use a matching Security Object
+configuration.</p>
+</div>
 <p>Each of them come in variety of formats (text, binary, etc.) that need to
 be loaded and parsed. In most scenarios however, the API provided by <cite>avs_commons</cite>
 would suffice to do the necessary work.</p>

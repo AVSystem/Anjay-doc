@@ -147,7 +147,6 @@ Program Listing for File core.h
        uint8_t sren_attempts_count;
    } anjay_est_reenroll_config_t;
    
-   #    ifdef ANJAY_WITH_LWM2M11
    typedef enum {
        ANJAY_EST_CACERTS_FOR_EST_SECURITY_AND_BOOTSTRAP = 0,
    
@@ -159,7 +158,6 @@ Program Listing for File core.h
    
        ANJAY_EST_CACERTS_DISABLED,
    } anjay_est_cacerts_policy_t;
-   #    endif // ANJAY_WITH_LWM2M11
    
    #    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT
    typedef const char *anjay_est_engine_cacert_address_gen_t(
@@ -321,9 +319,7 @@ Program Listing for File core.h
    #ifdef ANJAY_WITH_EST
        const anjay_est_reenroll_config_t *est_reenroll_config;
    
-   #    ifdef ANJAY_WITH_LWM2M11
        anjay_est_cacerts_policy_t est_cacerts_policy;
-   #    endif // ANJAY_WITH_LWM2M11
    
    #    ifdef ANJAY_WITH_EST_ENGINE_SUPPORT
        const char *est_engine_key_address;
@@ -423,6 +419,7 @@ Program Listing for File core.h
    #define ANJAY_ERR_INTERNAL (-(int) ANJAY_COAP_STATUS(5, 0))
    #define ANJAY_ERR_NOT_IMPLEMENTED (-(int) ANJAY_COAP_STATUS(5, 1))
    #define ANJAY_ERR_SERVICE_UNAVAILABLE (-(int) ANJAY_COAP_STATUS(5, 3))
+   
    avs_sched_t *anjay_get_scheduler(anjay_t *anjay);
    
    int anjay_sched_time_to_next(anjay_t *anjay, avs_time_duration_t *out_delay);

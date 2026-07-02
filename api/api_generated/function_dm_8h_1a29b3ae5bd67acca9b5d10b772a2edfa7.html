@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Function anjay_resource_observation_status &mdash; Anjay 3.14.0 documentation</title>
+  <title>Function anjay_resource_observation_status &mdash; Anjay 3.14.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
@@ -16,7 +16,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
+        <script src="../_static/documentation_options.js?v=408c3590"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
@@ -41,7 +41,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.14.0
+                3.14.1
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search API..." />
@@ -345,7 +345,7 @@
 NOTE: This function may be used to implement notifications for Resources that require active polling by the client application. A naive implementation could look more or less like this (pseudocode):</p>
 <p><code class="docutils literal notranslate"> <span class="pre">status</span> <span class="pre">=</span> <span class="pre">anjay_resource_observation_status(anjay,</span> <span class="pre">oid,</span> <span class="pre">iid,</span> <span class="pre">rid);</span> <span class="pre">if</span> <span class="pre">(status.is_observed</span> <span class="pre">&amp;&amp;</span> <span class="pre">current_time</span> <span class="pre">&gt;=</span> <span class="pre">last_check_time</span> <span class="pre">+</span> <span class="pre">status.min_period)</span> <span class="pre">{</span> <span class="pre">new_value</span> <span class="pre">=</span> <span class="pre">read_resource_value();</span> <span class="pre">if</span> <span class="pre">(new_value</span> <span class="pre">!=</span> <span class="pre">old_value)</span> <span class="pre">{</span> <span class="pre">anjay_notify_changed(anjay,</span> <span class="pre">oid,</span> <span class="pre">iid,</span> <span class="pre">rid);</span> <span class="pre">}</span> <span class="pre">last_check_time</span> <span class="pre">=</span> <span class="pre">current_time;</span> <span class="pre">}</span> </code></p>
 <p>However, please note that such implementation may not be strictly conformant to the LwM2M specification. For example, in the following case:</p>
-<p>[time] &amp;#8212;|—–&amp;#8212;|-*—&amp;#8212;|–&gt; | - intervals between resource reads |&lt;—&amp;#8212;&gt;| * - point in time when underlying state min_period actually changes</p>
+<p>[time] &amp;#8212;|—–&amp;#8212;|-*—&amp;#8212;|–&gt; | - intervals between resource reads |&lt;——&gt;| * - point in time when underlying state min_period actually changes</p>
 <p>the specification would require the notification to be sent exactly at the time of the (*) event, but with this naive implementation, will be delayed until the next (|). </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

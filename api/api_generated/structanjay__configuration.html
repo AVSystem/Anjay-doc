@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Struct anjay_configuration &mdash; Anjay 3.14.0 documentation</title>
+  <title>Struct anjay_configuration &mdash; Anjay 3.14.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
@@ -16,7 +16,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e4f4b189"></script>
+        <script src="../_static/documentation_options.js?v=408c3590"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
@@ -41,7 +41,7 @@
               <img src="../_static/avsystem_header.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                3.14.0
+                3.14.1
               </div><div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search API..." />
@@ -549,7 +549,7 @@
 <dd><p>If set, defines the number of additional CoAP download attempts that will be made in case of failure. Can be useful for large files (Firmware Update) and poor network quality. If the resumption of the transfer was successful then the retry counter is reset.</p>
 <p>Retries are performed only in case of network problems - AVS_ERRNO_CATEGORY or exchange timeout, in case of internal problems or error server responses the download is stopped.</p>
 <p>Each try will establish new connections and start a new exchange but preserve the download status. This logic does not comply with CoAP, but it can prevent multiple downloads of the same file.</p>
-<p>NOTE: Keep in mind that the behavior of this feature changes when the same socket is used for both file downloads and other CoAP operations (which may happen if the <a class="reference internal" href="structanjay__download__config.html#structanjay__download__config_1a98c7bd5f331c4b7755de9b9488ccf1bd"><span class="std std-ref">anjay_download_config_t::prefer_same_socket_downloads</span></a> flag is set). A specific difference is how network errors (e.g., ICMP) are handled: if a separate socket is used for downloads, Anjay will retry downloading; however, if the same socket is used for other CoAP operations, Anjay will abort the download. In the event of a timeout, Anjay will retry downloading in both cases. </p>
+<p>NOTE: Keep in mind that the behavior of this feature changes when the same socket is used for both file downloads and other CoAP operations (which may happen if the <a class="reference internal" href="structanjay__download__config.html#structanjay__download__config_1a98c7bd5f331c4b7755de9b9488ccf1bd"><span class="std std-ref">prefer_same_socket_downloads</span></a> flag is set). A specific difference is how network errors (e.g., ICMP) are handled: if a separate socket is used for downloads, Anjay will retry downloading; however, if the same socket is used for other CoAP operations, Anjay will abort the download. In the event of a timeout, Anjay will retry downloading in both cases. </p>
 </dd></dl>
 
 <dl class="cpp var">
